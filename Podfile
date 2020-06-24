@@ -10,6 +10,10 @@ target 'Life' do
   pod 'Firebase/Messaging'
   pod 'Firebase/Database'
   pod 'Firebase/Auth'
+  pod 'SkyFloatingLabelTextField', '~> 3.0'
+  pod 'IQKeyboardManagerSwift'
+  pod 'DPOTPView'
+  pod 'JGProgressHUD'
   
   target 'LifeTests' do
     inherit! :search_paths
