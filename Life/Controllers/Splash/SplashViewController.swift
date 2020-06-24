@@ -13,9 +13,15 @@ class SplashViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        DispatchQueue.main.asyncAfter(deadline: .now()+3, execute: {
+            self.gotoWelcomeViewController()
+        })
     }
-    
+    func gotoWelcomeViewController() {
+        let mainstoryboard = UIStoryboard.init(name: "Login", bundle: nil)
+        let vc = mainstoryboard.instantiateViewController(withIdentifier: "rootNavigationViewController")
+        UIApplication.shared.windows.first?.rootViewController = vc
+    }
 
 
 

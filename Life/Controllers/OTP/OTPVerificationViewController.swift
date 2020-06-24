@@ -1,5 +1,5 @@
 //
-//  SignInViewController.swift
+//  OTPVerificationViewController.swift
 //  Life
 //
 //  Created by XianHuang on 6/23/20.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SignInViewController: UIViewController {
+class OTPVerificationViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,9 +16,6 @@ class SignInViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    @IBAction func onBackPressed(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
-    }
-    
+
 
 }

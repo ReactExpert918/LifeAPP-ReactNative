@@ -16,6 +16,15 @@ class WelcomeViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-
+    @IBAction func onLoginPressed(_ sender: Any) {
+        let vc =  self.storyboard?.instantiateViewController(identifier: "signinViewController") as! SignInViewController
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @IBAction func onSignupPressed(_ sender: Any) {
+        let vc =  self.storyboard?.instantiateViewController(identifier: "signupViewController") as! SignupViewController
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
 
 }
