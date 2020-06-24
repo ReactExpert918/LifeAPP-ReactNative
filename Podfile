@@ -14,6 +14,7 @@ target 'Life' do
   pod 'IQKeyboardManagerSwift'
   pod 'DPOTPView'
   pod 'JGProgressHUD'
+  pod 'FlagPhoneNumber'
   
   target 'LifeTests' do
     inherit! :search_paths
