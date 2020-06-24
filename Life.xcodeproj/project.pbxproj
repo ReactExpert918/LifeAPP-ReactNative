@@ -15,6 +15,10 @@
 		AB13A9E724A2EF670028731D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB13A9E524A2EF670028731D /* LaunchScreen.storyboard */; };
 		AB13A9F224A2EF670028731D /* LifeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB13A9F124A2EF670028731D /* LifeTests.swift */; };
 		AB13A9FD24A2EF670028731D /* LifeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB13A9FC24A2EF670028731D /* LifeUITests.swift */; };
+		AB13AA0B24A31F590028731D /* Friend.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB13AA0A24A31F590028731D /* Friend.storyboard */; };
+		AB13AA0D24A336F00028731D /* extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB13AA0C24A336F00028731D /* extension.swift */; };
+		AB13AA1024A341920028731D /* AddFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB13AA0F24A341920028731D /* AddFriendsViewController.swift */; };
+		AB13AA1224A3AF650028731D /* AddFriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB13AA1124A3AF650028731D /* AddFriendCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +53,10 @@
 		AB13A9F824A2EF670028731D /* LifeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LifeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB13A9FC24A2EF670028731D /* LifeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeUITests.swift; sourceTree = "<group>"; };
 		AB13A9FE24A2EF670028731D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AB13AA0A24A31F590028731D /* Friend.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Friend.storyboard; sourceTree = "<group>"; };
+		AB13AA0C24A336F00028731D /* extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extension.swift; sourceTree = "<group>"; };
+		AB13AA0F24A341920028731D /* AddFriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendsViewController.swift; sourceTree = "<group>"; };
+		AB13AA1124A3AF650028731D /* AddFriendCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +107,7 @@
 		AB13A9D924A2EF610028731D /* Life */ = {
 			isa = PBXGroup;
 			children = (
+				AB13AA0E24A3416C0028731D /* Friends */,
 				AB13A9DA24A2EF610028731D /* AppDelegate.swift */,
 				AB13A9DC24A2EF610028731D /* SceneDelegate.swift */,
 				AB13A9DE24A2EF610028731D /* ViewController.swift */,
@@ -106,6 +115,7 @@
 				AB13A9E324A2EF670028731D /* Assets.xcassets */,
 				AB13A9E524A2EF670028731D /* LaunchScreen.storyboard */,
 				AB13A9E824A2EF670028731D /* Info.plist */,
+				AB13AA0C24A336F00028731D /* extension.swift */,
 			);
 			path = Life;
 			sourceTree = "<group>";
@@ -126,6 +136,16 @@
 				AB13A9FE24A2EF670028731D /* Info.plist */,
 			);
 			path = LifeUITests;
+			sourceTree = "<group>";
+		};
+		AB13AA0E24A3416C0028731D /* Friends */ = {
+			isa = PBXGroup;
+			children = (
+				AB13AA0A24A31F590028731D /* Friend.storyboard */,
+				AB13AA0F24A341920028731D /* AddFriendsViewController.swift */,
+				AB13AA1124A3AF650028731D /* AddFriendCell.swift */,
+			);
+			path = Friends;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -232,6 +252,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB13AA0B24A31F590028731D /* Friend.storyboard in Resources */,
 				AB13A9E724A2EF670028731D /* LaunchScreen.storyboard in Resources */,
 				AB13A9E424A2EF670028731D /* Assets.xcassets in Resources */,
 				AB13A9E224A2EF610028731D /* Main.storyboard in Resources */,
@@ -260,8 +281,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				AB13A9DF24A2EF610028731D /* ViewController.swift in Sources */,
+				AB13AA1024A341920028731D /* AddFriendsViewController.swift in Sources */,
 				AB13A9DB24A2EF610028731D /* AppDelegate.swift in Sources */,
+				AB13AA1224A3AF650028731D /* AddFriendCell.swift in Sources */,
 				AB13A9DD24A2EF610028731D /* SceneDelegate.swift in Sources */,
+				AB13AA0D24A336F00028731D /* extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

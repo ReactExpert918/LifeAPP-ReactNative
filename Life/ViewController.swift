@@ -14,7 +14,13 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
-
+    @IBAction func addFriendTapped(_ sender: Any) {
+        let mainStoryboard: UIStoryboard = UIStoryboard(name: "Friend", bundle: nil)
+        let addFriendsViewController: AddFriendsViewController = mainStoryboard.instantiateViewController(withIdentifier: "addFriendsVC") as! AddFriendsViewController
+        addFriendsViewController.modalPresentationStyle = .fullScreen
+        self.present(addFriendsViewController, animated: true, completion: nil)
+    }
+    
 
 }
 
