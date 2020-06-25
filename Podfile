@@ -6,16 +6,8 @@ target 'Life' do
   use_frameworks!
 
   # Pods for Life
-  pod 'Firebase/Analytics'
-  pod 'Firebase/Messaging'
-  pod 'Firebase/Database'
-  pod 'Firebase/Auth'
-  pod 'SkyFloatingLabelTextField', '~> 3.0'
-  pod 'IQKeyboardManagerSwift'
-  pod 'DPOTPView'
-  pod 'JGProgressHUD'
-  pod 'FlagPhoneNumber'
-  
+  pod 'MercariQRScanner'
+
   target 'LifeTests' do
     inherit! :search_paths
     # Pods for testing

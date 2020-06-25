@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "L0001.png",
+      "filename" : "add_friend.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "L0001-1.png",
+      "filename" : "add_friend@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "L0001-2.png",
+      "filename" : "add_friend@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

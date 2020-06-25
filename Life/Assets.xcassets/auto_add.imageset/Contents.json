@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "create group icon.png",
+      "filename" : "auto_add.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "create group icon-1.png",
+      "filename" : "auto_add@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "create group icon-2.png",
+      "filename" : "auto_add@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

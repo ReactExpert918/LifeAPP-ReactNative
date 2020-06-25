@@ -15,6 +15,7 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "addFriendCell", for: indexPath) as! AddFriendCell
+        cell.selectionStyle = .none
         return cell
     }
     
@@ -28,14 +29,10 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func qrcodeTapped(_ sender: Any) {
+        let vc = storyboard?.instantiateViewController(identifier: "qrcodeVC") as! QrCodeViewController
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true, completion: nil)
     }
-    */
 
 }

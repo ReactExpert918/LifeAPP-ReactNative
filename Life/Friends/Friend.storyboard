@@ -78,13 +78,23 @@
                                                         <color key="textColor" red="0.58823529411764708" green="0.70588235294117641" blue="0.82352941176470584" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yyb-UP-CE4">
+                                                        <rect key="frame" x="73" y="12" width="61.5" height="52"/>
+                                                        <connections>
+                                                            <action selector="qrcodeTapped:" destination="LxM-be-Wx5" eventType="touchUpInside" id="dfl-Ln-qox"/>
+                                                        </connections>
+                                                    </button>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.0" green="0.25098039220000001" blue="0.43529411759999997" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstItem="TaJ-67-1J1" firstAttribute="centerX" secondItem="16G-e0-ol5" secondAttribute="centerX" id="1NB-Ez-J2m"/>
+                                                    <constraint firstAttribute="bottom" secondItem="yyb-UP-CE4" secondAttribute="bottom" constant="12" id="6Xk-QQ-PaO"/>
+                                                    <constraint firstItem="yyb-UP-CE4" firstAttribute="trailing" secondItem="lG1-qT-5Vh" secondAttribute="trailing" id="88T-Hw-s5E"/>
                                                     <constraint firstItem="lG1-qT-5Vh" firstAttribute="centerX" secondItem="16G-e0-ol5" secondAttribute="centerX" id="9To-tX-Pe7"/>
                                                     <constraint firstAttribute="bottom" secondItem="lG1-qT-5Vh" secondAttribute="bottom" constant="12" id="9jq-xu-m9G"/>
                                                     <constraint firstItem="TaJ-67-1J1" firstAttribute="top" secondItem="16G-e0-ol5" secondAttribute="top" constant="12" id="A04-zZ-Ise"/>
+                                                    <constraint firstItem="yyb-UP-CE4" firstAttribute="leading" secondItem="lG1-qT-5Vh" secondAttribute="leading" id="QCR-P2-eyJ"/>
+                                                    <constraint firstItem="yyb-UP-CE4" firstAttribute="top" secondItem="16G-e0-ol5" secondAttribute="top" constant="12" id="X5n-Zg-IlJ"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Clg-CK-F1h">
@@ -455,17 +465,47 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VS3-NE-taG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-371.01449275362324" y="64.955357142857139"/>
+            <point key="canvasLocation" x="-520.28985507246375" y="64.955357142857139"/>
+        </scene>
+        <!--Qr Code View Controller-->
+        <scene sceneID="wNH-xR-Qpz">
+            <objects>
+                <viewController storyboardIdentifier="qrcodeVC" id="mPx-dm-gRV" customClass="QrCodeViewController" customModule="Life" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="iSo-nx-Uwc">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dSH-xc-5V0" customClass="QRScannerView" customModule="MercariQRScanner">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="dSH-xc-5V0" firstAttribute="leading" secondItem="SjM-2b-mAw" secondAttribute="leading" id="Tj3-ui-6hV"/>
+                            <constraint firstItem="dSH-xc-5V0" firstAttribute="top" secondItem="iSo-nx-Uwc" secondAttribute="top" id="XMn-Sr-87j"/>
+                            <constraint firstAttribute="bottom" secondItem="dSH-xc-5V0" secondAttribute="bottom" id="ikr-Hf-2Qs"/>
+                            <constraint firstItem="dSH-xc-5V0" firstAttribute="trailing" secondItem="SjM-2b-mAw" secondAttribute="trailing" id="zlq-Yt-Uvg"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="SjM-2b-mAw"/>
+                    </view>
+                    <connections>
+                        <outlet property="scannerView" destination="dSH-xc-5V0" id="ERz-Sc-m0F"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vCM-Xx-O7c" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="471.01449275362324" y="56.919642857142854"/>
         </scene>
     </scenes>
     <resources>
-        <image name="add_friend" width="30" height="30"/>
-        <image name="auto_add" width="75" height="75"/>
-        <image name="cancel" width="28" height="28"/>
-        <image name="create_group" width="75" height="75"/>
+        <image name="add_friend" width="60" height="60"/>
+        <image name="auto_add" width="150" height="150"/>
+        <image name="cancel" width="55" height="55.5"/>
+        <image name="create_group" width="150" height="150"/>
         <image name="profile" width="75" height="75"/>
-        <image name="qrcode" width="50" height="50"/>
-        <image name="search" width="50" height="49"/>
-        <image name="setting" width="37.5" height="37.5"/>
+        <image name="qrcode" width="100" height="100"/>
+        <image name="search" width="100" height="98"/>
+        <image name="setting" width="75" height="75"/>
     </resources>
 </document>
