@@ -1,0 +1,30 @@
+//
+//  LoginViewController.swift
+//  Life
+//
+//  Created by XianHuang on 6/23/20.
+//  Copyright © 2020 Yun Li. All rights reserved.
+//
+
+import UIKit
+
+class WelcomeViewController: UIViewController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Do any additional setup after loading the view.
+    }
+    
+    @IBAction func onLoginPressed(_ sender: Any) {
+        let vc =  self.storyboard?.instantiateViewController(identifier: "signinViewController") as! SignInViewController
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @IBAction func onSignupPressed(_ sender: Any) {
+        let vc =  self.storyboard?.instantiateViewController(identifier: "signupViewController") as! SignupViewController
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+
+}
