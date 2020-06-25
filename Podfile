@@ -7,6 +7,15 @@ target 'Life' do
 
   # Pods for Life
   pod 'MercariQRScanner'
+  pod 'Firebase/Analytics'
+  pod 'Firebase/Messaging'
+  pod 'Firebase/Database'
+  pod 'Firebase/Auth'
+  pod 'SkyFloatingLabelTextField', '~> 3.0'
+  pod 'IQKeyboardManagerSwift'
+  pod 'DPOTPView'
+  pod 'JGProgressHUD'
+  pod 'FlagPhoneNumber'
 
   target 'LifeTests' do
     inherit! :search_paths
