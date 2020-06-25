@@ -14,6 +14,8 @@ class SignupViewController: UIViewController {
 
     @IBOutlet weak var phoneNumberTextField: FPNTextField!
     
+    @IBOutlet weak var nextButtonBottomConstraint: NSLayoutConstraint!
+    
     var phoneNumber = ""
     var isValidPhoneNumber = false
     let hud = JGProgressHUD(style: .light)
@@ -23,9 +25,36 @@ class SignupViewController: UIViewController {
         
         phoneNumberTextField.displayMode = .picker
         phoneNumberTextField.delegate = self
+        phoneNumberTextField.placeholder = "Enter your mobile number"
+        // Background
+        phoneNumberTextField.backgroundColor = UIColor(white: 0, alpha: 0.08)
+        phoneNumberTextField.layer.cornerRadius = 5
+        // Subscribe Keyboard Popup
+        subscribeToShowKeyboardNotifications()
     }
     override func viewDidAppear(_ animated: Bool) {
         phoneNumberTextField.becomeFirstResponder()
+    }
+    
+    func subscribeToShowKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc func keyboardWillShow(_ notification: Notification) {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            let keyboardHeight = keyboardRectangle.height
+            nextButtonBottomConstraint.constant = keyboardHeight + 30
+        }
+    }
+
+    @objc func keyboardWillHide(_ notification: Notification) {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            let keyboardHeight = keyboardRectangle.height
+            nextButtonBottomConstraint.constant = 30
+        }
     }
     
     @IBAction func onNextPressed(_ sender: Any) {

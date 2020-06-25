@@ -11,8 +11,12 @@ import DPOTPView
 import FirebaseAuth
 import JGProgressHUD
 class OTPVerificationViewController: UIViewController {
-
-    @IBOutlet weak var phoneNumberLabel: UILabel!
+    
+    @IBOutlet weak var nextButton: RoundButton!
+    
+    @IBOutlet weak var nextButtonArrow: UIImageView!
+    
+    @IBOutlet weak var nextButtonBottomConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var otpCodeView: DPOTPView!
     
@@ -23,12 +27,49 @@ class OTPVerificationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        phoneNumberLabel.text = phoneNumber
+        otpCodeView.dpOTPViewDelegate = self
+        subscribeToShowKeyboardNotifications()
+        // initialize next button color
+        checkOTPValidation(text: otpCodeView.text ?? "")
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        otpCodeView.becomeFirstResponder()
+    }
+    func subscribeToShowKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc func keyboardWillShow(_ notification: Notification) {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            let keyboardHeight = keyboardRectangle.height
+            nextButtonBottomConstraint.constant = keyboardHeight + 30
+        }
+    }
+
+    @objc func keyboardWillHide(_ notification: Notification) {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            let keyboardHeight = keyboardRectangle.height
+            nextButtonBottomConstraint.constant = 30
+        }
     }
     
     func setPhoneNumber(withPhoneNumber phoneNumber: String){
         self.phoneNumber = phoneNumber
         
+    }
+    
+    func checkOTPValidation(text: String){
+        if(text.count == 6){
+            nextButton.backgroundColor = UIColor(hexString: "#16406F")
+            nextButtonArrow.tintColor = .white
+        }
+        else{
+            nextButton.backgroundColor = UIColor(white: 0, alpha: 0.17)
+            nextButtonArrow.tintColor = UIColor(white: 0, alpha: 0.31)
+        }
     }
     @IBAction func onSubmitPressed(_ sender: Any) {
         let verificationCode = otpCodeView.text ?? "123456"
@@ -63,6 +104,7 @@ class OTPVerificationViewController: UIViewController {
 
         UIApplication.shared.windows.first?.rootViewController = vc
     }
+    
     @IBAction func onResendCodePressed(_ sender: Any) {
         DispatchQueue.main.async {
             self.hud.textLabel.text = "Sending..."
@@ -84,4 +126,25 @@ class OTPVerificationViewController: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
+}
+extension OTPVerificationViewController : DPOTPViewDelegate {
+   func dpOTPViewAddText(_ text: String, at position: Int) {
+        //print("addText:- " + text + " at:- \(position)" )
+        self.checkOTPValidation(text: text)
+    }
+    
+    func dpOTPViewRemoveText(_ text: String, at position: Int) {
+        //print("removeText:- " + text + " at:- \(position)" )
+        self.checkOTPValidation(text: text)
+    }
+    
+    func dpOTPViewChangePositionAt(_ position: Int) {
+        print("at:-\(position)")
+    }
+    func dpOTPViewBecomeFirstResponder() {
+        
+    }
+    func dpOTPViewResignFirstResponder() {
+        
+    }
 }
