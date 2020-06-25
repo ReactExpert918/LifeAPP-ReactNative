@@ -24,6 +24,10 @@
 		AB13A9E724A2EF670028731D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB13A9E524A2EF670028731D /* LaunchScreen.storyboard */; };
 		AB13A9F224A2EF670028731D /* LifeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB13A9F124A2EF670028731D /* LifeTests.swift */; };
 		AB13A9FD24A2EF670028731D /* LifeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB13A9FC24A2EF670028731D /* LifeUITests.swift */; };
+		AB13AA0B24A31F590028731D /* Friend.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB13AA0A24A31F590028731D /* Friend.storyboard */; };
+		AB13AA0D24A336F00028731D /* extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB13AA0C24A336F00028731D /* extension.swift */; };
+		AB13AA1024A341920028731D /* AddFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB13AA0F24A341920028731D /* AddFriendsViewController.swift */; };
+		AB13AA1224A3AF650028731D /* AddFriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB13AA1124A3AF650028731D /* AddFriendCell.swift */; };
 		E87CD6D6D8F4EEBDA7AF3284 /* Pods_Life.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38331365FE453AF276FB4BD0 /* Pods_Life.framework */; };
 		F551859C08D4752FE9CD11ED /* Pods_LifeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13FCD29106C16A3D2D2FC3B7 /* Pods_LifeTests.framework */; };
 /* End PBXBuildFile section */
@@ -76,6 +80,10 @@
 		AB13A9F824A2EF670028731D /* LifeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LifeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB13A9FC24A2EF670028731D /* LifeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeUITests.swift; sourceTree = "<group>"; };
 		AB13A9FE24A2EF670028731D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AB13AA0A24A31F590028731D /* Friend.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Friend.storyboard; sourceTree = "<group>"; };
+		AB13AA0C24A336F00028731D /* extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extension.swift; sourceTree = "<group>"; };
+		AB13AA0F24A341920028731D /* AddFriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendsViewController.swift; sourceTree = "<group>"; };
+		AB13AA1124A3AF650028731D /* AddFriendCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendCell.swift; sourceTree = "<group>"; };
 		C2CCA01F5382939D3C8C584B /* Pods-LifeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LifeTests.debug.xcconfig"; path = "Target Support Files/Pods-LifeTests/Pods-LifeTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -205,6 +213,7 @@
 		AB13A9D924A2EF610028731D /* Life */ = {
 			isa = PBXGroup;
 			children = (
+				AB13AA0E24A3416C0028731D /* Friends */,
 				A69019E924A3338900ED737F /* Utils */,
 				A60845B224A2FF8F005F23A9 /* Controllers */,
 				AB13A9DA24A2EF610028731D /* AppDelegate.swift */,
@@ -215,6 +224,7 @@
 				AB13A9E324A2EF670028731D /* Assets.xcassets */,
 				AB13A9E524A2EF670028731D /* LaunchScreen.storyboard */,
 				AB13A9E824A2EF670028731D /* Info.plist */,
+				AB13AA0C24A336F00028731D /* extension.swift */,
 				A60845C224A30F97005F23A9 /* GoogleService-Info.plist */,
 			);
 			path = Life;
@@ -238,6 +248,14 @@
 			path = LifeUITests;
 			sourceTree = "<group>";
 		};
+		AB13AA0E24A3416C0028731D /* Friends */ = {
+			isa = PBXGroup;
+			children = (
+				AB13AA0A24A31F590028731D /* Friend.storyboard */,
+				AB13AA0F24A341920028731D /* AddFriendsViewController.swift */,
+				AB13AA1124A3AF650028731D /* AddFriendCell.swift */,
+			);
+			path = Friends;
 		E01C3F04B71ECC3608E50572 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -357,6 +375,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB13AA0B24A31F590028731D /* Friend.storyboard in Resources */,
 				A60845B124A2FEC1005F23A9 /* Login.storyboard in Resources */,
 				AB13A9E724A2EF670028731D /* LaunchScreen.storyboard in Resources */,
 				A60845C324A30F97005F23A9 /* GoogleService-Info.plist in Resources */,
@@ -490,6 +509,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				AB13A9DF24A2EF610028731D /* ViewController.swift in Sources */,
+				AB13AA1024A341920028731D /* AddFriendsViewController.swift in Sources */,
+				AB13AA1224A3AF650028731D /* AddFriendCell.swift in Sources */,
+				AB13AA0D24A336F00028731D /* extension.swift in Sources */,
 				A69019EB24A333E400ED737F /* Util.swift in Sources */,
 				A60845BE24A30390005F23A9 /* SignupViewController.swift in Sources */,
 				AB13A9DB24A2EF610028731D /* AppDelegate.swift in Sources */,
