@@ -19,6 +19,11 @@ class ViewController: UIViewController {
         let addFriendsViewController: AddFriendsViewController = mainStoryboard.instantiateViewController(withIdentifier: "addFriendsVC") as! AddFriendsViewController
         addFriendsViewController.modalPresentationStyle = .fullScreen
         self.present(addFriendsViewController, animated: true, completion: nil)
+        
+//        let mainStoryboard: UIStoryboard = UIStoryboard(name: "Setting", bundle: nil)
+//        let addFriendsViewController: SettingViewController = mainStoryboard.instantiateViewController(withIdentifier: "settingVC") as! SettingViewController
+//        addFriendsViewController.modalPresentationStyle = .fullScreen
+//        self.present(addFriendsViewController, animated: true, completion: nil)
     }
     
 
