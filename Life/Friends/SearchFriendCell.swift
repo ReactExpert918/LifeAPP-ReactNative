@@ -1,14 +1,14 @@
 //
-//  AddFriendCell.swift
+//  SearchFriendCell.swift
 //  Life
 //
-//  Created by Yun Li on 2020/6/24.
+//  Created by Yun Li on 2020/6/27.
 //  Copyright © 2020 Yun Li. All rights reserved.
 //
 
 import Foundation
 import UIKit
-class SearchFriendCell : UITableViewCell{
+class AddFriendCell : UITableViewCell{
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -21,4 +21,5 @@ class SearchFriendCell : UITableViewCell{
         // Configure the view for the selected state
     }
 }
+
 

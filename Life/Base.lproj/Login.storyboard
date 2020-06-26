@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="R9N-Yx-9Qd">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="R9N-Yx-9Qd">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -66,7 +66,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="45" id="uSY-uq-2VV"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="15"/>
+                                        <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="15"/>
                                         <state key="normal" title="Log in">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
@@ -342,7 +342,7 @@ continue</string>
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="742"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Phone Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tzR-Dw-UtY" customClass="FPNTextField" customModule="FlagPhoneNumber">
-                                                <rect key="frame" x="20" y="142.66666666666666" width="335" height="45"/>
+                                                <rect key="frame" x="20" y="146.66666666666666" width="335" height="45"/>
                                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.080000000000000002" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="45" id="nAk-xn-G8B"/>
@@ -351,7 +351,7 @@ continue</string>
                                                 <textInputTraits key="textInputTraits" keyboardType="phonePad" returnKeyType="done"/>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eaq-pI-T3O">
-                                                <rect key="frame" x="20" y="25.000000000000007" width="203" height="87.666666666666686"/>
+                                                <rect key="frame" x="20.000000000000014" y="25.000000000000007" width="243.33333333333337" height="91.666666666666686"/>
                                                 <string key="text">What is the phone
 number for this
 device ?</string>
@@ -360,7 +360,7 @@ device ?</string>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IZq-Dh-8GN">
-                                                <rect key="frame" x="20" y="660.66666666666663" width="271" height="49"/>
+                                                <rect key="frame" x="20" y="659.33333333333337" width="271" height="51.333333333333371"/>
                                                 <string key="text">By continuing you will receive and
 SMS for verification. Message and data
 rates may apply.</string>
@@ -582,7 +582,7 @@ rates may apply.</string>
                                 <rect key="frame" x="0.0" y="70" width="375" height="742"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i34-su-b8X" userLabel="OTPView" customClass="DPOTPView" customModule="DPOTPView">
-                                        <rect key="frame" x="20" y="101.33333333333334" width="335" height="80"/>
+                                        <rect key="frame" x="20" y="103.66666666666666" width="335" height="80"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="80" id="yBx-Th-Jrw"/>
@@ -623,7 +623,7 @@ rates may apply.</string>
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sBB-13-uxd">
-                                        <rect key="frame" x="74.333333333333329" y="30.000000000000004" width="226.33333333333337" height="51.333333333333343"/>
+                                        <rect key="frame" x="54.333333333333343" y="29.999999999999996" width="266.33333333333326" height="53.666666666666657"/>
                                         <string key="text">Please enter the OTP
 received in your device</string>
                                         <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="22"/>
@@ -725,7 +725,7 @@ received in your device</string>
     </scenes>
     <resources>
         <image name="app_logo" width="577.66668701171875" height="413"/>
-        <image name="chevron.left" catalog="system" width="48" height="64"/>
+        <image name="chevron.left" catalog="system" width="96" height="128"/>
         <image name="ic_arrow_back" width="35.666667938232422" height="62"/>
         <image name="ic_arrow_right" width="66.333335876464844" height="70.333335876464844"/>
     </resources>
