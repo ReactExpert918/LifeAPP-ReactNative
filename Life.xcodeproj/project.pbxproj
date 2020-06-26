@@ -23,6 +23,10 @@
 		A6E73B4F24A598CD0008CBFE /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E73B4E24A598CD0008CBFE /* HomeViewController.swift */; };
 		A6E73B5124A5A6190008CBFE /* ChatListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E73B5024A5A6190008CBFE /* ChatListViewController.swift */; };
 		A6E73B5324A5AAFF0008CBFE /* SearchbarExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E73B5224A5AAFF0008CBFE /* SearchbarExtension.swift */; };
+		A6E79AAE24A658E9009458A1 /* ExpandableHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E79AAC24A658E9009458A1 /* ExpandableHeaderCell.swift */; };
+		A6E79AAF24A658E9009458A1 /* ExpandableHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A6E79AAD24A658E9009458A1 /* ExpandableHeaderCell.xib */; };
+		A6E79AB224A65D07009458A1 /* FriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E79AB024A65D07009458A1 /* FriendCell.swift */; };
+		A6E79AB324A65D07009458A1 /* FriendCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A6E79AB124A65D07009458A1 /* FriendCell.xib */; };
 		AB13A9DB24A2EF610028731D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB13A9DA24A2EF610028731D /* AppDelegate.swift */; };
 		AB13A9DD24A2EF610028731D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB13A9DC24A2EF610028731D /* SceneDelegate.swift */; };
 		AB13A9DF24A2EF610028731D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB13A9DE24A2EF610028731D /* ViewController.swift */; };
@@ -87,6 +91,10 @@
 		A6E73B4E24A598CD0008CBFE /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		A6E73B5024A5A6190008CBFE /* ChatListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListViewController.swift; sourceTree = "<group>"; };
 		A6E73B5224A5AAFF0008CBFE /* SearchbarExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchbarExtension.swift; sourceTree = "<group>"; };
+		A6E79AAC24A658E9009458A1 /* ExpandableHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableHeaderCell.swift; sourceTree = "<group>"; };
+		A6E79AAD24A658E9009458A1 /* ExpandableHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExpandableHeaderCell.xib; sourceTree = "<group>"; };
+		A6E79AB024A65D07009458A1 /* FriendCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCell.swift; sourceTree = "<group>"; };
+		A6E79AB124A65D07009458A1 /* FriendCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendCell.xib; sourceTree = "<group>"; };
 		AB13A9D724A2EF610028731D /* Life.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Life.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB13A9DA24A2EF610028731D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AB13A9DC24A2EF610028731D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -250,6 +258,10 @@
 			isa = PBXGroup;
 			children = (
 				A6E73B4E24A598CD0008CBFE /* HomeViewController.swift */,
+				A6E79AB024A65D07009458A1 /* FriendCell.swift */,
+				A6E79AB124A65D07009458A1 /* FriendCell.xib */,
+				A6E79AAC24A658E9009458A1 /* ExpandableHeaderCell.swift */,
+				A6E79AAD24A658E9009458A1 /* ExpandableHeaderCell.xib */,
 				A6E73B5024A5A6190008CBFE /* ChatListViewController.swift */,
 			);
 			path = Home;
@@ -465,11 +477,13 @@
 				A60845B124A2FEC1005F23A9 /* Login.storyboard in Resources */,
 				AB13A9E724A2EF670028731D /* LaunchScreen.storyboard in Resources */,
 				AB82ACCF24A5452700D83E47 /* Setting.storyboard in Resources */,
+				A6E79AAF24A658E9009458A1 /* ExpandableHeaderCell.xib in Resources */,
 				AB82ACDB24A5453100D83E47 /* Friend.storyboard in Resources */,
 				A60845C324A30F97005F23A9 /* GoogleService-Info.plist in Resources */,
 				AB13A9E424A2EF670028731D /* Assets.xcassets in Resources */,
 				AB13A9E224A2EF610028731D /* Main.storyboard in Resources */,
 				AB82ACD224A5452700D83E47 /* SettingCellHeader.xib in Resources */,
+				A6E79AB324A65D07009458A1 /* FriendCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -599,6 +613,7 @@
 			files = (
 				AB13A9DF24A2EF610028731D /* ViewController.swift in Sources */,
 				AB82ACE024A5472800D83E47 /* Util.swift in Sources */,
+				A6E79AAE24A658E9009458A1 /* ExpandableHeaderCell.swift in Sources */,
 				A6E73B4F24A598CD0008CBFE /* HomeViewController.swift in Sources */,
 				A6E73B5324A5AAFF0008CBFE /* SearchbarExtension.swift in Sources */,
 				A60845BE24A30390005F23A9 /* SignupViewController.swift in Sources */,
@@ -611,6 +626,7 @@
 				AB82ACD024A5452700D83E47 /* SettingCell.swift in Sources */,
 				A6E73B4824A4F85F0008CBFE /* ExtensionView.swift in Sources */,
 				AB82ACDA24A5453100D83E47 /* AddFriendsViewController.swift in Sources */,
+				A6E79AB224A65D07009458A1 /* FriendCell.swift in Sources */,
 				AB13A9DD24A2EF610028731D /* SceneDelegate.swift in Sources */,
 				A6E73B5124A5A6190008CBFE /* ChatListViewController.swift in Sources */,
 				A6E73B4C24A532880008CBFE /* UIColor+Hex.swift in Sources */,

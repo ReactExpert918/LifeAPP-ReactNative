@@ -8,9 +8,11 @@
 
 import UIKit
 
-class ChatListViewController: UIViewController {
+class ChatListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var searchBar: UISearchBar!
+    
+    @IBOutlet weak var chatsTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,8 +27,25 @@ class ChatListViewController: UIViewController {
        searchBar.setPlaceholder(textColor: UIColor(hexString: "#96B4D2")!)
        searchBar.setSearchImage(color: UIColor(hexString: "#96B4D2")!)
 //     searchBar.setClearButton(color: UIColor(hexString: "#96B4D2")!)
+        
+        // Init Chat List TableView
+        chatsTableView.dataSource = self
+        chatsTableView.delegate = self
     }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 5
+    }
 
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "chatHistoryCell", for: indexPath)
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 64
+    }
 
 }
