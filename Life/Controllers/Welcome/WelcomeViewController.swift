@@ -17,8 +17,11 @@ class WelcomeViewController: UIViewController {
     }
     
     @IBAction func onLoginPressed(_ sender: Any) {
+        gotoMainViewController()
+        /*
         let vc =  self.storyboard?.instantiateViewController(identifier: "signinViewController") as! SignInViewController
         self.navigationController?.pushViewController(vc, animated: true)
+         */
     }
     
     @IBAction func onSignupPressed(_ sender: Any) {
@@ -26,5 +29,10 @@ class WelcomeViewController: UIViewController {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
+    func gotoMainViewController() {
+        UIApplication.shared.windows.first?.rootViewController?.dismiss(animated: true, completion: nil)
+        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
 
+        UIApplication.shared.windows.first?.rootViewController = vc
+    }
 }
