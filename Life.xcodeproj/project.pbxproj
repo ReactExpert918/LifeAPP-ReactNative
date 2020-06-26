@@ -27,7 +27,7 @@
 		AB13A9DD24A2EF610028731D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB13A9DC24A2EF610028731D /* SceneDelegate.swift */; };
 		AB13A9DF24A2EF610028731D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB13A9DE24A2EF610028731D /* ViewController.swift */; };
 		AB13A9E224A2EF610028731D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB13A9E024A2EF610028731D /* Main.storyboard */; };
-		AB13A9E424A2EF670028731D /* Xian.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB13A9E324A2EF670028731D /* Xian.xcassets */; };
+		AB13A9E424A2EF670028731D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB13A9E324A2EF670028731D /* Assets.xcassets */; };
 		AB13A9E724A2EF670028731D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB13A9E524A2EF670028731D /* LaunchScreen.storyboard */; };
 		AB13A9F224A2EF670028731D /* LifeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB13A9F124A2EF670028731D /* LifeTests.swift */; };
 		AB13A9FD24A2EF670028731D /* LifeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB13A9FC24A2EF670028731D /* LifeUITests.swift */; };
@@ -92,7 +92,7 @@
 		AB13A9DC24A2EF610028731D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		AB13A9DE24A2EF610028731D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		AB13A9E124A2EF610028731D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		AB13A9E324A2EF670028731D /* Xian.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Xian.xcassets; sourceTree = "<group>"; };
+		AB13A9E324A2EF670028731D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AB13A9E624A2EF670028731D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AB13A9E824A2EF670028731D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AB13A9ED24A2EF670028731D /* LifeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LifeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -291,7 +291,7 @@
 				AB13A9DE24A2EF610028731D /* ViewController.swift */,
 				AB13A9E024A2EF610028731D /* Main.storyboard */,
 				A60845AF24A2FEC1005F23A9 /* Login.storyboard */,
-				AB13A9E324A2EF670028731D /* Xian.xcassets */,
+				AB13A9E324A2EF670028731D /* Assets.xcassets */,
 				AB13A9E524A2EF670028731D /* LaunchScreen.storyboard */,
 				AB13A9E824A2EF670028731D /* Info.plist */,
 				A60845C224A30F97005F23A9 /* GoogleService-Info.plist */,
@@ -467,7 +467,7 @@
 				AB82ACCF24A5452700D83E47 /* Setting.storyboard in Resources */,
 				AB82ACDB24A5453100D83E47 /* Friend.storyboard in Resources */,
 				A60845C324A30F97005F23A9 /* GoogleService-Info.plist in Resources */,
-				AB13A9E424A2EF670028731D /* Xian.xcassets in Resources */,
+				AB13A9E424A2EF670028731D /* Assets.xcassets in Resources */,
 				AB13A9E224A2EF610028731D /* Main.storyboard in Resources */,
 				AB82ACD224A5452700D83E47 /* SettingCellHeader.xib in Resources */,
 			);
