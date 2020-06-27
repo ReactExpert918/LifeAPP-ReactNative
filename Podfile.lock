@@ -1,4 +1,5 @@
 PODS:
+  - BEMCheckBox (1.4.1)
   - DPOTPView (1.5.5)
   - Firebase/Analytics (6.26.0):
     - Firebase/Core
@@ -115,6 +116,7 @@ PODS:
   - SkyFloatingLabelTextField (3.8.0)
 
 DEPENDENCIES:
+  - BEMCheckBox
   - DPOTPView
   - Firebase/Analytics
   - Firebase/Auth
@@ -128,6 +130,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - BEMCheckBox
     - DPOTPView
     - Firebase
     - FirebaseAnalytics
@@ -157,6 +160,7 @@ SPEC REPOS:
     - SkyFloatingLabelTextField
 
 SPEC CHECKSUMS:
+  BEMCheckBox: 5ba6e37ade3d3657b36caecc35c8b75c6c2b1a4e
   DPOTPView: 4aef7639da20747b96085456043089455af1f4a8
   Firebase: 7cf5f9c67f03cb3b606d1d6535286e1080e57eb6
   FirebaseAnalytics: 96634d356482d4f3af8fe459a0ebf19a99c71b75
@@ -185,6 +189,6 @@ SPEC CHECKSUMS:
   Protobuf: 2793fcd0622a00b546c60e7cbbcc493e043e9bb9
   SkyFloatingLabelTextField: 5a338412114808e961fe2d14ea2c5452c8b6e4aa
 
-PODFILE CHECKSUM: d473c9be7fa22e53a477ad1027bb2aa260de11bb
+PODFILE CHECKSUM: 5f3b1d5a389c2418dd39d707c2ca753db349eed8
 
 COCOAPODS: 1.9.3

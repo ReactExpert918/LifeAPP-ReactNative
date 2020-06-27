@@ -46,6 +46,8 @@
 		AB82ACDC24A5453100D83E47 /* QrCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB82ACD824A5453000D83E47 /* QrCodeViewController.swift */; };
 		AB82ACDE24A546D600D83E47 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB82ACDD24A546D600D83E47 /* SplashViewController.swift */; };
 		AB82ACE024A5472800D83E47 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB82ACDF24A5472800D83E47 /* Util.swift */; };
+		ABDAC92C24A64AE800E73667 /* SearchFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDAC92B24A64AE800E73667 /* SearchFriendsViewController.swift */; };
+		ABDAC93024A67D8C00E73667 /* SearchFriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDAC92F24A67D8C00E73667 /* SearchFriendCell.swift */; };
 		E87CD6D6D8F4EEBDA7AF3284 /* Pods_Life.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38331365FE453AF276FB4BD0 /* Pods_Life.framework */; };
 		F551859C08D4752FE9CD11ED /* Pods_LifeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13FCD29106C16A3D2D2FC3B7 /* Pods_LifeTests.framework */; };
 /* End PBXBuildFile section */
@@ -120,6 +122,8 @@
 		AB82ACD824A5453000D83E47 /* QrCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QrCodeViewController.swift; sourceTree = "<group>"; };
 		AB82ACDD24A546D600D83E47 /* SplashViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		AB82ACDF24A5472800D83E47 /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
+		ABDAC92B24A64AE800E73667 /* SearchFriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFriendsViewController.swift; sourceTree = "<group>"; };
+		ABDAC92F24A67D8C00E73667 /* SearchFriendCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFriendCell.swift; sourceTree = "<group>"; };
 		C2CCA01F5382939D3C8C584B /* Pods-LifeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LifeTests.debug.xcconfig"; path = "Target Support Files/Pods-LifeTests/Pods-LifeTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -348,6 +352,8 @@
 				AB82ACD624A5453000D83E47 /* AddFriendsViewController.swift */,
 				AB82ACD724A5453000D83E47 /* Friend.storyboard */,
 				AB82ACD824A5453000D83E47 /* QrCodeViewController.swift */,
+				ABDAC92B24A64AE800E73667 /* SearchFriendsViewController.swift */,
+				ABDAC92F24A67D8C00E73667 /* SearchFriendCell.swift */,
 			);
 			path = Friends;
 			sourceTree = "<group>";
@@ -631,9 +637,11 @@
 				A6E73B5124A5A6190008CBFE /* ChatListViewController.swift in Sources */,
 				A6E73B4C24A532880008CBFE /* UIColor+Hex.swift in Sources */,
 				AB82ACD124A5452700D83E47 /* SettingCellHeader.swift in Sources */,
+				ABDAC92C24A64AE800E73667 /* SearchFriendsViewController.swift in Sources */,
 				A60845B924A302BA005F23A9 /* WelcomeViewController.swift in Sources */,
 				AB82ACDC24A5453100D83E47 /* QrCodeViewController.swift in Sources */,
 				AB82ACD924A5453100D83E47 /* AddFriendCell.swift in Sources */,
+				ABDAC93024A67D8C00E73667 /* SearchFriendCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

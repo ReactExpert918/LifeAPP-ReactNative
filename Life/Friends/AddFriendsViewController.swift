@@ -34,5 +34,10 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true, completion: nil)
     }
-
+    @IBAction func searchFriendsTapped(_ sender: Any) {
+        let vc = storyboard?.instantiateViewController(identifier: "searchFriendsNav") as! UINavigationController
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true, completion: nil)
+    }
+    
 }

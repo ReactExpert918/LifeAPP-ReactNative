@@ -16,6 +16,7 @@ target 'Life' do
   pod 'DPOTPView'
   pod 'JGProgressHUD'
   pod 'FlagPhoneNumber'
+  pod 'BEMCheckBox'
 
   target 'LifeTests' do
     inherit! :search_paths
