@@ -17,6 +17,8 @@ target 'Life' do
   pod 'JGProgressHUD'
   pod 'FlagPhoneNumber'
   pod 'BEMCheckBox'
+  pod 'SwiftyAvatar', '~> 1.1'
+  
 
   target 'LifeTests' do
     inherit! :search_paths

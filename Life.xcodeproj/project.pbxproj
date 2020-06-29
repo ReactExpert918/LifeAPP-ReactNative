@@ -35,6 +35,9 @@
 		AB13A9E724A2EF670028731D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB13A9E524A2EF670028731D /* LaunchScreen.storyboard */; };
 		AB13A9F224A2EF670028731D /* LifeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB13A9F124A2EF670028731D /* LifeTests.swift */; };
 		AB13A9FD24A2EF670028731D /* LifeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB13A9FC24A2EF670028731D /* LifeUITests.swift */; };
+		AB3A81BB24A9B4920089127E /* BasicDetailInsertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3A81BA24A9B4920089127E /* BasicDetailInsertViewController.swift */; };
+		AB3A81BD24AA3B900089127E /* AddPictureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3A81BC24AA3B900089127E /* AddPictureViewController.swift */; };
+		AB3A81BF24AA539B0089127E /* SuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3A81BE24AA539B0089127E /* SuccessViewController.swift */; };
 		AB82ACCF24A5452700D83E47 /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB82ACCA24A5452600D83E47 /* Setting.storyboard */; };
 		AB82ACD024A5452700D83E47 /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB82ACCB24A5452600D83E47 /* SettingCell.swift */; };
 		AB82ACD124A5452700D83E47 /* SettingCellHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB82ACCC24A5452600D83E47 /* SettingCellHeader.swift */; };
@@ -111,6 +114,9 @@
 		AB13A9F824A2EF670028731D /* LifeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LifeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB13A9FC24A2EF670028731D /* LifeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeUITests.swift; sourceTree = "<group>"; };
 		AB13A9FE24A2EF670028731D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AB3A81BA24A9B4920089127E /* BasicDetailInsertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicDetailInsertViewController.swift; sourceTree = "<group>"; };
+		AB3A81BC24AA3B900089127E /* AddPictureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPictureViewController.swift; sourceTree = "<group>"; };
+		AB3A81BE24AA539B0089127E /* SuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessViewController.swift; sourceTree = "<group>"; };
 		AB82ACCA24A5452600D83E47 /* Setting.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
 		AB82ACCB24A5452600D83E47 /* SettingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		AB82ACCC24A5452600D83E47 /* SettingCellHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingCellHeader.swift; sourceTree = "<group>"; };
@@ -209,6 +215,9 @@
 			isa = PBXGroup;
 			children = (
 				A60845BD24A30390005F23A9 /* SignupViewController.swift */,
+				AB3A81BA24A9B4920089127E /* BasicDetailInsertViewController.swift */,
+				AB3A81BC24AA3B900089127E /* AddPictureViewController.swift */,
+				AB3A81BE24AA539B0089127E /* SuccessViewController.swift */,
 			);
 			path = Signup;
 			sourceTree = "<group>";
@@ -620,6 +629,7 @@
 				AB13A9DF24A2EF610028731D /* ViewController.swift in Sources */,
 				AB82ACE024A5472800D83E47 /* Util.swift in Sources */,
 				A6E79AAE24A658E9009458A1 /* ExpandableHeaderCell.swift in Sources */,
+				AB3A81BB24A9B4920089127E /* BasicDetailInsertViewController.swift in Sources */,
 				A6E73B4F24A598CD0008CBFE /* HomeViewController.swift in Sources */,
 				A6E73B5324A5AAFF0008CBFE /* SearchbarExtension.swift in Sources */,
 				A60845BE24A30390005F23A9 /* SignupViewController.swift in Sources */,
@@ -636,7 +646,9 @@
 				AB13A9DD24A2EF610028731D /* SceneDelegate.swift in Sources */,
 				A6E73B5124A5A6190008CBFE /* ChatListViewController.swift in Sources */,
 				A6E73B4C24A532880008CBFE /* UIColor+Hex.swift in Sources */,
+				AB3A81BD24AA3B900089127E /* AddPictureViewController.swift in Sources */,
 				AB82ACD124A5452700D83E47 /* SettingCellHeader.swift in Sources */,
+				AB3A81BF24AA539B0089127E /* SuccessViewController.swift in Sources */,
 				ABDAC92C24A64AE800E73667 /* SearchFriendsViewController.swift in Sources */,
 				A60845B924A302BA005F23A9 /* WelcomeViewController.swift in Sources */,
 				AB82ACDC24A5453100D83E47 /* QrCodeViewController.swift in Sources */,
@@ -754,7 +766,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -808,7 +820,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -823,8 +835,9 @@
 			baseConfigurationReference = 379D4812E01E4A695D0CED53 /* Pods-Life.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6YPY3D74R8;
+				DEVELOPMENT_TEAM = 44L9F7UXS2;
 				INFOPLIST_FILE = Life/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -832,6 +845,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "life-zed.com";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -842,8 +856,9 @@
 			baseConfigurationReference = 60AE0B5DCA7696720E67CE90 /* Pods-Life.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6YPY3D74R8;
+				DEVELOPMENT_TEAM = 44L9F7UXS2;
 				INFOPLIST_FILE = Life/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -851,6 +866,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "life-zed.com";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
