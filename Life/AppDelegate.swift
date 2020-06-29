@@ -9,6 +9,13 @@
 import UIKit
 import IQKeyboardManagerSwift
 import Firebase
+import RealmSwift
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+let realm = try! Realm()
+let falsepredicate = NSPredicate(value: false)
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

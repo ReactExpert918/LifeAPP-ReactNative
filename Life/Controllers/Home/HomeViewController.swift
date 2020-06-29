@@ -53,7 +53,13 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func numberOfSections(in tableView: UITableView) -> Int {
         return headerSections.count
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        let vc =  self.storyboard?.instantiateViewController(identifier: "chatViewController") as! ChatViewController
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true, completion: nil)
+    }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: ExpandableHeaderCell.GetReuseIdentifier()) as! ExpandableHeaderCell
         header.titleLabel.text = headerSections[section].name
