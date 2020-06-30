@@ -99,10 +99,6 @@ class OTPVerificationViewController: UIViewController {
     }
     
     func gotoMainViewController() {
-//        UIApplication.shared.windows.first?.rootViewController?.dismiss(animated: true, completion: nil)
-//        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
-//
-//        UIApplication.shared.windows.first?.rootViewController = vc
         let vc =  self.storyboard?.instantiateViewController(identifier: "basicDetailInsertVC") as! BasicDetailInsertViewController
         self.navigationController?.pushViewController(vc, animated: true)
         

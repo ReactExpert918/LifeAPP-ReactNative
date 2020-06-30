@@ -7,11 +7,14 @@
 //
 
 import UIKit
+import FirebaseAuth
+import JGProgressHUD
 
 class BasicDetailInsertViewController: UIViewController {
     
     var password_eye_off = true
     var confirmPassword_eye_off = true
+    let hud = JGProgressHUD(style: .light)
 
     @IBOutlet weak var userName: UITextField!
     @IBOutlet weak var password: UITextField!
@@ -40,8 +43,27 @@ class BasicDetailInsertViewController: UIViewController {
             Util.showAlert(vc: self, "Attention" , "Confirm password should be matched with password.")
             return
         }
-        let vc =  self.storyboard?.instantiateViewController(identifier: "addPictureVC") as! AddPictureViewController
-        self.navigationController?.pushViewController(vc, animated: true)
+        DispatchQueue.main.async {
+            self.hud.textLabel.text = "Updating..."
+            self.hud.show(in: self.view, animated: true)
+        }
+        Auth.auth().currentUser?.updateEmail(to: userName.text!) { (error) in
+            if error != nil {
+                self.hud.dismiss(afterDelay: 1.0, animated: true)
+                Util.showAlert(vc: self, error?.localizedDescription ?? "", "")
+                return
+            }
+            Auth.auth().currentUser?.updatePassword(to: self.password.text!) { (error) in
+                self.hud.dismiss(afterDelay: 1.0, animated: true)
+                if error != nil {
+                    Util.showAlert(vc: self, error?.localizedDescription ?? "", "")
+                    return
+                }
+                let vc =  self.storyboard?.instantiateViewController(identifier: "addPictureVC") as! AddPictureViewController
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        
+        }
     }
     @IBAction func passwordEyeTapped(_ sender: Any) {
         if password_eye_off {

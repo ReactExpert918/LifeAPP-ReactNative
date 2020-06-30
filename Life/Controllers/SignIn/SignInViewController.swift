@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class SignInViewController: UIViewController, UITextViewDelegate {
 
     @IBOutlet weak var passwordEye: UIButton!
     @IBOutlet weak var bottomText: UITextView!
     @IBOutlet weak var password: UITextField!
+    @IBOutlet weak var userName: UITextField!
     var eye_off = true
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +42,23 @@ class SignInViewController: UIViewController, UITextViewDelegate {
         eye_off = !eye_off
     }
     @IBAction func onLoginTapped(_ sender: Any) {
+        if userName.text == ""{
+            Util.showAlert(vc: self, "Attention" , "Please enter username first.")
+            return
+        }else if password.text == ""{
+            Util.showAlert(vc: self, "Attention" , "Please enter password first.")
+            return
+        }
+        Auth.auth().signIn(withEmail: userName.text!, password: password.text!) { [weak self] authResult, error in
+            if error != nil {
+                Util.showAlert(vc: self!, error?.localizedDescription ?? "", "")
+                return
+            }
+            UIApplication.shared.windows.first?.rootViewController?.dismiss(animated: true, completion: nil)
+            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
+    
+            UIApplication.shared.windows.first?.rootViewController = vc
+        }
     }
     @IBAction func onForgotPasswordTapped(_ sender: Any) {
     }

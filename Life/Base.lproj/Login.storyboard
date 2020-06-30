@@ -353,6 +353,7 @@ continue</string>
                         <outlet property="bottomText" destination="LFG-lB-jWo" id="OmB-Xu-De2"/>
                         <outlet property="password" destination="WzH-08-Ezs" id="pm1-47-KNO"/>
                         <outlet property="passwordEye" destination="l9g-01-xbW" id="sfM-80-7U0"/>
+                        <outlet property="userName" destination="Fcb-tW-ahb" id="lun-8q-bx4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EQn-2n-fy0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class AddPictureViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
@@ -57,6 +58,11 @@ class AddPictureViewController: UIViewController, UINavigationControllerDelegate
             Util.showAlert(vc: self, "Attention" , "Please enter public name first.")
             return
         }
+//        let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+//        changeRequest?.displayName = publicName.text!
+//        changeRequest?.commitChanges { (error) in
+//          
+//        }
         let vc =  self.storyboard?.instantiateViewController(identifier: "successVC") as! SuccessViewController
         self.navigationController?.pushViewController(vc, animated: true)
     }
