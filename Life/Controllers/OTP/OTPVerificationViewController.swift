@@ -81,6 +81,7 @@ class OTPVerificationViewController: UIViewController {
             withVerificationID: verificationID!,
             verificationCode: verificationCode)
         DispatchQueue.main.async {
+            self.hud.textLabel.text = ""
             self.hud.show(in: self.view, animated: true)
         }
         Auth.auth().signIn(with: credential) { (authResult, error) in
@@ -89,20 +90,27 @@ class OTPVerificationViewController: UIViewController {
                 Util.showAlert(vc: self, error.localizedDescription , "")
                 return
             }
+            
+            // Create Person
+            self.createPerson()
             // OTP Verification completed
             self.hud.textLabel.text = "Signup successful."
             self.hud.dismiss(afterDelay: 2.0, animated: true)
             DispatchQueue.main.asyncAfter(deadline: .now()+2.1, execute: {
+                // Fill basic details
                 self.gotoMainViewController()
             })
         }
     }
     
+    func createPerson() {
+        let userId = AuthUser.userId()
+        Persons.create(userId, phone: self.phoneNumber)
+    }
     func gotoMainViewController() {
-        UIApplication.shared.windows.first?.rootViewController?.dismiss(animated: true, completion: nil)
-        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
-
-        UIApplication.shared.windows.first?.rootViewController = vc
+        let vc =  self.storyboard?.instantiateViewController(identifier: "basicDetailInsertVC") as! BasicDetailInsertViewController
+        self.navigationController?.pushViewController(vc, animated: true)
+        
     }
     
     @IBAction func onResendCodePressed(_ sender: Any) {

@@ -25,6 +25,7 @@ class Person: SyncObject {
 	@objc dynamic var pictureAt: Int64 = 0
 
 	@objc dynamic var status = "Available"
+    @objc dynamic var about = "I am using Life App."
 
     @objc dynamic var keepMedia: Int32 = Int32(KEEPMEDIA_PERIOD.KEEPMEDIA_FOREVER)
     @objc dynamic var networkPhoto: Int32 = Int32(NETWORK_MODE.NETWORK_ALL)

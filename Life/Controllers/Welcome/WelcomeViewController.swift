@@ -17,16 +17,16 @@ class WelcomeViewController: UIViewController {
     }
     
     @IBAction func onLoginPressed(_ sender: Any) {
-        gotoMainViewController()
-        /*
-        let vc =  self.storyboard?.instantiateViewController(identifier: "signinViewController") as! SignInViewController
+        //gotoMainViewController()
+        let vc =  self.storyboard?.instantiateViewController(identifier: "signinVC") as! SignInViewController
         self.navigationController?.pushViewController(vc, animated: true)
-         */
     }
     
     @IBAction func onSignupPressed(_ sender: Any) {
         let vc =  self.storyboard?.instantiateViewController(identifier: "signupViewController") as! SignupViewController
         self.navigationController?.pushViewController(vc, animated: true)
+//        let vc =  self.storyboard?.instantiateViewController(identifier: "basicDetailInsertVC") as! BasicDetailInsertViewController
+//        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func gotoMainViewController() {

@@ -26,7 +26,8 @@ target 'Life' do
   pod 'Reachability'
   pod 'ProgressHUD'
   pod 'RNCryptor-objc'
-
+  pod 'SwiftyAvatar', '~> 1.1'
+  
   target 'LifeTests' do
     inherit! :search_paths
     # Pods for testing

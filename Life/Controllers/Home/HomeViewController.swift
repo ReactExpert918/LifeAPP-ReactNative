@@ -10,11 +10,17 @@ import UIKit
 
 class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
-    
+    private var person: Person!    
 
     @IBOutlet weak var searchBar: UISearchBar!
     
     @IBOutlet weak var homeTableView: UITableView!
+    
+    @IBOutlet weak var profileImageView: UIImageView!
+    
+    @IBOutlet weak var userNameLabel: UILabel!
+    
+    @IBOutlet weak var aboutUserLabel: UILabel!
     
     var headerSections =  [HeaderSection(name: "Groups 2", collapsed: false), HeaderSection(name: "Friends 5", collapsed: false)]
     
@@ -38,12 +44,26 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         homeTableView.dataSource = self
         homeTableView.delegate = self
         
+        loadPerson()
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) { // As soon as vc appears
         super.viewWillAppear(true)
     }
-    
+    func loadPerson() {
+        
+        person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
+
+        //labelInitials.text = person.initials()
+        MediaDownload.startUser(person.objectId, pictureAt: person.pictureAt) { image, error in
+            if (error == nil) {
+                self.profileImageView.image = image?.square(to: 70)
+                self.profileImageView.makeRounded()
+            }
+        }
+        userNameLabel.text = person.fullname
+        aboutUserLabel.text = person.about
+    }
     @IBAction func onSettingPressed(_ sender: Any) {
         let mainstoryboard = UIStoryboard.init(name: "Setting", bundle: nil)
         let vc = mainstoryboard.instantiateViewController(withIdentifier: "settingVC")

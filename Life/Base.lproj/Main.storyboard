@@ -240,8 +240,11 @@
                     </view>
                     <navigationItem key="navigationItem" id="GDo-Bp-J4b"/>
                     <connections>
+                        <outlet property="aboutUserLabel" destination="79U-0n-4KO" id="wxy-8K-Bf9"/>
                         <outlet property="homeTableView" destination="CYM-iw-S5U" id="Fd8-cA-vkp"/>
+                        <outlet property="profileImageView" destination="LOr-u7-m6N" id="6lr-c2-DxI"/>
                         <outlet property="searchBar" destination="rA2-7L-UWc" id="Ttu-Qe-OoS"/>
+                        <outlet property="userNameLabel" destination="uOA-We-jee" id="fea-9G-IAG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nfD-zS-vTf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
