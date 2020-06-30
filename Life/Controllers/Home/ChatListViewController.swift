@@ -32,7 +32,15 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
         chatsTableView.dataSource = self
         chatsTableView.delegate = self
     }
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let vc =  self.storyboard?.instantiateViewController(identifier: "chatViewController") as! ChatViewController
+        vc.modalPresentationStyle = .fullScreen
+        vc.hidesBottomBarWhenPushed = true
+        //self.present(vc, animated: true, completion: nil)
+        
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 5
     }

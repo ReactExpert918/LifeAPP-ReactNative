@@ -14,6 +14,7 @@
 		A60845BE24A30390005F23A9 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60845BD24A30390005F23A9 /* SignupViewController.swift */; };
 		A60845C124A3059B005F23A9 /* OTPVerificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60845C024A3059B005F23A9 /* OTPVerificationViewController.swift */; };
 		A60845C324A30F97005F23A9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A60845C224A30F97005F23A9 /* GoogleService-Info.plist */; };
+		A6379AEA24AAD578003E1879 /* Group.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A6379AE924AAD578003E1879 /* Group.storyboard */; };
 		A6DEA82224A82A7100868625 /* RCMessageVideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6DEA81B24A82A7100868625 /* RCMessageVideoCell.swift */; };
 		A6DEA82324A82A7100868625 /* RCMessagePhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6DEA81C24A82A7100868625 /* RCMessagePhotoCell.swift */; };
 		A6DEA82424A82A7100868625 /* RCMessageTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6DEA81D24A82A7100868625 /* RCMessageTextCell.swift */; };
@@ -68,10 +69,6 @@
 		A6DEA88E24A8537500868625 /* Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6DEA88D24A8537500868625 /* Audio.swift */; };
 		A6DEA89024A854F400868625 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6DEA88F24A854F400868625 /* LocationManager.swift */; };
 		A6DEA89224A8557000868625 /* Convert.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6DEA89124A8557000868625 /* Convert.swift */; };
-		A6DEA89924A8632100868625 /* RCFooterUpperCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6DEA89424A8632100868625 /* RCFooterUpperCell.swift */; };
-		A6DEA89A24A8632100868625 /* RCFooterLowerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6DEA89524A8632100868625 /* RCFooterLowerCell.swift */; };
-		A6DEA89B24A8632100868625 /* RCHeaderLowerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6DEA89724A8632100868625 /* RCHeaderLowerCell.swift */; };
-		A6DEA89C24A8632100868625 /* RCHeaderUpperCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6DEA89824A8632100868625 /* RCHeaderUpperCell.swift */; };
 		A6DEA89F24A86A0C00868625 /* RCMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6DEA89E24A86A0C00868625 /* RCMenuItem.swift */; };
 		A6DEA8A524A8717800868625 /* RCLocationLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6DEA8A124A8717800868625 /* RCLocationLoader.swift */; };
 		A6DEA8A624A8717800868625 /* RCPhotoLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6DEA8A224A8717800868625 /* RCPhotoLoader.swift */; };
@@ -99,6 +96,10 @@
 		A6F564C524A8D73D0061007E /* rcmessage_incoming.aiff in Resources */ = {isa = PBXBuildFile; fileRef = A6F564BD24A8D73D0061007E /* rcmessage_incoming.aiff */; };
 		A6F564C624A8D73D0061007E /* rcmessage_send@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A6F564BE24A8D73D0061007E /* rcmessage_send@2x.png */; };
 		A6F564C724A8D73D0061007E /* rcmessages_audiopause@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A6F564BF24A8D73D0061007E /* rcmessages_audiopause@2x.png */; };
+		A6F564CC24A9B5310061007E /* RCHeaderLowerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6F564CA24A9B5310061007E /* RCHeaderLowerCell.swift */; };
+		A6F564CD24A9B5310061007E /* RCHeaderUpperCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6F564CB24A9B5310061007E /* RCHeaderUpperCell.swift */; };
+		A6F564D024A9B53C0061007E /* RCFooterUpperCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6F564CE24A9B53B0061007E /* RCFooterUpperCell.swift */; };
+		A6F564D124A9B53C0061007E /* RCFooterLowerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6F564CF24A9B53C0061007E /* RCFooterLowerCell.swift */; };
 		A6F7883424A6ED400019B35D /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6F7883324A6ED400019B35D /* ChatViewController.swift */; };
 		AB13A9DB24A2EF610028731D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB13A9DA24A2EF610028731D /* AppDelegate.swift */; };
 		AB13A9DD24A2EF610028731D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB13A9DC24A2EF610028731D /* SceneDelegate.swift */; };
@@ -157,6 +158,7 @@
 		A60845BD24A30390005F23A9 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		A60845C024A3059B005F23A9 /* OTPVerificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPVerificationViewController.swift; sourceTree = "<group>"; };
 		A60845C224A30F97005F23A9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		A6379AE924AAD578003E1879 /* Group.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Group.storyboard; sourceTree = "<group>"; };
 		A6DEA81B24A82A7100868625 /* RCMessageVideoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCMessageVideoCell.swift; sourceTree = "<group>"; };
 		A6DEA81C24A82A7100868625 /* RCMessagePhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCMessagePhotoCell.swift; sourceTree = "<group>"; };
 		A6DEA81D24A82A7100868625 /* RCMessageTextCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCMessageTextCell.swift; sourceTree = "<group>"; };
@@ -211,10 +213,6 @@
 		A6DEA88D24A8537500868625 /* Audio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Audio.swift; sourceTree = "<group>"; };
 		A6DEA88F24A854F400868625 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		A6DEA89124A8557000868625 /* Convert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Convert.swift; sourceTree = "<group>"; };
-		A6DEA89424A8632100868625 /* RCFooterUpperCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCFooterUpperCell.swift; sourceTree = "<group>"; };
-		A6DEA89524A8632100868625 /* RCFooterLowerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCFooterLowerCell.swift; sourceTree = "<group>"; };
-		A6DEA89724A8632100868625 /* RCHeaderLowerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCHeaderLowerCell.swift; sourceTree = "<group>"; };
-		A6DEA89824A8632100868625 /* RCHeaderUpperCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCHeaderUpperCell.swift; sourceTree = "<group>"; };
 		A6DEA89E24A86A0C00868625 /* RCMenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCMenuItem.swift; sourceTree = "<group>"; };
 		A6DEA8A124A8717800868625 /* RCLocationLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCLocationLoader.swift; sourceTree = "<group>"; };
 		A6DEA8A224A8717800868625 /* RCPhotoLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCPhotoLoader.swift; sourceTree = "<group>"; };
@@ -242,6 +240,10 @@
 		A6F564BD24A8D73D0061007E /* rcmessage_incoming.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = rcmessage_incoming.aiff; sourceTree = "<group>"; };
 		A6F564BE24A8D73D0061007E /* rcmessage_send@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rcmessage_send@2x.png"; sourceTree = "<group>"; };
 		A6F564BF24A8D73D0061007E /* rcmessages_audiopause@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rcmessages_audiopause@2x.png"; sourceTree = "<group>"; };
+		A6F564CA24A9B5310061007E /* RCHeaderLowerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCHeaderLowerCell.swift; sourceTree = "<group>"; };
+		A6F564CB24A9B5310061007E /* RCHeaderUpperCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCHeaderUpperCell.swift; sourceTree = "<group>"; };
+		A6F564CE24A9B53B0061007E /* RCFooterUpperCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCFooterUpperCell.swift; sourceTree = "<group>"; };
+		A6F564CF24A9B53C0061007E /* RCFooterLowerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCFooterLowerCell.swift; sourceTree = "<group>"; };
 		A6F7883324A6ED400019B35D /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		AB13A9D724A2EF610028731D /* Life.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Life.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB13A9DA24A2EF610028731D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -368,6 +370,14 @@
 			path = OTP;
 			sourceTree = "<group>";
 		};
+		A6379AE824AAD55B003E1879 /* Groups */ = {
+			isa = PBXGroup;
+			children = (
+				A6379AE924AAD578003E1879 /* Group.storyboard */,
+			);
+			path = Groups;
+			sourceTree = "<group>";
+		};
 		A69019E924A3338900ED737F /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -415,8 +425,8 @@
 		A6DEA81924A82A5F00868625 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				A6DEA89324A8632100868625 /* Footer */,
-				A6DEA89624A8632100868625 /* Header */,
+				A6F564C924A9AD660061007E /* Footer */,
+				A6F564C824A9AD660061007E /* Header */,
 				A6DEA81A24A82A7100868625 /* Message */,
 			);
 			path = Cell;
@@ -547,26 +557,6 @@
 			path = media;
 			sourceTree = "<group>";
 		};
-		A6DEA89324A8632100868625 /* Footer */ = {
-			isa = PBXGroup;
-			children = (
-				A6DEA89424A8632100868625 /* RCFooterUpperCell.swift */,
-				A6DEA89524A8632100868625 /* RCFooterLowerCell.swift */,
-			);
-			name = Footer;
-			path = "../../../../../../../../../../Users/xianhuang/Downloads/Messenger-master/Messenger/Classes/Chat/RelatedChat/MessagesView/Cell/Footer";
-			sourceTree = "<group>";
-		};
-		A6DEA89624A8632100868625 /* Header */ = {
-			isa = PBXGroup;
-			children = (
-				A6DEA89724A8632100868625 /* RCHeaderLowerCell.swift */,
-				A6DEA89824A8632100868625 /* RCHeaderUpperCell.swift */,
-			);
-			name = Header;
-			path = "../../../../../../../../../../Users/xianhuang/Downloads/Messenger-master/Messenger/Classes/Chat/RelatedChat/MessagesView/Cell/Header";
-			sourceTree = "<group>";
-		};
 		A6DEA89D24A86A0C00868625 /* MenuItem */ = {
 			isa = PBXGroup;
 			children = (
@@ -643,6 +633,24 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
+		A6F564C824A9AD660061007E /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				A6F564CA24A9B5310061007E /* RCHeaderLowerCell.swift */,
+				A6F564CB24A9B5310061007E /* RCHeaderUpperCell.swift */,
+			);
+			path = Header;
+			sourceTree = "<group>";
+		};
+		A6F564C924A9AD660061007E /* Footer */ = {
+			isa = PBXGroup;
+			children = (
+				A6F564CF24A9B53C0061007E /* RCFooterLowerCell.swift */,
+				A6F564CE24A9B53B0061007E /* RCFooterUpperCell.swift */,
+			);
+			path = Footer;
+			sourceTree = "<group>";
+		};
 		A6F7883224A6ED1D0019B35D /* Chat */ = {
 			isa = PBXGroup;
 			children = (
@@ -676,6 +684,7 @@
 		AB13A9D924A2EF610028731D /* Life */ = {
 			isa = PBXGroup;
 			children = (
+				A6379AE824AAD55B003E1879 /* Groups */,
 				AB82ACD424A5453000D83E47 /* Friends */,
 				AB82ACC924A5452600D83E47 /* Setting */,
 				A6E73B4124A4F2EC0008CBFE /* Extension */,
@@ -877,6 +886,7 @@
 				A6F564C524A8D73D0061007E /* rcmessage_incoming.aiff in Resources */,
 				A6F564C224A8D73D0061007E /* rcmessages_audioplay@2x.png in Resources */,
 				A6F564C424A8D73D0061007E /* rcmessage_outgoing.aiff in Resources */,
+				A6379AEA24AAD578003E1879 /* Group.storyboard in Resources */,
 				AB82ACD224A5452700D83E47 /* SettingCellHeader.xib in Resources */,
 				A6E79AB324A65D07009458A1 /* FriendCell.xib in Resources */,
 				A6F564C024A8D73D0061007E /* rcmessages_manual@2x.png in Resources */,
@@ -1012,7 +1022,6 @@
 				A6DEA89F24A86A0C00868625 /* RCMenuItem.swift in Sources */,
 				A6DEA83924A8351100868625 /* SyncEngine.swift in Sources */,
 				AB13A9DF24A2EF610028731D /* ViewController.swift in Sources */,
-				A6DEA89924A8632100868625 /* RCFooterUpperCell.swift in Sources */,
 				A6DEA86F24A8405300868625 /* Details.swift in Sources */,
 				AB82ACE024A5472800D83E47 /* Util.swift in Sources */,
 				A6DEA89024A854F400868625 /* LocationManager.swift in Sources */,
@@ -1020,7 +1029,6 @@
 				A6E73B4F24A598CD0008CBFE /* HomeViewController.swift in Sources */,
 				A6DEA83D24A8355100868625 /* Date+Extension.swift in Sources */,
 				A6DEA84C24A8365900868625 /* FireObserver.swift in Sources */,
-				A6DEA89A24A8632100868625 /* RCFooterLowerCell.swift in Sources */,
 				A6DEA84B24A8365900868625 /* FireFetch.swift in Sources */,
 				A6DEA88124A84E9600868625 /* MediaUpload.swift in Sources */,
 				A6DEA85824A83B2D00868625 /* Connectivity.swift in Sources */,
@@ -1045,6 +1053,7 @@
 				AB82ACD324A5452700D83E47 /* SettingViewController.swift in Sources */,
 				A6DEA8A724A8717800868625 /* RCAudioLoader.swift in Sources */,
 				A6DEA87324A8405300868625 /* Persons.swift in Sources */,
+				A6F564CD24A9B5310061007E /* RCHeaderUpperCell.swift in Sources */,
 				A6DEA86024A83FF000868625 /* Single.swift in Sources */,
 				A60845BB24A3033D005F23A9 /* SignInViewController.swift in Sources */,
 				A6DEA87F24A84E9600868625 /* MediaUploader.swift in Sources */,
@@ -1058,6 +1067,7 @@
 				A6DEA88C24A8536900868625 /* Video.swift in Sources */,
 				A6E73B4324A4F3140008CBFE /* RoundButton.swift in Sources */,
 				A6DEA88224A84E9600868625 /* MediaManager.swift in Sources */,
+				A6F564CC24A9B5310061007E /* RCHeaderLowerCell.swift in Sources */,
 				AB82ACD024A5452700D83E47 /* SettingCell.swift in Sources */,
 				A6E73B4824A4F85F0008CBFE /* ExtensionView.swift in Sources */,
 				A6DEA88A24A8536300868625 /* PushNotification.swift in Sources */,
@@ -1068,18 +1078,17 @@
 				A6E79AB224A65D07009458A1 /* FriendCell.swift in Sources */,
 				AB13A9DD24A2EF610028731D /* SceneDelegate.swift in Sources */,
 				A6DEA82224A82A7100868625 /* RCMessageVideoCell.swift in Sources */,
-				A6DEA89C24A8632100868625 /* RCHeaderUpperCell.swift in Sources */,
 				A6DEA82D24A82AB000868625 /* RCDefaults.swift in Sources */,
 				A6DEA88024A84E9600868625 /* MediaDownload.swift in Sources */,
 				A6DEA85324A839D400868625 /* Dir.swift in Sources */,
 				A6E73B5124A5A6190008CBFE /* ChatListViewController.swift in Sources */,
-				A6DEA89B24A8632100868625 /* RCHeaderLowerCell.swift in Sources */,
 				A6E73B4C24A532880008CBFE /* UIColor+Hex.swift in Sources */,
 				A6DEA83224A82F7100868625 /* AppConstant.swift in Sources */,
 				A6DEA86E24A8405300868625 /* Singles.swift in Sources */,
 				A6DEA88624A8521700868625 /* Password.swift in Sources */,
 				A6DEA83524A8303A00868625 /* Message.swift in Sources */,
 				AB82ACD124A5452700D83E47 /* SettingCellHeader.swift in Sources */,
+				A6F564D124A9B53C0061007E /* RCFooterLowerCell.swift in Sources */,
 				A6DEA87924A848E000868625 /* Detail.swift in Sources */,
 				A6DEA86C24A8405300868625 /* Blockeds.swift in Sources */,
 				ABDAC92C24A64AE800E73667 /* SearchFriendsViewController.swift in Sources */,
@@ -1097,6 +1106,7 @@
 				AB82ACD924A5453100D83E47 /* AddFriendCell.swift in Sources */,
 				ABDAC93024A67D8C00E73667 /* SearchFriendCell.swift in Sources */,
 				A6DEA87124A8405300868625 /* Groups.swift in Sources */,
+				A6F564D024A9B53C0061007E /* RCFooterUpperCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

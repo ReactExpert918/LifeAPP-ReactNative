@@ -305,7 +305,7 @@ class ChatViewController: UIViewController {
         messageInputBar.inputTextView.isImagePasteEnabled = false
     }
     @IBAction func onBackPressed(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
     }
     
 }

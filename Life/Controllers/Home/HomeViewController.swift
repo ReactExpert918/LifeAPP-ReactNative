@@ -40,14 +40,21 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         // Do any additional setup after loading the view.
     }
+    override func viewWillAppear(_ animated: Bool) { // As soon as vc appears
+        super.viewWillAppear(true)
+    }
     
+    @IBAction func onSettingPressed(_ sender: Any) {
+        let mainstoryboard = UIStoryboard.init(name: "Setting", bundle: nil)
+        let vc = mainstoryboard.instantiateViewController(withIdentifier: "settingVC")
+//        self.navigationController?.pushViewController(vc, animated: true)
+        self.present(vc, animated: true, completion: nil)
+    }
     @IBAction func onAddFriendPressed(_ sender: Any) {
         let mainstoryboard = UIStoryboard.init(name: "Friend", bundle: nil)
         let vc = mainstoryboard.instantiateViewController(withIdentifier: "addFriendsVC")
-        //self.navigationController?.pushViewController(vc, animated: true)
-        
-        //vc.modalPresentationStyle = .fullScreen
-        //self.present(vc, animated: true, completion: nil)
+//        self.navigationController?.pushViewController(vc, animated: true)
+        self.present(vc, animated: true, completion: nil)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -58,7 +65,10 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         let vc =  self.storyboard?.instantiateViewController(identifier: "chatViewController") as! ChatViewController
         vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: true, completion: nil)
+        vc.hidesBottomBarWhenPushed = true
+        //self.present(vc, animated: true, completion: nil)
+        
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: ExpandableHeaderCell.GetReuseIdentifier()) as! ExpandableHeaderCell
