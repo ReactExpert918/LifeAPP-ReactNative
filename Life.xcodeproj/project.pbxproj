@@ -35,6 +35,10 @@
 		AB13A9E724A2EF670028731D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB13A9E524A2EF670028731D /* LaunchScreen.storyboard */; };
 		AB13A9F224A2EF670028731D /* LifeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB13A9F124A2EF670028731D /* LifeTests.swift */; };
 		AB13A9FD24A2EF670028731D /* LifeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB13A9FC24A2EF670028731D /* LifeUITests.swift */; };
+		AB277A7F24ACFC6000D6C783 /* CornerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB277A7E24ACFC6000D6C783 /* CornerView.swift */; };
+		AB277A8124AD041A00D6C783 /* RoundedCornerBorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB277A8024AD041A00D6C783 /* RoundedCornerBorderView.swift */; };
+		AB277A8724AD17F800D6C783 /* AddFriendBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB277A8624AD17F800D6C783 /* AddFriendBottomSheetViewController.swift */; };
+		AB277A8924AD266D00D6C783 /* MyQrGenerateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB277A8824AD266D00D6C783 /* MyQrGenerateViewController.swift */; };
 		AB3A81BB24A9B4920089127E /* BasicDetailInsertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3A81BA24A9B4920089127E /* BasicDetailInsertViewController.swift */; };
 		AB3A81BD24AA3B900089127E /* AddPictureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3A81BC24AA3B900089127E /* AddPictureViewController.swift */; };
 		AB3A81BF24AA539B0089127E /* SuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3A81BE24AA539B0089127E /* SuccessViewController.swift */; };
@@ -114,6 +118,10 @@
 		AB13A9F824A2EF670028731D /* LifeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LifeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB13A9FC24A2EF670028731D /* LifeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeUITests.swift; sourceTree = "<group>"; };
 		AB13A9FE24A2EF670028731D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AB277A7E24ACFC6000D6C783 /* CornerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerView.swift; sourceTree = "<group>"; };
+		AB277A8024AD041A00D6C783 /* RoundedCornerBorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCornerBorderView.swift; sourceTree = "<group>"; };
+		AB277A8624AD17F800D6C783 /* AddFriendBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendBottomSheetViewController.swift; sourceTree = "<group>"; };
+		AB277A8824AD266D00D6C783 /* MyQrGenerateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyQrGenerateViewController.swift; sourceTree = "<group>"; };
 		AB3A81BA24A9B4920089127E /* BasicDetailInsertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicDetailInsertViewController.swift; sourceTree = "<group>"; };
 		AB3A81BC24AA3B900089127E /* AddPictureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPictureViewController.swift; sourceTree = "<group>"; };
 		AB3A81BE24AA539B0089127E /* SuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessViewController.swift; sourceTree = "<group>"; };
@@ -263,6 +271,8 @@
 				A6E73B4224A4F3140008CBFE /* RoundButton.swift */,
 				A6E73B4B24A532880008CBFE /* UIColor+Hex.swift */,
 				A6E73B5224A5AAFF0008CBFE /* SearchbarExtension.swift */,
+				AB277A7E24ACFC6000D6C783 /* CornerView.swift */,
+				AB277A8024AD041A00D6C783 /* RoundedCornerBorderView.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -363,6 +373,8 @@
 				AB82ACD824A5453000D83E47 /* QrCodeViewController.swift */,
 				ABDAC92B24A64AE800E73667 /* SearchFriendsViewController.swift */,
 				ABDAC92F24A67D8C00E73667 /* SearchFriendCell.swift */,
+				AB277A8624AD17F800D6C783 /* AddFriendBottomSheetViewController.swift */,
+				AB277A8824AD266D00D6C783 /* MyQrGenerateViewController.swift */,
 			);
 			path = Friends;
 			sourceTree = "<group>";
@@ -639,7 +651,10 @@
 				AB82ACD324A5452700D83E47 /* SettingViewController.swift in Sources */,
 				A60845BB24A3033D005F23A9 /* SignInViewController.swift in Sources */,
 				A6E73B4324A4F3140008CBFE /* RoundButton.swift in Sources */,
+				AB277A7F24ACFC6000D6C783 /* CornerView.swift in Sources */,
 				AB82ACD024A5452700D83E47 /* SettingCell.swift in Sources */,
+				AB277A8724AD17F800D6C783 /* AddFriendBottomSheetViewController.swift in Sources */,
+				AB277A8124AD041A00D6C783 /* RoundedCornerBorderView.swift in Sources */,
 				A6E73B4824A4F85F0008CBFE /* ExtensionView.swift in Sources */,
 				AB82ACDA24A5453100D83E47 /* AddFriendsViewController.swift in Sources */,
 				A6E79AB224A65D07009458A1 /* FriendCell.swift in Sources */,
@@ -651,6 +666,7 @@
 				AB3A81BF24AA539B0089127E /* SuccessViewController.swift in Sources */,
 				ABDAC92C24A64AE800E73667 /* SearchFriendsViewController.swift in Sources */,
 				A60845B924A302BA005F23A9 /* WelcomeViewController.swift in Sources */,
+				AB277A8924AD266D00D6C783 /* MyQrGenerateViewController.swift in Sources */,
 				AB82ACDC24A5453100D83E47 /* QrCodeViewController.swift in Sources */,
 				AB82ACD924A5453100D83E47 /* AddFriendCell.swift in Sources */,
 				ABDAC93024A67D8C00E73667 /* SearchFriendCell.swift in Sources */,

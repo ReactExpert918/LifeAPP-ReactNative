@@ -89,19 +89,19 @@ class OTPVerificationViewController: UIViewController {
                 Util.showAlert(vc: self, error.localizedDescription , "")
                 return
             }
+            UserDefaults.standard.set(authResult?.user.uid, forKey: "uid")
             // OTP Verification completed
             self.hud.textLabel.text = "Signup successful."
             self.hud.dismiss(afterDelay: 2.0, animated: true)
             DispatchQueue.main.asyncAfter(deadline: .now()+2.1, execute: {
-                self.gotoMainViewController()
+                self.gotoBasicDetailInsertViewController()
             })
         }
     }
     
-    func gotoMainViewController() {
+    func gotoBasicDetailInsertViewController() {
         let vc =  self.storyboard?.instantiateViewController(identifier: "basicDetailInsertVC") as! BasicDetailInsertViewController
         self.navigationController?.pushViewController(vc, animated: true)
-        
     }
     
     @IBAction func onResendCodePressed(_ sender: Any) {
