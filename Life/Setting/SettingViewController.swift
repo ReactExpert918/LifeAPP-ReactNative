@@ -21,6 +21,12 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
         // Do any additional setup after loading the view.
     }
     
+    @IBAction func closeTapped(_ sender: Any) {
+        self.dismiss(animated: true) {
+            
+        }
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items[section].count
     }

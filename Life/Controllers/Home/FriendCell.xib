@@ -38,6 +38,10 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="profileImageView" destination="2Vf-kN-cZX" id="5RU-Ys-VZ8"/>
+                <outlet property="userNameLabel" destination="Jwz-xr-aic" id="GEM-tv-cER"/>
+            </connections>
             <point key="canvasLocation" x="128.98550724637681" y="141.29464285714286"/>
         </tableViewCell>
     </objects>

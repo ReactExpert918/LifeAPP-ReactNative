@@ -25,19 +25,26 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
 
         // Do any additional setup after loading the view.
     }
-    
+
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
     }
+    @IBAction func closeTapped(_ sender: Any) {
+        self.dismiss(animated: true){
+            
+        }
+    }
+    
     @IBAction func qrcodeTapped(_ sender: Any) {
         let vc = storyboard?.instantiateViewController(identifier: "qrcodeVC") as! QrCodeViewController
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true, completion: nil)
     }
     @IBAction func searchFriendsTapped(_ sender: Any) {
-        let vc = storyboard?.instantiateViewController(identifier: "searchFriendsNav") as! UINavigationController
-        vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: true, completion: nil)
+        let vc = storyboard?.instantiateViewController(identifier: "searchFriendsVC") as! SearchFriendsViewController
+        //vc.modalPresentationStyle = .fullScreen
+        //self.present(vc, animated: true, completion: nil)
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
 }

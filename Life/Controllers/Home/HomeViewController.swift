@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
@@ -23,6 +24,12 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet weak var aboutUserLabel: UILabel!
     
     var headerSections =  [HeaderSection(name: "Groups 2", collapsed: false), HeaderSection(name: "Friends 5", collapsed: false)]
+
+    private var tokenFriends: NotificationToken? = nil
+    private var tokenPersons: NotificationToken? = nil
+    
+    private var friends = realm.objects(Friend.self).filter(falsepredicate)
+    private var persons = realm.objects(Person.self).filter(falsepredicate)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +43,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         searchBar.setPlaceholder(textColor: UIColor(hexString: "#96B4D2")!)
         searchBar.setSearchImage(color: UIColor(hexString: "#96B4D2")!)
 //        searchBar.setClearButton(color: UIColor(hexString: "#96B4D2")!)
-        
+        searchBar.delegate = self        
         // Init TableView
         ExpandableHeaderCell.RegisterAsAHeader(withTableView: self.homeTableView)
         FriendCell.Register(withTableView: self.homeTableView)
@@ -44,11 +51,51 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         homeTableView.dataSource = self
         homeTableView.delegate = self
         
-        loadPerson()
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) { // As soon as vc appears
-        super.viewWillAppear(true)
+        super.viewWillAppear(animated)
+        
+        if (AuthUser.userId() != "") {
+            loadPerson()
+            loadFriends()
+        }
+    }
+    // MARK: - Realm methods
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    @objc func loadFriends() {
+
+        let predicate = NSPredicate(format: "userId == %@ AND isDeleted == NO", AuthUser.userId())
+        friends = realm.objects(Friend.self).filter(predicate)
+
+        tokenFriends?.invalidate()
+        friends.safeObserve({ changes in
+            self.loadPersons()
+        }, completion: { token in
+            self.tokenFriends = token
+        })
+    }
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func loadPersons(text: String = "") {
+
+        let predicate1 = NSPredicate(format: "objectId IN %@ AND NOT objectId IN %@", Friends.friendIds(), Blockeds.blockerIds())
+        let predicate2 = (text != "") ? NSPredicate(format: "fullname CONTAINS[c] %@", text) : NSPredicate(value: true)
+
+        persons = realm.objects(Person.self).filter(predicate1).filter(predicate2).sorted(byKeyPath: "fullname")
+
+        tokenPersons?.invalidate()
+        persons.safeObserve({ changes in
+            self.refreshTableView()
+        }, completion: { token in
+            self.tokenPersons = token
+        })
+    }
+    // MARK: - Refresh methods
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    @objc func refreshTableView() {
+        headerSections[1].name = "Friends \(persons.count)"
+        homeTableView.reloadData()
+
     }
     func loadPerson() {
         
@@ -68,12 +115,14 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let mainstoryboard = UIStoryboard.init(name: "Setting", bundle: nil)
         let vc = mainstoryboard.instantiateViewController(withIdentifier: "settingVC")
 //        self.navigationController?.pushViewController(vc, animated: true)
+        vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true, completion: nil)
     }
     @IBAction func onAddFriendPressed(_ sender: Any) {
         let mainstoryboard = UIStoryboard.init(name: "Friend", bundle: nil)
-        let vc = mainstoryboard.instantiateViewController(withIdentifier: "addFriendsVC")
+        let vc = mainstoryboard.instantiateViewController(withIdentifier: "addFriendRootVC")
 //        self.navigationController?.pushViewController(vc, animated: true)
+        vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true, completion: nil)
     }
     
@@ -104,7 +153,13 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return headerSections[section].collapsed ? 0 : 2
+        if section == 0 {
+            return headerSections[section].collapsed ? 0 : 2
+        }
+        else if section == 1{
+            return headerSections[section].collapsed ? 0 : persons.count
+        }
+        return 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -114,13 +169,55 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 return cell;
             }
         }
-        let cell = tableView.dequeueReusableCell(withIdentifier: FriendCell.GetCellReuseIdentifier(), for: indexPath)
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: FriendCell.GetCellReuseIdentifier(), for: indexPath) as! FriendCell
+        cell.selectionStyle = .none
+        if( indexPath.section == 1) {
+            let person = persons[indexPath.row]
+            cell.bindData(person: person)
+            cell.loadImage(person: person, tableView: tableView, indexPath: indexPath)
+        }
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 76
+    }
+}
+
+// MARK: - UISearchBarDelegate
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+extension HomeViewController: UISearchBarDelegate {
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+
+        
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func searchBarTextDidBeginEditing(_ searchBar_: UISearchBar) {
+
+        searchBar.setShowsCancelButton(true, animated: true)
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func searchBarTextDidEndEditing(_ searchBar_: UISearchBar) {
+
+        searchBar.setShowsCancelButton(false, animated: true)
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func searchBarCancelButtonClicked(_ searchBar_: UISearchBar) {
+
+        searchBar.text = ""
+        searchBar.resignFirstResponder()
+        
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func searchBarSearchButtonClicked(_ searchBar_: UISearchBar) {
+
+        searchBar.resignFirstResponder()
     }
 }
 

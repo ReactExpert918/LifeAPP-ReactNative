@@ -74,6 +74,8 @@ class SignInViewController: UIViewController, UITextViewDelegate {
                 self.createPerson()
             }
             self.dismiss(animated: true) {
+                NotificationCenter.default.post(name: Notification.Name(NotificationStatus.NOTIFICATION_USER_LOGGED_IN), object: nil)
+                
                 UIApplication.shared.windows.first?.rootViewController?.dismiss(animated: true, completion: nil)
                 let vc = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
         

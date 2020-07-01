@@ -88,6 +88,7 @@
 		A6E79AAF24A658E9009458A1 /* ExpandableHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A6E79AAD24A658E9009458A1 /* ExpandableHeaderCell.xib */; };
 		A6E79AB224A65D07009458A1 /* FriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E79AB024A65D07009458A1 /* FriendCell.swift */; };
 		A6E79AB324A65D07009458A1 /* FriendCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A6E79AB124A65D07009458A1 /* FriendCell.xib */; };
+		A6EDA03C24ACE5B100CA3A5F /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A6EDA03B24ACE59600CA3A5F /* Montserrat-Medium.ttf */; };
 		A6F2534F24ABA19500A31599 /* UIImageView+RoundedBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6F2534E24ABA19500A31599 /* UIImageView+RoundedBorder.swift */; };
 		A6F564C024A8D73D0061007E /* rcmessages_manual@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A6F564B824A8D73C0061007E /* rcmessages_manual@2x.png */; };
 		A6F564C124A8D73D0061007E /* rcmessage_attach@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A6F564B924A8D73C0061007E /* rcmessage_attach@2x.png */; };
@@ -236,6 +237,7 @@
 		A6E79AAD24A658E9009458A1 /* ExpandableHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExpandableHeaderCell.xib; sourceTree = "<group>"; };
 		A6E79AB024A65D07009458A1 /* FriendCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCell.swift; sourceTree = "<group>"; };
 		A6E79AB124A65D07009458A1 /* FriendCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendCell.xib; sourceTree = "<group>"; };
+		A6EDA03B24ACE59600CA3A5F /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Medium.ttf"; sourceTree = "<group>"; };
 		A6F2534E24ABA19500A31599 /* UIImageView+RoundedBorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+RoundedBorder.swift"; sourceTree = "<group>"; };
 		A6F564B824A8D73C0061007E /* rcmessages_manual@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rcmessages_manual@2x.png"; sourceTree = "<group>"; };
 		A6F564B924A8D73C0061007E /* rcmessage_attach@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rcmessage_attach@2x.png"; sourceTree = "<group>"; };
@@ -599,6 +601,7 @@
 		A6E73B3F24A4F1860008CBFE /* Font */ = {
 			isa = PBXGroup;
 			children = (
+				A6EDA03B24ACE59600CA3A5F /* Montserrat-Medium.ttf */,
 				A6E73B4924A504770008CBFE /* Montserrat-Regular.ttf */,
 				A6E73B4024A4F1900008CBFE /* Montserrat-Bold.ttf */,
 				A6E73B4424A4F4560008CBFE /* Montserrat-SemiBold.ttf */,
@@ -880,6 +883,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A6EDA03C24ACE5B100CA3A5F /* Montserrat-Medium.ttf in Resources */,
 				A6F564C324A8D73D0061007E /* rcmessages_videoplay@2x.png in Resources */,
 				A6F564C624A8D73D0061007E /* rcmessage_send@2x.png in Resources */,
 				A6E73B4A24A50A190008CBFE /* Montserrat-Regular.ttf in Resources */,

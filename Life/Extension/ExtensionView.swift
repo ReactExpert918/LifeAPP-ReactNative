@@ -19,6 +19,13 @@ import UIKit
         }
     }
     
+    @IBInspectable var topCornerRadius: CGFloat = 0.00 {
+        didSet {
+            self.layer.cornerRadius = self.topCornerRadius
+            self.layer.maskedCorners = [.layerMinXMinYCorner,.layerMaxXMinYCorner]
+            layoutImage()
+        }
+    }
     // ImageView Attributes
     @IBInspectable var image: UIImage? { didSet {  layoutImage() } }
     @IBInspectable var imageContentMode: UIView.ContentMode = .scaleAspectFit { didSet { layoutImage() } }

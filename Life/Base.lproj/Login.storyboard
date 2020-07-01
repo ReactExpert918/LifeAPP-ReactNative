@@ -176,13 +176,13 @@ continue</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E1S-Sw-cIH">
-                                <rect key="frame" x="16" y="296.66666666666669" width="83.666666666666671" height="19.666666666666686"/>
+                                <rect key="frame" x="16" y="296.66666666666669" width="83.666666666666671" height="18.666666666666686"/>
                                 <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="16"/>
                                 <color key="textColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="0.55395252949999996" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nov-UU-9za">
-                                <rect key="frame" x="16" y="324.33333333333331" width="343" height="45"/>
+                                <rect key="frame" x="16" y="323.33333333333331" width="343" height="45"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Eg. john_smith" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fcb-tW-ahb">
                                         <rect key="frame" x="16" y="0.0" width="311" height="45"/>
@@ -201,13 +201,13 @@ continue</string>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zr3-I3-Cba">
-                                <rect key="frame" x="16" y="385.33333333333331" width="77.333333333333329" height="19.666666666666686"/>
+                                <rect key="frame" x="16" y="384.33333333333331" width="77.333333333333329" height="18.666666666666686"/>
                                 <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="16"/>
                                 <color key="textColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="0.55395252949999996" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tVY-nj-E2G">
-                                <rect key="frame" x="16" y="413" width="343" height="45"/>
+                                <rect key="frame" x="16" y="411" width="343" height="45"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WzH-08-Ezs">
                                         <rect key="frame" x="16" y="0.0" width="311" height="45"/>
@@ -239,7 +239,7 @@ continue</string>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="igv-TM-WRc" customClass="RoundButton" customModule="Life" customModuleProvider="target">
-                                <rect key="frame" x="16" y="488" width="343" height="45"/>
+                                <rect key="frame" x="16" y="486" width="343" height="45"/>
                                 <color key="backgroundColor" red="0.0" green="0.25098039220000001" blue="0.43137254899999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="vJ4-mk-K5M"/>
@@ -264,7 +264,7 @@ continue</string>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mMc-WR-Sj9">
-                                <rect key="frame" x="115.66666666666669" y="549" width="144" height="31"/>
+                                <rect key="frame" x="115.66666666666669" y="547" width="144" height="31"/>
                                 <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="15"/>
                                 <state key="normal" title="Forgot Password ?">
                                     <color key="titleColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -1052,13 +1052,13 @@ to complete registration</string>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confirm Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xIp-cY-lDn">
-                                <rect key="frame" x="16" y="343" width="147.66666666666666" height="19.666666666666686"/>
+                                <rect key="frame" x="16" y="343" width="147.66666666666666" height="18.666666666666686"/>
                                 <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="16"/>
                                 <color key="textColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="0.55395252949999996" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EFK-AB-gVU">
-                                <rect key="frame" x="16" y="370.66666666666669" width="343" height="45"/>
+                                <rect key="frame" x="16" y="369.66666666666669" width="343" height="45"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aBt-wQ-MV3">
                                         <rect key="frame" x="16" y="0.0" width="311" height="45"/>
@@ -1090,7 +1090,7 @@ to complete registration</string>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ogy-KO-8bl" customClass="RoundButton" customModule="Life" customModuleProvider="target">
-                                <rect key="frame" x="16" y="435.66666666666669" width="343" height="45"/>
+                                <rect key="frame" x="16" y="434.66666666666669" width="343" height="45"/>
                                 <color key="backgroundColor" red="0.0" green="0.25098039220000001" blue="0.43137254899999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="Cai-c5-gbB"/>
@@ -1480,13 +1480,13 @@ to complete registration</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kindly login to continue using our services" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oed-J0-Wl8">
-                                <rect key="frame" x="39" y="397" width="297" height="18.333333333333314"/>
+                                <rect key="frame" x="39" y="397" width="297" height="17.333333333333314"/>
                                 <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="14"/>
                                 <color key="textColor" red="0.46666666666666667" green="0.46666666666666667" blue="0.46666666666666667" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8wq-eJ-6gi" customClass="RoundButton" customModule="Life" customModuleProvider="target">
-                                <rect key="frame" x="80" y="445.33333333333331" width="215" height="45"/>
+                                <rect key="frame" x="80" y="444.33333333333331" width="215" height="45"/>
                                 <color key="backgroundColor" red="0.0" green="0.25098039220000001" blue="0.43137254899999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="Lvp-1p-TsP"/>
