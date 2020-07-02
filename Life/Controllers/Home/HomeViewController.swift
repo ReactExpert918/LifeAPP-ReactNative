@@ -126,18 +126,25 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         self.present(vc, animated: true, completion: nil)
     }
     
+    func openPrivateChat(chatId: String, recipientId: String) {
+        let vc =  self.storyboard?.instantiateViewController(identifier: "chatViewController") as! ChatViewController
+        vc.setParticipant(chatId: chatId, recipientId: recipientId)
+        vc.modalPresentationStyle = .fullScreen
+        vc.hidesBottomBarWhenPushed = true
+        //self.present(vc, animated: true, completion: nil)
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
     func numberOfSections(in tableView: UITableView) -> Int {
         return headerSections.count
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let vc =  self.storyboard?.instantiateViewController(identifier: "chatViewController") as! ChatViewController
-        vc.modalPresentationStyle = .fullScreen
-        vc.hidesBottomBarWhenPushed = true
-        //self.present(vc, animated: true, completion: nil)
-        
-        self.navigationController?.pushViewController(vc, animated: true)
+        if indexPath.section == 1 {
+            let friend = persons[indexPath.row]
+            let chatId = Singles.create(friend.objectId)
+            openPrivateChat(chatId: chatId, recipientId: friend.objectId)
+        }
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: ExpandableHeaderCell.GetReuseIdentifier()) as! ExpandableHeaderCell

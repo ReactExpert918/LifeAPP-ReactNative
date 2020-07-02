@@ -595,7 +595,10 @@
                         <color key="badgeColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBarItem>
                     <connections>
+                        <outlet property="participantNameLabel" destination="c89-3p-oYE" id="vVr-MN-buz"/>
+                        <outlet property="statusbarView" destination="7iP-Mb-Pcb" id="n2y-Nm-OAc"/>
                         <outlet property="tableView" destination="S5i-me-rWX" id="A6t-QI-JEJ"/>
+                        <outlet property="topbarView" destination="cOY-bW-lyB" id="3VZ-lI-dhs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e1M-ad-HBd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

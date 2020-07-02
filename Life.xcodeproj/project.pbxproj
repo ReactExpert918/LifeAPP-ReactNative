@@ -15,6 +15,10 @@
 		A60845C124A3059B005F23A9 /* OTPVerificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60845C024A3059B005F23A9 /* OTPVerificationViewController.swift */; };
 		A60845C324A30F97005F23A9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A60845C224A30F97005F23A9 /* GoogleService-Info.plist */; };
 		A6379AEA24AAD578003E1879 /* Group.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A6379AE924AAD578003E1879 /* Group.storyboard */; };
+		A6C9824824AE6B8C002280B6 /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C9824724AE6B8C002280B6 /* Chat.swift */; };
+		A6C9824B24AE6DC7002280B6 /* ChatHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C9824924AE6DC7002280B6 /* ChatHistoryCell.swift */; };
+		A6C9824C24AE6DC7002280B6 /* ChatHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A6C9824A24AE6DC7002280B6 /* ChatHistoryCell.xib */; };
+		A6C9824E24AE72E2002280B6 /* ChatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C9824D24AE72E1002280B6 /* ChatManager.swift */; };
 		A6DEA82224A82A7100868625 /* RCMessageVideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6DEA81B24A82A7100868625 /* RCMessageVideoCell.swift */; };
 		A6DEA82324A82A7100868625 /* RCMessagePhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6DEA81C24A82A7100868625 /* RCMessagePhotoCell.swift */; };
 		A6DEA82424A82A7100868625 /* RCMessageTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6DEA81D24A82A7100868625 /* RCMessageTextCell.swift */; };
@@ -164,6 +168,10 @@
 		A60845C024A3059B005F23A9 /* OTPVerificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPVerificationViewController.swift; sourceTree = "<group>"; };
 		A60845C224A30F97005F23A9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A6379AE924AAD578003E1879 /* Group.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Group.storyboard; sourceTree = "<group>"; };
+		A6C9824724AE6B8C002280B6 /* Chat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
+		A6C9824924AE6DC7002280B6 /* ChatHistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHistoryCell.swift; sourceTree = "<group>"; };
+		A6C9824A24AE6DC7002280B6 /* ChatHistoryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatHistoryCell.xib; sourceTree = "<group>"; };
+		A6C9824D24AE72E1002280B6 /* ChatManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatManager.swift; sourceTree = "<group>"; };
 		A6DEA81B24A82A7100868625 /* RCMessageVideoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCMessageVideoCell.swift; sourceTree = "<group>"; };
 		A6DEA81C24A82A7100868625 /* RCMessagePhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCMessagePhotoCell.swift; sourceTree = "<group>"; };
 		A6DEA81D24A82A7100868625 /* RCMessageTextCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCMessageTextCell.swift; sourceTree = "<group>"; };
@@ -398,6 +406,7 @@
 				A6DEA83B24A8354600868625 /* extensions */,
 				A6DEA85624A83B1900868625 /* manager */,
 				A6DEA87A24A84E9600868625 /* media */,
+				A6C9824624AE6B8C002280B6 /* realmobjects */,
 				A6DEA84024A8365900868625 /* sync_firebase */,
 				A6DEA83624A8351100868625 /* syncengine */,
 				A6DEA86324A8404200868625 /* syncmethods */,
@@ -406,6 +415,14 @@
 				A6DEA83124A82F7100868625 /* AppConstant.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		A6C9824624AE6B8C002280B6 /* realmobjects */ = {
+			isa = PBXGroup;
+			children = (
+				A6C9824724AE6B8C002280B6 /* Chat.swift */,
+			);
+			path = realmobjects;
 			sourceTree = "<group>";
 		};
 		A6DEA81624A8246100868625 /* Model */ = {
@@ -538,6 +555,7 @@
 		A6DEA85624A83B1900868625 /* manager */ = {
 			isa = PBXGroup;
 			children = (
+				A6C9824D24AE72E1002280B6 /* ChatManager.swift */,
 				A6DEA85724A83B2D00868625 /* Connectivity.swift */,
 				A6DEA88F24A854F400868625 /* LocationManager.swift */,
 			);
@@ -629,6 +647,8 @@
 				A6E79AAC24A658E9009458A1 /* ExpandableHeaderCell.swift */,
 				A6E79AAD24A658E9009458A1 /* ExpandableHeaderCell.xib */,
 				A6E73B5024A5A6190008CBFE /* ChatListViewController.swift */,
+				A6C9824924AE6DC7002280B6 /* ChatHistoryCell.swift */,
+				A6C9824A24AE6DC7002280B6 /* ChatHistoryCell.xib */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -889,6 +909,7 @@
 				A6E73B4A24A50A190008CBFE /* Montserrat-Regular.ttf in Resources */,
 				A6E73B4524A4F50D0008CBFE /* Montserrat-Bold.ttf in Resources */,
 				A6E73B4624A4F50D0008CBFE /* Montserrat-SemiBold.ttf in Resources */,
+				A6C9824C24AE6DC7002280B6 /* ChatHistoryCell.xib in Resources */,
 				A6F564C724A8D73D0061007E /* rcmessages_audiopause@2x.png in Resources */,
 				A6F564C124A8D73D0061007E /* rcmessage_attach@2x.png in Resources */,
 				A60845B124A2FEC1005F23A9 /* Login.storyboard in Resources */,
@@ -1070,6 +1091,7 @@
 				AB82ACD324A5452700D83E47 /* SettingViewController.swift in Sources */,
 				A6DEA8A724A8717800868625 /* RCAudioLoader.swift in Sources */,
 				A6DEA87324A8405300868625 /* Persons.swift in Sources */,
+				A6C9824824AE6B8C002280B6 /* Chat.swift in Sources */,
 				A6F564CD24A9B5310061007E /* RCHeaderUpperCell.swift in Sources */,
 				A6DEA86024A83FF000868625 /* Single.swift in Sources */,
 				A60845BB24A3033D005F23A9 /* SignInViewController.swift in Sources */,
@@ -1113,12 +1135,14 @@
 				AB3A81BF24AA539B0089127E /* SuccessViewController.swift in Sources */,
 				ABDAC92C24A64AE800E73667 /* SearchFriendsViewController.swift in Sources */,
 				A6F2534F24ABA19500A31599 /* UIImageView+RoundedBorder.swift in Sources */,
+				A6C9824E24AE72E2002280B6 /* ChatManager.swift in Sources */,
 				A6DEA88424A84EC600868625 /* Cryptor.swift in Sources */,
 				A6DEA82C24A82AB000868625 /* RCMessage.swift in Sources */,
 				A60845B924A302BA005F23A9 /* WelcomeViewController.swift in Sources */,
 				A6DEA83F24A835F100868625 /* Realm+Extension.swift in Sources */,
 				A6DEA84E24A8365900868625 /* FireStorage.swift in Sources */,
 				A6DEA8A824A8717800868625 /* RCVideoLoader.swift in Sources */,
+				A6C9824B24AE6DC7002280B6 /* ChatHistoryCell.swift in Sources */,
 				A6F7883424A6ED400019B35D /* ChatViewController.swift in Sources */,
 				A6DEA84D24A8365900868625 /* FireUpdater.swift in Sources */,
 				A6DEA88E24A8537500868625 /* Audio.swift in Sources */,

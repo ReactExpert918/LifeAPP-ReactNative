@@ -187,7 +187,7 @@ class FireObservers: NSObject {
 		for chatId in chatIds {
 			if (observerMessages[chatId] == nil) {
 				let query = Firestore.firestore().collection("Message").whereField("chatId", isEqualTo: chatId)
-					.whereField("updatedAt", isGreaterThan: Message.lastUpdatedAt(chatId))
+//					.whereField("updatedAt", isGreaterThan: Message.lastUpdatedAt(chatId))
 				observerMessages[chatId] = FireObserver(query, to: Message.self)
 			}
 		}

@@ -7,11 +7,27 @@
 //
 
 import UIKit
+import RealmSwift
 import InputBarAccessoryView
+import IQKeyboardManagerSwift
+
 class ChatViewController: UIViewController {
 
+    private var chatId = ""
+    private var recipientId = ""
+    
+    private var detail: Detail?
+    private var details = realm.objects(Detail.self).filter(falsepredicate)
     private var messages = realm.objects(Message.self).filter(falsepredicate)
     
+    private var tokenDetails: NotificationToken? = nil
+    private var tokenMessages: NotificationToken? = nil
+
+
+    
+    @IBOutlet weak var participantNameLabel: UILabel!
+    @IBOutlet weak var statusbarView: UIView!
+    @IBOutlet weak var topbarView: UIView!
     @IBOutlet weak var tableView: UITableView!
     
     var messageInputBar = InputBarAccessoryView()
@@ -19,15 +35,21 @@ class ChatViewController: UIViewController {
     
     private var heightKeyboard: CGFloat = 0
     private var keyboardWillShow = false
+        
+    private var rcmessages: [String: RCMessage] = [:]
+    private var avatarImages: [String: UIImage] = [:]
     
     private var messageToDisplay: Int = 12
-    
-//    private var rcmessages: [String: RCMessage] = [:]
-    private var rcmessages: [RCMessage] = []
+
+    private var typingCounter: Int = 0
+    private var lastRead: Int64 = 0
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        IQKeyboardManager.shared.enable = false
+        
         tableView.register(RCHeaderUpperCell.self, forCellReuseIdentifier: "RCHeaderUpperCell")
         tableView.register(RCHeaderLowerCell.self, forCellReuseIdentifier: "RCHeaderLowerCell")
 
@@ -51,42 +73,177 @@ class ChatViewController: UIViewController {
         // Do any additional setup after loading the view.
         configureMessageInputBar()
         
-        let message1 = RCMessage()
-        message1.type = MESSAGE_TYPE.MESSAGE_TEXT
-        message1.text = "Hello World"
-        rcmessages.append(message1)
-        
-        let message2 = RCMessage()
-        message2.type = MESSAGE_TYPE.MESSAGE_TEXT
-        message2.text = "Hello World"
-        rcmessages.append(message2)
-        
-        let message3 = RCMessage()
-        message3.type = MESSAGE_TYPE.MESSAGE_TEXT
-        message3.text = "Hello This is my test message"
-        message3.incoming = true
-        message3.outgoing = false
-        rcmessages.append(message3)
-        
-        let message4 = RCMessage()
-        message4.type = MESSAGE_TYPE.MESSAGE_TEXT
-        message4.text = "Hello World"
-        rcmessages.append(message4)
+        loadDetail()
+        loadDetails()
+        loadMessages()
+    }
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    override func viewWillAppear(_ animated: Bool) {
 
-        let message5 = RCMessage()
-        message5.type = MESSAGE_TYPE.MESSAGE_TEXT
-        message5.text = "Hello World"
-        rcmessages.append(message5)
-        
-        tableView.reloadData()
+        super.viewWillAppear(animated)
 
+        updateTitleDetails()
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    override func viewDidDisappear(_ animated: Bool) {
+
+        super.viewDidDisappear(animated)
+
+        IQKeyboardManager.shared.enable = true
+        
+        if (isMovingFromParent) {
+            actionCleanup()
+        }
     }
     //---------------------------------------------------------------------------------------------------------------------------------------------
     override func viewDidLayoutSubviews() {
 
         super.viewDidLayoutSubviews()
 
-        //layoutTableView()
+        layoutTableView()
+    }
+    // MARK: - Title details methods
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func updateTitleDetails() {
+
+        if let person = realm.object(ofType: Person.self, forPrimaryKey: recipientId) {
+            participantNameLabel.text = person.fullname
+//            labelTitle2.text = person.lastActiveText()
+        }
+    }
+    // MARK: - Cleanup methods
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func actionCleanup() {
+
+        tokenDetails?.invalidate()
+        tokenMessages?.invalidate()
+
+        detail?.update(typing: false)
+    }
+    func setParticipant(chatId: String, recipientId: String) {
+        self.chatId = chatId
+        self.recipientId = recipientId
+    }
+    // MARK: - Realm methods
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func loadDetail() {
+
+        let predicate = NSPredicate(format: "chatId == %@ AND userId == %@", chatId, AuthUser.userId())
+        detail = realm.objects(Detail.self).filter(predicate).first
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func loadDetails() {
+
+        let predicate = NSPredicate(format: "chatId == %@ AND userId != %@", chatId, AuthUser.userId())
+        details = realm.objects(Detail.self).filter(predicate)
+
+        details.safeObserve({ changes in
+            self.refreshTyping()
+            self.refreshLastRead()
+        }, completion: { token in
+            self.tokenDetails = token
+        })
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func loadMessages() {
+
+        let predicate = NSPredicate(format: "chatId == %@ AND isDeleted == NO", chatId)
+        messages = realm.objects(Message.self).filter(predicate).sorted(byKeyPath: "createdAt")
+
+        messages.safeObserve({ changes in
+            switch changes {
+                case .initial:
+                    self.refreshLoadEarlier()
+                    self.refreshTableView()
+                    self.scrollToBottom()
+                case .update(_, let delete, let insert, _):
+                    self.messageToDisplay -= delete.count
+                    self.messageToDisplay += insert.count
+                    self.refreshTableView()
+                    if (insert.count != 0) {
+                        self.scrollToBottom()
+                        self.playIncoming()
+                    }
+                default: break
+            }
+        }, completion: { token in
+            self.tokenMessages = token
+        })
+    }
+    // MARK: - Refresh methods
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func refreshLoadEarlier() {
+        loadEarlierShow(messageToDisplay < messages.count)
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func refreshTableView() {
+
+        tableView.reloadData()
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func scrollToBottom() {
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.scrollToBottom(animated: true)
+        }
+        detail?.update(lastRead: Date().timestamp())
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func playIncoming() {
+
+        if let message = messages.last {
+            if (message.userId != AuthUser.userId()) {
+                Audio.playMessageIncoming()
+            }
+        }
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func refreshTyping() {
+
+        var typing = false
+        for detail in details {
+            if (detail.typing) {
+                typing = true
+            }
+        }
+        //self.typingIndicatorShow(typing)
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func refreshLastRead() {
+
+        for detail in details {
+            if (detail.lastRead > lastRead) {
+                lastRead = detail.lastRead
+            }
+        }
+        refreshTableView()
+    }
+    // MARK: - Message send methods
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func messageSend(text: String?, photo: UIImage?, video: URL?, audio: String?) {
+
+        Messages.send(chatId: chatId, text: text, photo: photo, video: video, audio: audio)
+
+        //Shortcut.update(userId: recipientId)
+    }
+    // MARK: - Load earlier methods
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func loadEarlierShow(_ show: Bool) {
+/*
+        viewLoadEarlier.isHidden = !show
+        var frame: CGRect = viewLoadEarlier.frame
+        frame.size.height = show ? 50 : 0
+        viewLoadEarlier.frame = frame
+*/
+        tableView.reloadData()
     }
 
     // MARK: - Message methods
@@ -112,8 +269,6 @@ class ChatViewController: UIViewController {
     // MARK: - Message methods
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func rcmessageAt(_ indexPath: IndexPath) -> RCMessage {
-        return rcmessages[indexPath.row]
-/*
         let message = messageAt(indexPath)
         if let rcmessage = rcmessages[message.objectId] {
             rcmessage.update(message)
@@ -125,7 +280,6 @@ class ChatViewController: UIViewController {
         rcmessages[message.objectId] = rcmessage
         loadMedia(rcmessage)
         return rcmessage
- */
     }
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func loadMedia(_ rcmessage: RCMessage) {
@@ -143,20 +297,44 @@ class ChatViewController: UIViewController {
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func avatarInitials(_ indexPath: IndexPath) -> String {
 
-        return ""
+        let rcmessage = rcmessageAt(indexPath)
+        return rcmessage.userInitials
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func avatarImage(_ indexPath: IndexPath) -> UIImage? {
 
-        return nil
+        let rcmessage = rcmessageAt(indexPath)
+        var imageAvatar = avatarImages[rcmessage.userId]
+
+        if (imageAvatar == nil) {
+            if let path = MediaDownload.pathUser(rcmessage.userId) {
+                imageAvatar = UIImage.image(path, size: 30)
+                avatarImages[rcmessage.userId] = imageAvatar
+            }
+        }
+
+        if (imageAvatar == nil) {
+            MediaDownload.startUser(rcmessage.userId, pictureAt: rcmessage.userPictureAt) { image, error in
+                if (error == nil) {
+                    self.refreshTableView()
+                }
+            }
+        }
+
+        return imageAvatar
     }
 
     // MARK: - Header, Footer methods
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func textHeaderUpper(_ indexPath: IndexPath) -> String? {
 
-        return nil
+        if (indexPath.section % 3 == 0) {
+            let rcmessage = rcmessageAt(indexPath)
+            return Convert.timestampToDayMonthTime(rcmessage.createdAt)
+        } else {
+            return nil
+        }
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
@@ -174,6 +352,14 @@ class ChatViewController: UIViewController {
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func textFooterLower(_ indexPath: IndexPath) -> String? {
 
+        let rcmessage = rcmessageAt(indexPath)
+        if (rcmessage.outgoing) {
+            let message = messageAt(indexPath)
+            if (message.syncRequired)    { return "Queued" }
+            if (message.isMediaQueued)    { return "Queued" }
+            if (message.isMediaFailed)    { return "Failed" }
+            return (message.createdAt > lastRead) ? "Sent" : "Read"
+        }
         return nil
     }
     // MARK: - Menu controller methods
@@ -201,7 +387,7 @@ class ChatViewController: UIViewController {
     }
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func actionSendMessage(_ text: String) {
-
+        messageSend(text: text, photo: nil, video: nil, audio: nil)
     }
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func typingIndicatorUpdate() {
@@ -219,17 +405,19 @@ class ChatViewController: UIViewController {
 
         let heightInput = messageInputBar.bounds.height
 
+        let tableviewtoppos = statusbarView.frame.height + topbarView.frame.height
+        
         let widthTable = widthView - leftSafe - rightSafe
-        let heightTable = heightView - heightInput - heightKeyboard
+        let heightTable = heightView - heightInput - heightKeyboard - tableviewtoppos
 
-        tableView.frame = CGRect(x: leftSafe, y: 0, width: widthTable, height: heightTable)
+        tableView.frame = CGRect(x: leftSafe, y: tableviewtoppos, width: widthTable, height: heightTable)
     }
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func scrollToBottom(animated: Bool) {
 
         if (tableView.numberOfSections > 0) {
-//            let indexPath = IndexPath(row: 0, section: tableView.numberOfSections - 1)
-//            tableView.scrollToRow(at: indexPath, at: .top, animated: animated)
+            let indexPath = IndexPath(row: 0, section: tableView.numberOfSections - 1)
+            tableView.scrollToRow(at: indexPath, at: .top, animated: animated)
         }
     }
     // MARK: - Keyboard methods
@@ -322,7 +510,7 @@ extension ChatViewController: UITableViewDataSource {
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func numberOfSections(in tableView: UITableView) -> Int {
 
-        return 1
+        return messageLoadedCount()
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
