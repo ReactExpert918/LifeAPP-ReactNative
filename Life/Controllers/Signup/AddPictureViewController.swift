@@ -10,17 +10,22 @@ import UIKit
 import FirebaseAuth
 import FirebaseStorage
 import JGProgressHUD
-
+import RealmSwift
 class AddPictureViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
     var avatarCovered : Bool = false
     @IBOutlet weak var cameraView: UIView!
     @IBOutlet weak var avata: UIImageView!
     @IBOutlet weak var publicName: UITextField!
+    
     let hud = JGProgressHUD(style: .light)
+    private var person: Person!    
     override func viewDidLoad() {
         super.viewDidLoad()
         cameraView.isHidden = true
+        
+        // load Person
+        person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
         // Do any additional setup after loading the view.
     }
     @IBAction func onCameraTapped(_ sender: Any) {
@@ -46,6 +51,7 @@ class AddPictureViewController: UIViewController, UINavigationControllerDelegate
         avatarCovered = true
         // print out the image size as a test
         print(image.size)
+        uploadPicture(image: image)
     }
     @IBAction func onBottomCameraTapped(_ sender: Any) {
         openCamera()
@@ -95,6 +101,37 @@ class AddPictureViewController: UIViewController, UINavigationControllerDelegate
             }
         }
         
+//        let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+//        changeRequest?.displayName = publicName.text!
+//        changeRequest?.commitChanges { (error) in
+//          
+//        }
+        let realm = try! Realm()
+        try! realm.safeWrite {
+            person.fullname    = publicName.text!
+            person.syncRequired = true
+            person.updatedAt = Date().timestamp()
+        }
+        let vc =  self.storyboard?.instantiateViewController(identifier: "successVC") as! SuccessViewController
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func uploadPicture(image: UIImage) {
+        let temp = image.square(to: 300)
+        if let data = temp.jpegData(compressionQuality: 0.6) {
+            MediaUpload.user(AuthUser.userId(), data: data, completion: { error in
+                if (error == nil) {
+                    MediaDownload.saveUser(AuthUser.userId(), data: data)
+                    self.person.update(pictureAt: Date().timestamp())
+                } else {
+                    DispatchQueue.main.async {
+                        self.hud.textLabel.text = "Picture upload error."
+                        self.hud.show(in: self.view, animated: true)
+                    }
+                    self.hud.dismiss(afterDelay: 1.0, animated: true)
+                }
+            })
+        }
     }
     /*
     // MARK: - Navigation

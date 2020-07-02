@@ -16,6 +16,7 @@ class SuccessViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     @IBAction func onStartTapped(_ sender: Any) {
+        AuthUser.logOut()
         let vc =  self.storyboard?.instantiateViewController(identifier: "signinVC") as! SignInViewController
         self.navigationController?.pushViewController(vc, animated: true)
     }

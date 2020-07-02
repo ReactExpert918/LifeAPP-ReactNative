@@ -30,6 +30,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneDidBecomeActive(_ scene: UIScene) {
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
+        LocationManager.start()
+        MediaManager.cleanupExpired()
+        
+        NotificationCenter.default.post(name: Notification.Name(NotificationStatus.NOTIFICATION_APP_STARTED), object: nil)
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            Persons.update(lastActive: Date().timestamp())
+            Persons.update(oneSignalId: PushNotification.oneSignalId())
+        }
     }
 
     func sceneWillResignActive(_ scene: UIScene) {

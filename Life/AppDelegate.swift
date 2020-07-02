@@ -9,6 +9,13 @@
 import UIKit
 import IQKeyboardManagerSwift
 import Firebase
+import RealmSwift
+import OneSignal
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+let realm = try! Realm()
+let falsepredicate = NSPredicate(value: false)
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,7 +25,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         IQKeyboardManager.shared.enable = true
-        FirebaseApp.configure()
+        //-----------------------------------------------------------------------------------------------------------------------------------------
+        // SyncEngine initialization
+        //-----------------------------------------------------------------------------------------------------------------------------------------
+        SyncEngine.initBackend()
+        SyncEngine.initUpdaters()
+        SyncEngine.initObservers()
+        //-----------------------------------------------------------------------------------------------------------------------------------------
+        // Push notification initialization
+        //-----------------------------------------------------------------------------------------------------------------------------------------
+        let authorizationOptions: UNAuthorizationOptions = [.sound, .alert, .badge]
+        UNUserNotificationCenter.current().requestAuthorization(options: authorizationOptions, completionHandler: { granted, error in
+            if (error == nil) {
+                DispatchQueue.main.async {
+                    UIApplication.shared.registerForRemoteNotifications()
+                }
+            }
+        })
+
         return true
     }
 

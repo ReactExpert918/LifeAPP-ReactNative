@@ -9,7 +9,7 @@
 import UIKit
 import FirebaseAuth
 import JGProgressHUD
-
+import RealmSwift
 class BasicDetailInsertViewController: UIViewController {
     
     var password_eye_off = true
@@ -21,9 +21,14 @@ class BasicDetailInsertViewController: UIViewController {
     @IBOutlet weak var confirmPassword: UITextField!
     @IBOutlet weak var passwordEye: UIButton!
     @IBOutlet weak var confirmPasswordEye: UIButton!
+    
+    private var person: Person!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // load Person
+        person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
         // Do any additional setup after loading the view.
     }
     @IBAction func backTapped(_ sender: Any) {
@@ -59,6 +64,15 @@ class BasicDetailInsertViewController: UIViewController {
                     Util.showAlert(vc: self, error?.localizedDescription ?? "", "")
                     return
                 }
+                
+                // Save Email
+                let realm = try! Realm()
+                try! realm.safeWrite {
+                    self.person.email = self.userName.text!
+                    self.person.syncRequired = true
+                    self.person.updatedAt = Date().timestamp()
+                }
+                
                 let vc =  self.storyboard?.instantiateViewController(identifier: "addPictureVC") as! AddPictureViewController
                 self.navigationController?.pushViewController(vc, animated: true)
             }

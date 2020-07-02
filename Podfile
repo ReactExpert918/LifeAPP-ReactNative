@@ -9,6 +9,8 @@ target 'Life' do
   pod 'Firebase/Analytics'
   pod 'Firebase/Messaging'
   pod 'Firebase/Database'
+  pod 'Firebase/Firestore'
+  pod 'Firebase/Storage'
   pod 'Firebase/Auth'
   pod 'Firebase/Storage'
   pod 'SkyFloatingLabelTextField', '~> 3.0'
@@ -17,11 +19,17 @@ target 'Life' do
   pod 'JGProgressHUD'
   pod 'FlagPhoneNumber'
   pod 'BEMCheckBox'
+  pod 'CryptoSwift'
+  pod 'MessageKit'
+  pod 'OneSignal'
+  pod 'RealmSwift'
+  pod 'Reachability'
+  pod 'ProgressHUD'
+  pod 'RNCryptor-objc'
   pod 'SwiftyAvatar', '~> 1.1'
   pod 'QRCodeReader.swift', '~> 10.1.0'
   pod 'FittedSheets'
   
-
   target 'LifeTests' do
     inherit! :search_paths
     # Pods for testing

@@ -56,21 +56,18 @@ class SignInViewController: UIViewController, UITextViewDelegate {
             return
         }
         DispatchQueue.main.async {
-            self.hud.textLabel.text = "Login..."
+            self.hud.textLabel.text = "Logging in..."
             self.hud.show(in: self.view, animated: true)
         }
         Auth.auth().signIn(withEmail: userName.text!, password: password.text!) { [weak self] authResult, error in
-            self!.hud.dismiss(afterDelay: 1.0, animated: true)
+            self?.hud.dismiss()
             if error != nil {
                 self!.errorText.text = "Incorrect phone number or password,\nPlease try again!"
                 self!.errorText.textColor = UIColor(hexString: "#DF1747")
                 self!.errorText.font = UIFont(name: "Montserrat-Regular", size: 14.0)
                 return
             }
-            UIApplication.shared.windows.first?.rootViewController?.dismiss(animated: true, completion: nil)
-            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
-    
-            UIApplication.shared.windows.first?.rootViewController = vc
+            self?.loadPerson()
         }
     }
     func subscribeToShowKeyboardNotifications() {
@@ -82,6 +79,22 @@ class SignInViewController: UIViewController, UITextViewDelegate {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y == 0 {
                 self.view.frame.origin.y -= keyboardSize.height
+    // MARK: -
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func loadPerson() {
+
+        let userId = AuthUser.userId()
+        FireFetcher.fetchPerson(userId) { error in
+            if (error != nil) {
+                self.createPerson()
+            }
+            self.dismiss(animated: true) {
+                NotificationCenter.default.post(name: Notification.Name(NotificationStatus.NOTIFICATION_USER_LOGGED_IN), object: nil)
+                
+                UIApplication.shared.windows.first?.rootViewController?.dismiss(animated: true, completion: nil)
+                let vc = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
+        
+                UIApplication.shared.windows.first?.rootViewController = vc
             }
         }
     }
@@ -90,6 +103,13 @@ class SignInViewController: UIViewController, UITextViewDelegate {
         if self.view.frame.origin.y != 0 {
             self.view.frame.origin.y = 0
         }
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func createPerson() {
+
+        let email = (userName.text ?? "").lowercased()
+
+        let userId = AuthUser.userId()
+        Persons.create(userId, email: email)
     }
     @IBAction func onForgotPasswordTapped(_ sender: Any) {
     }

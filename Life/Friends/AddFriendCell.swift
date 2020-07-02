@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-class SearchFriendCell : UITableViewCell{
+class AddFriendCell : UITableViewCell{
     
     override func awakeFromNib() {
         super.awakeFromNib()
