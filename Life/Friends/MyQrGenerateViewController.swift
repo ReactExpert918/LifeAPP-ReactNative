@@ -9,25 +9,53 @@
 import UIKit
 
 class MyQrGenerateViewController: UIViewController {
+    
+    private var person: Person!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        let image = generateQRCode(from: AuthUser.userId())
+        myQrcode.image = image
         // Do any additional setup after loading the view.
     }
+    
+    override func viewWillAppear(_ animated: Bool) { // As soon as vc appears
+        super.viewWillAppear(animated)
+        
+        if (AuthUser.userId() != "") {
+            loadPerson()
+        }
+    }
+    
+    @IBOutlet weak var myQrcode: UIImageView!
+    @IBOutlet weak var name: UILabel!
+    @IBOutlet weak var phoneNumber: UILabel!
     @IBAction func onCancelTapped(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
-    
 
-    /*
-    // MARK: - Navigation
+    func generateQRCode(from string: String) -> UIImage? {
+        let data = string.data(using: String.Encoding.ascii)
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if let filter = CIFilter(name: "CIQRCodeGenerator") {
+            filter.setValue(data, forKey: "inputMessage")
+            let transform = CGAffineTransform(scaleX: 3, y: 3)
+
+            if let output = filter.outputImage?.transformed(by: transform) {
+                return UIImage(ciImage: output)
+            }
+        }
+
+        return nil
     }
-    */
+    
+    func loadPerson() {
+        person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
+        if let person = person{
+            name.text = person.fullname
+            phoneNumber.text = person.phone
+        }
+    }
 
 }

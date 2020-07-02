@@ -26,8 +26,6 @@ class SignInViewController: UIViewController, UITextViewDelegate {
         bottomText.isSelectable = true
         bottomText.isEditable = false
         scrollViewHeightConstraint.constant = UIScreen.main.bounds.size.height
-        // Subscribe Keyboard Popup
-        //subscribeToShowKeyboardNotifications()
     }
     
     @IBAction func onBackPressed(_ sender: Any) {
@@ -70,17 +68,6 @@ class SignInViewController: UIViewController, UITextViewDelegate {
             self?.loadPerson()
         }
     }
-    func subscribeToShowKeyboardNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
-    @objc func keyboardWillShow(_ notification: Notification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y == 0 {
-                self.view.frame.origin.y -= keyboardSize.height
-    // MARK: -
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func loadPerson() {
 
         let userId = AuthUser.userId()
@@ -99,11 +86,6 @@ class SignInViewController: UIViewController, UITextViewDelegate {
         }
     }
 
-    @objc func keyboardWillHide(_ notification: Notification) {
-        if self.view.frame.origin.y != 0 {
-            self.view.frame.origin.y = 0
-        }
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func createPerson() {
 
         let email = (userName.text ?? "").lowercased()

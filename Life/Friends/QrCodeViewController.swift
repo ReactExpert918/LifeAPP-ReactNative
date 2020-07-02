@@ -69,6 +69,8 @@ class QrCodeViewController: UIViewController, QRCodeReaderViewControllerDelegate
 
         reader.didFindCode = { result in
             let vc =  self.storyboard?.instantiateViewController(identifier: "addFriendBottomSheetVC") as! AddFriendBottomSheetViewController
+            self.reader.startScanning()
+            vc.qrCode = result.value
 
             let sheetController = SheetViewController(controller: vc, sizes: [.fixed(376)])
             sheetController.blurBottomSafeArea = false
@@ -81,7 +83,6 @@ class QrCodeViewController: UIViewController, QRCodeReaderViewControllerDelegate
             self.present(sheetController, animated: false, completion: nil)
             print("Completion with result: \(result.value) of type \(result.metadataType)")
         }
-
         reader.startScanning()
     }
     

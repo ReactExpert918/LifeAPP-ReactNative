@@ -67,45 +67,40 @@ class AddPictureViewController: UIViewController, UINavigationControllerDelegate
             Util.showAlert(vc: self, "Attention" , "Please enter public name first.")
             return
         }
-        if let uid = UserDefaults.standard.string(forKey: "uid"){
-            DispatchQueue.main.async {
-                self.hud.textLabel.text = "Uploading..."
-                self.hud.show(in: self.view, animated: true)
-            }
-            let profileImgReference = Storage.storage().reference().child("profile_pictures").child("\(uid).png")
-            profileImgReference.putData((avata.image?.pngData())!, metadata: nil){ (metadata, error) in
-                if error != nil{
-                    self.hud.dismiss(afterDelay: 1.0, animated: true)
-                    Util.showAlert(vc: self, error!.localizedDescription , "")
-                    return
-                }
-                profileImgReference.downloadURL(completion: {(url, error) in
-                    if let url = url{
-                        let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
-                        changeRequest?.displayName = self.publicName.text!
-                        changeRequest?.photoURL = url
-                        changeRequest?.commitChanges { (error) in
-                            self.hud.dismiss(afterDelay: 1.0, animated: true)
-                            if error != nil{
-                                Util.showAlert(vc: self, error!.localizedDescription, "")
-                            }
-                            let vc =  self.storyboard?.instantiateViewController(identifier: "successVC") as! SuccessViewController
-                            self.navigationController?.pushViewController(vc, animated: true)
-                        }
-                    }else{
-                        self.hud.dismiss(afterDelay: 1.0, animated: true)
-                        Util.showAlert(vc: self, "Attention" , "Please take profile photo and try again.")
-                        return
-                    }
-                })
-            }
-        }
-        
-//        let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
-//        changeRequest?.displayName = publicName.text!
-//        changeRequest?.commitChanges { (error) in
-//          
+//        if let uid = UserDefaults.standard.string(forKey: "uid"){
+//            DispatchQueue.main.async {
+//                self.hud.textLabel.text = "Uploading..."
+//                self.hud.show(in: self.view, animated: true)
+//            }
+//            let profileImgReference = Storage.storage().reference().child("profile_pictures").child("\(uid).png")
+//            profileImgReference.putData((avata.image?.pngData())!, metadata: nil){ (metadata, error) in
+//                if error != nil{
+//                    self.hud.dismiss(afterDelay: 1.0, animated: true)
+//                    Util.showAlert(vc: self, error!.localizedDescription , "")
+//                    return
+//                }
+//                profileImgReference.downloadURL(completion: {(url, error) in
+//                    if let url = url{
+//                        let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+//                        changeRequest?.displayName = self.publicName.text!
+//                        changeRequest?.photoURL = url
+//                        changeRequest?.commitChanges { (error) in
+//                            self.hud.dismiss(afterDelay: 1.0, animated: true)
+//                            if error != nil{
+//                                Util.showAlert(vc: self, error!.localizedDescription, "")
+//                            }
+//                            let vc =  self.storyboard?.instantiateViewController(identifier: "successVC") as! SuccessViewController
+//                            self.navigationController?.pushViewController(vc, animated: true)
+//                        }
+//                    }else{
+//                        self.hud.dismiss(afterDelay: 1.0, animated: true)
+//                        Util.showAlert(vc: self, "Attention" , "Please take profile photo and try again.")
+//                        return
+//                    }
+//                })
+//            }
 //        }
+        
         let realm = try! Realm()
         try! realm.safeWrite {
             person.fullname    = publicName.text!
