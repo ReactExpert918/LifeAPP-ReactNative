@@ -98,7 +98,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
     }
     func loadPerson() {
-        
         person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
 
         //labelInitials.text = person.initials()
@@ -113,7 +112,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     @IBAction func onSettingPressed(_ sender: Any) {
         let mainstoryboard = UIStoryboard.init(name: "Setting", bundle: nil)
-        let vc = mainstoryboard.instantiateViewController(withIdentifier: "settingVC")
+        let vc = mainstoryboard.instantiateViewController(withIdentifier: "settingNav") as! UINavigationController
 //        self.navigationController?.pushViewController(vc, animated: true)
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true, completion: nil)

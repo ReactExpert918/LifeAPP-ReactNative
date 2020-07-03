@@ -11,13 +11,15 @@ import UIKit
 class SettingViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
 
     @IBOutlet weak var tableView: UITableView!
-    let sections = ["General Settings", "Other Settings"]
+    let sections = ["General Settings"]
      
-    let items = [["Profile", "Accounts", "Privacy", "Pin", "Age Verification"], ["Stickers", "Themes", "Coins", "Notifications", "Chats & Voice Calls", "Premium Call Settings", "Log out"]]
+    let items = [["Account Settings", "Privacy Policy", "About Us"]]
+    let icons = [[UIImage(named: "setting_account"), UIImage(named: "setting_privacy"), UIImage(named: "setting_about")]]
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.register(UINib(nibName: "SettingCellHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: SettingCellHeader.reuseIdentifier)
+        tableView.tableFooterView = UIView(frame: .zero)
         // Do any additional setup after loading the view.
     }
     
@@ -35,6 +37,7 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
         let cell = tableView.dequeueReusableCell(withIdentifier: "settingCell", for: indexPath) as! SettingCell
         cell.selectionStyle = .none
         cell.title.text = items[indexPath.section][indexPath.row]
+        cell.profile.image = icons[indexPath.section][indexPath.row]
         return cell
     }
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -50,15 +53,13 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 48
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 0{
+            if let viewController = storyboard?.instantiateViewController(identifier: "accountSettingsVC") as? AccountSettingsViewController {
+                navigationController?.pushViewController(viewController, animated: true)
+            }
+        }
     }
-    */
 
 }

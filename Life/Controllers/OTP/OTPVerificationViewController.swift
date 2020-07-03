@@ -97,8 +97,7 @@ class OTPVerificationViewController: UIViewController {
             self.hud.textLabel.text = "Signup successful."
             self.hud.dismiss(afterDelay: 2.0, animated: true)
             DispatchQueue.main.asyncAfter(deadline: .now()+2.1, execute: {
-                // Fill basic details
-                self.gotoMainViewController()
+                self.gotoBasicDetailInsertViewController()
             })
         }
     }
@@ -107,10 +106,9 @@ class OTPVerificationViewController: UIViewController {
         let userId = AuthUser.userId()
         Persons.create(userId, phone: self.phoneNumber)
     }
-    func gotoMainViewController() {
+    func gotoBasicDetailInsertViewController() {
         let vc =  self.storyboard?.instantiateViewController(identifier: "basicDetailInsertVC") as! BasicDetailInsertViewController
         self.navigationController?.pushViewController(vc, animated: true)
-        
     }
     
     @IBAction func onResendCodePressed(_ sender: Any) {

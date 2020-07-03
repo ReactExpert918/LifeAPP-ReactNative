@@ -6,13 +6,13 @@ target 'Life' do
   use_frameworks!
 
   # Pods for Life
-  pod 'MercariQRScanner'
   pod 'Firebase/Analytics'
   pod 'Firebase/Messaging'
   pod 'Firebase/Database'
   pod 'Firebase/Firestore'
   pod 'Firebase/Storage'
   pod 'Firebase/Auth'
+  pod 'Firebase/Storage'
   pod 'SkyFloatingLabelTextField', '~> 3.0'
   pod 'IQKeyboardManagerSwift'
   pod 'DPOTPView'
@@ -27,6 +27,8 @@ target 'Life' do
   pod 'ProgressHUD'
   pod 'RNCryptor-objc'
   pod 'SwiftyAvatar', '~> 1.1'
+  pod 'QRCodeReader.swift', '~> 10.1.0'
+  pod 'FittedSheets'
   
   target 'LifeTests' do
     inherit! :search_paths

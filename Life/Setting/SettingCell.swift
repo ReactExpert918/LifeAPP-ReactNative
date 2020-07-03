@@ -11,6 +11,7 @@ import UIKit
 class SettingCell : UITableViewCell{
     
     @IBOutlet weak var title: UILabel!
+    @IBOutlet weak var profile: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

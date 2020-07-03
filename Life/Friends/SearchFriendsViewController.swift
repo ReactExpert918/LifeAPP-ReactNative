@@ -25,8 +25,6 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
     @IBOutlet weak var popupPhoneNumberLabel: UILabel!
     @IBOutlet weak var popupStatusLabel: UILabel!
     
-    
-    
     private var persons = realm.objects(Person.self).filter(falsepredicate)
     override func viewDidLoad() {
         super.viewDidLoad()

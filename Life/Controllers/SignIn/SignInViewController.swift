@@ -9,13 +9,15 @@
 import UIKit
 import FirebaseAuth
 import JGProgressHUD
+
 class SignInViewController: UIViewController, UITextViewDelegate {
 
     @IBOutlet weak var passwordEye: UIButton!
     @IBOutlet weak var bottomText: UITextView!
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var userName: UITextField!
-    
+    @IBOutlet weak var errorText: UILabel!
+    @IBOutlet weak var scrollViewHeightConstraint: NSLayoutConstraint!
     let hud = JGProgressHUD(style: .light)
     var eye_off = true
     override func viewDidLoad() {
@@ -23,7 +25,7 @@ class SignInViewController: UIViewController, UITextViewDelegate {
         bottomText.delegate = self
         bottomText.isSelectable = true
         bottomText.isEditable = false
-        // Do any additional setup after loading the view.
+        scrollViewHeightConstraint.constant = UIScreen.main.bounds.size.height
     }
     
     @IBAction func onBackPressed(_ sender: Any) {
@@ -58,14 +60,14 @@ class SignInViewController: UIViewController, UITextViewDelegate {
         Auth.auth().signIn(withEmail: userName.text!, password: password.text!) { [weak self] authResult, error in
             self?.hud.dismiss()
             if error != nil {
-                Util.showAlert(vc: self!, error?.localizedDescription ?? "", "")
+                self!.errorText.text = "Incorrect phone number or password,\nPlease try again!"
+                self!.errorText.textColor = UIColor(hexString: "#DF1747")
+                self!.errorText.font = UIFont(name: "Montserrat-Regular", size: 14.0)
                 return
             }
             self?.loadPerson()
         }
     }
-    // MARK: -
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func loadPerson() {
 
         let userId = AuthUser.userId()
@@ -84,7 +86,6 @@ class SignInViewController: UIViewController, UITextViewDelegate {
         }
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func createPerson() {
 
         let email = (userName.text ?? "").lowercased()

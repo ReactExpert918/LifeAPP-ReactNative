@@ -7,8 +7,9 @@
 //
 
 import UIKit
-
+import FittedSheets
 class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         10
     }
