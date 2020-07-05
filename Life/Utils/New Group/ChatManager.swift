@@ -178,11 +178,23 @@ class ChatManager: NSObject {
 		temp["isGroup"]		= false
 		temp["isPrivate"]	= true
 
+        /*
 		temp["details"]		= isRecipient ? single.fullname1	: single.fullname2
 		temp["initials"]	= isRecipient ? single.initials1	: single.initials2
 
 		temp["userId"]		= isRecipient ? single.userId1		: single.userId2
 		temp["pictureAt"]	= isRecipient ? single.pictureAt1	: single.pictureAt2
+         */
+        temp["fullName1"]        = single.fullname1
+        temp["initial1"]    = single.initials1
+        temp["userId1"]        = single.userId1
+        temp["pictureAt1"]    = single.pictureAt1
+
+        temp["fullName2"]        = single.fullname2
+        temp["initial2"]    = single.initials2
+        temp["userId2"]        = single.userId2
+        temp["pictureAt2"]    = single.pictureAt2
+
 
 		let realm = try! Realm()
 		try! realm.safeWrite {

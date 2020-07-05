@@ -25,6 +25,19 @@ class Chat: Object {
 	@objc dynamic var userId = ""
 	@objc dynamic var pictureAt: Int64 = 0
 
+    @objc dynamic var fullName1 = ""
+    @objc dynamic var initial1 = ""
+
+    @objc dynamic var userId1 = ""
+    @objc dynamic var pictureAt1: Int64 = 0
+
+    @objc dynamic var fullName2 = ""
+    @objc dynamic var initial2 = ""
+
+    @objc dynamic var userId2 = ""
+    @objc dynamic var pictureAt2: Int64 = 0
+
+    
 	@objc dynamic var lastMessageId = ""
 	@objc dynamic var lastMessageText = ""
 	@objc dynamic var lastMessageAt: Int64 = 0

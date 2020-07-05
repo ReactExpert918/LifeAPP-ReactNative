@@ -24,17 +24,17 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
 
-       searchBar.backgroundImage = UIImage()
-       searchBar.barStyle = .default
-       searchBar.barTintColor = UIColor(hexString: "#16406F")
-       searchBar.layer.cornerRadius = 8
-       searchBar.placeholder = "Search"
-//     searchBar.backgroundColor = UIColor(hexString: "165c90")
-       searchBar.set(textColor: UIColor(hexString: "#96B4D2")!)
-       searchBar.setPlaceholder(textColor: UIColor(hexString: "#96B4D2")!)
-       searchBar.setSearchImage(color: UIColor(hexString: "#96B4D2")!)
-//     searchBar.setClearButton(color: UIColor(hexString: "#96B4D2")!)
-        
+        searchBar.backgroundImage = UIImage()
+        searchBar.barStyle = .default
+        searchBar.barTintColor = UIColor(hexString: "#16406F")
+        searchBar.layer.cornerRadius = 8
+        searchBar.placeholder = "Search"
+//      searchBar.backgroundColor = UIColor(hexString: "165c90")
+        searchBar.set(textColor: UIColor(hexString: "#96B4D2")!)
+        searchBar.setPlaceholder(textColor: UIColor(hexString: "#96B4D2")!)
+        searchBar.setSearchImage(color: UIColor(hexString: "#96B4D2")!)
+//      searchBar.setClearButton(color: UIColor(hexString: "#96B4D2")!)
+        searchBar.delegate = self
         // Init Chat List TableView
         ChatHistoryCell.Register(withTableView: chatsTableView)
         chatsTableView.dataSource = self
@@ -120,11 +120,14 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
             
         }
         else if (chat.isPrivate) {
+            let isRecipient = (chat.userId1 != AuthUser.userId())
+            let userId = isRecipient ? chat.userId1 : chat.userId2
+            
             let vc =  self.storyboard?.instantiateViewController(identifier: "chatViewController") as! ChatViewController
             //vc.modalPresentationStyle = .fullScreen
             //self.present(vc, animated: true, completion: nil)
             vc.hidesBottomBarWhenPushed = true
-            vc.setParticipant(chatId: chat.objectId, recipientId: chat.userId)
+            vc.setParticipant(chatId: chat.objectId, recipientId: userId)
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
@@ -150,4 +153,41 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
         return 64
     }
 
+}
+
+// MARK: - UISearchBarDelegate
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+extension ChatListViewController: UISearchBarDelegate {
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+
+        
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func searchBarTextDidBeginEditing(_ searchBar_: UISearchBar) {
+
+        searchBar.setShowsCancelButton(true, animated: true)
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func searchBarTextDidEndEditing(_ searchBar_: UISearchBar) {
+
+        searchBar.setShowsCancelButton(false, animated: true)
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func searchBarCancelButtonClicked(_ searchBar_: UISearchBar) {
+
+        searchBar.text = ""
+        searchBar.resignFirstResponder()
+        
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func searchBarSearchButtonClicked(_ searchBar_: UISearchBar) {
+
+        searchBar.resignFirstResponder()
+    }
 }

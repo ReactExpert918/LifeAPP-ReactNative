@@ -35,7 +35,7 @@
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gUt-Zf-dub">
-                                <rect key="frame" x="80" y="15.5" width="225.5" height="33"/>
+                                <rect key="frame" x="80" y="15.5" width="223" height="33"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Alison" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IAT-k1-k1h">
                                         <rect key="frame" x="0.0" y="0.0" width="44.5" height="17"/>
@@ -44,7 +44,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem ispum is a dummy text" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q29-Xs-88V">
-                                        <rect key="frame" x="0.0" y="17" width="195.5" height="16"/>
+                                        <rect key="frame" x="0.0" y="17" width="223" height="16"/>
                                         <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="13"/>
                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -53,14 +53,18 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="Q29-Xs-88V" secondAttribute="bottom" id="8h6-5y-EdW"/>
+                                    <constraint firstAttribute="trailing" secondItem="Q29-Xs-88V" secondAttribute="trailing" id="Bay-FV-Ebt"/>
                                     <constraint firstItem="Q29-Xs-88V" firstAttribute="leading" secondItem="gUt-Zf-dub" secondAttribute="leading" id="GYD-9r-iR0"/>
                                     <constraint firstItem="Q29-Xs-88V" firstAttribute="top" secondItem="IAT-k1-k1h" secondAttribute="bottom" id="Qr1-Qf-bhL"/>
                                     <constraint firstItem="IAT-k1-k1h" firstAttribute="top" secondItem="gUt-Zf-dub" secondAttribute="top" id="Yh2-E1-Yrf"/>
                                     <constraint firstItem="IAT-k1-k1h" firstAttribute="leading" secondItem="gUt-Zf-dub" secondAttribute="leading" id="zyj-cd-eap"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9:00 AM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gJS-Fj-NXk">
-                                <rect key="frame" x="305.5" y="24" width="53.5" height="16"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9:00 AM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gJS-Fj-NXk">
+                                <rect key="frame" x="303" y="24" width="60" height="16"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="aOb-zb-05F"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="13"/>
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -69,7 +73,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="64" id="Qrg-cB-TWY"/>
-                            <constraint firstAttribute="trailing" secondItem="gJS-Fj-NXk" secondAttribute="trailing" constant="16" id="ZFa-Sa-5JR"/>
+                            <constraint firstAttribute="trailing" secondItem="gJS-Fj-NXk" secondAttribute="trailing" constant="12" id="ZFa-Sa-5JR"/>
                             <constraint firstItem="gUt-Zf-dub" firstAttribute="centerY" secondItem="3K1-Ou-B2Q" secondAttribute="centerY" id="eVd-dX-sdz"/>
                             <constraint firstItem="gJS-Fj-NXk" firstAttribute="centerY" secondItem="3K1-Ou-B2Q" secondAttribute="centerY" id="frg-iy-PNd"/>
                             <constraint firstItem="gUt-Zf-dub" firstAttribute="leading" secondItem="0Nz-Lp-lva" secondAttribute="trailing" constant="16" id="g8m-Be-aDu"/>

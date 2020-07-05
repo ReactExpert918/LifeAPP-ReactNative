@@ -21,7 +21,14 @@ class ChatHistoryCell: UITableViewCell {
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func bindData(chat: Chat) {
 
-        //labelDetails.text = chat.details
+        if chat.isPrivate  {
+            let isRecipient = (chat.userId1 != AuthUser.userId())
+            userNameLabel.text = isRecipient ? chat.fullName1 : chat.fullName2
+        }
+        else{
+            userNameLabel.text = chat.details
+
+        }
         lastMessageLabel.text = chat.typing ? "Typing..." : chat.lastMessageText
 
         lastUpdatedTimeLabel.text = Convert.timestampToCustom(chat.lastMessageAt)
@@ -36,7 +43,9 @@ class ChatHistoryCell: UITableViewCell {
     func loadImage(chat: Chat, tableView: UITableView, indexPath: IndexPath) {
 
         if (chat.isPrivate) {
-            if let path = MediaDownload.pathUser(chat.userId) {
+            let isRecipient = (chat.userId1 != AuthUser.userId())
+            let userId = isRecipient ? chat.userId1 : chat.userId2
+            if let path = MediaDownload.pathUser(userId) {
                 profileImageView.image = UIImage.image(path, size: 50)
                 //labelInitials.text = nil
             } else {
@@ -50,12 +59,16 @@ class ChatHistoryCell: UITableViewCell {
             profileImageView.image = nil
             //labelInitials.text = chat.initials
         }
+        profileImageView.makeRounded()
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func downloadImage(chat: Chat, tableView: UITableView, indexPath: IndexPath) {
-
-        MediaDownload.startUser(chat.userId, pictureAt: chat.pictureAt) { image, error in
+        let isRecipient = (chat.userId1 != AuthUser.userId())
+        let userId = isRecipient ? chat.userId1 : chat.userId2
+        let pictureAt = isRecipient ? chat.pictureAt1 : chat.pictureAt2
+        
+        MediaDownload.startUser(userId, pictureAt: pictureAt) { image, error in
             let indexSelf = tableView.indexPath(for: self)
             if ((indexSelf == nil) || (indexSelf == indexPath)) {
                 if (error == nil) {

@@ -66,6 +66,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @objc func loadFriends() {
 
         let predicate = NSPredicate(format: "userId == %@ AND isDeleted == NO", AuthUser.userId())
+        print("Auth UserId: \(predicate)")
         friends = realm.objects(Friend.self).filter(predicate)
 
         tokenFriends?.invalidate()

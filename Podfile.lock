@@ -312,6 +312,7 @@ PODS:
     - FirebaseAuthInterop (~> 1.1)
     - FirebaseCore (~> 6.6)
     - GTMSessionFetcher/Core (~> 1.1)
+  - FittedSheets (1.4.6)
   - FlagPhoneNumber (0.8.0):
     - FlagPhoneNumber/libPhoneNumberiOS (= 0.8.0)
   - FlagPhoneNumber/libPhoneNumberiOS (0.8.0)
@@ -375,7 +376,6 @@ PODS:
   - IQKeyboardManagerSwift (6.5.5)
   - JGProgressHUD (2.1)
   - leveldb-library (1.22)
-  - MercariQRScanner (1.6)
   - MessageKit (3.1.0):
     - InputBarAccessoryView (~> 4.3.0)
   - nanopb (1.30905.0):
@@ -387,6 +387,7 @@ PODS:
   - ProgressHUD (13.4)
   - PromisesObjC (1.2.9)
   - Protobuf (3.12.0)
+  - QRCodeReader.swift (10.1.0)
   - Reachability (3.2)
   - Realm (5.1.0):
     - Realm/Headers (= 5.1.0)
@@ -395,6 +396,7 @@ PODS:
     - Realm (= 5.1.0)
   - RNCryptor-objc (3.0.6)
   - SkyFloatingLabelTextField (3.8.0)
+  - SwiftyAvatar (1.1.3)
 
 DEPENDENCIES:
   - BEMCheckBox
@@ -406,17 +408,19 @@ DEPENDENCIES:
   - Firebase/Firestore
   - Firebase/Messaging
   - Firebase/Storage
+  - FittedSheets
   - FlagPhoneNumber
   - IQKeyboardManagerSwift
   - JGProgressHUD
-  - MercariQRScanner
   - MessageKit
   - OneSignal
   - ProgressHUD
+  - QRCodeReader.swift (~> 10.1.0)
   - Reachability
   - RealmSwift
   - RNCryptor-objc
   - SkyFloatingLabelTextField (~> 3.0)
+  - SwiftyAvatar (~> 1.1)
 
 SPEC REPOS:
   trunk:
@@ -439,6 +443,7 @@ SPEC REPOS:
     - FirebaseInstanceID
     - FirebaseMessaging
     - FirebaseStorage
+    - FittedSheets
     - FlagPhoneNumber
     - GoogleAppMeasurement
     - GoogleDataTransport
@@ -451,18 +456,19 @@ SPEC REPOS:
     - IQKeyboardManagerSwift
     - JGProgressHUD
     - leveldb-library
-    - MercariQRScanner
     - MessageKit
     - nanopb
     - OneSignal
     - ProgressHUD
     - PromisesObjC
     - Protobuf
+    - QRCodeReader.swift
     - Reachability
     - Realm
     - RealmSwift
     - RNCryptor-objc
     - SkyFloatingLabelTextField
+    - SwiftyAvatar
 
 SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
@@ -484,6 +490,7 @@ SPEC CHECKSUMS:
   FirebaseInstanceID: cef67c4967c7cecb56ea65d8acbb4834825c587b
   FirebaseMessaging: 29543feb343b09546ab3aa04d008ee8595b43c44
   FirebaseStorage: f4f39ae834a7145963b913f54e2f24a9db1d8fac
+  FittedSheets: 7f37fee2567d15dcde391f31eccbffb660ddebf0
   FlagPhoneNumber: 3712455b95f66cb0f2016fef7d9e34cddf8c7f9a
   GoogleAppMeasurement: 67458367830514fb20fd9e233496f1eef9d90185
   GoogleDataTransport: 9a8a16f79feffc7f42096743de2a7c4815e84020
@@ -496,19 +503,20 @@ SPEC CHECKSUMS:
   IQKeyboardManagerSwift: 0fb93310284665245591f50f7a5e38de615960b7
   JGProgressHUD: aa403e9a5b45cae98903c4600cccdd98c0c3ec90
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
-  MercariQRScanner: e1ee83878c2b4606661afa72d54af82bb6e355aa
   MessageKit: 3beb578737a5aa2bba25cc27c7b6d6faa09af5a7
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
   OneSignal: 1dcb1fd96f9c15a5c352dcfcab9106a7c15eced7
   ProgressHUD: 137a7fc677487c5581668f4490563124fb35c232
   PromisesObjC: b48e0338dbbac2207e611750777895f7a5811b75
   Protobuf: 2793fcd0622a00b546c60e7cbbcc493e043e9bb9
+  QRCodeReader.swift: 373a389fe9a22d513c879a32a6f647c58f4ef572
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   Realm: bdea546851e37b4cf0a2400cef115c7c26fda488
   RealmSwift: 70945aa168db93b215c460e9c8ef680261aa28af
   RNCryptor-objc: d1b228f9c02e2173df063f0617684c134aed890e
   SkyFloatingLabelTextField: 5a338412114808e961fe2d14ea2c5452c8b6e4aa
+  SwiftyAvatar: 33aecda825c91851cac2aabd06b33f3698b2414c
 
-PODFILE CHECKSUM: 1b49851f66fae77b1f7b3a417f6ec0f6c2a0ac6f
+PODFILE CHECKSUM: a5e1279d70f8a62d3ce19ac79598ec14553c876a
 
 COCOAPODS: 1.9.3

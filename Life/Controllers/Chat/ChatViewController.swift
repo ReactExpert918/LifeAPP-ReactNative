@@ -28,7 +28,11 @@ class ChatViewController: UIViewController {
     @IBOutlet weak var participantNameLabel: UILabel!
     @IBOutlet weak var statusbarView: UIView!
     @IBOutlet weak var topbarView: UIView!
+
     @IBOutlet weak var tableView: UITableView!
+    
+    private var isTyping = false
+    private var textTitle: String?
     
     var messageInputBar = InputBarAccessoryView()
     private var keyboardManager = KeyboardManager()
@@ -47,8 +51,6 @@ class ChatViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        IQKeyboardManager.shared.enable = false
         
         tableView.register(RCHeaderUpperCell.self, forCellReuseIdentifier: "RCHeaderUpperCell")
         tableView.register(RCHeaderLowerCell.self, forCellReuseIdentifier: "RCHeaderLowerCell")
@@ -76,6 +78,10 @@ class ChatViewController: UIViewController {
         loadDetail()
         loadDetails()
         loadMessages()
+        
+        IQKeyboardManager.shared.enableAutoToolbar = false
+        IQKeyboardManager.shared.enable = false
+
     }
     //---------------------------------------------------------------------------------------------------------------------------------------------
     override func viewWillAppear(_ animated: Bool) {
@@ -90,6 +96,7 @@ class ChatViewController: UIViewController {
 
         super.viewDidDisappear(animated)
 
+        IQKeyboardManager.shared.enableAutoToolbar = true
         IQKeyboardManager.shared.enable = true
         
         if (isMovingFromParent) {
@@ -213,7 +220,7 @@ class ChatViewController: UIViewController {
                 typing = true
             }
         }
-        //self.typingIndicatorShow(typing)
+        self.typingIndicatorShow(typing)
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
@@ -389,10 +396,6 @@ class ChatViewController: UIViewController {
     func actionSendMessage(_ text: String) {
         messageSend(text: text, photo: nil, video: nil, audio: nil)
     }
-    //---------------------------------------------------------------------------------------------------------------------------------------------
-    func typingIndicatorUpdate() {
-
-    }
     // MARK: - Helper methods
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func layoutTableView() {
@@ -420,15 +423,54 @@ class ChatViewController: UIViewController {
             tableView.scrollToRow(at: indexPath, at: .top, animated: animated)
         }
     }
+    // MARK: - Typing indicator methods
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func typingIndicatorShow(_ typing: Bool, text: String = "typing...") {
+
+        if (typing == true) && (isTyping == false) {
+//            textTitle = typingLabel?.text
+//            typingLabel?.text = text
+        }
+        if (typing == false) && (isTyping == true) {
+//            typingLabel?.text = textTitle
+        }
+        isTyping = typing
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func typingIndicatorUpdate() {
+        typingCounter += 1
+        detail?.update(typing: true)
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            self.typingIndicatorStop()
+        }
+    }
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func typingIndicatorStop() {
+
+        typingCounter -= 1
+        if (typingCounter == 0) {
+            detail?.update(typing: false)
+        }
+    }
     // MARK: - Keyboard methods
     //---------------------------------------------------------------------------------------------------------------------------------------------
-    @objc func keyboardWillShow(_ notification: Notification?) {
+    @objc func keyboardWillShow(_ notification: Notification) {
 
         if (heightKeyboard != 0) { return }
 
         keyboardWillShow = true
+        /*
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            self.heightKeyboard = keyboardRectangle.height
+            self.layoutTableView()
+            self.scrollToBottom(animated: true)
 
-        if let info = notification?.userInfo {
+        }
+ */
+        if let info = notification.userInfo {
             if let duration = info[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double {
                 if let keyboard = info[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
                     DispatchQueue.main.asyncAfter(deadline: .now() + duration)  {
@@ -500,7 +542,6 @@ class ChatViewController: UIViewController {
 // MARK: - UITableViewDataSource
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 extension ChatViewController: UITableViewDataSource {
-
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
@@ -619,7 +660,6 @@ extension ChatViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 extension ChatViewController: UITableViewDelegate {
-
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
 

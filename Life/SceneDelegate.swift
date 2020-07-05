@@ -33,7 +33,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         LocationManager.start()
         MediaManager.cleanupExpired()
         
-        NotificationCenter.default.post(name: Notification.Name(NotificationStatus.NOTIFICATION_APP_STARTED), object: nil)
+        //NotificationCenter.default.post(name: Notification.Name(NotificationStatus.NOTIFICATION_APP_STARTED), object: nil)
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             Persons.update(lastActive: Date().timestamp())
