@@ -116,6 +116,9 @@
 		AB277A8124AD041A00D6C783 /* RoundedCornerBorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB277A8024AD041A00D6C783 /* RoundedCornerBorderView.swift */; };
 		AB277A8724AD17F800D6C783 /* AddFriendBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB277A8624AD17F800D6C783 /* AddFriendBottomSheetViewController.swift */; };
 		AB277A8924AD266D00D6C783 /* MyQrGenerateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB277A8824AD266D00D6C783 /* MyQrGenerateViewController.swift */; };
+		AB30FAFB24AFAE490037BF25 /* AddFriendHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB30FAFA24AFAE490037BF25 /* AddFriendHeaderCell.swift */; };
+		AB30FAFD24AFAF130037BF25 /* AddFriendSection.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB30FAFC24AFAF130037BF25 /* AddFriendSection.xib */; };
+		AB30FAFF24AFB2D20037BF25 /* AddFriendSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB30FAFE24AFB2D20037BF25 /* AddFriendSection.swift */; };
 		AB3A81BB24A9B4920089127E /* BasicDetailInsertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3A81BA24A9B4920089127E /* BasicDetailInsertViewController.swift */; };
 		AB3A81BD24AA3B900089127E /* AddPictureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3A81BC24AA3B900089127E /* AddPictureViewController.swift */; };
 		AB3A81BF24AA539B0089127E /* SuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3A81BE24AA539B0089127E /* SuccessViewController.swift */; };
@@ -276,6 +279,9 @@
 		AB277A8024AD041A00D6C783 /* RoundedCornerBorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCornerBorderView.swift; sourceTree = "<group>"; };
 		AB277A8624AD17F800D6C783 /* AddFriendBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendBottomSheetViewController.swift; sourceTree = "<group>"; };
 		AB277A8824AD266D00D6C783 /* MyQrGenerateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyQrGenerateViewController.swift; sourceTree = "<group>"; };
+		AB30FAFA24AFAE490037BF25 /* AddFriendHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendHeaderCell.swift; sourceTree = "<group>"; };
+		AB30FAFC24AFAF130037BF25 /* AddFriendSection.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddFriendSection.xib; sourceTree = "<group>"; };
+		AB30FAFE24AFB2D20037BF25 /* AddFriendSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendSection.swift; sourceTree = "<group>"; };
 		AB3A81BA24A9B4920089127E /* BasicDetailInsertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicDetailInsertViewController.swift; sourceTree = "<group>"; };
 		AB3A81BC24AA3B900089127E /* AddPictureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPictureViewController.swift; sourceTree = "<group>"; };
 		AB3A81BE24AA539B0089127E /* SuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessViewController.swift; sourceTree = "<group>"; };
@@ -775,6 +781,9 @@
 				ABDAC92F24A67D8C00E73667 /* SearchFriendCell.swift */,
 				AB277A8624AD17F800D6C783 /* AddFriendBottomSheetViewController.swift */,
 				AB277A8824AD266D00D6C783 /* MyQrGenerateViewController.swift */,
+				AB30FAFA24AFAE490037BF25 /* AddFriendHeaderCell.swift */,
+				AB30FAFC24AFAF130037BF25 /* AddFriendSection.xib */,
+				AB30FAFE24AFB2D20037BF25 /* AddFriendSection.swift */,
 			);
 			path = Friends;
 			sourceTree = "<group>";
@@ -917,6 +926,7 @@
 				A6F564C524A8D73D0061007E /* rcmessage_incoming.aiff in Resources */,
 				A6F564C224A8D73D0061007E /* rcmessages_audioplay@2x.png in Resources */,
 				A6F564C424A8D73D0061007E /* rcmessage_outgoing.aiff in Resources */,
+				AB30FAFD24AFAF130037BF25 /* AddFriendSection.xib in Resources */,
 				A6379AEA24AAD578003E1879 /* Group.storyboard in Resources */,
 				AB82ACD224A5452700D83E47 /* SettingCellHeader.xib in Resources */,
 				A6E79AB324A65D07009458A1 /* FriendCell.xib in Resources */,
@@ -1061,6 +1071,7 @@
 				A6E73B4F24A598CD0008CBFE /* HomeViewController.swift in Sources */,
 				A6DEA83D24A8355100868625 /* Date+Extension.swift in Sources */,
 				A6DEA84C24A8365900868625 /* FireObserver.swift in Sources */,
+				AB30FAFB24AFAE490037BF25 /* AddFriendHeaderCell.swift in Sources */,
 				A6DEA84B24A8365900868625 /* FireFetch.swift in Sources */,
 				A6DEA88124A84E9600868625 /* MediaUpload.swift in Sources */,
 				A6DEA85824A83B2D00868625 /* Connectivity.swift in Sources */,
@@ -1132,6 +1143,7 @@
 				AB3A81BF24AA539B0089127E /* SuccessViewController.swift in Sources */,
 				ABDAC92C24A64AE800E73667 /* SearchFriendsViewController.swift in Sources */,
 				A6F2534F24ABA19500A31599 /* UIImageView+RoundedBorder.swift in Sources */,
+				AB30FAFF24AFB2D20037BF25 /* AddFriendSection.swift in Sources */,
 				A6DEA88424A84EC600868625 /* Cryptor.swift in Sources */,
 				A6DEA82C24A82AB000868625 /* RCMessage.swift in Sources */,
 				A60845B924A302BA005F23A9 /* WelcomeViewController.swift in Sources */,
@@ -1337,7 +1349,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = life.zed.com;
+				PRODUCT_BUNDLE_IDENTIFIER = "life-zed.com";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -1358,7 +1370,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = life.zed.com;
+				PRODUCT_BUNDLE_IDENTIFIER = "life-zed.com";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

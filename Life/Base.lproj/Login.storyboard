@@ -120,7 +120,7 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QwE-bI-IPH">
-                                <rect key="frame" x="67.333333333333329" y="345" width="240.33333333333337" height="62.333333333333314"/>
+                                <rect key="frame" x="84.000000000000014" y="346.33333333333331" width="207.33333333333337" height="59.666666666666686"/>
                                 <string key="text">Welcome to LIFE APP,
 Please choose an option to
 continue</string>
@@ -129,7 +129,7 @@ continue</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_logo" translatesAutoresizingMaskIntoConstraints="NO" id="7ET-BB-v8O">
-                                <rect key="frame" x="67.666666666666686" y="187" width="240" height="128"/>
+                                <rect key="frame" x="67.666666666666686" y="188.33333333333334" width="240" height="128.00000000000003"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="128" id="WVM-YX-CNv"/>
                                     <constraint firstAttribute="width" constant="240" id="cKv-mo-9Hb"/>
@@ -194,7 +194,7 @@ continue</string>
                                                         <rect key="frame" x="16" y="0.0" width="311" height="45"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
-                                                        <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                                        <textInputTraits key="textInputTraits" returnKeyType="next"/>
                                                     </textField>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.083599251760000007" colorSpace="calibratedRGB"/>
@@ -215,7 +215,7 @@ continue</string>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tVY-nj-E2G">
                                                 <rect key="frame" x="16" y="377" width="343" height="45"/>
                                                 <subviews>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WzH-08-Ezs">
+                                                    <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WzH-08-Ezs">
                                                         <rect key="frame" x="16" y="0.0" width="311" height="45"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
@@ -409,6 +409,7 @@ continue</string>
                                             </button>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_arrow_back" translatesAutoresizingMaskIntoConstraints="NO" id="peq-5n-eqK">
                                                 <rect key="frame" x="10" y="10" width="20" height="20"/>
+                                                <color key="tintColor" red="0.0" green="0.25098039220000001" blue="0.43137254899999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20" id="356-IZ-fhF"/>
                                                     <constraint firstAttribute="width" constant="20" id="m70-B3-u7f"/>
@@ -647,11 +648,12 @@ rates may apply.</string>
                                                 <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
                                                 <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <connections>
-                                                    <action selector="onBackPressed:" destination="J1a-Yy-2lE" eventType="touchUpInside" id="C0h-0H-AM0"/>
+                                                    <action selector="onBackPressed:" destination="FqT-5V-73Z" eventType="touchUpInside" id="Lnt-C5-nUC"/>
                                                 </connections>
                                             </button>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_arrow_back" translatesAutoresizingMaskIntoConstraints="NO" id="s1U-Hn-jhC">
                                                 <rect key="frame" x="10" y="10" width="20" height="20"/>
+                                                <color key="tintColor" red="0.0" green="0.25098039220000001" blue="0.43137254899999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20" id="5Fn-iA-zcr"/>
                                                     <constraint firstAttribute="width" constant="20" id="Wnd-QA-ym6"/>
@@ -897,6 +899,7 @@ received in your device</string>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_arrow_back" translatesAutoresizingMaskIntoConstraints="NO" id="UZh-Vu-rgB">
                                                 <rect key="frame" x="10" y="10" width="20" height="20"/>
+                                                <color key="tintColor" red="0.0" green="0.25098039220000001" blue="0.43137254899999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20" id="HmH-Hs-rCt"/>
                                                     <constraint firstAttribute="width" constant="20" id="QRc-EY-nBC"/>
@@ -1027,7 +1030,7 @@ to complete registration</string>
                                         <rect key="frame" x="16" y="0.0" width="311" height="45"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
-                                        <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="next"/>
                                     </textField>
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.083599251760563376" colorSpace="calibratedRGB"/>
@@ -1048,11 +1051,11 @@ to complete registration</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y7Z-xX-oAD">
                                 <rect key="frame" x="16" y="286" width="343" height="45"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9hj-E6-YXw">
+                                    <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9hj-E6-YXw">
                                         <rect key="frame" x="16" y="0.0" width="311" height="45"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
-                                        <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="next" secureTextEntry="YES"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nki-s4-cjt">
                                         <rect key="frame" x="307" y="14.666666666666686" width="20" height="16"/>
@@ -1086,7 +1089,7 @@ to complete registration</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EFK-AB-gVU">
                                 <rect key="frame" x="16" y="370.66666666666669" width="343" height="45"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aBt-wQ-MV3">
+                                    <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aBt-wQ-MV3">
                                         <rect key="frame" x="16" y="0.0" width="311" height="45"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
@@ -1197,6 +1200,7 @@ to complete registration</string>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_arrow_back" translatesAutoresizingMaskIntoConstraints="NO" id="a72-6Z-1Ra">
                                                 <rect key="frame" x="10" y="10" width="20" height="20"/>
+                                                <color key="tintColor" red="0.0" green="0.25098039220000001" blue="0.43137254899999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20" id="DCW-8y-Ftu"/>
                                                     <constraint firstAttribute="width" constant="20" id="qK8-fD-RZ1"/>

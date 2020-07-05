@@ -36,7 +36,10 @@ class MyQrGenerateViewController: UIViewController {
     }
 
     func generateQRCode(from string: String) -> UIImage? {
-        let data = string.data(using: String.Encoding.ascii)
+        let timestamp = String(NSDate().timeIntervalSince1970)
+        let original = string + "timestamp" + timestamp
+        let data = original.data(using: String.Encoding.ascii)
+        
 
         if let filter = CIFilter(name: "CIQRCodeGenerator") {
             filter.setValue(data, forKey: "inputMessage")
@@ -57,5 +60,12 @@ class MyQrGenerateViewController: UIViewController {
             phoneNumber.text = person.phone
         }
     }
-
+    @IBAction func onRefreshTapped(_ sender: Any) {
+        myQrcode.image = generateQRCode(from: AuthUser.userId())
+    }
+    @IBAction func onShareTapped(_ sender: Any) {
+    }
+    @IBAction func onDownloadTapped(_ sender: Any) {
+    }
+    
 }

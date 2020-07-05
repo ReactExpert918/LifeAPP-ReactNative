@@ -10,7 +10,7 @@ import UIKit
 import FirebaseAuth
 import JGProgressHUD
 
-class SignInViewController: UIViewController, UITextViewDelegate {
+class SignInViewController: UIViewController, UITextViewDelegate, UITextFieldDelegate {
 
     @IBOutlet weak var passwordEye: UIButton!
     @IBOutlet weak var bottomText: UITextView!
@@ -23,6 +23,8 @@ class SignInViewController: UIViewController, UITextViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         bottomText.delegate = self
+        userName.delegate = self
+        password.delegate = self
         bottomText.isSelectable = true
         bottomText.isEditable = false
         scrollViewHeightConstraint.constant = UIScreen.main.bounds.size.height
@@ -94,5 +96,21 @@ class SignInViewController: UIViewController, UITextViewDelegate {
         Persons.create(userId, email: email)
     }
     @IBAction func onForgotPasswordTapped(_ sender: Any) {
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        let nextTag = textField.tag + 1
+        // Try to find next responder
+        let nextResponder = textField.superview?.superview?.viewWithTag(nextTag) as UIResponder?
+
+        if nextResponder != nil {
+            // Found next responder, so set it
+            nextResponder?.becomeFirstResponder()
+        } else {
+            // Not found, so remove keyboard
+            textField.resignFirstResponder()
+        }
+
+        return false
     }
 }

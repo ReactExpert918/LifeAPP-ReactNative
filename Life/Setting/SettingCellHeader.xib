@@ -28,7 +28,7 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="8Bu-9f-1XS"/>
             <connections>
-                <outlet property="headerTitle" destination="hby-wb-UWq" id="C1g-sa-uOd"/>
+                <outlet property="headerTitle" destination="hby-wb-UWq" id="UzR-yr-INO"/>
             </connections>
             <point key="canvasLocation" x="-26.086956521739133" y="-322.43303571428572"/>
         </view>

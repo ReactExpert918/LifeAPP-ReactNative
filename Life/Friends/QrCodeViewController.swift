@@ -70,11 +70,12 @@ class QrCodeViewController: UIViewController, QRCodeReaderViewControllerDelegate
         reader.didFindCode = { result in
             let vc =  self.storyboard?.instantiateViewController(identifier: "addFriendBottomSheetVC") as! AddFriendBottomSheetViewController
             self.reader.startScanning()
-            vc.qrCode = result.value
+            let qrcodeValue = result.value.components(separatedBy: "timestamp")
+            vc.qrCode = qrcodeValue[0]
 
             let sheetController = SheetViewController(controller: vc, sizes: [.fixed(376)])
             sheetController.blurBottomSafeArea = false
-            sheetController.adjustForBottomSafeArea = true
+            sheetController.adjustForBottomSafeArea = false
 
             // Make corners more round
             sheetController.topCornersRadius = 15
@@ -122,9 +123,9 @@ class QrCodeViewController: UIViewController, QRCodeReaderViewControllerDelegate
     @IBAction func onMyQrTapped(_ sender: Any) {
         let vc =  self.storyboard?.instantiateViewController(identifier: "myQrVC") as! MyQrGenerateViewController
 
-        let sheetController = SheetViewController(controller: vc, sizes: [.fixed(450)])
+        let sheetController = SheetViewController(controller: vc, sizes: [.fixed(460)])
         sheetController.blurBottomSafeArea = false
-        sheetController.adjustForBottomSafeArea = true
+        sheetController.adjustForBottomSafeArea = false
 
         // Make corners more round
         sheetController.topCornersRadius = 15

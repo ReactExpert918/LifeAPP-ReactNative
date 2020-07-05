@@ -10,7 +10,7 @@ import UIKit
 import FirebaseAuth
 import JGProgressHUD
 import RealmSwift
-class BasicDetailInsertViewController: UIViewController {
+class BasicDetailInsertViewController: UIViewController, UITextFieldDelegate{
     
     var password_eye_off = true
     var confirmPassword_eye_off = true
@@ -29,7 +29,9 @@ class BasicDetailInsertViewController: UIViewController {
 
         // load Person
         person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
-        // Do any additional setup after loading the view.
+        userName.delegate = self
+        password.delegate = self
+        confirmPassword.delegate = self
     }
     @IBAction func backTapped(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
@@ -103,14 +105,20 @@ class BasicDetailInsertViewController: UIViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        let nextTag = textField.tag + 1
+        // Try to find next responder
+        let nextResponder = textField.superview?.superview?.viewWithTag(nextTag) as UIResponder?
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if nextResponder != nil {
+            // Found next responder, so set it
+            nextResponder?.becomeFirstResponder()
+        } else {
+            // Not found, so remove keyboard
+            textField.resignFirstResponder()
+        }
+
+        return false
     }
-    */
 
 }
