@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="cyF-lR-mIU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="cyF-lR-mIU">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -125,16 +125,16 @@
                                         </constraints>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ikt-1V-gZx">
-                                        <rect key="frame" x="80" y="21.333333333333346" width="279" height="33.333333333333343"/>
+                                        <rect key="frame" x="80" y="21.666666666666657" width="279" height="33"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Alison" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uOA-We-jee">
-                                                <rect key="frame" x="0.0" y="0.0" width="44.666666666666664" height="17.333333333333332"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="44.666666666666664" height="17"/>
                                                 <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="14"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem ispum is a dummy text" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="79U-0n-4KO">
-                                                <rect key="frame" x="0.0" y="17.333333333333314" width="279" height="16"/>
+                                                <rect key="frame" x="0.0" y="17" width="279" height="16"/>
                                                 <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="13"/>
                                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -339,78 +339,6 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="www-j1-hlP">
                                 <rect key="frame" x="0.0" y="158" width="375" height="571"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="chatHistoryCell" id="Gxl-ID-t6D">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="64"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Gxl-ID-t6D" id="qkn-WL-T22">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JbN-SD-vah" userLabel="ChatItemView">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
-                                                    <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile" translatesAutoresizingMaskIntoConstraints="NO" id="jd7-a1-Umj">
-                                                            <rect key="frame" x="16" y="8" width="48" height="48"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="48" id="204-cq-Y47"/>
-                                                                <constraint firstAttribute="width" constant="48" id="Ore-Mo-Hee"/>
-                                                            </constraints>
-                                                        </imageView>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VRM-Zh-Jp2">
-                                                            <rect key="frame" x="79.999999999999986" y="15.333333333333332" width="225.66666666666663" height="33.333333333333343"/>
-                                                            <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Alison" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bXe-d5-Tj1">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="44.666666666666664" height="17.333333333333332"/>
-                                                                    <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="14"/>
-                                                                    <nil key="textColor"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem ispum is a dummy text" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gk8-rn-nNC">
-                                                                    <rect key="frame" x="0.0" y="17.333333333333336" width="195.33333333333334" height="16"/>
-                                                                    <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="13"/>
-                                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                            </subviews>
-                                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                                            <constraints>
-                                                                <constraint firstItem="bXe-d5-Tj1" firstAttribute="top" secondItem="VRM-Zh-Jp2" secondAttribute="top" id="3qg-Pc-mbz"/>
-                                                                <constraint firstAttribute="bottom" secondItem="Gk8-rn-nNC" secondAttribute="bottom" id="6Of-83-PLh"/>
-                                                                <constraint firstItem="Gk8-rn-nNC" firstAttribute="top" secondItem="bXe-d5-Tj1" secondAttribute="bottom" id="Mtz-lH-e22"/>
-                                                                <constraint firstItem="bXe-d5-Tj1" firstAttribute="leading" secondItem="VRM-Zh-Jp2" secondAttribute="leading" id="UMV-7p-QRu"/>
-                                                                <constraint firstItem="Gk8-rn-nNC" firstAttribute="leading" secondItem="VRM-Zh-Jp2" secondAttribute="leading" id="Uex-C7-mUh"/>
-                                                            </constraints>
-                                                        </view>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9:00 AM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qs3-gF-eW3">
-                                                            <rect key="frame" x="305.66666666666669" y="24" width="53.333333333333314" height="16"/>
-                                                            <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="13"/>
-                                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                    </subviews>
-                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                                    <constraints>
-                                                        <constraint firstItem="Qs3-gF-eW3" firstAttribute="centerY" secondItem="JbN-SD-vah" secondAttribute="centerY" id="5dF-hB-JHw"/>
-                                                        <constraint firstItem="VRM-Zh-Jp2" firstAttribute="leading" secondItem="jd7-a1-Umj" secondAttribute="trailing" constant="16" id="BX1-g7-5a3"/>
-                                                        <constraint firstAttribute="height" constant="64" id="NXH-tO-gCw"/>
-                                                        <constraint firstItem="jd7-a1-Umj" firstAttribute="centerY" secondItem="JbN-SD-vah" secondAttribute="centerY" id="XNf-gj-D5o"/>
-                                                        <constraint firstItem="Qs3-gF-eW3" firstAttribute="leading" secondItem="VRM-Zh-Jp2" secondAttribute="trailing" id="eGc-6J-nxn"/>
-                                                        <constraint firstAttribute="trailing" secondItem="Qs3-gF-eW3" secondAttribute="trailing" constant="16" id="hF8-hN-PIq"/>
-                                                        <constraint firstItem="VRM-Zh-Jp2" firstAttribute="centerY" secondItem="JbN-SD-vah" secondAttribute="centerY" id="lnA-td-iFq"/>
-                                                        <constraint firstItem="jd7-a1-Umj" firstAttribute="leading" secondItem="JbN-SD-vah" secondAttribute="leading" constant="16" id="rTd-Ej-Kpo"/>
-                                                    </constraints>
-                                                </view>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="JbN-SD-vah" firstAttribute="leading" secondItem="qkn-WL-T22" secondAttribute="leading" id="Cyl-rG-T7g"/>
-                                                <constraint firstAttribute="bottom" secondItem="JbN-SD-vah" secondAttribute="bottom" id="EPs-Ob-enF"/>
-                                                <constraint firstItem="JbN-SD-vah" firstAttribute="top" secondItem="qkn-WL-T22" secondAttribute="top" id="hhS-Rj-fQV"/>
-                                                <constraint firstAttribute="trailing" secondItem="JbN-SD-vah" secondAttribute="trailing" id="ijs-bK-JBD"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -595,7 +523,10 @@
                         <color key="badgeColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBarItem>
                     <connections>
+                        <outlet property="participantNameLabel" destination="c89-3p-oYE" id="vVr-MN-buz"/>
+                        <outlet property="statusbarView" destination="7iP-Mb-Pcb" id="n2y-Nm-OAc"/>
                         <outlet property="tableView" destination="S5i-me-rWX" id="A6t-QI-JEJ"/>
+                        <outlet property="topbarView" destination="cOY-bW-lyB" id="3VZ-lI-dhs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e1M-ad-HBd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -644,12 +575,12 @@
     <resources>
         <image name="add_friend" width="60" height="60"/>
         <image name="create_group" width="150" height="150"/>
-        <image name="house.fill" catalog="system" width="128" height="106"/>
+        <image name="house.fill" catalog="system" width="64" height="52"/>
         <image name="ic_arrow_back" width="35.666667938232422" height="62"/>
         <image name="ic_edit" width="75" height="75"/>
         <image name="ic_phone" width="75" height="75"/>
-        <image name="message.fill" catalog="system" width="128" height="113"/>
-        <image name="plus" catalog="system" width="128" height="113"/>
+        <image name="message.fill" catalog="system" width="64" height="56"/>
+        <image name="plus" catalog="system" width="64" height="56"/>
         <image name="profile" width="50" height="50"/>
         <image name="setting" width="75" height="75"/>
     </resources>

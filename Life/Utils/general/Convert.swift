@@ -58,7 +58,7 @@ class Convert: NSObject {
 			elapsed = "\(hours) \(text)"
 		} else if (seconds < 7 * 24 * 60 * 60) {
 			let formatter = DateFormatter()
-			formatter.dateFormat = "EEE"
+			formatter.dateFormat = "EEEE"
 			elapsed = formatter.string(from: date)
 		} else {
 			let formatter = DateFormatter()
@@ -81,7 +81,7 @@ class Convert: NSObject {
 		if (seconds < 24 * 60 * 60) {
 			formatter.dateFormat = "HH:mm"
 		} else if (seconds < 7 * 24 * 60 * 60) {
-			formatter.dateFormat = "EEE"
+			formatter.dateFormat = "EEEE"
 		} else {
 			formatter.dateFormat = "dd.MM.yy"
 		}
