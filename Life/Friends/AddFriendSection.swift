@@ -11,6 +11,4 @@ import UIKit
 class AddFriendSection: UITableViewHeaderFooterView {
     static let reuseIdentifier = "AddFriendSection"
     @IBOutlet weak var headerTitle: UILabel!
-    @IBOutlet weak var seeAll: RoundButton!
-    
 }

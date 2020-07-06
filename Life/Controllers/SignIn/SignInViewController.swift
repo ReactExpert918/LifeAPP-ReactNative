@@ -49,7 +49,7 @@ class SignInViewController: UIViewController, UITextViewDelegate, UITextFieldDel
     }
     @IBAction func onLoginTapped(_ sender: Any) {
         if userName.text == ""{
-            Util.showAlert(vc: self, "Attention" , "Please enter username first.")
+            Util.showAlert(vc: self, "Attention" , "Please enter email first.")
             return
         }else if password.text == ""{
             Util.showAlert(vc: self, "Attention" , "Please enter password first.")
