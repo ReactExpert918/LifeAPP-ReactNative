@@ -44,7 +44,6 @@ class MyQrGenerateViewController: UIViewController {
         if let filter = CIFilter(name: "CIQRCodeGenerator") {
             filter.setValue(data, forKey: "inputMessage")
             let transform = CGAffineTransform(scaleX: 3, y: 3)
-
             if let output = filter.outputImage?.transformed(by: transform) {
                 return UIImage(ciImage: output)
             }
@@ -63,9 +62,32 @@ class MyQrGenerateViewController: UIViewController {
     @IBAction func onRefreshTapped(_ sender: Any) {
         myQrcode.image = generateQRCode(from: AuthUser.userId())
     }
-    @IBAction func onShareTapped(_ sender: Any) {
-    }
     @IBAction func onDownloadTapped(_ sender: Any) {
+        let size = CGSize(width: myQrcode.frame.size.width, height: myQrcode.frame.size.height)
+        UIGraphicsBeginImageContextWithOptions(size, false, 0)
+        defer { UIGraphicsEndImageContext() }
+        myQrcode.image?.draw(in: CGRect(origin: .zero, size: size))
+        if let qrcodeImage = UIGraphicsGetImageFromCurrentImageContext() {
+            //let imageData = qrcodeImage.jpegData(compressionQuality: 1)
+            UIImageWriteToSavedPhotosAlbum(qrcodeImage, self, #selector(saveError), nil)
+        }
+        
+        
+    }
+    //MARK: - Add image to Library
+    @objc func saveError(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+        if let error = error {
+            // we got back an error!
+            showAlertWith(title: "Save error", message: error.localizedDescription)
+        } else {
+            showAlertWith(title: "Saved!", message: "Your image has been saved to your photos.")
+        }
+    }
+    
+    func showAlertWith(title: String, message: String){
+        let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "OK", style: .default))
+        present(ac, animated: true)
     }
     
 }

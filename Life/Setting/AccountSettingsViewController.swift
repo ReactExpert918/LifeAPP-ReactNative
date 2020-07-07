@@ -7,8 +7,9 @@
 //
 
 import UIKit
-
-class AccountSettingsViewController: UIViewController {
+import SwiftyAvatar
+import JGProgressHUD
+class AccountSettingsViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     private var person: Person! 
 
     @IBOutlet weak var name: UILabel!
@@ -16,6 +17,8 @@ class AccountSettingsViewController: UIViewController {
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var phoneNumber: UILabel!
     @IBOutlet weak var emailAddress: UILabel!
+    @IBOutlet weak var profileImageView: SwiftyAvatar!
+    let hud = JGProgressHUD(style: .light)
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -47,11 +50,56 @@ class AccountSettingsViewController: UIViewController {
     
     func loadPerson() {
         person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
+        MediaDownload.startUser(person.objectId, pictureAt: person.pictureAt) { image, error in
+            if (error == nil) {
+                self.profileImageView.image = image
+            }
+        }
         name.text = person.fullname
         userName.text = person.fullname
         password.text = person.fullname
         phoneNumber.text = person.phone
         emailAddress.text = person.email
     }
+    @IBAction func onCameraTapped(_ sender: Any) {
+        openCamera()
+    }
     
+    func openCamera(){
+        let vc = UIImagePickerController()
+        vc.sourceType = .camera
+        vc.allowsEditing = true
+        vc.delegate = self
+        present(vc, animated: true)
+    }
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true)
+
+        guard let image = info[.editedImage] as? UIImage else {
+            print("No image found")
+            return
+        }
+        DispatchQueue.main.async{
+            self.profileImageView.image = image
+        }
+        // print out the image size as a test
+        print(image.size)
+        uploadPicture(image: image)
+    }
+    func uploadPicture(image: UIImage) {
+        if let data = image.jpegData(compressionQuality: 0.6) {
+            MediaUpload.user(AuthUser.userId(), data: data, completion: { error in
+                if (error == nil) {
+                    MediaDownload.saveUser(AuthUser.userId(), data: data)
+                    self.person.update(pictureAt: Date().timestamp())
+                } else {
+                    DispatchQueue.main.async {
+                        self.hud.textLabel.text = "Picture upload error."
+                        self.hud.show(in: self.view, animated: true)
+                    }
+                    self.hud.dismiss(afterDelay: 1.0, animated: true)
+                }
+            })
+        }
+    }
 }
