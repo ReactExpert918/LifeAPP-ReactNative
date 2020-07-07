@@ -15,6 +15,13 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
     let sections = ["", "Friend Recommendations"]
     private var persons = realm.objects(Person.self).filter(falsepredicate)
     var personList = [Person]()
+    
+    @IBOutlet weak var popupView: UIView!
+    @IBOutlet weak var popupProfileImageView: UIImageView!
+    @IBOutlet weak var popupNameLabel: UILabel!
+    @IBOutlet weak var popupPhoneNumberLabel: UILabel!
+    @IBOutlet weak var popupStatusLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UINib(nibName: "AddFriendSection", bundle: nil), forHeaderFooterViewReuseIdentifier: AddFriendSection.reuseIdentifier)
@@ -34,7 +41,7 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
                 // Check if the phone number is available for the given contact
                 if contact.isKeyAvailable(CNContactPhoneNumbersKey){
                     for item in contact.phoneNumbers{
-                        self.searchPersonsByPhoneNumber(text: item.value.stringValue)
+                        self.searchPersonsByPhoneNumber(text: item.value.stringValue.replacingOccurrences(of: " ", with: ""))
                     }
                 }
             }
@@ -94,6 +101,21 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
             cell.bindData(person: person)
             cell.loadImage(person: person, tableView: tableView, indexPath: indexPath)
             cell.selectionStyle = .none
+            cell.callbackAddFriend = { (index) in
+                let person = self.personList[index]
+                // Display info on popupview
+                self.popupNameLabel.text = person.fullname
+                self.popupPhoneNumberLabel.text = person.phone
+                self.loadImage(person: person)
+                
+                self.popupView.isHidden = false
+                if (Friends.isFriend(person.objectId)) {
+                    self.popupStatusLabel.text = "Already existing in your friend list."
+                } else {
+                    Friends.create(person.objectId)
+                    self.popupStatusLabel.text = "Successfully added to your friend list."
+                }
+            }
             return cell
         }
     }
@@ -127,6 +149,42 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
             return 77
         }else{
             return 64
+        }
+    }
+    @IBAction func onStartChatTapped(_ sender: Any) {
+        popupView.isHidden = true
+        self.dismiss(animated: true) {
+            
+        }
+    }
+    @IBAction func onPopupCloseTapped(_ sender: Any) {
+        popupView.isHidden = true
+    }
+    
+    func loadImage(person: Person) {
+
+        if let path = MediaDownload.pathUser(person.objectId) {
+            popupProfileImageView.image = UIImage.image(path, size: 40)
+            //labelInitials.text = nil
+        } else {
+            popupProfileImageView.image = nil
+            //labelInitials.text = person.initials()
+            downloadImage(person: person)
+        }
+        popupProfileImageView.makeRounded()
+
+    }
+    
+    func downloadImage(person: Person) {
+
+        MediaDownload.startUser(person.objectId, pictureAt: person.pictureAt) { image, error in
+            if (error == nil) {
+                self.popupProfileImageView.image = image?.square(to: 70)
+                self.popupProfileImageView.makeRounded()
+            }
+            else{
+                self.popupProfileImageView.image = UIImage(named: "ic_default_profile")
+            }
         }
     }
     
