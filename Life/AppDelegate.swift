@@ -50,6 +50,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ = Connectivity.shared
         _ = LocationManager.shared
         
+        //-----------------------------------------------------------------------------------------------------------------------------------------
+        // MediaUploader initialization
+        //-----------------------------------------------------------------------------------------------------------------------------------------
+        _ = MediaUploader.shared
+        
         return true
     }
 

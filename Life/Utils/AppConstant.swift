@@ -8,6 +8,11 @@
 
 import Foundation
 
+class AppConstant {
+    static let VIDEO_LENGTH = 5
+    
+}
+
 struct AudioStatus{
     static let AUDIOSTATUS_STOPPED = 1
     static let AUDIOSTATUS_PLAYING = 2

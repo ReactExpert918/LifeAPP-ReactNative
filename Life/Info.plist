@@ -87,5 +87,9 @@
 	</array>
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>We use photo library to save picture and video messages.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>We use photo library to send picture and video messages.</string>
 </dict>
 </plist>
