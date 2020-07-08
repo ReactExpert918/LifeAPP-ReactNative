@@ -151,6 +151,14 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
             return 64
         }
     }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0{
+            let mainstoryboard = UIStoryboard.init(name: "Group", bundle: nil)
+            let vc = mainstoryboard.instantiateViewController(withIdentifier: "createGroupVC")
+            vc.modalPresentationStyle = .fullScreen
+            self.present(vc, animated: true, completion: nil)
+        }
+    }
     @IBAction func onStartChatTapped(_ sender: Any) {
         popupView.isHidden = true
         self.dismiss(animated: true) {
