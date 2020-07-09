@@ -112,6 +112,17 @@ class ChatViewController: UIViewController {
 
         layoutTableView()
     }
+    
+    @IBAction func actionAudioCall(_ sender: Any) {
+        let callAudioView = CallAudioView(userId: self.recipientId)
+        present(callAudioView, animated: true)
+    }
+    
+    @IBAction func actionVideoCall(_ sender: Any) {
+        let callVideoView = CallVideoView(userId: self.recipientId)
+        present(callVideoView, animated: true)
+    }
+    
     // MARK: - Title details methods
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func updateTitleDetails() {

@@ -452,6 +452,21 @@
                                                 </constraints>
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" image="ic_phone"/>
+                                                <connections>
+                                                    <action selector="actionAudioCall:" destination="3CJ-dQ-TN9" eventType="touchUpInside" id="MGZ-5h-K2A"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rQV-TF-o3l">
+                                                <rect key="frame" x="287" y="20" width="32" height="24"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="32" id="8ML-87-5p9"/>
+                                                    <constraint firstAttribute="height" constant="24" id="dsW-gO-kJI"/>
+                                                </constraints>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" image="ic_video"/>
+                                                <connections>
+                                                    <action selector="actionVideoCall:" destination="3CJ-dQ-TN9" eventType="touchUpInside" id="c4c-wC-2cG"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -460,9 +475,11 @@
                                             <constraint firstAttribute="height" constant="64" id="7zk-Jj-O6S"/>
                                             <constraint firstItem="xyL-aY-NB8" firstAttribute="centerY" secondItem="gHg-E2-ypd" secondAttribute="centerY" id="BdF-3a-BBb"/>
                                             <constraint firstItem="c89-3p-oYE" firstAttribute="centerX" secondItem="gHg-E2-ypd" secondAttribute="centerX" id="GoS-JI-T16"/>
+                                            <constraint firstItem="Z0y-42-cVg" firstAttribute="leading" secondItem="rQV-TF-o3l" secondAttribute="trailing" constant="16" id="Ht3-hv-f82"/>
                                             <constraint firstItem="Z0y-42-cVg" firstAttribute="centerY" secondItem="gHg-E2-ypd" secondAttribute="centerY" id="LGk-ji-sB4"/>
                                             <constraint firstItem="c89-3p-oYE" firstAttribute="centerY" secondItem="gHg-E2-ypd" secondAttribute="centerY" id="akI-cL-jEX"/>
                                             <constraint firstAttribute="trailing" secondItem="Z0y-42-cVg" secondAttribute="trailing" constant="16" id="chC-5s-Tz7"/>
+                                            <constraint firstItem="Z0y-42-cVg" firstAttribute="centerY" secondItem="rQV-TF-o3l" secondAttribute="centerY" id="edC-6u-1V2"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="emn-8e-6W3" userLabel="SearchView">
@@ -579,6 +596,7 @@
         <image name="ic_arrow_back" width="35.666667938232422" height="62"/>
         <image name="ic_edit" width="75" height="75"/>
         <image name="ic_phone" width="75" height="75"/>
+        <image name="ic_video" width="108" height="64.333335876464844"/>
         <image name="message.fill" catalog="system" width="64" height="56"/>
         <image name="plus" catalog="system" width="64" height="56"/>
         <image name="profile" width="50" height="50"/>

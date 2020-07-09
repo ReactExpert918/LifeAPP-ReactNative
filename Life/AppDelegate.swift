@@ -11,6 +11,8 @@ import IQKeyboardManagerSwift
 import Firebase
 import RealmSwift
 import OneSignal
+import Sinch
+
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 let realm = try! Realm()
 let falsepredicate = NSPredicate(value: false)
@@ -20,7 +22,10 @@ let falsepredicate = NSPredicate(value: false)
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
+    
+    var client: SINClient?
+    var push: SINManagedPush?
+    var callKitProvider: CallKitProvider?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -42,7 +47,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             }
         })
-
+        //-----------------------------------------------------------------------------------------------------------------------------------------
+        // OneSignal initialization
+        //-----------------------------------------------------------------------------------------------------------------------------------------
+        OneSignal.initWithLaunchOptions(launchOptions, appId: ONESIGNAL.ONESIGNAL_APPID, handleNotificationReceived: nil,
+                                        handleNotificationAction: nil, settings: [kOSSettingsKeyAutoPrompt: false])
+        OneSignal.setLogLevel(ONE_S_LOG_LEVEL.LL_NONE, visualLevel: ONE_S_LOG_LEVEL.LL_NONE)
+        OneSignal.inFocusDisplayType = OSNotificationDisplayType.none
         //-----------------------------------------------------------------------------------------------------------------------------------------
         // Manager initialization
         //-----------------------------------------------------------------------------------------------------------------------------------------
@@ -54,6 +65,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // MediaUploader initialization
         //-----------------------------------------------------------------------------------------------------------------------------------------
         _ = MediaUploader.shared
+        
+        //-----------------------------------------------------------------------------------------------------------------------------------------
+        // Sinch initialization
+        //-----------------------------------------------------------------------------------------------------------------------------------------
+        push = Sinch.managedPush(with: .production)
+        push?.delegate = self
+        push?.setDesiredPushType(SINPushTypeVoIP)
+
+        callKitProvider = CallKitProvider()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(sinchLogInUser), name: NSNotification.Name(rawValue: NotificationStatus.NOTIFICATION_APP_STARTED), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(sinchLogInUser), name: NSNotification.Name(rawValue: NotificationStatus.NOTIFICATION_USER_LOGGED_IN), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(sinchLogOutUser), name: NSNotification.Name(rawValue: NotificationStatus.NOTIFICATION_USER_LOGGED_OUT), object: nil)
         
         return true
     }
@@ -72,6 +96,79 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
 
+    // MARK: - Sinch user methods
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    @objc func sinchLogInUser() {
+
+        let userId = AuthUser.userId()
+
+        if (userId == "")    { return }
+        if (client != nil)    { return }
+
+        client = Sinch.client(withApplicationKey: SINCHINFO.SINCH_KEY, applicationSecret: SINCHINFO.SINCH_SECRET, environmentHost: SINCHINFO.SINCH_HOST, userId: userId)
+        client?.delegate = self
+        client?.call().delegate = self
+        client?.setSupportCalling(true)
+        client?.enableManagedPushNotifications()
+        callKitProvider?.setClient(client)
+        client?.start()
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    @objc func sinchLogOutUser() {
+
+        client?.terminateGracefully()
+        client = nil
+    }
 
 }
+// MARK: - SINClientDelegate
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+extension AppDelegate: SINClientDelegate {
 
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func clientDidStart(_ client: SINClient!) {
+        print("Sinch client started successfully \(client.userId)")
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func clientDidFail(_ client: SINClient!, error: Error!) {
+        print("Sinch client error: \(error.localizedDescription)")
+    }
+}
+
+// MARK: - SINCallClientDelegate
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+extension AppDelegate: SINCallClientDelegate {
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func client(_ client: SINCallClient!, willReceiveIncomingCall call: SINCall!) {
+        print("Sinch client willReceiveIncomingCall \(call.callId)")
+        callKitProvider?.insertCall(call: call)
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func client(_ client: SINCallClient!, didReceiveIncomingCall call: SINCall!) {
+        print("Sinch client didReceiveIncomingCall \(call.callId)")
+        callKitProvider?.insertCall(call: call)
+
+        callKitProvider?.reportNewIncomingCall(call: call)
+    }
+}
+
+// MARK: - SINManagedPushDelegate
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+extension AppDelegate: SINManagedPushDelegate {
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func managedPush(_ managedPush: SINManagedPush!, didReceiveIncomingPushWithPayload payload: [AnyHashable: Any]!, forType pushType: String!) {
+
+        callKitProvider?.didReceivePush(withPayload: payload)
+
+        DispatchQueue.main.async {
+            self.sinchLogInUser()
+            self.client?.relayRemotePushNotification(payload)
+            self.push?.didCompleteProcessingPushPayload(payload)
+        }
+    }
+}

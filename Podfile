@@ -23,6 +23,8 @@ target 'Life' do
   pod 'MessageKit'
   pod 'OneSignal'
   pod 'RealmSwift'
+  pod 'SinchRTC'
+  pod 'NYTPhotoViewer'
   pod 'Reachability'
   pod 'ProgressHUD'
   pod 'RNCryptor-objc'
