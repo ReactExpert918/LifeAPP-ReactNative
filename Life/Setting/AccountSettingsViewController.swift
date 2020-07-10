@@ -62,20 +62,43 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
         emailAddress.text = person.email
     }
     @IBAction func onCameraTapped(_ sender: Any) {
-        openCamera()
+        
+        let confirmationAlert = UIAlertController(title: "please select source type to set profile image.", message: "", preferredStyle: .alert)
+
+        confirmationAlert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action: UIAlertAction!) in
+            confirmationAlert.dismiss(animated: true, completion: nil)
+            self.openCamera()
+        }))
+        
+        confirmationAlert.addAction(UIAlertAction(title: "Gallery", style: .default, handler: { (action: UIAlertAction!) in
+            confirmationAlert.dismiss(animated: true, completion: nil)
+            self.openGallery()
+        }))
+
+        confirmationAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+        }))
+        present(confirmationAlert, animated: true, completion: nil)
     }
     
     func openCamera(){
         let vc = UIImagePickerController()
         vc.sourceType = .camera
-        vc.allowsEditing = true
+        vc.allowsEditing = false
+        vc.delegate = self
+        present(vc, animated: true)
+    }
+    
+    func openGallery(){
+        let vc = UIImagePickerController()
+        vc.sourceType = .photoLibrary
+        vc.allowsEditing = false
         vc.delegate = self
         present(vc, animated: true)
     }
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true)
 
-        guard let image = info[.editedImage] as? UIImage else {
+        guard let image = info[.originalImage] as? UIImage else {
             print("No image found")
             return
         }

@@ -181,6 +181,12 @@
 		AB3A81BB24A9B4920089127E /* BasicDetailInsertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3A81BA24A9B4920089127E /* BasicDetailInsertViewController.swift */; };
 		AB3A81BD24AA3B900089127E /* AddPictureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3A81BC24AA3B900089127E /* AddPictureViewController.swift */; };
 		AB3A81BF24AA539B0089127E /* SuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3A81BE24AA539B0089127E /* SuccessViewController.swift */; };
+		AB5457A524B5C3C1008C7FB8 /* CreateGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5457A424B5C3C1008C7FB8 /* CreateGroupViewController.swift */; };
+		AB5457A724B5C4F2008C7FB8 /* AddMemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5457A624B5C4F2008C7FB8 /* AddMemberCell.swift */; };
+		AB5457A924B5D9FC008C7FB8 /* AddedMemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5457A824B5D9FC008C7FB8 /* AddedMemberCell.swift */; };
+		AB5457AB24B623A7008C7FB8 /* AddParticipantsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5457AA24B623A7008C7FB8 /* AddParticipantsViewController.swift */; };
+		AB5457AD24B623C4008C7FB8 /* AddParticipantCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5457AC24B623C4008C7FB8 /* AddParticipantCell.swift */; };
+		AB5457AF24B6385B008C7FB8 /* HorizontalAddedParticipantCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5457AE24B6385B008C7FB8 /* HorizontalAddedParticipantCell.swift */; };
 		AB82ACCF24A5452700D83E47 /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB82ACCA24A5452600D83E47 /* Setting.storyboard */; };
 		AB82ACD024A5452700D83E47 /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB82ACCB24A5452600D83E47 /* SettingCell.swift */; };
 		AB82ACD124A5452700D83E47 /* SettingCellHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB82ACCC24A5452600D83E47 /* SettingCellHeader.swift */; };
@@ -404,6 +410,12 @@
 		AB3A81BA24A9B4920089127E /* BasicDetailInsertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicDetailInsertViewController.swift; sourceTree = "<group>"; };
 		AB3A81BC24AA3B900089127E /* AddPictureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPictureViewController.swift; sourceTree = "<group>"; };
 		AB3A81BE24AA539B0089127E /* SuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessViewController.swift; sourceTree = "<group>"; };
+		AB5457A424B5C3C1008C7FB8 /* CreateGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupViewController.swift; sourceTree = "<group>"; };
+		AB5457A624B5C4F2008C7FB8 /* AddMemberCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMemberCell.swift; sourceTree = "<group>"; };
+		AB5457A824B5D9FC008C7FB8 /* AddedMemberCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddedMemberCell.swift; sourceTree = "<group>"; };
+		AB5457AA24B623A7008C7FB8 /* AddParticipantsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddParticipantsViewController.swift; sourceTree = "<group>"; };
+		AB5457AC24B623C4008C7FB8 /* AddParticipantCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddParticipantCell.swift; sourceTree = "<group>"; };
+		AB5457AE24B6385B008C7FB8 /* HorizontalAddedParticipantCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalAddedParticipantCell.swift; sourceTree = "<group>"; };
 		AB82ACCA24A5452600D83E47 /* Setting.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
 		AB82ACCB24A5452600D83E47 /* SettingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		AB82ACCC24A5452600D83E47 /* SettingCellHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingCellHeader.swift; sourceTree = "<group>"; };
@@ -522,6 +534,12 @@
 			isa = PBXGroup;
 			children = (
 				A6379AE924AAD578003E1879 /* Group.storyboard */,
+				AB5457A424B5C3C1008C7FB8 /* CreateGroupViewController.swift */,
+				AB5457A624B5C4F2008C7FB8 /* AddMemberCell.swift */,
+				AB5457A824B5D9FC008C7FB8 /* AddedMemberCell.swift */,
+				AB5457AA24B623A7008C7FB8 /* AddParticipantsViewController.swift */,
+				AB5457AC24B623C4008C7FB8 /* AddParticipantCell.swift */,
+				AB5457AE24B6385B008C7FB8 /* HorizontalAddedParticipantCell.swift */,
 			);
 			path = Groups;
 			sourceTree = "<group>";
@@ -1447,6 +1465,7 @@
 				AB30FAFB24AFAE490037BF25 /* AddFriendHeaderCell.swift in Sources */,
 				A6DEA84B24A8365900868625 /* FireFetch.swift in Sources */,
 				A6DEA88124A84E9600868625 /* MediaUpload.swift in Sources */,
+				AB5457AF24B6385B008C7FB8 /* HorizontalAddedParticipantCell.swift in Sources */,
 				A6DEA85824A83B2D00868625 /* Connectivity.swift in Sources */,
 				A6E73B5324A5AAFF0008CBFE /* SearchbarExtension.swift in Sources */,
 				A60845BE24A30390005F23A9 /* SignupViewController.swift in Sources */,
@@ -1455,7 +1474,9 @@
 				A6DEA82424A82A7100868625 /* RCMessageTextCell.swift in Sources */,
 				A6DEA86D24A8405300868625 /* Members.swift in Sources */,
 				A6DEA83A24A8351100868625 /* SyncObject.swift in Sources */,
+				AB5457A524B5C3C1008C7FB8 /* CreateGroupViewController.swift in Sources */,
 				A6DEA87524A8483600868625 /* NSError+Extension.swift in Sources */,
+				AB5457A924B5D9FC008C7FB8 /* AddedMemberCell.swift in Sources */,
 				A6DEA85C24A83FDA00868625 /* Friend.swift in Sources */,
 				A6DEA84924A8365900868625 /* FireFetcher.swift in Sources */,
 				AB13A9DB24A2EF610028731D /* AppDelegate.swift in Sources */,
@@ -1497,6 +1518,7 @@
 				AB277A8124AD041A00D6C783 /* RoundedCornerBorderView.swift in Sources */,
 				A6E7001A24B6DBEB004586E0 /* PictureView.swift in Sources */,
 				A6E73B4824A4F85F0008CBFE /* ExtensionView.swift in Sources */,
+				AB5457AB24B623A7008C7FB8 /* AddParticipantsViewController.swift in Sources */,
 				A6DEA88A24A8536300868625 /* PushNotification.swift in Sources */,
 				A6BD967E24B4D76900E1B873 /* SelectUsersCell.swift in Sources */,
 				A6DEA85524A83A3E00868625 /* File.swift in Sources */,
@@ -1516,6 +1538,7 @@
 				A6DEA83224A82F7100868625 /* AppConstant.swift in Sources */,
 				A6DEA86E24A8405300868625 /* Singles.swift in Sources */,
 				A6DEA88624A8521700868625 /* Password.swift in Sources */,
+				AB5457A724B5C4F2008C7FB8 /* AddMemberCell.swift in Sources */,
 				A6DEA83524A8303A00868625 /* Message.swift in Sources */,
 				AB82ACD124A5452700D83E47 /* SettingCellHeader.swift in Sources */,
 				A6F564D124A9B53C0061007E /* RCFooterLowerCell.swift in Sources */,
@@ -1529,6 +1552,7 @@
 				AB30FAFF24AFB2D20037BF25 /* AddFriendSection.swift in Sources */,
 				A6C9824E24AE72E2002280B6 /* ChatManager.swift in Sources */,
 				A6DEA88424A84EC600868625 /* Cryptor.swift in Sources */,
+				AB5457AD24B623C4008C7FB8 /* AddParticipantCell.swift in Sources */,
 				A6DEA82C24A82AB000868625 /* RCMessage.swift in Sources */,
 				A60845B924A302BA005F23A9 /* WelcomeViewController.swift in Sources */,
 				A6E7001824B6DBEB004586E0 /* MapView.swift in Sources */,
