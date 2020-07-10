@@ -19,9 +19,9 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Please allow access to save qrcode in your photo library</string>
+	<string>We use photo library to save picture and video messages.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>photo library is required to select profile photo.</string>
+	<string>We use photo library to send picture and video messages.</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -93,5 +93,7 @@
 	</array>
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>We use your microphone to send audio messages.</string>
 </dict>
 </plist>

@@ -375,6 +375,9 @@ PODS:
   - InputBarAccessoryView/Core (4.3.2)
   - IQKeyboardManagerSwift (6.5.5)
   - JGProgressHUD (2.1)
+  - Kingfisher (5.14.0):
+    - Kingfisher/Core (= 5.14.0)
+  - Kingfisher/Core (5.14.0)
   - leveldb-library (1.22)
   - MessageKit (3.1.0):
     - InputBarAccessoryView (~> 4.3.0)
@@ -412,6 +415,7 @@ DEPENDENCIES:
   - FlagPhoneNumber
   - IQKeyboardManagerSwift
   - JGProgressHUD
+  - Kingfisher
   - MessageKit
   - OneSignal
   - ProgressHUD
@@ -455,6 +459,7 @@ SPEC REPOS:
     - InputBarAccessoryView
     - IQKeyboardManagerSwift
     - JGProgressHUD
+    - Kingfisher
     - leveldb-library
     - MessageKit
     - nanopb
@@ -502,6 +507,7 @@ SPEC CHECKSUMS:
   InputBarAccessoryView: 7985d418040a05fe894bd4b8328dd43ab35517c3
   IQKeyboardManagerSwift: 0fb93310284665245591f50f7a5e38de615960b7
   JGProgressHUD: aa403e9a5b45cae98903c4600cccdd98c0c3ec90
+  Kingfisher: 7b64389a43139c903ec434788344c288217c792d
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   MessageKit: 3beb578737a5aa2bba25cc27c7b6d6faa09af5a7
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
@@ -517,6 +523,6 @@ SPEC CHECKSUMS:
   SkyFloatingLabelTextField: 5a338412114808e961fe2d14ea2c5452c8b6e4aa
   SwiftyAvatar: 33aecda825c91851cac2aabd06b33f3698b2414c
 
-PODFILE CHECKSUM: a5e1279d70f8a62d3ce19ac79598ec14553c876a
+PODFILE CHECKSUM: 6ad9e5e9f7ca679ec5fff4fd95d85edcd4fd1d71
 
 COCOAPODS: 1.9.3

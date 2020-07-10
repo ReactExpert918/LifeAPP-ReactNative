@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import ProgressHUD
 import InputBarAccessoryView
 import IQKeyboardManagerSwift
 
@@ -48,6 +49,7 @@ class ChatViewController: UIViewController {
     private var typingCounter: Int = 0
     private var lastRead: Int64 = 0
 
+    private var indexForward: IndexPath?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -373,9 +375,46 @@ class ChatViewController: UIViewController {
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func menuItems(_ indexPath: IndexPath) -> [RCMenuItem]? {
 
-        return nil
+        let menuItemCopy = RCMenuItem(title: "Copy", action: #selector(actionMenuCopy(_:)))
+        let menuItemSave = RCMenuItem(title: "Save", action: #selector(actionMenuSave(_:)))
+        let menuItemDelete = RCMenuItem(title: "Delete", action: #selector(actionMenuDelete(_:)))
+        let menuItemForward = RCMenuItem(title: "Forward", action: #selector(actionMenuForward(_:)))
+
+        menuItemCopy.indexPath = indexPath
+        menuItemSave.indexPath = indexPath
+        menuItemDelete.indexPath = indexPath
+        menuItemForward.indexPath = indexPath
+
+        let rcmessage = rcmessageAt(indexPath)
+
+        var array: [RCMenuItem] = []
+
+        if (rcmessage.type == MESSAGE_TYPE.MESSAGE_TEXT)        { array.append(menuItemCopy) }
+        if (rcmessage.type == MESSAGE_TYPE.MESSAGE_EMOJI)    { array.append(menuItemCopy) }
+
+        if (rcmessage.type == MESSAGE_TYPE.MESSAGE_PHOTO)    { array.append(menuItemSave) }
+        if (rcmessage.type == MESSAGE_TYPE.MESSAGE_VIDEO)    { array.append(menuItemSave) }
+        if (rcmessage.type == MESSAGE_TYPE.MESSAGE_AUDIO)    { array.append(menuItemSave) }
+
+        array.append(menuItemDelete)
+        array.append(menuItemForward)
+
+        return array
+    }
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        if (action == #selector(actionMenuCopy(_:)))    { return true }
+        if (action == #selector(actionMenuSave(_:)))    { return true }
+        if (action == #selector(actionMenuDelete(_:)))    { return true }
+        if (action == #selector(actionMenuForward(_:)))    { return true }
+        return false
     }
 
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    override var canBecomeFirstResponder: Bool {
+
+        return true
+    }
     // MARK: - User actions (bubble tap)
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func actionTapBubble(_ indexPath: IndexPath) {
@@ -387,10 +426,92 @@ class ChatViewController: UIViewController {
     func actionTapAvatar(_ indexPath: IndexPath) {
 
     }
+    // MARK: - User actions (menu)
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    @objc func actionMenuCopy(_ sender: Any?) {
+
+        if let indexPath = RCMenuItem.indexPath(sender as! UIMenuController) {
+            let rcmessage = rcmessageAt(indexPath)
+            UIPasteboard.general.string = rcmessage.text
+        }
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    @objc func actionMenuSave(_ sender: Any?) {
+
+        if let indexPath = RCMenuItem.indexPath(sender as! UIMenuController) {
+            let rcmessage = rcmessageAt(indexPath)
+
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_PHOTO) {
+                if (rcmessage.mediaStatus == MediaStatus.MEDIASTATUS_SUCCEED) {
+                    if let image = rcmessage.photoImage {
+                        UIImageWriteToSavedPhotosAlbum(image, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+                    }
+                }
+            }
+
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_VIDEO) {
+                if (rcmessage.mediaStatus == MediaStatus.MEDIASTATUS_SUCCEED) {
+                    UISaveVideoAtPathToSavedPhotosAlbum(rcmessage.videoPath, self, #selector(video(_:didFinishSavingWithError:contextInfo:)), nil)
+                }
+            }
+
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_AUDIO) {
+                if (rcmessage.mediaStatus == MediaStatus.MEDIASTATUS_SUCCEED) {
+                    let path = File.temp(ext: "mp4")
+                    File.copy(src: rcmessage.audioPath, dest: path, overwrite: true)
+                    UISaveVideoAtPathToSavedPhotosAlbum(path, self, #selector(video(_:didFinishSavingWithError:contextInfo:)), nil)
+                }
+            }
+        }
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    @objc func actionMenuDelete(_ sender: Any?) {
+
+        if let indexPath = RCMenuItem.indexPath(sender as! UIMenuController) {
+            let message = messageAt(indexPath)
+            message.update(isDeleted: true)
+        }
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    @objc func actionMenuForward(_ sender: Any?) {
+
+        if let indexPath = RCMenuItem.indexPath(sender as! UIMenuController) {
+            indexForward = indexPath
+
+            let selectUsersView = SelectUsersView()
+            selectUsersView.delegate = self
+            //let navController = NavigationController(rootViewController: selectUsersView)
+            //present(navController, animated: true)
+        }
+    }
+
+    // MARK: - UISaveVideoAtPathToSavedPhotosAlbum
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    @objc func image(_ image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: UnsafeMutableRawPointer?) {
+
+        if (error != nil) { ProgressHUD.showError("Saving failed.") } else { ProgressHUD.showSuccess("Successfully saved.") }
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    @objc func video(_ videoPath: String, didFinishSavingWithError error: NSError?, contextInfo: UnsafeMutableRawPointer?) {
+
+        if (error != nil) { ProgressHUD.showError("Saving failed.") } else { ProgressHUD.showSuccess("Successfully saved.") }
+    }
     // MARK: - User actions (input panel)
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func actionAttachMessage() {
 
+    }
+    
+    func actionOpenCamera() {
+        ImagePicker.cameraMulti(target: self, edit: true)
+    }
+    
+    func actionOpenGallery() {
+        ImagePicker.photoLibrary(target: self, edit: true)
     }
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func actionSendMessage(_ text: String) {
@@ -510,6 +631,7 @@ class ChatViewController: UIViewController {
 
         messageInputBar.delegate = self
 
+        /*
         let button = InputBarButtonItem()
         button.image = UIImage(systemName: "plus")
         button.setSize(CGSize(width: 36, height: 36), animated: false)
@@ -518,20 +640,56 @@ class ChatViewController: UIViewController {
             if (gesture.direction == .left)     { item.inputBarAccessoryView?.setLeftStackViewWidthConstant(to: 0, animated: true)        }
             if (gesture.direction == .right) { item.inputBarAccessoryView?.setLeftStackViewWidthConstant(to: 36, animated: true)    }
         }
+         */
+        let cameraButton = InputBarButtonItem()
+        cameraButton.image = UIImage(named: "ic_camera")
+        cameraButton.setSize(CGSize(width: 34, height: 36), animated: false)
+        //cameraButton.contentEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
 
-        button.onTouchUpInside { item in
-            self.actionAttachMessage()
+        cameraButton.onKeyboardSwipeGesture { item, gesture in
+            if (gesture.direction == .left)     { item.inputBarAccessoryView?.setLeftStackViewWidthConstant(to: 0, animated: true)        }
+            if (gesture.direction == .right) { item.inputBarAccessoryView?.setLeftStackViewWidthConstant(to: 36, animated: true)    }
         }
 
-        messageInputBar.setStackViewItems([button], forStack: .left, animated: false)
+        cameraButton.onTouchUpInside { item in
+            self.actionOpenCamera()
+        }
+
+        let galleryButton = InputBarButtonItem()
+        galleryButton.image = UIImage(named: "ic_gallery")
+        galleryButton.setSize(CGSize(width: 30, height: 36), animated: false)
+        //galleryButton.contentEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        
+        galleryButton.onKeyboardSwipeGesture { item, gesture in
+            if (gesture.direction == .left)     { item.inputBarAccessoryView?.setLeftStackViewWidthConstant(to: 0, animated: true)        }
+            if (gesture.direction == .right) { item.inputBarAccessoryView?.setLeftStackViewWidthConstant(to: 36, animated: true)    }
+        }
+
+        galleryButton.onTouchUpInside { item in
+            self.actionOpenGallery()
+        }
+
+        messageInputBar.setStackViewItems([cameraButton, galleryButton], forStack: .left, animated: false)
+        messageInputBar.leftStackView.isLayoutMarginsRelativeArrangement = false
+        messageInputBar.leftStackView.spacing = 8
 
         messageInputBar.sendButton.title = nil
         messageInputBar.sendButton.image = UIImage(systemName: "paperplane.fill")
         messageInputBar.sendButton.setSize(CGSize(width: 36, height: 36), animated: false)
 
-        messageInputBar.setLeftStackViewWidthConstant(to: 36, animated: false)
+        messageInputBar.setLeftStackViewWidthConstant(to: 72, animated: false)
         messageInputBar.setRightStackViewWidthConstant(to: 36, animated: false)
 
+        messageInputBar.middleContentViewPadding = UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 5)
+        messageInputBar.inputTextView.backgroundColor = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1)
+        messageInputBar.inputTextView.placeholderTextColor = UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
+        messageInputBar.inputTextView.textContainerInset = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 36)
+        messageInputBar.inputTextView.placeholderLabelInsets = UIEdgeInsets(top: 8, left: 20, bottom: 8, right: 36)
+        messageInputBar.inputTextView.layer.borderColor = UIColor(red: 200/255, green: 200/255, blue: 200/255, alpha: 1).cgColor
+        messageInputBar.inputTextView.layer.borderWidth = 1.0
+        messageInputBar.inputTextView.layer.cornerRadius = 16.0
+        messageInputBar.inputTextView.layer.masksToBounds = true
+        messageInputBar.inputTextView.scrollIndicatorInsets = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
         messageInputBar.inputTextView.isImagePasteEnabled = false
     }
     @IBAction func onBackPressed(_ sender: Any) {
@@ -733,5 +891,63 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
         }
         messageInputBar.inputTextView.text = ""
         messageInputBar.invalidatePlugins()
+    }
+}
+
+// MARK: - UIImagePickerControllerDelegate
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+extension ChatViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+
+        let video = info[.mediaURL] as? URL
+        let photo = info[.editedImage] as? UIImage
+
+        messageSend(text: nil, photo: photo, video: video, audio: nil)
+
+        picker.dismiss(animated: true)
+    }
+}
+
+// MARK: - AudioDelegate
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+extension ChatViewController: AudioDelegate {
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func didRecordAudio(path: String) {
+
+        messageSend(text: nil, photo: nil, video: nil, audio: path)
+    }
+}
+
+// MARK: - StickersDelegate
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+extension ChatViewController: StickersDelegate {
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func didSelectSticker(sticker: UIImage) {
+
+        messageSend(text: nil, photo: sticker, video: nil, audio: nil)
+    }
+}
+
+// MARK: - SelectUsersDelegate
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+extension ChatViewController: SelectUsersDelegate {
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func didSelectUsers(userIds: [String]) {
+
+        if let indexPath = indexForward {
+            let message = messageAt(indexPath)
+
+            for userId in userIds {
+                let chatId = Singles.create(userId)
+                Messages.forward(chatId: chatId, message: message)
+            }
+
+            indexForward = nil
+        }
     }
 }
