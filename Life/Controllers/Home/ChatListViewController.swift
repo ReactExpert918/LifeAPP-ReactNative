@@ -34,6 +34,7 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
         searchBar.setPlaceholder(textColor: UIColor(hexString: "#96B4D2")!)
         searchBar.setSearchImage(color: UIColor(hexString: "#96B4D2")!)
 //      searchBar.setClearButton(color: UIColor(hexString: "#96B4D2")!)
+        searchBar.tintColor = UIColor(hexString: "#FFFFFF")
         searchBar.delegate = self
         // Init Chat List TableView
         ChatHistoryCell.Register(withTableView: chatsTableView)
@@ -67,7 +68,7 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
 
         let predicate1 = NSPredicate(format: "objectId IN %@ AND lastMessageAt != 0", Members.chatIds())
         let predicate2 = NSPredicate(format: "isDeleted == NO AND isArchived == NO AND isGroupDeleted == NO")
-        let predicate3 = (text != "") ? NSPredicate(format: "details CONTAINS[c] %@", text) : NSPredicate(value: true)
+        let predicate3 = (text != "") ? NSPredicate(format: "fullName1 CONTAINS[c] %@ OR fullName2 CONTAINS[c] %@", text, text) : NSPredicate(value: true)
 
         let predicate = NSCompoundPredicate(type: .and, subpredicates: [predicate1, predicate2, predicate3])
         chats = realm.objects(Chat.self).filter(predicate).sorted(byKeyPath: "lastMessageAt", ascending: false)
@@ -182,12 +183,16 @@ extension ChatListViewController: UISearchBarDelegate {
 
         searchBar.text = ""
         searchBar.resignFirstResponder()
-        
+        loadChats()
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func searchBarSearchButtonClicked(_ searchBar_: UISearchBar) {
-
         searchBar.resignFirstResponder()
+        let searchText = searchBar_.text
+        if searchText?.isEmpty == true {
+            return
+        }
+        loadChats(text: searchText ?? "")
     }
 }

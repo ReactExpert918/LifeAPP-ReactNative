@@ -6,14 +6,6 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="Montserrat-Regular.ttf">
-            <string>Montserrat-Regular</string>
-        </array>
-        <array key="Montserrat-SemiBold.ttf">
-            <string>Montserrat-SemiBold</string>
-        </array>
-    </customFonts>
     <scenes>
         <!--Home View Controller-->
         <scene sceneID="yfi-ry-I9H">
@@ -114,55 +106,8 @@
                                     <constraint firstItem="6e9-hE-opT" firstAttribute="top" secondItem="fnb-Kj-DeC" secondAttribute="top" id="sui-jW-C3q"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y4E-lJ-udf" userLabel="ProfileView">
-                                <rect key="frame" x="0.0" y="158" width="375" height="76"/>
-                                <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile" translatesAutoresizingMaskIntoConstraints="NO" id="LOr-u7-m6N">
-                                        <rect key="frame" x="16" y="14" width="48" height="48"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="48" id="9gK-FC-8dE"/>
-                                            <constraint firstAttribute="height" constant="48" id="fub-zd-FAf"/>
-                                        </constraints>
-                                    </imageView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ikt-1V-gZx">
-                                        <rect key="frame" x="80" y="21.666666666666657" width="279" height="33"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Alison" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uOA-We-jee">
-                                                <rect key="frame" x="0.0" y="0.0" width="44.666666666666664" height="17"/>
-                                                <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="14"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem ispum is a dummy text" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="79U-0n-4KO">
-                                                <rect key="frame" x="0.0" y="17" width="279" height="16"/>
-                                                <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="13"/>
-                                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                        <constraints>
-                                            <constraint firstItem="uOA-We-jee" firstAttribute="leading" secondItem="ikt-1V-gZx" secondAttribute="leading" id="9HS-Lf-phc"/>
-                                            <constraint firstItem="uOA-We-jee" firstAttribute="top" secondItem="ikt-1V-gZx" secondAttribute="top" id="Cob-eT-H3B"/>
-                                            <constraint firstItem="79U-0n-4KO" firstAttribute="leading" secondItem="ikt-1V-gZx" secondAttribute="leading" id="Emm-vk-s3Y"/>
-                                            <constraint firstAttribute="trailing" secondItem="79U-0n-4KO" secondAttribute="trailing" id="XEV-bb-u8c"/>
-                                            <constraint firstItem="79U-0n-4KO" firstAttribute="top" secondItem="uOA-We-jee" secondAttribute="bottom" id="dSl-fQ-nmO"/>
-                                            <constraint firstAttribute="bottom" secondItem="79U-0n-4KO" secondAttribute="bottom" id="dt6-Im-KS2"/>
-                                        </constraints>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <constraints>
-                                    <constraint firstItem="LOr-u7-m6N" firstAttribute="leading" secondItem="Y4E-lJ-udf" secondAttribute="leading" constant="16" id="1TP-nk-qZU"/>
-                                    <constraint firstAttribute="height" constant="76" id="9ms-ic-nFd"/>
-                                    <constraint firstItem="ikt-1V-gZx" firstAttribute="leading" secondItem="LOr-u7-m6N" secondAttribute="trailing" constant="16" id="ekk-Sj-W8A"/>
-                                    <constraint firstItem="LOr-u7-m6N" firstAttribute="centerY" secondItem="Y4E-lJ-udf" secondAttribute="centerY" id="gKI-NS-pAU"/>
-                                    <constraint firstAttribute="trailing" secondItem="ikt-1V-gZx" secondAttribute="trailing" constant="16" id="r5u-ZO-cCt"/>
-                                    <constraint firstItem="ikt-1V-gZx" firstAttribute="centerY" secondItem="Y4E-lJ-udf" secondAttribute="centerY" id="xIN-kn-gsS"/>
-                                </constraints>
-                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="CYM-iw-S5U">
-                                <rect key="frame" x="0.0" y="234" width="375" height="495"/>
+                                <rect key="frame" x="0.0" y="158" width="375" height="571"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="createGroupCell" rowHeight="76" id="r5h-Yj-ZqF">
@@ -222,29 +167,23 @@
                             <constraint firstItem="ASY-Bn-eK3" firstAttribute="leading" secondItem="vbc-5U-YlH" secondAttribute="leading" id="0oQ-PF-4jd"/>
                             <constraint firstItem="fnb-Kj-DeC" firstAttribute="top" secondItem="eFG-eO-5vl" secondAttribute="top" id="2SR-pX-Cee"/>
                             <constraint firstItem="eFG-eO-5vl" firstAttribute="trailing" secondItem="CYM-iw-S5U" secondAttribute="trailing" id="7iM-Pp-kIe"/>
+                            <constraint firstItem="CYM-iw-S5U" firstAttribute="top" secondItem="fnb-Kj-DeC" secondAttribute="bottom" id="8d5-ha-g3H"/>
                             <constraint firstItem="ASY-Bn-eK3" firstAttribute="top" secondItem="vbc-5U-YlH" secondAttribute="top" id="FZf-A9-4Wa"/>
-                            <constraint firstItem="Y4E-lJ-udf" firstAttribute="top" secondItem="fnb-Kj-DeC" secondAttribute="bottom" id="IGx-fR-d1Y"/>
                             <constraint firstItem="eFG-eO-5vl" firstAttribute="bottom" secondItem="CYM-iw-S5U" secondAttribute="bottom" id="JOv-OB-vQd"/>
-                            <constraint firstItem="Y4E-lJ-udf" firstAttribute="leading" secondItem="eFG-eO-5vl" secondAttribute="leading" id="Nqe-gB-RID"/>
                             <constraint firstItem="fnb-Kj-DeC" firstAttribute="leading" secondItem="eFG-eO-5vl" secondAttribute="leading" id="Vzd-67-uKq"/>
                             <constraint firstItem="eFG-eO-5vl" firstAttribute="trailing" secondItem="8If-md-5Hz" secondAttribute="trailing" constant="16" id="bNj-4y-E8V"/>
                             <constraint firstItem="fnb-Kj-DeC" firstAttribute="top" secondItem="ASY-Bn-eK3" secondAttribute="bottom" id="cHr-mZ-UJL"/>
                             <constraint firstAttribute="trailing" secondItem="ASY-Bn-eK3" secondAttribute="trailing" id="dFl-eK-do6"/>
-                            <constraint firstItem="CYM-iw-S5U" firstAttribute="top" secondItem="Y4E-lJ-udf" secondAttribute="bottom" id="jMZ-RX-w9U"/>
                             <constraint firstItem="CYM-iw-S5U" firstAttribute="leading" secondItem="eFG-eO-5vl" secondAttribute="leading" id="jhZ-Fm-HsY"/>
                             <constraint firstItem="8If-md-5Hz" firstAttribute="top" secondItem="eFG-eO-5vl" secondAttribute="top" constant="16" id="lPb-9r-nAt"/>
                             <constraint firstItem="fnb-Kj-DeC" firstAttribute="trailing" secondItem="eFG-eO-5vl" secondAttribute="trailing" id="lgD-3O-IhU"/>
-                            <constraint firstItem="Y4E-lJ-udf" firstAttribute="trailing" secondItem="eFG-eO-5vl" secondAttribute="trailing" id="ozR-wf-pY7"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="eFG-eO-5vl"/>
                     </view>
                     <navigationItem key="navigationItem" id="GDo-Bp-J4b"/>
                     <connections>
-                        <outlet property="aboutUserLabel" destination="79U-0n-4KO" id="wxy-8K-Bf9"/>
                         <outlet property="homeTableView" destination="CYM-iw-S5U" id="Fd8-cA-vkp"/>
-                        <outlet property="profileImageView" destination="LOr-u7-m6N" id="6lr-c2-DxI"/>
                         <outlet property="searchBar" destination="rA2-7L-UWc" id="Ttu-Qe-OoS"/>
-                        <outlet property="userNameLabel" destination="uOA-We-jee" id="fea-9G-IAG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nfD-zS-vTf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -599,7 +538,6 @@
         <image name="ic_video" width="108" height="64.333335876464844"/>
         <image name="message.fill" catalog="system" width="64" height="56"/>
         <image name="plus" catalog="system" width="64" height="56"/>
-        <image name="profile" width="50" height="50"/>
         <image name="setting" width="75" height="75"/>
     </resources>
 </document>

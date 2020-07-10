@@ -31,7 +31,7 @@ class ChatViewController: UIViewController {
     @IBOutlet weak var topbarView: UIView!
 
     @IBOutlet weak var tableView: UITableView!
-    
+        
     private var isTyping = false
     private var textTitle: String?
     
@@ -349,18 +349,25 @@ class ChatViewController: UIViewController {
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func textHeaderUpper(_ indexPath: IndexPath) -> String? {
 
-        if (indexPath.section % 3 == 0) {
-            let rcmessage = rcmessageAt(indexPath)
-            return Convert.timestampToDayMonthTime(rcmessage.createdAt)
-        } else {
+        let rcmessage = rcmessageAt(indexPath)
+        var previousDate = ""
+        //print("row: \(indexPath.row), section:\(indexPath.section)")
+        if indexPath.section != 0 {
+            let previousIndexPath = IndexPath(row: indexPath.row, section: indexPath.section - 1)
+            let previousrcmMessage = rcmessageAt(previousIndexPath)
+            previousDate = Convert.timestampToDayMonth(previousrcmMessage.createdAt)
+        }
+        let date = Convert.timestampToDayMonth(rcmessage.createdAt)
+        if date == previousDate {
             return nil
         }
+        return date
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func textHeaderLower(_ indexPath: IndexPath) -> String? {
-
-        return nil
+        let rcmessage = rcmessageAt(indexPath)
+        return Convert.timestampToDayTime(rcmessage.createdAt)
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
@@ -370,15 +377,15 @@ class ChatViewController: UIViewController {
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
-    func textFooterLower(_ indexPath: IndexPath) -> String? {
+    func textFooterLower(_ indexPath: IndexPath) -> UIImage? {
 
         let rcmessage = rcmessageAt(indexPath)
         if (rcmessage.outgoing) {
             let message = messageAt(indexPath)
-            if (message.syncRequired)    { return "Queued" }
-            if (message.isMediaQueued)    { return "Queued" }
-            if (message.isMediaFailed)    { return "Failed" }
-            return (message.createdAt > lastRead) ? "Sent" : "Read"
+            if (message.syncRequired)    { return UIImage(named: "sent") }
+            if (message.isMediaQueued)    { return UIImage(named: "sent") }
+            if (message.isMediaFailed)    { return UIImage(named: "sent") }
+            return (message.createdAt > lastRead) ? UIImage(named: "delivered") : UIImage(named: "read")
         }
         return nil
     }
@@ -429,7 +436,49 @@ class ChatViewController: UIViewController {
     // MARK: - User actions (bubble tap)
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func actionTapBubble(_ indexPath: IndexPath) {
+        let rcmessage = rcmessageAt(indexPath)
 
+        if (rcmessage.mediaStatus == MediaStatus.MEDIASTATUS_MANUAL) {
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_PHOTO) { RCPhotoLoader.manual(rcmessage, in: tableView) }
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_VIDEO) { RCVideoLoader.manual(rcmessage, in: tableView) }
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_AUDIO) { RCAudioLoader.manual(rcmessage, in: tableView) }
+        }
+
+        if (rcmessage.mediaStatus == MediaStatus.MEDIASTATUS_SUCCEED) {
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_PHOTO) {
+                let pictureView = PictureView(chatId: chatId, messageId: rcmessage.messageId)
+                present(pictureView, animated: true)
+            }
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_VIDEO) {
+                let url = URL(fileURLWithPath: rcmessage.videoPath)
+                let videoView = VideoView(url: url)
+                present(videoView, animated: true)
+            }
+            /*
+            if (rcmessage.type == MediaStatus.MESSAGE_AUDIO) {
+                if (rcmessage.audioStatus == AUDIOSTATUS_STOPPED) {
+                    if let sound = Sound(contentsOfFile: rcmessage.audioPath) {
+                        sound.completionHandler = { didFinish in
+                            rcmessage.audioStatus = AUDIOSTATUS_STOPPED
+                            self.refreshTableView()
+                        }
+                        SoundManager.shared().playSound(sound)
+                        rcmessage.audioStatus = AUDIOSTATUS_PLAYING
+                        refreshTableView()
+                    }
+                } else if (rcmessage.audioStatus == AUDIOSTATUS_PLAYING) {
+                    SoundManager.shared().stopAllSounds(false)
+                    rcmessage.audioStatus = AUDIOSTATUS_STOPPED
+                    refreshTableView()
+                }
+            }
+            if (rcmessage.type == MediaStatus.MESSAGE_LOCATION) {
+                let mapView = MapView(latitude: rcmessage.latitude, longitude: rcmessage.longitude)
+                let navController = NavigationController(rootViewController: mapView)
+                present(navController, animated: true)
+            }
+ */
+        }
     }
 
     // MARK: - User actions (avatar tap)

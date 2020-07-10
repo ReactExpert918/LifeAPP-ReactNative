@@ -15,6 +15,15 @@
 		A60845C124A3059B005F23A9 /* OTPVerificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60845C024A3059B005F23A9 /* OTPVerificationViewController.swift */; };
 		A60845C324A30F97005F23A9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A60845C224A30F97005F23A9 /* GoogleService-Info.plist */; };
 		A6379AEA24AAD578003E1879 /* Group.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A6379AE924AAD578003E1879 /* Group.storyboard */; };
+		A67587F124B7B1BF00724B08 /* sent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A67587E824B7B1BE00724B08 /* sent@2x.png */; };
+		A67587F224B7B1BF00724B08 /* sent@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A67587E924B7B1BE00724B08 /* sent@3x.png */; };
+		A67587F324B7B1BF00724B08 /* delivered.png in Resources */ = {isa = PBXBuildFile; fileRef = A67587EA24B7B1BE00724B08 /* delivered.png */; };
+		A67587F424B7B1BF00724B08 /* read.png in Resources */ = {isa = PBXBuildFile; fileRef = A67587EB24B7B1BE00724B08 /* read.png */; };
+		A67587F524B7B1BF00724B08 /* read@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A67587EC24B7B1BE00724B08 /* read@3x.png */; };
+		A67587F624B7B1BF00724B08 /* delivered@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A67587ED24B7B1BF00724B08 /* delivered@2x.png */; };
+		A67587F724B7B1BF00724B08 /* read@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A67587EE24B7B1BF00724B08 /* read@2x.png */; };
+		A67587F824B7B1BF00724B08 /* delivered@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A67587EF24B7B1BF00724B08 /* delivered@3x.png */; };
+		A67587F924B7B1BF00724B08 /* sent.png in Resources */ = {isa = PBXBuildFile; fileRef = A67587F024B7B1BF00724B08 /* sent.png */; };
 		A6BD965E24B4D2FC00E1B873 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BD965D24B4D2FC00E1B873 /* ImagePicker.swift */; };
 		A6BD966224B4D54800E1B873 /* AudioView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A6BD966024B4D54800E1B873 /* AudioView.xib */; };
 		A6BD966324B4D54800E1B873 /* AudioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BD966124B4D54800E1B873 /* AudioView.swift */; };
@@ -118,6 +127,13 @@
 		A6DEA8A724A8717800868625 /* RCAudioLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6DEA8A324A8717800868625 /* RCAudioLoader.swift */; };
 		A6DEA8A824A8717800868625 /* RCVideoLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6DEA8A424A8717800868625 /* RCVideoLoader.swift */; };
 		A6DEA8AA24A8729100868625 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6DEA8A924A8729100868625 /* UIImage+Extension.swift */; };
+		A6E7000B24B6C5B1004586E0 /* UserStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E7000924B6C5B1004586E0 /* UserStatusCell.swift */; };
+		A6E7000C24B6C5B1004586E0 /* UserStatusCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A6E7000A24B6C5B1004586E0 /* UserStatusCell.xib */; };
+		A6E7001624B6DBEB004586E0 /* VideoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A6E7000F24B6DBEB004586E0 /* VideoView.xib */; };
+		A6E7001724B6DBEB004586E0 /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E7001024B6DBEB004586E0 /* VideoView.swift */; };
+		A6E7001824B6DBEB004586E0 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E7001224B6DBEB004586E0 /* MapView.swift */; };
+		A6E7001924B6DBEB004586E0 /* MapView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A6E7001324B6DBEB004586E0 /* MapView.xib */; };
+		A6E7001A24B6DBEB004586E0 /* PictureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E7001524B6DBEB004586E0 /* PictureView.swift */; };
 		A6E73B4324A4F3140008CBFE /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E73B4224A4F3140008CBFE /* RoundButton.swift */; };
 		A6E73B4524A4F50D0008CBFE /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A6E73B4024A4F1900008CBFE /* Montserrat-Bold.ttf */; };
 		A6E73B4624A4F50D0008CBFE /* Montserrat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A6E73B4424A4F4560008CBFE /* Montserrat-SemiBold.ttf */; };
@@ -215,6 +231,15 @@
 		A60845C024A3059B005F23A9 /* OTPVerificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPVerificationViewController.swift; sourceTree = "<group>"; };
 		A60845C224A30F97005F23A9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A6379AE924AAD578003E1879 /* Group.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Group.storyboard; sourceTree = "<group>"; };
+		A67587E824B7B1BE00724B08 /* sent@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sent@2x.png"; sourceTree = "<group>"; };
+		A67587E924B7B1BE00724B08 /* sent@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sent@3x.png"; sourceTree = "<group>"; };
+		A67587EA24B7B1BE00724B08 /* delivered.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = delivered.png; sourceTree = "<group>"; };
+		A67587EB24B7B1BE00724B08 /* read.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = read.png; sourceTree = "<group>"; };
+		A67587EC24B7B1BE00724B08 /* read@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "read@3x.png"; sourceTree = "<group>"; };
+		A67587ED24B7B1BF00724B08 /* delivered@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delivered@2x.png"; sourceTree = "<group>"; };
+		A67587EE24B7B1BF00724B08 /* read@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "read@2x.png"; sourceTree = "<group>"; };
+		A67587EF24B7B1BF00724B08 /* delivered@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delivered@3x.png"; sourceTree = "<group>"; };
+		A67587F024B7B1BF00724B08 /* sent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sent.png; sourceTree = "<group>"; };
 		A6BD965D24B4D2FC00E1B873 /* ImagePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		A6BD966024B4D54800E1B873 /* AudioView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AudioView.xib; sourceTree = "<group>"; };
 		A6BD966124B4D54800E1B873 /* AudioView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioView.swift; sourceTree = "<group>"; };
@@ -319,6 +344,13 @@
 		A6DEA8A324A8717800868625 /* RCAudioLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCAudioLoader.swift; sourceTree = "<group>"; };
 		A6DEA8A424A8717800868625 /* RCVideoLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCVideoLoader.swift; sourceTree = "<group>"; };
 		A6DEA8A924A8729100868625 /* UIImage+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
+		A6E7000924B6C5B1004586E0 /* UserStatusCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStatusCell.swift; sourceTree = "<group>"; };
+		A6E7000A24B6C5B1004586E0 /* UserStatusCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserStatusCell.xib; sourceTree = "<group>"; };
+		A6E7000F24B6DBEB004586E0 /* VideoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideoView.xib; sourceTree = "<group>"; };
+		A6E7001024B6DBEB004586E0 /* VideoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
+		A6E7001224B6DBEB004586E0 /* MapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		A6E7001324B6DBEB004586E0 /* MapView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapView.xib; sourceTree = "<group>"; };
+		A6E7001524B6DBEB004586E0 /* PictureView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PictureView.swift; sourceTree = "<group>"; };
 		A6E73B4024A4F1900008CBFE /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Bold.ttf"; sourceTree = "<group>"; };
 		A6E73B4224A4F3140008CBFE /* RoundButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
 		A6E73B4424A4F4560008CBFE /* Montserrat-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-SemiBold.ttf"; sourceTree = "<group>"; };
@@ -494,6 +526,22 @@
 			path = Groups;
 			sourceTree = "<group>";
 		};
+		A67587E724B7B1AF00724B08 /* message */ = {
+			isa = PBXGroup;
+			children = (
+				A67587EA24B7B1BE00724B08 /* delivered.png */,
+				A67587ED24B7B1BF00724B08 /* delivered@2x.png */,
+				A67587EF24B7B1BF00724B08 /* delivered@3x.png */,
+				A67587EB24B7B1BE00724B08 /* read.png */,
+				A67587EE24B7B1BF00724B08 /* read@2x.png */,
+				A67587EC24B7B1BE00724B08 /* read@3x.png */,
+				A67587F024B7B1BF00724B08 /* sent.png */,
+				A67587E824B7B1BE00724B08 /* sent@2x.png */,
+				A67587E924B7B1BE00724B08 /* sent@3x.png */,
+			);
+			path = message;
+			sourceTree = "<group>";
+		};
 		A69019E924A3338900ED737F /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -596,6 +644,7 @@
 		A6C36B6424B57BC900583CAA /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				A67587E724B7B1AF00724B08 /* message */,
 				A6C36B6524B57BD200583CAA /* callaudio */,
 				A6C36B6F24B57BD200583CAA /* callvideo */,
 			);
@@ -669,6 +718,7 @@
 		A6DEA81724A825A700868625 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				A6E7000D24B6DBD3004586E0 /* Details */,
 				A6C36B5924B577B000583CAA /* Calls */,
 				A6BD965F24B4D54800E1B873 /* Audio */,
 				A6BD966424B4D56900E1B873 /* Stickers */,
@@ -844,6 +894,42 @@
 			path = MediaLoader;
 			sourceTree = "<group>";
 		};
+		A6E7000D24B6DBD3004586E0 /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				A6E7001124B6DBEB004586E0 /* Map */,
+				A6E7001424B6DBEB004586E0 /* Picture */,
+				A6E7000E24B6DBEB004586E0 /* Video */,
+			);
+			path = Details;
+			sourceTree = "<group>";
+		};
+		A6E7000E24B6DBEB004586E0 /* Video */ = {
+			isa = PBXGroup;
+			children = (
+				A6E7000F24B6DBEB004586E0 /* VideoView.xib */,
+				A6E7001024B6DBEB004586E0 /* VideoView.swift */,
+			);
+			path = Video;
+			sourceTree = "<group>";
+		};
+		A6E7001124B6DBEB004586E0 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				A6E7001224B6DBEB004586E0 /* MapView.swift */,
+				A6E7001324B6DBEB004586E0 /* MapView.xib */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		A6E7001424B6DBEB004586E0 /* Picture */ = {
+			isa = PBXGroup;
+			children = (
+				A6E7001524B6DBEB004586E0 /* PictureView.swift */,
+			);
+			path = Picture;
+			sourceTree = "<group>";
+		};
 		A6E73B3E24A4F17F0008CBFE /* Resource */ = {
 			isa = PBXGroup;
 			children = (
@@ -889,6 +975,8 @@
 				A6E73B5024A5A6190008CBFE /* ChatListViewController.swift */,
 				A6C9824924AE6DC7002280B6 /* ChatHistoryCell.swift */,
 				A6C9824A24AE6DC7002280B6 /* ChatHistoryCell.xib */,
+				A6E7000924B6C5B1004586E0 /* UserStatusCell.swift */,
+				A6E7000A24B6C5B1004586E0 /* UserStatusCell.xib */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1150,19 +1238,26 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A67587F524B7B1BF00724B08 /* read@3x.png in Resources */,
 				A6C36B7C24B57BD200583CAA /* callaudio_blank@2x.png in Resources */,
 				A6EDA03C24ACE5B100CA3A5F /* Montserrat-Medium.ttf in Resources */,
 				A6C36B7E24B57BD200583CAA /* callaudio_speaker2@2x.png in Resources */,
+				A67587F224B7B1BF00724B08 /* sent@3x.png in Resources */,
 				A6C36B6124B577B000583CAA /* CallAudioView.xib in Resources */,
 				A6BD966A24B4D56900E1B873 /* StickersCell.xib in Resources */,
 				A6F564C324A8D73D0061007E /* rcmessages_videoplay@2x.png in Resources */,
 				A6F564C624A8D73D0061007E /* rcmessage_send@2x.png in Resources */,
+				A67587F624B7B1BF00724B08 /* delivered@2x.png in Resources */,
 				A6C36B7824B57BD200583CAA /* callaudio_video1@2x.png in Resources */,
+				A67587F924B7B1BF00724B08 /* sent.png in Resources */,
 				A6E73B4A24A50A190008CBFE /* Montserrat-Regular.ttf in Resources */,
 				A6C36B7F24B57BD200583CAA /* callaudio_answer@2x.png in Resources */,
+				A6E7000C24B6C5B1004586E0 /* UserStatusCell.xib in Resources */,
 				A6C36B6224B577B000583CAA /* CallVideoView.xib in Resources */,
 				A6C36B7A24B57BD200583CAA /* callaudio_hangup@2x.png in Resources */,
+				A67587F324B7B1BF00724B08 /* delivered.png in Resources */,
 				A6C36B8524B57BD200583CAA /* callvideo_mute1@2x.png in Resources */,
+				A6E7001624B6DBEB004586E0 /* VideoView.xib in Resources */,
 				A6E73B4524A4F50D0008CBFE /* Montserrat-Bold.ttf in Resources */,
 				A6C36B8424B57BD200583CAA /* callvideo_blank@2x.png in Resources */,
 				A6C36B8324B57BD200583CAA /* callvideo_answer@2x.png in Resources */,
@@ -1175,6 +1270,7 @@
 				A6C36B7B24B57BD200583CAA /* callaudio_mute1@2x.png in Resources */,
 				A6BD967524B4D57200E1B873 /* SelectUserCell.xib in Resources */,
 				A6BD966224B4D54800E1B873 /* AudioView.xib in Resources */,
+				A6E7001924B6DBEB004586E0 /* MapView.xib in Resources */,
 				A6C36B7724B57BD200583CAA /* callaudio_mute2@2x.png in Resources */,
 				A6C36B8B24B5AE1D00583CAA /* call_ringback.wav in Resources */,
 				A60845B124A2FEC1005F23A9 /* Login.storyboard in Resources */,
@@ -1185,9 +1281,11 @@
 				A6BD967C24B4D76900E1B873 /* SelectUsersView.xib in Resources */,
 				AB82ACDB24A5453100D83E47 /* Friend.storyboard in Resources */,
 				A60845C324A30F97005F23A9 /* GoogleService-Info.plist in Resources */,
+				A67587F824B7B1BF00724B08 /* delivered@3x.png in Resources */,
 				AB13A9E424A2EF670028731D /* Assets.xcassets in Resources */,
 				AB13A9E224A2EF610028731D /* Main.storyboard in Resources */,
 				A6F564C524A8D73D0061007E /* rcmessage_incoming.aiff in Resources */,
+				A67587F424B7B1BF00724B08 /* read.png in Resources */,
 				A6F564C224A8D73D0061007E /* rcmessages_audioplay@2x.png in Resources */,
 				A6F564C424A8D73D0061007E /* rcmessage_outgoing.aiff in Resources */,
 				AB30FAFD24AFAF130037BF25 /* AddFriendSection.xib in Resources */,
@@ -1197,8 +1295,10 @@
 				A6C36B7D24B57BD200583CAA /* callaudio_video2@2x.png in Resources */,
 				AB82ACD224A5452700D83E47 /* SettingCellHeader.xib in Resources */,
 				A6BD967B24B4D76900E1B873 /* SelectUsersCell.xib in Resources */,
+				A67587F724B7B1BF00724B08 /* read@2x.png in Resources */,
 				A6E79AB324A65D07009458A1 /* FriendCell.xib in Resources */,
 				A6F564C024A8D73D0061007E /* rcmessages_manual@2x.png in Resources */,
+				A67587F124B7B1BF00724B08 /* sent@2x.png in Resources */,
 				A6BD967424B4D57200E1B873 /* SelectUserView.xib in Resources */,
 				A6C36B8124B57BD200583CAA /* callvideo_mute2@2x.png in Resources */,
 			);
@@ -1364,6 +1464,7 @@
 				A6DEA82624A82A7100868625 /* RCMessageAudioCell.swift in Sources */,
 				A6DEA82524A82A7100868625 /* RCMessageEmojiCell.swift in Sources */,
 				A6DEA85A24A83FCF00868625 /* Person.swift in Sources */,
+				A6E7001724B6DBEB004586E0 /* VideoView.swift in Sources */,
 				A60845C124A3059B005F23A9 /* OTPVerificationViewController.swift in Sources */,
 				A6DEA82824A82A7100868625 /* RCMessageCell.swift in Sources */,
 				AB82ACD324A5452700D83E47 /* SettingViewController.swift in Sources */,
@@ -1382,6 +1483,7 @@
 				A6DEA87024A8405300868625 /* Friends.swift in Sources */,
 				A6DEA85024A8365900868625 /* FireUpdaters.swift in Sources */,
 				A6DEA87224A8405300868625 /* Messages.swift in Sources */,
+				A6E7000B24B6C5B1004586E0 /* UserStatusCell.swift in Sources */,
 				A6BD966C24B4D56900E1B873 /* StickersView.swift in Sources */,
 				A6DEA89224A8557000868625 /* Convert.swift in Sources */,
 				A6DEA88C24A8536900868625 /* Video.swift in Sources */,
@@ -1393,6 +1495,7 @@
 				AB82ACD024A5452700D83E47 /* SettingCell.swift in Sources */,
 				AB277A8724AD17F800D6C783 /* AddFriendBottomSheetViewController.swift in Sources */,
 				AB277A8124AD041A00D6C783 /* RoundedCornerBorderView.swift in Sources */,
+				A6E7001A24B6DBEB004586E0 /* PictureView.swift in Sources */,
 				A6E73B4824A4F85F0008CBFE /* ExtensionView.swift in Sources */,
 				A6DEA88A24A8536300868625 /* PushNotification.swift in Sources */,
 				A6BD967E24B4D76900E1B873 /* SelectUsersCell.swift in Sources */,
@@ -1428,6 +1531,7 @@
 				A6DEA88424A84EC600868625 /* Cryptor.swift in Sources */,
 				A6DEA82C24A82AB000868625 /* RCMessage.swift in Sources */,
 				A60845B924A302BA005F23A9 /* WelcomeViewController.swift in Sources */,
+				A6E7001824B6DBEB004586E0 /* MapView.swift in Sources */,
 				AB277A8924AD266D00D6C783 /* MyQrGenerateViewController.swift in Sources */,
 				A6DEA83F24A835F100868625 /* Realm+Extension.swift in Sources */,
 				A6C36B6024B577B000583CAA /* CallAudioView.swift in Sources */,
