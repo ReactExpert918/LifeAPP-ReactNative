@@ -22,7 +22,7 @@ class FriendCell: UITableViewCell {
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func loadImage(person: Person, tableView: UITableView, indexPath: IndexPath) {
-
+/*
         if let path = MediaDownload.pathUser(person.objectId) {
             profileImageView.image = UIImage.image(path, size: 40)
             //labelInitials.text = nil
@@ -31,7 +31,8 @@ class FriendCell: UITableViewCell {
             //labelInitials.text = person.initials()
             downloadImage(person: person, tableView: tableView, indexPath: indexPath)
         }
-        //profileImageView.makeRounded()
+*/
+        downloadImage(person: person, tableView: tableView, indexPath: indexPath)
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
@@ -41,7 +42,7 @@ class FriendCell: UITableViewCell {
             let indexSelf = tableView.indexPath(for: self)
             if ((indexSelf == nil) || (indexSelf == indexPath)) {
                 if (error == nil) {
-                    self.profileImageView.image = image?.square(to: 40)
+                    self.profileImageView.image = image
                     //self.labelInitials.text = nil
                 } else{
                     self.profileImageView.image = UIImage(named: "ic_default_profile")

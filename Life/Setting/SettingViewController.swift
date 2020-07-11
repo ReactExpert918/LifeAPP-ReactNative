@@ -12,9 +12,9 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     @IBOutlet weak var tableView: UITableView!
     
-    let sections = ["General Settings"]
+    let sections = [NSLocalizedString("General Settings", comment: "General Settings")]
      
-    let items = [["Account Settings", "Privacy Policy", "About Us"]]
+    let items = [[NSLocalizedString("Account Settings", comment: "Account Settings"), NSLocalizedString("Privacy Policy", comment: "Privacy Policy"), NSLocalizedString("About Us", comment: "About Us")]]
     let icons = [[UIImage(named: "setting_account"), UIImage(named: "setting_privacy"), UIImage(named: "setting_about")]]
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +38,7 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
                 if let error = error {
                     
                 }
+                PrefsManager.setEmail(val: "")
                 self.gotoWelcomeViewController()
             }
             

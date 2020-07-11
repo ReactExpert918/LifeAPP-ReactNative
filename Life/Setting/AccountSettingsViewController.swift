@@ -110,6 +110,7 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
                     return
                 }
                 self.person.update(isDeleted: true)
+                PrefsManager.setEmail(val: "")
                 self.gotoWelcomeViewController()
             }
             

@@ -16,7 +16,11 @@
 		A60845C324A30F97005F23A9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A60845C224A30F97005F23A9 /* GoogleService-Info.plist */; };
 		A6302BB224B99C0B00345FC9 /* MainTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6302BB124B99C0B00345FC9 /* MainTabViewController.swift */; };
 		A6302BB424B9A34B00345FC9 /* NewConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6302BB324B9A34B00345FC9 /* NewConversationViewController.swift */; };
-		A6379AEA24AAD578003E1879 /* Group.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A6379AE924AAD578003E1879 /* Group.storyboard */; };
+		A663A6BD24BA474B0090A13D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A663A6BF24BA474B0090A13D /* Localizable.strings */; };
+		A663A6C324BA4C610090A13D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A663A6C224BA4C610090A13D /* LaunchScreen.storyboard */; };
+		A663A6C524BA4E870090A13D /* AddFriendSection.xib in Resources */ = {isa = PBXBuildFile; fileRef = A663A6C424BA4E870090A13D /* AddFriendSection.xib */; };
+		A663A6C724BA4EAE0090A13D /* SettingCellHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = A663A6C624BA4EAE0090A13D /* SettingCellHeader.xib */; };
+		A663A6C924BA4EF90090A13D /* ExpandableHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A663A6C824BA4EF90090A13D /* ExpandableHeaderCell.xib */; };
 		A67587F124B7B1BF00724B08 /* sent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A67587E824B7B1BE00724B08 /* sent@2x.png */; };
 		A67587F224B7B1BF00724B08 /* sent@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A67587E924B7B1BE00724B08 /* sent@3x.png */; };
 		A67587F324B7B1BF00724B08 /* delivered.png in Resources */ = {isa = PBXBuildFile; fileRef = A67587EA24B7B1BE00724B08 /* delivered.png */; };
@@ -47,6 +51,9 @@
 		A675884924B85E9700724B08 /* UpdateNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A675884824B85E9700724B08 /* UpdateNameViewController.swift */; };
 		A675884B24B8621400724B08 /* UpdatePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A675884A24B8621400724B08 /* UpdatePasswordViewController.swift */; };
 		A67A49B024BA100C0016DD41 /* PrefsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A67A49AF24BA100C0016DD41 /* PrefsManager.swift */; };
+		A67A49B124BA32DF0016DD41 /* Friend.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A67A49B324BA32DF0016DD41 /* Friend.storyboard */; };
+		A67A49B724BA33080016DD41 /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A67A49B924BA33080016DD41 /* Setting.storyboard */; };
+		A67A49C024BA338F0016DD41 /* Group.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A67A49C224BA338F0016DD41 /* Group.storyboard */; };
 		A6BD965E24B4D2FC00E1B873 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BD965D24B4D2FC00E1B873 /* ImagePicker.swift */; };
 		A6BD966224B4D54800E1B873 /* AudioView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A6BD966024B4D54800E1B873 /* AudioView.xib */; };
 		A6BD966324B4D54800E1B873 /* AudioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BD966124B4D54800E1B873 /* AudioView.swift */; };
@@ -161,7 +168,6 @@
 		A6E73B5124A5A6190008CBFE /* ChatListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E73B5024A5A6190008CBFE /* ChatListViewController.swift */; };
 		A6E73B5324A5AAFF0008CBFE /* SearchbarExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E73B5224A5AAFF0008CBFE /* SearchbarExtension.swift */; };
 		A6E79AAE24A658E9009458A1 /* ExpandableHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E79AAC24A658E9009458A1 /* ExpandableHeaderCell.swift */; };
-		A6E79AAF24A658E9009458A1 /* ExpandableHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A6E79AAD24A658E9009458A1 /* ExpandableHeaderCell.xib */; };
 		A6E79AB224A65D07009458A1 /* FriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E79AB024A65D07009458A1 /* FriendCell.swift */; };
 		A6E79AB324A65D07009458A1 /* FriendCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A6E79AB124A65D07009458A1 /* FriendCell.xib */; };
 		A6EDA03C24ACE5B100CA3A5F /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A6EDA03B24ACE59600CA3A5F /* Montserrat-Medium.ttf */; };
@@ -184,7 +190,6 @@
 		AB13A9DF24A2EF610028731D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB13A9DE24A2EF610028731D /* ViewController.swift */; };
 		AB13A9E224A2EF610028731D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB13A9E024A2EF610028731D /* Main.storyboard */; };
 		AB13A9E424A2EF670028731D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB13A9E324A2EF670028731D /* Assets.xcassets */; };
-		AB13A9E724A2EF670028731D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB13A9E524A2EF670028731D /* LaunchScreen.storyboard */; };
 		AB13A9F224A2EF670028731D /* LifeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB13A9F124A2EF670028731D /* LifeTests.swift */; };
 		AB13A9FD24A2EF670028731D /* LifeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB13A9FC24A2EF670028731D /* LifeUITests.swift */; };
 		AB26B2B824AE7CED0045981F /* AccountSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB26B2B724AE7CED0045981F /* AccountSettingsViewController.swift */; };
@@ -193,7 +198,6 @@
 		AB277A8724AD17F800D6C783 /* AddFriendBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB277A8624AD17F800D6C783 /* AddFriendBottomSheetViewController.swift */; };
 		AB277A8924AD266D00D6C783 /* MyQrGenerateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB277A8824AD266D00D6C783 /* MyQrGenerateViewController.swift */; };
 		AB30FAFB24AFAE490037BF25 /* AddFriendHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB30FAFA24AFAE490037BF25 /* AddFriendHeaderCell.swift */; };
-		AB30FAFD24AFAF130037BF25 /* AddFriendSection.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB30FAFC24AFAF130037BF25 /* AddFriendSection.xib */; };
 		AB30FAFF24AFB2D20037BF25 /* AddFriendSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB30FAFE24AFB2D20037BF25 /* AddFriendSection.swift */; };
 		AB3A81BB24A9B4920089127E /* BasicDetailInsertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3A81BA24A9B4920089127E /* BasicDetailInsertViewController.swift */; };
 		AB3A81BD24AA3B900089127E /* AddPictureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3A81BC24AA3B900089127E /* AddPictureViewController.swift */; };
@@ -204,14 +208,11 @@
 		AB5457AB24B623A7008C7FB8 /* AddParticipantsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5457AA24B623A7008C7FB8 /* AddParticipantsViewController.swift */; };
 		AB5457AD24B623C4008C7FB8 /* AddParticipantCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5457AC24B623C4008C7FB8 /* AddParticipantCell.swift */; };
 		AB5457AF24B6385B008C7FB8 /* HorizontalAddedParticipantCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5457AE24B6385B008C7FB8 /* HorizontalAddedParticipantCell.swift */; };
-		AB82ACCF24A5452700D83E47 /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB82ACCA24A5452600D83E47 /* Setting.storyboard */; };
 		AB82ACD024A5452700D83E47 /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB82ACCB24A5452600D83E47 /* SettingCell.swift */; };
 		AB82ACD124A5452700D83E47 /* SettingCellHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB82ACCC24A5452600D83E47 /* SettingCellHeader.swift */; };
-		AB82ACD224A5452700D83E47 /* SettingCellHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB82ACCD24A5452600D83E47 /* SettingCellHeader.xib */; };
 		AB82ACD324A5452700D83E47 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB82ACCE24A5452600D83E47 /* SettingViewController.swift */; };
 		AB82ACD924A5453100D83E47 /* AddFriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB82ACD524A5453000D83E47 /* AddFriendCell.swift */; };
 		AB82ACDA24A5453100D83E47 /* AddFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB82ACD624A5453000D83E47 /* AddFriendsViewController.swift */; };
-		AB82ACDB24A5453100D83E47 /* Friend.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB82ACD724A5453000D83E47 /* Friend.storyboard */; };
 		AB82ACDC24A5453100D83E47 /* QrCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB82ACD824A5453000D83E47 /* QrCodeViewController.swift */; };
 		AB82ACDE24A546D600D83E47 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB82ACDD24A546D600D83E47 /* SplashViewController.swift */; };
 		AB82ACE024A5472800D83E47 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB82ACDF24A5472800D83E47 /* Util.swift */; };
@@ -255,7 +256,11 @@
 		A60845C224A30F97005F23A9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A6302BB124B99C0B00345FC9 /* MainTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabViewController.swift; sourceTree = "<group>"; };
 		A6302BB324B9A34B00345FC9 /* NewConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConversationViewController.swift; sourceTree = "<group>"; };
-		A6379AE924AAD578003E1879 /* Group.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Group.storyboard; sourceTree = "<group>"; };
+		A663A6BE24BA474B0090A13D /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A663A6C224BA4C610090A13D /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		A663A6C424BA4E870090A13D /* AddFriendSection.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddFriendSection.xib; sourceTree = "<group>"; };
+		A663A6C624BA4EAE0090A13D /* SettingCellHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingCellHeader.xib; sourceTree = "<group>"; };
+		A663A6C824BA4EF90090A13D /* ExpandableHeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExpandableHeaderCell.xib; sourceTree = "<group>"; };
 		A67587E824B7B1BE00724B08 /* sent@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sent@2x.png"; sourceTree = "<group>"; };
 		A67587E924B7B1BE00724B08 /* sent@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sent@3x.png"; sourceTree = "<group>"; };
 		A67587EA24B7B1BE00724B08 /* delivered.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = delivered.png; sourceTree = "<group>"; };
@@ -286,6 +291,14 @@
 		A675884824B85E9700724B08 /* UpdateNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateNameViewController.swift; sourceTree = "<group>"; };
 		A675884A24B8621400724B08 /* UpdatePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePasswordViewController.swift; sourceTree = "<group>"; };
 		A67A49AF24BA100C0016DD41 /* PrefsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrefsManager.swift; sourceTree = "<group>"; };
+		A67A49B224BA32DF0016DD41 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Friend.storyboard; sourceTree = "<group>"; };
+		A67A49B824BA33080016DD41 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Setting.storyboard; sourceTree = "<group>"; };
+		A67A49C124BA338F0016DD41 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Group.storyboard; sourceTree = "<group>"; };
+		A67A49C324BA33B40016DD41 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Main.strings; sourceTree = "<group>"; };
+		A67A49C424BA33B40016DD41 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Login.strings; sourceTree = "<group>"; };
+		A67A49C624BA33B40016DD41 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Group.strings; sourceTree = "<group>"; };
+		A67A49C724BA33B40016DD41 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Friend.strings; sourceTree = "<group>"; };
+		A67A49C924BA33B40016DD41 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Setting.strings; sourceTree = "<group>"; };
 		A6BD965D24B4D2FC00E1B873 /* ImagePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		A6BD966024B4D54800E1B873 /* AudioView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AudioView.xib; sourceTree = "<group>"; };
 		A6BD966124B4D54800E1B873 /* AudioView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioView.swift; sourceTree = "<group>"; };
@@ -400,7 +413,6 @@
 		A6E73B5024A5A6190008CBFE /* ChatListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListViewController.swift; sourceTree = "<group>"; };
 		A6E73B5224A5AAFF0008CBFE /* SearchbarExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchbarExtension.swift; sourceTree = "<group>"; };
 		A6E79AAC24A658E9009458A1 /* ExpandableHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableHeaderCell.swift; sourceTree = "<group>"; };
-		A6E79AAD24A658E9009458A1 /* ExpandableHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExpandableHeaderCell.xib; sourceTree = "<group>"; };
 		A6E79AB024A65D07009458A1 /* FriendCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCell.swift; sourceTree = "<group>"; };
 		A6E79AB124A65D07009458A1 /* FriendCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendCell.xib; sourceTree = "<group>"; };
 		A6EDA03B24ACE59600CA3A5F /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Medium.ttf"; sourceTree = "<group>"; };
@@ -424,7 +436,6 @@
 		AB13A9DE24A2EF610028731D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		AB13A9E124A2EF610028731D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AB13A9E324A2EF670028731D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		AB13A9E624A2EF670028731D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AB13A9E824A2EF670028731D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AB13A9ED24A2EF670028731D /* LifeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LifeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB13A9F124A2EF670028731D /* LifeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeTests.swift; sourceTree = "<group>"; };
@@ -438,7 +449,6 @@
 		AB277A8624AD17F800D6C783 /* AddFriendBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendBottomSheetViewController.swift; sourceTree = "<group>"; };
 		AB277A8824AD266D00D6C783 /* MyQrGenerateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyQrGenerateViewController.swift; sourceTree = "<group>"; };
 		AB30FAFA24AFAE490037BF25 /* AddFriendHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendHeaderCell.swift; sourceTree = "<group>"; };
-		AB30FAFC24AFAF130037BF25 /* AddFriendSection.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddFriendSection.xib; sourceTree = "<group>"; };
 		AB30FAFE24AFB2D20037BF25 /* AddFriendSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendSection.swift; sourceTree = "<group>"; };
 		AB3A81BA24A9B4920089127E /* BasicDetailInsertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicDetailInsertViewController.swift; sourceTree = "<group>"; };
 		AB3A81BC24AA3B900089127E /* AddPictureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPictureViewController.swift; sourceTree = "<group>"; };
@@ -449,14 +459,11 @@
 		AB5457AA24B623A7008C7FB8 /* AddParticipantsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddParticipantsViewController.swift; sourceTree = "<group>"; };
 		AB5457AC24B623C4008C7FB8 /* AddParticipantCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddParticipantCell.swift; sourceTree = "<group>"; };
 		AB5457AE24B6385B008C7FB8 /* HorizontalAddedParticipantCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalAddedParticipantCell.swift; sourceTree = "<group>"; };
-		AB82ACCA24A5452600D83E47 /* Setting.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
 		AB82ACCB24A5452600D83E47 /* SettingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		AB82ACCC24A5452600D83E47 /* SettingCellHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingCellHeader.swift; sourceTree = "<group>"; };
-		AB82ACCD24A5452600D83E47 /* SettingCellHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingCellHeader.xib; sourceTree = "<group>"; };
 		AB82ACCE24A5452600D83E47 /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		AB82ACD524A5453000D83E47 /* AddFriendCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFriendCell.swift; sourceTree = "<group>"; };
 		AB82ACD624A5453000D83E47 /* AddFriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFriendsViewController.swift; sourceTree = "<group>"; };
-		AB82ACD724A5453000D83E47 /* Friend.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Friend.storyboard; sourceTree = "<group>"; };
 		AB82ACD824A5453000D83E47 /* QrCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QrCodeViewController.swift; sourceTree = "<group>"; };
 		AB82ACDD24A546D600D83E47 /* SplashViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		AB82ACDF24A5472800D83E47 /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
@@ -566,7 +573,7 @@
 		A6379AE824AAD55B003E1879 /* Groups */ = {
 			isa = PBXGroup;
 			children = (
-				A6379AE924AAD578003E1879 /* Group.storyboard */,
+				A67A49C224BA338F0016DD41 /* Group.storyboard */,
 				AB5457A424B5C3C1008C7FB8 /* CreateGroupViewController.swift */,
 				AB5457A624B5C4F2008C7FB8 /* AddMemberCell.swift */,
 				AB5457A824B5D9FC008C7FB8 /* AddedMemberCell.swift */,
@@ -1042,7 +1049,7 @@
 				A6E79AB024A65D07009458A1 /* FriendCell.swift */,
 				A6E79AB124A65D07009458A1 /* FriendCell.xib */,
 				A6E79AAC24A658E9009458A1 /* ExpandableHeaderCell.swift */,
-				A6E79AAD24A658E9009458A1 /* ExpandableHeaderCell.xib */,
+				A663A6C824BA4EF90090A13D /* ExpandableHeaderCell.xib */,
 				A6E73B5024A5A6190008CBFE /* ChatListViewController.swift */,
 				A6C9824924AE6DC7002280B6 /* ChatHistoryCell.swift */,
 				A6C9824A24AE6DC7002280B6 /* ChatHistoryCell.xib */,
@@ -1133,10 +1140,11 @@
 				AB13A9DA24A2EF610028731D /* AppDelegate.swift */,
 				AB13A9DC24A2EF610028731D /* SceneDelegate.swift */,
 				AB13A9DE24A2EF610028731D /* ViewController.swift */,
+				A663A6BF24BA474B0090A13D /* Localizable.strings */,
 				AB13A9E024A2EF610028731D /* Main.storyboard */,
 				A60845AF24A2FEC1005F23A9 /* Login.storyboard */,
+				A663A6C224BA4C610090A13D /* LaunchScreen.storyboard */,
 				AB13A9E324A2EF670028731D /* Assets.xcassets */,
-				AB13A9E524A2EF670028731D /* LaunchScreen.storyboard */,
 				AB13A9E824A2EF670028731D /* Info.plist */,
 				A60845C224A30F97005F23A9 /* GoogleService-Info.plist */,
 			);
@@ -1164,12 +1172,12 @@
 		AB82ACC924A5452600D83E47 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
-				AB82ACCA24A5452600D83E47 /* Setting.storyboard */,
+				A67A49B924BA33080016DD41 /* Setting.storyboard */,
 				A675884824B85E9700724B08 /* UpdateNameViewController.swift */,
 				A675884A24B8621400724B08 /* UpdatePasswordViewController.swift */,
 				AB82ACCB24A5452600D83E47 /* SettingCell.swift */,
+				A663A6C624BA4EAE0090A13D /* SettingCellHeader.xib */,
 				AB82ACCC24A5452600D83E47 /* SettingCellHeader.swift */,
-				AB82ACCD24A5452600D83E47 /* SettingCellHeader.xib */,
 				AB82ACCE24A5452600D83E47 /* SettingViewController.swift */,
 				AB26B2B724AE7CED0045981F /* AccountSettingsViewController.swift */,
 			);
@@ -1181,14 +1189,14 @@
 			children = (
 				AB82ACD524A5453000D83E47 /* AddFriendCell.swift */,
 				AB82ACD624A5453000D83E47 /* AddFriendsViewController.swift */,
-				AB82ACD724A5453000D83E47 /* Friend.storyboard */,
+				A67A49B324BA32DF0016DD41 /* Friend.storyboard */,
 				AB82ACD824A5453000D83E47 /* QrCodeViewController.swift */,
 				ABDAC92B24A64AE800E73667 /* SearchFriendsViewController.swift */,
 				ABDAC92F24A67D8C00E73667 /* SearchFriendCell.swift */,
 				AB277A8624AD17F800D6C783 /* AddFriendBottomSheetViewController.swift */,
 				AB277A8824AD266D00D6C783 /* MyQrGenerateViewController.swift */,
+				A663A6C424BA4E870090A13D /* AddFriendSection.xib */,
 				AB30FAFA24AFAE490037BF25 /* AddFriendHeaderCell.swift */,
-				AB30FAFC24AFAF130037BF25 /* AddFriendSection.xib */,
 				AB30FAFE24AFB2D20037BF25 /* AddFriendSection.swift */,
 			);
 			path = Friends;
@@ -1273,7 +1281,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 1140;
 				LastUpgradeCheck = 1140;
-				ORGANIZATIONNAME = "Yun Li";
+				ORGANIZATIONNAME = Zed;
 				TargetAttributes = {
 					AB13A9D624A2EF610028731D = {
 						CreatedOnToolsVersion = 11.4.1;
@@ -1295,6 +1303,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ja,
 			);
 			mainGroup = AB13A9CE24A2EF610028731D;
 			productRefGroup = AB13A9D824A2EF610028731D /* Products */;
@@ -1338,6 +1347,7 @@
 				A6E73B4524A4F50D0008CBFE /* Montserrat-Bold.ttf in Resources */,
 				A675883424B80FEA00724B08 /* callaudio_speaker2@3x.png in Resources */,
 				A6C36B8424B57BD200583CAA /* callvideo_blank@2x.png in Resources */,
+				A663A6C324BA4C610090A13D /* LaunchScreen.storyboard in Resources */,
 				A6C36B8324B57BD200583CAA /* callvideo_answer@2x.png in Resources */,
 				A6C36B8224B57BD200583CAA /* callvideo_switch2@2x.png in Resources */,
 				A6E73B4624A4F50D0008CBFE /* Montserrat-SemiBold.ttf in Resources */,
@@ -1353,17 +1363,17 @@
 				A6E7001924B6DBEB004586E0 /* MapView.xib in Resources */,
 				A6C36B8B24B5AE1D00583CAA /* call_ringback.wav in Resources */,
 				A60845B124A2FEC1005F23A9 /* Login.storyboard in Resources */,
-				AB13A9E724A2EF670028731D /* LaunchScreen.storyboard in Resources */,
-				AB82ACCF24A5452700D83E47 /* Setting.storyboard in Resources */,
+				A67A49B724BA33080016DD41 /* Setting.storyboard in Resources */,
 				A6BD966924B4D56900E1B873 /* StickersView.xib in Resources */,
 				A675883924B8102700724B08 /* callaudio_speaker1.png in Resources */,
 				A675884724B810A900724B08 /* callaudio_video1@3x.png in Resources */,
-				A6E79AAF24A658E9009458A1 /* ExpandableHeaderCell.xib in Resources */,
 				A6BD967C24B4D76900E1B873 /* SelectUsersView.xib in Resources */,
-				AB82ACDB24A5453100D83E47 /* Friend.storyboard in Resources */,
+				A67A49B124BA32DF0016DD41 /* Friend.storyboard in Resources */,
 				A60845C324A30F97005F23A9 /* GoogleService-Info.plist in Resources */,
 				A675884524B810A900724B08 /* callaudio_video1.png in Resources */,
 				A67587F824B7B1BF00724B08 /* delivered@3x.png in Resources */,
+				A663A6C924BA4EF90090A13D /* ExpandableHeaderCell.xib in Resources */,
+				A663A6C524BA4E870090A13D /* AddFriendSection.xib in Resources */,
 				AB13A9E424A2EF670028731D /* Assets.xcassets in Resources */,
 				AB13A9E224A2EF610028731D /* Main.storyboard in Resources */,
 				A675883B24B8102700724B08 /* callaudio_speaker1@3x.png in Resources */,
@@ -1372,13 +1382,12 @@
 				A6F564C224A8D73D0061007E /* rcmessages_audioplay@2x.png in Resources */,
 				A6F564C424A8D73D0061007E /* rcmessage_outgoing.aiff in Resources */,
 				A675884624B810A900724B08 /* callaudio_video1@2x.png in Resources */,
-				AB30FAFD24AFAF130037BF25 /* AddFriendSection.xib in Resources */,
-				A6379AEA24AAD578003E1879 /* Group.storyboard in Resources */,
+				A67A49C024BA338F0016DD41 /* Group.storyboard in Resources */,
 				A6C36B8024B57BD200583CAA /* callvideo_hangup@2x.png in Resources */,
 				A6C36B8624B57BD200583CAA /* callvideo_switch1@2x.png in Resources */,
 				A675882924B80F3100724B08 /* callaudio_mute1@2x.png in Resources */,
-				AB82ACD224A5452700D83E47 /* SettingCellHeader.xib in Resources */,
 				A675883324B80FEA00724B08 /* callaudio_speaker2@2x.png in Resources */,
+				A663A6C724BA4EAE0090A13D /* SettingCellHeader.xib in Resources */,
 				A6BD967B24B4D76900E1B873 /* SelectUsersCell.xib in Resources */,
 				A67587F724B7B1BF00724B08 /* read@2x.png in Resources */,
 				A6E79AB324A65D07009458A1 /* FriendCell.xib in Resources */,
@@ -1386,6 +1395,7 @@
 				A675882E24B80F9000724B08 /* callaudio_mute2.png in Resources */,
 				A6F564C024A8D73D0061007E /* rcmessages_manual@2x.png in Resources */,
 				A67587F124B7B1BF00724B08 /* sent@2x.png in Resources */,
+				A663A6BD24BA474B0090A13D /* Localizable.strings in Resources */,
 				A6BD967424B4D57200E1B873 /* SelectUserView.xib in Resources */,
 				A6C36B8124B57BD200583CAA /* callvideo_mute2@2x.png in Resources */,
 			);
@@ -1687,24 +1697,53 @@
 			isa = PBXVariantGroup;
 			children = (
 				A60845B024A2FEC1005F23A9 /* Base */,
+				A67A49C424BA33B40016DD41 /* ja */,
 			);
 			name = Login.storyboard;
+			sourceTree = "<group>";
+		};
+		A663A6BF24BA474B0090A13D /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A663A6BE24BA474B0090A13D /* ja */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		A67A49B324BA32DF0016DD41 /* Friend.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A67A49B224BA32DF0016DD41 /* Base */,
+				A67A49C724BA33B40016DD41 /* ja */,
+			);
+			name = Friend.storyboard;
+			sourceTree = "<group>";
+		};
+		A67A49B924BA33080016DD41 /* Setting.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A67A49B824BA33080016DD41 /* Base */,
+				A67A49C924BA33B40016DD41 /* ja */,
+			);
+			name = Setting.storyboard;
+			sourceTree = "<group>";
+		};
+		A67A49C224BA338F0016DD41 /* Group.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A67A49C124BA338F0016DD41 /* Base */,
+				A67A49C624BA33B40016DD41 /* ja */,
+			);
+			name = Group.storyboard;
 			sourceTree = "<group>";
 		};
 		AB13A9E024A2EF610028731D /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				AB13A9E124A2EF610028731D /* Base */,
+				A67A49C324BA33B40016DD41 /* ja */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		AB13A9E524A2EF670028731D /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				AB13A9E624A2EF670028731D /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
