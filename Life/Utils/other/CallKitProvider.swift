@@ -27,7 +27,7 @@ class CallKitProvider: NSObject {
 
 		super.init()
 
-		let configuration = CXProviderConfiguration(localizedName: "Life App")
+		let configuration = CXProviderConfiguration(localizedName: "LIFE")
 		configuration.supportsVideo = true
 		configuration.maximumCallGroups = 1
 		configuration.maximumCallsPerCallGroup = 1

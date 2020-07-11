@@ -14,7 +14,27 @@ class SplashViewController: UIViewController {
         super.viewDidLoad()
 
         DispatchQueue.main.asyncAfter(deadline: .now()+3, execute: {
-            self.gotoWelcomeViewController()
+            let userId = AuthUser.userId()
+            if userId.isEmpty == false {
+                FireFetcher.fetchPerson(userId) { error in
+                    self.dismiss(animated: true) {
+                        if error != nil {
+                            self.gotoWelcomeViewController()
+                        }
+                        else {
+                            NotificationCenter.default.post(name: Notification.Name(NotificationStatus.NOTIFICATION_USER_LOGGED_IN), object: nil)
+                            
+                            UIApplication.shared.windows.first?.rootViewController?.dismiss(animated: true, completion: nil)
+                            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
+                    
+                            UIApplication.shared.windows.first?.rootViewController = vc
+                        }
+                    }
+                }
+            }
+            else {
+                self.gotoWelcomeViewController()
+            }
         })
     }
     func gotoWelcomeViewController() {
@@ -23,6 +43,11 @@ class SplashViewController: UIViewController {
         UIApplication.shared.windows.first?.rootViewController = vc
     }
 
+    func gotoMainViewController() {
+        UIApplication.shared.windows.first?.rootViewController?.dismiss(animated: true, completion: nil)
+        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
 
+        UIApplication.shared.windows.first?.rootViewController = vc
+    }
 
 }

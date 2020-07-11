@@ -48,7 +48,7 @@ class RCFooterLowerCell: UITableViewCell {
 		let width = widthTable - RCDefaults.footerLowerLeft - RCDefaults.footerLowerRight
 		let height = (statusImageView != nil) ? RCDefaults.footerLowerHeight : 0
 
-		statusImageView.frame = CGRect(x: widthTable - 10 - RCDefaults.footerLowerRight, y: 0, width: 20, height: height)
+		statusImageView.frame = CGRect(x: widthTable - 15 - RCDefaults.footerLowerRight, y: 0, width: 20, height: height)
 	}
 
 	// MARK: - Size methods

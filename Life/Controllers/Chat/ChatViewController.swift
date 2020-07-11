@@ -30,8 +30,12 @@ class ChatViewController: UIViewController {
     @IBOutlet weak var statusbarView: UIView!
     @IBOutlet weak var topbarView: UIView!
 
+    @IBOutlet weak var searchBar: UISearchBar!
+    
     @IBOutlet weak var tableView: UITableView!
         
+    var refreshControl = UIRefreshControl()
+    
     private var isTyping = false
     private var textTitle: String?
     
@@ -53,6 +57,18 @@ class ChatViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        searchBar.backgroundImage = UIImage()
+        searchBar.barStyle = .default
+        searchBar.barTintColor = UIColor(hexString: "#16406F")
+        searchBar.layer.cornerRadius = 8
+        searchBar.placeholder = "Search"
+//        searchBar.backgroundColor = UIColor(hexString: "165c90")
+        searchBar.set(textColor: UIColor(hexString: "#96B4D2")!)
+        searchBar.setPlaceholder(textColor: UIColor(hexString: "#96B4D2")!)
+        searchBar.setSearchImage(color: UIColor(hexString: "#96B4D2")!)
+//        searchBar.setClearButton(color: UIColor(hexString: "#96B4D2")!)
+        searchBar.tintColor = UIColor(hexString: "#FFFFFF")
+        searchBar.delegate = self
         
         tableView.register(RCHeaderUpperCell.self, forCellReuseIdentifier: "RCHeaderUpperCell")
         tableView.register(RCHeaderLowerCell.self, forCellReuseIdentifier: "RCHeaderLowerCell")
@@ -70,6 +86,9 @@ class ChatViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         //tableView.tableHeaderView = viewLoadEarlier
+        
+        refreshControl.addTarget(self, action: #selector(actionLoadEarlier), for: UIControl.Event.valueChanged)
+        tableView.addSubview(refreshControl)
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -112,7 +131,15 @@ class ChatViewController: UIViewController {
 
         layoutTableView()
     }
-    
+    // MARK: - User actions (load earlier)
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    @objc func actionLoadEarlier() {
+
+        messageToDisplay += 12
+        refreshLoadEarlier()
+        refreshTableView()
+        refreshControl.endRefreshing()
+    }
     @IBAction func actionAudioCall(_ sender: Any) {
         let callAudioView = CallAudioView(userId: self.recipientId)
         present(callAudioView, animated: true)
@@ -209,7 +236,7 @@ class ChatViewController: UIViewController {
     func scrollToBottom() {
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            self.scrollToBottom(animated: true)
+            self.scrollToBottom(animated: false)
         }
         detail?.update(lastRead: Date().timestamp())
     }
@@ -1009,5 +1036,45 @@ extension ChatViewController: SelectUsersDelegate {
 
             indexForward = nil
         }
+    }
+}
+
+// MARK: - UISearchBarDelegate
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+extension ChatViewController: UISearchBarDelegate {
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+
+        
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func searchBarTextDidBeginEditing(_ searchBar_: UISearchBar) {
+
+        searchBar.setShowsCancelButton(true, animated: true)
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func searchBarTextDidEndEditing(_ searchBar_: UISearchBar) {
+
+        searchBar.setShowsCancelButton(false, animated: true)
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func searchBarCancelButtonClicked(_ searchBar_: UISearchBar) {
+
+        searchBar.text = ""
+        searchBar.resignFirstResponder()
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func searchBarSearchButtonClicked(_ searchBar_: UISearchBar) {
+        searchBar.resignFirstResponder()
+        let searchText = searchBar_.text
+        if searchText?.isEmpty == true {
+            return
+        }
+        
     }
 }

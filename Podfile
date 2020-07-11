@@ -32,6 +32,7 @@ target 'Life' do
   pod 'QRCodeReader.swift', '~> 10.1.0'
   pod 'FittedSheets'
   pod 'Kingfisher'
+  pod 'SCLAlertView'
   
   target 'LifeTests' do
     inherit! :search_paths

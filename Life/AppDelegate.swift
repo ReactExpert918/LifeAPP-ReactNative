@@ -69,7 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //-----------------------------------------------------------------------------------------------------------------------------------------
         // Sinch initialization
         //-----------------------------------------------------------------------------------------------------------------------------------------
-        push = Sinch.managedPush(with: .production)
+        push = Sinch.managedPush(with: .development)
         push?.delegate = self
         push?.setDesiredPushType(SINPushTypeVoIP)
 
@@ -81,7 +81,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return true
     }
+    /*
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        let firebaseAuth = Auth.auth()
+        print("device token: \(deviceToken.toHexString())")
+        firebaseAuth.setAPNSToken(deviceToken, type: .prod)
 
+    }
+
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        let firebaseAuth = Auth.auth()
+        if (firebaseAuth.canHandleNotification(userInfo)){
+            print(userInfo)
+            return
+        }
+    }
+ */
     // MARK: UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
@@ -112,6 +127,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         client?.enableManagedPushNotifications()
         callKitProvider?.setClient(client)
         client?.start()
+        client?.startListeningOnActiveConnection()
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------

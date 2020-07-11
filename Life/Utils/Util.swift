@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import SCLAlertView
 
 class Util{
     /**
@@ -35,5 +36,7 @@ class Util{
         ))
         vc.present(alert, animated: true, completion: nil)
     }
-    
+    static func showSuccessAlert(vc: UIViewController, _ title: String, _ message: String){
+        _ = SCLAlertView().showSuccess(title, subTitle: message, closeButtonTitle: "OK")
+    }
 }

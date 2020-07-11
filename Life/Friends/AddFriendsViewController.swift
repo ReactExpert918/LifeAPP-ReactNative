@@ -156,7 +156,7 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
             let mainstoryboard = UIStoryboard.init(name: "Group", bundle: nil)
             let vc = mainstoryboard.instantiateViewController(withIdentifier: "createGroupVC")
             vc.modalPresentationStyle = .fullScreen
-            self.present(vc, animated: true, completion: nil)
+            //self.present(vc, animated: true, completion: nil)
         }
     }
     @IBAction func onStartChatTapped(_ sender: Any) {

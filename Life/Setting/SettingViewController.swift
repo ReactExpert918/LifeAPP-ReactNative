@@ -11,6 +11,7 @@ import UIKit
 class SettingViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
 
     @IBOutlet weak var tableView: UITableView!
+    
     let sections = ["General Settings"]
      
     let items = [["Account Settings", "Privacy Policy", "About Us"]]
@@ -19,7 +20,7 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
         super.viewDidLoad()
         
         tableView.register(UINib(nibName: "SettingCellHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: SettingCellHeader.reuseIdentifier)
-        tableView.tableFooterView = UIView(frame: .zero)
+        //tableView.tableFooterView = UIView(frame: .zero)
         // Do any additional setup after loading the view.
     }
     
@@ -27,6 +28,30 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.dismiss(animated: true) {
             
         }
+    }
+    
+    @IBAction func onSignoutTapped(_ sender: Any) {
+        let refreshAlert = UIAlertController(title: "Are you sure to sign out?", message: "", preferredStyle: .alert)
+
+        refreshAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action: UIAlertAction!) in
+            AuthUser.signOut { (error) in
+                if let error = error {
+                    
+                }
+                self.gotoWelcomeViewController()
+            }
+            
+        }))
+
+        refreshAlert.addAction(UIAlertAction(title: "No", style: .cancel, handler: { (action: UIAlertAction!) in
+        }))
+        present(refreshAlert, animated: true, completion: nil)
+    }
+    
+    func gotoWelcomeViewController() {
+        let mainstoryboard = UIStoryboard.init(name: "Login", bundle: nil)
+        let vc = mainstoryboard.instantiateViewController(withIdentifier: "rootNavigationViewController")
+        UIApplication.shared.windows.first?.rootViewController = vc
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

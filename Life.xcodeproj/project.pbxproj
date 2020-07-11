@@ -24,6 +24,26 @@
 		A67587F724B7B1BF00724B08 /* read@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A67587EE24B7B1BF00724B08 /* read@2x.png */; };
 		A67587F824B7B1BF00724B08 /* delivered@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A67587EF24B7B1BF00724B08 /* delivered@3x.png */; };
 		A67587F924B7B1BF00724B08 /* sent.png in Resources */ = {isa = PBXBuildFile; fileRef = A67587F024B7B1BF00724B08 /* sent.png */; };
+		A675882724B80F3100724B08 /* callaudio_mute1.png in Resources */ = {isa = PBXBuildFile; fileRef = A675882424B80F3000724B08 /* callaudio_mute1.png */; };
+		A675882824B80F3100724B08 /* callaudio_mute1@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A675882524B80F3100724B08 /* callaudio_mute1@3x.png */; };
+		A675882924B80F3100724B08 /* callaudio_mute1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A675882624B80F3100724B08 /* callaudio_mute1@2x.png */; };
+		A675882D24B80F9000724B08 /* callaudio_mute2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A675882A24B80F9000724B08 /* callaudio_mute2@2x.png */; };
+		A675882E24B80F9000724B08 /* callaudio_mute2.png in Resources */ = {isa = PBXBuildFile; fileRef = A675882B24B80F9000724B08 /* callaudio_mute2.png */; };
+		A675882F24B80F9000724B08 /* callaudio_mute2@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A675882C24B80F9000724B08 /* callaudio_mute2@3x.png */; };
+		A675883324B80FEA00724B08 /* callaudio_speaker2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A675883024B80FE900724B08 /* callaudio_speaker2@2x.png */; };
+		A675883424B80FEA00724B08 /* callaudio_speaker2@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A675883124B80FE900724B08 /* callaudio_speaker2@3x.png */; };
+		A675883524B80FEA00724B08 /* callaudio_speaker2.png in Resources */ = {isa = PBXBuildFile; fileRef = A675883224B80FE900724B08 /* callaudio_speaker2.png */; };
+		A675883924B8102700724B08 /* callaudio_speaker1.png in Resources */ = {isa = PBXBuildFile; fileRef = A675883624B8102600724B08 /* callaudio_speaker1.png */; };
+		A675883A24B8102700724B08 /* callaudio_speaker1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A675883724B8102600724B08 /* callaudio_speaker1@2x.png */; };
+		A675883B24B8102700724B08 /* callaudio_speaker1@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A675883824B8102700724B08 /* callaudio_speaker1@3x.png */; };
+		A675883F24B8106400724B08 /* callaudio_video2.png in Resources */ = {isa = PBXBuildFile; fileRef = A675883C24B8106300724B08 /* callaudio_video2.png */; };
+		A675884024B8106400724B08 /* callaudio_video2@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A675883D24B8106300724B08 /* callaudio_video2@3x.png */; };
+		A675884124B8106400724B08 /* callaudio_video2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A675883E24B8106300724B08 /* callaudio_video2@2x.png */; };
+		A675884524B810A900724B08 /* callaudio_video1.png in Resources */ = {isa = PBXBuildFile; fileRef = A675884224B810A900724B08 /* callaudio_video1.png */; };
+		A675884624B810A900724B08 /* callaudio_video1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A675884324B810A900724B08 /* callaudio_video1@2x.png */; };
+		A675884724B810A900724B08 /* callaudio_video1@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A675884424B810A900724B08 /* callaudio_video1@3x.png */; };
+		A675884924B85E9700724B08 /* UpdateNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A675884824B85E9700724B08 /* UpdateNameViewController.swift */; };
+		A675884B24B8621400724B08 /* UpdatePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A675884A24B8621400724B08 /* UpdatePasswordViewController.swift */; };
 		A6BD965E24B4D2FC00E1B873 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BD965D24B4D2FC00E1B873 /* ImagePicker.swift */; };
 		A6BD966224B4D54800E1B873 /* AudioView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A6BD966024B4D54800E1B873 /* AudioView.xib */; };
 		A6BD966324B4D54800E1B873 /* AudioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BD966124B4D54800E1B873 /* AudioView.swift */; };
@@ -46,14 +66,8 @@
 		A6C36B6124B577B000583CAA /* CallAudioView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A6C36B5C24B577B000583CAA /* CallAudioView.xib */; };
 		A6C36B6224B577B000583CAA /* CallVideoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A6C36B5E24B577B000583CAA /* CallVideoView.xib */; };
 		A6C36B6324B577B000583CAA /* CallVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C36B5F24B577B000583CAA /* CallVideoView.swift */; };
-		A6C36B7724B57BD200583CAA /* callaudio_mute2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A6C36B6624B57BD200583CAA /* callaudio_mute2@2x.png */; };
-		A6C36B7824B57BD200583CAA /* callaudio_video1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A6C36B6724B57BD200583CAA /* callaudio_video1@2x.png */; };
-		A6C36B7924B57BD200583CAA /* callaudio_speaker1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A6C36B6824B57BD200583CAA /* callaudio_speaker1@2x.png */; };
 		A6C36B7A24B57BD200583CAA /* callaudio_hangup@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A6C36B6924B57BD200583CAA /* callaudio_hangup@2x.png */; };
-		A6C36B7B24B57BD200583CAA /* callaudio_mute1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A6C36B6A24B57BD200583CAA /* callaudio_mute1@2x.png */; };
 		A6C36B7C24B57BD200583CAA /* callaudio_blank@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A6C36B6B24B57BD200583CAA /* callaudio_blank@2x.png */; };
-		A6C36B7D24B57BD200583CAA /* callaudio_video2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A6C36B6C24B57BD200583CAA /* callaudio_video2@2x.png */; };
-		A6C36B7E24B57BD200583CAA /* callaudio_speaker2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A6C36B6D24B57BD200583CAA /* callaudio_speaker2@2x.png */; };
 		A6C36B7F24B57BD200583CAA /* callaudio_answer@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A6C36B6E24B57BD200583CAA /* callaudio_answer@2x.png */; };
 		A6C36B8024B57BD200583CAA /* callvideo_hangup@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A6C36B7024B57BD200583CAA /* callvideo_hangup@2x.png */; };
 		A6C36B8124B57BD200583CAA /* callvideo_mute2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A6C36B7124B57BD200583CAA /* callvideo_mute2@2x.png */; };
@@ -246,6 +260,26 @@
 		A67587EE24B7B1BF00724B08 /* read@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "read@2x.png"; sourceTree = "<group>"; };
 		A67587EF24B7B1BF00724B08 /* delivered@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delivered@3x.png"; sourceTree = "<group>"; };
 		A67587F024B7B1BF00724B08 /* sent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sent.png; sourceTree = "<group>"; };
+		A675882424B80F3000724B08 /* callaudio_mute1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = callaudio_mute1.png; sourceTree = "<group>"; };
+		A675882524B80F3100724B08 /* callaudio_mute1@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "callaudio_mute1@3x.png"; sourceTree = "<group>"; };
+		A675882624B80F3100724B08 /* callaudio_mute1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "callaudio_mute1@2x.png"; sourceTree = "<group>"; };
+		A675882A24B80F9000724B08 /* callaudio_mute2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "callaudio_mute2@2x.png"; sourceTree = "<group>"; };
+		A675882B24B80F9000724B08 /* callaudio_mute2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = callaudio_mute2.png; sourceTree = "<group>"; };
+		A675882C24B80F9000724B08 /* callaudio_mute2@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "callaudio_mute2@3x.png"; sourceTree = "<group>"; };
+		A675883024B80FE900724B08 /* callaudio_speaker2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "callaudio_speaker2@2x.png"; sourceTree = "<group>"; };
+		A675883124B80FE900724B08 /* callaudio_speaker2@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "callaudio_speaker2@3x.png"; sourceTree = "<group>"; };
+		A675883224B80FE900724B08 /* callaudio_speaker2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = callaudio_speaker2.png; sourceTree = "<group>"; };
+		A675883624B8102600724B08 /* callaudio_speaker1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = callaudio_speaker1.png; sourceTree = "<group>"; };
+		A675883724B8102600724B08 /* callaudio_speaker1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "callaudio_speaker1@2x.png"; sourceTree = "<group>"; };
+		A675883824B8102700724B08 /* callaudio_speaker1@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "callaudio_speaker1@3x.png"; sourceTree = "<group>"; };
+		A675883C24B8106300724B08 /* callaudio_video2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = callaudio_video2.png; sourceTree = "<group>"; };
+		A675883D24B8106300724B08 /* callaudio_video2@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "callaudio_video2@3x.png"; sourceTree = "<group>"; };
+		A675883E24B8106300724B08 /* callaudio_video2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "callaudio_video2@2x.png"; sourceTree = "<group>"; };
+		A675884224B810A900724B08 /* callaudio_video1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = callaudio_video1.png; sourceTree = "<group>"; };
+		A675884324B810A900724B08 /* callaudio_video1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "callaudio_video1@2x.png"; sourceTree = "<group>"; };
+		A675884424B810A900724B08 /* callaudio_video1@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "callaudio_video1@3x.png"; sourceTree = "<group>"; };
+		A675884824B85E9700724B08 /* UpdateNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateNameViewController.swift; sourceTree = "<group>"; };
+		A675884A24B8621400724B08 /* UpdatePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePasswordViewController.swift; sourceTree = "<group>"; };
 		A6BD965D24B4D2FC00E1B873 /* ImagePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		A6BD966024B4D54800E1B873 /* AudioView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AudioView.xib; sourceTree = "<group>"; };
 		A6BD966124B4D54800E1B873 /* AudioView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioView.swift; sourceTree = "<group>"; };
@@ -268,14 +302,8 @@
 		A6C36B5C24B577B000583CAA /* CallAudioView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CallAudioView.xib; sourceTree = "<group>"; };
 		A6C36B5E24B577B000583CAA /* CallVideoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CallVideoView.xib; sourceTree = "<group>"; };
 		A6C36B5F24B577B000583CAA /* CallVideoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallVideoView.swift; sourceTree = "<group>"; };
-		A6C36B6624B57BD200583CAA /* callaudio_mute2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "callaudio_mute2@2x.png"; sourceTree = "<group>"; };
-		A6C36B6724B57BD200583CAA /* callaudio_video1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "callaudio_video1@2x.png"; sourceTree = "<group>"; };
-		A6C36B6824B57BD200583CAA /* callaudio_speaker1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "callaudio_speaker1@2x.png"; sourceTree = "<group>"; };
 		A6C36B6924B57BD200583CAA /* callaudio_hangup@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "callaudio_hangup@2x.png"; sourceTree = "<group>"; };
-		A6C36B6A24B57BD200583CAA /* callaudio_mute1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "callaudio_mute1@2x.png"; sourceTree = "<group>"; };
 		A6C36B6B24B57BD200583CAA /* callaudio_blank@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "callaudio_blank@2x.png"; sourceTree = "<group>"; };
-		A6C36B6C24B57BD200583CAA /* callaudio_video2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "callaudio_video2@2x.png"; sourceTree = "<group>"; };
-		A6C36B6D24B57BD200583CAA /* callaudio_speaker2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "callaudio_speaker2@2x.png"; sourceTree = "<group>"; };
 		A6C36B6E24B57BD200583CAA /* callaudio_answer@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "callaudio_answer@2x.png"; sourceTree = "<group>"; };
 		A6C36B7024B57BD200583CAA /* callvideo_hangup@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "callvideo_hangup@2x.png"; sourceTree = "<group>"; };
 		A6C36B7124B57BD200583CAA /* callvideo_mute2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "callvideo_mute2@2x.png"; sourceTree = "<group>"; };
@@ -284,7 +312,6 @@
 		A6C36B7424B57BD200583CAA /* callvideo_blank@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "callvideo_blank@2x.png"; sourceTree = "<group>"; };
 		A6C36B7524B57BD200583CAA /* callvideo_mute1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "callvideo_mute1@2x.png"; sourceTree = "<group>"; };
 		A6C36B7624B57BD200583CAA /* callvideo_switch1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "callvideo_switch1@2x.png"; sourceTree = "<group>"; };
-		A6C36B8724B5A95200583CAA /* Life.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Life.entitlements; sourceTree = "<group>"; };
 		A6C36B8A24B5AE1D00583CAA /* call_ringback.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = call_ringback.wav; sourceTree = "<group>"; };
 		A6C9824724AE6B8C002280B6 /* Chat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		A6C9824924AE6DC7002280B6 /* ChatHistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHistoryCell.swift; sourceTree = "<group>"; };
@@ -672,14 +699,26 @@
 		A6C36B6524B57BD200583CAA /* callaudio */ = {
 			isa = PBXGroup;
 			children = (
-				A6C36B6624B57BD200583CAA /* callaudio_mute2@2x.png */,
-				A6C36B6724B57BD200583CAA /* callaudio_video1@2x.png */,
-				A6C36B6824B57BD200583CAA /* callaudio_speaker1@2x.png */,
+				A675882424B80F3000724B08 /* callaudio_mute1.png */,
+				A675882624B80F3100724B08 /* callaudio_mute1@2x.png */,
+				A675882524B80F3100724B08 /* callaudio_mute1@3x.png */,
+				A675882B24B80F9000724B08 /* callaudio_mute2.png */,
+				A675882A24B80F9000724B08 /* callaudio_mute2@2x.png */,
+				A675882C24B80F9000724B08 /* callaudio_mute2@3x.png */,
+				A675884224B810A900724B08 /* callaudio_video1.png */,
+				A675884324B810A900724B08 /* callaudio_video1@2x.png */,
+				A675884424B810A900724B08 /* callaudio_video1@3x.png */,
+				A675883C24B8106300724B08 /* callaudio_video2.png */,
+				A675883E24B8106300724B08 /* callaudio_video2@2x.png */,
+				A675883D24B8106300724B08 /* callaudio_video2@3x.png */,
+				A675883624B8102600724B08 /* callaudio_speaker1.png */,
+				A675883724B8102600724B08 /* callaudio_speaker1@2x.png */,
+				A675883824B8102700724B08 /* callaudio_speaker1@3x.png */,
+				A675883224B80FE900724B08 /* callaudio_speaker2.png */,
+				A675883024B80FE900724B08 /* callaudio_speaker2@2x.png */,
+				A675883124B80FE900724B08 /* callaudio_speaker2@3x.png */,
 				A6C36B6924B57BD200583CAA /* callaudio_hangup@2x.png */,
-				A6C36B6A24B57BD200583CAA /* callaudio_mute1@2x.png */,
 				A6C36B6B24B57BD200583CAA /* callaudio_blank@2x.png */,
-				A6C36B6C24B57BD200583CAA /* callaudio_video2@2x.png */,
-				A6C36B6D24B57BD200583CAA /* callaudio_speaker2@2x.png */,
 				A6C36B6E24B57BD200583CAA /* callaudio_answer@2x.png */,
 			);
 			path = callaudio;
@@ -1065,7 +1104,6 @@
 		AB13A9D924A2EF610028731D /* Life */ = {
 			isa = PBXGroup;
 			children = (
-				A6C36B8724B5A95200583CAA /* Life.entitlements */,
 				A6379AE824AAD55B003E1879 /* Groups */,
 				AB82ACD424A5453000D83E47 /* Friends */,
 				AB82ACC924A5452600D83E47 /* Setting */,
@@ -1110,6 +1148,8 @@
 			isa = PBXGroup;
 			children = (
 				AB82ACCA24A5452600D83E47 /* Setting.storyboard */,
+				A675884824B85E9700724B08 /* UpdateNameViewController.swift */,
+				A675884A24B8621400724B08 /* UpdatePasswordViewController.swift */,
 				AB82ACCB24A5452600D83E47 /* SettingCell.swift */,
 				AB82ACCC24A5452600D83E47 /* SettingCellHeader.swift */,
 				AB82ACCD24A5452600D83E47 /* SettingCellHeader.xib */,
@@ -1259,15 +1299,15 @@
 				A67587F524B7B1BF00724B08 /* read@3x.png in Resources */,
 				A6C36B7C24B57BD200583CAA /* callaudio_blank@2x.png in Resources */,
 				A6EDA03C24ACE5B100CA3A5F /* Montserrat-Medium.ttf in Resources */,
-				A6C36B7E24B57BD200583CAA /* callaudio_speaker2@2x.png in Resources */,
 				A67587F224B7B1BF00724B08 /* sent@3x.png in Resources */,
 				A6C36B6124B577B000583CAA /* CallAudioView.xib in Resources */,
 				A6BD966A24B4D56900E1B873 /* StickersCell.xib in Resources */,
 				A6F564C324A8D73D0061007E /* rcmessages_videoplay@2x.png in Resources */,
 				A6F564C624A8D73D0061007E /* rcmessage_send@2x.png in Resources */,
 				A67587F624B7B1BF00724B08 /* delivered@2x.png in Resources */,
-				A6C36B7824B57BD200583CAA /* callaudio_video1@2x.png in Resources */,
+				A675883F24B8106400724B08 /* callaudio_video2.png in Resources */,
 				A67587F924B7B1BF00724B08 /* sent.png in Resources */,
+				A675883A24B8102700724B08 /* callaudio_speaker1@2x.png in Resources */,
 				A6E73B4A24A50A190008CBFE /* Montserrat-Regular.ttf in Resources */,
 				A6C36B7F24B57BD200583CAA /* callaudio_answer@2x.png in Resources */,
 				A6E7000C24B6C5B1004586E0 /* UserStatusCell.xib in Resources */,
@@ -1275,46 +1315,58 @@
 				A6C36B7A24B57BD200583CAA /* callaudio_hangup@2x.png in Resources */,
 				A67587F324B7B1BF00724B08 /* delivered.png in Resources */,
 				A6C36B8524B57BD200583CAA /* callvideo_mute1@2x.png in Resources */,
+				A675882F24B80F9000724B08 /* callaudio_mute2@3x.png in Resources */,
+				A675882D24B80F9000724B08 /* callaudio_mute2@2x.png in Resources */,
 				A6E7001624B6DBEB004586E0 /* VideoView.xib in Resources */,
 				A6E73B4524A4F50D0008CBFE /* Montserrat-Bold.ttf in Resources */,
+				A675883424B80FEA00724B08 /* callaudio_speaker2@3x.png in Resources */,
 				A6C36B8424B57BD200583CAA /* callvideo_blank@2x.png in Resources */,
 				A6C36B8324B57BD200583CAA /* callvideo_answer@2x.png in Resources */,
 				A6C36B8224B57BD200583CAA /* callvideo_switch2@2x.png in Resources */,
 				A6E73B4624A4F50D0008CBFE /* Montserrat-SemiBold.ttf in Resources */,
+				A675883524B80FEA00724B08 /* callaudio_speaker2.png in Resources */,
+				A675882824B80F3100724B08 /* callaudio_mute1@3x.png in Resources */,
 				A6C9824C24AE6DC7002280B6 /* ChatHistoryCell.xib in Resources */,
-				A6C36B7924B57BD200583CAA /* callaudio_speaker1@2x.png in Resources */,
 				A6F564C724A8D73D0061007E /* rcmessages_audiopause@2x.png in Resources */,
 				A6F564C124A8D73D0061007E /* rcmessage_attach@2x.png in Resources */,
-				A6C36B7B24B57BD200583CAA /* callaudio_mute1@2x.png in Resources */,
 				A6BD967524B4D57200E1B873 /* SelectUserCell.xib in Resources */,
+				A675884024B8106400724B08 /* callaudio_video2@3x.png in Resources */,
 				A6BD966224B4D54800E1B873 /* AudioView.xib in Resources */,
+				A675882724B80F3100724B08 /* callaudio_mute1.png in Resources */,
 				A6E7001924B6DBEB004586E0 /* MapView.xib in Resources */,
-				A6C36B7724B57BD200583CAA /* callaudio_mute2@2x.png in Resources */,
 				A6C36B8B24B5AE1D00583CAA /* call_ringback.wav in Resources */,
 				A60845B124A2FEC1005F23A9 /* Login.storyboard in Resources */,
 				AB13A9E724A2EF670028731D /* LaunchScreen.storyboard in Resources */,
 				AB82ACCF24A5452700D83E47 /* Setting.storyboard in Resources */,
 				A6BD966924B4D56900E1B873 /* StickersView.xib in Resources */,
+				A675883924B8102700724B08 /* callaudio_speaker1.png in Resources */,
+				A675884724B810A900724B08 /* callaudio_video1@3x.png in Resources */,
 				A6E79AAF24A658E9009458A1 /* ExpandableHeaderCell.xib in Resources */,
 				A6BD967C24B4D76900E1B873 /* SelectUsersView.xib in Resources */,
 				AB82ACDB24A5453100D83E47 /* Friend.storyboard in Resources */,
 				A60845C324A30F97005F23A9 /* GoogleService-Info.plist in Resources */,
+				A675884524B810A900724B08 /* callaudio_video1.png in Resources */,
 				A67587F824B7B1BF00724B08 /* delivered@3x.png in Resources */,
 				AB13A9E424A2EF670028731D /* Assets.xcassets in Resources */,
 				AB13A9E224A2EF610028731D /* Main.storyboard in Resources */,
+				A675883B24B8102700724B08 /* callaudio_speaker1@3x.png in Resources */,
 				A6F564C524A8D73D0061007E /* rcmessage_incoming.aiff in Resources */,
 				A67587F424B7B1BF00724B08 /* read.png in Resources */,
 				A6F564C224A8D73D0061007E /* rcmessages_audioplay@2x.png in Resources */,
 				A6F564C424A8D73D0061007E /* rcmessage_outgoing.aiff in Resources */,
+				A675884624B810A900724B08 /* callaudio_video1@2x.png in Resources */,
 				AB30FAFD24AFAF130037BF25 /* AddFriendSection.xib in Resources */,
 				A6379AEA24AAD578003E1879 /* Group.storyboard in Resources */,
 				A6C36B8024B57BD200583CAA /* callvideo_hangup@2x.png in Resources */,
 				A6C36B8624B57BD200583CAA /* callvideo_switch1@2x.png in Resources */,
-				A6C36B7D24B57BD200583CAA /* callaudio_video2@2x.png in Resources */,
+				A675882924B80F3100724B08 /* callaudio_mute1@2x.png in Resources */,
 				AB82ACD224A5452700D83E47 /* SettingCellHeader.xib in Resources */,
+				A675883324B80FEA00724B08 /* callaudio_speaker2@2x.png in Resources */,
 				A6BD967B24B4D76900E1B873 /* SelectUsersCell.xib in Resources */,
 				A67587F724B7B1BF00724B08 /* read@2x.png in Resources */,
 				A6E79AB324A65D07009458A1 /* FriendCell.xib in Resources */,
+				A675884124B8106400724B08 /* callaudio_video2@2x.png in Resources */,
+				A675882E24B80F9000724B08 /* callaudio_mute2.png in Resources */,
 				A6F564C024A8D73D0061007E /* rcmessages_manual@2x.png in Resources */,
 				A67587F124B7B1BF00724B08 /* sent@2x.png in Resources */,
 				A6BD967424B4D57200E1B873 /* SelectUserView.xib in Resources */,
@@ -1488,6 +1540,7 @@
 				A6E7001724B6DBEB004586E0 /* VideoView.swift in Sources */,
 				A60845C124A3059B005F23A9 /* OTPVerificationViewController.swift in Sources */,
 				A6DEA82824A82A7100868625 /* RCMessageCell.swift in Sources */,
+				A675884B24B8621400724B08 /* UpdatePasswordViewController.swift in Sources */,
 				AB82ACD324A5452700D83E47 /* SettingViewController.swift in Sources */,
 				A6DEA8A724A8717800868625 /* RCAudioLoader.swift in Sources */,
 				A6BD966324B4D54800E1B873 /* AudioView.swift in Sources */,
@@ -1526,6 +1579,7 @@
 				AB82ACDA24A5453100D83E47 /* AddFriendsViewController.swift in Sources */,
 				A6DEA8AA24A8729100868625 /* UIImage+Extension.swift in Sources */,
 				A6E79AB224A65D07009458A1 /* FriendCell.swift in Sources */,
+				A675884924B85E9700724B08 /* UpdateNameViewController.swift in Sources */,
 				AB13A9DD24A2EF610028731D /* SceneDelegate.swift in Sources */,
 				A6DEA82224A82A7100868625 /* RCMessageVideoCell.swift in Sources */,
 				A6DEA82D24A82AB000868625 /* RCDefaults.swift in Sources */,
@@ -1770,7 +1824,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1792,7 +1846,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

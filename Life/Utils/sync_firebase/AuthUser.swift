@@ -47,7 +47,22 @@ class AuthUser: NSObject {
 			completion(error)
 		}
 	}
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    class func signOut(completion: @escaping (_ error: Error?) -> Void) {
+        do {
+            try Auth.auth().signOut()
+            completion(nil)
+        } catch let error as NSError {
+            completion(error)
+        }
+        
+    }
 
+    class func deleteAccount(completion: @escaping (_ error: Error?) -> Void) {
+        Auth.auth().currentUser?.delete(completion: { (error) in
+            completion(error)
+        })
+    }
 	// MARK: -
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	class func checkPassword(password: String, completion: @escaping (_ error: Error?) -> Void) {
@@ -84,4 +99,5 @@ class AuthUser: NSObject {
 
 		try! Auth.auth().signOut()
 	}
+    
 }

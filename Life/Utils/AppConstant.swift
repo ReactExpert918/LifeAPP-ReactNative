@@ -18,8 +18,8 @@ struct ONESIGNAL {
 }
 struct SINCHINFO{
     static let SINCH_HOST = "clientapi.sinch.com"
-    static let SINCH_KEY = "548f09fe-7488-41b6-855b-982292609125"
-    static let SINCH_SECRET = "gFmyWQ3GzkG+gDVmUJkV+w=="
+    static let SINCH_KEY = "3ac06518-5a6b-4404-a076-ac320bcbdebc"
+    static let SINCH_SECRET = "DKSRdpYDD0uqcbTnqzmfsg=="
 }
 
 struct AudioStatus{

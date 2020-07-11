@@ -73,6 +73,19 @@ class Person: SyncObject {
 		return "online now"
 	}
 
+    // MARK: -
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func update(fullname value: String) {
+
+        if (fullname == value) { return }
+
+        let realm = try! Realm()
+        try! realm.safeWrite {
+            fullname = value
+            syncRequired = true
+            updatedAt = Date().timestamp()
+        }
+    }
 	// MARK: -
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	func update(pictureAt value: Int64) {

@@ -136,6 +136,7 @@ class CallAudioView: UIViewController {
 			MediaDownload.startUser(person.objectId, pictureAt: person.pictureAt) { image, error in
 				if (error == nil) {
 					self.imageUser.image = image?.square(to: 70)
+                    self.imageUser.makeRounded()
 					self.labelInitials.text = nil
 				}
 			}
