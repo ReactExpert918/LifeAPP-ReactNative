@@ -71,7 +71,7 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
 
         MediaDownload.startUser(person.objectId, pictureAt: person.pictureAt) { image, error in
             if (error == nil) {
-                self.popupProfileImageView.image = image?.square(to: 70)
+                self.popupProfileImageView.image = image
                 self.popupProfileImageView.makeRounded()
             }
             else{
@@ -87,7 +87,7 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
     // MARK: - Backend methods
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func searchPersonsByUserName(text: String = "") {
-        let predicate1 = NSPredicate(format: "objectId != %@", AuthUser.userId())
+        let predicate1 = NSPredicate(format: "objectId != %@ AND isDeleted == NO", AuthUser.userId())
         let predicate2 = (text != "") ? NSPredicate(format: "fullname CONTAINS[c] %@", text) : NSPredicate(value: true)
 
         persons = realm.objects(Person.self).filter(predicate1).filter(predicate2).sorted(byKeyPath: "fullname")
@@ -102,7 +102,7 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     func searchPersonsByPhoneNumber(text: String = "") {
-        let predicate1 = NSPredicate(format: "objectId != %@", AuthUser.userId())
+        let predicate1 = NSPredicate(format: "objectId != %@ AND isDeleted == NO", AuthUser.userId())
         let predicate2 = (text != "") ? NSPredicate(format: "phone CONTAINS[c] %@", text) : NSPredicate(value: true)
 
         persons = realm.objects(Person.self).filter(predicate1).filter(predicate2).sorted(byKeyPath: "fullname")

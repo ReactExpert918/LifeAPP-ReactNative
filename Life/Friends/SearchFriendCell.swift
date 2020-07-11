@@ -8,9 +8,11 @@
 
 import Foundation
 import UIKit
+import SwiftyAvatar
+
 class SearchFriendCell : UITableViewCell{
     
-    @IBOutlet weak var profileImageView: UIImageView!
+    @IBOutlet weak var profileImageView: SwiftyAvatar!
     
     @IBOutlet weak var userNameLabel: UILabel!
     
@@ -27,7 +29,7 @@ class SearchFriendCell : UITableViewCell{
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func loadImage(person: Person, tableView: UITableView, indexPath: IndexPath) {
-
+/*
         if let path = MediaDownload.pathUser(person.objectId) {
             profileImageView.image = UIImage.image(path, size: 40)
             //labelInitials.text = nil
@@ -36,8 +38,10 @@ class SearchFriendCell : UITableViewCell{
             //labelInitials.text = person.initials()
             downloadImage(person: person, tableView: tableView, indexPath: indexPath)
         }
-        profileImageView.makeRounded()
-
+        //profileImageView.makeRounded()
+*/
+        downloadImage(person: person, tableView: tableView, indexPath: indexPath)
+        
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
@@ -47,7 +51,7 @@ class SearchFriendCell : UITableViewCell{
             let indexSelf = tableView.indexPath(for: self)
             if ((indexSelf == nil) || (indexSelf == indexPath)) {
                 if (error == nil) {
-                    self.profileImageView.image = image?.square(to: 40)
+                    self.profileImageView.image = image
                     //self.labelInitials.text = nil
                 } else if (error  != nil) {
                     self.profileImageView.image = UIImage(named: "ic_default_profile")

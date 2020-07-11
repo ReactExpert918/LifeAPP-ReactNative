@@ -7,16 +7,21 @@
 //
 
 import UIKit
+import SwiftyAvatar
 
 class ChatHistoryCell: UITableViewCell {
 
-    @IBOutlet weak var profileImageView: UIImageView!
+    @IBOutlet weak var profileImageView: SwiftyAvatar!
     
     @IBOutlet weak var userNameLabel: UILabel!
     
     @IBOutlet weak var lastMessageLabel: UILabel!
     
     @IBOutlet weak var lastUpdatedTimeLabel: UILabel!
+    
+    @IBOutlet weak var viewUnread: ExtensionView!
+    
+    @IBOutlet weak var labelUnread: UILabel!
     
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func bindData(chat: Chat) {
@@ -34,9 +39,9 @@ class ChatHistoryCell: UITableViewCell {
         lastUpdatedTimeLabel.text = Convert.timestampToCustom(chat.lastMessageAt)
 
         //imageMuted.isHidden = (chat.mutedUntil < Date().timestamp())
-        //viewUnread.isHidden = (chat.unreadCount == 0)
+        viewUnread.isHidden = (chat.unreadCount == 0)
 
-        //labelUnread.text = (chat.unreadCount < 100) ? "\(chat.unreadCount)" : "..."
+        labelUnread.text = (chat.unreadCount < 100) ? "\(chat.unreadCount)" : "..."
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
@@ -45,6 +50,7 @@ class ChatHistoryCell: UITableViewCell {
         if (chat.isPrivate) {
             let isRecipient = (chat.userId1 != AuthUser.userId())
             let userId = isRecipient ? chat.userId1 : chat.userId2
+            /*
             if let path = MediaDownload.pathUser(userId) {
                 profileImageView.image = UIImage.image(path, size: 50)
                 //labelInitials.text = nil
@@ -53,13 +59,15 @@ class ChatHistoryCell: UITableViewCell {
                 //labelInitials.text = chat.initials
                 downloadImage(chat: chat, tableView: tableView, indexPath: indexPath)
             }
+ */
+            downloadImage(chat: chat, tableView: tableView, indexPath: indexPath)
         }
 
         if (chat.isGroup) {
             profileImageView.image = nil
             //labelInitials.text = chat.initials
         }
-        profileImageView.makeRounded()
+        
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
@@ -72,7 +80,7 @@ class ChatHistoryCell: UITableViewCell {
             let indexSelf = tableView.indexPath(for: self)
             if ((indexSelf == nil) || (indexSelf == indexPath)) {
                 if (error == nil) {
-                    self.profileImageView.image = image?.square(to: 50)
+                    self.profileImageView.image = image
                     //self.labelInitials.text = nil
                 } else{
                     self.profileImageView.image = UIImage(named: "ic_default_profile")

@@ -76,7 +76,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func loadPersons(text: String = "") {
 
-        let predicate1 = NSPredicate(format: "objectId IN %@ AND NOT objectId IN %@", Friends.friendIds(), Blockeds.blockerIds())
+        let predicate1 = NSPredicate(format: "objectId IN %@ AND NOT objectId IN %@ AND isDeleted == NO", Friends.friendIds(), Blockeds.blockerIds())
         let predicate2 = (text != "") ? NSPredicate(format: "fullname CONTAINS[c] %@", text) : NSPredicate(value: true)
 
         persons = realm.objects(Person.self).filter(predicate1).filter(predicate2).sorted(byKeyPath: "fullname")

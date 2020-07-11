@@ -38,7 +38,7 @@ class Person: SyncObject {
 
 	@objc dynamic var lastActive: Int64 = 0
 	@objc dynamic var lastTerminate: Int64 = 0
-
+    @objc dynamic var isDeleted = false
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	class func lastUpdatedAt() -> Int64 {
 
@@ -216,4 +216,17 @@ class Person: SyncObject {
 			updatedAt = Date().timestamp()
 		}
 	}
+
+//---------------------------------------------------------------------------------------------------------------------------------------------
+    func update(isDeleted value: Bool) {
+
+        if (isDeleted == value) { return }
+
+        let realm = try! Realm()
+        try! realm.safeWrite {
+            isDeleted = value
+            syncRequired = true
+            updatedAt = Date().timestamp()
+        }
+    }
 }

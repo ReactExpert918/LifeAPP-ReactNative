@@ -100,10 +100,16 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
         let refreshAlert = UIAlertController(title: "Are you sure to delete your account?", message: "", preferredStyle: .alert)
 
         refreshAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action: UIAlertAction!) in
+            DispatchQueue.main.async {
+                self.hud.show(in: self.view, animated: true)
+            }
             AuthUser.deleteAccount { (error) in
+                self.hud.dismiss()
                 if let error = error {
-                    
+                    Util.showAlert(vc: self, error.localizedDescription, "")
+                    return
                 }
+                self.person.update(isDeleted: true)
                 self.gotoWelcomeViewController()
             }
             
@@ -171,12 +177,14 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
             print("No image found")
             return
         }
+        let data = image.jpegData(compressionQuality: 1.0)
+        let correct_image = UIImage(data: data! as Data)
         DispatchQueue.main.async{
-            self.profileImageView.image = image
+            self.profileImageView.image = correct_image
         }
         // print out the image size as a test
-        print(image.size)
-        uploadPicture(image: image)
+        // print(correct_image?.size)
+        uploadPicture(image: correct_image!)
     }
     func uploadPicture(image: UIImage) {
         if let data = image.jpegData(compressionQuality: 0.6) {

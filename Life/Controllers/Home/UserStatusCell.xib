@@ -27,12 +27,20 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x5c-h2-Tox" userLabel="ProfileView">
                         <rect key="frame" x="0.0" y="0.0" width="338" height="76"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile" translatesAutoresizingMaskIntoConstraints="NO" id="Qv5-TI-gMo">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile" translatesAutoresizingMaskIntoConstraints="NO" id="Qv5-TI-gMo" customClass="SwiftyAvatar" customModule="SwiftyAvatar">
                                 <rect key="frame" x="16" y="14" width="48" height="48"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="5ZK-qm-G6N"/>
                                     <constraint firstAttribute="width" constant="48" id="CGN-YD-CZR"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" red="0.0" green="0.0" blue="0.0" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BZ2-9j-qrs">
                                 <rect key="frame" x="80" y="21.5" width="242" height="33"/>

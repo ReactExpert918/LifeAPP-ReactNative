@@ -7,10 +7,10 @@
 //
 
 import UIKit
-
+import SwiftyAvatar
 class FriendCell: UITableViewCell {
     
-    @IBOutlet weak var profileImageView: UIImageView!
+    @IBOutlet weak var profileImageView: SwiftyAvatar!
     
     @IBOutlet weak var userNameLabel: UILabel!
     
@@ -31,7 +31,7 @@ class FriendCell: UITableViewCell {
             //labelInitials.text = person.initials()
             downloadImage(person: person, tableView: tableView, indexPath: indexPath)
         }
-        profileImageView.makeRounded()
+        //profileImageView.makeRounded()
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------

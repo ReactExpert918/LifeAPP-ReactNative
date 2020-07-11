@@ -13,9 +13,15 @@ class SplashViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        DispatchQueue.main.asyncAfter(deadline: .now()+3, execute: {
-            let userId = AuthUser.userId()
-            if userId.isEmpty == false {
+        let email = PrefsManager.getEmail()
+        if email != "" {
+            let password = PrefsManager.getPassword()
+            AuthUser.signIn(email: email, password: password) { (error) in
+                if error != nil {
+                    self.gotoWelcomeViewController()
+                    return
+                }
+                let userId = AuthUser.userId()
                 FireFetcher.fetchPerson(userId) { error in
                     self.dismiss(animated: true) {
                         if error != nil {
@@ -32,10 +38,12 @@ class SplashViewController: UIViewController {
                     }
                 }
             }
-            else {
+        }
+        else{
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                 self.gotoWelcomeViewController()
             }
-        })
+        }
     }
     func gotoWelcomeViewController() {
         let mainstoryboard = UIStoryboard.init(name: "Login", bundle: nil)

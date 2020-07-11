@@ -81,11 +81,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return true
     }
-    /*
+    
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let firebaseAuth = Auth.auth()
         print("device token: \(deviceToken.toHexString())")
-        firebaseAuth.setAPNSToken(deviceToken, type: .prod)
+        firebaseAuth.setAPNSToken(deviceToken, type: .sandbox)
 
     }
 
@@ -96,7 +96,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return
         }
     }
- */
+ 
     // MARK: UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {

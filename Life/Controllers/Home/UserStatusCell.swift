@@ -7,10 +7,11 @@
 //
 
 import UIKit
+import SwiftyAvatar
 
 class UserStatusCell: UITableViewCell {
 
-    @IBOutlet weak var profileImageView: UIImageView!
+    @IBOutlet weak var profileImageView: SwiftyAvatar!
     
     @IBOutlet weak var userNameLabel: UILabel!
     
@@ -31,8 +32,8 @@ class UserStatusCell: UITableViewCell {
         //labelInitials.text = person.initials()
         MediaDownload.startUser(person.objectId, pictureAt: person.pictureAt) { image, error in
             if (error == nil) {
-                self.profileImageView.image = image?.square(to: 70)
-                self.profileImageView.makeRounded()
+                self.profileImageView.image = image
+                //self.profileImageView.makeRounded()
             }
         }
         userNameLabel.text = person.fullname

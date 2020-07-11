@@ -353,18 +353,20 @@ class ChatViewController: UIViewController {
 
         let rcmessage = rcmessageAt(indexPath)
         var imageAvatar = avatarImages[rcmessage.userId]
-
+/*
         if (imageAvatar == nil) {
             if let path = MediaDownload.pathUser(rcmessage.userId) {
                 imageAvatar = UIImage.image(path, size: 30)
                 avatarImages[rcmessage.userId] = imageAvatar
             }
         }
-
+*/
         if (imageAvatar == nil) {
             MediaDownload.startUser(rcmessage.userId, pictureAt: rcmessage.userPictureAt) { image, error in
                 if (error == nil) {
-                    self.refreshTableView()
+                    imageAvatar = image
+                    self.avatarImages[rcmessage.userId] = imageAvatar
+                    //self.refreshTableView()
                 }
             }
         }
@@ -989,7 +991,7 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
 
         let video = info[.mediaURL] as? URL
-        let photo = info[.editedImage] as? UIImage
+        let photo = info[.originalImage] as? UIImage
 
         messageSend(text: nil, photo: photo, video: video, audio: nil)
 

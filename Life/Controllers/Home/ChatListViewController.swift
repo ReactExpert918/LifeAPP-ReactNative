@@ -9,7 +9,10 @@
 import UIKit
 import RealmSwift
 
-class ChatListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+protocol NewConversationDelegate {
+    func newConversationStart(chatId: String, recipientId: String)
+}
+class ChatListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NewConversationDelegate {
 
     @IBOutlet weak var searchBar: UISearchBar!
     
@@ -48,6 +51,24 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
             loadMembers()
         }
     }
+    
+    func newConversationStart(chatId: String, recipientId: String) {
+        let vc =  self.storyboard?.instantiateViewController(identifier: "chatViewController") as! ChatViewController
+        vc.setParticipant(chatId: chatId, recipientId: recipientId)
+        vc.modalPresentationStyle = .fullScreen
+        vc.hidesBottomBarWhenPushed = true
+        //self.present(vc, animated: true, completion: nil)
+        self.navigationController?.pushViewController(vc, animated: true)
+
+    }
+
+    @IBAction func onNewConversationPressed(_ sender: Any) {
+        let vc = storyboard?.instantiateViewController(identifier: "newConversationViewController") as! NewConversationViewController
+        vc.delegate = self
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true, completion: nil)
+    }
+    
     // MARK: - Realm methods
     //---------------------------------------------------------------------------------------------------------------------------------------------
     @objc func loadMembers() {
@@ -114,6 +135,19 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
 
         refreshTableView()
     }
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func actionDelete(at indexPath: IndexPath) {
+
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+
+        alert.addAction(UIAlertAction(title: "Delete", style: .destructive) { action in
+            let chat = self.chats[indexPath.row]
+            Details.update(chatId: chat.objectId, isDeleted: true)
+        })
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+
+        present(alert, animated: true)
+    }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let chat = chats[indexPath.row]
@@ -148,6 +182,28 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
         cell.bindData(chat: chat)
         cell.loadImage(chat: chat, tableView: tableView, indexPath: indexPath)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+
+        let actionDelete = UIContextualAction(style: .destructive, title: "Delete") {  action, sourceView, completionHandler in
+            self.actionDelete(at: indexPath)
+            completionHandler(false)
+        }
+
+        let actionMore = UIContextualAction(style: .normal, title: "More") {  action, sourceView, completionHandler in
+            //self.actionMore(at: indexPath)
+            completionHandler(false)
+        }
+
+        actionDelete.image = UIImage(systemName: "trash")
+        actionMore.image = UIImage(systemName: "ellipsis")
+
+        return UISwipeActionsConfiguration(actions: [actionDelete, actionMore])
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

@@ -62,11 +62,13 @@ class SignInViewController: UIViewController, UITextViewDelegate, UITextFieldDel
         Auth.auth().signIn(withEmail: userName.text!, password: password.text!) { [weak self] authResult, error in
             self?.hud.dismiss()
             if error != nil {
-                self!.errorText.text = "Incorrect phone number or password,\nPlease try again!"
+                self!.errorText.text = "Incorrect email or password,\nPlease try again!"
                 self!.errorText.textColor = UIColor(hexString: "#DF1747")
                 self!.errorText.font = UIFont(name: "Montserrat-Regular", size: 14.0)
                 return
             }
+            PrefsManager.setEmail(val: self?.userName?.text ?? "")
+            PrefsManager.setPassword(val: self?.password?.text ?? "")
             self?.loadPerson()
         }
     }
