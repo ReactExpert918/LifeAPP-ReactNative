@@ -10,7 +10,6 @@ target 'Life' do
   pod 'Firebase/Messaging'
   pod 'Firebase/Database'
   pod 'Firebase/Firestore'
-  pod 'Firebase/Storage'
   pod 'Firebase/Auth'
   pod 'Firebase/Storage'
   pod 'SkyFloatingLabelTextField', '~> 3.0'

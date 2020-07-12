@@ -131,6 +131,9 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
             if (error == nil) {
                 self.profileImageView.image = image
             }
+            else {
+                self.profileImageView.image = UIImage(named: "ic_default_profile")
+            }
         }
         name.text = person.fullname
         password.text = person.fullname

@@ -153,6 +153,9 @@ class CallVideoView: UIViewController {
 					self.imageUser.image = image
 					self.labelInitials.text = nil
 				}
+                else {
+                    self.imageUser.image = UIImage(named: "ic_default_profile")
+                }
 			}
 
 			labelName.text = person.fullname

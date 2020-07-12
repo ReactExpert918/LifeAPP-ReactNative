@@ -43,7 +43,10 @@ class AddFriendBottomSheetViewController: UIViewController {
         }
         MediaDownload.startUser(person.objectId, pictureAt: person.pictureAt) { image, error in
             if (error == nil) {
-                self.profile.image = image?.square(to: 100)
+                self.profile.image = image
+            }
+            else {
+                self.profile.image = UIImage(named: "ic_default_profile")
             }
         }
     }

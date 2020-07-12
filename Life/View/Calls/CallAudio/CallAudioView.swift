@@ -139,6 +139,9 @@ class CallAudioView: UIViewController {
                     self.imageUser.makeRounded()
 					self.labelInitials.text = nil
 				}
+                else {
+                    self.imageUser.image = UIImage(named: "ic_default_profile")
+                }
 			}
 
 			labelName.text = person.fullname

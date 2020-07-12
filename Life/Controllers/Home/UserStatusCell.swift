@@ -35,6 +35,9 @@ class UserStatusCell: UITableViewCell {
                 self.profileImageView.image = image
                 //self.profileImageView.makeRounded()
             }
+            else {
+                self.profileImageView.image = UIImage(named: "ic_default_profile")
+            }
         }
         userNameLabel.text = person.fullname
         aboutUserLabel.text = person.about

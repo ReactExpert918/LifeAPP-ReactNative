@@ -77,7 +77,7 @@ class SignInViewController: UIViewController, UITextViewDelegate, UITextFieldDel
         let userId = AuthUser.userId()
         FireFetcher.fetchPerson(userId) { error in
             if (error != nil) {
-                self.createPerson()
+                //self.createPerson()
             }
             self.dismiss(animated: true) {
                 NotificationCenter.default.post(name: Notification.Name(NotificationStatus.NOTIFICATION_USER_LOGGED_IN), object: nil)
