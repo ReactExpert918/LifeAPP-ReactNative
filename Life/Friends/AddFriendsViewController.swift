@@ -187,7 +187,7 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
 
         MediaDownload.startUser(person.objectId, pictureAt: person.pictureAt) { image, error in
             if (error == nil) {
-                self.popupProfileImageView.image = image?.square(to: 70)
+                self.popupProfileImageView.image = image
                 self.popupProfileImageView.makeRounded()
             }
             else{

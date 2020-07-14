@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftyAvatar
+import JGProgressHUD
 class AddFriendBottomSheetViewController: UIViewController {
 
     var isFriend : Bool = false
@@ -19,6 +20,9 @@ class AddFriendBottomSheetViewController: UIViewController {
     @IBOutlet weak var profile: SwiftyAvatar!
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var addFriendButton: RoundButton!
+    
+    let hud = JGProgressHUD(style: .light)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         checkMark.isHidden = true
@@ -43,7 +47,10 @@ class AddFriendBottomSheetViewController: UIViewController {
         }
         MediaDownload.startUser(person.objectId, pictureAt: person.pictureAt) { image, error in
             if (error == nil) {
-                self.profile.image = image?.square(to: 100)
+                self.profile.image = image
+            }
+            else {
+                self.profile.image = UIImage(named: "ic_default_profile")
             }
         }
     }
@@ -58,6 +65,11 @@ class AddFriendBottomSheetViewController: UIViewController {
                 addFriendButton.backgroundColor = UIColor(hexString: "#00406E")
                 addFriendButton.setTitleColor(UIColor.white, for: .normal)
                 checkMark.isHidden = false
+            }
+            self.hud.show(in: self.view, animated: true)
+            DispatchQueue.main.asyncAfter(deadline: .now()+2.0) {
+                self.hud.dismiss(animated: true)
+                self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
             }
         }
         else{

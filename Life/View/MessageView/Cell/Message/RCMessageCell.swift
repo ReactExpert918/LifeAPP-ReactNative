@@ -116,7 +116,8 @@ class RCMessageCell: UITableViewCell {
 
 		switch gestureRecognizer.state {
 			case .began:
-				actionMenu()
+				//actionMenu()
+                break
 			case .changed:
 				break
 			case .ended:

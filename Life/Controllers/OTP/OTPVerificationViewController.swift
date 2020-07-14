@@ -87,7 +87,7 @@ class OTPVerificationViewController: UIViewController {
         Auth.auth().signIn(with: credential) { (authResult, error) in
             if let error = error {
                 self.hud.dismiss()
-                Util.showAlert(vc: self, error.localizedDescription , "")
+                Util.showAlert(vc: self, "Incorrect verification code, please try again." , "")
                 return
             }
             

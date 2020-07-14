@@ -48,7 +48,7 @@ class AddPictureViewController: UIViewController, UINavigationControllerDelegate
     func openCamera(){
         let vc = UIImagePickerController()
         vc.sourceType = .camera
-        vc.allowsEditing = false
+        vc.allowsEditing = true
         vc.delegate = self
         present(vc, animated: true)
     }
@@ -56,7 +56,7 @@ class AddPictureViewController: UIViewController, UINavigationControllerDelegate
     func openGallery(){
         let vc = UIImagePickerController()
         vc.sourceType = .photoLibrary
-        vc.allowsEditing = false
+        vc.allowsEditing = true
         vc.delegate = self
         present(vc, animated: true)
     }
@@ -67,12 +67,14 @@ class AddPictureViewController: UIViewController, UINavigationControllerDelegate
             print("No image found")
             return
         }
-        avata.image = image
+        let data = image.jpegData(compressionQuality: 1.0)
+        let correct_image = UIImage(data: data! as Data)
+        avata.image = correct_image
         cameraView.isHidden = false
         avatarCovered = true
         // print out the image size as a test
-        print(image.size)
-        uploadPicture(image: image)
+        // print(correct_image?.size)
+        uploadPicture(image: correct_image!)
     }
     @IBAction func onBottomCameraTapped(_ sender: Any) {
         openCamera()
@@ -81,10 +83,13 @@ class AddPictureViewController: UIViewController, UINavigationControllerDelegate
         self.navigationController?.popViewController(animated: true)
     }
     @IBAction func onNextTapped(_ sender: Any) {
+        /*
         if !avatarCovered{
             Util.showAlert(vc: self, "Attention" , "Please take profile photo first.")
             return
-        }else if publicName.text == ""{
+        }
+ */
+        if publicName.text == ""{
             Util.showAlert(vc: self, "Attention" , "Please enter public name first.")
             return
         }

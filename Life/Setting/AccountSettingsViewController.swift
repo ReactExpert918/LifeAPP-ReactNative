@@ -9,11 +9,18 @@
 import UIKit
 import SwiftyAvatar
 import JGProgressHUD
-class AccountSettingsViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+import FittedSheets
+
+protocol UpdateDataDelegateProtocol {
+    func updateUserName(name: String)
+    func updatePassword(password: String)
+}
+
+class AccountSettingsViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UpdateDataDelegateProtocol {
+    
     private var person: Person! 
 
     @IBOutlet weak var name: UILabel!
-    @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var phoneNumber: UILabel!
     @IBOutlet weak var emailAddress: UILabel!
@@ -35,28 +42,100 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
         navigationController?.popViewController(animated: true)
     }
     
-    @IBAction func onNameChangeTapped(_ sender: Any) {
+    func updateUserName(name: String) {
+        self.person.update(fullname: name)
+        loadPerson()
+        Util.showSuccessAlert(vc: self, "Successfully updated the name.", "")
     }
-    @IBAction func onUsernameChangeTapped(_ sender: Any) {
+    
+    func updatePassword(password: String) {
+        DispatchQueue.main.async {
+            self.hud.show(in: self.view, animated: true)
+        }
+        AuthUser.updatePassword(password: password) { (error) in
+            self.hud.dismiss()
+            if let error = error {
+                Util.showAlert(vc: self, error.localizedDescription , "")
+                return
+            }
+            Util.showSuccessAlert(vc: self, "Successfully updated the password.", "")
+        }
+    }
+    
+    @IBAction func onNameChangeTapped(_ sender: Any) {
+        let vc =  self.storyboard?.instantiateViewController(identifier: "updateNameVC") as! UpdateNameViewController
+        vc.setName(withName: person.fullname)
+        vc.delegate = self
+
+        let sheetController = SheetViewController(controller: vc, sizes: [.fixed(290)])
+        sheetController.blurBottomSafeArea = false
+        sheetController.adjustForBottomSafeArea = false
+
+        // Make corners more round
+        sheetController.topCornersRadius = 15
+        
+
+        // It is important to set animated to false or it behaves weird currently
+        self.present(sheetController, animated: false, completion: nil)
     }
     @IBAction func onPasswordChangeTapped(_ sender: Any) {
+        let vc =  self.storyboard?.instantiateViewController(identifier: "updatePasswordVC") as! UpdatePasswordViewController
+        vc.delegate = self
+        
+        let sheetController = SheetViewController(controller: vc, sizes: [.fixed(350)])
+        sheetController.blurBottomSafeArea = false
+        sheetController.adjustForBottomSafeArea = false
+
+        // Make corners more round
+        sheetController.topCornersRadius = 15
+
+        // It is important to set animated to false or it behaves weird currently
+        self.present(sheetController, animated: false, completion: nil)
     }
     @IBAction func onPhoneNumberChangeTapped(_ sender: Any) {
     }
     @IBAction func onEmailChangeTapped(_ sender: Any) {
     }
     @IBAction func onDeleteAccountTapped(_ sender: Any) {
+        let refreshAlert = UIAlertController(title: "Are you sure to delete your account?", message: "", preferredStyle: .alert)
+
+        refreshAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action: UIAlertAction!) in
+            DispatchQueue.main.async {
+                self.hud.show(in: self.view, animated: true)
+            }
+            AuthUser.deleteAccount { (error) in
+                self.hud.dismiss()
+                if let error = error {
+                    Util.showAlert(vc: self, error.localizedDescription, "")
+                    return
+                }
+                self.person.update(isDeleted: true)
+                PrefsManager.setEmail(val: "")
+                self.gotoWelcomeViewController()
+            }
+            
+        }))
+
+        refreshAlert.addAction(UIAlertAction(title: "No", style: .cancel, handler: { (action: UIAlertAction!) in
+        }))
+        present(refreshAlert, animated: true, completion: nil)
     }
-    
+    func gotoWelcomeViewController() {
+        let mainstoryboard = UIStoryboard.init(name: "Login", bundle: nil)
+        let vc = mainstoryboard.instantiateViewController(withIdentifier: "rootNavigationViewController")
+        UIApplication.shared.windows.first?.rootViewController = vc
+    }
     func loadPerson() {
         person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
         MediaDownload.startUser(person.objectId, pictureAt: person.pictureAt) { image, error in
             if (error == nil) {
                 self.profileImageView.image = image
             }
+            else {
+                self.profileImageView.image = UIImage(named: "ic_default_profile")
+            }
         }
         name.text = person.fullname
-        userName.text = person.fullname
         password.text = person.fullname
         phoneNumber.text = person.phone
         emailAddress.text = person.email
@@ -83,7 +162,7 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
     func openCamera(){
         let vc = UIImagePickerController()
         vc.sourceType = .camera
-        vc.allowsEditing = false
+        vc.allowsEditing = true
         vc.delegate = self
         present(vc, animated: true)
     }
@@ -91,23 +170,25 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
     func openGallery(){
         let vc = UIImagePickerController()
         vc.sourceType = .photoLibrary
-        vc.allowsEditing = false
+        vc.allowsEditing = true
         vc.delegate = self
         present(vc, animated: true)
     }
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true)
 
-        guard let image = info[.originalImage] as? UIImage else {
+        guard let image = info[.editedImage] as? UIImage else {
             print("No image found")
             return
         }
+        let data = image.jpegData(compressionQuality: 1.0)
+        let correct_image = UIImage(data: data! as Data)
         DispatchQueue.main.async{
-            self.profileImageView.image = image
+            self.profileImageView.image = correct_image
         }
         // print out the image size as a test
-        print(image.size)
-        uploadPicture(image: image)
+        // print(correct_image?.size)
+        uploadPicture(image: correct_image!)
     }
     func uploadPicture(image: UIImage) {
         if let data = image.jpegData(compressionQuality: 0.6) {

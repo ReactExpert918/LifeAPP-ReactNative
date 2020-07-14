@@ -27,11 +27,12 @@ class BasicDetailInsertViewController: UIViewController, UITextFieldDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // load Person
-        person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
         userName.delegate = self
         password.delegate = self
         confirmPassword.delegate = self
+        // load Person
+        person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
+
     }
     @IBAction func backTapped(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
@@ -66,7 +67,6 @@ class BasicDetailInsertViewController: UIViewController, UITextFieldDelegate{
                     Util.showAlert(vc: self, error?.localizedDescription ?? "", "")
                     return
                 }
-                
                 // Save Email
                 let realm = try! Realm()
                 try! realm.safeWrite {
@@ -74,6 +74,9 @@ class BasicDetailInsertViewController: UIViewController, UITextFieldDelegate{
                     self.person.syncRequired = true
                     self.person.updatedAt = Date().timestamp()
                 }
+                // Save to the UserDefaults
+                PrefsManager.setEmail(val: self.userName?.text ?? "")
+                PrefsManager.setPassword(val: self.password?.text ?? "")
                 
                 let vc =  self.storyboard?.instantiateViewController(identifier: "addPictureVC") as! AddPictureViewController
                 self.navigationController?.pushViewController(vc, animated: true)
@@ -81,6 +84,7 @@ class BasicDetailInsertViewController: UIViewController, UITextFieldDelegate{
         
         }
     }
+    
     @IBAction func passwordEyeTapped(_ sender: Any) {
         if password_eye_off {
             password.isSecureTextEntry = false

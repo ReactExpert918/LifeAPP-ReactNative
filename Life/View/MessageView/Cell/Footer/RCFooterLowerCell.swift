@@ -17,7 +17,7 @@ class RCFooterLowerCell: UITableViewCell {
 	private var indexPath: IndexPath!
 	private var messagesView: ChatViewController!
 
-	private var labelText: UILabel!
+	private var statusImageView: UIImageView!
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	func bindData(_ messagesView: ChatViewController, at indexPath: IndexPath) {
@@ -29,15 +29,13 @@ class RCFooterLowerCell: UITableViewCell {
 
 		backgroundColor = UIColor.clear
 
-		if (labelText == nil) {
-			labelText = UILabel()
-			labelText.font = RCDefaults.footerLowerFont
-			labelText.textColor = RCDefaults.footerLowerColor
-			contentView.addSubview(labelText)
+		if (statusImageView == nil) {
+			statusImageView = UIImageView()
+			contentView.addSubview(statusImageView)
 		}
 
-		labelText.textAlignment = rcmessage.incoming ? .left : .right
-		labelText.text = messagesView.textFooterLower(indexPath)
+		//statusImageView.textAlignment = rcmessage.incoming ? .left : .right
+		statusImageView.image = messagesView.textFooterLower(indexPath)
 	}
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
@@ -48,9 +46,9 @@ class RCFooterLowerCell: UITableViewCell {
 		let widthTable = messagesView.tableView.frame.size.width
 
 		let width = widthTable - RCDefaults.footerLowerLeft - RCDefaults.footerLowerRight
-		let height = (labelText.text != nil) ? RCDefaults.footerLowerHeight : 0
+		let height = (statusImageView != nil) ? RCDefaults.footerLowerHeight : 0
 
-		labelText.frame = CGRect(x: RCDefaults.footerLowerLeft, y: 0, width: width, height: height)
+		statusImageView.frame = CGRect(x: widthTable - 15 - RCDefaults.footerLowerRight, y: 0, width: 20, height: height)
 	}
 
 	// MARK: - Size methods

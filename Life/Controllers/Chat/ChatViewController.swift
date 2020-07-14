@@ -25,12 +25,20 @@ class ChatViewController: UIViewController {
     private var tokenMessages: NotificationToken? = nil
 
 
+    private var isShowingToolbar = false
+    @IBOutlet weak var plusButton: UIButton!
+    @IBOutlet weak var callToolbarView: UIView!
+    
     
     @IBOutlet weak var participantNameLabel: UILabel!
     @IBOutlet weak var statusbarView: UIView!
     @IBOutlet weak var topbarView: UIView!
 
+    @IBOutlet weak var searchBar: UISearchBar!
+    
     @IBOutlet weak var tableView: UITableView!
+        
+    var refreshControl = UIRefreshControl()
     
     private var isTyping = false
     private var textTitle: String?
@@ -53,6 +61,18 @@ class ChatViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        searchBar.backgroundImage = UIImage()
+        searchBar.barStyle = .default
+        searchBar.barTintColor = UIColor(hexString: "#16406F")
+        searchBar.layer.cornerRadius = 8
+        searchBar.placeholder = "Search"
+//        searchBar.backgroundColor = UIColor(hexString: "165c90")
+        searchBar.set(textColor: UIColor(hexString: "#96B4D2")!)
+        searchBar.setPlaceholder(textColor: UIColor(hexString: "#96B4D2")!)
+        searchBar.setSearchImage(color: UIColor(hexString: "#96B4D2")!)
+//        searchBar.setClearButton(color: UIColor(hexString: "#96B4D2")!)
+        searchBar.tintColor = UIColor(hexString: "#FFFFFF")
+        searchBar.delegate = self
         
         tableView.register(RCHeaderUpperCell.self, forCellReuseIdentifier: "RCHeaderUpperCell")
         tableView.register(RCHeaderLowerCell.self, forCellReuseIdentifier: "RCHeaderLowerCell")
@@ -70,6 +90,9 @@ class ChatViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         //tableView.tableHeaderView = viewLoadEarlier
+        
+        refreshControl.addTarget(self, action: #selector(actionLoadEarlier), for: UIControl.Event.valueChanged)
+        tableView.addSubview(refreshControl)
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -91,6 +114,8 @@ class ChatViewController: UIViewController {
         super.viewWillAppear(animated)
 
         updateTitleDetails()
+        showCallToolbar(value: false)
+
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
@@ -105,13 +130,56 @@ class ChatViewController: UIViewController {
             actionCleanup()
         }
     }
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     override func viewDidLayoutSubviews() {
 
         super.viewDidLayoutSubviews()
-
         layoutTableView()
+
     }
+    // MARK: - User actions (load earlier)
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    @objc func actionLoadEarlier() {
+
+        messageToDisplay += 12
+        refreshLoadEarlier()
+        refreshTableView()
+        refreshControl.endRefreshing()
+    }
+    func showCallToolbar(value: Bool) {
+        callToolbarView.isHidden = !value
+        isShowingToolbar = value
+        if value == true {
+            plusButton.setImage(UIImage(named: "cancel"), for: .normal)
+        }
+        else{
+            plusButton.setImage(UIImage(named: "ic_plus"), for: .normal)
+        }
+    }
+    @IBAction func actionPlusButton(_ sender: Any) {
+        if isShowingToolbar == false {
+            isShowingToolbar = true
+        }
+        else{
+            isShowingToolbar = false
+        }
+        showCallToolbar(value: isShowingToolbar)
+    }
+    
+    @IBAction func actionZedPay(_ sender: Any) {
+        showCallToolbar(value: false)
+    }
+    @IBAction func actionAudioCall(_ sender: Any) {
+        showCallToolbar(value: false)
+        let callAudioView = CallAudioView(userId: self.recipientId)
+        present(callAudioView, animated: true)
+    }
+    
+    @IBAction func actionVideoCall(_ sender: Any) {
+        showCallToolbar(value: false)
+        let callVideoView = CallVideoView(userId: self.recipientId)
+        present(callVideoView, animated: true)
+    }
+    
     // MARK: - Title details methods
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func updateTitleDetails() {
@@ -198,7 +266,7 @@ class ChatViewController: UIViewController {
     func scrollToBottom() {
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            self.scrollToBottom(animated: true)
+            self.scrollToBottom(animated: false)
         }
         detail?.update(lastRead: Date().timestamp())
     }
@@ -315,18 +383,23 @@ class ChatViewController: UIViewController {
 
         let rcmessage = rcmessageAt(indexPath)
         var imageAvatar = avatarImages[rcmessage.userId]
-
+/*
         if (imageAvatar == nil) {
             if let path = MediaDownload.pathUser(rcmessage.userId) {
                 imageAvatar = UIImage.image(path, size: 30)
                 avatarImages[rcmessage.userId] = imageAvatar
             }
         }
-
+*/
         if (imageAvatar == nil) {
             MediaDownload.startUser(rcmessage.userId, pictureAt: rcmessage.userPictureAt) { image, error in
                 if (error == nil) {
-                    self.refreshTableView()
+                    imageAvatar = image
+                    self.avatarImages[rcmessage.userId] = imageAvatar
+                    //self.refreshTableView()
+                }
+                else{
+                    self.avatarImages[rcmessage.userId] = UIImage(named: "ic_default_profile")
                 }
             }
         }
@@ -338,18 +411,25 @@ class ChatViewController: UIViewController {
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func textHeaderUpper(_ indexPath: IndexPath) -> String? {
 
-        if (indexPath.section % 3 == 0) {
-            let rcmessage = rcmessageAt(indexPath)
-            return Convert.timestampToDayMonthTime(rcmessage.createdAt)
-        } else {
+        let rcmessage = rcmessageAt(indexPath)
+        var previousDate = ""
+        //print("row: \(indexPath.row), section:\(indexPath.section)")
+        if indexPath.section != 0 {
+            let previousIndexPath = IndexPath(row: indexPath.row, section: indexPath.section - 1)
+            let previousrcmMessage = rcmessageAt(previousIndexPath)
+            previousDate = Convert.timestampToDayMonth(previousrcmMessage.createdAt)
+        }
+        let date = Convert.timestampToDayMonth(rcmessage.createdAt)
+        if date == previousDate {
             return nil
         }
+        return date
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func textHeaderLower(_ indexPath: IndexPath) -> String? {
-
-        return nil
+        let rcmessage = rcmessageAt(indexPath)
+        return Convert.timestampToDayTime(rcmessage.createdAt)
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
@@ -359,15 +439,15 @@ class ChatViewController: UIViewController {
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
-    func textFooterLower(_ indexPath: IndexPath) -> String? {
+    func textFooterLower(_ indexPath: IndexPath) -> UIImage? {
 
         let rcmessage = rcmessageAt(indexPath)
         if (rcmessage.outgoing) {
             let message = messageAt(indexPath)
-            if (message.syncRequired)    { return "Queued" }
-            if (message.isMediaQueued)    { return "Queued" }
-            if (message.isMediaFailed)    { return "Failed" }
-            return (message.createdAt > lastRead) ? "Sent" : "Read"
+            if (message.syncRequired)    { return UIImage(named: "sent") }
+            if (message.isMediaQueued)    { return UIImage(named: "sent") }
+            if (message.isMediaFailed)    { return UIImage(named: "sent") }
+            return (message.createdAt > lastRead) ? UIImage(named: "delivered") : UIImage(named: "read")
         }
         return nil
     }
@@ -418,7 +498,49 @@ class ChatViewController: UIViewController {
     // MARK: - User actions (bubble tap)
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func actionTapBubble(_ indexPath: IndexPath) {
+        let rcmessage = rcmessageAt(indexPath)
 
+        if (rcmessage.mediaStatus == MediaStatus.MEDIASTATUS_MANUAL) {
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_PHOTO) { RCPhotoLoader.manual(rcmessage, in: tableView) }
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_VIDEO) { RCVideoLoader.manual(rcmessage, in: tableView) }
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_AUDIO) { RCAudioLoader.manual(rcmessage, in: tableView) }
+        }
+
+        if (rcmessage.mediaStatus == MediaStatus.MEDIASTATUS_SUCCEED) {
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_PHOTO) {
+                let pictureView = PictureView(chatId: chatId, messageId: rcmessage.messageId)
+                present(pictureView, animated: true)
+            }
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_VIDEO) {
+                let url = URL(fileURLWithPath: rcmessage.videoPath)
+                let videoView = VideoView(url: url)
+                present(videoView, animated: true)
+            }
+            /*
+            if (rcmessage.type == MediaStatus.MESSAGE_AUDIO) {
+                if (rcmessage.audioStatus == AUDIOSTATUS_STOPPED) {
+                    if let sound = Sound(contentsOfFile: rcmessage.audioPath) {
+                        sound.completionHandler = { didFinish in
+                            rcmessage.audioStatus = AUDIOSTATUS_STOPPED
+                            self.refreshTableView()
+                        }
+                        SoundManager.shared().playSound(sound)
+                        rcmessage.audioStatus = AUDIOSTATUS_PLAYING
+                        refreshTableView()
+                    }
+                } else if (rcmessage.audioStatus == AUDIOSTATUS_PLAYING) {
+                    SoundManager.shared().stopAllSounds(false)
+                    rcmessage.audioStatus = AUDIOSTATUS_STOPPED
+                    refreshTableView()
+                }
+            }
+            if (rcmessage.type == MediaStatus.MESSAGE_LOCATION) {
+                let mapView = MapView(latitude: rcmessage.latitude, longitude: rcmessage.longitude)
+                let navController = NavigationController(rootViewController: mapView)
+                present(navController, animated: true)
+            }
+ */
+        }
     }
 
     // MARK: - User actions (avatar tap)
@@ -521,20 +643,25 @@ class ChatViewController: UIViewController {
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func layoutTableView() {
 
+        let heightInput = messageInputBar.bounds.height
+/*
         let widthView    = view.frame.size.width
         let heightView    = view.frame.size.height
 
         let leftSafe    = view.safeAreaInsets.left
         let rightSafe    = view.safeAreaInsets.right
 
-        let heightInput = messageInputBar.bounds.height
-
         let tableviewtoppos = statusbarView.frame.height + topbarView.frame.height
-        
+
         let widthTable = widthView - leftSafe - rightSafe
         let heightTable = heightView - heightInput - heightKeyboard - tableviewtoppos
 
         tableView.frame = CGRect(x: leftSafe, y: tableviewtoppos, width: widthTable, height: heightTable)
+*/
+        let edgeInset = UIEdgeInsets(top: 0, left: 0, bottom: heightInput + heightKeyboard, right: 0)
+
+        tableView.contentInset = edgeInset        
+        tableView.scrollIndicatorInsets = edgeInset
     }
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func scrollToBottom(animated: Bool) {
@@ -598,7 +725,7 @@ class ChatViewController: UIViewController {
                         if (self.keyboardWillShow) {
                             self.heightKeyboard = keyboard.size.height
                             self.layoutTableView()
-                            self.scrollToBottom(animated: true)
+                            
                         }
                     }
                 }
@@ -625,6 +752,7 @@ class ChatViewController: UIViewController {
     func configureMessageInputBar() {
 
         view.addSubview(messageInputBar)
+        callToolbarView.layer.zPosition = 1
 
         keyboardManager.bind(inputAccessoryView: messageInputBar)
         keyboardManager.bind(to: tableView)
@@ -674,13 +802,14 @@ class ChatViewController: UIViewController {
         messageInputBar.leftStackView.spacing = 8
 
         messageInputBar.sendButton.title = nil
-        messageInputBar.sendButton.image = UIImage(systemName: "paperplane.fill")
-        messageInputBar.sendButton.setSize(CGSize(width: 36, height: 36), animated: false)
+        messageInputBar.sendButton.image = UIImage(named: "ic_send")
+        messageInputBar.sendButton.setSize(CGSize(width: 32, height: 36), animated: false)        
 
         messageInputBar.setLeftStackViewWidthConstant(to: 72, animated: false)
         messageInputBar.setRightStackViewWidthConstant(to: 36, animated: false)
 
         messageInputBar.middleContentViewPadding = UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 5)
+        messageInputBar.inputTextView.placeholder = "Enter a message"
         messageInputBar.inputTextView.backgroundColor = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1)
         messageInputBar.inputTextView.placeholderTextColor = UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
         messageInputBar.inputTextView.textContainerInset = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 36)
@@ -876,9 +1005,12 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func inputBar(_ inputBar: InputBarAccessoryView, didChangeIntrinsicContentTo size: CGSize) {
+        
+        /*
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.scrollToBottom(animated: true)
         }
+        */
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
@@ -902,7 +1034,7 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
 
         let video = info[.mediaURL] as? URL
-        let photo = info[.editedImage] as? UIImage
+        let photo = info[.originalImage] as? UIImage
 
         messageSend(text: nil, photo: photo, video: video, audio: nil)
 
@@ -949,5 +1081,45 @@ extension ChatViewController: SelectUsersDelegate {
 
             indexForward = nil
         }
+    }
+}
+
+// MARK: - UISearchBarDelegate
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+extension ChatViewController: UISearchBarDelegate {
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+
+        
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func searchBarTextDidBeginEditing(_ searchBar_: UISearchBar) {
+
+        searchBar.setShowsCancelButton(true, animated: true)
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func searchBarTextDidEndEditing(_ searchBar_: UISearchBar) {
+
+        searchBar.setShowsCancelButton(false, animated: true)
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func searchBarCancelButtonClicked(_ searchBar_: UISearchBar) {
+
+        searchBar.text = ""
+        searchBar.resignFirstResponder()
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func searchBarSearchButtonClicked(_ searchBar_: UISearchBar) {
+        searchBar.resignFirstResponder()
+        let searchText = searchBar_.text
+        if searchText?.isEmpty == true {
+            return
+        }
+        
     }
 }

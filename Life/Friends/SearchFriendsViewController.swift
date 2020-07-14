@@ -25,6 +25,9 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
     @IBOutlet weak var popupPhoneNumberLabel: UILabel!
     @IBOutlet weak var popupStatusLabel: UILabel!
     
+    @IBOutlet weak var resultPictureHeight: NSLayoutConstraint!
+    @IBOutlet weak var resultViewBottomConstraint: NSLayoutConstraint!
+    
     private var persons = realm.objects(Person.self).filter(falsepredicate)
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,9 +38,41 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
         radioGroup = BEMCheckBoxGroup(checkBoxes: [radioUsername, radioPhoneNumber])
         radioGroup.mustHaveSelection = true
         radioGroup.selectedCheckBox = radioUsername
-        // Do any additional setup after loading the view.
+        // Initialize search bar
+        searchBar.backgroundImage = UIImage()
+        searchBar.barStyle = .default
+        searchBar.barTintColor = UIColor(hexString: "#999999")
+        searchBar.layer.cornerRadius = 8
+        searchBar.placeholder = "Search friends"
+        searchBar.set(textColor: UIColor(hexString: "#333333")!)
+        searchBar.setPlaceholder(textColor: UIColor(hexString: "#999999")!)
+        searchBar.setSearchImage(color: UIColor(hexString: "#999999")!)
+//        searchBar.setClearButton(color: UIColor(hexString: "#96B4D2")!)
+        searchBar.tintColor = UIColor(hexString: "#333333")
+        // Subscribe Keyboard Popup
+        subscribeToShowKeyboardNotifications()
     }
-    
+    func subscribeToShowKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    @objc func keyboardWillShow(_ notification: Notification) {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            let keyboardHeight = keyboardRectangle.height
+            resultViewBottomConstraint.constant = keyboardHeight
+            resultPictureHeight.constant = 100
+        }
+    }
+
+    @objc func keyboardWillHide(_ notification: Notification) {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            let keyboardHeight = keyboardRectangle.height
+            resultViewBottomConstraint.constant = 0
+            resultPictureHeight.constant = 200
+        }
+    }
     @IBAction func backTapped(_ sender: Any) {
         //dismiss(animated: true, completion: nil)
         self.navigationController?.popViewController(animated: true)
@@ -71,7 +106,7 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
 
         MediaDownload.startUser(person.objectId, pictureAt: person.pictureAt) { image, error in
             if (error == nil) {
-                self.popupProfileImageView.image = image?.square(to: 70)
+                self.popupProfileImageView.image = image
                 self.popupProfileImageView.makeRounded()
             }
             else{
@@ -87,7 +122,10 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
     // MARK: - Backend methods
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func searchPersonsByUserName(text: String = "") {
-        let predicate1 = NSPredicate(format: "objectId != %@", AuthUser.userId())
+        if text.count < 4 {
+            return
+        }
+        let predicate1 = NSPredicate(format: "objectId != %@ AND isDeleted == NO", AuthUser.userId())
         let predicate2 = (text != "") ? NSPredicate(format: "fullname CONTAINS[c] %@", text) : NSPredicate(value: true)
 
         persons = realm.objects(Person.self).filter(predicate1).filter(predicate2).sorted(byKeyPath: "fullname")
@@ -102,7 +140,10 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     func searchPersonsByPhoneNumber(text: String = "") {
-        let predicate1 = NSPredicate(format: "objectId != %@", AuthUser.userId())
+        if text.count < 9 {
+            return
+        }
+        let predicate1 = NSPredicate(format: "objectId != %@ AND isDeleted == NO", AuthUser.userId())
         let predicate2 = (text != "") ? NSPredicate(format: "phone CONTAINS[c] %@", text) : NSPredicate(value: true)
 
         persons = realm.objects(Person.self).filter(predicate1).filter(predicate2).sorted(byKeyPath: "fullname")

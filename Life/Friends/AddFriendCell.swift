@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import SwiftyAvatar
+import BEMCheckBox
 
 class AddFriendCell : UITableViewCell{
     

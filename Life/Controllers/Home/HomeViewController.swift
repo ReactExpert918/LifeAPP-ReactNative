@@ -17,13 +17,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     @IBOutlet weak var homeTableView: UITableView!
     
-    @IBOutlet weak var profileImageView: UIImageView!
     
-    @IBOutlet weak var userNameLabel: UILabel!
-    
-    @IBOutlet weak var aboutUserLabel: UILabel!
-    
-    var headerSections =  [HeaderSection(name: "Groups 2", collapsed: false), HeaderSection(name: "Friends 5", collapsed: false)]
+    var headerSections =  [HeaderSection(name: "My Status", collapsed: false), /*HeaderSection(name: "Groups 2", collapsed: false),*/ HeaderSection(name: "Friends 0", collapsed: false)]
 
     private var tokenFriends: NotificationToken? = nil
     private var tokenPersons: NotificationToken? = nil
@@ -43,9 +38,11 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         searchBar.setPlaceholder(textColor: UIColor(hexString: "#96B4D2")!)
         searchBar.setSearchImage(color: UIColor(hexString: "#96B4D2")!)
 //        searchBar.setClearButton(color: UIColor(hexString: "#96B4D2")!)
+        searchBar.tintColor = UIColor(hexString: "#FFFFFF")
         searchBar.delegate = self        
         // Init TableView
         ExpandableHeaderCell.RegisterAsAHeader(withTableView: self.homeTableView)
+        UserStatusCell.Register(withTableView: self.homeTableView)
         FriendCell.Register(withTableView: self.homeTableView)
         
         homeTableView.dataSource = self
@@ -66,7 +63,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @objc func loadFriends() {
 
         let predicate = NSPredicate(format: "userId == %@ AND isDeleted == NO", AuthUser.userId())
-        print("Auth UserId: \(predicate)")
+        //print("Auth UserId: \(predicate)")
         friends = realm.objects(Friend.self).filter(predicate)
 
         tokenFriends?.invalidate()
@@ -79,7 +76,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func loadPersons(text: String = "") {
 
-        let predicate1 = NSPredicate(format: "objectId IN %@ AND NOT objectId IN %@", Friends.friendIds(), Blockeds.blockerIds())
+        let predicate1 = NSPredicate(format: "objectId IN %@ AND NOT objectId IN %@ AND isDeleted == NO", Friends.friendIds(), Blockeds.blockerIds())
         let predicate2 = (text != "") ? NSPredicate(format: "fullname CONTAINS[c] %@", text) : NSPredicate(value: true)
 
         persons = realm.objects(Person.self).filter(predicate1).filter(predicate2).sorted(byKeyPath: "fullname")
@@ -96,20 +93,9 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @objc func refreshTableView() {
         headerSections[1].name = "Friends \(persons.count)"
         homeTableView.reloadData()
-
     }
     func loadPerson() {
         person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
-
-        //labelInitials.text = person.initials()
-        MediaDownload.startUser(person.objectId, pictureAt: person.pictureAt) { image, error in
-            if (error == nil) {
-                self.profileImageView.image = image?.square(to: 70)
-                self.profileImageView.makeRounded()
-            }
-        }
-        userNameLabel.text = person.fullname
-        aboutUserLabel.text = person.about
     }
     @IBAction func onSettingPressed(_ sender: Any) {
         let mainstoryboard = UIStoryboard.init(name: "Setting", bundle: nil)
@@ -156,13 +142,21 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return 0
+        }
         return 40.00
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
+            return 1
+        }
+            /*
+        else if section == 1 {
             return headerSections[section].collapsed ? 0 : 2
         }
+ */
         else if section == 1{
             return headerSections[section].collapsed ? 0 : persons.count
         }
@@ -171,11 +165,20 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "userStatusCell", for: indexPath) as! UserStatusCell
+            cell.loadPerson(withPerson: person)
+            return cell;
+
+        }
+        /*
+        else if indexPath.section == 1 {
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "createGroupCell", for: indexPath)
                 return cell;
             }
         }
+ */
+ 
         let cell = tableView.dequeueReusableCell(withIdentifier: FriendCell.GetCellReuseIdentifier(), for: indexPath) as! FriendCell
         cell.selectionStyle = .none
         if( indexPath.section == 1) {
@@ -218,13 +221,17 @@ extension HomeViewController: UISearchBarDelegate {
 
         searchBar.text = ""
         searchBar.resignFirstResponder()
-        
+        loadPersons()
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func searchBarSearchButtonClicked(_ searchBar_: UISearchBar) {
-
         searchBar.resignFirstResponder()
+        let searchText = searchBar_.text
+        if searchText?.isEmpty == true {
+            return
+        }
+        loadPersons(text: searchText ?? "")
     }
 }
 

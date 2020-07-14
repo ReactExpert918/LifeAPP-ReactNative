@@ -28,16 +28,38 @@ class Convert: NSObject {
 	}
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	class func timestampToDayMonthTime(_ timestamp: Int64) -> String {
+	class func timestampToDayMonth(_ timestamp: Int64) -> String {
 
 		let date = Date.date(timestamp: timestamp)
 
 		let formatter = DateFormatter()
-		formatter.dateFormat = "dd MMMM, HH:mm"
+		formatter.dateFormat = "dd MMMM"
 
 		return formatter.string(from: date)
 	}
+    
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    class func timestampToDayMonthTime(_ timestamp: Int64) -> String {
 
+        let date = Date.date(timestamp: timestamp)
+
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd MMMM, HH:mm"
+
+        return formatter.string(from: date)
+    }
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    class func timestampToDayTime(_ timestamp: Int64) -> String {
+
+        let date = Date.date(timestamp: timestamp)
+
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+
+        return formatter.string(from: date)
+    }
+    
+    
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	class func timestampToElapsed(_ timestamp: Int64) -> String {
 

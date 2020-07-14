@@ -13,6 +13,15 @@ class AppConstant {
     
 }
 
+struct ONESIGNAL {
+    static let ONESIGNAL_APPID = "30b077a4-a8c5-4ee9-8119-e5189c1da75a"
+}
+struct SINCHINFO{
+    static let SINCH_HOST = "clientapi.sinch.com"
+    static let SINCH_KEY = "3ac06518-5a6b-4404-a076-ac320bcbdebc"
+    static let SINCH_SECRET = "DKSRdpYDD0uqcbTnqzmfsg=="
+}
+
 struct AudioStatus{
     static let AUDIOSTATUS_STOPPED = 1
     static let AUDIOSTATUS_PLAYING = 2
