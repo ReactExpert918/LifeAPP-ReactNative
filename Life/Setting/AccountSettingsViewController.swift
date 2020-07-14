@@ -162,7 +162,7 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
     func openCamera(){
         let vc = UIImagePickerController()
         vc.sourceType = .camera
-        vc.allowsEditing = false
+        vc.allowsEditing = true
         vc.delegate = self
         present(vc, animated: true)
     }
@@ -170,14 +170,14 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
     func openGallery(){
         let vc = UIImagePickerController()
         vc.sourceType = .photoLibrary
-        vc.allowsEditing = false
+        vc.allowsEditing = true
         vc.delegate = self
         present(vc, animated: true)
     }
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true)
 
-        guard let image = info[.originalImage] as? UIImage else {
+        guard let image = info[.editedImage] as? UIImage else {
             print("No image found")
             return
         }

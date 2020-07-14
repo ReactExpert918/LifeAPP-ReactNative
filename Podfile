@@ -32,7 +32,7 @@ target 'Life' do
   pod 'FittedSheets'
   pod 'Kingfisher'
   pod 'SCLAlertView'
-  
+
   target 'LifeTests' do
     inherit! :search_paths
     # Pods for testing

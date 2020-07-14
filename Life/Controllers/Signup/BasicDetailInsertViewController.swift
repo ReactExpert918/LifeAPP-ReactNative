@@ -74,6 +74,9 @@ class BasicDetailInsertViewController: UIViewController, UITextFieldDelegate{
                     self.person.syncRequired = true
                     self.person.updatedAt = Date().timestamp()
                 }
+                // Save to the UserDefaults
+                PrefsManager.setEmail(val: self.userName?.text ?? "")
+                PrefsManager.setPassword(val: self.password?.text ?? "")
                 
                 let vc =  self.storyboard?.instantiateViewController(identifier: "addPictureVC") as! AddPictureViewController
                 self.navigationController?.pushViewController(vc, animated: true)

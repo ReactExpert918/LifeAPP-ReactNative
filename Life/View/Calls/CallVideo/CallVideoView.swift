@@ -10,13 +10,13 @@
 // THE SOFTWARE.
 
 import Sinch
-
+import SwiftyAvatar
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 class CallVideoView: UIViewController {
 
 	@IBOutlet var viewBackground: UIView!
 	@IBOutlet var viewDetails: UIView!
-	@IBOutlet var imageUser: UIImageView!
+	@IBOutlet var imageUser: SwiftyAvatar!
 	@IBOutlet var labelInitials: UILabel!
 	@IBOutlet var labelName: UILabel!
 	@IBOutlet var labelStatus: UILabel!
@@ -171,7 +171,7 @@ class CallVideoView: UIViewController {
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	@IBAction func actionMute(_ sender: Any) {
-
+/*
 		if (muted) {
 			muted = false
 			buttonMute.setImage(UIImage(named: "callvideo_mute1"), for: .normal)
@@ -183,6 +183,7 @@ class CallVideoView: UIViewController {
 			buttonMute.setImage(UIImage(named: "callvideo_mute2"), for: .highlighted)
 			audioController?.mute()
 		}
+*/
 	}
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
@@ -207,8 +208,8 @@ class CallVideoView: UIViewController {
 			videoController?.captureDevicePosition = .front
 		} else {
 			switched = true
-			buttonSwitch.setImage(UIImage(named: "callvideo_switch2"), for: .normal)
-			buttonSwitch.setImage(UIImage(named: "callvideo_switch2"), for: .highlighted)
+			buttonSwitch.setImage(UIImage(named: "callvideo_switch1"), for: .normal)
+			buttonSwitch.setImage(UIImage(named: "callvideo_switch1"), for: .highlighted)
 			videoController?.captureDevicePosition = .back
 		}
 	}

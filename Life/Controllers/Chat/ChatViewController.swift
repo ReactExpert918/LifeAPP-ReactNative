@@ -25,6 +25,10 @@ class ChatViewController: UIViewController {
     private var tokenMessages: NotificationToken? = nil
 
 
+    private var isShowingToolbar = false
+    @IBOutlet weak var plusButton: UIButton!
+    @IBOutlet weak var callToolbarView: UIView!
+    
     
     @IBOutlet weak var participantNameLabel: UILabel!
     @IBOutlet weak var statusbarView: UIView!
@@ -110,6 +114,8 @@ class ChatViewController: UIViewController {
         super.viewWillAppear(animated)
 
         updateTitleDetails()
+        showCallToolbar(value: false)
+
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
@@ -124,12 +130,11 @@ class ChatViewController: UIViewController {
             actionCleanup()
         }
     }
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     override func viewDidLayoutSubviews() {
 
         super.viewDidLayoutSubviews()
-
         layoutTableView()
+
     }
     // MARK: - User actions (load earlier)
     //---------------------------------------------------------------------------------------------------------------------------------------------
@@ -140,12 +145,37 @@ class ChatViewController: UIViewController {
         refreshTableView()
         refreshControl.endRefreshing()
     }
+    func showCallToolbar(value: Bool) {
+        callToolbarView.isHidden = !value
+        isShowingToolbar = value
+        if value == true {
+            plusButton.setImage(UIImage(named: "cancel"), for: .normal)
+        }
+        else{
+            plusButton.setImage(UIImage(named: "ic_plus"), for: .normal)
+        }
+    }
+    @IBAction func actionPlusButton(_ sender: Any) {
+        if isShowingToolbar == false {
+            isShowingToolbar = true
+        }
+        else{
+            isShowingToolbar = false
+        }
+        showCallToolbar(value: isShowingToolbar)
+    }
+    
+    @IBAction func actionZedPay(_ sender: Any) {
+        showCallToolbar(value: false)
+    }
     @IBAction func actionAudioCall(_ sender: Any) {
+        showCallToolbar(value: false)
         let callAudioView = CallAudioView(userId: self.recipientId)
         present(callAudioView, animated: true)
     }
     
     @IBAction func actionVideoCall(_ sender: Any) {
+        showCallToolbar(value: false)
         let callVideoView = CallVideoView(userId: self.recipientId)
         present(callVideoView, animated: true)
     }
@@ -367,6 +397,9 @@ class ChatViewController: UIViewController {
                     imageAvatar = image
                     self.avatarImages[rcmessage.userId] = imageAvatar
                     //self.refreshTableView()
+                }
+                else{
+                    self.avatarImages[rcmessage.userId] = UIImage(named: "ic_default_profile")
                 }
             }
         }
@@ -610,20 +643,25 @@ class ChatViewController: UIViewController {
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func layoutTableView() {
 
+        let heightInput = messageInputBar.bounds.height
+/*
         let widthView    = view.frame.size.width
         let heightView    = view.frame.size.height
 
         let leftSafe    = view.safeAreaInsets.left
         let rightSafe    = view.safeAreaInsets.right
 
-        let heightInput = messageInputBar.bounds.height
-
         let tableviewtoppos = statusbarView.frame.height + topbarView.frame.height
-        
+
         let widthTable = widthView - leftSafe - rightSafe
         let heightTable = heightView - heightInput - heightKeyboard - tableviewtoppos
 
         tableView.frame = CGRect(x: leftSafe, y: tableviewtoppos, width: widthTable, height: heightTable)
+*/
+        let edgeInset = UIEdgeInsets(top: 0, left: 0, bottom: heightInput + heightKeyboard, right: 0)
+
+        tableView.contentInset = edgeInset        
+        tableView.scrollIndicatorInsets = edgeInset
     }
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func scrollToBottom(animated: Bool) {
@@ -687,7 +725,7 @@ class ChatViewController: UIViewController {
                         if (self.keyboardWillShow) {
                             self.heightKeyboard = keyboard.size.height
                             self.layoutTableView()
-                            self.scrollToBottom(animated: true)
+                            
                         }
                     }
                 }
@@ -714,6 +752,7 @@ class ChatViewController: UIViewController {
     func configureMessageInputBar() {
 
         view.addSubview(messageInputBar)
+        callToolbarView.layer.zPosition = 1
 
         keyboardManager.bind(inputAccessoryView: messageInputBar)
         keyboardManager.bind(to: tableView)
@@ -763,13 +802,14 @@ class ChatViewController: UIViewController {
         messageInputBar.leftStackView.spacing = 8
 
         messageInputBar.sendButton.title = nil
-        messageInputBar.sendButton.image = UIImage(systemName: "paperplane.fill")
-        messageInputBar.sendButton.setSize(CGSize(width: 36, height: 36), animated: false)
+        messageInputBar.sendButton.image = UIImage(named: "ic_send")
+        messageInputBar.sendButton.setSize(CGSize(width: 32, height: 36), animated: false)        
 
         messageInputBar.setLeftStackViewWidthConstant(to: 72, animated: false)
         messageInputBar.setRightStackViewWidthConstant(to: 36, animated: false)
 
         messageInputBar.middleContentViewPadding = UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 5)
+        messageInputBar.inputTextView.placeholder = "Enter a message"
         messageInputBar.inputTextView.backgroundColor = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1)
         messageInputBar.inputTextView.placeholderTextColor = UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
         messageInputBar.inputTextView.textContainerInset = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 36)
@@ -965,9 +1005,12 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func inputBar(_ inputBar: InputBarAccessoryView, didChangeIntrinsicContentTo size: CGSize) {
+        
+        /*
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.scrollToBottom(animated: true)
         }
+        */
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------

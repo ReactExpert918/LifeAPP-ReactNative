@@ -10,6 +10,7 @@
 // THE SOFTWARE.
 
 import Sinch
+import MediaPlayer
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 class CallAudioView: UIViewController {
@@ -25,7 +26,10 @@ class CallAudioView: UIViewController {
 	@IBOutlet var viewButtons1: UIView!
 	@IBOutlet var viewButtons2: UIView!
 	@IBOutlet var viewEnded: UIView!
-
+    @IBOutlet weak var dottedProgressView: UIView!
+    
+    private var dottedProgressBar:DottedProgressBar?
+    
 	private var person: Person!
 	private var timer: Timer?
 
@@ -83,19 +87,53 @@ class CallAudioView: UIViewController {
 		audioController?.unmute()
 		audioController?.disableSpeaker()
 
-		buttonMute.setImage(UIImage(named: "callaudio_mute1"), for: .normal)
-		buttonMute.setImage(UIImage(named: "callaudio_mute1"), for: .highlighted)
+		buttonMute.setImage(UIImage(named: "callaudio_mute2"), for: .normal)
+		buttonMute.setImage(UIImage(named: "callaudio_mute2"), for: .highlighted)
 
-		buttonSpeaker.setImage(UIImage(named: "callaudio_speaker1"), for: .normal)
-		buttonSpeaker.setImage(UIImage(named: "callaudio_speaker1"), for: .highlighted)
+		buttonSpeaker.setImage(UIImage(named: "callaudio_speaker2"), for: .normal)
+		buttonSpeaker.setImage(UIImage(named: "callaudio_speaker2"), for: .highlighted)
 
 		buttonVideo.setImage(UIImage(named: "callaudio_video1"), for: .normal)
 		buttonVideo.setImage(UIImage(named: "callaudio_video1"), for: .highlighted)
 
 		incoming = (call?.direction == .incoming)
 		outgoing = (call?.direction == .outgoing)
-	}
+                
+        // dotted progressview
+        dottedProgressBar = DottedProgressBar()
+        dottedProgressBar?.progressAppearance = DottedProgressBar.DottedProgressAppearance(dotRadius: 6.0, dotsColor: UIColor(hexString: "#33000000")!, dotsProgressColor: UIColor(hexString: "#00406E")!, backColor: UIColor.clear)
+        dottedProgressBar?.frame = CGRect(x: 0, y: 0, width: 100, height: 24)
+        dottedProgressView.addSubview(dottedProgressBar!)
+        dottedProgressBar?.setNumberOfDots(6)
+        
+        // get audio volume
+        let audioSession = AVAudioSession.sharedInstance()
+        do{
+            try! audioSession.setActive(true)
+        }catch {
+            print(error)
+        }
+        /// Volume View
+        let volumeView = MPVolumeView(frame: CGRect(x: 100, y: 100, width: 100, height: 100))
+        volumeView.isHidden = false
+        volumeView.alpha = 0.01
+        view.addSubview(volumeView)
+        /// Notification Observer
+        NotificationCenter.default.addObserver(self, selector: #selector(self.volumeDidChange(notification:)), name: NSNotification.Name(rawValue: "AVSystemController_SystemVolumeDidChangeNotification"), object: nil)
+        //audioSession.addObserver(self, forKeyPath: "outputVolume", options: NSKeyValueObservingOptions.new, context: nil)
+        let progress = audioSession.outputVolume / 1.0 * 6
+        dottedProgressBar?.setProgress(value: Int(progress))
 
+
+	}
+    @objc func volumeDidChange(notification: NSNotification) {
+        //print("VOLUME CHANGING", AVAudioSession.sharedInstance().outputVolume)
+
+        let volume = notification.userInfo!["AVSystemController_AudioVolumeNotificationParameter"] as! Float
+        let progress = volume / 1.0 * 6
+        dottedProgressBar?.setProgress(value: Int(progress))
+        print("Device Volume:\(volume)")
+    }
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	override func viewWillAppear(_ animated: Bool) {
 
@@ -136,7 +174,6 @@ class CallAudioView: UIViewController {
 			MediaDownload.startUser(person.objectId, pictureAt: person.pictureAt) { image, error in
 				if (error == nil) {
 					self.imageUser.image = image
-                    self.imageUser.makeRounded()
 					self.labelInitials.text = nil
 				}
                 else {
@@ -181,13 +218,13 @@ class CallAudioView: UIViewController {
 
 		if (muted) {
 			muted = false
-			buttonMute.setImage(UIImage(named: "callaudio_mute1"), for: .normal)
-			buttonMute.setImage(UIImage(named: "callaudio_mute1"), for: .highlighted)
+			buttonMute.setImage(UIImage(named: "callaudio_mute2"), for: .normal)
+			buttonMute.setImage(UIImage(named: "callaudio_mute2"), for: .highlighted)
 			audioController?.unmute()
 		} else {
 			muted = true
-			buttonMute.setImage(UIImage(named: "callaudio_mute2"), for: .normal)
-			buttonMute.setImage(UIImage(named: "callaudio_mute2"), for: .highlighted)
+			buttonMute.setImage(UIImage(named: "callaudio_mute3"), for: .normal)
+			buttonMute.setImage(UIImage(named: "callaudio_mute3"), for: .highlighted)
 			audioController?.mute()
 		}
 	}
@@ -197,13 +234,13 @@ class CallAudioView: UIViewController {
 
 		if (speaker) {
 			speaker = false
-			buttonSpeaker.setImage(UIImage(named: "callaudio_speaker1"), for: .normal)
-			buttonSpeaker.setImage(UIImage(named: "callaudio_speaker1"), for: .highlighted)
+			buttonSpeaker.setImage(UIImage(named: "callaudio_speaker2"), for: .normal)
+			buttonSpeaker.setImage(UIImage(named: "callaudio_speaker2"), for: .highlighted)
 			audioController?.disableSpeaker()
 		} else {
 			speaker = true
-			buttonSpeaker.setImage(UIImage(named: "callaudio_speaker2"), for: .normal)
-			buttonSpeaker.setImage(UIImage(named: "callaudio_speaker2"), for: .highlighted)
+			buttonSpeaker.setImage(UIImage(named: "callaudio_speaker3"), for: .normal)
+			buttonSpeaker.setImage(UIImage(named: "callaudio_speaker3"), for: .highlighted)
 			audioController?.enableSpeaker()
 		}
 	}

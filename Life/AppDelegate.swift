@@ -86,6 +86,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let firebaseAuth = Auth.auth()
         print("device token: \(deviceToken.toHexString())")
         firebaseAuth.setAPNSToken(deviceToken, type: .sandbox)
+        firebaseAuth.setAPNSToken(deviceToken, type: .prod)
 
     }
 

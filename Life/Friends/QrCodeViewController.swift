@@ -51,7 +51,7 @@ class QrCodeViewController: UIViewController, QRCodeReaderViewControllerDelegate
         $0.showTorchButton         = true
         $0.preferredStatusBarStyle = .lightContent
         $0.showOverlayView         = true
-        $0.rectOfInterest          = CGRect(x: 0.2, y: 0.2, width: 0.6, height: 0.6)
+        $0.rectOfInterest          = CGRect(x: 0.15, y: 0.15, width: 0.85, height: 0.85)
         
         $0.reader.stopScanningWhenCodeIsFound = false
       }

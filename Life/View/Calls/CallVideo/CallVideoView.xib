@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Montserrat-Light.ttf">
+            <string>Montserrat-Light</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CallVideoView">
             <connections>
@@ -39,7 +43,7 @@
                         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aty-bH-sVM">
                             <rect key="frame" x="0.0" y="54" width="320" height="460"/>
                             <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="callvideo_blank.png" translatesAutoresizingMaskIntoConstraints="NO" id="3Dn-fS-ES4">
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="callvideo_blank.png" translatesAutoresizingMaskIntoConstraints="NO" id="3Dn-fS-ES4" customClass="SwiftyAvatar" customModule="SwiftyAvatar">
                                     <rect key="frame" x="125" y="20" width="70" height="70"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <userDefinedRuntimeAttributes>
@@ -47,6 +51,12 @@
                                             <integer key="value" value="5"/>
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                            <real key="value" value="2"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                            <color key="value" red="0.0" green="0.0" blue="0.0" alpha="0.080000000000000002" colorSpace="calibratedRGB"/>
+                                        </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qUo-VN-lF5">
@@ -59,7 +69,8 @@
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B31-qG-HXG">
                                     <rect key="frame" x="0.0" y="100" width="320" height="40"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="32"/>
+                                    <fontDescription key="fontDescription" name="Montserrat-Light" family="Montserrat" pointSize="30"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Status" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g21-s9-4FN">
@@ -76,7 +87,7 @@
                                 <constraint firstAttribute="height" constant="460" id="llW-dv-VYm"/>
                             </constraints>
                         </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bsc-ZX-ncE">
+                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bsc-ZX-ncE">
                             <rect key="frame" x="0.0" y="480" width="320" height="88"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nPO-so-kJh">
@@ -115,7 +126,7 @@
                             <rect key="frame" x="0.0" y="480" width="320" height="88"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AW3-7M-3qX">
-                                    <rect key="frame" x="16" y="0.0" width="72" height="72"/>
+                                    <rect key="frame" x="232" y="0.0" width="72" height="72"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="72" id="iF3-lC-b2b"/>
@@ -134,13 +145,10 @@
                                         <constraint firstAttribute="height" constant="72" id="LXt-tA-jH2"/>
                                         <constraint firstAttribute="width" constant="72" id="ofZ-Qi-0Cb"/>
                                     </constraints>
-                                    <state key="normal" image="callvideo_hangup.png"/>
-                                    <connections>
-                                        <action selector="actionHangup:" destination="-1" eventType="touchUpInside" id="9dm-t3-WCv"/>
-                                    </connections>
+                                    <state key="normal" image="callvideo_video1.png"/>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NQ2-UN-SbC">
-                                    <rect key="frame" x="232" y="0.0" width="72" height="72"/>
+                                    <rect key="frame" x="16" y="0.0" width="72" height="72"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="72" id="6dS-LH-8N7"/>
                                         <constraint firstAttribute="width" constant="72" id="Sy0-9K-4Cf"/>
@@ -155,11 +163,33 @@
                             <constraints>
                                 <constraint firstItem="AW3-7M-3qX" firstAttribute="top" secondItem="Gaf-ab-Y7P" secondAttribute="top" id="5Lv-QB-Bo5"/>
                                 <constraint firstItem="NQ2-UN-SbC" firstAttribute="top" secondItem="Gaf-ab-Y7P" secondAttribute="top" id="5Vz-OK-H4N"/>
-                                <constraint firstItem="AW3-7M-3qX" firstAttribute="leading" secondItem="Gaf-ab-Y7P" secondAttribute="leading" constant="16" id="DCX-nO-qPd"/>
                                 <constraint firstItem="cGz-6l-KdA" firstAttribute="centerX" secondItem="Gaf-ab-Y7P" secondAttribute="centerX" id="FrH-v2-6dS"/>
-                                <constraint firstAttribute="trailing" secondItem="NQ2-UN-SbC" secondAttribute="trailing" constant="16" id="bqh-iv-RNJ"/>
+                                <constraint firstAttribute="trailing" secondItem="AW3-7M-3qX" secondAttribute="trailing" constant="16" id="UYx-u9-8Wz"/>
                                 <constraint firstAttribute="height" constant="88" id="hTI-8L-zKQ"/>
+                                <constraint firstItem="NQ2-UN-SbC" firstAttribute="leading" secondItem="Gaf-ab-Y7P" secondAttribute="leading" constant="16" id="pb1-aA-4R1"/>
                                 <constraint firstItem="cGz-6l-KdA" firstAttribute="top" secondItem="Gaf-ab-Y7P" secondAttribute="top" id="xR6-OL-TPc"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Jl-NR-Oer" userLabel="View Butons3">
+                            <rect key="frame" x="0.0" y="392" width="320" height="88"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wkb-x7-zox">
+                                    <rect key="frame" x="124" y="0.0" width="72" height="72"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="72" id="cZ7-uK-a4c"/>
+                                        <constraint firstAttribute="width" constant="72" id="qWO-kR-FM1"/>
+                                    </constraints>
+                                    <state key="normal" image="callvideo_hangup.png"/>
+                                    <connections>
+                                        <action selector="actionHangup:" destination="-1" eventType="touchUpInside" id="S9J-mU-H1H"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="88" id="3dl-Vm-WcR"/>
+                                <constraint firstItem="wkb-x7-zox" firstAttribute="top" secondItem="3Jl-NR-Oer" secondAttribute="top" id="MOB-ZK-zGO"/>
+                                <constraint firstItem="wkb-x7-zox" firstAttribute="centerX" secondItem="3Jl-NR-Oer" secondAttribute="centerX" id="Mi4-SV-qee"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="73p-HQ-VN9">
@@ -172,15 +202,18 @@
                         <constraint firstAttribute="bottom" secondItem="Gaf-ab-Y7P" secondAttribute="bottom" id="6mM-70-nxg"/>
                         <constraint firstAttribute="bottom" secondItem="73p-HQ-VN9" secondAttribute="bottom" id="8LT-Qj-poF"/>
                         <constraint firstItem="73p-HQ-VN9" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="BCe-dd-LvM"/>
+                        <constraint firstItem="3Jl-NR-Oer" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Bto-hZ-9hL"/>
                         <constraint firstAttribute="trailing" secondItem="bsc-ZX-ncE" secondAttribute="trailing" id="FAN-kw-nSU"/>
                         <constraint firstItem="4xH-2r-f6Q" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="IjN-Wx-tVZ"/>
                         <constraint firstAttribute="bottom" secondItem="4xH-2r-f6Q" secondAttribute="bottom" id="Iu8-Ut-2kZ"/>
                         <constraint firstItem="4xH-2r-f6Q" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="JKV-c8-a7W"/>
                         <constraint firstAttribute="trailing" secondItem="73p-HQ-VN9" secondAttribute="trailing" id="LmS-Kf-MPT"/>
                         <constraint firstItem="aty-bH-sVM" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="Q7m-K7-L8C"/>
+                        <constraint firstAttribute="trailing" secondItem="3Jl-NR-Oer" secondAttribute="trailing" id="Wdy-MR-Jar"/>
                         <constraint firstItem="Gaf-ab-Y7P" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="gpL-q1-ZyG"/>
                         <constraint firstItem="aty-bH-sVM" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="mCC-wq-dqC"/>
                         <constraint firstItem="bsc-ZX-ncE" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="n3a-kC-1sQ"/>
+                        <constraint firstItem="bsc-ZX-ncE" firstAttribute="top" secondItem="3Jl-NR-Oer" secondAttribute="bottom" id="nDA-BR-nNB"/>
                         <constraint firstAttribute="bottom" secondItem="bsc-ZX-ncE" secondAttribute="bottom" id="w4k-Om-pE0"/>
                         <constraint firstAttribute="trailing" secondItem="Gaf-ab-Y7P" secondAttribute="trailing" id="wfX-bG-BUa"/>
                         <constraint firstAttribute="trailing" secondItem="4xH-2r-f6Q" secondAttribute="trailing" id="xvj-q8-6e4"/>
@@ -202,8 +235,9 @@
     <resources>
         <image name="callvideo_answer.png" width="72" height="72"/>
         <image name="callvideo_blank.png" width="70" height="70"/>
-        <image name="callvideo_hangup.png" width="72" height="72"/>
-        <image name="callvideo_mute1.png" width="72" height="72"/>
-        <image name="callvideo_switch1.png" width="72" height="72"/>
+        <image name="callvideo_hangup.png" width="62" height="62"/>
+        <image name="callvideo_mute1.png" width="37.5" height="30"/>
+        <image name="callvideo_switch1.png" width="30" height="30"/>
+        <image name="callvideo_video1.png" width="37.5" height="30"/>
     </resources>
 </document>

@@ -16,6 +16,10 @@ class SignupViewController: UIViewController {
     
     @IBOutlet weak var nextButtonBottomConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var nextButton: RoundButton!
+    @IBOutlet weak var nextButtonArrow: UIImageView!
+    
+    
     var phoneNumber = ""
     var isValidPhoneNumber = false
     let hud = JGProgressHUD(style: .light)
@@ -27,10 +31,12 @@ class SignupViewController: UIViewController {
         phoneNumberTextField.delegate = self
         phoneNumberTextField.placeholder = "Enter your mobile number"
         // Background
-        phoneNumberTextField.backgroundColor = UIColor(white: 0, alpha: 0.08)
+        //phoneNumberTextField.backgroundColor = UIColor(white: 0, alpha: 0.08)
         phoneNumberTextField.layer.cornerRadius = 5
         // Subscribe Keyboard Popup
         subscribeToShowKeyboardNotifications()
+        //
+        checkPhoneNumberValidation()
     }
     override func viewDidAppear(_ animated: Bool) {
         phoneNumberTextField.becomeFirstResponder()
@@ -56,7 +62,17 @@ class SignupViewController: UIViewController {
             nextButtonBottomConstraint.constant = 30
         }
     }
-    
+    func checkPhoneNumberValidation(){
+        let phoneNumber = phoneNumberTextField.text ?? ""
+        if(phoneNumber.count>9){
+            nextButton.backgroundColor = UIColor(hexString: "#16406F")
+            nextButtonArrow.tintColor = .white
+        }
+        else{
+            nextButton.backgroundColor = UIColor(white: 0, alpha: 0.17)
+            nextButtonArrow.tintColor = UIColor(white: 0, alpha: 0.31)
+        }
+    }
     @IBAction func onNextPressed(_ sender: Any) {
          
         phoneNumber = phoneNumberTextField.getFormattedPhoneNumber(format: .E164)!
@@ -113,8 +129,9 @@ extension SignupViewController: FPNTextFieldDelegate {
     }
     
     func fpnDidValidatePhoneNumber(textField: FPNTextField, isValid: Bool) {
+        let phoneNumber = textField.getFormattedPhoneNumber(format: .E164)!
+        checkPhoneNumberValidation()
         if isValid {
-            let phoneNumber = textField.getFormattedPhoneNumber(format: .E164)!
             isValidPhoneNumber = true
         } else {
             isValidPhoneNumber = false

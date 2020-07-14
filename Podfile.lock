@@ -420,6 +420,7 @@ PODS:
   - RealmSwift (5.1.0):
     - Realm (= 5.1.0)
   - RNCryptor-objc (3.0.6)
+  - RSKImageCropper (2.2.3)
   - SCLAlertView (0.8)
   - SinchRTC (4.2.5)
   - SkyFloatingLabelTextField (3.8.0)
@@ -448,6 +449,7 @@ DEPENDENCIES:
   - Reachability
   - RealmSwift
   - RNCryptor-objc
+  - RSKImageCropper
   - SCLAlertView
   - SinchRTC
   - SkyFloatingLabelTextField (~> 3.0)
@@ -503,6 +505,7 @@ SPEC REPOS:
     - Realm
     - RealmSwift
     - RNCryptor-objc
+    - RSKImageCropper
     - SCLAlertView
     - SinchRTC
     - SkyFloatingLabelTextField
@@ -557,11 +560,12 @@ SPEC CHECKSUMS:
   Realm: bdea546851e37b4cf0a2400cef115c7c26fda488
   RealmSwift: 70945aa168db93b215c460e9c8ef680261aa28af
   RNCryptor-objc: d1b228f9c02e2173df063f0617684c134aed890e
+  RSKImageCropper: a446db0e8444a036b34f3c43db01b2373baa4b2a
   SCLAlertView: 6a77bb2edfc65e04dbe57725546cb4107a506b85
   SinchRTC: ddd666dfdac4e3e630b254e3c04ea8de008b7e58
   SkyFloatingLabelTextField: 5a338412114808e961fe2d14ea2c5452c8b6e4aa
   SwiftyAvatar: 33aecda825c91851cac2aabd06b33f3698b2414c
 
-PODFILE CHECKSUM: 3b85a30fc682afe1886ddb45f59f904170bacb42
+PODFILE CHECKSUM: 058489268a72bf0aaf059d7c16b1bebb49f527b0
 
 COCOAPODS: 1.9.3

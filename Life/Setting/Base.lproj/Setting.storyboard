@@ -7,6 +7,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="Montserrat-Medium.ttf">
+            <string>Montserrat-Medium</string>
+        </array>
         <array key="Montserrat-Regular.ttf">
             <string>Montserrat-Regular</string>
         </array>
@@ -68,8 +71,8 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign out" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r4W-DO-YCn">
-                                        <rect key="frame" x="60" y="22.5" width="63.5" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <rect key="frame" x="60" y="23" width="63.5" height="20"/>
+                                        <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="17"/>
                                         <color key="textColor" red="0.73670607809999999" green="0.20231530070000001" blue="0.20291996000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -477,7 +480,7 @@
                                             <constraint firstAttribute="height" constant="1" id="gCs-LY-Aqe"/>
                                         </constraints>
                                     </view>
-                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="rcc-4k-Hwg">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="rcc-4k-Hwg">
                                         <rect key="frame" x="386" y="16" width="20" height="16.5"/>
                                         <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -532,7 +535,7 @@
                                             <constraint firstAttribute="height" constant="1" id="CVM-kx-tbU"/>
                                         </constraints>
                                     </view>
-                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="CaV-UY-aSa">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="CaV-UY-aSa">
                                         <rect key="frame" x="386" y="16" width="20" height="16.5"/>
                                         <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -580,6 +583,14 @@
                                         <color key="textColor" red="0.92156862745098034" green="0.28235294117647058" blue="0.31764705882352939" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="2MU-N5-aO9">
+                                        <rect key="frame" x="386" y="16" width="20" height="16.5"/>
+                                        <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="20" id="1P6-od-2bA"/>
+                                            <constraint firstAttribute="height" constant="20" id="RR7-PL-urx"/>
+                                        </constraints>
+                                    </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Axt-uq-wo6">
                                         <rect key="frame" x="0.0" y="47" width="414" height="1"/>
                                         <color key="backgroundColor" red="0.8980392157" green="0.8980392157" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
@@ -599,12 +610,14 @@
                                     <constraint firstAttribute="height" constant="48" id="4Y6-VQ-IMU"/>
                                     <constraint firstAttribute="trailing" secondItem="BAq-bT-8LQ" secondAttribute="trailing" id="9XI-WE-0j7"/>
                                     <constraint firstItem="XpV-uq-Skn" firstAttribute="leading" secondItem="dVJ-Pe-P4d" secondAttribute="leading" constant="16" id="DJv-b2-HYl"/>
+                                    <constraint firstAttribute="trailing" secondItem="2MU-N5-aO9" secondAttribute="trailing" constant="8" id="Ltr-dh-x3A"/>
                                     <constraint firstAttribute="bottom" secondItem="BAq-bT-8LQ" secondAttribute="bottom" id="M0H-xt-NXb"/>
                                     <constraint firstItem="Axt-uq-wo6" firstAttribute="leading" secondItem="dVJ-Pe-P4d" secondAttribute="leading" id="NGp-6j-VSW"/>
                                     <constraint firstAttribute="trailing" secondItem="Axt-uq-wo6" secondAttribute="trailing" id="Q2a-TD-3VF"/>
                                     <constraint firstItem="BAq-bT-8LQ" firstAttribute="leading" secondItem="dVJ-Pe-P4d" secondAttribute="leading" id="Q6x-v8-iqy"/>
                                     <constraint firstAttribute="bottom" secondItem="Axt-uq-wo6" secondAttribute="bottom" id="Txu-Fz-alJ"/>
                                     <constraint firstItem="BAq-bT-8LQ" firstAttribute="top" secondItem="dVJ-Pe-P4d" secondAttribute="top" id="WFn-tr-pCr"/>
+                                    <constraint firstItem="2MU-N5-aO9" firstAttribute="centerY" secondItem="dVJ-Pe-P4d" secondAttribute="centerY" id="XT4-Gj-XDs"/>
                                     <constraint firstItem="XpV-uq-Skn" firstAttribute="centerY" secondItem="dVJ-Pe-P4d" secondAttribute="centerY" id="rsZ-69-d6k"/>
                                 </constraints>
                             </view>
