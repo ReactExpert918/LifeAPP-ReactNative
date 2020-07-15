@@ -386,7 +386,29 @@ PODS:
     - nanopb/encode (= 1.30905.0)
   - nanopb/decode (1.30905.0)
   - nanopb/encode (1.30905.0)
+  - NYTPhotoViewer (5.0.2):
+    - NYTPhotoViewer/AnimatedGifSupport (= 5.0.2)
+    - NYTPhotoViewer/Core (= 5.0.2)
+  - NYTPhotoViewer/AnimatedGifSupport (5.0.2):
+    - NYTPhotoViewer/Core
+    - PINRemoteImage (~> 3.0.0)
+  - NYTPhotoViewer/Core (5.0.2)
   - OneSignal (2.14.2)
+  - PINCache (3.0.1-beta.8):
+    - PINCache/Arc-exception-safe (= 3.0.1-beta.8)
+    - PINCache/Core (= 3.0.1-beta.8)
+  - PINCache/Arc-exception-safe (3.0.1-beta.8):
+    - PINCache/Core
+  - PINCache/Core (3.0.1-beta.8):
+    - PINOperation (~> 1.1.1)
+  - PINOperation (1.1.2)
+  - PINRemoteImage (3.0.0):
+    - PINRemoteImage/PINCache (= 3.0.0)
+  - PINRemoteImage/Core (3.0.0):
+    - PINOperation
+  - PINRemoteImage/PINCache (3.0.0):
+    - PINCache (= 3.0.1-beta.8)
+    - PINRemoteImage/Core
   - ProgressHUD (13.4)
   - PromisesObjC (1.2.9)
   - Protobuf (3.12.0)
@@ -398,6 +420,9 @@ PODS:
   - RealmSwift (5.1.0):
     - Realm (= 5.1.0)
   - RNCryptor-objc (3.0.6)
+  - RSKImageCropper (2.2.3)
+  - SCLAlertView (0.8)
+  - SinchRTC (4.2.5)
   - SkyFloatingLabelTextField (3.8.0)
   - SwiftyAvatar (1.1.3)
 
@@ -417,12 +442,16 @@ DEPENDENCIES:
   - JGProgressHUD
   - Kingfisher
   - MessageKit
+  - NYTPhotoViewer
   - OneSignal
   - ProgressHUD
   - QRCodeReader.swift (~> 10.1.0)
   - Reachability
   - RealmSwift
   - RNCryptor-objc
+  - RSKImageCropper
+  - SCLAlertView
+  - SinchRTC
   - SkyFloatingLabelTextField (~> 3.0)
   - SwiftyAvatar (~> 1.1)
 
@@ -463,7 +492,11 @@ SPEC REPOS:
     - leveldb-library
     - MessageKit
     - nanopb
+    - NYTPhotoViewer
     - OneSignal
+    - PINCache
+    - PINOperation
+    - PINRemoteImage
     - ProgressHUD
     - PromisesObjC
     - Protobuf
@@ -472,6 +505,9 @@ SPEC REPOS:
     - Realm
     - RealmSwift
     - RNCryptor-objc
+    - RSKImageCropper
+    - SCLAlertView
+    - SinchRTC
     - SkyFloatingLabelTextField
     - SwiftyAvatar
 
@@ -511,7 +547,11 @@ SPEC CHECKSUMS:
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   MessageKit: 3beb578737a5aa2bba25cc27c7b6d6faa09af5a7
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
+  NYTPhotoViewer: 1010382914c190151619aced12462488c220165e
   OneSignal: 1dcb1fd96f9c15a5c352dcfcab9106a7c15eced7
+  PINCache: 534fd41d358d828dfdf227a0d327f3673a65e20b
+  PINOperation: 24b774353ca248fcf87d67b2d61eef42087c125a
+  PINRemoteImage: e2b89e19fb6e77ffc099f9d9f3b3fe1745e3f9f9
   ProgressHUD: 137a7fc677487c5581668f4490563124fb35c232
   PromisesObjC: b48e0338dbbac2207e611750777895f7a5811b75
   Protobuf: 2793fcd0622a00b546c60e7cbbcc493e043e9bb9
@@ -520,9 +560,12 @@ SPEC CHECKSUMS:
   Realm: bdea546851e37b4cf0a2400cef115c7c26fda488
   RealmSwift: 70945aa168db93b215c460e9c8ef680261aa28af
   RNCryptor-objc: d1b228f9c02e2173df063f0617684c134aed890e
+  RSKImageCropper: a446db0e8444a036b34f3c43db01b2373baa4b2a
+  SCLAlertView: 6a77bb2edfc65e04dbe57725546cb4107a506b85
+  SinchRTC: ddd666dfdac4e3e630b254e3c04ea8de008b7e58
   SkyFloatingLabelTextField: 5a338412114808e961fe2d14ea2c5452c8b6e4aa
   SwiftyAvatar: 33aecda825c91851cac2aabd06b33f3698b2414c
 
-PODFILE CHECKSUM: 6ad9e5e9f7ca679ec5fff4fd95d85edcd4fd1d71
+PODFILE CHECKSUM: 058489268a72bf0aaf059d7c16b1bebb49f527b0
 
 COCOAPODS: 1.9.3
