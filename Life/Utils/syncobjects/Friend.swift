@@ -18,6 +18,10 @@ class Friend: SyncObject {
 	@objc dynamic var friendId = ""
 
 	@objc dynamic var isDeleted = false
+    
+    @objc dynamic var pending = true
+    
+    @objc dynamic var isAccepted = false
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	func update(isDeleted value: Bool) {
@@ -31,4 +35,17 @@ class Friend: SyncObject {
 			updatedAt = Date().timestamp()
 		}
 	}
+    
+    func update(isAccepted value: Bool) {
+
+        if (isAccepted == value) { return }
+
+        let realm = try! Realm()
+        try! realm.safeWrite {
+            pending = false
+            isAccepted = value
+            syncRequired = true
+            updatedAt = Date().timestamp()
+        }
+    }
 }

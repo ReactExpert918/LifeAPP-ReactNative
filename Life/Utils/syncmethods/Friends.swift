@@ -30,6 +30,7 @@ class Friends: NSObject {
 			friend.objectId = "\(AuthUser.userId())-\(userId)".md5()
 			friend.userId = AuthUser.userId()
 			friend.friendId = userId
+            friend.pending = true
 			realm.add(friend, update: .modified)
 		}
 	}
@@ -43,6 +44,16 @@ class Friends: NSObject {
 			friend.update(isDeleted: isDeleted)
 		}
 	}
+    
+    // MARK: -
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    class func update(_ userId: String, isAccepted: Bool) {
+
+        let predicate = NSPredicate(format: "userId == %@ AND friendId == %@", userId, AuthUser.userId())
+        if let friend = realm.objects(Friend.self).filter(predicate).first {
+            friend.update(isAccepted: isAccepted)
+        }
+    }
 
 	// MARK: -
 	//---------------------------------------------------------------------------------------------------------------------------------------------
@@ -65,4 +76,16 @@ class Friends: NSObject {
 		}
 		return friendIds
 	}
+    
+    class func friendPendingIds() -> [String] {
+
+        let predicate = NSPredicate(format: "friendId == %@ AND isDeleted == NO And pending == YES", AuthUser.userId())
+        let friends = realm.objects(Friend.self).filter(predicate)
+
+        var friendIds: [String] = []
+        for friend in friends {
+            friendIds.append(friend.userId)
+        }
+        return friendIds
+    }
 }
