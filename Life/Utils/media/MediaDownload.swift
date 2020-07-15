@@ -29,7 +29,20 @@ class MediaDownload: NSObject {
 			completion(nil, NSError.description("Missing picture.", code: 100))
 		}
 	}
+    class func startGroup(_ name: String, pictureAt: Int64, completion: @escaping (_ image: UIImage?, _ error: Error?) -> Void) {
 
+        if (pictureAt != 0) {
+            start(dir: "group", name: name, ext: "jpg", manual: false) { path, error in
+                if (error == nil) {
+                    completion(UIImage(contentsOfFile: path), nil)
+                } else {
+                    completion(nil, error)
+                }
+            }
+        } else {
+            completion(nil, NSError.description("Missing picture.", code: 100))
+        }
+    }
 	// MARK: -
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	class func startPhoto(_ name: String, completion: @escaping (_ path: String, _ error: Error?) -> Void) {
@@ -148,6 +161,7 @@ class MediaDownload: NSObject {
 	// MARK: -
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	class func saveUser(_ name: String, data: Data)		{ save(data: data, dir: "user", name: name, ext: "jpg", manual: false)	}
+    class func saveGroup(_ name: String, data: Data)    { save(data: data, dir: "group", name: name, ext: "jpg", manual: false)    }
 	class func savePhoto(_ name: String, data: Data)	{ save(data: data, dir: "media", name: name, ext: "jpg", manual: true)	}
 	class func saveVideo(_ name: String, data: Data)	{ save(data: data, dir: "media", name: name, ext: "mp4", manual: true)	}
 	class func saveAudio(_ name: String, data: Data)	{ save(data: data, dir: "media", name: name, ext: "m4a", manual: true)	}

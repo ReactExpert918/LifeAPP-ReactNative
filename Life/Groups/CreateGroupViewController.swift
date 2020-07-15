@@ -7,15 +7,22 @@
 //
 
 import UIKit
+import JGProgressHUD
 import SwiftyAvatar
 
 var selectedPersonsForGroup : [Person] = []
 class CreateGroupViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     @IBOutlet weak var groupImageView: SwiftyAvatar!
+    @IBOutlet weak var groupNameTextField: UITextField!
     @IBOutlet weak var groupName: UILabel!
     @IBOutlet weak var cameraButton: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
     
+    private var selectedUsers: [String] = []
+    private var groupPicture: UIImage? = nil
+    let hud = JGProgressHUD(style: .light)
+
+    var delegate: CreateGroupDelegate? = nil
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return selectedPersonsForGroup.count + 1
     }
@@ -114,17 +121,65 @@ class CreateGroupViewController: UIViewController, UICollectionViewDelegate, UIC
             return
         }
         let data = image.jpegData(compressionQuality: 1.0)
-        let correct_image = UIImage(data: data! as Data)
+        groupPicture = UIImage(data: data! as Data)
         DispatchQueue.main.async{
-            self.groupImageView.image = correct_image
+            self.groupImageView.image = self.groupPicture
             self.cameraButton.setImage(nil, for: .normal)
         }
         // print out the image size as a test
         // print(correct_image?.size)
         //uploadPicture(image: correct_image!)
     }
+
     @IBAction func onSaveTapped(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+        
+        let name = groupNameTextField.text ?? ""
+        if name.count == 0 {
+            Util.showAlert(vc: self, "Please enter the name", "")
+            return
+        }
+        if selectedPersonsForGroup.count == 0 {
+            Util.showAlert(vc: self, "Please select users", "")
+            return
+        }
+        // Append user id
+        self.selectedUsers.removeAll()
+        for item in selectedPersonsForGroup {
+            if self.selectedUsers.contains(item.objectId) == false{
+                self.selectedUsers.append(item.objectId)
+            }
+        }
+        self.selectedUsers.append(AuthUser.userId())
+        let group = Groups.create(name, userIds: self.selectedUsers)
+        
+        if self.groupPicture != nil {
+            // upload picture
+            if let data = groupPicture?.jpegData(compressionQuality: 0.6) {
+                self.hud.textLabel.text = "Creating new group..."
+                self.hud.show(in: self.view, animated: true)
+                MediaUpload.group(group.objectId, data: data, completion: { error in
+                    if (error == nil) {
+                        MediaDownload.saveGroup(group.objectId, data: data)
+                        group.update(pictureAt: Date().timestamp())
+                        self.hud.dismiss()
+                        self.dismiss(animated: true) {
+                            self.delegate?.onGroupCreated(group: group)
+                        }
+                    } else {
+                        DispatchQueue.main.async {
+                            self.hud.textLabel.text = "Picture upload error."
+                            self.hud.show(in: self.view, animated: true)
+                        }
+                        self.hud.dismiss(afterDelay: 1.0, animated: true)
+                    }
+                })
+            }
+        }
+        else{
+            self.dismiss(animated: true) {
+                self.delegate?.onGroupCreated(group: group)
+            }
+        }
     }
     
 }

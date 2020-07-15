@@ -12,7 +12,7 @@ import Contacts
 class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
-    let sections = ["", "Friend Recommendations"]
+    let sections = ["Friend Recommendations"]
     private var persons = realm.objects(Person.self).filter(falsepredicate)
     var personList = [Person]()
     
@@ -82,11 +82,7 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0{
-            return 1
-        }else{
-            return personList.count
-        }
+        return personList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -120,44 +116,26 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if section == 0{
-            return nil
-        }else{
-            let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "AddFriendSection") as! AddFriendSection
+        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "AddFriendSection") as! AddFriendSection
 
-            headerView.headerTitle.text = sections[section] + " " + String(personList.count)
+        headerView.headerTitle.text = sections[section] + " " + String(personList.count)
 
-            return headerView
-        }
+        return headerView
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 0{
-            return 0
-        }else{
-            return 48
-        }
+        return 48
     }
     func numberOfSections(in tableView: UITableView) -> Int {
         if personList.count == 0{
-            return 1
+            return 0
         }else{
-            return 2
+            return 1
         }
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 0{
-            return 77
-        }else{
-            return 64
-        }
+        return 64
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 0{
-            let mainstoryboard = UIStoryboard.init(name: "Group", bundle: nil)
-            let vc = mainstoryboard.instantiateViewController(withIdentifier: "createGroupVC")
-            vc.modalPresentationStyle = .fullScreen
-            //self.present(vc, animated: true, completion: nil)
-        }
     }
     @IBAction func onStartChatTapped(_ sender: Any) {
         popupView.isHidden = true
