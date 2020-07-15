@@ -27,9 +27,7 @@
 		A6188EC024BCD76900587710 /* callvideo_switch1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A6188EB724BCD76900587710 /* callvideo_switch1@2x.png */; };
 		A6188EC124BCD76900587710 /* callvideo_mute1.png in Resources */ = {isa = PBXBuildFile; fileRef = A6188EB824BCD76900587710 /* callvideo_mute1.png */; };
 		A6188EC224BCD76900587710 /* callvideo_video1.png in Resources */ = {isa = PBXBuildFile; fileRef = A6188EB924BCD76900587710 /* callvideo_video1.png */; };
-		A6188EC624BCD8A300587710 /* callvideo_hangup.png in Resources */ = {isa = PBXBuildFile; fileRef = A6188EC324BCD8A200587710 /* callvideo_hangup.png */; };
 		A6188EC724BCD8A300587710 /* callvideo_hangup@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A6188EC424BCD8A200587710 /* callvideo_hangup@2x.png */; };
-		A6188EC824BCD8A300587710 /* callvideo_hangup@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A6188EC524BCD8A300587710 /* callvideo_hangup@3x.png */; };
 		A6188ED824BCDC1700587710 /* callaudio_mute3@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A6188ED524BCDC1600587710 /* callaudio_mute3@3x.png */; };
 		A6188ED924BCDC1700587710 /* callaudio_mute3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A6188ED624BCDC1700587710 /* callaudio_mute3@2x.png */; };
 		A6188EDA24BCDC1700587710 /* callaudio_mute3.png in Resources */ = {isa = PBXBuildFile; fileRef = A6188ED724BCDC1700587710 /* callaudio_mute3.png */; };
@@ -1389,7 +1387,6 @@
 			files = (
 				A6188EB024BCCEB600587710 /* Montserrat-Light.ttf in Resources */,
 				A67587F524B7B1BF00724B08 /* read@3x.png in Resources */,
-				A6188EC824BCD8A300587710 /* callvideo_hangup@3x.png in Resources */,
 				A6C36B7C24B57BD200583CAA /* callaudio_blank@2x.png in Resources */,
 				A6188ED924BCDC1700587710 /* callaudio_mute3@2x.png in Resources */,
 				A6EDA03C24ACE5B100CA3A5F /* Montserrat-Medium.ttf in Resources */,
@@ -1424,7 +1421,6 @@
 				A6C36B8424B57BD200583CAA /* callvideo_blank@2x.png in Resources */,
 				A6188EBC24BCD76900587710 /* callvideo_switch1@3x.png in Resources */,
 				A663A6C324BA4C610090A13D /* LaunchScreen.storyboard in Resources */,
-				A6188EC624BCD8A300587710 /* callvideo_hangup.png in Resources */,
 				A6C36B8324B57BD200583CAA /* callvideo_answer@2x.png in Resources */,
 				A6C36B8224B57BD200583CAA /* callvideo_switch2@2x.png in Resources */,
 				A6E73B4624A4F50D0008CBFE /* Montserrat-SemiBold.ttf in Resources */,

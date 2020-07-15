@@ -93,7 +93,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @objc func refreshTableView() {
         headerSections[1].name = "Friends \(persons.count)"
         homeTableView.reloadData()
-
     }
     func loadPerson() {
         person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
