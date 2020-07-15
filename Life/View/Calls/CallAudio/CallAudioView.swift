@@ -108,11 +108,13 @@ class CallAudioView: UIViewController {
         
         // get audio volume
         let audioSession = AVAudioSession.sharedInstance()
+        /*
         do{
             try! audioSession.setActive(true)
         }catch {
             print(error)
         }
+ */
         /// Volume View
         let volumeView = MPVolumeView(frame: CGRect(x: 100, y: 100, width: 100, height: 100))
         volumeView.isHidden = false
