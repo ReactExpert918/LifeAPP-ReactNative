@@ -20,12 +20,6 @@ class MediaUpload: NSObject {
 		FireStorage.upload(data: data, dir: "user", name: name, ext: "jpg", completion: completion)
 	}
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
-    class func group(_ name: String, data: Data, completion: @escaping (_ error: Error?) -> Void) {
-
-        FireStorage.upload(data: data, dir: "group", name: name, ext: "jpg", completion: completion)
-    }
-    
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	class func photo(_ name: String, data: Data, completion: @escaping (_ error: Error?) -> Void) {
 

@@ -18,7 +18,6 @@ class Group: SyncObject {
 
 	@objc dynamic var name = ""
 	@objc dynamic var ownerId = ""
-    @objc dynamic var pictureAt: Int64 = 0
 
 	@objc dynamic var isDeleted = false
 
@@ -47,17 +46,4 @@ class Group: SyncObject {
 			updatedAt = Date().timestamp()
 		}
 	}
-    
-    //---------------------------------------------------------------------------------------------------------------------------------------------
-    func update(pictureAt value: Int64) {
-
-        if (pictureAt == value) { return }
-
-        let realm = try! Realm()
-        try! realm.safeWrite {
-            pictureAt = value
-            syncRequired = true
-            updatedAt = Date().timestamp()
-        }
-    }
 }

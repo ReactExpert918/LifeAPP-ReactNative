@@ -9,10 +9,7 @@
 import UIKit
 import RealmSwift
 
-protocol CreateGroupDelegate {
-    func onGroupCreated(group: Group)
-}
-class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CreateGroupDelegate {
+class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     private var person: Person!    
 
@@ -21,15 +18,13 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet weak var homeTableView: UITableView!
     
     
-    var headerSections =  [HeaderSection(name: "My Status", collapsed: false), HeaderSection(name: "Groups 0", collapsed: false), HeaderSection(name: "Friends 0", collapsed: false)]
+    var headerSections =  [HeaderSection(name: "My Status", collapsed: false), /*HeaderSection(name: "Groups 2", collapsed: false),*/ HeaderSection(name: "Friends 0", collapsed: false)]
 
     private var tokenFriends: NotificationToken? = nil
     private var tokenPersons: NotificationToken? = nil
-    private var tokenGroups: NotificationToken? = nil
     
     private var friends = realm.objects(Friend.self).filter(falsepredicate)
     private var persons = realm.objects(Person.self).filter(falsepredicate)
-    private var groups = realm.objects(Group.self).filter(falsepredicate)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,8 +56,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         if (AuthUser.userId() != "") {
             loadPerson()
             loadFriends()
-            loadGroups()
-
         }
     }
     // MARK: - Realm methods
@@ -95,29 +88,10 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             self.tokenPersons = token
         })
     }
-    //---------------------------------------------------------------------------------------------------------------------------------------------
-    func loadGroups(text: String = "") {
-
-        let predicate1 = NSPredicate(format: "objectId IN %@ AND isDeleted == NO", Members.chatIds())
-        let predicate2 = (text != "") ? NSPredicate(format: "name CONTAINS[c] %@", text) : NSPredicate(value: true)
-
-        groups = realm.objects(Group.self).filter(predicate1).filter(predicate2).sorted(byKeyPath: "name")
-
-        tokenGroups?.invalidate()
-        groups.safeObserve({ changes in
-            self.refreshTableView()
-        }, completion: { token in
-            self.tokenGroups = token
-        })
-    }
-    func onGroupCreated(group: Group) {
-        Util.showAlert(vc: self, "\(group.name) has been created successfully.", "")
-    }
     // MARK: - Refresh methods
     //---------------------------------------------------------------------------------------------------------------------------------------------
     @objc func refreshTableView() {
-        headerSections[1].name = "Groups \(groups.count)"
-        headerSections[2].name = "Friends \(persons.count)"
+        headerSections[1].name = "Friends \(persons.count)"
         homeTableView.reloadData()
     }
     func loadPerson() {
@@ -199,10 +173,12 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         if section == 0 {
             return 1
         }
+            /*
         else if section == 1 {
-            return headerSections[section].collapsed ? 0 : groups.count + 1
+            return headerSections[section].collapsed ? 0 : 2
         }
-        else if section == 2{
+ */
+        else if section == 1{
             return headerSections[section].collapsed ? 0 : persons.count
         }
         return 0
@@ -211,31 +187,22 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "userStatusCell", for: indexPath) as! UserStatusCell
-            if person != nil{
-                cell.loadPerson(withPerson: person)
-            }
-            return cell
+            cell.loadPerson(withPerson: person)
+            return cell;
 
         }
+        /*
         else if indexPath.section == 1 {
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "createGroupCell", for: indexPath)
-                return cell
+                return cell;
             }
-            else {
-                // Group Lists
-                let cell = tableView.dequeueReusableCell(withIdentifier: FriendCell.GetCellReuseIdentifier(), for: indexPath) as! FriendCell
-                cell.selectionStyle = .none
-                let group = groups[indexPath.row-1]
-                cell.bindGroupData(group: group)
-                cell.loadGroupImage(group: group, tableView: tableView, indexPath: indexPath)
-                return cell
-           }
         }
-
-       let cell = tableView.dequeueReusableCell(withIdentifier: FriendCell.GetCellReuseIdentifier(), for: indexPath) as! FriendCell
-       cell.selectionStyle = .none
-       if( indexPath.section == 2) {
+ */
+ 
+        let cell = tableView.dequeueReusableCell(withIdentifier: FriendCell.GetCellReuseIdentifier(), for: indexPath) as! FriendCell
+        cell.selectionStyle = .none
+        if( indexPath.section == 1) {
             let person = persons[indexPath.row]
             cell.bindData(person: person)
             cell.loadImage(person: person, tableView: tableView, indexPath: indexPath)

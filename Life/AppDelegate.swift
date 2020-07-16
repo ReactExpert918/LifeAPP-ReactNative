@@ -14,7 +14,7 @@ import OneSignal
 import Sinch
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-var realm = try! Realm()
+let realm = try! Realm()
 let falsepredicate = NSPredicate(value: false)
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -30,18 +30,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         IQKeyboardManager.shared.enable = true
-        
-        let configuration = Realm.Configuration(
-            schemaVersion: 2,
-            migrationBlock: { migration, oldSchemaVersion in
-                if oldSchemaVersion < 2 {
-                    // if you added a new property or removed a property you don't
-                    // have to do anything because Realm automatically detects that
-                }
-            }
-        )
-        Realm.Configuration.defaultConfiguration = configuration
-        realm = try! Realm()
         //-----------------------------------------------------------------------------------------------------------------------------------------
         // SyncEngine initialization
         //-----------------------------------------------------------------------------------------------------------------------------------------
