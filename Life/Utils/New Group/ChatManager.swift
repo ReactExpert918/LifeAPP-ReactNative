@@ -152,7 +152,7 @@ class ChatManager: NSObject {
 
 		var temp: [String: Any] = [:]
 		temp["objectId"] = group.chatId
-
+        temp["pictureAt"] = group.pictureAt
 		temp["isGroup"]		= true
 		temp["isPrivate"]	= false
 

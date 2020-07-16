@@ -65,7 +65,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let predicate = NSPredicate(format: "userId == %@ AND isDeleted == NO", AuthUser.userId())
         //print("Auth UserId: \(predicate)")
         friends = realm.objects(Friend.self).filter(predicate)
-
+        
         tokenFriends?.invalidate()
         friends.safeObserve({ changes in
             self.loadPersons()
@@ -120,6 +120,14 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         //self.present(vc, animated: true, completion: nil)
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    func openGroupChat(chatId: String) {
+        let vc =  self.storyboard?.instantiateViewController(identifier: "groupChatViewController") as! GroupChatViewController
+        vc.setChatId(chatId: chatId)
+        vc.modalPresentationStyle = .fullScreen
+        vc.hidesBottomBarWhenPushed = true
+        //self.present(vc, animated: true, completion: nil)
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
     func numberOfSections(in tableView: UITableView) -> Int {
         return headerSections.count
     }
@@ -127,6 +135,19 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if indexPath.section == 1 {
+            if indexPath.row == 0 {
+                let mainstoryboard = UIStoryboard.init(name: "Group", bundle: nil)
+                let vc = mainstoryboard.instantiateViewController(withIdentifier: "createGroupVC") as! CreateGroupViewController
+                vc.delegate = self
+                vc.modalPresentationStyle = .fullScreen
+                self.present(vc, animated: true, completion: nil)
+            }
+            else{
+                let group = groups[indexPath.row-1]
+                openGroupChat(chatId: group.chatId)
+            }
+        }
+        else if indexPath.section == 2 {
             let friend = persons[indexPath.row]
             let chatId = Singles.create(friend.objectId)
             openPrivateChat(chatId: chatId, recipientId: friend.objectId)
