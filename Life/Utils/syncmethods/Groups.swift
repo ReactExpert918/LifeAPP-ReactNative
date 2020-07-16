@@ -15,7 +15,7 @@ import RealmSwift
 class Groups: NSObject {
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	class func create(_ name: String, userIds: [String]) -> Group{
+	class func create(_ name: String, userIds: [String]) {
 
 		let group = Group()
 
@@ -31,7 +31,5 @@ class Groups: NSObject {
 
 		Details.create(chatId: group.chatId, userIds: userIds)
 		Members.create(chatId: group.chatId, userIds: userIds)
-        
-        return group
 	}
 }

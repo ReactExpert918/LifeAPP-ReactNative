@@ -60,8 +60,8 @@ class SignInViewController: UIViewController, UITextViewDelegate, UITextFieldDel
             self.hud.show(in: self.view, animated: true)
         }
         Auth.auth().signIn(withEmail: userName.text!, password: password.text!) { [weak self] authResult, error in
+            self?.hud.dismiss()
             if error != nil {
-                self?.hud.dismiss()
                 self!.errorText.text = "Incorrect email or password,\nPlease try again!"
                 self!.errorText.textColor = UIColor(hexString: "#DF1747")
                 self!.errorText.font = UIFont(name: "Montserrat-Regular", size: 14.0)
@@ -76,22 +76,16 @@ class SignInViewController: UIViewController, UITextViewDelegate, UITextFieldDel
 
         let userId = AuthUser.userId()
         FireFetcher.fetchPerson(userId) { error in
-            self.hud.dismiss()
-            if (error == nil) {
-                self.dismiss(animated: true) {
-                    NotificationCenter.default.post(name: Notification.Name(NotificationStatus.NOTIFICATION_USER_LOGGED_IN), object: nil)
-                    
-                    UIApplication.shared.windows.first?.rootViewController?.dismiss(animated: true, completion: nil)
-                    let vc = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
-            
-                    UIApplication.shared.windows.first?.rootViewController = vc
-                }
+            if (error != nil) {
+                //self.createPerson()
             }
-            else {
-                self.errorText.text = "Network connection error,\nPlease try again!"
-                self.errorText.textColor = UIColor(hexString: "#DF1747")
-                self.errorText.font = UIFont(name: "Montserrat-Regular", size: 14.0)
-
+            self.dismiss(animated: true) {
+                NotificationCenter.default.post(name: Notification.Name(NotificationStatus.NOTIFICATION_USER_LOGGED_IN), object: nil)
+                
+                UIApplication.shared.windows.first?.rootViewController?.dismiss(animated: true, completion: nil)
+                let vc = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
+        
+                UIApplication.shared.windows.first?.rootViewController = vc
             }
         }
     }

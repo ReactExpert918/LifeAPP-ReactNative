@@ -179,7 +179,7 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
                 self.popupStatusLabel.text = "Already existing in your friend list."
             } else {
                 Friends.create(person.objectId)
-                self.popupStatusLabel.text = "Successfully added to your friend list."
+                self.popupStatusLabel.text = "successfully sent an add request."
             }
         }
         return cell

@@ -374,7 +374,6 @@
                         <outlet property="collectionView" destination="7zk-ga-iO2" id="WMN-Re-pwB"/>
                         <outlet property="groupImageView" destination="oAK-6R-5OP" id="3Zw-sm-UYP"/>
                         <outlet property="groupName" destination="vy4-a1-jWK" id="oWO-He-ALe"/>
-                        <outlet property="groupNameTextField" destination="YZN-At-B8n" id="ffR-4Y-eKt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sRA-lI-5LI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

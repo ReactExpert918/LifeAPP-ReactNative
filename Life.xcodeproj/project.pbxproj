@@ -202,6 +202,7 @@
 		A6F564D024A9B53C0061007E /* RCFooterUpperCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6F564CE24A9B53B0061007E /* RCFooterUpperCell.swift */; };
 		A6F564D124A9B53C0061007E /* RCFooterLowerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6F564CF24A9B53C0061007E /* RCFooterLowerCell.swift */; };
 		A6F7883424A6ED400019B35D /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6F7883324A6ED400019B35D /* ChatViewController.swift */; };
+		AB10642424C03B0A00E72110 /* ReqestAcceptedAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB10642324C03B0A00E72110 /* ReqestAcceptedAlertViewController.swift */; };
 		AB13A9DB24A2EF610028731D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB13A9DA24A2EF610028731D /* AppDelegate.swift */; };
 		AB13A9DD24A2EF610028731D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB13A9DC24A2EF610028731D /* SceneDelegate.swift */; };
 		AB13A9DF24A2EF610028731D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB13A9DE24A2EF610028731D /* ViewController.swift */; };
@@ -467,6 +468,7 @@
 		A6F564CE24A9B53B0061007E /* RCFooterUpperCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCFooterUpperCell.swift; sourceTree = "<group>"; };
 		A6F564CF24A9B53C0061007E /* RCFooterLowerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCFooterLowerCell.swift; sourceTree = "<group>"; };
 		A6F7883324A6ED400019B35D /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		AB10642324C03B0A00E72110 /* ReqestAcceptedAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReqestAcceptedAlertViewController.swift; sourceTree = "<group>"; };
 		AB13A9D724A2EF610028731D /* Life.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Life.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB13A9DA24A2EF610028731D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AB13A9DC24A2EF610028731D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -1264,6 +1266,7 @@
 				AB30FAFA24AFAE490037BF25 /* AddFriendHeaderCell.swift */,
 				AB30FAFE24AFB2D20037BF25 /* AddFriendSection.swift */,
 				ABAF39D224BF04F600FB1078 /* AddFriendConfirmCell.swift */,
+				AB10642324C03B0A00E72110 /* ReqestAcceptedAlertViewController.swift */,
 			);
 			path = Friends;
 			sourceTree = "<group>";
@@ -1741,6 +1744,7 @@
 				AB82ACD924A5453100D83E47 /* AddFriendCell.swift in Sources */,
 				ABDAC93024A67D8C00E73667 /* SearchFriendCell.swift in Sources */,
 				A6DEA87124A8405300868625 /* Groups.swift in Sources */,
+				AB10642424C03B0A00E72110 /* ReqestAcceptedAlertViewController.swift in Sources */,
 				A6F564D024A9B53C0061007E /* RCFooterUpperCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
