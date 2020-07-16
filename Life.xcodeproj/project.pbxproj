@@ -235,6 +235,7 @@
 		AB82ACDC24A5453100D83E47 /* QrCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB82ACD824A5453000D83E47 /* QrCodeViewController.swift */; };
 		AB82ACDE24A546D600D83E47 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB82ACDD24A546D600D83E47 /* SplashViewController.swift */; };
 		AB82ACE024A5472800D83E47 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB82ACDF24A5472800D83E47 /* Util.swift */; };
+		ABAF39D324BF04F600FB1078 /* AddFriendConfirmCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAF39D224BF04F600FB1078 /* AddFriendConfirmCell.swift */; };
 		ABDAC92C24A64AE800E73667 /* SearchFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDAC92B24A64AE800E73667 /* SearchFriendsViewController.swift */; };
 		ABDAC93024A67D8C00E73667 /* SearchFriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDAC92F24A67D8C00E73667 /* SearchFriendCell.swift */; };
 		E87CD6D6D8F4EEBDA7AF3284 /* Pods_Life.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38331365FE453AF276FB4BD0 /* Pods_Life.framework */; };
@@ -507,6 +508,7 @@
 		AB82ACD824A5453000D83E47 /* QrCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QrCodeViewController.swift; sourceTree = "<group>"; };
 		AB82ACDD24A546D600D83E47 /* SplashViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		AB82ACDF24A5472800D83E47 /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
+		ABAF39D224BF04F600FB1078 /* AddFriendConfirmCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendConfirmCell.swift; sourceTree = "<group>"; };
 		ABDAC92B24A64AE800E73667 /* SearchFriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFriendsViewController.swift; sourceTree = "<group>"; };
 		ABDAC92F24A67D8C00E73667 /* SearchFriendCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFriendCell.swift; sourceTree = "<group>"; };
 		C2CCA01F5382939D3C8C584B /* Pods-LifeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LifeTests.debug.xcconfig"; path = "Target Support Files/Pods-LifeTests/Pods-LifeTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1267,6 +1269,7 @@
 				A663A6C424BA4E870090A13D /* AddFriendSection.xib */,
 				AB30FAFA24AFAE490037BF25 /* AddFriendHeaderCell.swift */,
 				AB30FAFE24AFB2D20037BF25 /* AddFriendSection.swift */,
+				ABAF39D224BF04F600FB1078 /* AddFriendConfirmCell.swift */,
 			);
 			path = Friends;
 			sourceTree = "<group>";
@@ -1612,6 +1615,7 @@
 			files = (
 				A6DEA8A524A8717800868625 /* RCLocationLoader.swift in Sources */,
 				A6DEA88824A8530E00868625 /* Emoji.swift in Sources */,
+				ABAF39D324BF04F600FB1078 /* AddFriendConfirmCell.swift in Sources */,
 				A6DEA89F24A86A0C00868625 /* RCMenuItem.swift in Sources */,
 				A6DEA83924A8351100868625 /* SyncEngine.swift in Sources */,
 				AB13A9DF24A2EF610028731D /* ViewController.swift in Sources */,

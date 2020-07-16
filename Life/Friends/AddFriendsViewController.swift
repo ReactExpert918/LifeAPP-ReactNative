@@ -12,21 +12,31 @@ import Contacts
 class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
-    let sections = ["Friend Recommendations"]
+    let sections = ["New Friend Requests", "Friend Recommendations"]
     private var persons = realm.objects(Person.self).filter(falsepredicate)
+    private var pendingFriends = realm.objects(Person.self).filter(falsepredicate)
     var personList = [Person]()
-    
+    //Popup for sending Friend Request
     @IBOutlet weak var popupView: UIView!
     @IBOutlet weak var popupProfileImageView: UIImageView!
     @IBOutlet weak var popupNameLabel: UILabel!
     @IBOutlet weak var popupPhoneNumberLabel: UILabel!
     @IBOutlet weak var popupStatusLabel: UILabel!
+    //Popup to confirm Friend Request
+    @IBOutlet weak var confirmPopupView: UIView!
+    @IBOutlet weak var confirmPopupProfileImage: UIImageView!
+    @IBOutlet weak var confirmPopupLabel: UILabel!
+    
+    var selectedPerson : Person!
+    
+    var sectionCount = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UINib(nibName: "AddFriendSection", bundle: nil), forHeaderFooterViewReuseIdentifier: AddFriendSection.reuseIdentifier)
         tableView.tableFooterView = UIView(frame: .zero)
         loadFriendsRecommend()
+        loadPendingFriends()
         // Do any additional setup after loading the view.
     }
     func loadFriendsRecommend(){
@@ -45,11 +55,29 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
                     }
                 }
             }
-            tableView.reloadData()
+            refreshTableView()
         }
         catch {
             print("unable to fetch contacts")
         }
+    }
+    func loadPendingFriends(){
+        let predicate1 = NSPredicate(format: "objectId IN %@ AND NOT objectId IN %@ AND isDeleted == NO", Friends.friendPendingIds(), Blockeds.blockerIds())
+        pendingFriends = realm.objects(Person.self).filter(predicate1).sorted(byKeyPath: "fullname")
+        refreshTableView()
+    }
+    func refreshTableView(){
+        
+        if pendingFriends.count > 0 && personList.count > 0{
+            sectionCount = 2
+        }else if pendingFriends.count > 0{
+            sectionCount = 1
+        }else if personList.count > 0{
+            sectionCount = 1
+        }else{
+            sectionCount = 0
+        }
+        tableView.reloadData()
     }
     
     func searchPersonsByPhoneNumber(text: String = "") {
@@ -82,14 +110,61 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return personList.count
+        if section == 0{
+            if pendingFriends.count > 0{
+                return pendingFriends.count
+            }else{
+                return personList.count
+            }
+        }
+        else{
+            return personList.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "addFriendHeaderCell", for: indexPath) as! AddFriendHeaderCell
-            cell.selectionStyle = .none
-            return cell
+            if pendingFriends.count > 0{
+                let cell = tableView.dequeueReusableCell(withIdentifier: "addFriendConfirmCell", for: indexPath) as! AddFriendConfirmCell
+                let person = pendingFriends[indexPath.row]
+                cell.index = indexPath.row
+                cell.bindData(person: person)
+                cell.loadImage(person: person, tableView: tableView, indexPath: indexPath)
+                cell.selectionStyle = .none
+                cell.callbackAddFriendConfirm = { (index) in
+                    let person = self.pendingFriends[index]
+                    self.selectedPerson = person
+                    // Display info on popupview
+                    self.confirmPopupLabel.text = "Do you want to add \(person.fullname) your friend list?"
+                    self.loadRequestedFriendImage(person: person)
+
+                    self.confirmPopupView.isHidden = false
+                }
+                return cell
+            }else{
+                let cell = tableView.dequeueReusableCell(withIdentifier: "addFriendCell", for: indexPath) as! AddFriendCell
+                let person = personList[indexPath.row]
+                cell.index = indexPath.row
+                cell.bindData(person: person)
+                cell.loadImage(person: person, tableView: tableView, indexPath: indexPath)
+                cell.selectionStyle = .none
+                cell.callbackAddFriend = { (index) in
+                    let person = self.personList[index]
+                    // Display info on popupview
+                    self.popupNameLabel.text = person.fullname
+                    self.popupPhoneNumberLabel.text = person.phone
+                    self.loadImage(person: person)
+                    
+                    self.popupView.isHidden = false
+                    if (Friends.isFriend(person.objectId)) {
+                        self.popupStatusLabel.text = "Already existing in your friend list."
+                    } else {
+                        Friends.create(person.objectId)
+                        self.popupStatusLabel.text = "Successfully added to your friend list."
+                    }
+                }
+                return cell
+            }
         }else{
             let cell = tableView.dequeueReusableCell(withIdentifier: "addFriendCell", for: indexPath) as! AddFriendCell
             let person = personList[indexPath.row]
@@ -116,21 +191,26 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "AddFriendSection") as! AddFriendSection
-
-        headerView.headerTitle.text = sections[section] + " " + String(personList.count)
-
-        return headerView
+        if section == 0{
+            let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "AddFriendSection") as! AddFriendSection
+            if pendingFriends.count > 0{
+                headerView.headerTitle.text = sections[section] + " " + String(pendingFriends.count)
+            }else{
+                headerView.headerTitle.text = sections[section + 1] + " " + String(personList.count)
+            }
+            return headerView
+        }
+        else{
+            let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "AddFriendSection") as! AddFriendSection
+            headerView.headerTitle.text = sections[section] + " " + String(personList.count)
+            return headerView
+        }
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 48
     }
     func numberOfSections(in tableView: UITableView) -> Int {
-        if personList.count == 0{
-            return 0
-        }else{
-            return 1
-        }
+        return sectionCount
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 64
@@ -161,6 +241,19 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
 
     }
     
+    func loadRequestedFriendImage(person: Person) {
+
+        MediaDownload.startUser(person.objectId, pictureAt: person.pictureAt) { image, error in
+            if (error == nil) {
+                self.confirmPopupProfileImage.image = image
+                self.confirmPopupProfileImage.makeRounded()
+            }
+            else{
+                self.confirmPopupProfileImage.image = UIImage(named: "ic_default_profile")
+            }
+        }
+    }
+    
     func downloadImage(person: Person) {
 
         MediaDownload.startUser(person.objectId, pictureAt: person.pictureAt) { image, error in
@@ -173,5 +266,14 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
             }
         }
     }
-    
+    @IBAction func onDeclineTapped(_ sender: Any) {
+        confirmPopupView.isHidden = true
+        Friends.update(selectedPerson.objectId, isAccepted: false)
+        loadPendingFriends()
+    }
+    @IBAction func onAcceptTapped(_ sender: Any) {
+        confirmPopupView.isHidden = true
+        Friends.update(selectedPerson.objectId, isAccepted: true)
+        loadPendingFriends()
+    }
 }
