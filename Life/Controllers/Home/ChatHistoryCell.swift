@@ -48,16 +48,26 @@ class ChatHistoryCell: UITableViewCell {
     func loadImage(chat: Chat, tableView: UITableView, indexPath: IndexPath) {
 
         if (chat.isPrivate) {
-//            let isRecipient = (chat.userId1 != AuthUser.userId())
-//            let userId = isRecipient ? chat.userId1 : chat.userId2
+            let isRecipient = (chat.userId1 != AuthUser.userId())
+            let userId = isRecipient ? chat.userId1 : chat.userId2
+            /*
+            if let path = MediaDownload.pathUser(userId) {
+                profileImageView.image = UIImage.image(path, size: 50)
+                //labelInitials.text = nil
+            } else {
+                profileImageView.image = nil
+                //labelInitials.text = chat.initials
+                downloadImage(chat: chat, tableView: tableView, indexPath: indexPath)
+            }
+ */
             downloadImage(chat: chat, tableView: tableView, indexPath: indexPath)
         }
 
         if (chat.isGroup) {
             profileImageView.image = nil
             //labelInitials.text = chat.initials
-            downloadGroupImage(chat: chat, tableView: tableView, indexPath: indexPath)
         }
+        
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
@@ -67,23 +77,6 @@ class ChatHistoryCell: UITableViewCell {
         let pictureAt = isRecipient ? chat.pictureAt1 : chat.pictureAt2
         
         MediaDownload.startUser(userId, pictureAt: pictureAt) { image, error in
-            let indexSelf = tableView.indexPath(for: self)
-            if ((indexSelf == nil) || (indexSelf == indexPath)) {
-                if (error == nil) {
-                    self.profileImageView.image = image
-                    //self.labelInitials.text = nil
-                } else{
-                    self.profileImageView.image = UIImage(named: "ic_default_profile")
-                }
-            }
-        }
-    }
-    //---------------------------------------------------------------------------------------------------------------------------------------------
-    func downloadGroupImage(chat: Chat, tableView: UITableView, indexPath: IndexPath) {
-        let objectId = chat.objectId
-        let pictureAt = chat.pictureAt
-        
-        MediaDownload.startGroup(objectId, pictureAt: pictureAt) { image, error in
             let indexSelf = tableView.indexPath(for: self)
             if ((indexSelf == nil) || (indexSelf == indexPath)) {
                 if (error == nil) {

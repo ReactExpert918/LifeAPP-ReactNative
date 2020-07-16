@@ -93,8 +93,6 @@ class FireObservers: NSObject {
 	private func createObserverFriend() {
 
 		let query = Firestore.firestore().collection("Friend")
-            .whereField("isDeleted", isEqualTo: false)
-			//.whereField("userId", isEqualTo: AuthUser.userId())
 		observerFriend = FireObserver(query, to: Friend.self)
 	}
 

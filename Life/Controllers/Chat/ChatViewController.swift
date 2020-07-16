@@ -12,7 +12,7 @@ import ProgressHUD
 import InputBarAccessoryView
 import IQKeyboardManagerSwift
 
-class ChatViewController: RCMessagesView {
+class ChatViewController: UIViewController {
 
     private var chatId = ""
     private var recipientId = ""
@@ -35,9 +35,17 @@ class ChatViewController: RCMessagesView {
     @IBOutlet weak var topbarView: UIView!
 
     @IBOutlet weak var searchBar: UISearchBar!
-       
-    private var textTitle: String?
+    
+    @IBOutlet weak var tableView: UITableView!
         
+    var refreshControl = UIRefreshControl()
+    
+    private var isTyping = false
+    private var textTitle: String?
+    
+    var messageInputBar = InputBarAccessoryView()
+    private var keyboardManager = KeyboardManager()
+    
     private var heightKeyboard: CGFloat = 0
     private var keyboardWillShow = false
         
@@ -66,9 +74,32 @@ class ChatViewController: RCMessagesView {
         searchBar.tintColor = UIColor(hexString: "#FFFFFF")
         searchBar.delegate = self
         
+        tableView.register(RCHeaderUpperCell.self, forCellReuseIdentifier: "RCHeaderUpperCell")
+        tableView.register(RCHeaderLowerCell.self, forCellReuseIdentifier: "RCHeaderLowerCell")
+
+        tableView.register(RCMessageTextCell.self, forCellReuseIdentifier: "RCMessageTextCell")
+        tableView.register(RCMessageEmojiCell.self, forCellReuseIdentifier: "RCMessageEmojiCell")
+        tableView.register(RCMessagePhotoCell.self, forCellReuseIdentifier: "RCMessagePhotoCell")
+        tableView.register(RCMessageVideoCell.self, forCellReuseIdentifier: "RCMessageVideoCell")
+        tableView.register(RCMessageAudioCell.self, forCellReuseIdentifier: "RCMessageAudioCell")
+        tableView.register(RCMessageLocationCell.self, forCellReuseIdentifier: "RCMessageLocationCell")
+
+        tableView.register(RCFooterUpperCell.self, forCellReuseIdentifier: "RCFooterUpperCell")
+        tableView.register(RCFooterLowerCell.self, forCellReuseIdentifier: "RCFooterLowerCell")
+
+        tableView.delegate = self
+        tableView.dataSource = self
+        //tableView.tableHeaderView = viewLoadEarlier
+        
+        refreshControl.addTarget(self, action: #selector(actionLoadEarlier), for: UIControl.Event.valueChanged)
+        tableView.addSubview(refreshControl)
+        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
 
+        // Do any additional setup after loading the view.
+        configureMessageInputBar()
+        
         loadDetail()
         loadDetails()
         loadMessages()
@@ -107,7 +138,7 @@ class ChatViewController: RCMessagesView {
     }
     // MARK: - User actions (load earlier)
     //---------------------------------------------------------------------------------------------------------------------------------------------
-    override func actionLoadEarlier() {
+    @objc func actionLoadEarlier() {
 
         messageToDisplay += 12
         refreshLoadEarlier()
@@ -116,8 +147,6 @@ class ChatViewController: RCMessagesView {
     }
     func showCallToolbar(value: Bool) {
         callToolbarView.isHidden = !value
-        //callToolbarView.layer.zPosition = 1
-        self.view.bringSubviewToFront(callToolbarView)
         isShowingToolbar = value
         if value == true {
             plusButton.setImage(UIImage(named: "cancel"), for: .normal)
@@ -125,7 +154,6 @@ class ChatViewController: RCMessagesView {
         else{
             plusButton.setImage(UIImage(named: "ic_plus"), for: .normal)
         }
-        
     }
     @IBAction func actionPlusButton(_ sender: Any) {
         if isShowingToolbar == false {
@@ -317,7 +345,7 @@ class ChatViewController: RCMessagesView {
     }
     // MARK: - Message methods
     //---------------------------------------------------------------------------------------------------------------------------------------------
-    override func rcmessageAt(_ indexPath: IndexPath) -> RCMessage {
+    func rcmessageAt(_ indexPath: IndexPath) -> RCMessage {
         let message = messageAt(indexPath)
         if let rcmessage = rcmessages[message.objectId] {
             rcmessage.update(message)
@@ -344,14 +372,14 @@ class ChatViewController: RCMessagesView {
     }
     // MARK: - Avatar methods
     //---------------------------------------------------------------------------------------------------------------------------------------------
-    override func avatarInitials(_ indexPath: IndexPath) -> String {
+    func avatarInitials(_ indexPath: IndexPath) -> String {
 
         let rcmessage = rcmessageAt(indexPath)
         return rcmessage.userInitials
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
-    override func avatarImage(_ indexPath: IndexPath) -> UIImage? {
+    func avatarImage(_ indexPath: IndexPath) -> UIImage? {
 
         let rcmessage = rcmessageAt(indexPath)
         var imageAvatar = avatarImages[rcmessage.userId]
@@ -381,7 +409,7 @@ class ChatViewController: RCMessagesView {
 
     // MARK: - Header, Footer methods
     //---------------------------------------------------------------------------------------------------------------------------------------------
-    override func textHeaderUpper(_ indexPath: IndexPath) -> String? {
+    func textHeaderUpper(_ indexPath: IndexPath) -> String? {
 
         let rcmessage = rcmessageAt(indexPath)
         var previousDate = ""
@@ -399,19 +427,19 @@ class ChatViewController: RCMessagesView {
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
-    override func textHeaderLower(_ indexPath: IndexPath) -> String? {
+    func textHeaderLower(_ indexPath: IndexPath) -> String? {
         let rcmessage = rcmessageAt(indexPath)
         return Convert.timestampToDayTime(rcmessage.createdAt)
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
-    override func textFooterUpper(_ indexPath: IndexPath) -> String? {
+    func textFooterUpper(_ indexPath: IndexPath) -> String? {
 
         return nil
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
-    override func textFooterLower(_ indexPath: IndexPath) -> UIImage? {
+    func textFooterLower(_ indexPath: IndexPath) -> UIImage? {
 
         let rcmessage = rcmessageAt(indexPath)
         if (rcmessage.outgoing) {
@@ -425,7 +453,7 @@ class ChatViewController: RCMessagesView {
     }
     // MARK: - Menu controller methods
     //---------------------------------------------------------------------------------------------------------------------------------------------
-    override func menuItems(_ indexPath: IndexPath) -> [RCMenuItem]? {
+    func menuItems(_ indexPath: IndexPath) -> [RCMenuItem]? {
 
         let menuItemCopy = RCMenuItem(title: "Copy", action: #selector(actionMenuCopy(_:)))
         let menuItemSave = RCMenuItem(title: "Save", action: #selector(actionMenuSave(_:)))
@@ -469,7 +497,7 @@ class ChatViewController: RCMessagesView {
     }
     // MARK: - User actions (bubble tap)
     //---------------------------------------------------------------------------------------------------------------------------------------------
-    override func actionTapBubble(_ indexPath: IndexPath) {
+    func actionTapBubble(_ indexPath: IndexPath) {
         let rcmessage = rcmessageAt(indexPath)
 
         if (rcmessage.mediaStatus == MediaStatus.MEDIASTATUS_MANUAL) {
@@ -517,7 +545,7 @@ class ChatViewController: RCMessagesView {
 
     // MARK: - User actions (avatar tap)
     //---------------------------------------------------------------------------------------------------------------------------------------------
-    override func actionTapAvatar(_ indexPath: IndexPath) {
+    func actionTapAvatar(_ indexPath: IndexPath) {
 
     }
     // MARK: - User actions (menu)
@@ -600,15 +628,15 @@ class ChatViewController: RCMessagesView {
 
     }
     
-    override func actionOpenCamera() {
+    func actionOpenCamera() {
         ImagePicker.cameraMulti(target: self, edit: true)
     }
     
-    override func actionOpenGallery() {
+    func actionOpenGallery() {
         ImagePicker.photoLibrary(target: self, edit: true)
     }
     //---------------------------------------------------------------------------------------------------------------------------------------------
-    override func actionSendMessage(_ text: String) {
+    func actionSendMessage(_ text: String) {
         messageSend(text: text, photo: nil, video: nil, audio: nil)
     }
     // MARK: - Helper methods
@@ -616,7 +644,7 @@ class ChatViewController: RCMessagesView {
     func layoutTableView() {
 
         let heightInput = messageInputBar.bounds.height
-
+/*
         let widthView    = view.frame.size.width
         let heightView    = view.frame.size.height
 
@@ -626,10 +654,10 @@ class ChatViewController: RCMessagesView {
         let tableviewtoppos = statusbarView.frame.height + topbarView.frame.height
 
         let widthTable = widthView - leftSafe - rightSafe
-        let heightTable = heightView -/* heightInput - heightKeyboard - */tableviewtoppos
+        let heightTable = heightView - heightInput - heightKeyboard - tableviewtoppos
 
         tableView.frame = CGRect(x: leftSafe, y: tableviewtoppos, width: widthTable, height: heightTable)
-
+*/
         let edgeInset = UIEdgeInsets(top: 0, left: 0, bottom: heightInput + heightKeyboard, right: 0)
 
         tableView.contentInset = edgeInset        
@@ -643,10 +671,22 @@ class ChatViewController: RCMessagesView {
             tableView.scrollToRow(at: indexPath, at: .top, animated: animated)
         }
     }
+    // MARK: - Typing indicator methods
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func typingIndicatorShow(_ typing: Bool, text: String = "typing...") {
 
+        if (typing == true) && (isTyping == false) {
+//            textTitle = typingLabel?.text
+//            typingLabel?.text = text
+        }
+        if (typing == false) && (isTyping == true) {
+//            typingLabel?.text = textTitle
+        }
+        isTyping = typing
+    }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
-    override func typingIndicatorUpdate() {
+    func typingIndicatorUpdate() {
         typingCounter += 1
         detail?.update(typing: true)
 
@@ -661,10 +701,6 @@ class ChatViewController: RCMessagesView {
         if (typingCounter == 0) {
             detail?.update(typing: false)
         }
-    }
-    override func numberOfSections(in tableView: UITableView) -> Int {
-
-        return messageLoadedCount()
     }
     // MARK: - Keyboard methods
     //---------------------------------------------------------------------------------------------------------------------------------------------
@@ -708,11 +744,286 @@ class ChatViewController: RCMessagesView {
         layoutTableView()
     }
 
-    
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func dismissKeyboard() {
+
+        messageInputBar.inputTextView.resignFirstResponder()
+    }
+    func configureMessageInputBar() {
+
+        view.addSubview(messageInputBar)
+        callToolbarView.layer.zPosition = 1
+
+        keyboardManager.bind(inputAccessoryView: messageInputBar)
+        keyboardManager.bind(to: tableView)
+
+        messageInputBar.delegate = self
+
+        /*
+        let button = InputBarButtonItem()
+        button.image = UIImage(systemName: "plus")
+        button.setSize(CGSize(width: 36, height: 36), animated: false)
+
+        button.onKeyboardSwipeGesture { item, gesture in
+            if (gesture.direction == .left)     { item.inputBarAccessoryView?.setLeftStackViewWidthConstant(to: 0, animated: true)        }
+            if (gesture.direction == .right) { item.inputBarAccessoryView?.setLeftStackViewWidthConstant(to: 36, animated: true)    }
+        }
+         */
+        let cameraButton = InputBarButtonItem()
+        cameraButton.image = UIImage(named: "ic_camera")
+        cameraButton.setSize(CGSize(width: 34, height: 36), animated: false)
+        //cameraButton.contentEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+
+        cameraButton.onKeyboardSwipeGesture { item, gesture in
+            if (gesture.direction == .left)     { item.inputBarAccessoryView?.setLeftStackViewWidthConstant(to: 0, animated: true)        }
+            if (gesture.direction == .right) { item.inputBarAccessoryView?.setLeftStackViewWidthConstant(to: 36, animated: true)    }
+        }
+
+        cameraButton.onTouchUpInside { item in
+            self.actionOpenCamera()
+        }
+
+        let galleryButton = InputBarButtonItem()
+        galleryButton.image = UIImage(named: "ic_gallery")
+        galleryButton.setSize(CGSize(width: 30, height: 36), animated: false)
+        //galleryButton.contentEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        
+        galleryButton.onKeyboardSwipeGesture { item, gesture in
+            if (gesture.direction == .left)     { item.inputBarAccessoryView?.setLeftStackViewWidthConstant(to: 0, animated: true)        }
+            if (gesture.direction == .right) { item.inputBarAccessoryView?.setLeftStackViewWidthConstant(to: 36, animated: true)    }
+        }
+
+        galleryButton.onTouchUpInside { item in
+            self.actionOpenGallery()
+        }
+
+        messageInputBar.setStackViewItems([cameraButton, galleryButton], forStack: .left, animated: false)
+        messageInputBar.leftStackView.isLayoutMarginsRelativeArrangement = false
+        messageInputBar.leftStackView.spacing = 8
+
+        messageInputBar.sendButton.title = nil
+        messageInputBar.sendButton.image = UIImage(named: "ic_send")
+        messageInputBar.sendButton.setSize(CGSize(width: 32, height: 36), animated: false)        
+
+        messageInputBar.setLeftStackViewWidthConstant(to: 72, animated: false)
+        messageInputBar.setRightStackViewWidthConstant(to: 36, animated: false)
+
+        messageInputBar.middleContentViewPadding = UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 5)
+        messageInputBar.inputTextView.placeholder = "Enter a message"
+        messageInputBar.inputTextView.backgroundColor = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1)
+        messageInputBar.inputTextView.placeholderTextColor = UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
+        messageInputBar.inputTextView.textContainerInset = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 36)
+        messageInputBar.inputTextView.placeholderLabelInsets = UIEdgeInsets(top: 8, left: 20, bottom: 8, right: 36)
+        messageInputBar.inputTextView.layer.borderColor = UIColor(red: 200/255, green: 200/255, blue: 200/255, alpha: 1).cgColor
+        messageInputBar.inputTextView.layer.borderWidth = 1.0
+        messageInputBar.inputTextView.layer.cornerRadius = 16.0
+        messageInputBar.inputTextView.layer.masksToBounds = true
+        messageInputBar.inputTextView.scrollIndicatorInsets = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
+        messageInputBar.inputTextView.isImagePasteEnabled = false
+    }
     @IBAction func onBackPressed(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
     
+}
+// MARK: - UITableViewDataSource
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+extension ChatViewController: UITableViewDataSource {
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
+        return 5
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func numberOfSections(in tableView: UITableView) -> Int {
+
+        return messageLoadedCount()
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+        if (indexPath.row == 0)                        { return cellForHeaderUpper(tableView, at: indexPath)        }
+        if (indexPath.row == 1)                        { return cellForHeaderLower(tableView, at: indexPath)        }
+
+        if (indexPath.row == 2) {
+            let rcmessage = rcmessageAt(indexPath)
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_TEXT)        { return cellForMessageText(tableView, at: indexPath)        }
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_EMOJI)    { return cellForMessageEmoji(tableView, at: indexPath)        }
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_PHOTO)    { return cellForMessagePhoto(tableView, at: indexPath)        }
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_VIDEO)    { return cellForMessageVideo(tableView, at: indexPath)        }
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_AUDIO)    { return cellForMessageAudio(tableView, at: indexPath)        }
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_LOCATION)    { return cellForMessageLocation(tableView, at: indexPath)    }
+        }
+
+        if (indexPath.row == 3)                        { return cellForFooterUpper(tableView, at: indexPath)        }
+        if (indexPath.row == 4)                        { return cellForFooterLower(tableView, at: indexPath)        }
+
+        return UITableViewCell()
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func cellForHeaderUpper(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
+
+        let cell = tableView.dequeueReusableCell(withIdentifier: "RCHeaderUpperCell", for: indexPath) as! RCHeaderUpperCell
+        cell.bindData(self, at: indexPath)
+        return cell
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func cellForHeaderLower(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
+
+        let cell = tableView.dequeueReusableCell(withIdentifier: "RCHeaderLowerCell", for: indexPath) as! RCHeaderLowerCell
+        cell.bindData(self, at: indexPath)
+        return cell
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func cellForMessageText(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
+
+        let cell = tableView.dequeueReusableCell(withIdentifier: "RCMessageTextCell", for: indexPath) as! RCMessageTextCell
+        cell.bindData(self, at: indexPath)
+        return cell
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func cellForMessageEmoji(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
+
+        let cell = tableView.dequeueReusableCell(withIdentifier: "RCMessageEmojiCell", for: indexPath) as! RCMessageEmojiCell
+        cell.bindData(self, at: indexPath)
+        return cell
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func cellForMessagePhoto(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
+
+        let cell = tableView.dequeueReusableCell(withIdentifier: "RCMessagePhotoCell", for: indexPath) as! RCMessagePhotoCell
+        cell.bindData(self, at: indexPath)
+        return cell
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func cellForMessageVideo(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
+
+        let cell = tableView.dequeueReusableCell(withIdentifier: "RCMessageVideoCell", for: indexPath) as! RCMessageVideoCell
+        cell.bindData(self, at: indexPath)
+        return cell
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func cellForMessageAudio(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
+
+        let cell = tableView.dequeueReusableCell(withIdentifier: "RCMessageAudioCell", for: indexPath) as! RCMessageAudioCell
+        cell.bindData(self, at: indexPath)
+        return cell
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func cellForMessageLocation(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
+
+        let cell = tableView.dequeueReusableCell(withIdentifier: "RCMessageLocationCell", for: indexPath) as! RCMessageLocationCell
+        cell.bindData(self, at: indexPath)
+        return cell
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func cellForFooterUpper(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
+
+        let cell = tableView.dequeueReusableCell(withIdentifier: "RCFooterUpperCell", for: indexPath) as! RCFooterUpperCell
+        cell.bindData(self, at: indexPath)
+        return cell
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func cellForFooterLower(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
+
+        let cell = tableView.dequeueReusableCell(withIdentifier: "RCFooterLowerCell", for: indexPath) as! RCFooterLowerCell
+        cell.bindData(self, at: indexPath)
+        return cell
+    }
+}
+
+// MARK: - UITableViewDelegate
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+extension ChatViewController: UITableViewDelegate {
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+
+        view.tintColor = UIColor.clear
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
+
+        view.tintColor = UIColor.clear
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+
+        if (indexPath.row == 0)                        { return RCHeaderUpperCell.height(self, at: indexPath)        }
+        if (indexPath.row == 1)                        { return RCHeaderLowerCell.height(self, at: indexPath)        }
+
+        if (indexPath.row == 2) {
+            let rcmessage = rcmessageAt(indexPath)
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_TEXT)        { return RCMessageTextCell.height(self, at: indexPath)        }
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_EMOJI)    { return RCMessageEmojiCell.height(self, at: indexPath)        }
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_PHOTO)    { return RCMessagePhotoCell.height(self, at: indexPath)        }
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_VIDEO)    { return RCMessageVideoCell.height(self, at: indexPath)        }
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_AUDIO)    { return RCMessageAudioCell.height(self, at: indexPath)        }
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_LOCATION)    { return RCMessageLocationCell.height(self, at: indexPath)    }
+        }
+
+        if (indexPath.row == 3)                        { return RCFooterUpperCell.height(self, at: indexPath)        }
+        if (indexPath.row == 4)                        { return RCFooterLowerCell.height(self, at: indexPath)        }
+
+        return 0
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+
+        return RCDefaults.sectionHeaderMargin
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+
+        return RCDefaults.sectionFooterMargin
+    }
+}
+extension ChatViewController: InputBarAccessoryViewDelegate {
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func inputBar(_ inputBar: InputBarAccessoryView, textViewTextDidChangeTo text: String) {
+
+        if (text != "") {
+            typingIndicatorUpdate()
+        }
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func inputBar(_ inputBar: InputBarAccessoryView, didChangeIntrinsicContentTo size: CGSize) {
+        
+        /*
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.scrollToBottom(animated: true)
+        }
+        */
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
+
+        for component in inputBar.inputTextView.components {
+            if let text = component as? String {
+                actionSendMessage(text)
+            }
+        }
+        messageInputBar.inputTextView.text = ""
+        messageInputBar.invalidatePlugins()
+    }
 }
 
 // MARK: - UIImagePickerControllerDelegate

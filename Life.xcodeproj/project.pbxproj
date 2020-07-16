@@ -75,8 +75,6 @@
 		A67A49B724BA33080016DD41 /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A67A49B924BA33080016DD41 /* Setting.storyboard */; };
 		A67A49C024BA338F0016DD41 /* Group.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A67A49C224BA338F0016DD41 /* Group.storyboard */; };
 		A682AA2124BC51F600003BD7 /* DottedProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A682AA2024BC51F500003BD7 /* DottedProgressBar.swift */; };
-		A69D5EE024BFE67300B3BE33 /* GroupChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69D5EDF24BFE67300B3BE33 /* GroupChatViewController.swift */; };
-		A69D5EE224BFF0E500B3BE33 /* RCMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69D5EE124BFF0E500B3BE33 /* RCMessageView.swift */; };
 		A6BD965E24B4D2FC00E1B873 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BD965D24B4D2FC00E1B873 /* ImagePicker.swift */; };
 		A6BD966224B4D54800E1B873 /* AudioView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A6BD966024B4D54800E1B873 /* AudioView.xib */; };
 		A6BD966324B4D54800E1B873 /* AudioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BD966124B4D54800E1B873 /* AudioView.swift */; };
@@ -343,8 +341,6 @@
 		A67A49C724BA33B40016DD41 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Friend.strings; sourceTree = "<group>"; };
 		A67A49C924BA33B40016DD41 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Setting.strings; sourceTree = "<group>"; };
 		A682AA2024BC51F500003BD7 /* DottedProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DottedProgressBar.swift; sourceTree = "<group>"; };
-		A69D5EDF24BFE67300B3BE33 /* GroupChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupChatViewController.swift; sourceTree = "<group>"; };
-		A69D5EE124BFF0E500B3BE33 /* RCMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RCMessageView.swift; sourceTree = "<group>"; };
 		A6BD965D24B4D2FC00E1B873 /* ImagePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		A6BD966024B4D54800E1B873 /* AudioView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AudioView.xib; sourceTree = "<group>"; };
 		A6BD966124B4D54800E1B873 /* AudioView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioView.swift; sourceTree = "<group>"; };
@@ -881,7 +877,6 @@
 			children = (
 				A6DEA81924A82A5F00868625 /* Cell */,
 				A6DEA89D24A86A0C00868625 /* MenuItem */,
-				A69D5EE124BFF0E500B3BE33 /* RCMessageView.swift */,
 			);
 			path = MessageView;
 			sourceTree = "<group>";
@@ -1169,7 +1164,6 @@
 			isa = PBXGroup;
 			children = (
 				A6F7883324A6ED400019B35D /* ChatViewController.swift */,
-				A69D5EDF24BFE67300B3BE33 /* GroupChatViewController.swift */,
 				A6302BB324B9A34B00345FC9 /* NewConversationViewController.swift */,
 			);
 			path = Chat;
@@ -1682,7 +1676,6 @@
 				A6BD966C24B4D56900E1B873 /* StickersView.swift in Sources */,
 				A6DEA89224A8557000868625 /* Convert.swift in Sources */,
 				A6DEA88C24A8536900868625 /* Video.swift in Sources */,
-				A69D5EE024BFE67300B3BE33 /* GroupChatViewController.swift in Sources */,
 				A6BD965E24B4D2FC00E1B873 /* ImagePicker.swift in Sources */,
 				A6E73B4324A4F3140008CBFE /* RoundButton.swift in Sources */,
 				AB277A7F24ACFC6000D6C783 /* CornerView.swift in Sources */,
@@ -1720,7 +1713,6 @@
 				AB82ACD124A5452700D83E47 /* SettingCellHeader.swift in Sources */,
 				A6F564D124A9B53C0061007E /* RCFooterLowerCell.swift in Sources */,
 				A6DEA87924A848E000868625 /* Detail.swift in Sources */,
-				A69D5EE224BFF0E500B3BE33 /* RCMessageView.swift in Sources */,
 				A6DEA86C24A8405300868625 /* Blockeds.swift in Sources */,
 				AB3A81BD24AA3B900089127E /* AddPictureViewController.swift in Sources */,
 				AB82ACD124A5452700D83E47 /* SettingCellHeader.swift in Sources */,

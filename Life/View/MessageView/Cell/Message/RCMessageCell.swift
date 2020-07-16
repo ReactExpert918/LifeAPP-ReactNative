@@ -15,7 +15,7 @@ import UIKit
 class RCMessageCell: UITableViewCell {
 
 	var indexPath: IndexPath!
-	var messagesView: RCMessagesView!
+	var messagesView: ChatViewController!
 
 	var viewBubble: UIView!
 
@@ -23,7 +23,7 @@ class RCMessageCell: UITableViewCell {
 	private var labelAvatar: UILabel!
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	func bindData(_ messagesView: RCMessagesView, at indexPath: IndexPath) {
+	func bindData(_ messagesView: ChatViewController, at indexPath: IndexPath) {
 
 		self.indexPath = indexPath
 		self.messagesView = messagesView

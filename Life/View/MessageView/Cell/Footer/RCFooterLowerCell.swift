@@ -15,12 +15,12 @@ import UIKit
 class RCFooterLowerCell: UITableViewCell {
 
 	private var indexPath: IndexPath!
-	private var messagesView: RCMessagesView!
+	private var messagesView: ChatViewController!
 
 	private var statusImageView: UIImageView!
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	func bindData(_ messagesView: RCMessagesView, at indexPath: IndexPath) {
+	func bindData(_ messagesView: ChatViewController, at indexPath: IndexPath) {
 
 		self.indexPath = indexPath
 		self.messagesView = messagesView
@@ -53,7 +53,7 @@ class RCFooterLowerCell: UITableViewCell {
 
 	// MARK: - Size methods
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	class func height(_ messagesView: RCMessagesView, at indexPath: IndexPath) -> CGFloat {
+	class func height(_ messagesView: ChatViewController, at indexPath: IndexPath) -> CGFloat {
 
 		return (messagesView.textFooterLower(indexPath) != nil) ? RCDefaults.footerLowerHeight : 0
 	}
