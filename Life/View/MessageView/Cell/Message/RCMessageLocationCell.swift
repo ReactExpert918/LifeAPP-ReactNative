@@ -18,7 +18,7 @@ class RCMessageLocationCell: RCMessageCell {
 	private var activityIndicator: UIActivityIndicatorView!
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	override func bindData(_ messagesView: ChatViewController, at indexPath: IndexPath) {
+	override func bindData(_ messagesView: RCMessagesView, at indexPath: IndexPath) {
 
 		super.bindData(messagesView, at: indexPath)
 
@@ -67,14 +67,14 @@ class RCMessageLocationCell: RCMessageCell {
 
 	// MARK: - Size methods
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	class func height(_ messagesView: ChatViewController, at indexPath: IndexPath) -> CGFloat {
+	class func height(_ messagesView: RCMessagesView, at indexPath: IndexPath) -> CGFloat {
 
 		let size = self.size(messagesView, at: indexPath)
 		return size.height
 	}
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	class func size(_ messagesView: ChatViewController, at indexPath: IndexPath) -> CGSize {
+	class func size(_ messagesView: RCMessagesView, at indexPath: IndexPath) -> CGSize {
 
 		return CGSize(width: RCDefaults.locationBubbleWidth, height: RCDefaults.locationBubbleHeight)
 	}

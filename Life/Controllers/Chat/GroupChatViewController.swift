@@ -1,21 +1,20 @@
 //
-//  ChatViewController.swift
+//  GroupChatViewController.swift
 //  Life
 //
-//  Created by XianHuang on 6/26/20.
-//  Copyright © 2020 Yun Li. All rights reserved.
+//  Created by XianHuang on 7/15/20.
+//  Copyright © 2020 Zed. All rights reserved.
 //
 
 import UIKit
 import RealmSwift
 import ProgressHUD
-import InputBarAccessoryView
+
 import IQKeyboardManagerSwift
 
-class ChatViewController: RCMessagesView {
+class GroupChatViewController: RCMessagesView {
 
     private var chatId = ""
-    private var recipientId = ""
     
     private var detail: Detail?
     private var details = realm.objects(Detail.self).filter(falsepredicate)
@@ -23,11 +22,6 @@ class ChatViewController: RCMessagesView {
     
     private var tokenDetails: NotificationToken? = nil
     private var tokenMessages: NotificationToken? = nil
-
-
-    private var isShowingToolbar = false
-    @IBOutlet weak var plusButton: UIButton!
-    @IBOutlet weak var callToolbarView: UIView!
     
     
     @IBOutlet weak var participantNameLabel: UILabel!
@@ -83,7 +77,6 @@ class ChatViewController: RCMessagesView {
         super.viewWillAppear(animated)
 
         updateTitleDetails()
-        showCallToolbar(value: false)
 
     }
 
@@ -114,51 +107,22 @@ class ChatViewController: RCMessagesView {
         refreshTableView()
         refreshControl.endRefreshing()
     }
-    func showCallToolbar(value: Bool) {
-        callToolbarView.isHidden = !value
-        //callToolbarView.layer.zPosition = 1
-        self.view.bringSubviewToFront(callToolbarView)
-        isShowingToolbar = value
-        if value == true {
-            plusButton.setImage(UIImage(named: "cancel"), for: .normal)
-        }
-        else{
-            plusButton.setImage(UIImage(named: "ic_plus"), for: .normal)
-        }
-        
-    }
-    @IBAction func actionPlusButton(_ sender: Any) {
-        if isShowingToolbar == false {
-            isShowingToolbar = true
-        }
-        else{
-            isShowingToolbar = false
-        }
-        showCallToolbar(value: isShowingToolbar)
-    }
     
-    @IBAction func actionZedPay(_ sender: Any) {
-        showCallToolbar(value: false)
-    }
+
     @IBAction func actionAudioCall(_ sender: Any) {
-        showCallToolbar(value: false)
-        let callAudioView = CallAudioView(userId: self.recipientId)
-        present(callAudioView, animated: true)
+        
     }
     
     @IBAction func actionVideoCall(_ sender: Any) {
-        showCallToolbar(value: false)
-        let callVideoView = CallVideoView(userId: self.recipientId)
-        present(callVideoView, animated: true)
+        
     }
     
     // MARK: - Title details methods
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func updateTitleDetails() {
 
-        if let person = realm.object(ofType: Person.self, forPrimaryKey: recipientId) {
-            participantNameLabel.text = person.fullname
-//            labelTitle2.text = person.lastActiveText()
+        if let group = realm.object(ofType: Group.self, forPrimaryKey: chatId) {
+            participantNameLabel.text = group.name
         }
     }
     // MARK: - Cleanup methods
@@ -170,9 +134,8 @@ class ChatViewController: RCMessagesView {
 
         detail?.update(typing: false)
     }
-    func setParticipant(chatId: String, recipientId: String) {
+    func setChatId(chatId: String) {
         self.chatId = chatId
-        self.recipientId = recipientId
     }
     // MARK: - Realm methods
     //---------------------------------------------------------------------------------------------------------------------------------------------
@@ -632,7 +595,7 @@ class ChatViewController: RCMessagesView {
 
         let edgeInset = UIEdgeInsets(top: 0, left: 0, bottom: heightInput + heightKeyboard, right: 0)
 
-        tableView.contentInset = edgeInset        
+        tableView.contentInset = edgeInset
         tableView.scrollIndicatorInsets = edgeInset
     }
     //---------------------------------------------------------------------------------------------------------------------------------------------
@@ -717,7 +680,7 @@ class ChatViewController: RCMessagesView {
 
 // MARK: - UIImagePickerControllerDelegate
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-extension ChatViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+extension GroupChatViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
@@ -733,7 +696,7 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
 
 // MARK: - AudioDelegate
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-extension ChatViewController: AudioDelegate {
+extension GroupChatViewController: AudioDelegate {
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func didRecordAudio(path: String) {
@@ -744,7 +707,7 @@ extension ChatViewController: AudioDelegate {
 
 // MARK: - StickersDelegate
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-extension ChatViewController: StickersDelegate {
+extension GroupChatViewController: StickersDelegate {
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func didSelectSticker(sticker: UIImage) {
@@ -755,7 +718,7 @@ extension ChatViewController: StickersDelegate {
 
 // MARK: - SelectUsersDelegate
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-extension ChatViewController: SelectUsersDelegate {
+extension GroupChatViewController: SelectUsersDelegate {
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func didSelectUsers(userIds: [String]) {
@@ -775,7 +738,7 @@ extension ChatViewController: SelectUsersDelegate {
 
 // MARK: - UISearchBarDelegate
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-extension ChatViewController: UISearchBarDelegate {
+extension GroupChatViewController: UISearchBarDelegate {
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

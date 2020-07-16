@@ -152,7 +152,13 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
         
         let chat = chats[indexPath.row]
         if (chat.isGroup){
-            
+            let vc =  self.storyboard?.instantiateViewController(identifier: "groupChatViewController") as! GroupChatViewController
+            vc.setChatId(chatId: chat.objectId)
+            vc.modalPresentationStyle = .fullScreen
+            vc.hidesBottomBarWhenPushed = true
+            //self.present(vc, animated: true, completion: nil)
+            self.navigationController?.pushViewController(vc, animated: true)
+
         }
         else if (chat.isPrivate) {
             let isRecipient = (chat.userId1 != AuthUser.userId())
