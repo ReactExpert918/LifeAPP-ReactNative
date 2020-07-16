@@ -9,20 +9,14 @@
 import UIKit
 import FittedSheets
 import Contacts
-import RealmSwift
 class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
     let sections = ["New Friend Requests", "Friend Recommendations"]
-    private var tokenFriends: NotificationToken? = nil
-    
-    private var friends = realm.objects(Friend.self).filter(falsepredicate)
     private var persons = realm.objects(Person.self).filter(falsepredicate)
     private var pendingFriends = realm.objects(Person.self).filter(falsepredicate)
-    private var callbackedFriends = realm.objects(Person.self).filter(falsepredicate)
-    
     var personList = [Person]()
-    //Popup to send Friend Request and start chat
+    //Popup for sending Friend Request
     @IBOutlet weak var popupView: UIView!
     @IBOutlet weak var popupProfileImageView: UIImageView!
     @IBOutlet weak var popupNameLabel: UILabel!
@@ -32,8 +26,6 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var confirmPopupView: UIView!
     @IBOutlet weak var confirmPopupProfileImage: UIImageView!
     @IBOutlet weak var confirmPopupLabel: UILabel!
-    //Popup to confirm Callback
-    
     
     var selectedPerson : Person!
     
@@ -43,26 +35,10 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
         super.viewDidLoad()
         tableView.register(UINib(nibName: "AddFriendSection", bundle: nil), forHeaderFooterViewReuseIdentifier: AddFriendSection.reuseIdentifier)
         tableView.tableFooterView = UIView(frame: .zero)
-        
-        loadFriends()
         loadFriendsRecommend()
+        loadPendingFriends()
+        // Do any additional setup after loading the view.
     }
-    
-    @objc func loadFriends() {
-
-        let predicate = NSPredicate(format: "userId == %@ OR friendId == %@", AuthUser.userId(), AuthUser.userId())
-        //print("Auth UserId: \(predicate)")
-        friends = realm.objects(Friend.self).filter(predicate)
-
-        tokenFriends?.invalidate()
-        friends.safeObserve({ changes in
-            self.loadPendingFriends()
-            self.loadCallbackFriends()
-        }, completion: { token in
-            self.tokenFriends = token
-        })
-    }
-    
     func loadFriendsRecommend(){
         //var contacts = [CNContact]()
         let keys = [CNContactPhoneNumbersKey as NSString]
@@ -89,28 +65,6 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
         let predicate1 = NSPredicate(format: "objectId IN %@ AND NOT objectId IN %@ AND isDeleted == NO", Friends.friendPendingIds(), Blockeds.blockerIds())
         pendingFriends = realm.objects(Person.self).filter(predicate1).sorted(byKeyPath: "fullname")
         refreshTableView()
-    }
-    
-    func loadCallbackFriends(){
-        let predicate1 = NSPredicate(format: "objectId IN %@ AND NOT objectId IN %@ AND isDeleted == NO", Friends.friendCallbackedIds(), Blockeds.blockerIds())
-        callbackedFriends = realm.objects(Person.self).filter(predicate1).sorted(byKeyPath: "fullname")
-        showCallbackPopup()
-    }
-    func showCallbackPopup(){
-        for item in callbackedFriends{
-            // Display info on popupview
-            let vc =  self.storyboard?.instantiateViewController(identifier: "requestAcceptedAlertVC") as! ReqestAcceptedAlertViewController
-            vc.person = item
-            let sheetController = SheetViewController(controller: vc, sizes: [.fixed(350)])
-            sheetController.blurBottomSafeArea = false
-            sheetController.adjustForBottomSafeArea = false
-
-            // Make corners more round
-            sheetController.topCornersRadius = 15
-
-            // It is important to set animated to false or it behaves weird currently
-            self.present(sheetController, animated: false, completion: nil)
-        }
     }
     func refreshTableView(){
         
@@ -206,7 +160,7 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
                         self.popupStatusLabel.text = "Already existing in your friend list."
                     } else {
                         Friends.create(person.objectId)
-                        self.popupStatusLabel.text = "successfully sent an add request."
+                        self.popupStatusLabel.text = "Successfully added to your friend list."
                     }
                 }
                 return cell
@@ -230,7 +184,7 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
                     self.popupStatusLabel.text = "Already existing in your friend list."
                 } else {
                     Friends.create(person.objectId)
-                    self.popupStatusLabel.text = "successfully sent an add request."
+                    self.popupStatusLabel.text = "Successfully added to your friend list."
                 }
             }
             return cell
@@ -262,12 +216,6 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
         return 64
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 0{
-            let mainstoryboard = UIStoryboard.init(name: "Group", bundle: nil)
-            let vc = mainstoryboard.instantiateViewController(withIdentifier: "createGroupVC")
-            vc.modalPresentationStyle = .fullScreen
-            //self.present(vc, animated: true, completion: nil)
-        }
     }
     @IBAction func onStartChatTapped(_ sender: Any) {
         popupView.isHidden = true
@@ -321,9 +269,11 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBAction func onDeclineTapped(_ sender: Any) {
         confirmPopupView.isHidden = true
         Friends.update(selectedPerson.objectId, isAccepted: false)
+        loadPendingFriends()
     }
     @IBAction func onAcceptTapped(_ sender: Any) {
         confirmPopupView.isHidden = true
         Friends.update(selectedPerson.objectId, isAccepted: true)
+        loadPendingFriends()
     }
 }

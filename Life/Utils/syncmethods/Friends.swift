@@ -54,16 +54,6 @@ class Friends: NSObject {
             friend.update(isAccepted: isAccepted)
         }
     }
-    
-    // MARK: -
-    //---------------------------------------------------------------------------------------------------------------------------------------------
-    class func update(_ userId: String, isCallbacked: Bool) {
-
-        let predicate = NSPredicate(format: "userId == %@ AND friendId == %@", AuthUser.userId(), userId)
-        if let friend = realm.objects(Friend.self).filter(predicate).first {
-            friend.update(isCallbacked: isCallbacked)
-        }
-    }
 
 	// MARK: -
 	//---------------------------------------------------------------------------------------------------------------------------------------------
@@ -95,17 +85,6 @@ class Friends: NSObject {
         var friendIds: [String] = []
         for friend in friends {
             friendIds.append(friend.userId)
-        }
-        return friendIds
-    }
-    class func friendCallbackedIds() -> [String] {
-
-        let predicate = NSPredicate(format: "userId == %@ AND isDeleted == NO And pending == NO And isAccepted == YES AND isCallbacked == NO", AuthUser.userId())
-        let friends = realm.objects(Friend.self).filter(predicate)
-
-        var friendIds: [String] = []
-        for friend in friends {
-            friendIds.append(friend.friendId)
         }
         return friendIds
     }
