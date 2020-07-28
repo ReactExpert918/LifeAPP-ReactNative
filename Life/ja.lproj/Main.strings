@@ -1,0 +1,27 @@
+/* Class = "UILabel"; text = "New Conversation"; ObjectID = "5bV-62-Qx5"; */
+"5bV-62-Qx5.text" = "新しい会話";
+
+/* Class = "UITabBarItem"; title = "Chats"; ObjectID = "7Qf-wM-Sw9"; */
+"7Qf-wM-Sw9.title" = "チャット";
+
+/* Class = "UILabel"; text = "Home"; ObjectID = "7Rx-qt-651"; */
+"7Rx-qt-651.text" = "ホーム";
+
+/* Class = "UILabel"; text = "Chats"; ObjectID = "aZV-eK-MnO"; */
+"aZV-eK-MnO.text" = "チャット";
+
+/* Class = "UILabel"; text = "Amelia"; ObjectID = "c89-3p-oYE"; */
+"c89-3p-oYE.text" = "Amelia";
+
+/* Class = "UILabel"; text = "Create Group"; ObjectID = "MzD-Zd-kCV"; */
+"MzD-Zd-kCV.text" = "グループを作る";
+
+/* Class = "UITabBarItem"; title = "Home"; ObjectID = "ni1-x2-Z3R"; */
+"ni1-x2-Z3R.title" = "ホーム";
+
+/* Class = "UILabel"; text = "Create a group for you and your friends."; ObjectID = "NUA-a8-lNd"; */
+"NUA-a8-lNd.text" = "あなたとあなたの友達のためにグループを作成します。";
+
+/* Class = "UITabBarItem"; title = "Chats"; ObjectID = "wcf-N5-rOC"; */
+"wcf-N5-rOC.title" = "チャット";
+
