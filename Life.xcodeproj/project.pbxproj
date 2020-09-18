@@ -236,6 +236,7 @@
 		ABAF39D324BF04F600FB1078 /* AddFriendConfirmCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAF39D224BF04F600FB1078 /* AddFriendConfirmCell.swift */; };
 		ABDAC92C24A64AE800E73667 /* SearchFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDAC92B24A64AE800E73667 /* SearchFriendsViewController.swift */; };
 		ABDAC93024A67D8C00E73667 /* SearchFriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDAC92F24A67D8C00E73667 /* SearchFriendCell.swift */; };
+		E15A398D2515221700536871 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15A398C2515221700536871 /* ForgotPasswordViewController.swift */; };
 		E87CD6D6D8F4EEBDA7AF3284 /* Pods_Life.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38331365FE453AF276FB4BD0 /* Pods_Life.framework */; };
 		F551859C08D4752FE9CD11ED /* Pods_LifeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13FCD29106C16A3D2D2FC3B7 /* Pods_LifeTests.framework */; };
 /* End PBXBuildFile section */
@@ -508,6 +509,7 @@
 		ABDAC92B24A64AE800E73667 /* SearchFriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFriendsViewController.swift; sourceTree = "<group>"; };
 		ABDAC92F24A67D8C00E73667 /* SearchFriendCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFriendCell.swift; sourceTree = "<group>"; };
 		C2CCA01F5382939D3C8C584B /* Pods-LifeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LifeTests.debug.xcconfig"; path = "Target Support Files/Pods-LifeTests/Pods-LifeTests.debug.xcconfig"; sourceTree = "<group>"; };
+		E15A398C2515221700536871 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -554,6 +556,7 @@
 		A60845B224A2FF8F005F23A9 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				E15A398B2515210B00536871 /* Forgot Password */,
 				A6F7883224A6ED1D0019B35D /* Chat */,
 				A6E73B4D24A598A60008CBFE /* Home */,
 				A60845B324A2FF9C005F23A9 /* Splash */,
@@ -1278,6 +1281,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		E15A398B2515210B00536871 /* Forgot Password */ = {
+			isa = PBXGroup;
+			children = (
+				E15A398C2515221700536871 /* ForgotPasswordViewController.swift */,
+			);
+			path = "Forgot Password";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1703,6 +1714,7 @@
 				A6E73B4C24A532880008CBFE /* UIColor+Hex.swift in Sources */,
 				A6C36B5824B5761F00583CAA /* NYTPhotoItem.swift in Sources */,
 				A6DEA83224A82F7100868625 /* AppConstant.swift in Sources */,
+				E15A398D2515221700536871 /* ForgotPasswordViewController.swift in Sources */,
 				A6DEA86E24A8405300868625 /* Singles.swift in Sources */,
 				A6DEA88624A8521700868625 /* Password.swift in Sources */,
 				AB5457A724B5C4F2008C7FB8 /* AddMemberCell.swift in Sources */,
