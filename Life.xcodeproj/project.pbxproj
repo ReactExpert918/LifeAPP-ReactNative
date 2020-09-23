@@ -237,6 +237,7 @@
 		ABDAC92C24A64AE800E73667 /* SearchFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDAC92B24A64AE800E73667 /* SearchFriendsViewController.swift */; };
 		ABDAC93024A67D8C00E73667 /* SearchFriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDAC92F24A67D8C00E73667 /* SearchFriendCell.swift */; };
 		E15A398D2515221700536871 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15A398C2515221700536871 /* ForgotPasswordViewController.swift */; };
+		E183B1AA2518EC2F00B6A0FC /* FetchedContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = E183B1A92518EC2F00B6A0FC /* FetchedContact.swift */; };
 		E87CD6D6D8F4EEBDA7AF3284 /* Pods_Life.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38331365FE453AF276FB4BD0 /* Pods_Life.framework */; };
 		F551859C08D4752FE9CD11ED /* Pods_LifeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13FCD29106C16A3D2D2FC3B7 /* Pods_LifeTests.framework */; };
 /* End PBXBuildFile section */
@@ -510,6 +511,7 @@
 		ABDAC92F24A67D8C00E73667 /* SearchFriendCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFriendCell.swift; sourceTree = "<group>"; };
 		C2CCA01F5382939D3C8C584B /* Pods-LifeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LifeTests.debug.xcconfig"; path = "Target Support Files/Pods-LifeTests/Pods-LifeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E15A398C2515221700536871 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
+		E183B1A92518EC2F00B6A0FC /* FetchedContact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchedContact.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1267,6 +1269,7 @@
 				AB30FAFA24AFAE490037BF25 /* AddFriendHeaderCell.swift */,
 				AB30FAFE24AFB2D20037BF25 /* AddFriendSection.swift */,
 				ABAF39D224BF04F600FB1078 /* AddFriendConfirmCell.swift */,
+				E183B1A92518EC2F00B6A0FC /* FetchedContact.swift */,
 			);
 			path = Friends;
 			sourceTree = "<group>";
@@ -1741,6 +1744,7 @@
 				A6DEA84E24A8365900868625 /* FireStorage.swift in Sources */,
 				A6DEA8A824A8717800868625 /* RCVideoLoader.swift in Sources */,
 				A6C9824B24AE6DC7002280B6 /* ChatHistoryCell.swift in Sources */,
+				E183B1AA2518EC2F00B6A0FC /* FetchedContact.swift in Sources */,
 				A6C36B6324B577B000583CAA /* CallVideoView.swift in Sources */,
 				A6F7883424A6ED400019B35D /* ChatViewController.swift in Sources */,
 				A6BD967224B4D57200E1B873 /* SelectUserView.swift in Sources */,

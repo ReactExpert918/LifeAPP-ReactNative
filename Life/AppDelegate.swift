@@ -98,7 +98,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("device token: \(deviceToken.toHexString())")
         firebaseAuth.setAPNSToken(deviceToken, type: .sandbox)
         firebaseAuth.setAPNSToken(deviceToken, type: .prod)
-
+        firebaseAuth.setAPNSToken(deviceToken, type: AuthAPNSTokenType.unknown)
     }
 
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {

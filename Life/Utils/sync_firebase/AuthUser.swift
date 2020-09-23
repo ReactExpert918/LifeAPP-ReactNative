@@ -84,7 +84,7 @@ class AuthUser: NSObject {
     //---------------------------------------------------------------------------------------------------------------------------------------------
     class func passwordReset(email: String, completion: @escaping (_ error: Error?) -> Void) {
         
-        Auth.auth().sendPasswordReset(withEmail: String, completion: { (error) in
+        Auth.auth().sendPasswordReset(withEmail: email, completion: { (error) in
             completion(error)
         })
         

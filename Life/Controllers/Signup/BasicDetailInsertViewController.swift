@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import FirebaseFirestore
 import FirebaseAuth
 import JGProgressHUD
 import RealmSwift
+
 class BasicDetailInsertViewController: UIViewController, UITextFieldDelegate{
     
     var password_eye_off = true
@@ -23,9 +25,6 @@ class BasicDetailInsertViewController: UIViewController, UITextFieldDelegate{
     @IBOutlet weak var confirmPasswordEye: UIButton!
     
     private var person: Person!
-    
-    let firebaseUID = Auth.auth().currentUser?.uid
-    let db = Firestore.firestore()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,27 +54,7 @@ class BasicDetailInsertViewController: UIViewController, UITextFieldDelegate{
             return
         }
         
-        print("Firestore should be called here")
-        print(person.email)
-        print(person.objectId)
-        print(firebaseUID)
-        print("right above should be the firebase uid")
-        print("%%%%%%%%%%%%%%")
-        /*
-        db.collection("Users").addDocument(data:["userUID": person.objectId]) { err in
-            if let err = err {
-                print("Error adding document: \(err)")
-            } else {
-                print("Document added with ID: ")
-            }
-        }
-        */
-        /*
-         ["about": person.about, "country": person.country, "createdAt": person.createdAt, "email": person.email, "firstName": person.firstname, "fullName": person.fullname, "isDeleted": person.isDeleted, "keepMedia": person.keepMedia, "lastActive": person.lastActive, "lastTerminate": person.lastTerminate, "lastname": person.lastname, "location": person.location, "loginMethod": person.loginMethod, "networkAudio": person.networkAudio, "networkPhoto": person.networkPhoto, "networkVideo": person.networkVideo, "objectId": person.objectId, "oneSignalId": person.oneSignalId, "phone": person.phone, "pictureAt": person.pictureAt, "status" : person.status, "updatedAt": person.updatedAt, "wallpaper": person.wallpaper]
-         */
-        
-        
-        Firestore.firestore().collection("Users").document(person.objectId).setData(["about": person.about, "country": person.country, "createdAt": person.createdAt, "email": person.email, "firstName": person.firstname, "fullName": person.fullname, "isDeleted": person.isDeleted, "keepMedia": person.keepMedia, "lastActive": person.lastActive, "lastTerminate": person.lastTerminate, "lastname": person.lastname, "location": person.location, "loginMethod": person.loginMethod, "networkAudio": person.networkAudio, "networkPhoto": person.networkPhoto, "networkVideo": person.networkVideo, "objectId": person.objectId, "oneSignalId": person.oneSignalId, "phone": person.phone, "pictureAt": person.pictureAt, "status" : person.status, "updatedAt": person.updatedAt, "wallpaper": person.wallpaper]) { err in
+        Firestore.firestore().collection("Person").document(person.objectId).setData(["about": person.about, "country": person.country, "createdAt": person.createdAt, "email": person.email, "firstName": person.firstname, "fullName": person.fullname, "isDeleted": person.isDeleted, "keepMedia": person.keepMedia, "lastActive": person.lastActive, "lastTerminate": person.lastTerminate, "lastname": person.lastname, "location": person.location, "loginMethod": person.loginMethod, "networkAudio": person.networkAudio, "networkPhoto": person.networkPhoto, "networkVideo": person.networkVideo, "objectId": person.objectId, "oneSignalId": person.oneSignalId, "phone": person.phone, "pictureAt": person.pictureAt, "status" : person.status, "updatedAt": person.updatedAt, "wallpaper": person.wallpaper]) { err in
             if let err = err {
                 print("Error writing document: \(err)")
             } else {
@@ -118,7 +97,6 @@ class BasicDetailInsertViewController: UIViewController, UITextFieldDelegate{
     }
     
     @IBAction func passwordEyeTapped(_ sender: Any) {
-        
         if password_eye_off {
             password.isSecureTextEntry = false
             passwordEye.setImage(UIImage(systemName: "eye.fill"), for: .normal)
@@ -129,6 +107,7 @@ class BasicDetailInsertViewController: UIViewController, UITextFieldDelegate{
 
         password_eye_off = !password_eye_off
     }
+    
     @IBAction func confirmPasswordEyeTapped(_ sender: Any) {
         if confirmPassword_eye_off {
             confirmPassword.isSecureTextEntry = false

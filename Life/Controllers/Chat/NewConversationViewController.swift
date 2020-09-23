@@ -20,6 +20,7 @@ class NewConversationViewController: UIViewController, UITableViewDataSource, UI
     
     private var friends = realm.objects(Friend.self).filter(falsepredicate)
     private var persons = realm.objects(Person.self).filter(falsepredicate)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -27,6 +28,7 @@ class NewConversationViewController: UIViewController, UITableViewDataSource, UI
         tableView.dataSource = self
         tableView.delegate = self
     }
+    
     override func viewWillAppear(_ animated: Bool) { // As soon as vc appears
         super.viewWillAppear(animated)
         
@@ -34,6 +36,7 @@ class NewConversationViewController: UIViewController, UITableViewDataSource, UI
             loadFriends()
         }
     }
+    
     @objc func loadFriends() {
 
         let predicate = NSPredicate(format: "userId == %@ AND isDeleted == NO", AuthUser.userId())
@@ -63,6 +66,7 @@ class NewConversationViewController: UIViewController, UITableViewDataSource, UI
             self.tokenPersons = token
         })
     }
+    
     @IBAction func onBackPressed(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
         

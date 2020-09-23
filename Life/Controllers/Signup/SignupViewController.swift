@@ -13,12 +13,9 @@ import JGProgressHUD
 class SignupViewController: UIViewController {
 
     @IBOutlet weak var phoneNumberTextField: FPNTextField!
-    
     @IBOutlet weak var nextButtonBottomConstraint: NSLayoutConstraint!
-    
     @IBOutlet weak var nextButton: RoundButton!
     @IBOutlet weak var nextButtonArrow: UIImageView!
-    
     
     var phoneNumber = ""
     var isValidPhoneNumber = false

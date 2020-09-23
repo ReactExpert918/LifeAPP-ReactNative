@@ -74,11 +74,11 @@ class QrCodeViewController: UIViewController, QRCodeReaderViewControllerDelegate
             vc.qrCode = qrcodeValue[0]
 
             let sheetController = SheetViewController(controller: vc, sizes: [.fixed(376)])
-            sheetController.blurBottomSafeArea = false
-            sheetController.adjustForBottomSafeArea = false
+            //sheetController.blurBottomSafeArea = false
+            //sheetController.adjustForBottomSafeArea = false
 
             // Make corners more round
-            sheetController.topCornersRadius = 15
+            //sheetController.topCornersRadius = 15
 
             // It is important to set animated to false or it behaves weird currently
             self.present(sheetController, animated: false, completion: nil)
@@ -124,11 +124,11 @@ class QrCodeViewController: UIViewController, QRCodeReaderViewControllerDelegate
         let vc =  self.storyboard?.instantiateViewController(identifier: "myQrVC") as! MyQrGenerateViewController
 
         let sheetController = SheetViewController(controller: vc, sizes: [.fixed(460)])
-        sheetController.blurBottomSafeArea = false
-        sheetController.adjustForBottomSafeArea = false
+        //sheetController.blurBottomSafeArea = false
+        //sheetController.adjustForBottomSafeArea = false
 
         // Make corners more round
-        sheetController.topCornersRadius = 15
+        //sheetController.topCornersRadius = 15
 
         // It is important to set animated to false or it behaves weird currently
         self.present(sheetController, animated: false, completion: nil)

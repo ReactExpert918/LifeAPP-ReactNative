@@ -103,6 +103,7 @@ class SignInViewController: UIViewController, UITextViewDelegate, UITextFieldDel
         let userId = AuthUser.userId()
         Persons.create(userId, email: email)
     }
+    
     @IBAction func onForgotPasswordTapped(_ sender: Any) {
         
         let vc =  self.storyboard?.instantiateViewController(identifier: "forgotPassword") as! ForgotPasswordViewController
