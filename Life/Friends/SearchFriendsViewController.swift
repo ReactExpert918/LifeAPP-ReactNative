@@ -9,23 +9,28 @@
 import UIKit
 import BEMCheckBox
 
-class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
+class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UISearchResultsUpdating,UISearchControllerDelegate {
 
+    var radioGroup : BEMCheckBoxGroup!
+    let searchController = UISearchController(searchResultsController: nil)
+    var refresher: UIRefreshControl!
+    
+    
+    @IBOutlet var noDataView: UIView!
+    @IBOutlet weak var searchFriendsTableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var searchResultTxt: UILabel!
     @IBOutlet weak var searchResultBk: UIImageView!
+    @IBOutlet weak var searchResultBkImage: UIImageView!
     @IBOutlet weak var showingResult: UILabel!
     @IBOutlet weak var tableView: UITableView!
-    var radioGroup : BEMCheckBoxGroup!
     @IBOutlet weak var radioUsername: BEMCheckBox!
     @IBOutlet weak var radioPhoneNumber: BEMCheckBox!
-    
     @IBOutlet weak var popupView: UIView!
     @IBOutlet weak var popupProfileImageView: UIImageView!
     @IBOutlet weak var popupNameLabel: UILabel!
     @IBOutlet weak var popupPhoneNumberLabel: UILabel!
     @IBOutlet weak var popupStatusLabel: UILabel!
-    
     @IBOutlet weak var resultPictureHeight: NSLayoutConstraint!
     @IBOutlet weak var resultViewBottomConstraint: NSLayoutConstraint!
     
@@ -33,7 +38,8 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.isHidden = true
+        tableView.backgroundView = self.noDataView
+        tableView.isHidden = false
         tableView.delegate = self
         tableView.dataSource = self
         showingResult.isHidden = true
@@ -41,6 +47,16 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
         radioGroup.mustHaveSelection = true
         radioGroup.selectedCheckBox = radioUsername
         // Initialize search bar
+        searchController.searchResultsUpdater = self
+        searchController.delegate = self
+        searchFriendsTableView.tableHeaderView = searchController.searchBar
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.dimsBackgroundDuringPresentation = false
+        searchController.searchBar.setBackgroundImage(UIImage(), for: .any, barMetrics: .default)
+        //self.tableView.tableHeaderView = searchController.searchBar
+        
+        definesPresentationContext = false
+        /*
         searchBar.backgroundImage = UIImage()
         searchBar.barStyle = .default
         searchBar.barTintColor = UIColor(hexString: "#999999")
@@ -52,12 +68,17 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
 //        searchBar.setClearButton(color: UIColor(hexString: "#96B4D2")!)
         searchBar.tintColor = UIColor(hexString: "#333333")
         // Subscribe Keyboard Popup
+         */
         subscribeToShowKeyboardNotifications()
+        
+        
     }
+    
     func subscribeToShowKeyboardNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
+    
     @objc func keyboardWillShow(_ notification: Notification) {
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
@@ -75,6 +96,7 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
             resultPictureHeight.constant = 200
         }
     }
+    
     @IBAction func backTapped(_ sender: Any) {
         //dismiss(animated: true, completion: nil)
         self.navigationController?.popViewController(animated: true)
@@ -87,11 +109,10 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
     @IBAction func onStartChatPressed(_ sender: Any) {
         popupView.isHidden = true
         self.dismiss(animated: true) {
-            
         }        
     }
+    
     func loadImage(person: Person) {
-
         if let path = MediaDownload.pathUser(person.objectId) {
             popupProfileImageView.image = UIImage.image(path, size: 40)
             //labelInitials.text = nil
@@ -101,11 +122,9 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
             downloadImage(person: person)
         }
         popupProfileImageView.makeRounded()
-
     }
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func downloadImage(person: Person) {
-
         MediaDownload.startUser(person.objectId, pictureAt: person.pictureAt) { image, error in
             if (error == nil) {
                 self.popupProfileImageView.image = image
@@ -124,12 +143,12 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
     // MARK: - Backend methods
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func searchPersonsByUserName(text: String = "") {
-        if text.count < 4 {
+        
+        if text.count < 1 {
             return
         }
         let predicate1 = NSPredicate(format: "objectId != %@ AND isDeleted == NO", AuthUser.userId())
         let predicate2 = (text != "") ? NSPredicate(format: "fullname CONTAINS[c] %@", text) : NSPredicate(value: true)
-
         persons = realm.objects(Person.self).filter(predicate1).filter(predicate2).sorted(byKeyPath: "fullname")
         
         if persons.count > 0 {
@@ -142,13 +161,12 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     func searchPersonsByPhoneNumber(text: String = "") {
-        if text.count < 9 {
+        if text.count < 1 {
             return
         }
         let predicate1 = NSPredicate(format: "objectId != %@ AND isDeleted == NO", AuthUser.userId())
         let predicate2 = (text != "") ? NSPredicate(format: "phone CONTAINS[c] %@", text) : NSPredicate(value: true)
-
-        persons = realm.objects(Person.self).filter(predicate1).filter(predicate2).sorted(byKeyPath: "fullname")
+        persons = realm.objects(Person.self).filter(predicate1).filter(predicate2).sorted(byKeyPath: "phone")
         if persons.count > 0 {
             tableView.isHidden = false
             refreshTableView()
@@ -157,7 +175,13 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
             tableView.isHidden = true
         }
     }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        if searchController.isActive && searchController.searchBar.text != ""{
+            
+            return persons.count
+        }
         return persons.count
     }
     
@@ -167,6 +191,11 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
         cell.index = indexPath.row
         cell.bindData(person: person)
         cell.loadImage(person: person, tableView: tableView, indexPath: indexPath)
+        //cell.userNameLabel.text = person.fullname
+        //cell.phoneNumberLabel.text = person.phone
+        //let userImage = loadImage(person: person)
+        //cell.imageView?.image = userImage
+        
         cell.selectionStyle = .none
         
         cell.callbackAddFriend = { (index) in
@@ -186,6 +215,7 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
         }
         return cell
     }
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         searchResultBk.image = UIImage(named: "no_available_bk")
         if radioGroup.selectedCheckBox == radioUsername{
@@ -195,21 +225,47 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
         }
     }
     
+    func updateSearchResults(for searchController: UISearchController) {
+        
+        if searchController.isActive && searchController.searchBar.text != "" {
+            print("Search Controller is now active *******************")
+            //searchResultBkImage.image = UIImage(named: "no_available_bk")
+            //searchResultBk.image = UIImage(named: "no_available_bk")
+            //tableView.backgroundView = self.noDataView
+        } else {
+            print("Search Controller is now unactive !!!!!!!!!!!!!!!!!!")
+            //searchResultBkImage.image = UIImage(named: "no_available_bk")
+            //searchResultBk.image = UIImage(named: "no_available_bk")
+            tableView.backgroundView = nil
+        }
+        
+        filterContent(searchText: self.searchController.searchBar.text!)
+    }
+    
+    func filterContent(searchText:String) {
+        if searchText.isEmpty == true {
+            return
+        }
+        if radioGroup.selectedCheckBox == radioUsername{
+            searchPersonsByUserName(text: searchText ?? "")
+        }else{
+            searchPersonsByPhoneNumber(text: searchText ?? "")
+        }
+        tableView.reloadData()
+    }
+    
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func searchBarTextDidBeginEditing(_ searchBar_: UISearchBar) {
-
         searchBar.setShowsCancelButton(true, animated: true)
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func searchBarTextDidEndEditing(_ searchBar_: UISearchBar) {
-
         searchBar.setShowsCancelButton(false, animated: true)
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func searchBarCancelButtonClicked(_ searchBar_: UISearchBar) {
-
         searchBar.text = ""
         searchBar.resignFirstResponder()
         //loadPersons()
