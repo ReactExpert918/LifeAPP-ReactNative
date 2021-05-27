@@ -18,7 +18,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     private var person: Person!    
 
     @IBOutlet weak var searchBar: UISearchBar!
-    
     @IBOutlet weak var homeTableView: UITableView!
     
     

@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import FirebaseFirestore
 import FirebaseAuth
 import JGProgressHUD
 import RealmSwift
+
 class BasicDetailInsertViewController: UIViewController, UITextFieldDelegate{
     
     var password_eye_off = true
@@ -51,6 +53,15 @@ class BasicDetailInsertViewController: UIViewController, UITextFieldDelegate{
             Util.showAlert(vc: self, "Attention" , "Confirm password should be matched with password.")
             return
         }
+        
+        Firestore.firestore().collection("Person").document(person.objectId).setData(["about": person.about, "country": person.country, "createdAt": person.createdAt, "email": person.email, "firstName": person.firstname, "fullName": person.fullname, "isDeleted": person.isDeleted, "keepMedia": person.keepMedia, "lastActive": person.lastActive, "lastTerminate": person.lastTerminate, "lastname": person.lastname, "location": person.location, "loginMethod": person.loginMethod, "networkAudio": person.networkAudio, "networkPhoto": person.networkPhoto, "networkVideo": person.networkVideo, "objectId": person.objectId, "oneSignalId": person.oneSignalId, "phone": person.phone, "pictureAt": person.pictureAt, "status" : person.status, "updatedAt": person.updatedAt, "wallpaper": person.wallpaper]) { err in
+            if let err = err {
+                print("Error writing document: \(err)")
+            } else {
+                print("Document successfully written")
+            }
+        }
+        
         DispatchQueue.main.async {
             self.hud.textLabel.text = "Updating..."
             self.hud.show(in: self.view, animated: true)
@@ -88,21 +99,22 @@ class BasicDetailInsertViewController: UIViewController, UITextFieldDelegate{
     @IBAction func passwordEyeTapped(_ sender: Any) {
         if password_eye_off {
             password.isSecureTextEntry = false
-            passwordEye.setImage(UIImage(named: "eye_on"), for: .normal)
+            passwordEye.setImage(UIImage(systemName: "eye.fill"), for: .normal)
         } else {
             password.isSecureTextEntry = true
-            passwordEye.setImage(UIImage(named: "eye_off"), for: .normal)
+            passwordEye.setImage(UIImage(systemName: "eye.slash.fill"), for: .normal)
         }
 
         password_eye_off = !password_eye_off
     }
+    
     @IBAction func confirmPasswordEyeTapped(_ sender: Any) {
         if confirmPassword_eye_off {
             confirmPassword.isSecureTextEntry = false
-            confirmPasswordEye.setImage(UIImage(named: "eye_on"), for: .normal)
+            confirmPasswordEye.setImage(UIImage(systemName: "eye.fill"), for: .normal)
         } else {
             confirmPassword.isSecureTextEntry = true
-            confirmPasswordEye.setImage(UIImage(named: "eye_off"), for: .normal)
+            confirmPasswordEye.setImage(UIImage(systemName: "eye.slash.fill"), for: .normal)
         }
 
         confirmPassword_eye_off = !confirmPassword_eye_off

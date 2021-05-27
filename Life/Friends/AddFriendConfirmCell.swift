@@ -10,10 +10,12 @@ import Foundation
 import UIKit
 import SwiftyAvatar
 import BEMCheckBox
+
 class AddFriendConfirmCell : UITableViewCell{
     
     @IBOutlet weak var profileImageView: SwiftyAvatar!
     @IBOutlet weak var name: UILabel!
+    
     var index: Int!
     var callbackAddFriendConfirm: ((_ index: Int) -> ())?
     

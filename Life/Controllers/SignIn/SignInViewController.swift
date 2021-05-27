@@ -40,10 +40,10 @@ class SignInViewController: UIViewController, UITextViewDelegate, UITextFieldDel
     @IBAction func onPasswordEyeTapped(_ sender: Any) {
         if eye_off{
             password.isSecureTextEntry = false
-            passwordEye.setImage(UIImage(named: "eye_on"), for: .normal)
+            passwordEye.setImage(UIImage(systemName: "eye.fill"), for: .normal)
         }else {
             password.isSecureTextEntry = true
-            passwordEye.setImage(UIImage(named: "eye_off"), for: .normal)
+            passwordEye.setImage(UIImage(systemName: "eye.slash.fill"), for: .normal)
         }
         eye_off = !eye_off
     }
@@ -103,7 +103,12 @@ class SignInViewController: UIViewController, UITextViewDelegate, UITextFieldDel
         let userId = AuthUser.userId()
         Persons.create(userId, email: email)
     }
+    
     @IBAction func onForgotPasswordTapped(_ sender: Any) {
+        
+        let vc =  self.storyboard?.instantiateViewController(identifier: "forgotPassword") as! ForgotPasswordViewController
+        self.navigationController?.pushViewController(vc, animated: true)
+        
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

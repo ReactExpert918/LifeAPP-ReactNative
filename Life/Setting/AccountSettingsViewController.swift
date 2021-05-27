@@ -25,6 +25,7 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
     @IBOutlet weak var phoneNumber: UILabel!
     @IBOutlet weak var emailAddress: UILabel!
     @IBOutlet weak var profileImageView: SwiftyAvatar!
+    
     let hud = JGProgressHUD(style: .light)
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,11 +69,12 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
         vc.delegate = self
 
         let sheetController = SheetViewController(controller: vc, sizes: [.fixed(290)])
-        sheetController.blurBottomSafeArea = false
-        sheetController.adjustForBottomSafeArea = false
+        
+        //sheetController.blurBottomSafeArea = false
+        //sheetController.adjustForBottomSafeArea = false
 
         // Make corners more round
-        sheetController.topCornersRadius = 15
+        //sheetController.topCornersRadius = 15
         
 
         // It is important to set animated to false or it behaves weird currently
@@ -83,11 +85,11 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
         vc.delegate = self
         
         let sheetController = SheetViewController(controller: vc, sizes: [.fixed(350)])
-        sheetController.blurBottomSafeArea = false
-        sheetController.adjustForBottomSafeArea = false
+        //sheetController.blurBottomSafeArea = false
+        //sheetController.adjustForBottomSafeArea = false
 
         // Make corners more round
-        sheetController.topCornersRadius = 15
+        //sheetController.topCornersRadius = 15
 
         // It is important to set animated to false or it behaves weird currently
         self.present(sheetController, animated: false, completion: nil)
@@ -125,6 +127,7 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
         let vc = mainstoryboard.instantiateViewController(withIdentifier: "rootNavigationViewController")
         UIApplication.shared.windows.first?.rootViewController = vc
     }
+    
     func loadPerson() {
         person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
         MediaDownload.startUser(person.objectId, pictureAt: person.pictureAt) { image, error in
@@ -140,6 +143,7 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
         phoneNumber.text = person.phone
         emailAddress.text = person.email
     }
+    
     @IBAction func onCameraTapped(_ sender: Any) {
         
         let confirmationAlert = UIAlertController(title: "please select source type to set profile image.", message: "", preferredStyle: .alert)

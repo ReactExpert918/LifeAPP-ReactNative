@@ -8,6 +8,7 @@
 
 import UIKit
 import BEMCheckBox
+
 class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
 
     @IBOutlet weak var searchBar: UISearchBar!
@@ -29,6 +30,7 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
     @IBOutlet weak var resultViewBottomConstraint: NSLayoutConstraint!
     
     private var persons = realm.objects(Person.self).filter(falsepredicate)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.isHidden = true

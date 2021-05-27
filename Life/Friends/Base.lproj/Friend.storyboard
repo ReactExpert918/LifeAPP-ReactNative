@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -45,7 +47,7 @@
                                                 <state key="normal" image="setting"/>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Friends" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LnT-M0-fN7">
-                                                <rect key="frame" x="131" y="20" width="113.33333333333331" height="24"/>
+                                                <rect key="frame" x="131" y="20" width="113" height="24"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -88,13 +90,13 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QR Code" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lG1-qT-5Vh">
-                                                        <rect key="frame" x="66.666666666666671" y="48.666666666666657" width="54" height="15.333333333333336"/>
+                                                        <rect key="frame" x="65" y="48" width="57.666666666666657" height="16"/>
                                                         <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="13"/>
                                                         <color key="textColor" red="0.58823529411764708" green="0.70588235294117641" blue="0.82352941176470584" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yyb-UP-CE4">
-                                                        <rect key="frame" x="66.666666666666671" y="12" width="54" height="52"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yyb-UP-CE4">
+                                                        <rect key="frame" x="65" y="12" width="57.666666666666657" height="52"/>
                                                         <connections>
                                                             <action selector="qrcodeTapped:" destination="LxM-be-Wx5" eventType="touchUpInside" id="dfl-Ln-qox"/>
                                                         </connections>
@@ -123,13 +125,13 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oeD-fb-ByR">
-                                                        <rect key="frame" x="73.000000000000028" y="48.666666666666657" width="41" height="15.333333333333336"/>
+                                                        <rect key="frame" x="71.333333333333343" y="48" width="44.666666666666657" height="16"/>
                                                         <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="13"/>
                                                         <color key="textColor" red="0.58823529409999997" green="0.70588235290000001" blue="0.82352941180000006" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bfl-NO-qjS">
-                                                        <rect key="frame" x="73.000000000000028" y="12" width="41" height="52"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bfl-NO-qjS">
+                                                        <rect key="frame" x="71.333333333333343" y="12" width="44.666666666666657" height="52"/>
                                                         <connections>
                                                             <action selector="searchFriendsTapped:" destination="LxM-be-Wx5" eventType="touchUpInside" id="6aX-Pm-2hi"/>
                                                         </connections>
@@ -206,7 +208,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Andrea" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mdo-Ht-Lle">
-                                                    <rect key="frame" x="84" y="24" width="44.666666666666657" height="16.333333333333329"/>
+                                                    <rect key="frame" x="84" y="23.333333333333336" width="52" height="17.333333333333336"/>
                                                     <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -219,7 +221,7 @@
                                                         <constraint firstAttribute="height" constant="24" id="cxI-hw-41Y"/>
                                                     </constraints>
                                                 </imageView>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qSi-mK-k1u">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qSi-mK-k1u">
                                                     <rect key="frame" x="329" y="17" width="30" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="30" id="eHQ-j7-rpX"/>
@@ -266,7 +268,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Andrea" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3BK-ys-edI">
-                                                    <rect key="frame" x="84" y="24" width="44.666666666666657" height="16.333333333333329"/>
+                                                    <rect key="frame" x="84" y="23.333333333333336" width="52" height="17.333333333333336"/>
                                                     <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -279,7 +281,7 @@
                                                         <constraint firstAttribute="width" constant="24" id="2yL-Ym-NaS"/>
                                                     </constraints>
                                                 </imageView>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3wd-TD-OZ1">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3wd-TD-OZ1">
                                                     <rect key="frame" x="329" y="17" width="30" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="YoC-Mb-S7m"/>
@@ -320,7 +322,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Gv-LG-luX" customClass="ExtensionView" customModule="Life" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="452" width="375" height="326"/>
+                                        <rect key="frame" x="0.0" y="449.66666666666674" width="375" height="328.33333333333326"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aM0-7J-LAh">
                                                 <rect key="frame" x="327" y="16" width="40" height="40"/>
@@ -341,7 +343,7 @@
                                                         </connections>
                                                     </button>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="bottom" secondItem="BwN-6R-c1V" secondAttribute="bottom" id="6aK-eq-PIy"/>
                                                     <constraint firstItem="BwN-6R-c1V" firstAttribute="leading" secondItem="aM0-7J-LAh" secondAttribute="leading" id="8Hs-dy-9si"/>
@@ -354,25 +356,25 @@
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="James Watson" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5fl-g9-pl6">
-                                                <rect key="frame" x="134.66666666666666" y="144" width="105.66666666666666" height="18.666666666666657"/>
+                                                <rect key="frame" x="128" y="143.99999999999994" width="119.33333333333331" height="19.666666666666657"/>
                                                 <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="16"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9876543210" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Axd-cM-fWp">
-                                                <rect key="frame" x="145.66666666666666" y="170.66666666666663" width="83.666666666666657" height="17.666666666666657"/>
+                                                <rect key="frame" x="144" y="171.66666666666669" width="87" height="18.333333333333343"/>
                                                 <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
                                                 <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Successfully added to your friend list" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="43v-g1-5Uv">
-                                                <rect key="frame" x="63.666666666666671" y="213.33333333333337" width="247.66666666666663" height="17.666666666666657"/>
+                                                <rect key="frame" x="45" y="214.99999999999994" width="285.33333333333331" height="18.333333333333343"/>
                                                 <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="15"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e8a-bd-QwV">
-                                                <rect key="frame" x="40" y="256" width="295" height="45"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e8a-bd-QwV">
+                                                <rect key="frame" x="40" y="258.33333333333331" width="295" height="45"/>
                                                 <color key="backgroundColor" red="0.086274509799999996" green="0.25098039220000001" blue="0.43529411759999997" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="45" id="vKv-h2-C61"/>
@@ -391,14 +393,14 @@
                                                         <rect key="frame" x="8" y="8" width="72" height="72"/>
                                                     </imageView>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_checkmark_addfriend" translatesAutoresizingMaskIntoConstraints="NO" id="9H7-HH-ncT">
-                                                        <rect key="frame" x="68" y="34" width="20" height="20"/>
+                                                        <rect key="frame" x="68" y="33.999999999999943" width="20" height="20"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="20" id="ebY-hH-wH0"/>
                                                             <constraint firstAttribute="width" constant="20" id="lhY-KK-cKK"/>
                                                         </constraints>
                                                     </imageView>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="bottom" secondItem="JPG-mi-ENI" secondAttribute="bottom" constant="8" id="GjM-gf-Nu0"/>
                                                     <constraint firstAttribute="trailing" secondItem="JPG-mi-ENI" secondAttribute="trailing" constant="8" id="H7z-63-6Zi"/>
@@ -411,7 +413,7 @@
                                                 </constraints>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="e8a-bd-QwV" secondAttribute="bottom" constant="25" id="2Q9-Lx-qvQ"/>
                                             <constraint firstItem="e8a-bd-QwV" firstAttribute="leading" secondItem="0Gv-LG-luX" secondAttribute="leading" constant="40" id="3CJ-YM-c3j"/>
@@ -454,7 +456,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pjf-K1-ntm" customClass="RoundedCornerBorderView" customModule="Life" customModuleProvider="target">
-                                        <rect key="frame" x="40" y="266" width="295" height="280"/>
+                                        <rect key="frame" x="40" y="265.33333333333326" width="295" height="281.66666666666674"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s00-9Y-cwD">
                                                 <rect key="frame" x="107.66666666666666" y="40" width="80" height="80"/>
@@ -463,7 +465,7 @@
                                                         <rect key="frame" x="8" y="8" width="64" height="64"/>
                                                     </imageView>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="bottom" secondItem="G3e-nL-Lu1" secondAttribute="bottom" constant="8" id="Fed-yO-JcL"/>
                                                     <constraint firstAttribute="trailing" secondItem="G3e-nL-Lu1" secondAttribute="trailing" constant="8" id="KgX-g2-dyV"/>
@@ -474,15 +476,15 @@
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Do you want to add Andrea your friend list ?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gTG-sD-69E">
-                                                <rect key="frame" x="30" y="140" width="235" height="35"/>
+                                                <rect key="frame" x="30" y="140" width="235" height="36.666666666666657"/>
                                                 <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="15"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="GUR-xJ-yWk">
-                                                <rect key="frame" x="30" y="205" width="235" height="45"/>
+                                                <rect key="frame" x="30" y="206.66666666666669" width="235" height="45"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SzQ-2r-lOs" customClass="RoundButton" customModule="Life" customModuleProvider="target">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SzQ-2r-lOs" customClass="RoundButton" customModule="Life" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="110" height="45"/>
                                                         <color key="backgroundColor" red="0.78823529411764703" green="0.78823529411764703" blue="0.78823529411764703" alpha="1" colorSpace="calibratedRGB"/>
                                                         <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="17"/>
@@ -498,7 +500,7 @@
                                                             <action selector="onDeclineTapped:" destination="LxM-be-Wx5" eventType="touchUpInside" id="mth-Fj-MRQ"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wA6-CJ-wcO" customClass="RoundButton" customModule="Life" customModuleProvider="target">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wA6-CJ-wcO" customClass="RoundButton" customModule="Life" customModuleProvider="target">
                                                         <rect key="frame" x="125" y="0.0" width="110" height="45"/>
                                                         <color key="backgroundColor" red="0.086274509799999996" green="0.25098039220000001" blue="0.43529411759999997" alpha="1" colorSpace="calibratedRGB"/>
                                                         <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="17"/>
@@ -520,7 +522,7 @@
                                                 </constraints>
                                             </stackView>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstItem="s00-9Y-cwD" firstAttribute="top" secondItem="Pjf-K1-ntm" secondAttribute="top" constant="40" id="3xN-Zi-KEJ"/>
                                             <constraint firstItem="gTG-sD-69E" firstAttribute="leading" secondItem="Pjf-K1-ntm" secondAttribute="leading" constant="30" id="7RC-Lk-LJU"/>
@@ -555,7 +557,8 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="8Zh-ZX-Iov"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="xI5-gY-3a5" firstAttribute="leading" secondItem="8Zh-ZX-Iov" secondAttribute="leading" id="0hc-fu-v6R"/>
                             <constraint firstItem="GQP-F0-rd8" firstAttribute="top" secondItem="Cvh-1j-ORj" secondAttribute="top" id="1Mb-0g-UeW"/>
@@ -577,7 +580,6 @@
                             <constraint firstItem="8Zh-ZX-Iov" firstAttribute="bottom" secondItem="Gj3-5j-kph" secondAttribute="bottom" id="oEE-wd-u8O"/>
                             <constraint firstItem="Dgw-bT-lb7" firstAttribute="top" secondItem="xI5-gY-3a5" secondAttribute="bottom" id="wbY-Aq-Gwe"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="8Zh-ZX-Iov"/>
                     </view>
                     <navigationItem key="navigationItem" id="ozT-PR-4gK"/>
                     <connections>
@@ -606,7 +608,7 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gHX-Ob-CCL" userLabel="status bar">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8pn-C2-auj" userLabel="top bar">
                                 <rect key="frame" x="0.0" y="44" width="375" height="64"/>
@@ -619,7 +621,7 @@
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Vy-8m-iAj">
                                                         <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
-                                                        <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        <color key="tintColor" systemColor="darkTextColor"/>
                                                         <connections>
                                                             <action selector="backTapped:" destination="h6y-pS-cI4" eventType="touchUpInside" id="csE-HU-ott"/>
                                                         </connections>
@@ -649,7 +651,7 @@
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search Friends" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="geZ-Ja-ngt">
                                                 <rect key="frame" x="117" y="20" width="141" height="24"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <color key="textColor" systemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
@@ -663,7 +665,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="I9N-ft-ZUY" firstAttribute="leading" secondItem="8pn-C2-auj" secondAttribute="leading" id="Hbb-u3-7fr"/>
                                     <constraint firstAttribute="bottom" secondItem="I9N-ft-ZUY" secondAttribute="bottom" id="Xhl-Sb-yAZ"/>
@@ -677,7 +679,7 @@
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lGe-Ck-jXC" customClass="BEMCheckBox">
                                         <rect key="frame" x="20" y="30" width="24" height="24"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="24" id="Xu6-mf-Xw8"/>
                                             <constraint firstAttribute="height" constant="24" id="ke5-AH-v0m"/>
@@ -703,7 +705,7 @@
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FGb-wg-7lO" customClass="BEMCheckBox">
                                         <rect key="frame" x="152.33333333333334" y="30" width="24" height="24"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="24" id="Nbm-iW-IAB"/>
                                             <constraint firstAttribute="height" constant="24" id="eAw-dT-v9f"/>
@@ -730,17 +732,17 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qgr-rV-aTi">
                                         <rect key="frame" x="53.999999999999993" y="32" width="78.333333333333314" height="20"/>
                                         <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="17"/>
-                                        <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="textColor" systemColor="secondaryLabelColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Phone Number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="scZ-bV-y1n">
                                         <rect key="frame" x="186.33333333333334" y="32" width="114.66666666666666" height="20"/>
                                         <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="17"/>
-                                        <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="textColor" systemColor="secondaryLabelColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="FGb-wg-7lO" firstAttribute="centerY" secondItem="lGe-Ck-jXC" secondAttribute="centerY" id="5VP-7A-j33"/>
                                     <constraint firstItem="FGb-wg-7lO" firstAttribute="leading" secondItem="qgr-rV-aTi" secondAttribute="trailing" constant="20" id="CBV-fw-5XG"/>
@@ -779,14 +781,14 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Showing Results 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bqd-8n-due">
-                                        <rect key="frame" x="20" y="16" width="138" height="21"/>
+                                        <rect key="frame" x="20" y="16" width="137" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="70" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="g12-yX-AR5">
                                         <rect key="frame" x="0.0" y="37" width="375" height="543"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="searchFriendCell" rowHeight="70" id="qqT-PK-hlI" customClass="SearchFriendCell" customModule="Life" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="375" height="70"/>
@@ -819,7 +821,7 @@
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9876543210" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n9J-0b-k64">
                                                             <rect key="frame" x="90" y="37" width="89" height="19"/>
                                                             <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="16"/>
-                                                            <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <color key="textColor" systemColor="secondaryLabelColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aUc-0j-zcX">
@@ -841,7 +843,7 @@
                                                                     </connections>
                                                                 </button>
                                                             </subviews>
-                                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                             <constraints>
                                                                 <constraint firstItem="IxV-Oq-YrI" firstAttribute="centerY" secondItem="aUc-0j-zcX" secondAttribute="centerY" id="1hM-Vv-8zg"/>
                                                                 <constraint firstAttribute="bottom" secondItem="oiI-IA-MgH" secondAttribute="bottom" id="6x4-Nn-W4z"/>
@@ -878,7 +880,7 @@
                                         </connections>
                                     </tableView>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="g12-yX-AR5" firstAttribute="leading" secondItem="k7o-z2-gRI" secondAttribute="leading" id="7jt-sC-BPs"/>
                                     <constraint firstAttribute="trailing" secondItem="GBz-Xw-C0k" secondAttribute="trailing" constant="50" id="Byh-Sv-TsP"/>
@@ -924,7 +926,7 @@
                                                         </connections>
                                                     </button>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstItem="4aY-ev-Zve" firstAttribute="leading" secondItem="qkD-cJ-4Vp" secondAttribute="leading" id="4fO-dh-ZDj"/>
                                                     <constraint firstAttribute="height" constant="40" id="9mr-eh-xvl"/>
@@ -954,7 +956,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d9E-vB-hqI">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d9E-vB-hqI">
                                                 <rect key="frame" x="40" y="258" width="295" height="45"/>
                                                 <color key="backgroundColor" red="0.086274509799999996" green="0.25098039220000001" blue="0.43529411759999997" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
@@ -981,7 +983,7 @@
                                                         </constraints>
                                                     </imageView>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="88" id="PZ8-zF-qIk"/>
                                                     <constraint firstAttribute="trailing" secondItem="Ocp-f6-gIx" secondAttribute="trailing" id="UuA-dA-0ag"/>
@@ -994,7 +996,7 @@
                                                 </constraints>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstItem="PLh-29-Ibb" firstAttribute="top" secondItem="7HF-p7-dNX" secondAttribute="top" constant="40" id="1M9-TN-OS3"/>
                                             <constraint firstItem="d9E-vB-hqI" firstAttribute="leading" secondItem="7HF-p7-dNX" secondAttribute="leading" constant="40" id="By6-Pm-8ci"/>
@@ -1030,7 +1032,8 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="zAI-gF-FhC"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="8pn-C2-auj" firstAttribute="trailing" secondItem="zAI-gF-FhC" secondAttribute="trailing" id="08l-5u-9aS"/>
                             <constraint firstItem="huA-q5-E9d" firstAttribute="leading" secondItem="zAI-gF-FhC" secondAttribute="leading" id="0Ry-78-eWK"/>
@@ -1054,7 +1057,6 @@
                             <constraint firstItem="gHX-Ob-CCL" firstAttribute="top" secondItem="tBd-nw-hKa" secondAttribute="top" id="s8l-XR-Q8u"/>
                             <constraint firstItem="UmY-Uh-n9j" firstAttribute="trailing" secondItem="zAI-gF-FhC" secondAttribute="trailing" id="tbN-Zu-Bp9"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="zAI-gF-FhC"/>
                     </view>
                     <connections>
                         <outlet property="popupNameLabel" destination="xwG-a9-PC5" id="0EA-Db-qOs"/>
@@ -1128,14 +1130,14 @@ friend scan your QR code</string>
                                             <constraint firstAttribute="width" constant="20" id="FJL-Ir-P6J"/>
                                         </constraints>
                                     </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fiU-vT-eNr">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fiU-vT-eNr">
                                         <rect key="frame" x="0.0" y="0.0" width="54" height="54"/>
                                         <connections>
                                             <action selector="onRefreshTapped:" destination="q3S-Xe-jwq" eventType="touchUpInside" id="z04-yK-1dc"/>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="fiU-vT-eNr" firstAttribute="top" secondItem="ogZ-ET-Der" secondAttribute="top" id="DEt-ee-afm"/>
                                     <constraint firstAttribute="trailing" secondItem="fiU-vT-eNr" secondAttribute="trailing" id="Jp3-pp-91C"/>
@@ -1168,14 +1170,14 @@ friend scan your QR code</string>
                                             <constraint firstAttribute="width" constant="20" id="n7E-yX-t0n"/>
                                         </constraints>
                                     </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vb5-Iw-07R">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vb5-Iw-07R">
                                         <rect key="frame" x="0.0" y="0.0" width="54" height="54"/>
                                         <connections>
                                             <action selector="onDownloadTapped:" destination="q3S-Xe-jwq" eventType="touchUpInside" id="cro-Lo-yvg"/>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="vb5-Iw-07R" secondAttribute="trailing" id="1th-lA-Es2"/>
                                     <constraint firstAttribute="width" constant="54" id="4DP-29-3nv"/>
@@ -1205,7 +1207,7 @@ friend scan your QR code</string>
                                     <constraint firstAttribute="width" constant="24" id="tgb-Hf-BFv"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nM5-Xx-DDO">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nM5-Xx-DDO">
                                 <rect key="frame" x="332" y="9" width="30" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="30" id="ZrO-bn-faG"/>
@@ -1216,7 +1218,8 @@ friend scan your QR code</string>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="l1q-aa-bO0"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="mUw-6P-tIs" firstAttribute="centerX" secondItem="3tf-cg-fvO" secondAttribute="centerX" id="2jb-hZ-XU8"/>
                             <constraint firstItem="l1q-aa-bO0" firstAttribute="trailing" secondItem="lk5-Zq-Lbs" secondAttribute="trailing" constant="16" id="3Tg-XM-j6l"/>
@@ -1237,7 +1240,6 @@ friend scan your QR code</string>
                             <constraint firstItem="lk5-Zq-Lbs" firstAttribute="top" secondItem="3tf-cg-fvO" secondAttribute="top" constant="16" id="pIi-ST-KA5"/>
                             <constraint firstItem="hQT-bo-pXI" firstAttribute="centerX" secondItem="3tf-cg-fvO" secondAttribute="centerX" id="qGg-xS-4CZ"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="l1q-aa-bO0"/>
                     </view>
                     <size key="freeformSize" width="375" height="460"/>
                     <connections>
@@ -1274,19 +1276,19 @@ friend scan your QR code</string>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="James Watson" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1un-9S-osQ">
-                                <rect key="frame" x="128" y="146" width="119" height="21"/>
+                                <rect key="frame" x="119.33333333333333" y="146" width="136.33333333333337" height="22"/>
                                 <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="18"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add to friend list to start connection" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f4f-rF-ZYt">
-                                <rect key="frame" x="51" y="227" width="273" height="20"/>
+                                <rect key="frame" x="27.666666666666657" y="229" width="319.66666666666674" height="21"/>
                                 <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gHr-GZ-2BW" customClass="RoundButton" customModule="Life" customModuleProvider="target">
-                                <rect key="frame" x="70" y="277" width="235" height="50"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gHr-GZ-2BW" customClass="RoundButton" customModule="Life" customModuleProvider="target">
+                                <rect key="frame" x="70" y="280" width="235" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="WQM-NY-DuN"/>
                                 </constraints>
@@ -1310,7 +1312,7 @@ friend scan your QR code</string>
                                 </connections>
                             </button>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9876543210" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M8v-tG-paE">
-                                <rect key="frame" x="140.33333333333334" y="177" width="94.666666666666657" height="20"/>
+                                <rect key="frame" x="138.33333333333334" y="178" width="98.666666666666657" height="21"/>
                                 <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="17"/>
                                 <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -1322,7 +1324,7 @@ friend scan your QR code</string>
                                     <constraint firstAttribute="height" constant="16" id="x7N-kO-oJP"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lWJ-UJ-4aQ">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lWJ-UJ-4aQ">
                                 <rect key="frame" x="336" y="8" width="30" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="30" id="LHo-BD-RdU"/>
@@ -1340,6 +1342,7 @@ friend scan your QR code</string>
                                 </constraints>
                             </imageView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="q8R-HC-ROQ"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="M8v-tG-paE" firstAttribute="top" secondItem="1un-9S-osQ" secondAttribute="bottom" constant="10" id="6TY-9u-cvX"/>
@@ -1360,7 +1363,6 @@ friend scan your QR code</string>
                             <constraint firstAttribute="trailing" secondItem="lWJ-UJ-4aQ" secondAttribute="trailing" constant="9" id="rJg-wD-hxS"/>
                             <constraint firstItem="1un-9S-osQ" firstAttribute="top" secondItem="eFc-sT-5XE" secondAttribute="bottom" constant="16" id="ubg-8c-ItK"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="q8R-HC-ROQ"/>
                     </view>
                     <size key="freeformSize" width="375" height="376"/>
                     <connections>
@@ -1386,7 +1388,7 @@ friend scan your QR code</string>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nbP-fh-blv" customClass="QRCodeReaderView" customModule="QRCodeReader">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="whX-2L-n2N">
                                 <rect key="frame" x="8" y="52" width="32" height="32"/>
@@ -1416,7 +1418,7 @@ friend scan your QR code</string>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gZc-cZ-e4d">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gZc-cZ-e4d">
                                         <rect key="frame" x="0.0" y="0.0" width="150" height="50"/>
                                         <connections>
                                             <action selector="onMyQrTapped:" destination="mPx-dm-gRV" eventType="touchUpInside" id="Y8K-eo-5hQ"/>
@@ -1500,7 +1502,8 @@ to your friend list</string>
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="SjM-2b-mAw"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="xFn-xy-Zcp" firstAttribute="centerX" secondItem="SjM-2b-mAw" secondAttribute="centerX" id="0G9-Qv-teD"/>
                             <constraint firstItem="whX-2L-n2N" firstAttribute="top" secondItem="SjM-2b-mAw" secondAttribute="top" constant="8" id="BVH-Lg-V3D"/>
@@ -1514,7 +1517,6 @@ to your friend list</string>
                             <constraint firstItem="nbP-fh-blv" firstAttribute="top" secondItem="iSo-nx-Uwc" secondAttribute="top" id="x6A-xc-Mlx"/>
                             <constraint firstItem="RoD-Tc-xMH" firstAttribute="leading" secondItem="SjM-2b-mAw" secondAttribute="leading" id="yVg-9i-GZB"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="SjM-2b-mAw"/>
                     </view>
                     <connections>
                         <outlet property="preView" destination="nbP-fh-blv" id="xk9-Rc-AaS"/>
@@ -1542,6 +1544,35 @@ to your friend list</string>
             <point key="canvasLocation" x="-520.79999999999995" y="64.285714285714292"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="30M-F4-H2b">
+            <size key="intrinsicContentSize" width="100" height="100"/>
+        </designable>
+        <designable name="FGb-wg-7lO">
+            <size key="intrinsicContentSize" width="24" height="24"/>
+        </designable>
+        <designable name="SzQ-2r-lOs">
+            <size key="intrinsicContentSize" width="67" height="33"/>
+        </designable>
+        <designable name="XTB-YZ-7kB">
+            <size key="intrinsicContentSize" width="100" height="100"/>
+        </designable>
+        <designable name="Xex-pG-ljO">
+            <size key="intrinsicContentSize" width="50" height="50"/>
+        </designable>
+        <designable name="eFc-sT-5XE">
+            <size key="intrinsicContentSize" width="50" height="50"/>
+        </designable>
+        <designable name="gHr-GZ-2BW">
+            <size key="intrinsicContentSize" width="121" height="34"/>
+        </designable>
+        <designable name="lGe-Ck-jXC">
+            <size key="intrinsicContentSize" width="24" height="24"/>
+        </designable>
+        <designable name="wA6-CJ-wcO">
+            <size key="intrinsicContentSize" width="62" height="33"/>
+        </designable>
+    </designables>
     <resources>
         <image name="add_friend" width="60" height="60"/>
         <image name="cancel" width="54.666667938232422" height="55.333332061767578"/>
@@ -1559,5 +1590,17 @@ to your friend list</string>
         <image name="search" width="100" height="98"/>
         <image name="search_bk" width="1014.6666870117188" height="595.33331298828125"/>
         <image name="setting" width="75" height="75"/>
+        <systemColor name="darkTextColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="darkTextColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

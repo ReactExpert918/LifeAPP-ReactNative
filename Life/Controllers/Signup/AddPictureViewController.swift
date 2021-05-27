@@ -11,6 +11,9 @@ import FirebaseAuth
 import FirebaseStorage
 import JGProgressHUD
 import RealmSwift
+import FirebaseFirestore
+import OneSignal
+
 class AddPictureViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
     var avatarCovered : Bool = false
@@ -19,7 +22,8 @@ class AddPictureViewController: UIViewController, UINavigationControllerDelegate
     @IBOutlet weak var publicName: UITextField!
     
     let hud = JGProgressHUD(style: .light)
-    private var person: Person!    
+    private var person: Person!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         cameraView.isHidden = true
@@ -28,7 +32,9 @@ class AddPictureViewController: UIViewController, UINavigationControllerDelegate
         person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
         // Do any additional setup after loading the view.
     }
+    
     @IBAction func onCameraTapped(_ sender: Any) {
+        
         let confirmationAlert = UIAlertController(title: "please select source type to set profile image.", message: "", preferredStyle: .alert)
 
         confirmationAlert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action: UIAlertAction!) in
@@ -44,7 +50,9 @@ class AddPictureViewController: UIViewController, UINavigationControllerDelegate
         confirmationAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
         }))
         present(confirmationAlert, animated: true, completion: nil)
+        
     }
+    
     func openCamera(){
         let vc = UIImagePickerController()
         vc.sourceType = .camera
@@ -60,6 +68,7 @@ class AddPictureViewController: UIViewController, UINavigationControllerDelegate
         vc.delegate = self
         present(vc, animated: true)
     }
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true)
 
@@ -89,9 +98,18 @@ class AddPictureViewController: UIViewController, UINavigationControllerDelegate
             return
         }
  */
+        
         if publicName.text == ""{
             Util.showAlert(vc: self, "Attention" , "Please enter public name first.")
             return
+        } else {
+            Firestore.firestore().collection("Person").document(person.objectId).setData(["about": person.about, "country": person.country, "createdAt": person.createdAt, "email": person.email, "firstName": person.firstname, "fullName": person.fullname, "isDeleted": person.isDeleted, "keepMedia": person.keepMedia, "lastActive": person.lastActive, "lastTerminate": person.lastTerminate, "lastname": person.lastname, "location": person.location, "loginMethod": person.loginMethod, "networkAudio": person.networkAudio, "networkPhoto": person.networkPhoto, "networkVideo": person.networkVideo, "objectId": person.objectId, "oneSignalId": person.oneSignalId, "phone": person.phone, "pictureAt": person.pictureAt, "status" : person.status, "updatedAt": person.updatedAt, "wallpaper": person.wallpaper]) { err in
+                if let err = err {
+                    print("Error writing document: \(err)")
+                } else {
+                    print("Document successfully written")
+                }
+            }
         }
         
         let realm = try! Realm()
