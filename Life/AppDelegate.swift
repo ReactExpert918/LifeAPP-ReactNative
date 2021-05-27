@@ -61,10 +61,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //-----------------------------------------------------------------------------------------------------------------------------------------
         // OneSignal initialization
         //-----------------------------------------------------------------------------------------------------------------------------------------
-        OneSignal.initWithLaunchOptions(launchOptions, appId: ONESIGNAL.ONESIGNAL_APPID, handleNotificationReceived: nil,
-                                        handleNotificationAction: nil, settings: [kOSSettingsKeyAutoPrompt: false])
+        /*OneSignal.initWithLaunchOptions(launchOptions, appId: ONESIGNAL.ONESIGNAL_APPID, handleNotificationReceived: nil,
+                                        handleNotificationAction: nil, settings: [kOSSettingsKeyAutoPrompt: false])*/
+        OneSignal.initWithLaunchOptions(launchOptions)
+        OneSignal.setAppId(ONESIGNAL.ONESIGNAL_APPID)
         OneSignal.setLogLevel(ONE_S_LOG_LEVEL.LL_NONE, visualLevel: ONE_S_LOG_LEVEL.LL_NONE)
-        OneSignal.inFocusDisplayType = OSNotificationDisplayType.none
+        
+       // OneSignal.inFocusDisplayType = OSNotificationDisplayType.none
         //-----------------------------------------------------------------------------------------------------------------------------------------
         // Manager initialization
         //-----------------------------------------------------------------------------------------------------------------------------------------

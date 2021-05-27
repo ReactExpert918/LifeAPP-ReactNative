@@ -15,17 +15,18 @@ import OneSignal
 class PushNotification: NSObject {
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	class func oneSignalId() -> String {
+    class func oneSignalId() -> String{
+        guard let status = OneSignal.getDeviceState() else{
+            return ""
+        }
+        if (status.pushToken != nil) {
+           if let userId = status.userId {
+                return userId
+           }
+       }
 
-		if let status = OneSignal.getPermissionSubscriptionState() {
-			if (status.subscriptionStatus.pushToken != nil) {
-				if let userId = status.subscriptionStatus.userId {
-					return userId
-				}
-			}
-		}
-		return ""
-	}
+        return ""
+    }
 
 	// MARK: -
 	//---------------------------------------------------------------------------------------------------------------------------------------------
