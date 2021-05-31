@@ -25,6 +25,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var push: SINManagedPush?
     var callKitProvider: CallKitProvider?
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        
         // Override point for customization after application launch.
         IQKeyboardManager.shared.enable = true
        
@@ -100,8 +102,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let firebaseAuth = Auth.auth()
         print("device token: \(deviceToken.toHexString())")
         firebaseAuth.setAPNSToken(deviceToken, type: .sandbox)
-        firebaseAuth.setAPNSToken(deviceToken, type: .prod)
-        firebaseAuth.setAPNSToken(deviceToken, type: AuthAPNSTokenType.unknown)
+        //firebaseAuth.setAPNSToken(deviceToken, type: .prod)
+        //firebaseAuth.setAPNSToken(deviceToken, type: .unknown)
     }
 
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {

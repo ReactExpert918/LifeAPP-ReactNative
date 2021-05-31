@@ -97,6 +97,7 @@ class SignupViewController: UIViewController {
             self.hud.textLabel.text = "Sending..."
             self.hud.show(in: self.view, animated: true)
         }
+        Auth.auth().settings?.isAppVerificationDisabledForTesting=true
         PhoneAuthProvider.provider().verifyPhoneNumber(phoneNumber, uiDelegate: nil) { (verificationID, error) in
             self.hud.dismiss(afterDelay: 1.0, animated: true)
             if error != nil {

@@ -12,6 +12,7 @@ target 'Life' do
   pod 'Firebase/Firestore'
   pod 'Firebase/Auth'
   pod 'Firebase/Storage'
+  pod 'Firebase/AppCheck'
   pod 'SkyFloatingLabelTextField', '~> 3.0'
   pod 'IQKeyboardManagerSwift'
   pod 'DPOTPView'
