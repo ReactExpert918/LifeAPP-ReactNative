@@ -88,7 +88,16 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     func loadFriendsRecommend(){
-        print("Attempting to fetch contacts")
+        CNContactStore().requestAccess(for: .contacts) { (granted, error) in
+            if let error = error {
+                print("failed to request access", error)
+                return
+            }
+            if granted {
+                
+            }
+            
+        }
         let store = CNContactStore()
         store.requestAccess(for: .contacts) { (granted, error) in
             if let error = error {
@@ -96,19 +105,49 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
                 return
             }
             if granted {
-                print("access granted")
-                
-                let keys = [CNContactGivenNameKey, CNContactFamilyNameKey, CNContactPhoneNumbersKey]
+                let keys = [CNContactFamilyNameKey, CNContactGivenNameKey,  CNContactPhoneNumbersKey, CNContactImageDataKey, CNContactPostalAddressesKey]
                 let request = CNContactFetchRequest(keysToFetch: keys as [CNKeyDescriptor])
+                
+                var countryCode = NSLocale.current.regionCode
+                if countryCode == nil{
+                    countryCode = ""
+                }
+                let phoneCode = Util.getCountryPhonceCode(countryCode: countryCode!)
+                
                 do {
-                    try store.enumerateContacts(with: request, usingBlock: { (contact, stopPointer) in
-                        let contactPhoneNumbers = contact.phoneNumbers.first?.value.stringValue ?? ""
-                        self.searchPersonsByPhoneNumber(text: contactPhoneNumbers)
+                    try store.enumerateContacts(with: request, usingBlock: {
+                        (contact : CNContact, stop : UnsafeMutablePointer<ObjCBool>) -> Void in
+                        
+                        let person = Person()
+                        person.firstname = contact.givenName
+                        person.lastname = contact.familyName
+                        person.fullname = person.firstname+" "+person.lastname
+                        person.objectId = AuthUser.userId()
+                        for phone in contact.phoneNumbers {
+                            
+                            var label = "未知标签"
+                            if phone.label != nil {
+                                label = CNLabeledValue<NSString>.localizedString(forLabel:
+                                    phone.label!)
+                                
+                                if(label == "mobile"){
+                                    let phoneStr = phone.value.stringValue
+                                    var trim = phoneStr.trimmingCharacters(in: .whitespaces)
+                                    if(trim.prefix(1) != "+"){
+                                        trim = phoneCode+trim
+                                    }
+                                    person.phone = trim
+                                }
+                            }
+                        }
+                        self.personList.append(person)
+                         
                     })
+                } catch {
+                    print(error)
                 }
-                catch let error {
-                    print("Failed to enumerate contact", error)
-                }
+                self.searchPersonsByPhoneNumber()
+
             } else {
                 print("access denied")
             }

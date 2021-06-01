@@ -8,7 +8,7 @@
 
 import UIKit
 import BEMCheckBox
-
+import Contacts
 class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UISearchResultsUpdating,UISearchControllerDelegate {
 
     var radioGroup : BEMCheckBoxGroup!
@@ -56,19 +56,7 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
         //self.tableView.tableHeaderView = searchController.searchBar
         
         definesPresentationContext = false
-        /*
-        searchBar.backgroundImage = UIImage()
-        searchBar.barStyle = .default
-        searchBar.barTintColor = UIColor(hexString: "#999999")
-        searchBar.layer.cornerRadius = 8
-        searchBar.placeholder = "Search friends"
-        searchBar.set(textColor: UIColor(hexString: "#333333")!)
-        searchBar.setPlaceholder(textColor: UIColor(hexString: "#999999")!)
-        searchBar.setSearchImage(color: UIColor(hexString: "#999999")!)
-//        searchBar.setClearButton(color: UIColor(hexString: "#96B4D2")!)
-        searchBar.tintColor = UIColor(hexString: "#333333")
-        // Subscribe Keyboard Popup
-         */
+        
         subscribeToShowKeyboardNotifications()
         
         
@@ -283,6 +271,11 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
         }else{
             searchPersonsByPhoneNumber(text: searchText ?? "")
         }
+    }
+    
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
     }
 
 }
