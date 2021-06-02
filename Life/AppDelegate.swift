@@ -99,9 +99,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        let firebaseAuth = Auth.auth()
+        //let firebaseAuth = Auth.auth()
         print("device token: \(deviceToken.toHexString())")
-        firebaseAuth.setAPNSToken(deviceToken, type: .sandbox)
+        //firebaseAuth.setAPNSToken(deviceToken, type: .sandbox)
         //firebaseAuth.setAPNSToken(deviceToken, type: .prod)
         //firebaseAuth.setAPNSToken(deviceToken, type: .unknown)
     }

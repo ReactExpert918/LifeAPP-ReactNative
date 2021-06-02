@@ -118,35 +118,32 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
                     try store.enumerateContacts(with: request, usingBlock: {
                         (contact : CNContact, stop : UnsafeMutablePointer<ObjCBool>) -> Void in
                         
-                        let person = Person()
-                        person.firstname = contact.givenName
-                        person.lastname = contact.familyName
-                        person.fullname = person.firstname+" "+person.lastname
-                        person.objectId = AuthUser.userId()
+                        
                         for phone in contact.phoneNumbers {
                             
-                            var label = "未知标签"
+                            var label = "unknown"
                             if phone.label != nil {
                                 label = CNLabeledValue<NSString>.localizedString(forLabel:
                                     phone.label!)
                                 
                                 if(label == "mobile"){
                                     let phoneStr = phone.value.stringValue
-                                    var trim = phoneStr.trimmingCharacters(in: .whitespaces)
+                                    var trim = phoneStr.replacingOccurrences(of: " ", with: "").replacingOccurrences(of: "(", with: "").replacingOccurrences(of: ")", with: "").replacingOccurrences(of: "-", with: "")
                                     if(trim.prefix(1) != "+"){
                                         trim = phoneCode+trim
                                     }
-                                    person.phone = trim
+                                    
+                                    self.searchPersonsByPhoneNumber(text:trim)
                                 }
                             }
                         }
-                        self.personList.append(person)
+                        
                          
                     })
                 } catch {
                     print(error)
                 }
-                self.searchPersonsByPhoneNumber()
+                
 
             } else {
                 print("access denied")
@@ -155,9 +152,11 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func searchPersonsByPhoneNumber(text: String = "") {
+        print(text)
         let predicate1 = NSPredicate(format: "objectId != %@", AuthUser.userId())
         let predicate2 = (text != "") ? NSPredicate(format: "phone CONTAINS[c] %@", text) : NSPredicate(value: true)
         persons = realm.objects(Person.self).filter(predicate1).filter(predicate2).sorted(byKeyPath: "phone")
+        //persons = realm.objects(Person.self)
         personList.append(contentsOf: persons)
     }
     

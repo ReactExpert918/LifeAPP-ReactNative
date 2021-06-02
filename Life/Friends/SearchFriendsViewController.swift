@@ -48,17 +48,20 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
         radioGroup.selectedCheckBox = radioUsername
         // Initialize search bar
         searchController.searchResultsUpdater = self
+        //searchController.searchBar.delegate = self
         searchController.delegate = self
-        searchFriendsTableView.tableHeaderView = searchController.searchBar
-        searchController.hidesNavigationBarDuringPresentation = false
         searchController.dimsBackgroundDuringPresentation = false
+        searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.setBackgroundImage(UIImage(), for: .any, barMetrics: .default)
-        //self.tableView.tableHeaderView = searchController.searchBar
+        
+        searchController.hidesNavigationBarDuringPresentation = false
+        
+        searchFriendsTableView.tableHeaderView = searchController.searchBar
+        
         
         definesPresentationContext = false
         
         subscribeToShowKeyboardNotifications()
-        
         
     }
     
@@ -87,6 +90,8 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
     
     @IBAction func backTapped(_ sender: Any) {
         //dismiss(animated: true, completion: nil)
+        self.searchController.isEditing = false
+        self.searchController.isActive = false
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -187,6 +192,7 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
         cell.selectionStyle = .none
         
         cell.callbackAddFriend = { (index) in
+            self.searchController.searchBar.resignFirstResponder()
             let person = self.persons[index]
             // Display info on popupview
             self.popupNameLabel.text = person.fullname
@@ -276,6 +282,9 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    override func viewWillDisappear(_ animated: Bool){
+        
     }
 
 }
