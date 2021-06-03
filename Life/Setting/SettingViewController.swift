@@ -13,9 +13,12 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var tableView: UITableView!
     
     let sections = [NSLocalizedString("General Settings", comment: "General Settings")]
-     
+    /*
     let items = [[NSLocalizedString("Mirai AI", comment: "Mirai AI"), NSLocalizedString("Zed Pay", comment: "Zed Pay"), NSLocalizedString("Account Settings", comment: "Account Settings"), NSLocalizedString("Privacy Policy", comment: "Privacy Policy"), NSLocalizedString("About Us", comment: "About Us")]]
     let icons = [[UIImage(named: "ic_setting_mirai"), UIImage(named: "ic_zed_pay"), UIImage(named: "setting_account"), UIImage(named: "setting_privacy"), UIImage(named: "setting_about")]]
+    */
+    let items = [[NSLocalizedString("Account Settings", comment: "Account Settings")]]
+    let icons = [[UIImage(named: "setting_account")]]
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -81,7 +84,7 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 2{
+        if indexPath.row == 0{
             if let viewController = storyboard?.instantiateViewController(identifier: "accountSettingsVC") as? AccountSettingsViewController {
                 navigationController?.pushViewController(viewController, animated: true)
             }

@@ -74,6 +74,39 @@
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TKB-94-g9R" userLabel="ZedPayView">
+                                                <rect key="frame" x="313" y="12" width="40" height="40"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n6P-Ay-09e">
+                                                        <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <connections>
+                                                            <action selector="onAddFriendPressed:" destination="zA1-5F-Rsf" eventType="touchUpInside" id="wbW-De-mLu"/>
+                                                        </connections>
+                                                    </button>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_zed_pay" translatesAutoresizingMaskIntoConstraints="NO" id="1aI-vA-zt8">
+                                                        <rect key="frame" x="16" y="8" width="24" height="24"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="24" id="FYh-cw-zhg"/>
+                                                            <constraint firstAttribute="height" constant="24" id="hA3-X2-A8q"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="1Gw-aV-5SM"/>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="3y3-O6-bFI"/>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="8Sp-x8-RTe"/>
+                                                    <constraint firstItem="n6P-Ay-09e" firstAttribute="top" secondItem="TKB-94-g9R" secondAttribute="top" id="9N0-k9-ach"/>
+                                                    <constraint firstAttribute="width" constant="40" id="AdU-Lt-aJs"/>
+                                                    <constraint firstAttribute="trailing" secondItem="1aI-vA-zt8" secondAttribute="trailing" id="AnZ-gr-sB1"/>
+                                                    <constraint firstItem="n6P-Ay-09e" firstAttribute="leading" secondItem="TKB-94-g9R" secondAttribute="leading" id="Cmy-DS-cpQ"/>
+                                                    <constraint firstAttribute="trailing" secondItem="n6P-Ay-09e" secondAttribute="trailing" id="MN1-6L-6pJ"/>
+                                                    <constraint firstAttribute="bottom" secondItem="n6P-Ay-09e" secondAttribute="bottom" id="U83-mM-nCK"/>
+                                                    <constraint firstItem="1aI-vA-zt8" firstAttribute="centerY" secondItem="TKB-94-g9R" secondAttribute="centerY" id="Zvn-Xb-ITM"/>
+                                                </constraints>
+                                            </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nuh-TU-THI" userLabel="AddFriendView">
                                                 <rect key="frame" x="358" y="12" width="40" height="40"/>
                                                 <subviews>
@@ -110,9 +143,11 @@
                                         <constraints>
                                             <constraint firstItem="nuh-TU-THI" firstAttribute="centerY" secondItem="6e9-hE-opT" secondAttribute="centerY" id="41k-1T-bQN"/>
                                             <constraint firstItem="hlL-Ek-D0O" firstAttribute="leading" secondItem="6e9-hE-opT" secondAttribute="leading" constant="16" id="5XY-2o-th4"/>
+                                            <constraint firstItem="nuh-TU-THI" firstAttribute="leading" secondItem="TKB-94-g9R" secondAttribute="trailing" constant="5" id="6u4-KW-8gJ"/>
                                             <constraint firstAttribute="trailing" secondItem="nuh-TU-THI" secondAttribute="trailing" constant="16" id="93x-me-T6j"/>
                                             <constraint firstItem="hlL-Ek-D0O" firstAttribute="centerY" secondItem="6e9-hE-opT" secondAttribute="centerY" id="FNO-Mc-Zmd"/>
                                             <constraint firstItem="7Rx-qt-651" firstAttribute="centerX" secondItem="6e9-hE-opT" secondAttribute="centerX" id="MGj-xh-jJ5"/>
+                                            <constraint firstItem="TKB-94-g9R" firstAttribute="top" secondItem="6e9-hE-opT" secondAttribute="top" constant="12" id="ZQw-W9-OzJ"/>
                                             <constraint firstItem="7Rx-qt-651" firstAttribute="centerY" secondItem="6e9-hE-opT" secondAttribute="centerY" id="e2d-Oj-qTG"/>
                                             <constraint firstAttribute="height" constant="64" id="vxN-3V-aUE"/>
                                         </constraints>

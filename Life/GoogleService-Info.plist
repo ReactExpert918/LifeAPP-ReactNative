@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>461367245703-hqqm0ch21i7ispo873se3o0hv0e2rbtn.apps.googleusercontent.com</string>
+	<string>461367245703-u2ipo8nfil34sp5qe0n4974dsnpm7r5d.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.461367245703-hqqm0ch21i7ispo873se3o0hv0e2rbtn</string>
+	<string>com.googleusercontent.apps.461367245703-u2ipo8nfil34sp5qe0n4974dsnpm7r5d</string>
 	<key>API_KEY</key>
 	<string>AIzaSyB7YGQGxK4V88B0uLExyBhqwQ2y0fWUGNM</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>life.zed.com</string>
+	<string>com.zed.life</string>
 	<key>PROJECT_ID</key>
 	<string>life-app-2357f</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,7 +29,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:461367245703:ios:8726f9f5cafef36c447122</string>
+	<string>1:461367245703:ios:5665a4a344f6a9af447122</string>
 	<key>DATABASE_URL</key>
 	<string>https://life-app-2357f.firebaseio.com</string>
 </dict>
