@@ -81,7 +81,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
                                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <connections>
-                                                            <action selector="onAddFriendPressed:" destination="zA1-5F-Rsf" eventType="touchUpInside" id="wbW-De-mLu"/>
+                                                            <action selector="onZedPay:" destination="zA1-5F-Rsf" eventType="touchUpInside" id="mwC-zz-pBN"/>
                                                         </connections>
                                                     </button>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_zed_pay" translatesAutoresizingMaskIntoConstraints="NO" id="1aI-vA-zt8">

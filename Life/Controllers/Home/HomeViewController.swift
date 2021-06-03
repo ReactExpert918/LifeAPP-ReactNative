@@ -234,6 +234,12 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 76
     }
+    
+    // MARK: - ZedPayView
+    
+    @IBAction func onZedPay(_ sender: Any) {
+        print("Click Zed pay")
+    }
 }
 
 // MARK: - UISearchBarDelegate
@@ -300,3 +306,5 @@ struct HeaderSection {
   }
 }
     
+
+
