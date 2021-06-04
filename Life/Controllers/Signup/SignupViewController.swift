@@ -79,6 +79,13 @@ class SignupViewController: UIViewController {
             Util.showAlert(vc: self, "Please enter a valid phone number.", "")
             return
         }
+        let predicate1 = NSPredicate(format: "phone == %@", phoneNumber)
+        var persons = realm.objects(Person.self).filter(predicate1)
+        if persons.count > 0 {
+            Util.showAlert(vc: self, "This phone number is already used.", "")
+            return
+        }
+        
         
         // Confirmation Alert
         let confirmationAlert = UIAlertController(title: phoneNumber, message: "A Verification code will be sent to this number via text messages.", preferredStyle: .alert)

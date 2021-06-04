@@ -141,7 +141,7 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
             return
         }
         let predicate1 = NSPredicate(format: "objectId != %@ AND isDeleted == NO", AuthUser.userId())
-        let predicate2 = (text != "") ? NSPredicate(format: "fullname CONTAINS[c] %@", text) : NSPredicate(value: true)
+        let predicate2 = (text != "") ? NSPredicate(format: "fullname == %@", text) : NSPredicate(value: true)
         persons = realm.objects(Person.self).filter(predicate1).filter(predicate2).sorted(byKeyPath: "fullname")
         
         if persons.count > 0 {
@@ -158,7 +158,7 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
             return
         }
         let predicate1 = NSPredicate(format: "objectId != %@ AND isDeleted == NO", AuthUser.userId())
-        let predicate2 = (text != "") ? NSPredicate(format: "phone CONTAINS[c] %@", text) : NSPredicate(value: true)
+        let predicate2 = (text != "") ? NSPredicate(format: "phone == %@", text) : NSPredicate(value: true)
         persons = realm.objects(Person.self).filter(predicate1).filter(predicate2).sorted(byKeyPath: "phone")
         if persons.count > 0 {
             tableView.isHidden = false
