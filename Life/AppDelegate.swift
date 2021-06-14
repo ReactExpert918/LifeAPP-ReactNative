@@ -53,10 +53,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Push notification initialization
         //-----------------------------------------------------------------------------------------------------------------------------------------
         let authorizationOptions: UNAuthorizationOptions = [.sound, .alert, .badge]
+        
         UNUserNotificationCenter.current().requestAuthorization(options: authorizationOptions, completionHandler: { granted, error in
             if (error == nil) {
                 DispatchQueue.main.async {
                     UIApplication.shared.registerForRemoteNotifications()
+                    //UIApplication.shared.regis
                 }
             }
         })
@@ -68,6 +70,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         OneSignal.initWithLaunchOptions(launchOptions)
         OneSignal.setAppId(ONESIGNAL.ONESIGNAL_APPID)
         OneSignal.setLogLevel(ONE_S_LOG_LEVEL.LL_NONE, visualLevel: ONE_S_LOG_LEVEL.LL_NONE)
+        
+        
         
        // OneSignal.inFocusDisplayType = OSNotificationDisplayType.none
         //-----------------------------------------------------------------------------------------------------------------------------------------
@@ -95,15 +99,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(sinchLogInUser), name: NSNotification.Name(rawValue: NotificationStatus.NOTIFICATION_USER_LOGGED_IN), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(sinchLogOutUser), name: NSNotification.Name(rawValue: NotificationStatus.NOTIFICATION_USER_LOGGED_OUT), object: nil)
         
+        
         return true
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         //let firebaseAuth = Auth.auth()
-        print("device token: \(deviceToken.toHexString())")
+        // print("device token: \(deviceToken.toHexString())")
         //firebaseAuth.setAPNSToken(deviceToken, type: .sandbox)
         //firebaseAuth.setAPNSToken(deviceToken, type: .prod)
         //firebaseAuth.setAPNSToken(deviceToken, type: .unknown)
+        DispatchQueue.main.async {
+            UIApplication.shared.applicationIconBadgeNumber = UIApplication.shared.applicationIconBadgeNumber + 1
+        }
     }
 
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
@@ -112,6 +120,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print(userInfo)
             return
         }
+        print("did not")
+        
+        let state = UIApplication.shared.applicationState
+        if(state == .background){
+            completionHandler(.newData)
+        }else if(state == .inactive){
+            completionHandler(.newData)
+        }
+        
     }
  
     // MARK: UISceneSession Lifecycle
@@ -161,12 +178,12 @@ extension AppDelegate: SINClientDelegate {
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func clientDidStart(_ client: SINClient!) {
-        print("Sinch client started successfully \(client.userId)")
+        // print("Sinch client started successfully \(client.userId)")
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func clientDidFail(_ client: SINClient!, error: Error!) {
-        print("Sinch client error: \(error.localizedDescription)")
+        // print("Sinch client error: \(error.localizedDescription)")
     }
 }
 
@@ -176,13 +193,13 @@ extension AppDelegate: SINCallClientDelegate {
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func client(_ client: SINCallClient!, willReceiveIncomingCall call: SINCall!) {
-        print("Sinch client willReceiveIncomingCall \(call.callId)")
+        // print("Sinch client willReceiveIncomingCall \(call.callId)")
         callKitProvider?.insertCall(call: call)
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func client(_ client: SINCallClient!, didReceiveIncomingCall call: SINCall!) {
-        print("Sinch client didReceiveIncomingCall \(call.callId)")
+        // print("Sinch client didReceiveIncomingCall \(call.callId)")
         callKitProvider?.insertCall(call: call)
 
         callKitProvider?.reportNewIncomingCall(call: call)
@@ -204,4 +221,18 @@ extension AppDelegate: SINManagedPushDelegate {
             self.push?.didCompleteProcessingPushPayload(payload)
         }
     }
+}
+
+extension String {
+    var localized: String {
+        return NSLocalizedString(self, tableName: nil, bundle: Bundle.main, value: "", comment: "")
+    }
+    var localizedJA: String{
+        let language = "ja"
+        let path = Bundle.main.path(forResource: language, ofType: "lproj")!
+        let bundle = Bundle(path: path)!
+        return NSLocalizedString(self, bundle: bundle, comment: "")
+    }
+    
+
 }

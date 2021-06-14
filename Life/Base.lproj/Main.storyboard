@@ -757,9 +757,12 @@
                         <outlet property="participantNameLabel" destination="c89-3p-oYE" id="vVr-MN-buz"/>
                         <outlet property="plusButton" destination="Z0y-42-cVg" id="krb-VL-ioL"/>
                         <outlet property="searchBar" destination="rtd-Wo-tRR" id="YVp-sb-jnw"/>
+                        <outlet property="searchView" destination="emn-8e-6W3" id="peb-yB-r2K"/>
                         <outlet property="statusbarView" destination="7iP-Mb-Pcb" id="n2y-Nm-OAc"/>
                         <outlet property="tableView" destination="S5i-me-rWX" id="A6t-QI-JEJ"/>
                         <outlet property="topbarView" destination="cOY-bW-lyB" id="3VZ-lI-dhs"/>
+                        <outlet property="videoCallView" destination="PYD-Cf-dVg" id="L13-n8-rRI"/>
+                        <outlet property="voiceCallView" destination="0Za-f7-cIS" id="QMj-g6-RMo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e1M-ad-HBd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -20,7 +20,7 @@ class FireFetch: NSObject {
 
 		query.getDocuments() { querySnapshot, error in
 			if let snapshot = querySnapshot {
-				DispatchQueue.main.async {
+				//DispatchQueue.main.async {
 					let realm = try! Realm()
 					try! realm.safeWrite {
 						for documentChange in snapshot.documentChanges {
@@ -28,7 +28,7 @@ class FireFetch: NSObject {
 							self.updateRealm(realm, data, type)
 						}
 					}
-				}
+				//}
 			}
 		}
 	}
@@ -38,7 +38,7 @@ class FireFetch: NSObject {
 
 		query.getDocuments() { querySnapshot, error in
 			if let snapshot = querySnapshot {
-				DispatchQueue.main.async {
+				//DispatchQueue.main.async {
 					let realm = try! Realm()
 					try! realm.safeWrite {
 						for documentChange in snapshot.documentChanges {
@@ -47,7 +47,7 @@ class FireFetch: NSObject {
 						}
 					}
 					completion(snapshot.documentChanges.count, nil)
-				}
+				//}
 			} else {
 				completion(0, error)
 			}

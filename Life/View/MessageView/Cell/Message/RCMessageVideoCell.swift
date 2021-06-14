@@ -30,8 +30,7 @@ class RCMessageVideoCell: RCMessageCell {
 
 		if (imageViewThumb == nil) {
 			imageViewThumb = UIImageView()
-			imageViewThumb.layer.masksToBounds = true
-			imageViewThumb.layer.cornerRadius = RCDefaults.bubbleRadius
+			
 			viewBubble.addSubview(imageViewThumb)
 		}
 
@@ -86,7 +85,7 @@ class RCMessageVideoCell: RCMessageCell {
 
 		super.layoutSubviews(size)
 
-		imageViewThumb.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+		imageViewThumb.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height-labelHeight-nameHeight)
 
 		let widthPlay = imageViewPlay.image?.size.width ?? 0
 		let heightPlay = imageViewPlay.image?.size.height ?? 0
@@ -117,7 +116,11 @@ class RCMessageVideoCell: RCMessageCell {
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	class func size(_ messagesView: ChatViewController, at indexPath: IndexPath) -> CGSize {
+        let rcmessage = messagesView.rcmessageAt(indexPath)
 
-		return CGSize(width: RCDefaults.videoBubbleWidth, height: RCDefaults.videoBubbleHeight)
+        let labelHeight = (messagesView.textHeaderUpper(indexPath) != nil) ? RCDefaults.headerUpperHeight : 0
+        let nameHeight = (messagesView.recipientId=="" && rcmessage.incoming) ? RCDefaults.headerLowerHeight : 0
+        
+		return CGSize(width: RCDefaults.videoBubbleWidth, height: RCDefaults.videoBubbleHeight+labelHeight+RCDefaults.viewBubbleMarginTop+nameHeight)
 	}
 }

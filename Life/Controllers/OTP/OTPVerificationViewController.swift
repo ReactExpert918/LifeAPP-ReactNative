@@ -87,33 +87,31 @@ class OTPVerificationViewController: UIViewController {
         Auth.auth().signIn(with: credential) { (authResult, error) in
             if let error = error {
                 self.hud.dismiss()
-                Util.showAlert(vc: self, "Incorrect verification code, please try again." , "")
+                Util.showAlert(vc: self, "Incorrect verification code, please try again.".localized , "")
                 return
             }
             
             // Create Person
-            self.createPerson()
+            //self.createPerson()
             // OTP Verification completed
-            self.hud.textLabel.text = "Signup successful."
-            self.hud.dismiss(afterDelay: 2.0, animated: true)
-            DispatchQueue.main.asyncAfter(deadline: .now()+2.1, execute: {
+            self.hud.textLabel.text = "Signup successful.".localized
+            self.hud.dismiss(afterDelay: 1.0, animated: true)
+            DispatchQueue.main.asyncAfter(deadline: .now()+1.1, execute: {
                 self.gotoBasicDetailInsertViewController()
             })
         }
     }
     
-    func createPerson() {
-        let userId = AuthUser.userId()
-        Persons.create(userId, phone: self.phoneNumber)
-    }
+    
     func gotoBasicDetailInsertViewController() {
         let vc =  self.storyboard?.instantiateViewController(identifier: "basicDetailInsertVC") as! BasicDetailInsertViewController
+        vc.setPhoneNumber(withPhoneNumber: phoneNumber)
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction func onResendCodePressed(_ sender: Any) {
         DispatchQueue.main.async {
-            self.hud.textLabel.text = "Sending..."
+            self.hud.textLabel.text = "Sending...".localized
             self.hud.show(in: self.view, animated: true)
         }
         PhoneAuthProvider.provider().verifyPhoneNumber(phoneNumber, uiDelegate: nil) { (verificationID, error) in
@@ -135,17 +133,17 @@ class OTPVerificationViewController: UIViewController {
 }
 extension OTPVerificationViewController : DPOTPViewDelegate {
    func dpOTPViewAddText(_ text: String, at position: Int) {
-        //print("addText:- " + text + " at:- \(position)" )
+        //// print("addText:- " + text + " at:- \(position)" )
         self.checkOTPValidation(text: text)
     }
     
     func dpOTPViewRemoveText(_ text: String, at position: Int) {
-        //print("removeText:- " + text + " at:- \(position)" )
+        //// print("removeText:- " + text + " at:- \(position)" )
         self.checkOTPValidation(text: text)
     }
     
     func dpOTPViewChangePositionAt(_ position: Int) {
-        print("at:-\(position)")
+        // print("at:-\(position)")
     }
     func dpOTPViewBecomeFirstResponder() {
         

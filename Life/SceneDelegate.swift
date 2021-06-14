@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import OneSignal
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
@@ -35,10 +35,42 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         //NotificationCenter.default.post(name: Notification.Name(NotificationStatus.NOTIFICATION_APP_STARTED), object: nil)
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        //DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             Persons.update(lastActive: Date().timestamp())
             Persons.update(oneSignalId: PushNotification.oneSignalId())
+        //}
+        
+        let osNotificationOpenedBlock: OSNotificationOpenedBlock = { result in
+            if let additionalData = result.notification.additionalData {
+                print("additionalData: ", additionalData)
+                //print(additionalData["postId"] as! String)
+                guard let chatId = additionalData["chatId"] as? String else{
+                    return
+                }
+                guard let recipientId = additionalData["recipientId"] as? String else{
+                    return
+                }
+                
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                
+                let vc =  storyboard.instantiateViewController(identifier: "chatViewController") as! ChatViewController
+                vc.setParticipant(chatId: chatId, recipientId: recipientId)
+                vc.modalPresentationStyle = .fullScreen
+                vc.hidesBottomBarWhenPushed = true
+                guard let tabBarController = self.window?.rootViewController as? UITabBarController else{
+                    return
+                }
+                guard let navController = tabBarController.selectedViewController as? UINavigationController else {
+                    return
+                    
+                }
+                navController.pushViewController(vc, animated: true)
+                
+            }
         }
+        OneSignal.setNotificationOpenedHandler(osNotificationOpenedBlock)
+
+        
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
@@ -56,8 +88,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
         LocationManager.stop()
-
-        Persons.update(lastTerminate: Date().timestamp())
+        //DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            Persons.update(lastTerminate: Date().timestamp())
+        //}
+        
     }
 
 

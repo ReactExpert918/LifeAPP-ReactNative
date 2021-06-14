@@ -90,7 +90,7 @@ class AddParticipantsViewController: UIViewController, UITableViewDelegate, UITa
         searchBar.barStyle = .default
         searchBar.barTintColor = UIColor(hexString: "#999999")
         searchBar.layer.cornerRadius = 8
-        searchBar.placeholder = "Search friends"
+        searchBar.placeholder = "Search friends".localized
         searchBar.set(textColor: UIColor(hexString: "#333333")!)
         searchBar.setPlaceholder(textColor: UIColor(hexString: "#999999")!)
         searchBar.setSearchImage(color: UIColor(hexString: "#999999")!)
@@ -110,7 +110,7 @@ class AddParticipantsViewController: UIViewController, UITableViewDelegate, UITa
     @objc func loadFriends() {
 
         let predicate = NSPredicate(format: "userId == %@ AND isDeleted == NO", AuthUser.userId())
-        //print("Auth UserId: \(predicate)")
+        //// print("Auth UserId: \(predicate)")
         friends = realm.objects(Friend.self).filter(predicate)
 
         tokenFriends?.invalidate()
@@ -148,7 +148,7 @@ class AddParticipantsViewController: UIViewController, UITableViewDelegate, UITa
             divider.isHidden = false
         }
         collectionView.reloadData()
-        barTitle.text = "Add Participants (\(selectedPersonsForGroup.count))"
+        barTitle.text = "Add Participants".localized+" (\(selectedPersonsForGroup.count))"
     }
     @IBAction func onSaveTapped(_ sender: Any) {
         dismiss(animated: true, completion: nil)

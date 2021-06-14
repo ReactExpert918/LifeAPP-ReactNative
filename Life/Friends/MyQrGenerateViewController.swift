@@ -78,9 +78,9 @@ class MyQrGenerateViewController: UIViewController {
     @objc func saveError(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
         if let error = error {
             // we got back an error!
-            showAlertWith(title: "Save error", message: error.localizedDescription)
+            showAlertWith(title: "Save error".localized, message: error.localizedDescription)
         } else {
-            showAlertWith(title: "Saved!", message: "Your image has been saved to your photos.")
+            showAlertWith(title: "Saved!".localized, message: "Your image has been saved to your photos.".localized)
         }
     }
     

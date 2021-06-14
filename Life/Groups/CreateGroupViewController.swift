@@ -81,19 +81,19 @@ class CreateGroupViewController: UIViewController, UICollectionViewDelegate, UIC
     }
     @IBAction func onCameraTapped(_ sender: Any) {
         
-        let confirmationAlert = UIAlertController(title: "please select source type to set profile image.", message: "", preferredStyle: .alert)
+        let confirmationAlert = UIAlertController(title: "Please select source type to set profile image.".localized, message: "", preferredStyle: .alert)
 
-        confirmationAlert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action: UIAlertAction!) in
+        confirmationAlert.addAction(UIAlertAction(title: "Camera".localized, style: .default, handler: { (action: UIAlertAction!) in
             confirmationAlert.dismiss(animated: true, completion: nil)
             self.openCamera()
         }))
         
-        confirmationAlert.addAction(UIAlertAction(title: "Gallery", style: .default, handler: { (action: UIAlertAction!) in
+        confirmationAlert.addAction(UIAlertAction(title: "Gallery".localized, style: .default, handler: { (action: UIAlertAction!) in
             confirmationAlert.dismiss(animated: true, completion: nil)
             self.openGallery()
         }))
 
-        confirmationAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+        confirmationAlert.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: { (action: UIAlertAction!) in
         }))
         present(confirmationAlert, animated: true, completion: nil)
     }
@@ -117,15 +117,15 @@ class CreateGroupViewController: UIViewController, UICollectionViewDelegate, UIC
         picker.dismiss(animated: true)
 
         guard let image = info[.editedImage] as? UIImage else {
-            print("No image found")
+            // print("No image found")
             return
         }
         let data = image.jpegData(compressionQuality: 1.0)
         groupPicture = UIImage(data: data! as Data)
-        DispatchQueue.main.async{
+        //DispatchQueue.main.async{
             self.groupImageView.image = self.groupPicture
             self.cameraButton.setImage(nil, for: .normal)
-        }
+        //}
         // print out the image size as a test
         // print(correct_image?.size)
         //uploadPicture(image: correct_image!)
@@ -135,11 +135,11 @@ class CreateGroupViewController: UIViewController, UICollectionViewDelegate, UIC
         
         let name = groupNameTextField.text ?? ""
         if name.count == 0 {
-            Util.showAlert(vc: self, "Please enter the name", "")
+            Util.showAlert(vc: self, "Please enter the name".localized, "")
             return
         }
         if selectedPersonsForGroup.count == 0 {
-            Util.showAlert(vc: self, "Please select users", "")
+            Util.showAlert(vc: self, "Please select users".localized, "")
             return
         }
         // Append user id
@@ -155,7 +155,7 @@ class CreateGroupViewController: UIViewController, UICollectionViewDelegate, UIC
         if self.groupPicture != nil {
             // upload picture
             if let data = groupPicture?.jpegData(compressionQuality: 0.6) {
-                self.hud.textLabel.text = "Creating new group..."
+                self.hud.textLabel.text = "Creating new group...".localized
                 self.hud.show(in: self.view, animated: true)
                 MediaUpload.group(group.objectId, data: data, completion: { error in
                     if (error == nil) {
@@ -166,10 +166,10 @@ class CreateGroupViewController: UIViewController, UICollectionViewDelegate, UIC
                             self.delegate?.onGroupCreated(group: group)
                         }
                     } else {
-                        DispatchQueue.main.async {
-                            self.hud.textLabel.text = "Picture upload error."
+                        //DispatchQueue.main.async {
+                            self.hud.textLabel.text = "Picture upload error.".localized
                             self.hud.show(in: self.view, animated: true)
-                        }
+                        //}
                         self.hud.dismiss(afterDelay: 1.0, animated: true)
                     }
                 })

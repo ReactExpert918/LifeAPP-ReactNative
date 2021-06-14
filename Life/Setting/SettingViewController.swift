@@ -34,20 +34,32 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     @IBAction func onSignoutTapped(_ sender: Any) {
-        let refreshAlert = UIAlertController(title: "Are you sure to sign out?", message: "", preferredStyle: .alert)
+        let refreshAlert = UIAlertController(title: "Are you sure to sign out?".localized, message: "", preferredStyle: .alert)
 
-        refreshAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action: UIAlertAction!) in
-            AuthUser.signOut { (error) in
-                if let error = error {
-                    
+        refreshAlert.addAction(UIAlertAction(title: "Yes".localized, style: .default, handler: { (action: UIAlertAction!) in
+            //DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            //DispatchQueue.main.sync {
+                
+                //Persons.update(oneSignalId: "")
+            //}
+            DispatchQueue.main.async {
+                Persons.update(lastTerminate: Date().timestamp())
+                Persons.update(oneSignalId: "")
+                AuthUser.signOut { (error) in
+                    if error != nil {
+                        return
+                    }
+                    PrefsManager.setEmail(val: "")
+                    self.gotoWelcomeViewController()
                 }
-                PrefsManager.setEmail(val: "")
-                self.gotoWelcomeViewController()
             }
+            //}
+            
+            
             
         }))
 
-        refreshAlert.addAction(UIAlertAction(title: "No", style: .cancel, handler: { (action: UIAlertAction!) in
+        refreshAlert.addAction(UIAlertAction(title: "No".localized, style: .cancel, handler: { (action: UIAlertAction!) in
         }))
         present(refreshAlert, animated: true, completion: nil)
     }

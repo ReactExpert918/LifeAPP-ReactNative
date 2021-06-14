@@ -39,6 +39,7 @@ class Person: SyncObject {
 	@objc dynamic var lastActive: Int64 = 0
 	@objc dynamic var lastTerminate: Int64 = 0
     @objc dynamic var isDeleted = false
+    
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	class func lastUpdatedAt() -> Int64 {
 
@@ -201,6 +202,8 @@ class Person: SyncObject {
 			lastActive = value
 			syncRequired = true
 			updatedAt = Date().timestamp()
+            print("lastActivate")
+            print(value)
 		}
 	}
 
@@ -214,6 +217,8 @@ class Person: SyncObject {
 			lastTerminate = value
 			syncRequired = true
 			updatedAt = Date().timestamp()
+            print("lastTerminate")
+            print(value)
 		}
 	}
 

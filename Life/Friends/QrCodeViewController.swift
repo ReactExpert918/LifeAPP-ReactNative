@@ -64,6 +64,11 @@ class QrCodeViewController: UIViewController, QRCodeReaderViewControllerDelegate
         super.viewDidLoad()
         startReader()
     }
+    override func viewDidDisappear(_ animated: Bool) {
+        //print("Scan disappear")
+        super.viewDidDisappear(animated)
+        reader.stopScanning()
+    }
     func startReader(){
         guard checkScanPermissions(), !reader.isRunning else { return }
 
@@ -82,7 +87,7 @@ class QrCodeViewController: UIViewController, QRCodeReaderViewControllerDelegate
 
             // It is important to set animated to false or it behaves weird currently
             self.present(sheetController, animated: false, completion: nil)
-            print("Completion with result: \(result.value) of type \(result.metadataType)")
+            // print("Completion with result: \(result.value) of type \(result.metadataType)")
         }
         reader.startScanning()
     }
@@ -95,9 +100,9 @@ class QrCodeViewController: UIViewController, QRCodeReaderViewControllerDelegate
 
         switch error.code {
         case -11852:
-          alert = UIAlertController(title: "Error", message: "This app is not authorized to use Back Camera.", preferredStyle: .alert)
+            alert = UIAlertController(title: "Error".localized, message: "This app is not authorized to use Back Camera.".localized, preferredStyle: .alert)
 
-          alert.addAction(UIAlertAction(title: "Setting", style: .default, handler: { (_) in
+            alert.addAction(UIAlertAction(title: "Setting".localized, style: .default, handler: { (_) in
             DispatchQueue.main.async {
               if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
                 UIApplication.shared.openURL(settingsURL)
@@ -105,9 +110,9 @@ class QrCodeViewController: UIViewController, QRCodeReaderViewControllerDelegate
             }
           }))
 
-          alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil))
         default:
-          alert = UIAlertController(title: "Error", message: "Reader not supported by the current device", preferredStyle: .alert)
+            alert = UIAlertController(title: "Error".localized, message: "Reader not supported by the current device".localized, preferredStyle: .alert)
           alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         }
 

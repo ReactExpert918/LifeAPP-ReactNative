@@ -49,20 +49,20 @@ class SignInViewController: UIViewController, UITextViewDelegate, UITextFieldDel
     }
     @IBAction func onLoginTapped(_ sender: Any) {
         if userName.text == ""{
-            Util.showAlert(vc: self, "Attention" , "Please enter email first.")
+            Util.showAlert(vc: self, "Attention".localized , "Please enter email first.".localized)
             return
         }else if password.text == ""{
-            Util.showAlert(vc: self, "Attention" , "Please enter password first.")
+            Util.showAlert(vc: self, "Attention".localized , "Please enter password first.".localized)
             return
         }
         DispatchQueue.main.async {
-            self.hud.textLabel.text = "Logging in..."
+            self.hud.textLabel.text = "Logging in...".localized
             self.hud.show(in: self.view, animated: true)
         }
         Auth.auth().signIn(withEmail: userName.text!, password: password.text!) { [weak self] authResult, error in
             if error != nil {
                 self?.hud.dismiss()
-                self!.errorText.text = "Incorrect email or password,\nPlease try again!"
+                self!.errorText.text = "Incorrect email or password,\nPlease try again!".localized
                 self!.errorText.textColor = UIColor(hexString: "#DF1747")
                 self!.errorText.font = UIFont(name: "Montserrat-Regular", size: 14.0)
                 return
@@ -70,6 +70,11 @@ class SignInViewController: UIViewController, UITextViewDelegate, UITextFieldDel
             PrefsManager.setEmail(val: self?.userName?.text ?? "")
             PrefsManager.setPassword(val: self?.password?.text ?? "")
             self?.loadPerson()
+            //DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                Persons.update(lastActive: Date().timestamp())
+                Persons.update(oneSignalId: PushNotification.oneSignalId())
+                        
+            //}
         }
     }
     func loadPerson() {
@@ -88,7 +93,7 @@ class SignInViewController: UIViewController, UITextViewDelegate, UITextFieldDel
                 }
             }
             else {
-                self.errorText.text = "Network connection error,\nPlease try again!"
+                self.errorText.text = "Network connection error,\nPlease try again!".localized
                 self.errorText.textColor = UIColor(hexString: "#DF1747")
                 self.errorText.font = UIFont(name: "Montserrat-Regular", size: 14.0)
 

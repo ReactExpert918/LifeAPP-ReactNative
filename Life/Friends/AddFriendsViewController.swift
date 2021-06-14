@@ -26,25 +26,38 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var confirmPopupProfileImage: UIImageView!
     @IBOutlet weak var confirmPopupLabel: UILabel!
     
-    let sections = ["New Friend Requests", "Friend Recommendations"]
+    let sections = ["New Friend Requests".localized, "New Friend Pendings".localized, "Friend Recommendations".localized]
     private var persons = realm.objects(Person.self).filter(falsepredicate)
     private var pendingFriends = realm.objects(Person.self).filter(falsepredicate)
+    private var requestFriends = realm.objects(Person.self).filter(falsepredicate)
     var personList = [Person]()
     
     var contacts = [FetchedContact]()
     var contactImageAvailability: Bool?
     
     var selectedPerson : Person!
-    var sectionCount = 1
+    var sectionCount = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.register(UINib(nibName: "AddFriendSection", bundle: nil), forHeaderFooterViewReuseIdentifier: AddFriendSection.reuseIdentifier)
         tableView.tableFooterView = UIView(frame: .zero)
+        
+        //refreshView()
+        // Do any additional setup after loading the view.
+    }
+    
+    func refreshView(){
+        
+        persons = realm.objects(Person.self).filter(falsepredicate)
+        pendingFriends = realm.objects(Person.self).filter(falsepredicate)
+        requestFriends = realm.objects(Person.self).filter(falsepredicate)
+        personList.removeAll()
         loadFriendsRecommend()
         loadPendingFriends()
-        // Do any additional setup after loading the view.
+        loadRequestFriends()
+        refreshTableView()
     }
     
     @IBAction func onStartChatTapped(_ sender: Any) {
@@ -61,13 +74,13 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBAction func onDeclineTapped(_ sender: Any) {
         confirmPopupView.isHidden = true
         Friends.update(selectedPerson.objectId, isAccepted: false)
-        loadPendingFriends()
+        refreshView()
     }
     
     @IBAction func onAcceptTapped(_ sender: Any) {
         confirmPopupView.isHidden = true
         Friends.update(selectedPerson.objectId, isAccepted: true)
-        loadPendingFriends()
+        refreshView()
     }
     
     @IBAction func closeTapped(_ sender: Any) {
@@ -90,7 +103,7 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
     func loadFriendsRecommend(){
         CNContactStore().requestAccess(for: .contacts) { (granted, error) in
             if let error = error {
-                print("failed to request access", error)
+                // print("failed to request access", error)
                 return
             }
             if granted {
@@ -101,7 +114,7 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
         let store = CNContactStore()
         store.requestAccess(for: .contacts) { (granted, error) in
             if let error = error {
-                print("failed to request access", error)
+                // print("failed to request access", error)
                 return
             }
             if granted {
@@ -141,41 +154,57 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
                          
                     })
                 } catch {
-                    print(error)
+                    //print(error)
                 }
                 
 
             } else {
-                print("access denied")
+                // print("access denied")
             }
         }
+        
+        // print("recommend")
+        //print(personList.count)
     }
     
     func searchPersonsByPhoneNumber(text: String = "") {
-        print(text)
-        let predicate1 = NSPredicate(format: "objectId != %@", AuthUser.userId())
-        let predicate2 = (text != "") ? NSPredicate(format: "phone CONTAINS[c] %@", text) : NSPredicate(value: true)
+        //print(text)
+        let predicate1 = NSPredicate(format: "objectId != %@ AND NOT objectId IN %@", AuthUser.userId(), Friends.friendIds())
+        let predicate2 = (text != "") ? NSPredicate(format: "phone == %@", text) : NSPredicate(value: true)
         persons = realm.objects(Person.self).filter(predicate1).filter(predicate2).sorted(byKeyPath: "phone")
         //persons = realm.objects(Person.self)
         personList.append(contentsOf: persons)
     }
     
     func loadPendingFriends(){
+        // print("pending")
+        // print(Friends.friendPendingIds())
         let predicate1 = NSPredicate(format: "objectId IN %@ AND NOT objectId IN %@ AND isDeleted == NO", Friends.friendPendingIds(), Blockeds.blockerIds())
         pendingFriends = realm.objects(Person.self).filter(predicate1).sorted(byKeyPath: "fullname")
-        refreshTableView()
+        // print(pendingFriends.count)
+    }
+    func loadRequestFriends(){
+        // print("request")
+        // print(Friends.friendRequestIds())
+        let predicate1 = NSPredicate(format: "objectId IN %@ AND NOT objectId IN %@ AND isDeleted == NO", Friends.friendRequestIds(), Blockeds.blockerIds())
+        requestFriends = realm.objects(Person.self).filter(predicate1).sorted(byKeyPath: "fullname")
+        // print(requestFriends.count)
     }
     
     func refreshTableView(){
-        if pendingFriends.count > 0 && personList.count > 0{
-            sectionCount = 2
-        }else if pendingFriends.count > 0{
-            sectionCount = 1
-        }else if personList.count > 0{
-            sectionCount = 1
-        }else{
-            sectionCount = 0
+        sectionCount = 0
+        if pendingFriends.count > 0 {
+            sectionCount += 1
         }
+        if requestFriends.count > 0{
+            sectionCount += 1
+        }
+        
+        if personList.count > 0 {
+            sectionCount += 1
+        }
+        
+       
         tableView.reloadData()
     }
     
@@ -183,72 +212,83 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
         .lightContent
     }
     
+    func addPendingCell(_ tableView:UITableView, cellForRowAt indexPath:IndexPath) -> UITableViewCell{
+        let cell = tableView.dequeueReusableCell(withIdentifier: "addFriendConfirmCell", for: indexPath) as! AddFriendConfirmCell
+        let person = pendingFriends[indexPath.row]
+        cell.index = indexPath.row
+        cell.bindData(person: person)
+        cell.loadImage(person: person, tableView: tableView, indexPath: indexPath)
+        cell.selectionStyle = .none
+        cell.callbackAddFriendConfirm = { (index) in
+            let person = self.pendingFriends[index]
+            self.selectedPerson = person
+            // Display info on popupview
+            self.confirmPopupLabel.text = "Do you want to add \(person.fullname) your friend list?"
+            self.loadRequestedFriendImage(person: person)
+
+            self.confirmPopupView.isHidden = false
+        }
+        return cell
+        
+    }
+    func addRequestCell(_ tableView:UITableView, cellForRowAt indexPath:IndexPath) -> UITableViewCell{
+        let cell = tableView.dequeueReusableCell(withIdentifier: "addFriendPendingCell", for: indexPath) as! AddFriendPendingCell
+        let person = requestFriends[indexPath.row]
+        
+        cell.bindData(person: person)
+        cell.loadImage(person: person, tableView: tableView, indexPath: indexPath)
+        cell.selectionStyle = .none
+        
+        return cell
+        
+    }
+    func addPersonCell(_ tableView:UITableView, cellForRowAt indexPath:IndexPath) -> UITableViewCell{
+        let cell = tableView.dequeueReusableCell(withIdentifier: "addFriendCell", for: indexPath) as! AddFriendCell
+        let person = personList[indexPath.row]
+        cell.index = indexPath.row
+        cell.bindData(person: person)
+        cell.loadImage(person: person, tableView: tableView, indexPath: indexPath)
+        cell.selectionStyle = .none
+        cell.callbackAddFriend = { (index) in
+            let person = self.personList[index]
+            // Display info on popupview
+            self.popupNameLabel.text = person.fullname
+            self.popupPhoneNumberLabel.text = person.phone
+            self.loadImage(person: person)
+            
+            self.popupView.isHidden = false
+            if (Friends.isFriend(person.objectId)) {
+                self.popupStatusLabel.text = "Already existing in your friend list.".localized
+            } else {
+                Friends.create(person.objectId)
+                self.popupStatusLabel.text = "Successfully added to your friend list.".localized
+                self.refreshView()
+            }
+        }
+        return cell
+        
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0{
             if pendingFriends.count > 0{
-                let cell = tableView.dequeueReusableCell(withIdentifier: "addFriendConfirmCell", for: indexPath) as! AddFriendConfirmCell
-                let person = pendingFriends[indexPath.row]
-                cell.index = indexPath.row
-                cell.bindData(person: person)
-                cell.loadImage(person: person, tableView: tableView, indexPath: indexPath)
-                cell.selectionStyle = .none
-                cell.callbackAddFriendConfirm = { (index) in
-                    let person = self.pendingFriends[index]
-                    self.selectedPerson = person
-                    // Display info on popupview
-                    self.confirmPopupLabel.text = "Do you want to add \(person.fullname) your friend list?"
-                    self.loadRequestedFriendImage(person: person)
-
-                    self.confirmPopupView.isHidden = false
-                }
-                return cell
+                return addPendingCell(tableView, cellForRowAt: indexPath)
+            }else if requestFriends.count > 0{
+                return addRequestCell(tableView, cellForRowAt: indexPath)
+            }
+            else{
+                return addPersonCell(tableView, cellForRowAt: indexPath)
+            }
+        }
+        else if indexPath.section == 1{
+            if pendingFriends.count > 0 && requestFriends.count > 0{
+                return addRequestCell(tableView, cellForRowAt: indexPath)
             }else{
-                let cell = tableView.dequeueReusableCell(withIdentifier: "addFriendCell", for: indexPath) as! AddFriendCell
-                let person = personList[indexPath.row]
-                cell.index = indexPath.row
-                cell.bindData(person: person)
-                cell.loadImage(person: person, tableView: tableView, indexPath: indexPath)
-                cell.selectionStyle = .none
-                cell.callbackAddFriend = { (index) in
-                    let person = self.personList[index]
-                    // Display info on popupview
-                    self.popupNameLabel.text = person.fullname
-                    self.popupPhoneNumberLabel.text = person.phone
-                    self.loadImage(person: person)
-                    
-                    self.popupView.isHidden = false
-                    if (Friends.isFriend(person.objectId)) {
-                        self.popupStatusLabel.text = "Already existing in your friend list."
-                    } else {
-                        Friends.create(person.objectId)
-                        self.popupStatusLabel.text = "Successfully added to your friend list."
-                    }
-                }
-                return cell
+                return addPersonCell(tableView, cellForRowAt: indexPath)
             }
-        }else{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "addFriendCell", for: indexPath) as! AddFriendCell
-            let person = personList[indexPath.row]
-            cell.index = indexPath.row
-            cell.bindData(person: person)
-            cell.loadImage(person: person, tableView: tableView, indexPath: indexPath)
-            cell.selectionStyle = .none
-            cell.callbackAddFriend = { (index) in
-                let person = self.personList[index]
-                // Display info on popupview
-                self.popupNameLabel.text = person.fullname
-                self.popupPhoneNumberLabel.text = person.phone
-                self.loadImage(person: person)
-                
-                self.popupView.isHidden = false
-                if (Friends.isFriend(person.objectId)) {
-                    self.popupStatusLabel.text = "Already existing in your friend list."
-                } else {
-                    Friends.create(person.objectId)
-                    self.popupStatusLabel.text = "Successfully added to your friend list."
-                }
-            }
-            return cell
+        }
+        else{
+            return addPersonCell(tableView, cellForRowAt: indexPath)
         }
     }
     
@@ -256,6 +296,16 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
         if section == 0{
             if pendingFriends.count > 0{
                 return pendingFriends.count
+            }else if requestFriends.count > 0{
+                return requestFriends.count
+            }
+            else{
+                return personList.count
+            }
+        }
+        else if section == 1{
+            if pendingFriends.count > 0 && requestFriends.count > 0{
+                return requestFriends.count
             }else{
                 return personList.count
             }
@@ -270,13 +320,28 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
             let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "AddFriendSection") as! AddFriendSection
             if pendingFriends.count > 0{
                 headerView.headerTitle.text = sections[section] + " " + String(pendingFriends.count)
-            }else{
-                headerView.headerTitle.text = sections[section + 1] + " " + String(personList.count)
+            }else if requestFriends.count > 0{
+                headerView.headerTitle.text = sections[1] + " " + String(requestFriends.count)
+            }
+            else{
+                headerView.headerTitle.text = sections[2] + " " + String(personList.count)
+            }
+            return headerView
+        }
+        else if section == 1{
+            let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "AddFriendSection") as! AddFriendSection
+            if pendingFriends.count>0 && requestFriends.count > 0{
+                headerView.headerTitle.text = sections[1] + " " + String(requestFriends.count)
+            }
+            else{
+                headerView.headerTitle.text = sections[2] + " " + String(personList.count)
             }
             return headerView
         }
         else{
             let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "AddFriendSection") as! AddFriendSection
+            
+            
             headerView.headerTitle.text = sections[section] + " " + String(personList.count)
             return headerView
         }
@@ -332,6 +397,10 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
                 self.popupProfileImageView.image = UIImage(named: "ic_default_profile")
             }
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        refreshView()
     }
     
 

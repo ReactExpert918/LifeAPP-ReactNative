@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -57,7 +59,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
                                 <constraint firstItem="LNa-jM-AfD" firstAttribute="top" secondItem="vTx-xM-Pvw" secondAttribute="top" id="WRN-bE-dTo"/>
                                 <constraint firstAttribute="trailing" secondItem="LNa-jM-AfD" secondAttribute="trailing" id="jw0-I0-zcT"/>
@@ -85,7 +87,7 @@
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t3l-4o-0bA" userLabel="DottedProgressView">
                                             <rect key="frame" x="110" y="94.333333333333314" width="100" height="24"/>
-                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="24" id="c3t-mj-YsY"/>
                                                 <constraint firstAttribute="width" constant="100" id="w5t-M6-eCl"/>
@@ -224,7 +226,7 @@
                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 </view>
                             </subviews>
-                            <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                            <color key="backgroundColor" systemColor="tableCellGroupedBackgroundColor"/>
                             <constraints>
                                 <constraint firstItem="6tH-ii-MRh" firstAttribute="top" secondItem="zPM-gM-IRv" secondAttribute="top" id="5p7-2r-i81"/>
                                 <constraint firstItem="i5M-Pr-FkT" firstAttribute="top" secondItem="zPM-gM-IRv" secondAttribute="top" id="7Qe-cx-KT1"/>
@@ -250,14 +252,14 @@
                     </constraints>
                 </view>
             </subviews>
-            <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+            <viewLayoutGuide key="safeArea" id="DZE-S6-fQX"/>
+            <color key="backgroundColor" systemColor="tableCellGroupedBackgroundColor"/>
             <constraints>
                 <constraint firstItem="XSo-im-Xkx" firstAttribute="leading" secondItem="DZE-S6-fQX" secondAttribute="leading" id="0ZY-Uv-wDZ"/>
                 <constraint firstAttribute="bottom" secondItem="XSo-im-Xkx" secondAttribute="bottom" id="PP8-oW-tfm"/>
                 <constraint firstItem="DZE-S6-fQX" firstAttribute="trailing" secondItem="XSo-im-Xkx" secondAttribute="trailing" id="piR-Xu-650"/>
                 <constraint firstItem="XSo-im-Xkx" firstAttribute="top" secondItem="wES-DP-Ocd" secondAttribute="top" id="ppC-VP-kQ8"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="DZE-S6-fQX"/>
             <point key="canvasLocation" x="-420" y="222.41379310344828"/>
         </view>
     </objects>
@@ -268,5 +270,11 @@
         <image name="callaudio_mute1.png" width="81.333335876464844" height="81.333335876464844"/>
         <image name="callaudio_speaker1.png" width="81.333335876464844" height="81.333335876464844"/>
         <image name="callaudio_video1.png" width="81.333335876464844" height="81.333335876464844"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="tableCellGroupedBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

@@ -129,12 +129,12 @@ class CallAudioView: UIViewController {
 
 	}
     @objc func volumeDidChange(notification: NSNotification) {
-        //print("VOLUME CHANGING", AVAudioSession.sharedInstance().outputVolume)
+        //// print("VOLUME CHANGING", AVAudioSession.sharedInstance().outputVolume)
 
         let volume = notification.userInfo!["AVSystemController_AudioVolumeNotificationParameter"] as! Float
         let progress = volume / 1.0 * 6
         dottedProgressBar?.setProgress(value: Int(progress))
-        print("Device Volume:\(volume)")
+        // print("Device Volume:\(volume)")
     }
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	override func viewWillAppear(_ animated: Bool) {

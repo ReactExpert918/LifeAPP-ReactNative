@@ -26,7 +26,7 @@ class SignupViewController: UIViewController {
         
         phoneNumberTextField.displayMode = .picker
         phoneNumberTextField.delegate = self
-        phoneNumberTextField.placeholder = "Enter your mobile number"
+        phoneNumberTextField.placeholder = "Enter your mobile number".localized
         // Background
         //phoneNumberTextField.backgroundColor = UIColor(white: 0, alpha: 0.08)
         phoneNumberTextField.layer.cornerRadius = 5
@@ -73,35 +73,35 @@ class SignupViewController: UIViewController {
     @IBAction func onNextPressed(_ sender: Any) {
          
         phoneNumber = phoneNumberTextField.getFormattedPhoneNumber(format: .E164)!
-        print(phoneNumber)
+        // print(phoneNumber)
 
         if isValidPhoneNumber == false {
-            Util.showAlert(vc: self, "Please enter a valid phone number.", "")
+            Util.showAlert(vc: self, "Please enter a valid phone number.".localized, "")
             return
         }
         let predicate1 = NSPredicate(format: "phone == %@", phoneNumber)
         var persons = realm.objects(Person.self).filter(predicate1)
         if persons.count > 0 {
-            Util.showAlert(vc: self, "This phone number is already used.", "")
+            Util.showAlert(vc: self, "This phone number is already used.".localized, "")
             return
         }
         
         
         // Confirmation Alert
-        let confirmationAlert = UIAlertController(title: phoneNumber, message: "A Verification code will be sent to this number via text messages.", preferredStyle: .alert)
+        let confirmationAlert = UIAlertController(title: phoneNumber, message: "A Verification code will be sent to this number via text messages.".localized, preferredStyle: .alert)
 
-        confirmationAlert.addAction(UIAlertAction(title: "Send", style: .default, handler: { (action: UIAlertAction!) in
+        confirmationAlert.addAction(UIAlertAction(title: "Send".localized, style: .default, handler: { (action: UIAlertAction!) in
             self.sendOTPCode()
         }))
 
-        confirmationAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+        confirmationAlert.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: { (action: UIAlertAction!) in
         }))
         present(confirmationAlert, animated: true, completion: nil)
     }
     
     func sendOTPCode() {
         DispatchQueue.main.async {
-            self.hud.textLabel.text = "Sending..."
+            self.hud.textLabel.text = "Sending...".localized
             self.hud.show(in: self.view, animated: true)
         }
         //Auth.auth().settings?.isAppVerificationDisabledForTesting = false

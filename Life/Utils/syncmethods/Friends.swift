@@ -60,7 +60,10 @@ class Friends: NSObject {
 	class func isFriend(_ userId: String) -> Bool {
 
 		let predicate = NSPredicate(format: "userId == %@ AND friendId == %@ AND isDeleted == NO", AuthUser.userId(), userId)
-		return (realm.objects(Friend.self).filter(predicate).first != nil)
+        
+        let predicate1 = NSPredicate(format: "friendId == %@ AND userId == %@ AND isDeleted == NO", AuthUser.userId(), userId)
+        
+		return (realm.objects(Friend.self).filter(predicate).first != nil || realm.objects(Friend.self).filter(predicate1).first != nil)
 	}
 
 	// MARK: -
@@ -77,6 +80,24 @@ class Friends: NSObject {
 		return friendIds
 	}
     
+    class func friendAcceptedIds() -> [String] {
+
+        let predicate = NSPredicate(format: "userId == %@ AND isDeleted == NO AND isAccepted == YES", AuthUser.userId())
+        let predicate1 = NSPredicate(format: "friendId == %@ AND isDeleted == NO AND isAccepted == YES", AuthUser.userId())
+        
+        let friends = realm.objects(Friend.self).filter(predicate)
+        let friends1 = realm.objects(Friend.self).filter(predicate1)
+
+        var friendIds: [String] = []
+        for friend in friends {
+            friendIds.append(friend.friendId)
+        }
+        for friend in friends1 {
+            friendIds.append(friend.userId)
+        }
+        return friendIds
+    }
+    
     class func friendPendingIds() -> [String] {
 
         let predicate = NSPredicate(format: "friendId == %@ AND isDeleted == NO And pending == YES", AuthUser.userId())
@@ -85,6 +106,18 @@ class Friends: NSObject {
         var friendIds: [String] = []
         for friend in friends {
             friendIds.append(friend.userId)
+        }
+        return friendIds
+    }
+    
+    class func friendRequestIds() -> [String] {
+
+        let predicate = NSPredicate(format: "userId == %@ AND isDeleted == NO And pending == YES", AuthUser.userId())
+        let friends = realm.objects(Friend.self).filter(predicate)
+
+        var friendIds: [String] = []
+        for friend in friends {
+            friendIds.append(friend.friendId)
         }
         return friendIds
     }

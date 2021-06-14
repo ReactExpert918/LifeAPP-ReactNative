@@ -1,5 +1,5 @@
 /* Class = "UILabel"; text = "My QR code"; ObjectID = "1rV-cs-d4e"; */
-"1rV-cs-d4e.text" = "自分のQRコード";
+"1rV-cs-d4e.text" = "私のQRコード";
 
 /* Class = "UISearchBar"; placeholder = "Search friends"; ObjectID = "1Ty-a1-Qrj"; */
 "1Ty-a1-Qrj.placeholder" = "友達を探す";
@@ -14,7 +14,7 @@
 "43v-g1-5Uv.text" = "友達リストに追加されました";
 
 /* Class = "UILabel"; text = "My QR Code"; ObjectID = "Ah6-Wn-Dfi"; */
-"Ah6-Wn-Dfi.text" = "自分のQRコード";
+"Ah6-Wn-Dfi.text" = "私のQRコード";
 
 /* Class = "UILabel"; text = "9876543210"; ObjectID = "Axd-cM-fWp"; */
 "Axd-cM-fWp.text" = "9876543210";
@@ -65,7 +65,7 @@
 "mdo-Ht-Lle.text" = "Andrea";
 
 /* Class = "UILabel"; text = "You will be added as a friend when your\nfriend scan your QR code"; ObjectID = "MWc-dt-BFa"; */
-"MWc-dt-BFa.text" = "あなたの友達がスキャンした時に友達として追加されます";
+"MWc-dt-BFa.text" = "あなたの友達がスキャンした時\nに友達として追加されます";
 
 /* Class = "UILabel"; text = "9876543210"; ObjectID = "n9J-0b-k64"; */
 "n9J-0b-k64.text" = "9876543210";

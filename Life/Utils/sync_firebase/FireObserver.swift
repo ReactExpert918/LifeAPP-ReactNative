@@ -30,7 +30,7 @@ class FireObserver: NSObject {
 
 		listener = query.addSnapshotListener { querySnapshot, error in
 			if let snapshot = querySnapshot {
-				DispatchQueue.main.async {
+				//DispatchQueue.main.async {
 					let realm = try! Realm()
 					try! realm.safeWrite {
 						for documentChange in snapshot.documentChanges {
@@ -38,7 +38,7 @@ class FireObserver: NSObject {
 							self.updateRealm(realm, data)
 						}
 					}
-				}
+				//}
 			}
 		}
 	}
@@ -53,7 +53,7 @@ class FireObserver: NSObject {
 
 		listener = query.addSnapshotListener { querySnapshot, error in
 			if let snapshot = querySnapshot {
-				DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+				//DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
 					var insert = false
 					var modify = false
 
@@ -68,7 +68,7 @@ class FireObserver: NSObject {
 					}
 
 					refreshCallback(insert, modify)
-				}
+				//}
 			}
 		}
 	}
@@ -107,6 +107,6 @@ class FireObserver: NSObject {
 
 		let source = snapshot.metadata.isFromCache ? "local" : "server"
 
-		print("\(text): \(type.description()) \(snapshot.documentChanges.count) \(source) - \(delete)\(insert)\(modify)")
+		// print("\(text): \(type.description()) \(snapshot.documentChanges.count) \(source) - \(delete)\(insert)\(modify)")
 	}
 }

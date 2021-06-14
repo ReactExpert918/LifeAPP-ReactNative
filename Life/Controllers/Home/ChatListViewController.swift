@@ -31,7 +31,7 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
         searchBar.barStyle = .default
         searchBar.barTintColor = UIColor(hexString: "#16406F")
         searchBar.layer.cornerRadius = 8
-        searchBar.placeholder = "Search"
+        searchBar.placeholder = "Search".localized
 //      searchBar.backgroundColor = UIColor(hexString: "165c90")
         searchBar.set(textColor: UIColor(hexString: "#96B4D2")!)
         searchBar.setPlaceholder(textColor: UIColor(hexString: "#96B4D2")!)
@@ -122,6 +122,8 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
         item?.badgeValue = (total != 0) ? "\(total)" : nil
 
         UIApplication.shared.applicationIconBadgeNumber = total
+        //UIApplication.shared.applicationIconBadgeNumber = 2
+    
     }
     // MARK: - Cleanup methods
     //---------------------------------------------------------------------------------------------------------------------------------------------
@@ -140,11 +142,11 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
 
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 
-        alert.addAction(UIAlertAction(title: "Delete", style: .destructive) { action in
+        alert.addAction(UIAlertAction(title: "Delete".localized, style: .destructive) { action in
             let chat = self.chats[indexPath.row]
             Details.update(chatId: chat.objectId, isDeleted: true)
         })
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        alert.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel))
 
         present(alert, animated: true)
     }
@@ -152,7 +154,12 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
         
         let chat = chats[indexPath.row]
         if (chat.isGroup){
-            
+            let vc =  self.storyboard?.instantiateViewController(identifier: "chatViewController") as! ChatViewController
+            //vc.modalPresentationStyle = .fullScreen
+            //self.present(vc, animated: true, completion: nil)
+            vc.hidesBottomBarWhenPushed = true
+            vc.setParticipant(chatId: chat.objectId, recipientId: "")
+            self.navigationController?.pushViewController(vc, animated: true)
         }
         else if (chat.isPrivate) {
             let isRecipient = (chat.userId1 != AuthUser.userId())
@@ -190,12 +197,12 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
 
-        let actionDelete = UIContextualAction(style: .destructive, title: "Delete") {  action, sourceView, completionHandler in
+        let actionDelete = UIContextualAction(style: .destructive, title: "Delete".localized) {  action, sourceView, completionHandler in
             self.actionDelete(at: indexPath)
             completionHandler(false)
         }
 
-        let actionMore = UIContextualAction(style: .normal, title: "More") {  action, sourceView, completionHandler in
+        let actionMore = UIContextualAction(style: .normal, title: "More".localized) {  action, sourceView, completionHandler in
             //self.actionMore(at: indexPath)
             completionHandler(false)
         }

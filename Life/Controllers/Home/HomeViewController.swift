@@ -21,7 +21,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet weak var homeTableView: UITableView!
     
     
-    var headerSections =  [HeaderSection(name: "My Status", collapsed: false), HeaderSection(name: "Groups 0", collapsed: false), HeaderSection(name: "Friends 0", collapsed: false)]
+    var headerSections =  [HeaderSection(name: "My Status", collapsed: false), HeaderSection(name: "Groups".localized+" 0", collapsed: false), HeaderSection(name: "Friends".localized+" 0", collapsed: false)]
 
     private var tokenFriends: NotificationToken? = nil
     private var tokenPersons: NotificationToken? = nil
@@ -37,7 +37,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         searchBar.barStyle = .default
         searchBar.barTintColor = UIColor(hexString: "#16406F")
         searchBar.layer.cornerRadius = 8
-        searchBar.placeholder = "Search"
+        searchBar.placeholder = "Search".localized
 //        searchBar.backgroundColor = UIColor(hexString: "165c90")
         searchBar.set(textColor: UIColor(hexString: "#96B4D2")!)
         searchBar.setPlaceholder(textColor: UIColor(hexString: "#96B4D2")!)
@@ -68,8 +68,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     //---------------------------------------------------------------------------------------------------------------------------------------------
     @objc func loadFriends() {
 
-        let predicate = NSPredicate(format: "userId == %@ AND isDeleted == NO", AuthUser.userId())
-        //print("Auth UserId: \(predicate)")
+        let predicate = NSPredicate(format: "userId == %@ AND isDeleted == NO  AND isAccepted == YES", AuthUser.userId())
+        //// print("Auth UserId: \(predicate)")
         friends = realm.objects(Friend.self).filter(predicate)
 
         tokenFriends?.invalidate()
@@ -83,7 +83,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func loadPersons(text: String = "") {
 
-        let predicate1 = NSPredicate(format: "objectId IN %@ AND NOT objectId IN %@ AND isDeleted == NO", Friends.friendIds(), Blockeds.blockerIds())
+        let predicate1 = NSPredicate(format: "objectId IN %@ AND NOT objectId IN %@ AND isDeleted == NO", Friends.friendAcceptedIds(), Blockeds.blockerIds())
         let predicate2 = (text != "") ? NSPredicate(format: "fullname CONTAINS[c] %@", text) : NSPredicate(value: true)
 
         persons = realm.objects(Person.self).filter(predicate1).filter(predicate2).sorted(byKeyPath: "fullname")
@@ -111,14 +111,14 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         })
     }
     func onGroupCreated(group: Group) {
-        Util.showAlert(vc: self, "\(group.name) has been created successfully.", "")
+        Util.showAlert(vc: self, "\(group.name) " + "has been created successfully.".localized, "")
     }
 
     // MARK: - Refresh methods
     //---------------------------------------------------------------------------------------------------------------------------------------------
     @objc func refreshTableView() {
-        headerSections[1].name = "Groups \(groups.count)"
-        headerSections[2].name = "Friends \(persons.count)"
+        headerSections[1].name = "Groups".localized+" \(groups.count)"
+        headerSections[2].name = "Friends".localized+" \(persons.count)"
         homeTableView.reloadData()
     }
     func loadPerson() {
@@ -159,6 +159,9 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 vc.delegate = self
                 vc.modalPresentationStyle = .fullScreen
                 self.present(vc, animated: true, completion: nil)
+            }else{
+                let chatId = groups[indexPath.row-1].chatId
+                openPrivateChat(chatId: chatId, recipientId: "")
             }
         }
         else if indexPath.section == 2 {
@@ -238,7 +241,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     // MARK: - ZedPayView
     
     @IBAction func onZedPay(_ sender: Any) {
-        print("Click Zed pay")
+        // print("Click Zed pay")
     }
 }
 

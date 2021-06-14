@@ -58,6 +58,8 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
         
         searchFriendsTableView.tableHeaderView = searchController.searchBar
         
+        radioUsername.delegate = self
+        radioPhoneNumber.delegate = self
         
         definesPresentationContext = false
         
@@ -201,10 +203,10 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
             
             self.popupView.isHidden = false
             if (Friends.isFriend(person.objectId)) {
-                self.popupStatusLabel.text = "Already existing in your friend list."
+                self.popupStatusLabel.text = "Already existing in your friend list.".localized
             } else {
                 Friends.create(person.objectId)
-                self.popupStatusLabel.text = "Successfully added to your friend list."
+                self.popupStatusLabel.text = "Successfully added to your friend list.".localized
             }
         }
         return cell
@@ -213,21 +215,21 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         searchResultBk.image = UIImage(named: "no_available_bk")
         if radioGroup.selectedCheckBox == radioUsername{
-            searchResultTxt.text = "No user is available by that username"
+            searchResultTxt.text = "No user is available by that username".localized
         }else{
-            searchResultTxt.text = "No user is available by that phone number"
+            searchResultTxt.text = "No user is available by that phone number".localized
         }
     }
     
     func updateSearchResults(for searchController: UISearchController) {
         
         if searchController.isActive && searchController.searchBar.text != "" {
-            print("Search Controller is now active *******************")
+            // print("Search Controller is now active *******************")
             //searchResultBkImage.image = UIImage(named: "no_available_bk")
             //searchResultBk.image = UIImage(named: "no_available_bk")
             //tableView.backgroundView = self.noDataView
         } else {
-            print("Search Controller is now unactive !!!!!!!!!!!!!!!!!!")
+            // print("Search Controller is now unactive !!!!!!!!!!!!!!!!!!")
             //searchResultBkImage.image = UIImage(named: "no_available_bk")
             //searchResultBk.image = UIImage(named: "no_available_bk")
             tableView.backgroundView = nil
@@ -287,4 +289,16 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
         
     }
 
+}
+
+extension SearchFriendsViewController : BEMCheckBoxDelegate {
+     func didTap(_ checkBox: BEMCheckBox) {
+        searchController.searchBar.resignFirstResponder()
+        if(checkBox == radioUsername){
+            searchController.searchBar.keyboardType = .default
+        }
+        if(checkBox == radioPhoneNumber){
+            searchController.searchBar.keyboardType = .phonePad
+        }
+    }
 }

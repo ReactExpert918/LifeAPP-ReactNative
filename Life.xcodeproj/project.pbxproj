@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0485B9E2266DCD510014A0A4 /* AddFriendPendingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0485B9E1266DCD510014A0A4 /* AddFriendPendingCell.swift */; };
 		817604C864DF746D26361B72 /* Pods_Life_LifeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4882E1B6E6C326533A5E1BDF /* Pods_Life_LifeUITests.framework */; };
 		A60845B124A2FEC1005F23A9 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A60845AF24A2FEC1005F23A9 /* Login.storyboard */; };
 		A60845B924A302BA005F23A9 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60845B824A302BA005F23A9 /* WelcomeViewController.swift */; };
@@ -193,8 +194,6 @@
 		A6F564C124A8D73D0061007E /* rcmessage_attach@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A6F564B924A8D73C0061007E /* rcmessage_attach@2x.png */; };
 		A6F564C224A8D73D0061007E /* rcmessages_audioplay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A6F564BA24A8D73D0061007E /* rcmessages_audioplay@2x.png */; };
 		A6F564C324A8D73D0061007E /* rcmessages_videoplay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A6F564BB24A8D73D0061007E /* rcmessages_videoplay@2x.png */; };
-		A6F564C424A8D73D0061007E /* rcmessage_outgoing.aiff in Resources */ = {isa = PBXBuildFile; fileRef = A6F564BC24A8D73D0061007E /* rcmessage_outgoing.aiff */; };
-		A6F564C524A8D73D0061007E /* rcmessage_incoming.aiff in Resources */ = {isa = PBXBuildFile; fileRef = A6F564BD24A8D73D0061007E /* rcmessage_incoming.aiff */; };
 		A6F564C624A8D73D0061007E /* rcmessage_send@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A6F564BE24A8D73D0061007E /* rcmessage_send@2x.png */; };
 		A6F564C724A8D73D0061007E /* rcmessages_audiopause@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A6F564BF24A8D73D0061007E /* rcmessages_audiopause@2x.png */; };
 		A6F564CC24A9B5310061007E /* RCHeaderLowerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6F564CA24A9B5310061007E /* RCHeaderLowerCell.swift */; };
@@ -260,6 +259,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0485B9E1266DCD510014A0A4 /* AddFriendPendingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendPendingCell.swift; sourceTree = "<group>"; };
 		13FCD29106C16A3D2D2FC3B7 /* Pods_LifeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LifeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F299E90E5B6BB50A7323655 /* Pods-Life-LifeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Life-LifeUITests.release.xcconfig"; path = "Target Support Files/Pods-Life-LifeUITests/Pods-Life-LifeUITests.release.xcconfig"; sourceTree = "<group>"; };
 		2DA0512779D2347E705F5CEF /* Pods-LifeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LifeTests.release.xcconfig"; path = "Target Support Files/Pods-LifeTests/Pods-LifeTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -460,8 +460,6 @@
 		A6F564B924A8D73C0061007E /* rcmessage_attach@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rcmessage_attach@2x.png"; sourceTree = "<group>"; };
 		A6F564BA24A8D73D0061007E /* rcmessages_audioplay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rcmessages_audioplay@2x.png"; sourceTree = "<group>"; };
 		A6F564BB24A8D73D0061007E /* rcmessages_videoplay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rcmessages_videoplay@2x.png"; sourceTree = "<group>"; };
-		A6F564BC24A8D73D0061007E /* rcmessage_outgoing.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = rcmessage_outgoing.aiff; sourceTree = "<group>"; };
-		A6F564BD24A8D73D0061007E /* rcmessage_incoming.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = rcmessage_incoming.aiff; sourceTree = "<group>"; };
 		A6F564BE24A8D73D0061007E /* rcmessage_send@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rcmessage_send@2x.png"; sourceTree = "<group>"; };
 		A6F564BF24A8D73D0061007E /* rcmessages_audiopause@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rcmessages_audiopause@2x.png"; sourceTree = "<group>"; };
 		A6F564CA24A9B5310061007E /* RCHeaderLowerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCHeaderLowerCell.swift; sourceTree = "<group>"; };
@@ -1134,8 +1132,6 @@
 			isa = PBXGroup;
 			children = (
 				A6F564B924A8D73C0061007E /* rcmessage_attach@2x.png */,
-				A6F564BD24A8D73D0061007E /* rcmessage_incoming.aiff */,
-				A6F564BC24A8D73D0061007E /* rcmessage_outgoing.aiff */,
 				A6F564BE24A8D73D0061007E /* rcmessage_send@2x.png */,
 				A6F564BF24A8D73D0061007E /* rcmessages_audiopause@2x.png */,
 				A6F564BA24A8D73D0061007E /* rcmessages_audioplay@2x.png */,
@@ -1260,6 +1256,7 @@
 				AB82ACD524A5453000D83E47 /* AddFriendCell.swift */,
 				AB82ACD624A5453000D83E47 /* AddFriendsViewController.swift */,
 				A67A49B324BA32DF0016DD41 /* Friend.storyboard */,
+				0485B9E1266DCD510014A0A4 /* AddFriendPendingCell.swift */,
 				AB82ACD824A5453000D83E47 /* QrCodeViewController.swift */,
 				ABDAC92B24A64AE800E73667 /* SearchFriendsViewController.swift */,
 				ABDAC92F24A67D8C00E73667 /* SearchFriendCell.swift */,
@@ -1473,12 +1470,10 @@
 				AB13A9E224A2EF610028731D /* Main.storyboard in Resources */,
 				A675883B24B8102700724B08 /* callaudio_speaker1@3x.png in Resources */,
 				A6188EEC24BCDCEA00587710 /* callaudio_speaker2@2x.png in Resources */,
-				A6F564C524A8D73D0061007E /* rcmessage_incoming.aiff in Resources */,
 				A6188EC724BCD8A300587710 /* callvideo_hangup@2x.png in Resources */,
 				A67587F424B7B1BF00724B08 /* read.png in Resources */,
 				A6F564C224A8D73D0061007E /* rcmessages_audioplay@2x.png in Resources */,
 				A6188EEA24BCDCEA00587710 /* callaudio_speaker2.png in Resources */,
-				A6F564C424A8D73D0061007E /* rcmessage_outgoing.aiff in Resources */,
 				A675884624B810A900724B08 /* callaudio_video1@2x.png in Resources */,
 				A67A49C024BA338F0016DD41 /* Group.storyboard in Resources */,
 				A675882924B80F3100724B08 /* callaudio_mute1@2x.png in Resources */,
@@ -1654,6 +1649,7 @@
 				AB5457A524B5C3C1008C7FB8 /* CreateGroupViewController.swift in Sources */,
 				A6DEA87524A8483600868625 /* NSError+Extension.swift in Sources */,
 				AB5457A924B5D9FC008C7FB8 /* AddedMemberCell.swift in Sources */,
+				0485B9E2266DCD510014A0A4 /* AddFriendPendingCell.swift in Sources */,
 				A682AA2124BC51F600003BD7 /* DottedProgressBar.swift in Sources */,
 				A6DEA85C24A83FDA00868625 /* Friend.swift in Sources */,
 				A6DEA84924A8365900868625 /* FireFetcher.swift in Sources */,
@@ -1973,7 +1969,7 @@
 				CODE_SIGN_ENTITLEMENTS = Life/Life.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 2AV3B2BH2Y;
 				INFOPLIST_FILE = Life/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1997,7 +1993,7 @@
 				CODE_SIGN_ENTITLEMENTS = Life/Life.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 2AV3B2BH2Y;
 				INFOPLIST_FILE = Life/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

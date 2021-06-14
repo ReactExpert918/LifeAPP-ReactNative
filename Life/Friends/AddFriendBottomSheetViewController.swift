@@ -57,17 +57,17 @@ class AddFriendBottomSheetViewController: UIViewController {
     @IBAction func onAddFriendTapped(_ sender: Any) {
         if isFriend == false{
             if (Friends.isFriend(person.objectId)) {
-                self.statusLabel.text = "Already existing in your friend list."
+                self.statusLabel.text = "Already existing in your friend list.".localized
             } else {
                 Friends.create(person.objectId)
-                self.statusLabel.text = "Successfully added to your friend list."
+                self.statusLabel.text = "Successfully added to your friend list.".localized
                 isFriend = true
                 addFriendButton.backgroundColor = UIColor(hexString: "#00406E")
                 addFriendButton.setTitleColor(UIColor.white, for: .normal)
                 checkMark.isHidden = false
             }
             self.hud.show(in: self.view, animated: true)
-            DispatchQueue.main.asyncAfter(deadline: .now()+2.0) {
+            DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
                 self.hud.dismiss(animated: true)
                 self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
             }

@@ -92,7 +92,8 @@ class FireUpdater: NSObject {
 					case .double:	if let value = object[name] as? Double	{ values[name] = value }
 					case .string:	if let value = object[name] as? String	{ values[name] = value }
 					case .date:		if let value = object[name] as? Date	{ values[name] = value }
-					default:		print("Property type \(property.type.rawValue) is not populated.")
+					default:
+                        print("Property type \(property.type.rawValue) is not populated.")
 				}
 			}
 		}

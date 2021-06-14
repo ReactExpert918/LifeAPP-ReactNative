@@ -10,6 +10,11 @@ import UIKit
 import SwiftyAvatar
 import JGProgressHUD
 import FittedSheets
+import FirebaseAuth
+import FirebaseStorage
+import RealmSwift
+import FirebaseFirestore
+import OneSignal
 
 protocol UpdateDataDelegateProtocol {
     func updateUserName(name: String)
@@ -46,7 +51,7 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
     func updateUserName(name: String) {
         self.person.update(fullname: name)
         loadPerson()
-        Util.showSuccessAlert(vc: self, "Successfully updated the name.", "")
+        Util.showSuccessAlert(vc: self, "Successfully updated the name.".localized, "")
     }
     
     func updatePassword(password: String) {
@@ -59,7 +64,7 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
                 Util.showAlert(vc: self, error.localizedDescription , "")
                 return
             }
-            Util.showSuccessAlert(vc: self, "Successfully updated the password.", "")
+            Util.showSuccessAlert(vc: self, "Successfully updated the password.".localized, "")
         }
     }
     
@@ -99,9 +104,9 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
     @IBAction func onEmailChangeTapped(_ sender: Any) {
     }
     @IBAction func onDeleteAccountTapped(_ sender: Any) {
-        let refreshAlert = UIAlertController(title: "Are you sure to delete your account?", message: "", preferredStyle: .alert)
+        let refreshAlert = UIAlertController(title: "Are you sure to delete your account?".localized, message: "", preferredStyle: .alert)
 
-        refreshAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action: UIAlertAction!) in
+        refreshAlert.addAction(UIAlertAction(title: "Yes".localized, style: .default, handler: { (action: UIAlertAction!) in
             DispatchQueue.main.async {
                 self.hud.show(in: self.view, animated: true)
             }
@@ -118,7 +123,7 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
             
         }))
 
-        refreshAlert.addAction(UIAlertAction(title: "No", style: .cancel, handler: { (action: UIAlertAction!) in
+        refreshAlert.addAction(UIAlertAction(title: "No".localized, style: .cancel, handler: { (action: UIAlertAction!) in
         }))
         present(refreshAlert, animated: true, completion: nil)
     }
@@ -146,19 +151,19 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
     
     @IBAction func onCameraTapped(_ sender: Any) {
         
-        let confirmationAlert = UIAlertController(title: "please select source type to set profile image.", message: "", preferredStyle: .alert)
+        let confirmationAlert = UIAlertController(title: "Please select source type to set profile image.".localized, message: "", preferredStyle: .alert)
 
-        confirmationAlert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action: UIAlertAction!) in
+        confirmationAlert.addAction(UIAlertAction(title: "Camera".localized, style: .default, handler: { (action: UIAlertAction!) in
             confirmationAlert.dismiss(animated: true, completion: nil)
             self.openCamera()
         }))
         
-        confirmationAlert.addAction(UIAlertAction(title: "Gallery", style: .default, handler: { (action: UIAlertAction!) in
+        confirmationAlert.addAction(UIAlertAction(title: "Gallery".localized, style: .default, handler: { (action: UIAlertAction!) in
             confirmationAlert.dismiss(animated: true, completion: nil)
             self.openGallery()
         }))
 
-        confirmationAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+        confirmationAlert.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: { (action: UIAlertAction!) in
         }))
         present(confirmationAlert, animated: true, completion: nil)
     }
@@ -182,19 +187,20 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
         picker.dismiss(animated: true)
 
         guard let image = info[.editedImage] as? UIImage else {
-            print("No image found")
+            // print("No image found")
             return
         }
         let data = image.jpegData(compressionQuality: 1.0)
         let correct_image = UIImage(data: data! as Data)
-        DispatchQueue.main.async{
+        //DispatchQueue.main.async{
             self.profileImageView.image = correct_image
-        }
+        //}
         // print out the image size as a test
         // print(correct_image?.size)
         uploadPicture(image: correct_image!)
     }
     func uploadPicture(image: UIImage) {
+        // print("uploadPicture")
         if let data = image.jpegData(compressionQuality: 0.6) {
             MediaUpload.user(AuthUser.userId(), data: data, completion: { error in
                 if (error == nil) {
@@ -202,12 +208,15 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
                     self.person.update(pictureAt: Date().timestamp())
                 } else {
                     DispatchQueue.main.async {
-                        self.hud.textLabel.text = "Picture upload error."
+                        self.hud.textLabel.text = "Picture upload error.".localized
                         self.hud.show(in: self.view, animated: true)
                     }
                     self.hud.dismiss(afterDelay: 1.0, animated: true)
                 }
             })
         }
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        
     }
 }

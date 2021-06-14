@@ -35,19 +35,19 @@ class AddPictureViewController: UIViewController, UINavigationControllerDelegate
     
     @IBAction func onCameraTapped(_ sender: Any) {
         
-        let confirmationAlert = UIAlertController(title: "please select source type to set profile image.", message: "", preferredStyle: .alert)
+        let confirmationAlert = UIAlertController(title: "Please select source type to set profile image.".localized, message: "", preferredStyle: .alert)
 
-        confirmationAlert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action: UIAlertAction!) in
+        confirmationAlert.addAction(UIAlertAction(title: "Camera".localized, style: .default, handler: { (action: UIAlertAction!) in
             confirmationAlert.dismiss(animated: true, completion: nil)
             self.openCamera()
         }))
         
-        confirmationAlert.addAction(UIAlertAction(title: "Gallery", style: .default, handler: { (action: UIAlertAction!) in
+        confirmationAlert.addAction(UIAlertAction(title: "Gallery".localized, style: .default, handler: { (action: UIAlertAction!) in
             confirmationAlert.dismiss(animated: true, completion: nil)
             self.openGallery()
         }))
 
-        confirmationAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+        confirmationAlert.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: { (action: UIAlertAction!) in
         }))
         present(confirmationAlert, animated: true, completion: nil)
         
@@ -73,7 +73,7 @@ class AddPictureViewController: UIViewController, UINavigationControllerDelegate
         picker.dismiss(animated: true)
 
         guard let image = info[.editedImage] as? UIImage else {
-            print("No image found")
+            // print("No image found")
             return
         }
         let data = image.jpegData(compressionQuality: 1.0)
@@ -100,14 +100,20 @@ class AddPictureViewController: UIViewController, UINavigationControllerDelegate
  */
         
         if publicName.text == ""{
-            Util.showAlert(vc: self, "Attention" , "Please enter public name first.")
+            Util.showAlert(vc: self, "Attention".localized , "Please enter public name first.".localized)
             return
-        } else {
+        }
+        else if avatarCovered == false{
+            Util.showAlert(vc: self, "Attention".localized , "Please upload an avatar.".localized)
+            return
+        }
+        
+        else {
             Firestore.firestore().collection("Person").document(person.objectId).setData(["about": person.about, "country": person.country, "createdAt": person.createdAt, "email": person.email, "firstName": person.firstname, "fullName": person.fullname, "isDeleted": person.isDeleted, "keepMedia": person.keepMedia, "lastActive": person.lastActive, "lastTerminate": person.lastTerminate, "lastname": person.lastname, "location": person.location, "loginMethod": person.loginMethod, "networkAudio": person.networkAudio, "networkPhoto": person.networkPhoto, "networkVideo": person.networkVideo, "objectId": person.objectId, "oneSignalId": person.oneSignalId, "phone": person.phone, "pictureAt": person.pictureAt, "status" : person.status, "updatedAt": person.updatedAt, "wallpaper": person.wallpaper]) { err in
                 if let err = err {
-                    print("Error writing document: \(err)")
+                    // print("Error writing document: \(err)")
                 } else {
-                    print("Document successfully written")
+                    // print("Document successfully written")
                 }
             }
         }
@@ -131,7 +137,7 @@ class AddPictureViewController: UIViewController, UINavigationControllerDelegate
                     self.person.update(pictureAt: Date().timestamp())
                 } else {
                     DispatchQueue.main.async {
-                        self.hud.textLabel.text = "Picture upload error."
+                        self.hud.textLabel.text = "Picture upload error.".localized
                         self.hud.show(in: self.view, animated: true)
                     }
                     self.hud.dismiss(afterDelay: 1.0, animated: true)

@@ -82,7 +82,7 @@ class UpdatePasswordViewController: UIViewController, UITextFieldDelegate {
             }
         }
         else{
-            showInformText(withOption: false, withText: "Confirm Password does not match.")
+            showInformText(withOption: false, withText: "Confirm password should be matched with password.".localized)
         }
     }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

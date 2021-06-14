@@ -25,7 +25,7 @@ class BasicDetailInsertViewController: UIViewController, UITextFieldDelegate{
     @IBOutlet weak var confirmPasswordEye: UIButton!
     
     private var person: Person!
-    
+    var phoneNumber:String = ""
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -33,37 +33,48 @@ class BasicDetailInsertViewController: UIViewController, UITextFieldDelegate{
         password.delegate = self
         confirmPassword.delegate = self
         // load Person
-        person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
+        
 
+    }
+    func createPerson() {
+        let userId = AuthUser.userId()
+        Persons.create(userId, phone: self.phoneNumber)
+    }
+    func setPhoneNumber(withPhoneNumber phoneNumber: String){
+        self.phoneNumber = phoneNumber
+        
     }
     @IBAction func backTapped(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
     @IBAction func submitTapped(_ sender: Any) {
         if userName.text == ""{
-            Util.showAlert(vc: self, "Attention" , "Please enter email first.")
+            Util.showAlert(vc: self, "Attention".localized , "Please enter email first.".localized)
             return
         }else if password.text == ""{
-            Util.showAlert(vc: self, "Attention" , "Please enter password first.")
+            Util.showAlert(vc: self, "Attention".localized , "Please enter password first.".localized)
             return
         }else if confirmPassword.text == ""{
-            Util.showAlert(vc: self, "Attention" , "Please enter confirm password first.")
+            Util.showAlert(vc: self, "Attention".localized , "Please enter confirm password first.".localized)
             return
         }else if password.text != confirmPassword.text{
-            Util.showAlert(vc: self, "Attention" , "Confirm password should be matched with password.")
+            Util.showAlert(vc: self, "Attention".localized , "Confirm password should be matched with password.".localized)
             return
         }
         
+        self.createPerson()
+        person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
+        
         Firestore.firestore().collection("Person").document(person.objectId).setData(["about": person.about, "country": person.country, "createdAt": person.createdAt, "email": person.email, "firstName": person.firstname, "fullName": person.fullname, "isDeleted": person.isDeleted, "keepMedia": person.keepMedia, "lastActive": person.lastActive, "lastTerminate": person.lastTerminate, "lastname": person.lastname, "location": person.location, "loginMethod": person.loginMethod, "networkAudio": person.networkAudio, "networkPhoto": person.networkPhoto, "networkVideo": person.networkVideo, "objectId": person.objectId, "oneSignalId": person.oneSignalId, "phone": person.phone, "pictureAt": person.pictureAt, "status" : person.status, "updatedAt": person.updatedAt, "wallpaper": person.wallpaper]) { err in
             if let err = err {
-                print("Error writing document: \(err)")
+                // print("Error writing document: \(err)")
             } else {
-                print("Document successfully written")
+                // print("Document successfully written")
             }
         }
         
         DispatchQueue.main.async {
-            self.hud.textLabel.text = "Updating..."
+            self.hud.textLabel.text = "Updating...".localized
             self.hud.show(in: self.view, animated: true)
         }
         Auth.auth().currentUser?.updateEmail(to: userName.text!) { (error) in

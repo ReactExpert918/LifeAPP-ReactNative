@@ -30,17 +30,41 @@ class PushNotification: NSObject {
 
 	// MARK: -
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	class func send(message: Message) {
+	class func send(message: Message, recipientId:String) {
 
 		let type = message.type
-		var text = message.userFullname
+		var en_text = message.userFullname
+        var ja_text = message.userFullname
 
-		if (type == MESSAGE_TYPE.MESSAGE_TEXT)		{ text = text + (" sent you a text message.")	}
-		if (type == MESSAGE_TYPE.MESSAGE_EMOJI)		{ text = text + (" sent you an emoji.")			}
-		if (type == MESSAGE_TYPE.MESSAGE_PHOTO)		{ text = text + (" sent you a photo.")			}
-		if (type == MESSAGE_TYPE.MESSAGE_VIDEO)		{ text = text + (" sent you a video.")			}
-		if (type == MESSAGE_TYPE.MESSAGE_AUDIO) 		{ text = text + (" sent you an audio.")			}
-		if (type == MESSAGE_TYPE.MESSAGE_LOCATION)	{ text = text + (" sent you a location.")		}
+        if (type == MESSAGE_TYPE.MESSAGE_TEXT)		{
+            ja_text = ja_text + " "+"sent you a text message.".localized
+            en_text = en_text + " "+"sent you a text message."
+            
+        }
+		if (type == MESSAGE_TYPE.MESSAGE_EMOJI)		{
+            ja_text = ja_text + " " + "sent you an emoji.".localized
+            en_text = en_text + " " + "sent you an emoji."
+            
+        }
+		if (type == MESSAGE_TYPE.MESSAGE_PHOTO)		{
+            ja_text = ja_text + " " + "sent you a photo.".localized
+            en_text = en_text + " " + "sent you a photo."
+            
+        }
+		if (type == MESSAGE_TYPE.MESSAGE_VIDEO)		{
+            ja_text = ja_text + " " + "sent you a video.".localized
+            en_text = en_text + " " + "sent you a video."
+            
+        }
+        /*
+		if (type == MESSAGE_TYPE.MESSAGE_AUDIO) 		{
+            ja_text = ja_text + (" sent you an audio.")
+            
+        }
+		if (type == MESSAGE_TYPE.MESSAGE_LOCATION)	{
+            text = text + (" sent you a location.")
+            
+        }*/
 
 		let chatId = message.chatId
 		var userIds = Members.userIds(chatId: chatId)
@@ -54,24 +78,31 @@ class PushNotification: NSObject {
 		}
         userIds.removeAll(where: { $0 == AuthUser.userId()})
 //		userIds.removeObject(AuthUser.userId())
-
-		send(userIds: userIds, text: text)
+        //print(AuthUser.userId())
+        //print(userIds)
+        send(userIds: userIds, en_text: en_text, ja_text: ja_text, chatId: message.chatId, recipientId: recipientId)
 	}
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	private class func send(userIds: [String], text: String) {
+    private class func send(userIds: [String], en_text: String, ja_text: String, chatId: String, recipientId:String) {
 
-		let predicate = NSPredicate(format: "objectId IN %@", userIds)
+		let predicate = NSPredicate(format: "objectId IN %@ AND isDeleted == NO", userIds)
 		let persons = realm.objects(Person.self).filter(predicate).sorted(byKeyPath: "fullname")
 
 		var oneSignalIds: [String] = []
-
+        
+        let predicateMine = NSPredicate(format: "objectId == %@ AND isDeleted == NO", AuthUser.userId())
+        guard let personMine = realm.objects(Person.self).filter(predicateMine).first else{
+            return
+        }
+        
 		for person in persons {
-			if (person.oneSignalId.count != 0) {
+            if (person.oneSignalId.count != 0 && person.oneSignalId != personMine.oneSignalId && person.lastTerminate > person.lastActive ) {
 				oneSignalIds.append(person.oneSignalId)
 			}
 		}
-
-		OneSignal.postNotification(["contents": ["en": text], "include_player_ids": oneSignalIds])
+        
+        OneSignal.postNotification(["contents": ["en": en_text, "ja":ja_text], "include_player_ids": oneSignalIds,
+            "data": ["chatId": chatId, "recipientId": recipientId]])
 	}
 }

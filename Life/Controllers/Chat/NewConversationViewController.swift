@@ -40,7 +40,7 @@ class NewConversationViewController: UIViewController, UITableViewDataSource, UI
     @objc func loadFriends() {
 
         let predicate = NSPredicate(format: "userId == %@ AND isDeleted == NO", AuthUser.userId())
-        //print("Auth UserId: \(predicate)")
+        //// print("Auth UserId: \(predicate)")
         friends = realm.objects(Friend.self).filter(predicate)
 
         tokenFriends?.invalidate()
@@ -54,7 +54,7 @@ class NewConversationViewController: UIViewController, UITableViewDataSource, UI
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func loadPersons(text: String = "") {
 
-        let predicate1 = NSPredicate(format: "objectId IN %@ AND NOT objectId IN %@ AND isDeleted == NO", Friends.friendIds(), Blockeds.blockerIds())
+        let predicate1 = NSPredicate(format: "objectId IN %@ AND NOT objectId IN %@ AND isDeleted == NO", Friends.friendAcceptedIds(), Blockeds.blockerIds())
         let predicate2 = (text != "") ? NSPredicate(format: "fullname CONTAINS[c] %@", text) : NSPredicate(value: true)
 
         persons = realm.objects(Person.self).filter(predicate1).filter(predicate2).sorted(byKeyPath: "fullname")
