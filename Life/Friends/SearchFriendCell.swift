@@ -18,6 +18,7 @@ class SearchFriendCell : UITableViewCell{
     
     @IBOutlet weak var phoneNumberLabel: UILabel!
     
+    @IBOutlet weak var AddButton: UIView!
     var index: Int!
     var callbackAddFriend: ((_ index: Int) -> ())?
     //---------------------------------------------------------------------------------------------------------------------------------------------
@@ -25,6 +26,10 @@ class SearchFriendCell : UITableViewCell{
 
         userNameLabel.text = person.fullname
         phoneNumberLabel.text = person.phone
+        /*
+        if(Friends.isFriend(person.objectId)){
+            AddButton.isHidden = true
+        }*/
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------

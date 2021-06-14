@@ -35,10 +35,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         //NotificationCenter.default.post(name: Notification.Name(NotificationStatus.NOTIFICATION_APP_STARTED), object: nil)
 
-        //DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             Persons.update(lastActive: Date().timestamp())
             Persons.update(oneSignalId: PushNotification.oneSignalId())
-        //}
+        }
         
         let osNotificationOpenedBlock: OSNotificationOpenedBlock = { result in
             if let additionalData = result.notification.additionalData {
@@ -88,9 +88,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
         LocationManager.stop()
-        //DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             Persons.update(lastTerminate: Date().timestamp())
-        //}
+        }
         
     }
 

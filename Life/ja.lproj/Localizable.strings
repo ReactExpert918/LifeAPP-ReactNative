@@ -36,7 +36,7 @@
 "Please select source type to set profile image." = "プロフィール画像を設定する種類を選択して下さい。";
 "Camera" = "カメラ";
 "Gallery" = "ギャラリー";
-"Please enter the name" = "名前を入力してください";
+"Please enter the group name" = "名前を入力してください";
 "Please select users" = "ユーザーを選択してください";
 "Creating new group..." = "新しいグループを作成しています";
 "Are you sure to delete your account?" = "アカウントを削除してもよろしいですか？";
@@ -60,6 +60,7 @@
 "No user is available by that phone number" = "その電話番号で対応可能なユーザーはいません";
 "Save error" = "保存エラー";
 "Save" = "保存";
+"Saved!" = "保存";
 "Your image has been saved to your photos." = "画像が写真に保存されました。";
 "Logging in..." = "ログインしています";
 "Incorrect email or password,\nPlease try again!" = "電子メールまたはパスワードが正しくありません。\nもう一度お試しください。";

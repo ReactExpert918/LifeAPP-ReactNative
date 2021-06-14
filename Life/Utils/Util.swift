@@ -38,6 +38,7 @@ class Util{
     }
     static func showSuccessAlert(vc: UIViewController, _ title: String, _ message: String){
         _ = SCLAlertView().showSuccess(title, subTitle: message, closeButtonTitle: "OK")
+            
     }
     
     static func getCountryPhonceCode (countryCode : String) -> String

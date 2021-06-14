@@ -22,11 +22,11 @@
 /* Class = "UILabel"; text = "Showing Results 1"; ObjectID = "bqd-8n-due"; */
 "bqd-8n-due.text" = "Showing Results 1";
 
-/* Class = "UIButton"; normalTitle = "START CHAT"; ObjectID = "d9E-vB-hqI"; */
-"d9E-vB-hqI.normalTitle" = "チャットを始める";
+/* Class = "UIButton"; normalTitle = "START CHAT"; ObjectID = "4Ch-nU-gTd"; */
+"4Ch-nU-gTd.normalTitle" = "チャットを始める";
 
-/* Class = "UIButton"; normalTitle = "START CHAT"; ObjectID = "e8a-bd-QwV"; */
-"e8a-bd-QwV.normalTitle" = "チャットを始める";
+/* Class = "UIButton"; normalTitle = "START CHAT"; ObjectID = "RyD-x7-ogF"; */
+"RyD-x7-ogF.normalTitle" = "チャットを始める";
 
 /* Class = "UILabel"; text = "Successfully added to your friend list"; ObjectID = "eYh-Xq-ZWg"; */
 "eYh-Xq-ZWg.text" = "友達リストに追加されました";

@@ -122,10 +122,10 @@ class CreateGroupViewController: UIViewController, UICollectionViewDelegate, UIC
         }
         let data = image.jpegData(compressionQuality: 1.0)
         groupPicture = UIImage(data: data! as Data)
-        //DispatchQueue.main.async{
+        DispatchQueue.main.async{
             self.groupImageView.image = self.groupPicture
             self.cameraButton.setImage(nil, for: .normal)
-        //}
+        }
         // print out the image size as a test
         // print(correct_image?.size)
         //uploadPicture(image: correct_image!)
@@ -135,7 +135,7 @@ class CreateGroupViewController: UIViewController, UICollectionViewDelegate, UIC
         
         let name = groupNameTextField.text ?? ""
         if name.count == 0 {
-            Util.showAlert(vc: self, "Please enter the name".localized, "")
+            Util.showAlert(vc: self, "Please enter the group name".localized, "")
             return
         }
         if selectedPersonsForGroup.count == 0 {
@@ -166,10 +166,10 @@ class CreateGroupViewController: UIViewController, UICollectionViewDelegate, UIC
                             self.delegate?.onGroupCreated(group: group)
                         }
                     } else {
-                        //DispatchQueue.main.async {
+                        DispatchQueue.main.async {
                             self.hud.textLabel.text = "Picture upload error.".localized
                             self.hud.show(in: self.view, animated: true)
-                        //}
+                        }
                         self.hud.dismiss(afterDelay: 1.0, animated: true)
                     }
                 })

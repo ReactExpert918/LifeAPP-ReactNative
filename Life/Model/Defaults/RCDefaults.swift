@@ -16,8 +16,8 @@ enum RCDefaults {
 
 	// Section
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	static let sectionHeaderMargin			= CGFloat(8)
-	static let sectionFooterMargin			= CGFloat(8)
+	static let sectionHeaderMargin			= CGFloat(15)
+	static let sectionFooterMargin			= CGFloat(5)
 
 	// Header upper
 	//---------------------------------------------------------------------------------------------------------------------------------------------

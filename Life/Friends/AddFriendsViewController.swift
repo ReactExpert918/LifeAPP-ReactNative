@@ -43,7 +43,7 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
         
         tableView.register(UINib(nibName: "AddFriendSection", bundle: nil), forHeaderFooterViewReuseIdentifier: AddFriendSection.reuseIdentifier)
         tableView.tableFooterView = UIView(frame: .zero)
-        
+        popupView.isHidden = false
         //refreshView()
         // Do any additional setup after loading the view.
     }

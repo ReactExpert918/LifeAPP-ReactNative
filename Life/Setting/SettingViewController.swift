@@ -37,11 +37,7 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
         let refreshAlert = UIAlertController(title: "Are you sure to sign out?".localized, message: "", preferredStyle: .alert)
 
         refreshAlert.addAction(UIAlertAction(title: "Yes".localized, style: .default, handler: { (action: UIAlertAction!) in
-            //DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            //DispatchQueue.main.sync {
-                
-                //Persons.update(oneSignalId: "")
-            //}
+            
             DispatchQueue.main.async {
                 Persons.update(lastTerminate: Date().timestamp())
                 Persons.update(oneSignalId: "")

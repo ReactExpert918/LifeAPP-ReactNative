@@ -33,7 +33,7 @@ class RCMessageCell: UITableViewCell {
 		self.indexPath = indexPath
 		self.messagesView = messagesView
         let rcmessage = messagesView.rcmessageAt(indexPath)
-		backgroundColor = UIColor.clear
+        backgroundColor = UIColor.clear
 
         
 		if (viewBubble == nil) {

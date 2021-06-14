@@ -47,6 +47,11 @@ class Persons: NSObject {
 		let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
 		return person?.fullname ?? ""
 	}
+    
+    class func getById(_ objectId:String) -> Person?{
+        let person = realm.object(ofType: Person.self, forPrimaryKey: objectId)
+        return person
+    }
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	class func initials() -> String {

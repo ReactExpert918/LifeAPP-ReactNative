@@ -660,10 +660,16 @@
                     </view>
                     <navigationItem key="navigationItem" id="jlg-MW-zCq"/>
                     <connections>
+                        <outlet property="deleteButton" destination="BAq-bT-8LQ" id="UJS-pK-Z9c"/>
+                        <outlet property="deleteRight" destination="2MU-N5-aO9" id="ocs-si-8OJ"/>
                         <outlet property="emailAddress" destination="wE7-1H-zKP" id="jKW-yY-bmw"/>
+                        <outlet property="emailButton" destination="9G6-Pz-WRh" id="aam-tr-e24"/>
+                        <outlet property="emailRight" destination="CaV-UY-aSa" id="cfO-UX-HWd"/>
                         <outlet property="name" destination="lTY-wD-cIU" id="2xW-QB-Ps5"/>
                         <outlet property="password" destination="Re3-mQ-gkn" id="OTE-6V-S24"/>
                         <outlet property="phoneNumber" destination="FI0-Jn-VA4" id="YNa-A2-O1w"/>
+                        <outlet property="phoneNumberButton" destination="v8d-sJ-oel" id="q4g-zS-bQ9"/>
+                        <outlet property="phoneRight" destination="rcc-4k-Hwg" id="Abz-5d-0xo"/>
                         <outlet property="profileImageView" destination="67w-7T-JZ0" id="cXO-xr-vOn"/>
                     </connections>
                 </viewController>

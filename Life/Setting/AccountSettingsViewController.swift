@@ -31,10 +31,22 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
     @IBOutlet weak var emailAddress: UILabel!
     @IBOutlet weak var profileImageView: SwiftyAvatar!
     
+    @IBOutlet weak var phoneNumberButton: UIButton!
+    @IBOutlet weak var emailButton: UIButton!
+    @IBOutlet weak var deleteButton: UIButton!
+    @IBOutlet weak var deleteRight: UIImageView!
+    @IBOutlet weak var emailRight: UIImageView!
+    @IBOutlet weak var phoneRight: UIImageView!
+    
+    
     let hud = JGProgressHUD(style: .light)
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        phoneNumberButton.isHidden = true
+        emailButton.isHidden = true
+        emailRight.isHidden = true
+        phoneRight.isHidden = true
+        deleteRight.isHidden = true
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) { // As soon as vc appears
@@ -192,9 +204,9 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
         }
         let data = image.jpegData(compressionQuality: 1.0)
         let correct_image = UIImage(data: data! as Data)
-        //DispatchQueue.main.async{
+        DispatchQueue.main.async{
             self.profileImageView.image = correct_image
-        //}
+        }
         // print out the image size as a test
         // print(correct_image?.size)
         uploadPicture(image: correct_image!)

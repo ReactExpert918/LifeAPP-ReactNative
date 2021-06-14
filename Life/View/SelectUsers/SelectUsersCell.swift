@@ -49,9 +49,9 @@ class SelectUsersCell: UITableViewCell {
 					self.imageUser.image = image?.square(to: 40)
 					self.labelInitials.text = nil
 				} else {
-                    //DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
 						self.downloadImage(person: person, tableView: tableView, indexPath: indexPath)
-					//}
+					}
 				}
 			}
 		}

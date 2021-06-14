@@ -113,9 +113,9 @@ class MediaDownload: NSObject {
 		//-----------------------------------------------------------------------------------------------------------------------------------------
 		FireStorage.download(dir: dir, name: name, ext: ext) { path, error in
 			File.remove(path: pathLoading)
-			//DispatchQueue.main.async {
+			DispatchQueue.main.async {
 				completion(path, error)
-			//}
+			}
 		}
 	}
 

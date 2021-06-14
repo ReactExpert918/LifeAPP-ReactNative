@@ -99,6 +99,7 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
     
     @IBAction func onPopupClosePreseed(_ sender: Any) {
         popupView.isHidden = true
+        refreshTableView()
     }
     
     @IBAction func onStartChatPressed(_ sender: Any) {

@@ -37,15 +37,15 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="64"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N9W-Wb-cty">
-                                        <rect key="frame" x="378" y="22" width="20" height="20"/>
+                                        <rect key="frame" x="373" y="22" width="25" height="20"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="20" id="DFU-j9-GHL"/>
+                                            <constraint firstAttribute="width" constant="25" id="DFU-j9-GHL" userLabel="width = 25"/>
                                             <constraint firstAttribute="height" constant="20" id="JQA-W1-SVn"/>
                                         </constraints>
                                         <color key="tintColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
-                                        <state key="normal" title="Button" image="cancel"/>
+                                        <state key="normal" title="Button" image="ic_white_check"/>
                                         <connections>
-                                            <action selector="onBackTapped:" destination="jaa-po-ALf" eventType="touchUpInside" id="ufg-EI-03a"/>
+                                            <action selector="onSaveTapped:" destination="jaa-po-ALf" eventType="touchUpInside" id="vcC-dt-Tl9"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create Group Profile" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mQS-6n-UrE">
@@ -55,16 +55,15 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mbL-YS-KVb">
-                                        <rect key="frame" x="16" y="22" width="25" height="20"/>
+                                        <rect key="frame" x="16" y="22" width="20" height="20"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="25" id="Enq-OR-DK5"/>
+                                            <constraint firstAttribute="width" constant="20" id="Enq-OR-DK5" userLabel="width = 20"/>
                                             <constraint firstAttribute="height" constant="20" id="TwO-kx-0Wt"/>
                                         </constraints>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" image="ic_white_check"/>
+                                        <state key="normal" image="cancel"/>
                                         <connections>
-                                            <action selector="onSaveTapped:" destination="jaa-po-ALf" eventType="touchUpInside" id="WPS-Fh-sDL"/>
-                                            <action selector="onSaveTapped:" destination="QwX-xg-57e" eventType="touchUpInside" id="sDO-Dd-1F1"/>
+                                            <action selector="onBackTapped:" destination="jaa-po-ALf" eventType="touchUpInside" id="6QM-Jy-3yP"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -399,15 +398,15 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="64"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ugQ-SZ-J45">
-                                        <rect key="frame" x="378" y="22" width="20" height="20"/>
+                                        <rect key="frame" x="373" y="22" width="25" height="20"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="20" id="sLX-b1-k0r"/>
+                                            <constraint firstAttribute="width" constant="25" id="sLX-b1-k0r" userLabel="width = 25"/>
                                             <constraint firstAttribute="height" constant="20" id="unS-FC-nLk"/>
                                         </constraints>
                                         <color key="tintColor" red="0.0" green="0.25098039220000001" blue="0.43137254899999999" alpha="1" colorSpace="calibratedRGB"/>
-                                        <state key="normal" image="cancel"/>
+                                        <state key="normal" image="ic_check"/>
                                         <connections>
-                                            <action selector="onCancelTapped:" destination="QwX-xg-57e" eventType="touchUpInside" id="9So-U1-pVC"/>
+                                            <action selector="onSaveTapped:" destination="QwX-xg-57e" eventType="touchUpInside" id="0o0-tm-ROc"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Participants (3)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YsY-5x-0JN">
@@ -417,15 +416,15 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8j6-h4-JcS">
-                                        <rect key="frame" x="16" y="22" width="25" height="20"/>
+                                        <rect key="frame" x="16" y="22" width="20" height="20"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="25" id="NZV-w5-Iwi"/>
+                                            <constraint firstAttribute="width" constant="20" id="NZV-w5-Iwi" userLabel="width = 20"/>
                                             <constraint firstAttribute="height" constant="20" id="b9l-Xt-4BT"/>
                                         </constraints>
                                         <color key="tintColor" red="0.0" green="0.25098039220000001" blue="0.43137254899999999" alpha="1" colorSpace="calibratedRGB"/>
-                                        <state key="normal" image="ic_check"/>
+                                        <state key="normal" image="colored_cancel"/>
                                         <connections>
-                                            <action selector="onSaveTapped:" destination="QwX-xg-57e" eventType="touchUpInside" id="MCe-RI-eJq"/>
+                                            <action selector="onCancelTapped:" destination="QwX-xg-57e" eventType="touchUpInside" id="88G-Ig-Z4q"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -513,7 +512,9 @@
                                                     <constraints>
                                                         <constraint firstItem="IN8-AK-Ma2" firstAttribute="centerY" secondItem="iMa-lT-Pw3" secondAttribute="centerY" id="0L4-gB-D2a"/>
                                                         <constraint firstItem="Adq-v1-7kB" firstAttribute="leading" secondItem="CEA-1N-ThZ" secondAttribute="trailing" constant="20" id="2eI-S2-evw"/>
+                                                        <constraint firstItem="IN8-AK-Ma2" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ljr-dG-sGq" secondAttribute="trailing" constant="8" symbolic="YES" id="57c-Rh-fBA"/>
                                                         <constraint firstItem="Ljr-dG-sGq" firstAttribute="leading" secondItem="CEA-1N-ThZ" secondAttribute="trailing" constant="20" id="JJs-Nf-kS5"/>
+                                                        <constraint firstItem="IN8-AK-Ma2" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Adq-v1-7kB" secondAttribute="trailing" constant="8" symbolic="YES" id="JR4-u1-TUx"/>
                                                         <constraint firstItem="Ljr-dG-sGq" firstAttribute="top" secondItem="CEA-1N-ThZ" secondAttribute="top" constant="6" id="KqN-4W-Uzo"/>
                                                         <constraint firstItem="CEA-1N-ThZ" firstAttribute="leading" secondItem="iMa-lT-Pw3" secondAttribute="leading" constant="16" id="bRq-U5-kOQ"/>
                                                         <constraint firstItem="CEA-1N-ThZ" firstAttribute="centerY" secondItem="iMa-lT-Pw3" secondAttribute="centerY" id="gS6-YL-9zM"/>
@@ -633,7 +634,6 @@
                                                         <constraint firstItem="LzF-Mh-Nds" firstAttribute="top" secondItem="s6X-ul-Eba" secondAttribute="bottom" constant="8" id="e84-IX-meN"/>
                                                         <constraint firstItem="VTy-A5-UBP" firstAttribute="bottom" secondItem="s6X-ul-Eba" secondAttribute="bottom" id="irh-CI-dv2"/>
                                                         <constraint firstItem="s6X-ul-Eba" firstAttribute="top" secondItem="rKW-Zb-Kfq" secondAttribute="top" constant="10" id="nVT-mh-4Z0"/>
-                                                        <constraint firstAttribute="trailing" secondItem="LzF-Mh-Nds" secondAttribute="trailing" id="qlf-y7-79i"/>
                                                     </constraints>
                                                 </collectionViewCellContentView>
                                                 <size key="customSize" width="70" height="110"/>
@@ -671,6 +671,7 @@
                             <constraint firstItem="Bsj-Po-AVx" firstAttribute="leading" secondItem="Dhs-xC-PzC" secondAttribute="leading" id="BZd-6S-Gl5"/>
                             <constraint firstItem="TX8-d0-oqA" firstAttribute="trailing" secondItem="WRn-fE-Bcl" secondAttribute="trailing" id="CXU-HA-h9a"/>
                             <constraint firstItem="fD7-Y4-bsw" firstAttribute="top" secondItem="WRn-fE-Bcl" secondAttribute="bottom" constant="12" id="Fss-pV-sYe"/>
+                            <constraint firstItem="TX8-d0-oqA" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="fD7-Y4-bsw" secondAttribute="trailing" symbolic="YES" id="FtD-2n-gme"/>
                             <constraint firstItem="WRn-fE-Bcl" firstAttribute="leading" secondItem="TX8-d0-oqA" secondAttribute="leading" id="JOz-ww-GtE"/>
                             <constraint firstItem="klD-wR-ujE" firstAttribute="leading" secondItem="TX8-d0-oqA" secondAttribute="leading" id="Rhv-tV-YdV"/>
                             <constraint firstItem="klD-wR-ujE" firstAttribute="top" secondItem="TX8-d0-oqA" secondAttribute="top" id="WiZ-HY-MPB"/>
@@ -699,6 +700,9 @@
         </scene>
     </scenes>
     <designables>
+        <designable name="IN8-AK-Ma2">
+            <size key="intrinsicContentSize" width="36" height="36"/>
+        </designable>
         <designable name="nPu-8C-Ce9">
             <size key="intrinsicContentSize" width="100" height="100"/>
         </designable>
@@ -708,6 +712,7 @@
     </designables>
     <resources>
         <image name="cancel" width="55" height="55.5"/>
+        <image name="colored_cancel" width="55" height="55.5"/>
         <image name="ic_add" width="91" height="91"/>
         <image name="ic_check" width="74" height="55.5"/>
         <image name="ic_default_profile" width="100" height="100"/>

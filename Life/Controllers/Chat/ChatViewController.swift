@@ -62,8 +62,19 @@ class ChatViewController: UIViewController {
 
     private var indexForward: IndexPath?
     
+    @IBOutlet weak var popupView: UIView!
+    
+    @IBOutlet weak var popupUserName: UILabel!
+    @IBOutlet weak var popupPhoneNumber: UILabel!
+    @IBOutlet weak var popupUserAvatar: UIImageView!
+    @IBOutlet weak var popupCheckmark: UIImageView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.popupView.isHidden = true
+        
         searchBar.backgroundImage = UIImage()
         searchBar.barStyle = .default
         searchBar.barTintColor = UIColor(hexString: "#16406F")
@@ -563,11 +574,45 @@ class ChatViewController: UIViewController {
  */
         }
     }
-
+    
+    @IBAction func actionTapClose(_ sender: Any) {
+        self.popupView.isHidden = true
+    }
     // MARK: - User actions (avatar tap)
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func actionTapAvatar(_ indexPath: IndexPath) {
+        let rcmessage = rcmessageAt(indexPath)
+        if(rcmessage.userId == AuthUser.userId()){
+            return
+        }
+        guard let person = Persons.getById(rcmessage.userId) else {
+            return
+        }
+        
+        self.popupUserName.text = person.fullname
+        self.popupPhoneNumber.text = person.phone
+        self.popupCheckmark.isHidden = true
+        if let path = MediaDownload.pathUser(person.objectId) {
+            self.popupUserAvatar.image = UIImage.image(path, size: 40)
+            self.popupCheckmark.isHidden = false
+        } else {
+            self.popupUserAvatar.image = nil
+            //labelInitials.text = person.initials()
+            MediaDownload.startUser(person.objectId, pictureAt: person.pictureAt) { image, error in
+                if (error == nil) {
+                    self.popupUserAvatar.image = image
+                    self.popupUserAvatar.makeRounded()
+                }
+                else{
+                    self.popupUserAvatar.image = UIImage(named: "ic_default_profile")
+                }
+                self.popupCheckmark.isHidden = false
+            }
+        }
+        self.popupUserAvatar.makeRounded()
 
+                    
+        self.popupView.isHidden = false
     }
     // MARK: - User actions (menu)
     //---------------------------------------------------------------------------------------------------------------------------------------------
@@ -665,20 +710,7 @@ class ChatViewController: UIViewController {
     func layoutTableView() {
         // print("layoutTableView")
         let heightInput = messageInputBar.bounds.height
-        /*
-        let widthView    = view.frame.size.width
-        let heightView    = view.frame.size.height
-
-        let leftSafe    = view.safeAreaInsets.left
-        let rightSafe    = view.safeAreaInsets.right
-
-        let tableviewtoppos = statusbarView.frame.height + topbarView.frame.height
-
-        let widthTable = widthView - leftSafe - rightSafe
-        let heightTable = heightView - heightInput - heightKeyboard - tableviewtoppos
-
-        tableView.frame = CGRect(x: leftSafe, y: tableviewtoppos, width: widthTable, height: heightTable)
-        */
+        
         let edgeInset = UIEdgeInsets(top: 0, left: 0, bottom: heightInput + heightKeyboard, right: 0)
 
         tableView.contentInset = edgeInset
@@ -731,15 +763,7 @@ class ChatViewController: UIViewController {
         if (heightKeyboard != 0) { return }
         // print("keyboardwillshow")
         keyboardWillShow = true
-        /*
-        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
-            let keyboardRectangle = keyboardFrame.cgRectValue
-            self.heightKeyboard = keyboardRectangle.height
-            self.layoutTableView()
-            self.scrollToBottom(animated: true)
-
-        }
- */
+        
         if let info = notification.userInfo {
             if let duration = info[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double {
                 if let keyboard = info[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
@@ -782,66 +806,45 @@ class ChatViewController: UIViewController {
 
         messageInputBar.delegate = self
 
-        /*
-        let button = InputBarButtonItem()
-        button.image = UIImage(systemName: "plus")
-        button.setSize(CGSize(width: 36, height: 36), animated: false)
-
-        button.onKeyboardSwipeGesture { item, gesture in
-            if (gesture.direction == .left)     { item.inputBarAccessoryView?.setLeftStackViewWidthConstant(to: 0, animated: true)        }
-            if (gesture.direction == .right) { item.inputBarAccessoryView?.setLeftStackViewWidthConstant(to: 36, animated: true)    }
-        }
-         */
         let cameraButton = InputBarButtonItem()
         cameraButton.image = UIImage(named: "ic_camera")
-        cameraButton.setSize(CGSize(width: 30, height: 36), animated: false)
-        //cameraButton.contentEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
-
-        cameraButton.onKeyboardSwipeGesture { item, gesture in
-            if (gesture.direction == .left)     { item.inputBarAccessoryView?.setLeftStackViewWidthConstant(to: 0, animated: true)        }
-            if (gesture.direction == .right) { item.inputBarAccessoryView?.setLeftStackViewWidthConstant(to: 36, animated: true)    }
-        }
-
+        cameraButton.setSize(CGSize(width: 30, height: 40), animated: false)
+        
         cameraButton.onTouchUpInside { item in
             self.actionOpenCamera()
         }
 
         let galleryButton = InputBarButtonItem()
         galleryButton.image = UIImage(named: "ic_gallery")
-        galleryButton.setSize(CGSize(width: 30, height: 36), animated: false)
-        //galleryButton.contentEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        galleryButton.setSize(CGSize(width: 25, height: 40), animated: false)
         
-        galleryButton.onKeyboardSwipeGesture { item, gesture in
-            if (gesture.direction == .left)     { item.inputBarAccessoryView?.setLeftStackViewWidthConstant(to: 0, animated: true)        }
-            if (gesture.direction == .right) { item.inputBarAccessoryView?.setLeftStackViewWidthConstant(to: 36, animated: true)    }
-        }
-
         galleryButton.onTouchUpInside { item in
             self.actionOpenGallery()
         }
-
+        
         messageInputBar.setStackViewItems([cameraButton, galleryButton], forStack: .left, animated: false)
         messageInputBar.leftStackView.isLayoutMarginsRelativeArrangement = false
         messageInputBar.leftStackView.spacing = 8
-
+        
         messageInputBar.sendButton.title = nil
         messageInputBar.sendButton.image = UIImage(named: "ic_send")
-        messageInputBar.sendButton.setSize(CGSize(width: 32, height: 36), animated: false)        
-
-        messageInputBar.setLeftStackViewWidthConstant(to: 72, animated: false)
-        messageInputBar.setRightStackViewWidthConstant(to: 36, animated: false)
-
-        messageInputBar.middleContentViewPadding = UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 5)
+        messageInputBar.sendButton.setSize(CGSize(width: 27, height: 40), animated: false)
+        
+        messageInputBar.setLeftStackViewWidthConstant(to: 62, animated: false)
+        messageInputBar.setRightStackViewWidthConstant(to: 28, animated: false)
+        
+        messageInputBar.middleContentViewPadding = UIEdgeInsets(top: 1, left: 8, bottom: 1, right: 5)
+        messageInputBar.inputTextView.font = RCDefaults.textFont
         messageInputBar.inputTextView.placeholder = "Enter a message".localized
         messageInputBar.inputTextView.backgroundColor = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1)
         messageInputBar.inputTextView.placeholderTextColor = UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
-        messageInputBar.inputTextView.textContainerInset = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 36)
-        messageInputBar.inputTextView.placeholderLabelInsets = UIEdgeInsets(top: 8, left: 20, bottom: 8, right: 36)
+        messageInputBar.inputTextView.textContainerInset = UIEdgeInsets(top: 10, left: 16, bottom: 10, right: 36)
+        messageInputBar.inputTextView.placeholderLabelInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 36)
         messageInputBar.inputTextView.layer.borderColor = UIColor(red: 200/255, green: 200/255, blue: 200/255, alpha: 1).cgColor
         messageInputBar.inputTextView.layer.borderWidth = 1.0
-        messageInputBar.inputTextView.layer.cornerRadius = 16.0
+        messageInputBar.inputTextView.layer.cornerRadius = 11.0
         messageInputBar.inputTextView.layer.masksToBounds = true
-        messageInputBar.inputTextView.scrollIndicatorInsets = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
+        messageInputBar.inputTextView.scrollIndicatorInsets = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
         messageInputBar.inputTextView.isImagePasteEnabled = false
         
         
@@ -984,20 +987,31 @@ extension ChatViewController: UITableViewDelegate {
         
         if (indexPath.row == 0) {
             let rcmessage = rcmessageAt(indexPath)
-            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_TEXT)        { return RCMessageTextCell.height(self, at: indexPath) + 10       }
-            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_EMOJI)    { return RCMessageEmojiCell.height(self, at: indexPath) + 10        }
-            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_PHOTO)    { return RCMessagePhotoCell.height(self, at: indexPath) + 10       }
-            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_VIDEO)    { return RCMessageVideoCell.height(self, at: indexPath) + 10       }
-            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_AUDIO)    { return RCMessageAudioCell.height(self, at: indexPath) + 10         }
-            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_LOCATION)    { return RCMessageLocationCell.height(self, at: indexPath) + 10   }
+            
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_TEXT)        { return RCMessageTextCell.height(self, at: indexPath)        }
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_EMOJI)    { return RCMessageEmojiCell.height(self, at: indexPath)         }
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_PHOTO)    { return RCMessagePhotoCell.height(self, at: indexPath)     }
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_VIDEO)    { return RCMessageVideoCell.height(self, at: indexPath)      }
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_AUDIO)    { return RCMessageAudioCell.height(self, at: indexPath)         }
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_LOCATION)    { return RCMessageLocationCell.height(self, at: indexPath)   }
         }
         return 0
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-
-        return RCDefaults.sectionHeaderMargin
+        let offset = messageTotalCount() - messageLoadedCount()
+        let message = messages[section + offset]
+        var prevUserId = ""
+        if(section > 0){
+            prevUserId = messages[section + offset - 1].userId
+        }
+        var offsetHeight = CGFloat(3)
+        if (prevUserId != message.userId){
+            offsetHeight = RCDefaults.sectionHeaderMargin
+            prevUserId = message.userId
+        }
+        return offsetHeight
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------

@@ -36,9 +36,9 @@ extension Results {
 			let token = self.observe(block)
 			completion(token)
 		} else {
-            //DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
 				self.safeObserve(block, completion: completion)
-			//}
+			}
 		}
 	}
 }
