@@ -34,7 +34,10 @@ class RCMessageCell: UITableViewCell {
 		self.messagesView = messagesView
         let rcmessage = messagesView.rcmessageAt(indexPath)
         backgroundColor = UIColor.clear
-
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(actionContentView))
+        contentView.addGestureRecognizer(tapGesture)
+        
         
 		if (viewBubble == nil) {
 			viewBubble = UIView()
@@ -189,6 +192,12 @@ class RCMessageCell: UITableViewCell {
 		messagesView.dismissKeyboard()
 		messagesView.actionTapBubble(indexPath)
 	}
+    
+    @objc func actionContentView() {
+
+        messagesView.dismissKeyboard()
+        //messagesView.actionTapBubble(indexPath)
+    }
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	@objc func actionTapAvatar() {

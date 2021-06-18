@@ -94,3 +94,6 @@
 /* Class = "UILabel"; text = "James Watson"; ObjectID = "xwG-a9-PC5"; */
 "xwG-a9-PC5.text" = "James Watson";
 
+/* Class = "UILabel"; text = "James Watson"; ObjectID = "mBp-nx-9ZD"; */
+"mBp-nx-9ZD.text" = "ユーザー名または電話番号を使用して友達を検索する";
+

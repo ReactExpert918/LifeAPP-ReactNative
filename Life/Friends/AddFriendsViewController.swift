@@ -43,7 +43,7 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
         
         tableView.register(UINib(nibName: "AddFriendSection", bundle: nil), forHeaderFooterViewReuseIdentifier: AddFriendSection.reuseIdentifier)
         tableView.tableFooterView = UIView(frame: .zero)
-        popupView.isHidden = false
+        
         //refreshView()
         // Do any additional setup after loading the view.
     }
@@ -226,7 +226,7 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
             self.confirmPopupLabel.text = "Do you want to add \(person.fullname) your friend list?"
             self.loadRequestedFriendImage(person: person)
 
-            self.confirmPopupView.isHidden = false
+            
         }
         return cell
         
@@ -384,6 +384,8 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
             else{
                 self.confirmPopupProfileImage.image = UIImage(named: "ic_default_profile")
             }
+            self.confirmPopupView.isHidden = false
+            
         }
     }
     

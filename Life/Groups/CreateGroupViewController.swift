@@ -55,6 +55,7 @@ class CreateGroupViewController: UIViewController, UICollectionViewDelegate, UIC
     }
     override func viewWillAppear(_ animated: Bool) {
         self.refreshCollectionView()
+        self.groupImageView.image = UIImage(named:"ic_default_profile")
     }
     @objc func refreshCollectionView(){
         collectionView.reloadData()
@@ -122,9 +123,11 @@ class CreateGroupViewController: UIViewController, UICollectionViewDelegate, UIC
         }
         let data = image.jpegData(compressionQuality: 1.0)
         groupPicture = UIImage(data: data! as Data)
-        DispatchQueue.main.async{
+        DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
+            print("update")
             self.groupImageView.image = self.groupPicture
-            self.cameraButton.setImage(nil, for: .normal)
+            self.groupImageView.isHidden = false
+            self.cameraButton.isHidden = true
         }
         // print out the image size as a test
         // print(correct_image?.size)
@@ -149,6 +152,7 @@ class CreateGroupViewController: UIViewController, UICollectionViewDelegate, UIC
                 self.selectedUsers.append(item.objectId)
             }
         }
+        selectedPersonsForGroup.removeAll()
         self.selectedUsers.append(AuthUser.userId())
         let group = Groups.create(name, userIds: self.selectedUsers)
         

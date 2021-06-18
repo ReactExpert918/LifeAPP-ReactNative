@@ -26,10 +26,10 @@ class SearchFriendCell : UITableViewCell{
 
         userNameLabel.text = person.fullname
         phoneNumberLabel.text = person.phone
-        /*
+        
         if(Friends.isFriend(person.objectId)){
             AddButton.isHidden = true
-        }*/
+        }
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------

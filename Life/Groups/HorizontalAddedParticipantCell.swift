@@ -14,11 +14,13 @@ class HorizontalAddedParticipantCell : UICollectionViewCell{
     @IBOutlet weak var profileImageView: SwiftyAvatar!
     @IBOutlet weak var name: UILabel!
     
+    @IBOutlet weak var roundRemove: RoundedCornerBorderView!
     var index: Int!
     var callbackCancelTapped: ((_ index: Int) -> ())?
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        roundRemove.isHidden = true
     }
     
     func loadImage(person: Person, collectionView: UICollectionView, indexPath: IndexPath) {
@@ -51,6 +53,7 @@ class HorizontalAddedParticipantCell : UICollectionViewCell{
     
     func bindData(person: Person) {
         name.text = person.fullname
+        
     }
     @IBAction func onCancelTapped(_ sender: Any) {
         callbackCancelTapped?(index)

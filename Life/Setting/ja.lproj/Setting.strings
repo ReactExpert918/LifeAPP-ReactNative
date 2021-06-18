@@ -79,3 +79,12 @@
 /* Class = "UILabel"; text = "Update Password"; ObjectID = "z5d-rt-Lqn"; */
 "z5d-rt-Lqn.text" = "パスワードを更新";
 
+
+/* Class = "UILabel"; text = "Delete Account"; ObjectID = "ddp-sh-2Sx"; */
+"ddp-sh-2Sx.text" = "アカウントを削除";
+
+/* Class = "UILabel"; text = "Please enter the OTP\nreceived in your device"; ObjectID = "noh-F0-6fx"; */
+"noh-F0-6fx.text" = "デバイスで受信した OTP\nを入力してください";
+
+/* Class = "UIButton"; normalTitle = "DELETE ACCOUNT"; ObjectID = "JGj-2x-Db0"; */
+"JGj-2x-Db0.normalTitle" = "アカウントを削除";

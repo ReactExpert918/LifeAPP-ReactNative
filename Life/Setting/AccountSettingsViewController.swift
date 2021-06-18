@@ -19,6 +19,7 @@ import OneSignal
 protocol UpdateDataDelegateProtocol {
     func updateUserName(name: String)
     func updatePassword(password: String)
+    func deleteAccount()
 }
 
 class AccountSettingsViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UpdateDataDelegateProtocol {
@@ -38,6 +39,9 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
     @IBOutlet weak var emailRight: UIImageView!
     @IBOutlet weak var phoneRight: UIImageView!
     
+    @IBOutlet weak var popUpView: UIView!
+    @IBOutlet weak var imgPopup: UIImageView!
+    @IBOutlet weak var labelPopup: UILabel!
     
     let hud = JGProgressHUD(style: .light)
     override func viewDidLoad() {
@@ -51,7 +55,7 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
     }
     override func viewWillAppear(_ animated: Bool) { // As soon as vc appears
         super.viewWillAppear(animated)
-        
+        popUpView.isHidden = true
         if (AuthUser.userId() != "") {
             loadPerson()
         }
@@ -63,7 +67,15 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
     func updateUserName(name: String) {
         self.person.update(fullname: name)
         loadPerson()
-        Util.showSuccessAlert(vc: self, "Successfully updated the name.".localized, "")
+        
+        
+        imgPopup.image = UIImage(named: "ic_checkmark_success")
+        labelPopup.text = "Successfully updated the name.".localized
+        popUpView.isHidden = false
+        
+        DispatchQueue.main.asyncAfter(deadline: .now()+2) {
+            self.popUpView.isHidden = true
+        }
     }
     
     func updatePassword(password: String) {
@@ -76,7 +88,39 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
                 Util.showAlert(vc: self, error.localizedDescription , "")
                 return
             }
-            Util.showSuccessAlert(vc: self, "Successfully updated the password.".localized, "")
+           
+            self.imgPopup.image = UIImage(named: "ic_checkmark_success")
+            self.labelPopup.text = "Successfully updated the password.".localized
+            self.popUpView.isHidden = false
+            
+            DispatchQueue.main.asyncAfter(deadline: .now()+2) {
+                self.popUpView.isHidden = true
+            }
+        }
+    }
+    
+    func deleteAccount(){
+        DispatchQueue.main.async {
+            self.hud.show(in: self.view, animated: true)
+        }
+        AuthUser.deleteAccount { (error) in
+            self.hud.dismiss()
+            if let _ = error {
+                Util.showAlert(vc: self, "Delete Account Error".localized , "")
+                return
+            }
+            self.person.update(isDeleted: true)
+            self.imgPopup.image = UIImage(named: "ic_checkmark_delete")
+            self.labelPopup.text = "Successfully deleted your account.".localized
+            self.popUpView.isHidden = false
+            
+            DispatchQueue.main.asyncAfter(deadline: .now()+2) {
+                self.popUpView.isHidden = true
+                PrefsManager.setEmail(val: "")
+                self.gotoWelcomeViewController()
+            }
+            
+            
         }
     }
     
@@ -119,19 +163,26 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
         let refreshAlert = UIAlertController(title: "Are you sure to delete your account?".localized, message: "", preferredStyle: .alert)
 
         refreshAlert.addAction(UIAlertAction(title: "Yes".localized, style: .default, handler: { (action: UIAlertAction!) in
-            DispatchQueue.main.async {
-                self.hud.show(in: self.view, animated: true)
-            }
-            AuthUser.deleteAccount { (error) in
-                self.hud.dismiss()
-                if let error = error {
-                    Util.showAlert(vc: self, error.localizedDescription, "")
-                    return
-                }
-                self.person.update(isDeleted: true)
-                PrefsManager.setEmail(val: "")
-                self.gotoWelcomeViewController()
-            }
+            self.hud.textLabel.text = ""
+            self.hud.show(in: self.view, animated: true)
+            
+            PhoneAuthProvider.provider().verifyPhoneNumber(self.person.phone, uiDelegate: nil) { (verificationID, error) in
+                        self.hud.dismiss(afterDelay: 1.0, animated: true)
+                        if error != nil {
+                            Util.showAlert(vc: self, error?.localizedDescription ?? "", "")
+                            return
+                        }
+                        // Save Verification ID
+                        UserDefaults.standard.set(verificationID, forKey: "authVerificationID")
+                        let vc =  self.storyboard?.instantiateViewController(identifier: "deleteOPTVC") as! DeleteOPTViewController
+                        vc.delegate = self
+                        
+                        let sheetController = SheetViewController(controller: vc, sizes: [.fixed(300)])
+                        
+                        self.present(sheetController, animated: false, completion: nil)
+                    }
+            
+            
             
         }))
 
@@ -231,4 +282,5 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
     override func viewWillDisappear(_ animated: Bool) {
         
     }
+    
 }

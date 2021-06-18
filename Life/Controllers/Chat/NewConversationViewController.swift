@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class NewConversationViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class NewConversationViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ChatViewControllerProtocol {
 
     var delegate: NewConversationDelegate? = nil
     
@@ -80,13 +80,11 @@ class NewConversationViewController: UIViewController, UITableViewDataSource, UI
             self.delegate?.newConversationStart(chatId: chatId, recipientId: recipientId)
         }
     }
-       
+    /*
    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
    
-       let friend = persons[indexPath.row]
-       let chatId = Singles.create(friend.objectId)
-       openPrivateChat(chatId: chatId, recipientId: friend.objectId)
-   }
+       
+   }*/
 
    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
        if section == 0 {
@@ -104,7 +102,8 @@ class NewConversationViewController: UIViewController, UITableViewDataSource, UI
        cell.selectionStyle = .none
 
        let person = persons[indexPath.row]
-       cell.bindData(person: person)
+       cell.bindData(person: person, indexPath: indexPath)
+    cell.homeViewController = self
        cell.loadImage(person: person, tableView: tableView, indexPath: indexPath)
        return cell
    }
@@ -112,4 +111,37 @@ class NewConversationViewController: UIViewController, UITableViewDataSource, UI
    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
        return 76
    }
+    func singleChatView(_ indexPath: IndexPath){
+        let friend = persons[indexPath.row]
+        let chatId = Singles.create(friend.objectId)
+        openPrivateChat(chatId: chatId, recipientId: friend.objectId)
+    }
+    
+    func groupChatView(_ indexPath: IndexPath){
+        
+    }
+    func removeFriend(_ indexPath: IndexPath) {
+        let friend = persons[indexPath.row]
+        let confirmationAlert = UIAlertController(title: "Remove Friend".localized, message: "Are you sure remove ".localized + friend.fullname, preferredStyle: .alert)
+
+        confirmationAlert.addAction(UIAlertAction(title: "Yes".localized, style: .default, handler: {
+                (action: UIAlertAction!) in
+                confirmationAlert.dismiss(animated: true, completion: nil)
+                Friends.removeFriend(friend.objectId){
+                    self.refreshTableView()
+                }
+            
+            })
+        )
+        
+        
+        confirmationAlert.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: { (action: UIAlertAction!) in
+        }))
+        present(confirmationAlert, animated: true, completion: nil)
+       
+    }
+    func groupInfo(_ group: Group){
+        
+    }
+    
 }

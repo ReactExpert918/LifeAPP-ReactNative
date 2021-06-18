@@ -36,7 +36,7 @@ class CallVideoView: UIViewController {
 	private var call: SINCall?
 	private var audioController: SINAudioController?
 	private var videoController: SINVideoController?
-
+    private var personsFullName:String?
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	init(call: SINCall?) {
 
@@ -56,7 +56,7 @@ class CallVideoView: UIViewController {
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	init(userId: String) {
-
+        personsFullName = Persons.fullname()
 		super.init(nibName: nil, bundle: nil)
 
 		self.isModalInPresentation = true
@@ -64,11 +64,17 @@ class CallVideoView: UIViewController {
 
 		let app = UIApplication.shared.delegate as? AppDelegate
 
-		call = app?.client?.call().callUserVideo(withId: userId, headers: ["name": Persons.fullname()])
-		call?.delegate = self
+        personsFullName = Persons.fullname()
+        
+        //DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+        self.call = app?.client?.call().callUserVideo(withId: userId, headers: ["name": self.personsFullName!])
+            self.call?.delegate = self
 
-		audioController = app?.client?.audioController()
-		videoController = app?.client?.videoController()
+            self.audioController = app?.client?.audioController()
+            self.videoController = app?.client?.videoController()
+        //}
+        
+		
 	}
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------

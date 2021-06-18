@@ -108,19 +108,20 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
         }        
     }
     
-    func loadImage(person: Person) {
+    func loadImage(person: Person, completion: @escaping () -> Void) {
         if let path = MediaDownload.pathUser(person.objectId) {
             popupProfileImageView.image = UIImage.image(path, size: 40)
             //labelInitials.text = nil
+            completion()
         } else {
             popupProfileImageView.image = nil
             //labelInitials.text = person.initials()
-            downloadImage(person: person)
+            downloadImage(person: person, completion: completion)
         }
         popupProfileImageView.makeRounded()
     }
     //---------------------------------------------------------------------------------------------------------------------------------------------
-    func downloadImage(person: Person) {
+    func downloadImage(person: Person, completion: @escaping () -> Void) {
         MediaDownload.startUser(person.objectId, pictureAt: person.pictureAt) { image, error in
             if (error == nil) {
                 self.popupProfileImageView.image = image
@@ -129,8 +130,10 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
             else{
                 self.popupProfileImageView.image = UIImage(named: "ic_default_profile")
             }
+            completion()
         }
     }
+    
     // MARK: - Refresh methods
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func refreshTableView() {
@@ -200,9 +203,11 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
             // Display info on popupview
             self.popupNameLabel.text = person.fullname
             self.popupPhoneNumberLabel.text = person.phone
-            self.loadImage(person: person)
+            self.loadImage(person: person){
+                self.popupView.isHidden = false
+            }
             
-            self.popupView.isHidden = false
+            
             if (Friends.isFriend(person.objectId)) {
                 self.popupStatusLabel.text = "Already existing in your friend list.".localized
             } else {

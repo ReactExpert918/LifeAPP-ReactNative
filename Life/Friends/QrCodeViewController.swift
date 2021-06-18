@@ -14,7 +14,7 @@ class QrCodeViewController: UIViewController, QRCodeReaderViewControllerDelegate
     @IBOutlet weak var preView: QRCodeReaderView!{
       didSet {
         preView.setupComponents(with: QRCodeReaderViewControllerBuilder {
-          $0.reader                 = reader
+          $0.reader                 = qrReader
           $0.showTorchButton        = false
           $0.showSwitchCameraButton = false
           $0.showCancelButton       = false
@@ -44,52 +44,63 @@ class QrCodeViewController: UIViewController, QRCodeReaderViewControllerDelegate
         dismiss(animated: true, completion: nil)
     }
     
-    lazy var reader: QRCodeReader = QRCodeReader()
-    lazy var readerVC: QRCodeReaderViewController = {
+    lazy var qrReader: QRCodeReader = QRCodeReader()
+    /*lazy var readerVC: QRCodeReaderViewController = {
       let builder = QRCodeReaderViewControllerBuilder {
         $0.reader                  = QRCodeReader(metadataObjectTypes: [.qr], captureDevicePosition: .back)
         $0.showTorchButton         = true
         $0.preferredStatusBarStyle = .lightContent
         $0.showOverlayView         = true
-        $0.rectOfInterest          = CGRect(x: 0.15, y: 0.15, width: 0.85, height: 0.85)
+        $0.rectOfInterest          = CGRect(x: 0, y: 0, width: 1, height: 1)
         
-        $0.reader.stopScanningWhenCodeIsFound = false
+        $0.reader.stopScanningWhenCodeIsFound = true
       }
       
       return QRCodeReaderViewController(builder: builder)
-    }()
+    }()*/
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
         startReader()
     }
+    
     override func viewDidDisappear(_ animated: Bool) {
         //print("Scan disappear")
         super.viewDidDisappear(animated)
-        reader.stopScanning()
+        qrReader.stopScanning()
     }
     func startReader(){
-        guard checkScanPermissions(), !reader.isRunning else { return }
-
-        reader.didFindCode = { result in
-            let vc =  self.storyboard?.instantiateViewController(identifier: "addFriendBottomSheetVC") as! AddFriendBottomSheetViewController
-            self.reader.startScanning()
+        guard checkScanPermissions(), !qrReader.isRunning else { return }
+        
+        qrReader.didFindCode = { result in
+            print("detected")
             let qrcodeValue = result.value.components(separatedBy: "timestamp")
-            vc.qrCode = qrcodeValue[0]
-
-            let sheetController = SheetViewController(controller: vc, sizes: [.fixed(376)])
-            //sheetController.blurBottomSafeArea = false
-            //sheetController.adjustForBottomSafeArea = false
-
-            // Make corners more round
-            //sheetController.topCornersRadius = 15
-
-            // It is important to set animated to false or it behaves weird currently
-            self.present(sheetController, animated: false, completion: nil)
-            // print("Completion with result: \(result.value) of type \(result.metadataType)")
+            let qrCode = qrcodeValue[0]
+            let person = realm.object(ofType: Person.self, forPrimaryKey: qrCode)
+            if let person = person{
+                let vc =  self.storyboard?.instantiateViewController(identifier: "addFriendBottomSheetVC") as! AddFriendBottomSheetViewController
+                vc.person = person
+                vc.qrView = self
+                let sheetController = SheetViewController(controller: vc, sizes: [.fixed(376)])
+                self.present(sheetController, animated: false, completion: nil)
+            }else{
+                DispatchQueue.main.async {
+                    let alert = UIAlertController(title: "Error".localized, message: "Invalid QR code".localized, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: {_ in
+                        self.qrReader.startScanning()
+                    }))
+                    self.present(alert, animated: true, completion: nil)
+                }
+            }
+            
         }
-        reader.startScanning()
+        qrReader.startScanning()
     }
     
     private func checkScanPermissions() -> Bool {
@@ -129,13 +140,7 @@ class QrCodeViewController: UIViewController, QRCodeReaderViewControllerDelegate
         let vc =  self.storyboard?.instantiateViewController(identifier: "myQrVC") as! MyQrGenerateViewController
 
         let sheetController = SheetViewController(controller: vc, sizes: [.fixed(460)])
-        //sheetController.blurBottomSafeArea = false
-        //sheetController.adjustForBottomSafeArea = false
-
-        // Make corners more round
-        //sheetController.topCornersRadius = 15
-
-        // It is important to set animated to false or it behaves weird currently
+        
         self.present(sheetController, animated: false, completion: nil)
     }
     

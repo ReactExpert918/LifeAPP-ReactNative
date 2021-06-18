@@ -20,7 +20,7 @@ class Friends: NSObject {
 
 		let predicate = NSPredicate(format: "userId == %@ AND friendId == %@", AuthUser.userId(), userId)
 		if let friend = realm.objects(Friend.self).filter(predicate).first {
-			friend.update(isDeleted: false)
+			friend.update(isDeleted: false, completion: nil)
 			return
 		}
 
@@ -41,7 +41,7 @@ class Friends: NSObject {
 
 		let predicate = NSPredicate(format: "userId == %@ AND friendId == %@", AuthUser.userId(), userId)
 		if let friend = realm.objects(Friend.self).filter(predicate).first {
-			friend.update(isDeleted: isDeleted)
+			friend.update(isDeleted: isDeleted, completion: nil)
 		}
 	}
     
@@ -120,5 +120,22 @@ class Friends: NSObject {
             friendIds.append(friend.friendId)
         }
         return friendIds
+    }
+    
+    class func removeFriend(_ userId: String, completion: (()->())?) {
+
+        let predicate = NSPredicate(format: "userId == %@ AND friendId == %@ AND isDeleted == NO AND isAccepted == YES", AuthUser.userId(), userId)
+        
+        let predicate1 = NSPredicate(format: "friendId == %@ AND userId == %@ AND isDeleted == NO AND isAccepted == YES", AuthUser.userId(), userId)
+        
+        let friend1 = realm.objects(Friend.self).filter(predicate).first
+        let friend2 = realm.objects(Friend.self).filter(predicate1).first
+        
+        let _friend = friend1 != nil ? friend1 : ( friend2 != nil ? friend2 : nil )
+        
+        guard let friend = _friend else{
+            return
+        }
+        friend.update(isDeleted: true, completion: completion)
     }
 }

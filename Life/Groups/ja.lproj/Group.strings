@@ -39,4 +39,7 @@
 
 /* Class = "UITextField"; placeholder = "Eg. Dev Group"; ObjectID = "YZN-At-B8n"; */
 "YZN-At-B8n.placeholder" = "Eg. Dev Group";
-
+/* Class = "UILabel"; text = "Group Information"; ObjectID = "WA6-ch-3Ah"; */
+"WA6-ch-3Ah.text" = "グループ情報";
+/* Class = "UILabel"; text = "Invite New Members"; ObjectID = "dMa-LF-BG1"; */
+"dMa-LF-BG1.text" = "新しいメンバーを招待する";

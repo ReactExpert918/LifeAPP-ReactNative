@@ -12,6 +12,7 @@ import RealmSwift
 class AddParticipantsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate{
     
     var ownerVC : CreateGroupViewController!
+    var configVC : ConfigGroupViewController!
     
     private var tokenFriends: NotificationToken? = nil
     private var tokenPersons: NotificationToken? = nil
@@ -20,7 +21,7 @@ class AddParticipantsViewController: UIViewController, UITableViewDelegate, UITa
     private var persons = realm.objects(Person.self).filter(falsepredicate)
     
     private var temp : [Person] = []
-
+    private var saveTaped = 0
     @IBOutlet weak var barTitle: UILabel!
     @IBOutlet weak var friendsTableView: UITableView!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -35,7 +36,9 @@ class AddParticipantsViewController: UIViewController, UITableViewDelegate, UITa
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "horizontalAddedParticipantCell", for: indexPath) as! HorizontalAddedParticipantCell
         let person = selectedPersonsForGroup[indexPath.row]
         cell.index = indexPath.row
+        
         cell.bindData(person: person)
+        
         cell.loadImage(person: person, collectionView: collectionView, indexPath: indexPath)
         cell.callbackCancelTapped = {(index) in
             selectedPersonsForGroup.remove(at: index)
@@ -53,7 +56,10 @@ class AddParticipantsViewController: UIViewController, UITableViewDelegate, UITa
         let cell = tableView.dequeueReusableCell(withIdentifier: "addParticipantCell", for: indexPath) as! AddParticipantCell
         let person = persons[indexPath.row]
         cell.index = indexPath.row
+        
+        
         cell.bindData(person: person)
+        
         cell.loadImage(person: person, tableView: tableView, indexPath: indexPath)
         cell.selectionStyle = .none
         cell.callbackAddMember = {(index, checked) in
@@ -98,6 +104,16 @@ class AddParticipantsViewController: UIViewController, UITableViewDelegate, UITa
         searchBar.tintColor = UIColor(hexString: "#333333")
     }
     
+    func getSelectedIds() -> [String] {
+        var friendIds: [String] = []
+        if(ownerVC == nil){
+            for friend in selectedPersonsForGroup {
+                friendIds.append(friend.objectId)
+            }
+        }
+        return friendIds
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = 70
         let height = 110
@@ -123,7 +139,8 @@ class AddParticipantsViewController: UIViewController, UITableViewDelegate, UITa
     
     func loadPersons(text: String = "") {
 
-        let predicate1 = NSPredicate(format: "objectId IN %@ AND NOT objectId IN %@ AND isDeleted == NO", Friends.friendIds(), Blockeds.blockerIds())
+        let predicate1 = NSPredicate(format: "objectId IN %@ AND NOT objectId IN %@ AND NOT objectId IN %@ AND isDeleted == NO", Friends.friendAcceptedIds(), Blockeds.blockerIds(), getSelectedIds())
+        // Fix -- Friends.friendAcceptedIds() Friends.friendIds()
         let predicate2 = (text != "") ? NSPredicate(format: "fullname CONTAINS[c] %@", text) : NSPredicate(value: true)
 
         persons = realm.objects(Person.self).filter(predicate1).filter(predicate2).sorted(byKeyPath: "fullname")
@@ -149,16 +166,37 @@ class AddParticipantsViewController: UIViewController, UITableViewDelegate, UITa
         }
         collectionView.reloadData()
         barTitle.text = "Add Participants".localized+" (\(selectedPersonsForGroup.count))"
+        let item = self.collectionView(self.collectionView, numberOfItemsInSection: 0) - 1
+        let lastItemIndex = IndexPath(item: item, section: 0)
+        collectionView.scrollToItem(at: lastItemIndex, at: .right, animated: false)
     }
     @IBAction func onSaveTapped(_ sender: Any) {
+        
+        saveTaped = 1
         dismiss(animated: true, completion: nil)
     }
     @IBAction func onCancelTapped(_ sender: Any) {
-        selectedPersonsForGroup = temp
+        
         dismiss(animated: true, completion: nil)
     }
     override func viewWillDisappear(_ animated: Bool) {
-        ownerVC.refreshCollectionView()
+        if(saveTaped == 1){
+            if(ownerVC != nil){
+                ownerVC.refreshCollectionView()
+            }
+            if(configVC != nil){
+                configVC.invitePerson()
+            }
+        }else{
+            if(ownerVC != nil){
+                selectedPersonsForGroup = temp
+            }else{
+                selectedPersonsForGroup.removeAll()
+            }
+        }
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        saveTaped = 0
     }
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         let predicate1 = NSPredicate(format: "objectId IN %@ AND NOT objectId IN %@ AND isDeleted == NO", Friends.friendIds(), Blockeds.blockerIds())

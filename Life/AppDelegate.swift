@@ -109,9 +109,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //firebaseAuth.setAPNSToken(deviceToken, type: .sandbox)
         //firebaseAuth.setAPNSToken(deviceToken, type: .prod)
         //firebaseAuth.setAPNSToken(deviceToken, type: .unknown)
-        DispatchQueue.main.async {
+        /*DispatchQueue.main.async {
             UIApplication.shared.applicationIconBadgeNumber = UIApplication.shared.applicationIconBadgeNumber + 1
-        }
+        }*/
     }
 
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
@@ -120,14 +120,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print(userInfo)
             return
         }
-        print("did not")
-        
-        let state = UIApplication.shared.applicationState
-        if(state == .background){
-            completionHandler(.newData)
-        }else if(state == .inactive){
-            completionHandler(.newData)
-        }
+        //print("did not")
+        completionHandler(.newData)
+        //let state = UIApplication.shared.applicationState
+        //if(state == .background){
+            
+        //}else if(state == .inactive){
+        //    completionHandler(.newData)
+        //}
         
     }
  
@@ -236,3 +236,5 @@ extension String {
     
 
 }
+
+

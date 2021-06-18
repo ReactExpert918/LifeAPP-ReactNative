@@ -83,13 +83,6 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TKB-94-g9R" userLabel="ZedPayView">
                                                 <rect key="frame" x="313" y="12" width="40" height="40"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n6P-Ay-09e">
-                                                        <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
-                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <connections>
-                                                            <action selector="onZedPay:" destination="zA1-5F-Rsf" eventType="touchUpInside" id="mwC-zz-pBN"/>
-                                                        </connections>
-                                                    </button>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_zed_pay" translatesAutoresizingMaskIntoConstraints="NO" id="1aI-vA-zt8">
                                                         <rect key="frame" x="16" y="8" width="24" height="24"/>
                                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -98,6 +91,13 @@
                                                             <constraint firstAttribute="height" constant="24" id="hA3-X2-A8q"/>
                                                         </constraints>
                                                     </imageView>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n6P-Ay-09e">
+                                                        <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <connections>
+                                                            <action selector="onZedPay:" destination="zA1-5F-Rsf" eventType="touchUpInside" id="mwC-zz-pBN"/>
+                                                        </connections>
+                                                    </button>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -131,15 +131,24 @@
                                                             <constraint firstAttribute="width" constant="24" id="bvK-rh-ubP"/>
                                                         </constraints>
                                                     </imageView>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_red_circle" translatesAutoresizingMaskIntoConstraints="NO" id="VPs-FR-jyi">
+                                                        <rect key="frame" x="29" y="5" width="9" height="9"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="9" id="ht7-M3-zn7"/>
+                                                            <constraint firstAttribute="width" constant="9" id="ss4-S7-SHM"/>
+                                                        </constraints>
+                                                    </imageView>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstItem="U9h-gD-v2k" firstAttribute="top" secondItem="nuh-TU-THI" secondAttribute="top" id="61t-La-lV6"/>
                                                     <constraint firstAttribute="width" constant="40" id="Azt-ps-oT8"/>
                                                     <constraint firstAttribute="height" constant="40" id="BGl-vI-jzK"/>
+                                                    <constraint firstItem="VPs-FR-jyi" firstAttribute="top" secondItem="nuh-TU-THI" secondAttribute="top" constant="5" id="Esh-7c-58m"/>
                                                     <constraint firstAttribute="trailing" secondItem="U9h-gD-v2k" secondAttribute="trailing" id="LC4-cc-ILb"/>
                                                     <constraint firstAttribute="bottom" secondItem="U9h-gD-v2k" secondAttribute="bottom" id="UbH-7n-sD8"/>
                                                     <constraint firstItem="U9h-gD-v2k" firstAttribute="leading" secondItem="nuh-TU-THI" secondAttribute="leading" id="dmI-41-dbu"/>
+                                                    <constraint firstAttribute="trailing" secondItem="VPs-FR-jyi" secondAttribute="trailing" constant="2" id="h2u-QC-YQG"/>
                                                     <constraint firstItem="syn-YC-tCN" firstAttribute="centerY" secondItem="nuh-TU-THI" secondAttribute="centerY" id="lqH-n5-nkv"/>
                                                     <constraint firstAttribute="trailing" secondItem="syn-YC-tCN" secondAttribute="trailing" id="p7m-JR-xje"/>
                                                 </constraints>
@@ -195,7 +204,7 @@
                                 <rect key="frame" x="0.0" y="158" width="414" height="655"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="createGroupCell" rowHeight="76" id="r5h-Yj-ZqF">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="createGroupCell" rowHeight="76" id="r5h-Yj-ZqF" customClass="CreateGroupTableViewCell" customModule="Life" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="24.5" width="414" height="76"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="r5h-Yj-ZqF" id="Cpa-bv-SpI">
@@ -268,12 +277,13 @@
                     <navigationItem key="navigationItem" id="GDo-Bp-J4b"/>
                     <connections>
                         <outlet property="homeTableView" destination="CYM-iw-S5U" id="Fd8-cA-vkp"/>
+                        <outlet property="redCircle" destination="VPs-FR-jyi" id="srV-Ti-qTa"/>
                         <outlet property="searchBar" destination="rA2-7L-UWc" id="Ttu-Qe-OoS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nfD-zS-vTf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1860" y="-4.4334975369458132"/>
+            <point key="canvasLocation" x="1859.4202898550725" y="-4.6875"/>
         </scene>
         <!--New Conversation View Controller-->
         <scene sceneID="8Hg-By-zIF">
@@ -287,7 +297,7 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="64"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Conversation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5bV-62-Qx5">
-                                        <rect key="frame" x="125" y="20.5" width="164.5" height="23.5"/>
+                                        <rect key="frame" x="113" y="20" width="188.5" height="24.5"/>
                                         <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -705,6 +715,8 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="obz-fr-1UN" secondAttribute="trailing" id="Xbu-Od-thP"/>
+                                    <constraint firstItem="obz-fr-1UN" firstAttribute="leading" secondItem="6Lw-5d-p86" secondAttribute="leading" id="aEW-WW-vzV"/>
                                     <constraint firstItem="obz-fr-1UN" firstAttribute="leading" secondItem="ghd-j4-cGy" secondAttribute="leading" id="f89-mf-rn6"/>
                                     <constraint firstAttribute="bottom" secondItem="obz-fr-1UN" secondAttribute="bottom" constant="50" id="oKZ-2C-t85"/>
                                     <constraint firstItem="obz-fr-1UN" firstAttribute="trailing" secondItem="ghd-j4-cGy" secondAttribute="trailing" id="yJl-FN-ZN2"/>
@@ -847,6 +859,7 @@
                         <constraints>
                             <constraint firstItem="gAd-pi-vQB" firstAttribute="bottom" secondItem="6Lw-5d-p86" secondAttribute="bottom" id="00R-hQ-SP1"/>
                             <constraint firstItem="cOY-bW-lyB" firstAttribute="trailing" secondItem="gAd-pi-vQB" secondAttribute="trailing" id="0Eo-cU-9YH"/>
+                            <constraint firstItem="6Lw-5d-p86" firstAttribute="leading" secondItem="gAd-pi-vQB" secondAttribute="leading" id="0NH-hX-7nn"/>
                             <constraint firstItem="gAd-pi-vQB" firstAttribute="trailing" secondItem="6Lw-5d-p86" secondAttribute="trailing" id="2S3-v0-jAM"/>
                             <constraint firstItem="cOY-bW-lyB" firstAttribute="top" secondItem="7iP-Mb-Pcb" secondAttribute="bottom" id="440-OJ-BKk"/>
                             <constraint firstItem="S5i-me-rWX" firstAttribute="top" secondItem="cOY-bW-lyB" secondAttribute="bottom" id="7Gs-ax-itd"/>
@@ -859,6 +872,7 @@
                             <constraint firstItem="cOY-bW-lyB" firstAttribute="top" secondItem="gAd-pi-vQB" secondAttribute="top" id="XfO-1k-ecs"/>
                             <constraint firstItem="S5i-me-rWX" firstAttribute="leading" secondItem="gAd-pi-vQB" secondAttribute="leading" id="XqX-f9-9b0"/>
                             <constraint firstAttribute="bottom" secondItem="S5i-me-rWX" secondAttribute="bottom" id="brU-OZ-dBp"/>
+                            <constraint firstItem="6Lw-5d-p86" firstAttribute="trailing" secondItem="gAd-pi-vQB" secondAttribute="trailing" id="cLU-xQ-68e"/>
                             <constraint firstItem="7iP-Mb-Pcb" firstAttribute="top" secondItem="as2-s6-asJ" secondAttribute="top" id="dD0-DC-fQj"/>
                             <constraint firstItem="gAd-pi-vQB" firstAttribute="trailing" secondItem="S5i-me-rWX" secondAttribute="trailing" id="eeR-3c-mbK"/>
                             <constraint firstItem="7iP-Mb-Pcb" firstAttribute="leading" secondItem="as2-s6-asJ" secondAttribute="leading" id="iJ1-n1-0aj"/>
@@ -939,6 +953,7 @@
         <image name="ic_edit" width="75" height="75"/>
         <image name="ic_phone" width="76.5" height="76.5"/>
         <image name="ic_plus" width="73" height="73"/>
+        <image name="ic_red_circle" width="13" height="13"/>
         <image name="ic_video" width="111.5" height="64"/>
         <image name="ic_zed_pay" width="67" height="64"/>
         <image name="message.fill" catalog="system" width="128" height="113"/>

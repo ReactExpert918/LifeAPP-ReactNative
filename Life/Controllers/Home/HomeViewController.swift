@@ -13,12 +13,20 @@ protocol CreateGroupDelegate {
     func onGroupCreated(group: Group)
 }
 
-class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CreateGroupDelegate {
+protocol ChatViewControllerProtocol {
+    func singleChatView(_ indexPath: IndexPath)
+    func groupChatView(_ indexPath: IndexPath)
+    func removeFriend(_ indexPath: IndexPath)
+    func groupInfo(_ group: Group)
+}
+
+class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CreateGroupDelegate, ChatViewControllerProtocol {
 
     private var person: Person!    
 
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var homeTableView: UITableView!
+    @IBOutlet weak var redCircle: UIImageView!
     
     
     var headerSections =  [HeaderSection(name: "My Status", collapsed: false), HeaderSection(name: "Groups".localized+" 0", collapsed: false), HeaderSection(name: "Friends".localized+" 0", collapsed: false)]
@@ -53,15 +61,23 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         homeTableView.dataSource = self
         homeTableView.delegate = self
         
+        
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) { // As soon as vc appears
         super.viewWillAppear(animated)
         
+        if(Friends.friendPendingIds().count > 0){
+            redCircle.isHidden = false
+        }else{
+            redCircle.isHidden = true
+        }
         if (AuthUser.userId() != "") {
             loadPerson()
             loadFriends()
             loadGroups()
+            loadPersons()
+            
         }
     }
     // MARK: - Realm methods
@@ -75,7 +91,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         tokenFriends?.invalidate()
         friends.safeObserve({ changes in
             // load friend list
-            self.loadPersons()
+            self.refreshTableView()
+            
         }, completion: { token in
             self.tokenFriends = token
         })
@@ -117,6 +134,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     // MARK: - Refresh methods
     //---------------------------------------------------------------------------------------------------------------------------------------------
     @objc func refreshTableView() {
+        print("refreshTableView")
         headerSections[1].name = "Groups".localized+" \(groups.count)"
         headerSections[2].name = "Friends".localized+" \(persons.count)"
         homeTableView.reloadData()
@@ -151,6 +169,58 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         return headerSections.count
     }
     
+    func createGroupView(){
+        let mainstoryboard = UIStoryboard.init(name: "Group", bundle: nil)
+        let vc = mainstoryboard.instantiateViewController(withIdentifier: "createGroupVC") as! CreateGroupViewController
+        vc.delegate = self
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true, completion: nil)
+    }
+    
+    func singleChatView(_ indexPath: IndexPath){
+        let friend = persons[indexPath.row]
+        let chatId = Singles.create(friend.objectId)
+        openPrivateChat(chatId: chatId, recipientId: friend.objectId)
+        
+    }
+    
+    func groupChatView(_ indexPath: IndexPath){
+        
+        let chatId = groups[indexPath.row-1].chatId
+        openPrivateChat(chatId: chatId, recipientId: "")
+        
+    }
+    
+    func removeFriend(_ indexPath: IndexPath) {
+        let friend = persons[indexPath.row]
+        let confirmationAlert = UIAlertController(title: "Remove Friend".localized, message: "Are you sure remove ".localized + friend.fullname, preferredStyle: .alert)
+
+        confirmationAlert.addAction(UIAlertAction(title: "Yes".localized, style: .default, handler: {
+                (action: UIAlertAction!) in
+                confirmationAlert.dismiss(animated: true, completion: nil)
+                Friends.removeFriend(friend.objectId){
+                    self.refreshTableView()
+                }
+            
+            })
+        )
+        
+        
+        confirmationAlert.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: { (action: UIAlertAction!) in
+        }))
+        present(confirmationAlert, animated: true, completion: nil)
+       
+    }
+    func groupInfo(_ group: Group){
+        let mainstoryboard = UIStoryboard.init(name: "Group", bundle: nil)
+        let vc = mainstoryboard.instantiateViewController(withIdentifier: "configGroupVC") as! ConfigGroupViewController
+        vc.group = group
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true, completion: nil)
+        
+    }
+    
+    /*
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 1 {
             if indexPath.row == 0 {
@@ -159,17 +229,17 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 vc.delegate = self
                 vc.modalPresentationStyle = .fullScreen
                 self.present(vc, animated: true, completion: nil)
-            }else{
+            }/*else{
                 let chatId = groups[indexPath.row-1].chatId
                 openPrivateChat(chatId: chatId, recipientId: "")
-            }
-        }
+            }*/
+        }/*
         else if indexPath.section == 2 {
             let friend = persons[indexPath.row]
             let chatId = Singles.create(friend.objectId)
             openPrivateChat(chatId: chatId, recipientId: friend.objectId)
-        }
-    }
+        }*/
+    }*/
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: ExpandableHeaderCell.GetReuseIdentifier()) as! ExpandableHeaderCell
         header.titleLabel.text = headerSections[section].name
@@ -210,7 +280,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
         else if indexPath.section == 1 {
             if indexPath.row == 0 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "createGroupCell", for: indexPath)
+                let cell = tableView.dequeueReusableCell(withIdentifier: "createGroupCell", for: indexPath) as! CreateGroupTableViewCell
+                cell.homeViewController = self
                 return cell
             }
             else {
@@ -218,7 +289,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 let cell = tableView.dequeueReusableCell(withIdentifier: FriendCell.GetCellReuseIdentifier(), for: indexPath) as! FriendCell
                 cell.selectionStyle = .none
                 let group = groups[indexPath.row-1]
-                cell.bindGroupData(group: group)
+                cell.homeViewController = self
+                cell.bindGroupData(group: group, indexPath: indexPath)
                 cell.loadGroupImage(group: group, tableView: tableView, indexPath: indexPath)
                 return cell
             }
@@ -228,7 +300,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         cell.selectionStyle = .none
         if( indexPath.section == 2) {
             let person = persons[indexPath.row]
-            cell.bindData(person: person)
+            cell.homeViewController = self
+            cell.bindData(person: person, indexPath: indexPath)
             cell.loadImage(person: person, tableView: tableView, indexPath: indexPath)
         }
         return cell
@@ -272,6 +345,7 @@ extension HomeViewController: UISearchBarDelegate {
 
         searchBar.text = ""
         searchBar.resignFirstResponder()
+        loadGroups()
         loadPersons()
     }
 
@@ -282,6 +356,7 @@ extension HomeViewController: UISearchBarDelegate {
         if searchText?.isEmpty == true {
             return
         }
+        loadGroups(text: searchText ?? "")
         loadPersons(text: searchText ?? "")
     }
 }

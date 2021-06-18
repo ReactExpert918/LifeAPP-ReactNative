@@ -85,3 +85,11 @@
 /* Class = "UILabel"; text = "Password"; ObjectID = "zr3-I3-Cba"; */
 "zr3-I3-Cba.text" = "パスワード";
 
+/* Class = "UIButton"; normalTitle = "SUBMIT"; ObjectID = "ogy-KO-8bl"; */
+"ogy-KO-8bl.normalTitle" = "参加する";
+
+/* Class = "UILabel"; text = "Reset Your Password"; ObjectID = "C9r-SH-IVc"; */
+"C9r-SH-IVc.text" = "あなたのパスワードをリセット";
+
+/* Class = "UIButton"; normalTitle = "SEND PASSWORD RESET"; ObjectID = "spi-yy-ddB"; */
+"spi-yy-ddB.normalTitle" = "パスワードリセットを送信";

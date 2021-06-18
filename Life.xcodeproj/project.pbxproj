@@ -7,7 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		040FA1B72679215700E60DDA /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040FA1B62679215700E60DDA /* TextField.swift */; };
+		040FA1B9267954A400E60DDA /* DeleteOPTViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040FA1B8267954A400E60DDA /* DeleteOPTViewController.swift */; };
+		040FA1BC26796D6300E60DDA /* LifeAppMessageInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040FA1BB26796D6300E60DDA /* LifeAppMessageInput.swift */; };
+		040FA1BE26796E2A00E60DDA /* Lorem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040FA1BD26796E2A00E60DDA /* Lorem.swift */; };
 		0485B9E2266DCD510014A0A4 /* AddFriendPendingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0485B9E1266DCD510014A0A4 /* AddFriendPendingCell.swift */; };
+		04D68F622678851E003DCF12 /* CreateGroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D68F612678851E003DCF12 /* CreateGroupTableViewCell.swift */; };
+		04D68F642678E6FB003DCF12 /* ConfigGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D68F632678E6FB003DCF12 /* ConfigGroupViewController.swift */; };
+		04D68F6826790E3E003DCF12 /* MemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D68F6726790E3E003DCF12 /* MemberCell.swift */; };
+		04DB1B30267B8C3B00EEAF1A /* CRC32.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DB1B2F267B8C3B00EEAF1A /* CRC32.swift */; };
 		817604C864DF746D26361B72 /* Pods_Life_LifeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4882E1B6E6C326533A5E1BDF /* Pods_Life_LifeUITests.framework */; };
 		A60845B124A2FEC1005F23A9 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A60845AF24A2FEC1005F23A9 /* Login.storyboard */; };
 		A60845B924A302BA005F23A9 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60845B824A302BA005F23A9 /* WelcomeViewController.swift */; };
@@ -259,7 +267,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		040FA1B62679215700E60DDA /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
+		040FA1B8267954A400E60DDA /* DeleteOPTViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteOPTViewController.swift; sourceTree = "<group>"; };
+		040FA1BB26796D6300E60DDA /* LifeAppMessageInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeAppMessageInput.swift; sourceTree = "<group>"; };
+		040FA1BD26796E2A00E60DDA /* Lorem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lorem.swift; sourceTree = "<group>"; };
 		0485B9E1266DCD510014A0A4 /* AddFriendPendingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendPendingCell.swift; sourceTree = "<group>"; };
+		04D68F612678851E003DCF12 /* CreateGroupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupTableViewCell.swift; sourceTree = "<group>"; };
+		04D68F632678E6FB003DCF12 /* ConfigGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigGroupViewController.swift; sourceTree = "<group>"; };
+		04D68F6726790E3E003DCF12 /* MemberCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberCell.swift; sourceTree = "<group>"; };
+		04DB1B2F267B8C3B00EEAF1A /* CRC32.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CRC32.swift; sourceTree = "<group>"; };
 		13FCD29106C16A3D2D2FC3B7 /* Pods_LifeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LifeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F299E90E5B6BB50A7323655 /* Pods-Life-LifeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Life-LifeUITests.release.xcconfig"; path = "Target Support Files/Pods-Life-LifeUITests/Pods-Life-LifeUITests.release.xcconfig"; sourceTree = "<group>"; };
 		2DA0512779D2347E705F5CEF /* Pods-LifeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LifeTests.release.xcconfig"; path = "Target Support Files/Pods-LifeTests/Pods-LifeTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -621,6 +637,9 @@
 				AB5457AA24B623A7008C7FB8 /* AddParticipantsViewController.swift */,
 				AB5457AC24B623C4008C7FB8 /* AddParticipantCell.swift */,
 				AB5457AE24B6385B008C7FB8 /* HorizontalAddedParticipantCell.swift */,
+				04D68F632678E6FB003DCF12 /* ConfigGroupViewController.swift */,
+				04D68F6726790E3E003DCF12 /* MemberCell.swift */,
+				040FA1B62679215700E60DDA /* TextField.swift */,
 			);
 			path = Groups;
 			sourceTree = "<group>";
@@ -978,6 +997,7 @@
 				A6DEA88524A8521700868625 /* Password.swift */,
 				A6DEA88924A8536300868625 /* PushNotification.swift */,
 				A6DEA88B24A8536900868625 /* Video.swift */,
+				04DB1B2F267B8C3B00EEAF1A /* CRC32.swift */,
 			);
 			path = general;
 			sourceTree = "<group>";
@@ -1124,6 +1144,7 @@
 				A6E7000924B6C5B1004586E0 /* UserStatusCell.swift */,
 				A6E7000A24B6C5B1004586E0 /* UserStatusCell.xib */,
 				A6302BB124B99C0B00345FC9 /* MainTabViewController.swift */,
+				04D68F612678851E003DCF12 /* CreateGroupTableViewCell.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1164,6 +1185,8 @@
 			children = (
 				A6F7883324A6ED400019B35D /* ChatViewController.swift */,
 				A6302BB324B9A34B00345FC9 /* NewConversationViewController.swift */,
+				040FA1BB26796D6300E60DDA /* LifeAppMessageInput.swift */,
+				040FA1BD26796E2A00E60DDA /* Lorem.swift */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -1246,6 +1269,7 @@
 				AB82ACCC24A5452600D83E47 /* SettingCellHeader.swift */,
 				AB82ACCE24A5452600D83E47 /* SettingViewController.swift */,
 				AB26B2B724AE7CED0045981F /* AccountSettingsViewController.swift */,
+				040FA1B8267954A400E60DDA /* DeleteOPTViewController.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -1632,6 +1656,7 @@
 				AB3A81BB24A9B4920089127E /* BasicDetailInsertViewController.swift in Sources */,
 				A6E73B4F24A598CD0008CBFE /* HomeViewController.swift in Sources */,
 				A6DEA83D24A8355100868625 /* Date+Extension.swift in Sources */,
+				04D68F642678E6FB003DCF12 /* ConfigGroupViewController.swift in Sources */,
 				A6DEA84C24A8365900868625 /* FireObserver.swift in Sources */,
 				AB30FAFB24AFAE490037BF25 /* AddFriendHeaderCell.swift in Sources */,
 				A6DEA84B24A8365900868625 /* FireFetch.swift in Sources */,
@@ -1653,6 +1678,7 @@
 				A682AA2124BC51F600003BD7 /* DottedProgressBar.swift in Sources */,
 				A6DEA85C24A83FDA00868625 /* Friend.swift in Sources */,
 				A6DEA84924A8365900868625 /* FireFetcher.swift in Sources */,
+				040FA1B9267954A400E60DDA /* DeleteOPTViewController.swift in Sources */,
 				AB13A9DB24A2EF610028731D /* AppDelegate.swift in Sources */,
 				A6DEA82724A82A7100868625 /* RCMessageLocationCell.swift in Sources */,
 				A6DEA86224A83FF700868625 /* Member.swift in Sources */,
@@ -1670,7 +1696,10 @@
 				A6C9824824AE6B8C002280B6 /* Chat.swift in Sources */,
 				A6F564CD24A9B5310061007E /* RCHeaderUpperCell.swift in Sources */,
 				A6DEA86024A83FF000868625 /* Single.swift in Sources */,
+				040FA1BE26796E2A00E60DDA /* Lorem.swift in Sources */,
+				040FA1B72679215700E60DDA /* TextField.swift in Sources */,
 				A60845BB24A3033D005F23A9 /* SignInViewController.swift in Sources */,
+				040FA1BC26796D6300E60DDA /* LifeAppMessageInput.swift in Sources */,
 				A6BD967D24B4D76900E1B873 /* SelectUsersView.swift in Sources */,
 				A6DEA87F24A84E9600868625 /* MediaUploader.swift in Sources */,
 				A6DEA82324A82A7100868625 /* RCMessagePhotoCell.swift in Sources */,
@@ -1680,6 +1709,7 @@
 				A6DEA85024A8365900868625 /* FireUpdaters.swift in Sources */,
 				A6DEA87224A8405300868625 /* Messages.swift in Sources */,
 				A6E7000B24B6C5B1004586E0 /* UserStatusCell.swift in Sources */,
+				04D68F622678851E003DCF12 /* CreateGroupTableViewCell.swift in Sources */,
 				A6BD966C24B4D56900E1B873 /* StickersView.swift in Sources */,
 				A6DEA89224A8557000868625 /* Convert.swift in Sources */,
 				A6DEA88C24A8536900868625 /* Video.swift in Sources */,
@@ -1693,6 +1723,7 @@
 				AB277A8724AD17F800D6C783 /* AddFriendBottomSheetViewController.swift in Sources */,
 				AB277A8124AD041A00D6C783 /* RoundedCornerBorderView.swift in Sources */,
 				A6E7001A24B6DBEB004586E0 /* PictureView.swift in Sources */,
+				04D68F6826790E3E003DCF12 /* MemberCell.swift in Sources */,
 				A6E73B4824A4F85F0008CBFE /* ExtensionView.swift in Sources */,
 				AB5457AB24B623A7008C7FB8 /* AddParticipantsViewController.swift in Sources */,
 				A6DEA88A24A8536300868625 /* PushNotification.swift in Sources */,
@@ -1716,6 +1747,7 @@
 				E15A398D2515221700536871 /* ForgotPasswordViewController.swift in Sources */,
 				A6DEA86E24A8405300868625 /* Singles.swift in Sources */,
 				A6DEA88624A8521700868625 /* Password.swift in Sources */,
+				04DB1B30267B8C3B00EEAF1A /* CRC32.swift in Sources */,
 				AB5457A724B5C4F2008C7FB8 /* AddMemberCell.swift in Sources */,
 				A6DEA83524A8303A00868625 /* Message.swift in Sources */,
 				AB82ACD124A5452700D83E47 /* SettingCellHeader.swift in Sources */,
@@ -1969,7 +2001,7 @@
 				CODE_SIGN_ENTITLEMENTS = Life/Life.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 2AV3B2BH2Y;
 				INFOPLIST_FILE = Life/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1993,7 +2025,7 @@
 				CODE_SIGN_ENTITLEMENTS = Life/Life.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 2AV3B2BH2Y;
 				INFOPLIST_FILE = Life/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

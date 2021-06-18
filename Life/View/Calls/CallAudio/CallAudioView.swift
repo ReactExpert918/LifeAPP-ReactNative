@@ -40,7 +40,7 @@ class CallAudioView: UIViewController {
 
 	private var call: SINCall?
 	private var audioController: SINAudioController?
-
+    private var personsFullName:String?
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	init(call: SINCall?) {
 
@@ -59,18 +59,23 @@ class CallAudioView: UIViewController {
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	init(userId: String) {
-
+        personsFullName = Persons.fullname()
 		super.init(nibName: nil, bundle: nil)
 
 		self.isModalInPresentation = true
 		self.modalPresentationStyle = .fullScreen
 
 		let app = UIApplication.shared.delegate as? AppDelegate
-
-		call = app?.client?.call().callUser(withId: userId, headers: ["name": Persons.fullname()])
-		call?.delegate = self
-
-		audioController = app?.client?.audioController()
+        
+        
+        
+        //DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+        self.call = app?.client?.call().callUser(withId: userId, headers: ["name": self.personsFullName!])
+            self.call?.delegate = self
+            
+            self.audioController = app?.client?.audioController()
+        //}
+        
 	}
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------

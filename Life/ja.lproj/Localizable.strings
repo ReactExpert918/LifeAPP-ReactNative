@@ -74,3 +74,14 @@
 "sent you a photo." = "写真を送りました。";
 "sent you a video." = "ビデオを送りました。";
 "has been created successfully." = "正常に作成されました。";
+"Invalid QR code" = "無効なQRコード";
+"Remove Friend" = "友達を削除する";
+"Are you sure remove " = "削除してもよろしいですか ";
+"Group Name: " = "グループ名: ";
+"Search members by name" = "メンバーを名前で検索";
+"Members" = "メンバー";
+"Remove Group" = "グループを削除";
+"Are you sure remove Group" = "グループを削除してもよろしいですか";
+"Picture Uploading..." = "画像のアップロード";
+"Delete Account Error" = "アカウントの削除エラー";
+"Successfully deleted your account." = "アカウントが正常に削除されました。";

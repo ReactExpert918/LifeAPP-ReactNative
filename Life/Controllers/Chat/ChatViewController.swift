@@ -12,6 +12,17 @@ import ProgressHUD
 import InputBarAccessoryView
 import IQKeyboardManagerSwift
 
+class User {
+    
+    let name: String
+    let image: UIImage
+    init(name: String, image: UIImage) {
+        self.image = image
+        self.name = name
+    }
+    
+}
+
 class ChatViewController: UIViewController {
 
     var chatId = ""
@@ -69,6 +80,20 @@ class ChatViewController: UIViewController {
     @IBOutlet weak var popupUserAvatar: UIImageView!
     @IBOutlet weak var popupCheckmark: UIImageView!
     
+    private var tokenPersons: NotificationToken? = nil
+    private var persons = realm.objects(Person.self).filter(falsepredicate)
+    
+    private var tokenMembers: NotificationToken? = nil
+    private var members = realm.objects(Member.self).filter(falsepredicate)
+    private var users:[User] = []
+    
+    lazy var autocompleteManager: AutocompleteManager = { [unowned self] in
+        let manager = AutocompleteManager(for: self.messageInputBar.inputTextView)
+        manager.delegate = self
+        manager.dataSource = self
+        manager.maxSpaceCountDuringCompletion = 1
+        return manager
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -116,6 +141,9 @@ class ChatViewController: UIViewController {
         
         //tableView.keyboardDismissMode = .onDrag
         // Do any additional setup after loading the view.
+        
+        
+        
         configureMessageInputBar()
         
         loadDetail()
@@ -124,17 +152,66 @@ class ChatViewController: UIViewController {
         
         IQKeyboardManager.shared.enableAutoToolbar = false
         IQKeyboardManager.shared.enable = false
-        IQKeyboardManager.shared.shouldResignOnTouchOutside = true
+        IQKeyboardManager.shared.shouldResignOnTouchOutside = false
 
+    }
+    func loadMembers() {
+
+        let predicate = NSPredicate(format: "chatId == %@ AND isActive == YES", self.chatId)
+        members = realm.objects(Member.self).filter(predicate)
+        
+        
+        tokenMembers?.invalidate()
+        members.safeObserve({ changes in
+            self.loadPersons()
+        }, completion: { token in
+            self.tokenMembers = token
+        })
+    }
+    
+    func loadPersons() {
+
+        let predicate1 = NSPredicate(format: "objectId IN %@ AND NOT objectId IN %@ AND isDeleted == NO", Members.userIds(chatId: self.chatId), Blockeds.blockerIds())
+        
+
+        persons = realm.objects(Person.self).filter(predicate1)
+        
+        
+        tokenPersons?.invalidate()
+        persons.safeObserve({ changes in
+            self.refreshUsers()
+        }, completion: { token in
+            self.tokenPersons = token
+        })
+    }
+    
+    
+    func refreshUsers(){
+        
+        for person in persons {
+            if(person.objectId == AuthUser.userId()){
+                continue
+            }
+            MediaDownload.startUser(person.objectId, pictureAt: person.pictureAt) { image, error in
+                if (error == nil && image != nil) {
+                    self.users.append(User(name:person.fullname, image: image!))
+                } else{
+                    self.users.append(User(name:person.fullname, image: UIImage(named: "ic_default_profile")!))
+                }
+            }
+        }
+        
     }
     //---------------------------------------------------------------------------------------------------------------------------------------------
     override func viewWillAppear(_ animated: Bool) {
 
         super.viewWillAppear(animated)
-
+        
         updateTitleDetails()
         showCallToolbar(value: false)
-
+        if(recipientId == ""){
+            loadMembers()
+        }
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
@@ -142,8 +219,8 @@ class ChatViewController: UIViewController {
 
         super.viewDidDisappear(animated)
 
-        IQKeyboardManager.shared.enableAutoToolbar = true
-        IQKeyboardManager.shared.enable = true
+        //IQKeyboardManager.shared.enableAutoToolbar = true
+        //IQKeyboardManager.shared.enable = true
         
         if (isMovingFromParent) {
             actionCleanup()
@@ -189,14 +266,28 @@ class ChatViewController: UIViewController {
     }
     @IBAction func actionAudioCall(_ sender: Any) {
         showCallToolbar(value: false)
-        let callAudioView = CallAudioView(userId: self.recipientId)
-        present(callAudioView, animated: true)
+        
+        if(recipientId != ""){
+            let callAudioView = CallAudioView(userId: self.recipientId)
+            present(callAudioView, animated: true)
+        }else{
+            let callAudioView = CallAudioView(userId: persons[0].objectId)
+            present(callAudioView, animated: true)
+        }
     }
     
     @IBAction func actionVideoCall(_ sender: Any) {
         showCallToolbar(value: false)
-        let callVideoView = CallVideoView(userId: self.recipientId)
-        present(callVideoView, animated: true)
+        //let callVideoView = CallVideoView(userId: self.recipientId)
+        //present(callVideoView, animated: true)
+        
+        if(recipientId != ""){
+            let callAudioView = CallVideoView(userId: self.recipientId)
+            present(callAudioView, animated: true)
+        }else{
+            let callAudioView = CallVideoView(userId: persons[0].objectId)
+            present(callAudioView, animated: true)
+        }
     }
     
     // MARK: - Title details methods
@@ -759,7 +850,7 @@ class ChatViewController: UIViewController {
     // MARK: - Keyboard methods
     //---------------------------------------------------------------------------------------------------------------------------------------------
     @objc func keyboardWillShow(_ notification: Notification) {
-
+        self.popupView.isHidden = true
         if (heightKeyboard != 0) { return }
         // print("keyboardwillshow")
         keyboardWillShow = true
@@ -771,7 +862,7 @@ class ChatViewController: UIViewController {
                         if (self.keyboardWillShow) {
                             self.heightKeyboard = keyboard.size.height
                             self.layoutTableView()
-                            
+                            self.scrollToBottom()
                         }
                     }
                 }
@@ -846,7 +937,10 @@ class ChatViewController: UIViewController {
         messageInputBar.inputTextView.layer.masksToBounds = true
         messageInputBar.inputTextView.scrollIndicatorInsets = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
         messageInputBar.inputTextView.isImagePasteEnabled = false
-        
+        messageInputBar.inputTextView.keyboardType = .twitter
+        if(recipientId == ""){
+            autocompleteManager.register(prefix: "@", with: [.font: UIFont.preferredFont(forTextStyle: .body),.foregroundColor: UIColor.systemBlue,.backgroundColor: UIColor.systemBlue.withAlphaComponent(0.1)])
+        }
         
     }
     @IBAction func onBackPressed(_ sender: Any) {
@@ -1043,7 +1137,12 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
 
         for component in inputBar.inputTextView.components {
             if let text = component as? String {
+                self.messageInputBar.sendButton.startAnimating()
                 actionSendMessage(text)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    self.messageInputBar.sendButton.stopAnimating()
+                }
+                //self.messageInputBar.sendButton.stopAnimating()
             }
         }
         messageInputBar.inputTextView.text = ""
@@ -1149,3 +1248,61 @@ extension ChatViewController: UISearchBarDelegate {
         
     }
 }
+
+extension ChatViewController: AutocompleteManagerDelegate, AutocompleteManagerDataSource {
+
+    // MARK: - AutocompleteManagerDataSource
+
+    func autocompleteManager(_ manager: AutocompleteManager, autocompleteSourceFor prefix: String) -> [AutocompleteCompletion] {
+
+        if prefix == "@" {
+            
+            var autoList:[AutocompleteCompletion] = []
+            for user in users {
+                autoList.append(AutocompleteCompletion(text: user.name))
+            }
+            return autoList
+        } else {
+            return ["InputBarAccessoryView", "iOS"].map { AutocompleteCompletion(text: $0) }
+        }
+    }
+
+    func autocompleteManager(_ manager: AutocompleteManager, tableView: UITableView, cellForRowAt indexPath: IndexPath, for session: AutocompleteSession) -> UITableViewCell {
+
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: AutocompleteCell.reuseIdentifier, for: indexPath) as? AutocompleteCell else {
+            fatalError("Oops, some unknown error occurred")
+        }
+        if session.prefix == "@" {
+            let user = users[indexPath.row]
+            cell.imageView?.image = user.image
+            cell.imageViewEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
+            cell.imageView?.layer.cornerRadius = 8
+            cell.imageView?.layer.borderWidth = 1
+            cell.imageView?.layer.borderColor = UIColor.systemBlue.cgColor
+            cell.imageView?.layer.masksToBounds = true
+        }
+        cell.textLabel?.attributedText = manager.attributedText(matching: session, fontSize: 15, keepPrefix: session.prefix == "#" )
+        return cell
+    }
+
+    // MARK: - AutocompleteManagerDelegate
+
+    func autocompleteManager(_ manager: AutocompleteManager, shouldBecomeVisible: Bool) {
+        setAutocompleteManager(active: shouldBecomeVisible)
+    }
+
+    // MARK: - AutocompleteManagerDelegate Helper
+
+    func setAutocompleteManager(active: Bool) {
+        let topStackView = self.messageInputBar.topStackView
+        if active && !topStackView.arrangedSubviews.contains(autocompleteManager.tableView) {
+            topStackView.insertArrangedSubview(autocompleteManager.tableView, at: topStackView.arrangedSubviews.count)
+            topStackView.layoutIfNeeded()
+        } else if !active && topStackView.arrangedSubviews.contains(autocompleteManager.tableView) {
+            topStackView.removeArrangedSubview(autocompleteManager.tableView)
+            topStackView.layoutIfNeeded()
+        }
+        self.messageInputBar.invalidateIntrinsicContentSize()
+    }
+}
+

@@ -34,4 +34,28 @@ class Groups: NSObject {
         
         return group
 	}
+    
+    class func remove(_ group: Group){
+        for userId in Members.userIds(chatId: group.chatId){
+            let predicate = NSPredicate(format: "chatId == %@ AND userId == %@ AND isDeleted == NO", group.chatId, userId)
+            let detail = realm.objects(Detail.self).filter(predicate).first
+            
+            let predicate1 = NSPredicate(format: "chatId == %@ AND userId == %@ AND isActive == YES", group.chatId, userId)
+            let member = realm.objects(Member.self).filter(predicate1).first
+            if detail != nil {
+                detail?.update(isDeleted: true)
+            }
+            if member != nil {
+                member?.update(isActive: false)
+            }
+        }
+        
+        group.update(isDeleted: true)
+        
+        
+    }
+    class func invitePersons(_ group:Group, newInvitePersonIds: [String]){
+        Details.create(chatId: group.chatId, userIds: newInvitePersonIds)
+        Members.create(chatId: group.chatId, userIds: newInvitePersonIds)
+    }
 }

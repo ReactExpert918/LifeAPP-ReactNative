@@ -38,9 +38,22 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wpW-3A-PoD">
+                        <rect key="frame" x="284" y="22" width="20" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="9GO-SB-EYf"/>
+                            <constraint firstAttribute="width" constant="20" id="X5l-cL-Xaf"/>
+                        </constraints>
+                    </imageView>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="P0L-uc-hIc">
+                        <rect key="frame" x="174" y="8" width="54" height="35"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </imageView>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="wpW-3A-PoD" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="8rF-Al-jPc"/>
                     <constraint firstItem="2Vf-kN-cZX" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="9Ys-BW-2ss"/>
+                    <constraint firstAttribute="trailing" secondItem="wpW-3A-PoD" secondAttribute="trailing" constant="16" id="JGy-Ay-VXG"/>
                     <constraint firstItem="Jwz-xr-aic" firstAttribute="centerY" secondItem="2Vf-kN-cZX" secondAttribute="centerY" id="LTL-x9-o8I"/>
                     <constraint firstItem="2Vf-kN-cZX" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="nm4-MO-hMv"/>
                     <constraint firstItem="Jwz-xr-aic" firstAttribute="leading" secondItem="2Vf-kN-cZX" secondAttribute="trailing" constant="20" id="son-GU-R2x"/>
@@ -49,6 +62,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="profileImageView" destination="2Vf-kN-cZX" id="5RU-Ys-VZ8"/>
+                <outlet property="removeFriend" destination="wpW-3A-PoD" id="oCn-7K-Ma8"/>
                 <outlet property="userNameLabel" destination="Jwz-xr-aic" id="GEM-tv-cER"/>
             </connections>
             <point key="canvasLocation" x="128.98550724637681" y="141.29464285714286"/>
