@@ -79,6 +79,7 @@ class Transaction: SyncObject {
     func getQuantity() -> Float {
         
         return quantity.decryptedFloat()
+        
     }
     
 }

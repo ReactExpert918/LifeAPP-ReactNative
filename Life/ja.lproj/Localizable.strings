@@ -85,3 +85,12 @@
 "Picture Uploading..." = "画像のアップロード";
 "Delete Account Error" = "アカウントの削除エラー";
 "Successfully deleted your account." = "アカウントが正常に削除されました。";
+"Money Sent" = "送金";
+"Money Received" = "入金";
+"No Records" = "記録なし";
+"Money Sent To" = "送金先";
+"Money Received From" = "送金元";
+"Paid at" = "で支払われる";
+"Received at" = "で受け取った";
+"Paid with ZED Pay" = "ZED Payで支払う";
+"Received with ZED Pay" = "ZED Payで受け取りました";

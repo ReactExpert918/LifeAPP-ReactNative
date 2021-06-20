@@ -69,6 +69,7 @@ struct TRANSACTION_STATUS {
     static let SUCCESS = 0
     static let FAILED = 1
     static let PENDING = 2
+    static let DELETED = 4
 }
 
 struct LIFE_CRYPT {

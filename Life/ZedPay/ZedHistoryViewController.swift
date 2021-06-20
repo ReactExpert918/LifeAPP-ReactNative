@@ -7,13 +7,16 @@
 //
 
 import UIKit
+import CryptoSwift
+import RealmSwift
 
 class ZedHistoryViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     
 
     var person:Person?
-    
+    private var tokenTransactions: NotificationToken? = nil
+    private var transactions = realm.objects(Transaction.self).filter(falsepredicate)
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var labelBalance: UILabel!
@@ -24,37 +27,70 @@ class ZedHistoryViewController: UIViewController, UITableViewDataSource, UITable
         labelBalance.text = person?.getBalance().moneyString()
         TransactionCell.Register(withTableView: self.tableView)
         self.tableView.separatorStyle = .none
+        
         tableView.delegate = self
         tableView.dataSource = self
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        loadTransactions()
+    }
+    
+    // MARK: - load transactions
+    
+    func loadTransactions(){
+        let predicate1 = NSPredicate(format: "fromUserId == %@ OR toUserId == %@", AuthUser.userId(), AuthUser.userId())
+        let predicate2 = NSPredicate(format: "NOT status IN %@", [TRANSACTION_STATUS.DELETED] )
+        
+        transactions = realm.objects(Transaction.self).filter(predicate1).filter(predicate2).sorted(byKeyPath: "updatedAt", ascending: false)
+        tokenTransactions?.invalidate()
+        transactions.safeObserve({ changes in
+            self.refreshTableView()
+        }, completion: { token in
+            self.tokenTransactions = token
+        })
         
     }
     
+    func refreshTableView(){
+        self.tableView.reloadData()
+    }
     // MARK: - table view
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return transactions.count > 0 ? transactions.count : 1;
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        if(indexPath.row < 5){
+        if(transactions.count > 0){
             let cell = tableView.dequeueReusableCell(withIdentifier: TransactionCell.GetCellReuseIdentifier(), for: indexPath) as! TransactionCell
-            
+            cell.selectionStyle = .none
+            cell.bindData(transaction: transactions[indexPath.row], tableView: tableView, indexPath: indexPath)
             return cell
         }else{
-            return UITableViewCell()
+            let cell = tableView.dequeueReusableCell(withIdentifier: "noRecord", for: indexPath) as! NoRecordCell
+            cell.selectionStyle = .none
+            return cell
         }
+        
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if(indexPath.row < 5){
-            return 140
+        
+        return 120
+        
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if(transactions.count == 0){
+            return
         }
-        else{
-            return 0
-        }
+        
+        let vc = self.storyboard!.instantiateViewController(withIdentifier: "detailVC") as! TransactionDetailViewController
+        vc.transaction = transactions[indexPath.row]
+        self.present(vc, animated: true, completion: nil)
+
     }
 
     // MARK: - Cacel Tap
@@ -64,5 +100,9 @@ class ZedHistoryViewController: UIViewController, UITableViewDataSource, UITable
     
     // MARK: - Add money tap
     @IBAction func actionTapAddMoney(_ sender: Any) {
+        /// just for test
+        let vc = self.storyboard!.instantiateViewController(withIdentifier: "payQrcodeVC") as! PayQRCodeViewController
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true, completion: nil)
     }
 }

@@ -59,7 +59,15 @@ class Convert: NSObject {
         return formatter.string(from: date)
     }
     
-    
+    class func timestampPaid(_ timestamp: Int64) -> String {
+
+        let date = Date.date(timestamp: timestamp)
+
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM/dd/yyyy, HH:mm"
+
+        return formatter.string(from: date)
+    }
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	class func timestampToElapsed(_ timestamp: Int64) -> String {
 

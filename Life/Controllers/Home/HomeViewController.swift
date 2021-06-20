@@ -346,10 +346,15 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     // MARK: - History Tap
     @IBAction func actionTapHistory(_ sender: Any) {
+        // Just for test
+        
+        //Transactions.create(fromUserId: "ahT64ytgWHUr6pbVJd5gbCM4DUH2", toUserId: "3G3k8VDO1IWQUR52kmu3Y8adlkA3", quantity: 10.2)
+        //Transactions.create(fromUserId: "3G3k8VDO1IWQUR52kmu3Y8adlkA3", toUserId: "ahT64ytgWHUr6pbVJd5gbCM4DUH2", quantity: 120.2)
         
         let mainstoryboard = UIStoryboard.init(name: "ZedPay", bundle: nil)
         let vc = mainstoryboard.instantiateViewController(withIdentifier: "zedHistoryVC") as! ZedHistoryViewController
         vc.person = self.person
+        vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true, completion: nil)
     }
     

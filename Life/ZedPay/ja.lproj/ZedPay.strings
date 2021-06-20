@@ -7,3 +7,29 @@
 
 /* Class = "UILabel"; text = "LATEST TRANSACTIONS"; ObjectID = "2gF-u7-JhT"; */
 "2gF-u7-JhT.text" = "最新の取引";
+
+/* Class = "UILabel"; text = "Total Amount"; ObjectID = "CsM-PA-mhw"; */
+"CsM-PA-mhw.text" = "合計金額";
+
+/* Class = "UILabel"; text = "Transaction ID"; ObjectID = "7gC-uW-RvE"; */
+"7gC-uW-RvE.text" = "トランザクションID";
+
+/* Class = "UILabel"; text = "Scan QR code to quickly send to anyone"; ObjectID = "5VI-fu-vPV"; */
+"5VI-fu-vPV.text" = "QRコードをスキャンして、誰にでもすばやく送信できます";
+
+/* Class = "UILabel"; text = "Accept Money"; ObjectID = "6wJ-gj-N5x"; */
+"6wJ-gj-N5x.text" = "お金を受け取る";
+/* Class = "UILabel"; text = "Accept Money"; ObjectID = "29w-Yf-LDA"; */
+"29w-Yf-LDA.text" = "お金を受け取る";
+
+/* Class = "UILabel"; text = "Share or show t his QR code to receive payment from your friends "; ObjectID = "3Dy-5c-g9V"; */
+"3Dy-5c-g9V.text" = "QRコードを共有または表示して、\n友達から支払いを受け取ります";
+
+/* Class = "UIButton"; normalTitle = "SEND"; ObjectID = "S6M-Lu-cOs"; */
+"S6M-Lu-cOs.normalTitle" = "送金";
+
+/* Class = "UILabel"; text = "Availabe Balance"; ObjectID = "T8q-EJ-jYj"; */
+"T8q-EJ-jYj.text" = "利用可能残高:";
+
+/* Class = "UILabel"; text = "Enter Amount"; ObjectID = "NP4-qZ-EjQ"; */
+"NP4-qZ-EjQ.text" = "金額を入力します";

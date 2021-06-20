@@ -46,7 +46,7 @@ class FireObserver: NSObject {
     init(_ queries: [Query], to type: SyncObject.Type) {
 
         super.init()
-        
+        self.type = type
         for query in queries{
             listeners.append( query.addSnapshotListener { querySnapshot, error in
                 if let snapshot = querySnapshot {

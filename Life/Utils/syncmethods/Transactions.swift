@@ -9,7 +9,7 @@ import RealmSwift
 class Transactions: NSObject {
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
-    class func create(fromUserId: String, toUserId: String, quantity: Float ) -> String {
+    class func create(fromUserId: String, toUserId: String, quantity: Float ) {
 
 
         let transaction = Transaction()
@@ -22,7 +22,8 @@ class Transactions: NSObject {
         try! realm.safeWrite {
             realm.add(transaction, update: .modified)
         }
-        return transaction.objectId
+        return
+        
     }
 
     // MARK: -

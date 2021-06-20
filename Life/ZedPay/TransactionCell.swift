@@ -7,18 +7,27 @@
 //
 
 import UIKit
-
+import SwiftyAvatar
 class TransactionCell: UITableViewCell {
 
+    @IBOutlet weak var imageUser: SwiftyAvatar!
+    @IBOutlet weak var labelName: UILabel!
+    @IBOutlet weak var imageType: UIImageView!
+    
+    @IBOutlet weak var labelType: UILabel!
+    @IBOutlet weak var labelQuantity: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        //contentView.backgroundColor = UIColor.clear
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+        //contentView.backgroundColor = UIColor.clear
     }
     
     class func GetCellReuseIdentifier() -> String {
@@ -33,4 +42,46 @@ class TransactionCell: UITableViewCell {
         let aNib = UINib.init(nibName: "TransactionCell",bundle: Bundle.main);
         return aNib
     }
+    
+    func bindData(transaction: Transaction, tableView: UITableView, indexPath: IndexPath) {
+        
+        
+        if(transaction.fromUserId == AuthUser.userId()){
+            //sent
+            let person = Persons.getById(transaction.toUserId)
+            imageType.image = UIImage(named: "ic_pay_sent")
+            labelType.text = "Money Sent".localized
+            labelQuantity.text = "-¥" + String(format: "%.2f",transaction.getQuantity())
+            labelName.text = person?.fullname
+            downloadImage(person: person!, tableView: tableView, indexPath: indexPath)
+            
+        }else{
+            //received
+            let person = Persons.getById(transaction.fromUserId)
+            imageType.image = UIImage(named: "ic_pay_received")
+            labelType.text = "Money Received".localized
+            labelQuantity.text = "+¥" + String(format: "%.2f",transaction.getQuantity())
+            labelName.text = person?.fullname
+            downloadImage(person: person!, tableView: tableView, indexPath: indexPath)
+        }
+        
+        
+        
+    }
+    
+    func downloadImage(person: Person, tableView: UITableView, indexPath: IndexPath) {
+
+        MediaDownload.startUser(person.objectId, pictureAt: person.pictureAt) { image, error in
+            let indexSelf = tableView.indexPath(for: self)
+            if ((indexSelf == nil) || (indexSelf == indexPath)) {
+                if (error == nil) {
+                    self.imageUser.image = image
+                    //self.labelInitials.text = nil
+                } else{
+                    self.imageUser.image = UIImage(named: "ic_default_profile")
+                }
+            }
+        }
+    }
+ 
 }

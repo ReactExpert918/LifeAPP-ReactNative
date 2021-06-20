@@ -11,6 +11,12 @@
 		040FA1B9267954A400E60DDA /* DeleteOPTViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040FA1B8267954A400E60DDA /* DeleteOPTViewController.swift */; };
 		0485B9E2266DCD510014A0A4 /* AddFriendPendingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0485B9E1266DCD510014A0A4 /* AddFriendPendingCell.swift */; };
 		049C109E267EF270003884F6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 049C10A0267EF270003884F6 /* InfoPlist.strings */; };
+		04C2C86B267F4C4E0035B825 /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C2C86A267F4C4E0035B825 /* Data+Extension.swift */; };
+		04C2C86D267F5B050035B825 /* NoRecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C2C86C267F5B050035B825 /* NoRecordCell.swift */; };
+		04C2C86F267F67EA0035B825 /* TransactionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C2C86E267F67EA0035B825 /* TransactionDetailViewController.swift */; };
+		04C2C871267F861E0035B825 /* PayQRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C2C870267F861E0035B825 /* PayQRCodeViewController.swift */; };
+		04C2C873267F874C0035B825 /* PayMyQrGenerateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C2C872267F874C0035B825 /* PayMyQrGenerateViewController.swift */; };
+		04C2C875267F87F70035B825 /* PayBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C2C874267F87F70035B825 /* PayBottomSheetViewController.swift */; };
 		04D68F622678851E003DCF12 /* CreateGroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D68F612678851E003DCF12 /* CreateGroupTableViewCell.swift */; };
 		04D68F642678E6FB003DCF12 /* ConfigGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D68F632678E6FB003DCF12 /* ConfigGroupViewController.swift */; };
 		04D68F6826790E3E003DCF12 /* MemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D68F6726790E3E003DCF12 /* MemberCell.swift */; };
@@ -279,6 +285,12 @@
 		049C109A267EF1D5003884F6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		049C109F267EF270003884F6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		049C10A1267EF274003884F6 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		04C2C86A267F4C4E0035B825 /* Data+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Extension.swift"; sourceTree = "<group>"; };
+		04C2C86C267F5B050035B825 /* NoRecordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoRecordCell.swift; sourceTree = "<group>"; };
+		04C2C86E267F67EA0035B825 /* TransactionDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailViewController.swift; sourceTree = "<group>"; };
+		04C2C870267F861E0035B825 /* PayQRCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayQRCodeViewController.swift; sourceTree = "<group>"; };
+		04C2C872267F874C0035B825 /* PayMyQrGenerateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayMyQrGenerateViewController.swift; sourceTree = "<group>"; };
+		04C2C874267F87F70035B825 /* PayBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayBottomSheetViewController.swift; sourceTree = "<group>"; };
 		04D68F612678851E003DCF12 /* CreateGroupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupTableViewCell.swift; sourceTree = "<group>"; };
 		04D68F632678E6FB003DCF12 /* ConfigGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigGroupViewController.swift; sourceTree = "<group>"; };
 		04D68F6726790E3E003DCF12 /* MemberCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberCell.swift; sourceTree = "<group>"; };
@@ -577,6 +589,11 @@
 				04F4E3D8267CBFAB00CD94FD /* ZedHistoryViewController.swift */,
 				04F4E3E4267CCE6F00CD94FD /* TransactionCell.swift */,
 				04F4E3E5267CCE6F00CD94FD /* TransactionCell.xib */,
+				04C2C86C267F5B050035B825 /* NoRecordCell.swift */,
+				04C2C86E267F67EA0035B825 /* TransactionDetailViewController.swift */,
+				04C2C870267F861E0035B825 /* PayQRCodeViewController.swift */,
+				04C2C872267F874C0035B825 /* PayMyQrGenerateViewController.swift */,
+				04C2C874267F87F70035B825 /* PayBottomSheetViewController.swift */,
 			);
 			path = ZedPay;
 			sourceTree = "<group>";
@@ -994,6 +1011,7 @@
 				A6F2534E24ABA19500A31599 /* UIImageView+RoundedBorder.swift */,
 				04F4E3D1267CBC7A00CD94FD /* String+Extension.swift */,
 				04F4E3D3267CBCF800CD94FD /* Float+Extension.swift */,
+				04C2C86A267F4C4E0035B825 /* Data+Extension.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -1688,6 +1706,7 @@
 				AB3A81BB24A9B4920089127E /* BasicDetailInsertViewController.swift in Sources */,
 				04F4E3D4267CBCF800CD94FD /* Float+Extension.swift in Sources */,
 				A6E73B4F24A598CD0008CBFE /* HomeViewController.swift in Sources */,
+				04C2C86B267F4C4E0035B825 /* Data+Extension.swift in Sources */,
 				A6DEA83D24A8355100868625 /* Date+Extension.swift in Sources */,
 				04D68F642678E6FB003DCF12 /* ConfigGroupViewController.swift in Sources */,
 				A6DEA84C24A8365900868625 /* FireObserver.swift in Sources */,
@@ -1750,6 +1769,7 @@
 				A6DEA88224A84E9600868625 /* MediaManager.swift in Sources */,
 				04F4E3CE267C524D00CD94FD /* Transaction.swift in Sources */,
 				A6F564CC24A9B5310061007E /* RCHeaderLowerCell.swift in Sources */,
+				04C2C86F267F67EA0035B825 /* TransactionDetailViewController.swift in Sources */,
 				A67A49B024BA100C0016DD41 /* PrefsManager.swift in Sources */,
 				AB82ACD024A5452700D83E47 /* SettingCell.swift in Sources */,
 				AB277A8724AD17F800D6C783 /* AddFriendBottomSheetViewController.swift in Sources */,
@@ -1758,10 +1778,12 @@
 				04D68F6826790E3E003DCF12 /* MemberCell.swift in Sources */,
 				A6E73B4824A4F85F0008CBFE /* ExtensionView.swift in Sources */,
 				AB5457AB24B623A7008C7FB8 /* AddParticipantsViewController.swift in Sources */,
+				04C2C875267F87F70035B825 /* PayBottomSheetViewController.swift in Sources */,
 				A6DEA88A24A8536300868625 /* PushNotification.swift in Sources */,
 				A6BD967E24B4D76900E1B873 /* SelectUsersCell.swift in Sources */,
 				A6DEA85524A83A3E00868625 /* File.swift in Sources */,
 				A6DEA85E24A83FE500868625 /* Blocked.swift in Sources */,
+				04C2C86D267F5B050035B825 /* NoRecordCell.swift in Sources */,
 				AB82ACDA24A5453100D83E47 /* AddFriendsViewController.swift in Sources */,
 				A6DEA8AA24A8729100868625 /* UIImage+Extension.swift in Sources */,
 				A6E79AB224A65D07009458A1 /* FriendCell.swift in Sources */,
@@ -1774,6 +1796,8 @@
 				A6DEA85324A839D400868625 /* Dir.swift in Sources */,
 				A6E73B5124A5A6190008CBFE /* ChatListViewController.swift in Sources */,
 				A6E73B4C24A532880008CBFE /* UIColor+Hex.swift in Sources */,
+				04C2C871267F861E0035B825 /* PayQRCodeViewController.swift in Sources */,
+				04C2C873267F874C0035B825 /* PayMyQrGenerateViewController.swift in Sources */,
 				A6C36B5824B5761F00583CAA /* NYTPhotoItem.swift in Sources */,
 				A6DEA83224A82F7100868625 /* AppConstant.swift in Sources */,
 				E15A398D2515221700536871 /* ForgotPasswordViewController.swift in Sources */,
@@ -2053,7 +2077,7 @@
 				CODE_SIGN_ENTITLEMENTS = Life/Life.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = 2AV3B2BH2Y;
 				INFOPLIST_FILE = Life/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2077,7 +2101,7 @@
 				CODE_SIGN_ENTITLEMENTS = Life/Life.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = 2AV3B2BH2Y;
 				INFOPLIST_FILE = Life/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
