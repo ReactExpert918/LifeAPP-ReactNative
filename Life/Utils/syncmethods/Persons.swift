@@ -188,4 +188,11 @@ class Persons: NSObject {
 			person.update(lastTerminate: lastTerminate)
 		}
 	}
+    
+    class func update(balance: Float) {
+
+        if let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId()) {
+            person.update(balance: balance)
+        }
+    }
 }

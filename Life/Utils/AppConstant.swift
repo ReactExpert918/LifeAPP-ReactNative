@@ -64,3 +64,14 @@ struct MESSAGE_TYPE {
     static let MESSAGE_AUDIO = "audio"
     static let MESSAGE_LOCATION = "location"
 }
+
+struct TRANSACTION_STATUS {
+    static let SUCCESS = 0
+    static let FAILED = 1
+    static let PENDING = 2
+}
+
+struct LIFE_CRYPT {
+    static let key = "-tM=Yn=7pEVXXGrd"
+    static let iv = "AypfS&2wGr59*_U%"
+}

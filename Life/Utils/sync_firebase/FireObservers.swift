@@ -26,6 +26,7 @@ class FireObservers: NSObject {
 	private var observerGroups:		[String: FireObserver] = [:]
 	private var observerDetails:	[String: FireObserver] = [:]
 	private var observerMessages:	[String: FireObserver] = [:]
+    private var observerTransactions: FireObserver?
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	static let shared: FireObservers = {
@@ -55,6 +56,7 @@ class FireObservers: NSObject {
 			if (observerSingle1 == nil)	{ createObserverSingle1()	}
 			if (observerSingle2 == nil)	{ createObserverSingle2()	}
 			if (observerMember == nil)	{ createObserverMember()	}
+            if (observerTransactions == nil) { createObserverTransactions() }
 		}
 	}
 
@@ -68,7 +70,7 @@ class FireObservers: NSObject {
 		observerSingle1?.removeObserver();	observerSingle1 = nil
 		observerSingle2?.removeObserver();	observerSingle2 = nil
 		observerMember?.removeObserver();	observerMember = nil
-
+        observerTransactions?.removeObserver(); observerTransactions = nil
 		for chatId in observerMembers.keys	{ observerMembers[chatId]?.removeObserver()	 }
 		for chatId in observerGroups.keys	{ observerGroups[chatId]?.removeObserver()	 }
 		for chatId in observerDetails.keys	{ observerDetails[chatId]?.removeObserver()	 }
@@ -174,7 +176,7 @@ class FireObservers: NSObject {
 
 		for chatId in chatIds {
 			if (observerDetails[chatId] == nil) {
-				let query = Firestore.firestore().collection("Detail").whereField("chatId", isEqualTo: chatId)
+                let query = Firestore.firestore().collection("Detail").whereField("chatId", isEqualTo: chatId)
 				observerDetails[chatId] = FireObserver(query, to: Detail.self)
 			}
 		}
@@ -191,4 +193,13 @@ class FireObservers: NSObject {
 			}
 		}
 	}
+    
+    private func createObserverTransactions() {
+
+        let query1 = Firestore.firestore().collection("Transaction")
+            .whereField("fromUserId", isEqualTo: AuthUser.userId())
+        let query2 = Firestore.firestore().collection("Transaction")
+            .whereField("toUserId", isEqualTo: AuthUser.userId())
+        observerTransactions = FireObserver([query1, query2], to: Transaction.self)
+    }
 }

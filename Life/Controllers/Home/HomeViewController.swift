@@ -28,6 +28,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet weak var homeTableView: UITableView!
     @IBOutlet weak var redCircle: UIImageView!
     
+    @IBOutlet weak var balanceView: UIView!
+    
     
     var headerSections =  [HeaderSection(name: "My Status", collapsed: false), HeaderSection(name: "Groups".localized+" 0", collapsed: false), HeaderSection(name: "Friends".localized+" 0", collapsed: false)]
 
@@ -66,7 +68,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     override func viewWillAppear(_ animated: Bool) { // As soon as vc appears
         super.viewWillAppear(animated)
-        
+        balanceView.isHidden = true
         if(Friends.friendPendingIds().count > 0){
             redCircle.isHidden = false
         }else{
@@ -141,6 +143,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     func loadPerson() {
         person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
+        
+        
     }
     @IBAction func onSettingPressed(_ sender: Any) {
         let mainstoryboard = UIStoryboard.init(name: "Setting", bundle: nil)
@@ -313,9 +317,32 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     // MARK: - ZedPayView
     
+    @IBOutlet weak var labelBalance: UILabel!
     @IBAction func onZedPay(_ sender: Any) {
-        // print("Click Zed pay")
+        labelBalance.text = "¥ " + String(format: "%.2f", person.getBalance())
+        balanceView.isHidden = false
     }
+    
+    // MARK: - BalanceView close
+    @IBAction func actionTapBalanceClose(_ sender: Any) {
+        balanceView.isHidden = true
+    }
+    // MARK: - History Tap
+    @IBAction func actionTapHistory(_ sender: Any) {
+        
+        let mainstoryboard = UIStoryboard.init(name: "ZedPay", bundle: nil)
+        let vc = mainstoryboard.instantiateViewController(withIdentifier: "zedHistoryVC") as! ZedHistoryViewController
+//        self.navigationController?.pushViewController(vc, animated: true)
+        //vc.modalPresentationStyle = .
+        self.present(vc, animated: true, completion: nil)
+    }
+    
+    // MARK: - Add Money
+    @IBAction func actionTapAddMoney(_ sender: Any) {
+        print("Add Money")
+    }
+    
+    
 }
 
 // MARK: - UISearchBarDelegate

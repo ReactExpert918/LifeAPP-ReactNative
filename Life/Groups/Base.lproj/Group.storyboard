@@ -1047,9 +1047,6 @@
         </scene>
     </scenes>
     <designables>
-        <designable name="IN8-AK-Ma2">
-            <size key="intrinsicContentSize" width="36" height="36"/>
-        </designable>
         <designable name="nPu-8C-Ce9">
             <size key="intrinsicContentSize" width="100" height="100"/>
         </designable>

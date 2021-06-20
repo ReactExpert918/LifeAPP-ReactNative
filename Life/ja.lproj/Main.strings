@@ -25,3 +25,11 @@
 /* Class = "UITabBarItem"; title = "Chats"; ObjectID = "wcf-N5-rOC"; */
 "wcf-N5-rOC.title" = "チャット";
 
+/* Class = "UIButton"; normalTitle = "HISTORY"; ObjectID = "iIb-wd-ykL"; */
+"iIb-wd-ykL.normalTitle" = "記録";
+
+/* Class = "UIButton"; normalTitle = "ADD MONEY"; ObjectID = "l3J-cj-jKs"; */
+"l3J-cj-jKs.normalTitle" = "お金を追加";
+
+/* Class = "UILabel"; text = "Balance"; ObjectID = "65M-Bx-wLL"; */
+"65M-Bx-wLL.text" = "剰余";

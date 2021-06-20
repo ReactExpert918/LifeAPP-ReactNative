@@ -18,7 +18,7 @@ class FireObserver: NSObject {
 	private var query: Query!
 	private var type: SyncObject.Type!
 
-	private var listener: ListenerRegistration?
+	private var listeners: [ListenerRegistration] = []
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	init(_ query: Query, to type: SyncObject.Type) {
@@ -28,7 +28,7 @@ class FireObserver: NSObject {
 		self.query = query
 		self.type = type
 
-		listener = query.addSnapshotListener { querySnapshot, error in
+        listeners.append( query.addSnapshotListener { querySnapshot, error in
 			if let snapshot = querySnapshot {
 				DispatchQueue.main.async {
 					let realm = try! Realm()
@@ -40,8 +40,32 @@ class FireObserver: NSObject {
 					}
 				}
 			}
-		}
+		})
 	}
+    
+    init(_ queries: [Query], to type: SyncObject.Type) {
+
+        super.init()
+        
+        for query in queries{
+            listeners.append( query.addSnapshotListener { querySnapshot, error in
+                if let snapshot = querySnapshot {
+                    DispatchQueue.main.async {
+                        let realm = try! Realm()
+                        try! realm.safeWrite {
+                            for documentChange in snapshot.documentChanges {
+                                let data = documentChange.document.data()
+                                self.updateRealm(realm, data)
+                            }
+                        }
+                    }
+                }
+            })
+            
+        }
+
+        
+    }
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	init(_ query: Query, to type: SyncObject.Type, refreshCallback: @escaping (_ insert: Bool, _ modify: Bool) -> Void) {
@@ -51,7 +75,7 @@ class FireObserver: NSObject {
 		self.query = query
 		self.type = type
 
-		listener = query.addSnapshotListener { querySnapshot, error in
+        listeners.append( query.addSnapshotListener { querySnapshot, error in
 			if let snapshot = querySnapshot {
 				DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
 					var insert = false
@@ -70,15 +94,17 @@ class FireObserver: NSObject {
 					refreshCallback(insert, modify)
 				}
 			}
-		}
+		})
 	}
 
 	// MARK: -
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	func removeObserver() {
-
-		listener?.remove()
-		listener = nil
+        for listener in listeners{
+            listener.remove()
+        }
+        listeners.removeAll()
+		//listener = nil
 	}
 
 	// MARK: -

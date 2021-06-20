@@ -32,7 +32,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>Camera is required to scan qrcode.</string>
+	<string>Camera is required to capture avatar and scan qrcode.</string>
 	<key>NSContactsUsageDescription</key>
 	<string>App needs to access contacts to get list.</string>
 	<key>NSLocationAlwaysUsageDescription</key>

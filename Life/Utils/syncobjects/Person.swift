@@ -10,7 +10,7 @@
 // THE SOFTWARE.
 
 import RealmSwift
-
+import CryptoSwift
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 class Person: SyncObject {
 
@@ -40,6 +40,11 @@ class Person: SyncObject {
 	@objc dynamic var lastTerminate: Int64 = 0
     @objc dynamic var isDeleted = false
     
+    /// schema2 for ZED pay
+    @objc dynamic var balance: String = ""
+    @objc dynamic var payInfo1: String = ""
+    @objc dynamic var payInfo2: String = ""
+    @objc dynamic var payInfo3: String = ""
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	class func lastUpdatedAt() -> Int64 {
 
@@ -233,5 +238,26 @@ class Person: SyncObject {
             syncRequired = true
             updatedAt = Date().timestamp()
         }
+    }
+    
+    func update(balance value: Float) {
+        
+        let encryptedValue = value.encryptedString()
+        
+            
+        if (balance == encryptedValue) { return }
+
+        let realm = try! Realm()
+        try! realm.safeWrite {
+            balance = encryptedValue
+            syncRequired = true
+            updatedAt = Date().timestamp()
+        }
+        
+    }
+    
+    func getBalance() -> Float {
+        return balance.decryptedFloat()
+        
     }
 }

@@ -1,0 +1,9 @@
+
+/* Class = "UIButton"; normalTitle = "ADD MONEY"; ObjectID = "ooz-y7-yQa"; */
+"ooz-y7-yQa.normalTitle" = "お金を追加";
+
+/* Class = "UILabel"; text = "Balance"; ObjectID = "ah5-3V-J9h"; */
+"ah5-3V-J9h.text" = "剰余";
+
+/* Class = "UILabel"; text = "LATEST TRANSACTIONS"; ObjectID = "2gF-u7-JhT"; */
+"2gF-u7-JhT.text" = "最新の取引";
