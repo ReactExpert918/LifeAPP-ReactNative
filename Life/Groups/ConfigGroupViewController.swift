@@ -182,6 +182,7 @@ class ConfigGroupViewController: UIViewController, UITableViewDataSource, UITabl
         ExpandableHeaderCell.RegisterAsAHeader(withTableView: self.tableView)
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.separatorStyle = .none
     }
     
     override func viewWillAppear(_ animated: Bool) { // As soon as vc appears

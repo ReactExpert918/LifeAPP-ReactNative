@@ -29,7 +29,7 @@
 "Eaj-ep-6Qv.text" = "登録しました";
 
 /* Class = "UILabel"; text = "What is the phone\nnumber for this\ndevice ?"; ObjectID = "Eaq-pI-T3O"; */
-"Eaq-pI-T3O.text" = "このデバイスの\n        電話番号は？";
+"Eaq-pI-T3O.text" = "このデバイスの電話番号は？";
 
 /* Class = "UITextField"; placeholder = "Eg. john@gmail.com"; ObjectID = "Fcb-tW-ahb"; */
 "Fcb-tW-ahb.placeholder" = "Eg. john@gmail.com";
@@ -93,3 +93,6 @@
 
 /* Class = "UIButton"; normalTitle = "SEND PASSWORD RESET"; ObjectID = "spi-yy-ddB"; */
 "spi-yy-ddB.normalTitle" = "パスワードリセットを送信";
+
+
+

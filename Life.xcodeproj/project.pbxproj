@@ -9,10 +9,8 @@
 /* Begin PBXBuildFile section */
 		040FA1B72679215700E60DDA /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040FA1B62679215700E60DDA /* TextField.swift */; };
 		040FA1B9267954A400E60DDA /* DeleteOPTViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040FA1B8267954A400E60DDA /* DeleteOPTViewController.swift */; };
-		040FA1BC26796D6300E60DDA /* LifeAppMessageInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040FA1BB26796D6300E60DDA /* LifeAppMessageInput.swift */; };
-		040FA1BE26796E2A00E60DDA /* Lorem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040FA1BD26796E2A00E60DDA /* Lorem.swift */; };
 		0485B9E2266DCD510014A0A4 /* AddFriendPendingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0485B9E1266DCD510014A0A4 /* AddFriendPendingCell.swift */; };
-		04BACDEF267D80F000042EE8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 04BACDF1267D80F000042EE8 /* InfoPlist.strings */; };
+		049C109E267EF270003884F6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 049C10A0267EF270003884F6 /* InfoPlist.strings */; };
 		04D68F622678851E003DCF12 /* CreateGroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D68F612678851E003DCF12 /* CreateGroupTableViewCell.swift */; };
 		04D68F642678E6FB003DCF12 /* ConfigGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D68F632678E6FB003DCF12 /* ConfigGroupViewController.swift */; };
 		04D68F6826790E3E003DCF12 /* MemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D68F6726790E3E003DCF12 /* MemberCell.swift */; };
@@ -277,12 +275,10 @@
 /* Begin PBXFileReference section */
 		040FA1B62679215700E60DDA /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		040FA1B8267954A400E60DDA /* DeleteOPTViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteOPTViewController.swift; sourceTree = "<group>"; };
-		040FA1BB26796D6300E60DDA /* LifeAppMessageInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeAppMessageInput.swift; sourceTree = "<group>"; };
-		040FA1BD26796E2A00E60DDA /* Lorem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lorem.swift; sourceTree = "<group>"; };
 		0485B9E1266DCD510014A0A4 /* AddFriendPendingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendPendingCell.swift; sourceTree = "<group>"; };
-		049C1096267EC7A9003884F6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		04BACDEB267D7FDD00042EE8 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		04BACDF0267D80F000042EE8 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		049C109A267EF1D5003884F6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		049C109F267EF270003884F6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		049C10A1267EF274003884F6 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		04D68F612678851E003DCF12 /* CreateGroupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupTableViewCell.swift; sourceTree = "<group>"; };
 		04D68F632678E6FB003DCF12 /* ConfigGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigGroupViewController.swift; sourceTree = "<group>"; };
 		04D68F6726790E3E003DCF12 /* MemberCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberCell.swift; sourceTree = "<group>"; };
@@ -1217,8 +1213,6 @@
 			children = (
 				A6F7883324A6ED400019B35D /* ChatViewController.swift */,
 				A6302BB324B9A34B00345FC9 /* NewConversationViewController.swift */,
-				040FA1BB26796D6300E60DDA /* LifeAppMessageInput.swift */,
-				040FA1BD26796E2A00E60DDA /* Lorem.swift */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -1248,7 +1242,7 @@
 		AB13A9D924A2EF610028731D /* Life */ = {
 			isa = PBXGroup;
 			children = (
-				04BACDEB267D7FDD00042EE8 /* Info.plist */,
+				049C109A267EF1D5003884F6 /* Info.plist */,
 				04F4E3D5267CBEE900CD94FD /* ZedPay */,
 				A6379AE824AAD55B003E1879 /* Groups */,
 				AB82ACD424A5453000D83E47 /* Friends */,
@@ -1269,7 +1263,7 @@
 				A663A6C224BA4C610090A13D /* LaunchScreen.storyboard */,
 				AB13A9E324A2EF670028731D /* Assets.xcassets */,
 				A60845C224A30F97005F23A9 /* GoogleService-Info.plist */,
-				04BACDF1267D80F000042EE8 /* InfoPlist.strings */,
+				049C10A0267EF270003884F6 /* InfoPlist.strings */,
 			);
 			path = Life;
 			sourceTree = "<group>";
@@ -1458,7 +1452,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A6188EB024BCCEB600587710 /* Montserrat-Light.ttf in Resources */,
-				04BACDEF267D80F000042EE8 /* InfoPlist.strings in Resources */,
+				049C109E267EF270003884F6 /* InfoPlist.strings in Resources */,
 				A67587F524B7B1BF00724B08 /* read@3x.png in Resources */,
 				A6C36B7C24B57BD200583CAA /* callaudio_blank@2x.png in Resources */,
 				A6188ED924BCDC1700587710 /* callaudio_mute3@2x.png in Resources */,
@@ -1735,10 +1729,8 @@
 				A6C9824824AE6B8C002280B6 /* Chat.swift in Sources */,
 				A6F564CD24A9B5310061007E /* RCHeaderUpperCell.swift in Sources */,
 				A6DEA86024A83FF000868625 /* Single.swift in Sources */,
-				040FA1BE26796E2A00E60DDA /* Lorem.swift in Sources */,
 				040FA1B72679215700E60DDA /* TextField.swift in Sources */,
 				A60845BB24A3033D005F23A9 /* SignInViewController.swift in Sources */,
-				040FA1BC26796D6300E60DDA /* LifeAppMessageInput.swift in Sources */,
 				A6BD967D24B4D76900E1B873 /* SelectUsersView.swift in Sources */,
 				A6DEA87F24A84E9600868625 /* MediaUploader.swift in Sources */,
 				A6DEA82324A82A7100868625 /* RCMessagePhotoCell.swift in Sources */,
@@ -1863,11 +1855,11 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		04BACDF1267D80F000042EE8 /* InfoPlist.strings */ = {
+		049C10A0267EF270003884F6 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				04BACDF0267D80F000042EE8 /* ja */,
-				049C1096267EC7A9003884F6 /* en */,
+				049C109F267EF270003884F6 /* en */,
+				049C10A1267EF274003884F6 /* ja */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -2061,7 +2053,7 @@
 				CODE_SIGN_ENTITLEMENTS = Life/Life.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = 2AV3B2BH2Y;
 				INFOPLIST_FILE = Life/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2085,7 +2077,7 @@
 				CODE_SIGN_ENTITLEMENTS = Life/Life.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = 2AV3B2BH2Y;
 				INFOPLIST_FILE = Life/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

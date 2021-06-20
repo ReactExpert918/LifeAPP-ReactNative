@@ -26,4 +26,8 @@ extension Float{
         
         return ""
     }
+    
+    func moneyString() -> String {
+        return "¥ " + String(format: "%.2f", self)
+    }
 }

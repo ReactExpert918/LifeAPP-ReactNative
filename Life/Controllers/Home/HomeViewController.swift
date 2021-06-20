@@ -36,11 +36,11 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     private var tokenFriends: NotificationToken? = nil
     private var tokenPersons: NotificationToken? = nil
     private var tokenGroups: NotificationToken? = nil
-    
+    private var tokenMembers: NotificationToken? = nil
     private var friends = realm.objects(Friend.self).filter(falsepredicate)
     private var persons = realm.objects(Person.self).filter(falsepredicate)
     private var groups = realm.objects(Group.self).filter(falsepredicate)
-    
+    private var members = realm.objects(Group.self).filter(falsepredicate)
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.backgroundImage = UIImage()
@@ -76,9 +76,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
         if (AuthUser.userId() != "") {
             loadPerson()
-            loadFriends()
-            loadGroups()
-            loadPersons()
             
         }
     }
@@ -93,7 +90,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         tokenFriends?.invalidate()
         friends.safeObserve({ changes in
             // load friend list
-            self.refreshTableView()
+            self.loadPersons()
+            //self.refreshTableView()
             
         }, completion: { token in
             self.tokenFriends = token
@@ -129,6 +127,20 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             self.tokenGroups = token
         })
     }
+    
+    func loadMembers(text: String = "") {
+
+        let predicate = NSPredicate(format: "userId == %@ AND isActive == YES", AuthUser.userId())
+        let members = realm.objects(Member.self).filter(predicate)
+
+        tokenMembers?.invalidate()
+        members.safeObserve({ changes in
+            self.loadGroups()
+        }, completion: { token in
+            self.tokenMembers = token
+        })
+    }
+    
     func onGroupCreated(group: Group) {
         Util.showAlert(vc: self, "\(group.name) " + "has been created successfully.".localized, "")
     }
@@ -143,7 +155,12 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     func loadPerson() {
         person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
+        tokenPersons?.invalidate()
+        let _: [String] = Members.chatIds()
+        loadMembers()
         
+        let _ = Friends.friendAcceptedIds()
+        loadFriends()
         
     }
     @IBAction func onSettingPressed(_ sender: Any) {
@@ -332,8 +349,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         let mainstoryboard = UIStoryboard.init(name: "ZedPay", bundle: nil)
         let vc = mainstoryboard.instantiateViewController(withIdentifier: "zedHistoryVC") as! ZedHistoryViewController
-//        self.navigationController?.pushViewController(vc, animated: true)
-        //vc.modalPresentationStyle = .
+        vc.person = self.person
         self.present(vc, animated: true, completion: nil)
     }
     

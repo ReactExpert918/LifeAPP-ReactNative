@@ -21,4 +21,16 @@ class TransactionCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    class func GetCellReuseIdentifier() -> String {
+        return "transactionCell"
+    }
+    
+    class func Register(withTableView tableView:UITableView) {
+        tableView.register(self.GetCellNib(), forCellReuseIdentifier: self.GetCellReuseIdentifier())
+    }
+    
+    class func GetCellNib() -> UINib {
+        let aNib = UINib.init(nibName: "TransactionCell",bundle: Bundle.main);
+        return aNib
+    }
 }

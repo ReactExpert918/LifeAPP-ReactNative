@@ -12,6 +12,7 @@ import JGProgressHUD
 
 class SignInViewController: UIViewController, UITextViewDelegate, UITextFieldDelegate {
 
+    @IBOutlet weak var jaBottomText: UITextView!
     @IBOutlet weak var passwordEye: UIButton!
     @IBOutlet weak var bottomText: UITextView!
     @IBOutlet weak var password: UITextField!
@@ -28,6 +29,16 @@ class SignInViewController: UIViewController, UITextViewDelegate, UITextFieldDel
         bottomText.isSelectable = true
         bottomText.isEditable = false
         scrollViewHeightConstraint.constant = UIScreen.main.bounds.size.height
+        print(bottomText.attributedText.string)
+        let langStr = Locale.current.languageCode
+        print(langStr!)
+        if(langStr! == "ja"){
+            bottomText.isHidden = true
+            jaBottomText.isHidden = false
+        }else{
+            bottomText.isHidden = false
+            jaBottomText.isHidden = true
+        }
     }
     
     @IBAction func onBackPressed(_ sender: Any) {
