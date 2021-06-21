@@ -33,3 +33,6 @@
 
 /* Class = "UILabel"; text = "Enter Amount"; ObjectID = "NP4-qZ-EjQ"; */
 "NP4-qZ-EjQ.text" = "金額を入力します";
+
+/* Class = "UILabel"; text = "SEND MONEY"; ObjectID = "tO9-Ln-yA8"; */
+"tO9-Ln-yA8.text" = "送金";

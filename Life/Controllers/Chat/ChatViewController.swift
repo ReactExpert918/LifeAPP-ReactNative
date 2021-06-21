@@ -11,7 +11,7 @@ import RealmSwift
 import ProgressHUD
 import InputBarAccessoryView
 import IQKeyboardManagerSwift
-
+import FittedSheets
 class User {
     
     let name: String
@@ -87,6 +87,9 @@ class ChatViewController: UIViewController {
     private var members = realm.objects(Member.self).filter(falsepredicate)
     private var users:[User] = []
     
+    @IBOutlet weak var zedPayButton: UIView!
+    
+    
     lazy var autocompleteManager: AutocompleteManager = { [unowned self] in
         let manager = AutocompleteManager(for: self.messageInputBar.inputTextView)
         manager.delegate = self
@@ -153,6 +156,13 @@ class ChatViewController: UIViewController {
         IQKeyboardManager.shared.enableAutoToolbar = false
         IQKeyboardManager.shared.enable = false
         IQKeyboardManager.shared.shouldResignOnTouchOutside = false
+        
+        ///zed pay button
+        if(recipientId == ""){
+            zedPayButton.isUserInteractionEnabled = false
+        }else{
+            zedPayButton.isUserInteractionEnabled = true
+        }
 
     }
     func loadMembers() {
@@ -252,18 +262,32 @@ class ChatViewController: UIViewController {
         }
     }
     @IBAction func actionPlusButton(_ sender: Any) {
-        if isShowingToolbar == false {
-            isShowingToolbar = true
-        }
-        else{
-            isShowingToolbar = false
-        }
+        
+        isShowingToolbar = !isShowingToolbar
+        
         showCallToolbar(value: isShowingToolbar)
     }
     
+    // MARK: - ZED PAY
     @IBAction func actionZedPay(_ sender: Any) {
-        showCallToolbar(value: false)
+        //showCallToolbar(value: false)
+        if(recipientId == ""){
+            return
+        }else{
+            isShowingToolbar = false
+            
+            showCallToolbar(value: isShowingToolbar)
+            
+            let recipient = realm.object(ofType: Person.self, forPrimaryKey: recipientId)
+            let zedStoryboard = UIStoryboard.init(name: "ZedPay", bundle: nil)
+            let vc =  zedStoryboard.instantiateViewController(identifier: "payBottomSheetVC") as! PayBottomSheetViewController
+            vc.person = recipient
+            let sheetController = SheetViewController(controller: vc, sizes: [.fixed(470)])
+            self.present(sheetController, animated: false, completion: nil)
+        }
     }
+    
+    // MARK: - Audio and video call
     @IBAction func actionAudioCall(_ sender: Any) {
         showCallToolbar(value: false)
         

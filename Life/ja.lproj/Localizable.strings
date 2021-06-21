@@ -96,3 +96,5 @@
 "Received with ZED Pay" = "ZED Payで受け取りました";
 "Calling..." = "コール。。。";
 "Ended" = "終了しました";
+"The amount must be greater than 0." = "金額は0より大きくなければなりません。";
+"The amount must be smaller than available." = "金額は利用可能な金額より少なくする必要があります。";

@@ -195,4 +195,8 @@ class Persons: NSObject {
             person.update(balance: balance)
         }
     }
+    
+    class func currentPerson() -> Person? {
+        return realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId()) 
+    }
 }

@@ -131,7 +131,7 @@
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TKB-94-g9R" userLabel="ZedPayView">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TKB-94-g9R" userLabel="ZedPayView">
                                                 <rect key="frame" x="313" y="12" width="40" height="40"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_zed_pay" translatesAutoresizingMaskIntoConstraints="NO" id="1aI-vA-zt8">
@@ -308,7 +308,7 @@
                                                         <rect key="frame" x="64" y="20" width="67" height="64"/>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ZEDPAY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wnf-WC-MMA">
-                                                        <rect key="frame" x="66" y="109" width="63.5" height="20"/>
+                                                        <rect key="frame" x="61.5" y="109" width="72.5" height="21"/>
                                                         <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -328,7 +328,7 @@
                                                 <rect key="frame" x="20" y="185" width="374" height="78"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Balance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="65M-Bx-wLL">
-                                                        <rect key="frame" x="18" y="16" width="54.5" height="19"/>
+                                                        <rect key="frame" x="18" y="16" width="61" height="19"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="19" id="qtx-e9-6ki"/>
                                                         </constraints>
@@ -337,7 +337,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¥ 5930.5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OWS-iN-NWj">
-                                                        <rect key="frame" x="18" y="43" width="86" height="27"/>
+                                                        <rect key="frame" x="18" y="43" width="96" height="27"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="27" id="NPe-K2-b3h"/>
                                                         </constraints>
@@ -898,10 +898,6 @@
                                             <constraint firstAttribute="height" constant="1" id="ACa-Mk-g7Y"/>
                                         </constraints>
                                     </view>
-                                    <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JpI-Sl-w5k" userLabel="MaskView">
-                                        <rect key="frame" x="0.0" y="65" width="414" height="673"/>
-                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x8d-cb-eP7">
                                         <rect key="frame" x="0.0" y="1" width="414" height="64"/>
                                         <subviews>
@@ -934,7 +930,7 @@
                                                     <constraint firstItem="y4C-VR-qct" firstAttribute="leading" secondItem="PYD-Cf-dVg" secondAttribute="leading" id="xuU-ec-gYy"/>
                                                 </constraints>
                                             </view>
-                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dSJ-HK-Xnd" userLabel="ZedPayView">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dSJ-HK-Xnd" userLabel="ZedPayView">
                                                 <rect key="frame" x="48" y="16" width="32" height="32"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sZb-ex-ZEb">
@@ -1007,16 +1003,12 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="JpI-Sl-w5k" firstAttribute="top" secondItem="x8d-cb-eP7" secondAttribute="bottom" id="2Hq-7h-GSu"/>
                                     <constraint firstItem="x8d-cb-eP7" firstAttribute="top" secondItem="aKl-kZ-6KM" secondAttribute="bottom" id="DeK-US-7zd"/>
                                     <constraint firstItem="aKl-kZ-6KM" firstAttribute="top" secondItem="ALY-au-Ugg" secondAttribute="top" id="DjA-3O-Os4"/>
                                     <constraint firstAttribute="trailing" secondItem="x8d-cb-eP7" secondAttribute="trailing" id="QGV-ip-TBw"/>
                                     <constraint firstAttribute="trailing" secondItem="aKl-kZ-6KM" secondAttribute="trailing" id="Tua-ym-mXz"/>
                                     <constraint firstItem="aKl-kZ-6KM" firstAttribute="leading" secondItem="ALY-au-Ugg" secondAttribute="leading" id="ZDZ-9V-eLl"/>
                                     <constraint firstItem="x8d-cb-eP7" firstAttribute="leading" secondItem="ALY-au-Ugg" secondAttribute="leading" id="bhY-ZL-27d"/>
-                                    <constraint firstAttribute="bottom" secondItem="JpI-Sl-w5k" secondAttribute="bottom" id="pqR-7X-sSg"/>
-                                    <constraint firstAttribute="trailing" secondItem="JpI-Sl-w5k" secondAttribute="trailing" id="tId-gp-RAT"/>
-                                    <constraint firstItem="JpI-Sl-w5k" firstAttribute="leading" secondItem="ALY-au-Ugg" secondAttribute="leading" id="vdY-Bc-u4W"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -1065,6 +1057,7 @@
                         <outlet property="topbarView" destination="cOY-bW-lyB" id="3VZ-lI-dhs"/>
                         <outlet property="videoCallView" destination="PYD-Cf-dVg" id="L13-n8-rRI"/>
                         <outlet property="voiceCallView" destination="0Za-f7-cIS" id="QMj-g6-RMo"/>
+                        <outlet property="zedPayButton" destination="dSJ-HK-Xnd" id="G9E-TB-CNt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e1M-ad-HBd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1110,7 +1103,7 @@
     </scenes>
     <designables>
         <designable name="l3J-cj-jKs">
-            <size key="intrinsicContentSize" width="106" height="32"/>
+            <size key="intrinsicContentSize" width="118" height="33"/>
         </designable>
     </designables>
     <resources>

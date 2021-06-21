@@ -12,17 +12,19 @@ import JGProgressHUD
 class PayBottomSheetViewController: UIViewController {
     var isFriend : Bool = false
     var person: Person!
+    
     var qrCode : String!
     var qrView : PayQRCodeViewController!
-    @IBOutlet weak var checkMark: UIImageView!
+    
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var phoneNumber: UILabel!
     @IBOutlet weak var profile: SwiftyAvatar!
-    @IBOutlet weak var addFriendButton: RoundButton!
+   
     @IBOutlet weak var labelBalance: UILabel!
     @IBOutlet weak var inputAmount: UITextField!
     
     let hud = JGProgressHUD(style: .light)
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,15 +34,10 @@ class PayBottomSheetViewController: UIViewController {
         
         phoneNumber.text = person.phone
     
-        if(person.objectId == AuthUser.userId() || Friends.isFriend(person.objectId)){
-            //addFriendButton.isHidden = true
-            
-            checkMark.isHidden = false
-        }else{
-            checkMark.isHidden = true
-            addFriendButton.isHidden = false
+        guard let currentPerson = Persons.currentPerson() else{
+            return
         }
-        labelBalance.text = "¥" + String(format: "%.2f", person.getBalance())
+        labelBalance.text = "¥" + String(format: "%.2f", currentPerson.getBalance())
             
         MediaDownload.startUser(person.objectId, pictureAt: person.pictureAt) { image, error in
             if (error == nil) {
@@ -64,13 +61,36 @@ class PayBottomSheetViewController: UIViewController {
         dismiss(animated: true, completion:  nil)
     }
     
-    @IBAction func onAddFriendTapped(_ sender: Any) {
-        
-        /// send
-       
+    //MARK:- action send
+    @IBAction func actionTapSend(_ sender: Any) {
+        guard let currentPerson = Persons.currentPerson() else{
+            return
+        }
+        guard let textAmount = inputAmount.text else{
+            return
+        }
+        if textAmount == "" {
+            return
+        }
+        let floatAmount = (textAmount as NSString).floatValue
+        if(floatAmount <= 0){
+            let confirmationAlert = UIAlertController(title: "", message: "The amount must be greater than 0.".localized, preferredStyle: .alert)
+            confirmationAlert.addAction(UIAlertAction(title: "OK".localized, style: .cancel, handler: { (action: UIAlertAction!) in
+            }))
+            present(confirmationAlert, animated: true, completion: nil)
+        }
+        if(floatAmount > currentPerson.getBalance()){
+            let confirmationAlert = UIAlertController(title: "", message: "The amount must be smaller than available.".localized, preferredStyle: .alert)
+            confirmationAlert.addAction(UIAlertAction(title: "OK".localized, style: .cancel, handler: { (action: UIAlertAction!) in
+            }))
+            present(confirmationAlert, animated: true, completion: nil)
+        }
+            
     }
-    
     override func viewDidDisappear(_ animated: Bool) {
+        guard let qrView = qrView else {
+            return
+        }
         qrView.qrReader.startScanning()
     }
     

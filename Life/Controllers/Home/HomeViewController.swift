@@ -8,7 +8,7 @@
 
 import UIKit
 import RealmSwift
-
+import JGProgressHUD
 protocol CreateGroupDelegate {
     func onGroupCreated(group: Group)
 }
@@ -30,7 +30,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     @IBOutlet weak var balanceView: UIView!
     
-    
+    let hud = JGProgressHUD(style: .light)
     var headerSections =  [HeaderSection(name: "My Status", collapsed: false), HeaderSection(name: "Groups".localized+" 0", collapsed: false), HeaderSection(name: "Friends".localized+" 0", collapsed: false)]
 
     private var tokenFriends: NotificationToken? = nil
@@ -62,7 +62,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         homeTableView.dataSource = self
         homeTableView.delegate = self
-        
+        self.hud.show(in: self.view, animated: true)
         
         // Do any additional setup after loading the view.
     }
@@ -122,7 +122,12 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
         tokenGroups?.invalidate()
         groups.safeObserve({ changes in
+            
             self.refreshTableView()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.hud.dismiss()
+            }
+            
         }, completion: { token in
             self.tokenGroups = token
         })
@@ -346,10 +351,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     // MARK: - History Tap
     @IBAction func actionTapHistory(_ sender: Any) {
-        // Just for test
-        
-        //Transactions.create(fromUserId: "ahT64ytgWHUr6pbVJd5gbCM4DUH2", toUserId: "3G3k8VDO1IWQUR52kmu3Y8adlkA3", quantity: 10.2)
-        //Transactions.create(fromUserId: "3G3k8VDO1IWQUR52kmu3Y8adlkA3", toUserId: "ahT64ytgWHUr6pbVJd5gbCM4DUH2", quantity: 120.2)
+        /// Just for test
+        ///person.update(balance: 500.23)
         
         let mainstoryboard = UIStoryboard.init(name: "ZedPay", bundle: nil)
         let vc = mainstoryboard.instantiateViewController(withIdentifier: "zedHistoryVC") as! ZedHistoryViewController
