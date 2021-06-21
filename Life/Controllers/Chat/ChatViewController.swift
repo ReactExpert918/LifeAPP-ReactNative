@@ -271,8 +271,15 @@ class ChatViewController: UIViewController {
             let callAudioView = CallAudioView(userId: self.recipientId)
             present(callAudioView, animated: true)
         }else{
-            let callAudioView = CallAudioView(userId: persons[0].objectId)
-            present(callAudioView, animated: true)
+            var personsId: [String] = []
+            for person in persons{
+                personsId.append(person.objectId)
+            }
+            if let group=realm.object(ofType: Group.self, forPrimaryKey: chatId){
+                let callAudioView = CallAudioView(group: group, persons: personsId)
+                present(callAudioView, animated: true)
+            }
+            
         }
     }
     
@@ -282,11 +289,18 @@ class ChatViewController: UIViewController {
         //present(callVideoView, animated: true)
         
         if(recipientId != ""){
-            let callAudioView = CallVideoView(userId: self.recipientId)
-            present(callAudioView, animated: true)
+            let callVideoView = CallVideoView(userId: self.recipientId)
+            present(callVideoView, animated: true)
         }else{
-            let callAudioView = CallVideoView(userId: persons[0].objectId)
-            present(callAudioView, animated: true)
+            
+            var personsId: [String] = []
+            for person in persons{
+                personsId.append(person.objectId)
+            }
+            if let group=realm.object(ofType: Group.self, forPrimaryKey: chatId){
+                let callVideoView = CallVideoView(group: group, persons: personsId)
+                present(callVideoView, animated: true)
+            }
         }
     }
     

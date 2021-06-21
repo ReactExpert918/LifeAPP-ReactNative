@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		040FA1B72679215700E60DDA /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040FA1B62679215700E60DDA /* TextField.swift */; };
 		040FA1B9267954A400E60DDA /* DeleteOPTViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040FA1B8267954A400E60DDA /* DeleteOPTViewController.swift */; };
+		04619A442680C0A600FEE00E /* CallAudioView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04619A462680C0A600FEE00E /* CallAudioView.xib */; };
 		0485B9E2266DCD510014A0A4 /* AddFriendPendingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0485B9E1266DCD510014A0A4 /* AddFriendPendingCell.swift */; };
 		049C109E267EF270003884F6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 049C10A0267EF270003884F6 /* InfoPlist.strings */; };
 		04C2C86B267F4C4E0035B825 /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C2C86A267F4C4E0035B825 /* Data+Extension.swift */; };
@@ -115,7 +116,6 @@
 		A6C36B5724B5761F00583CAA /* NYTPhotoSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C36B5424B5761F00583CAA /* NYTPhotoSource.swift */; };
 		A6C36B5824B5761F00583CAA /* NYTPhotoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C36B5524B5761F00583CAA /* NYTPhotoItem.swift */; };
 		A6C36B6024B577B000583CAA /* CallAudioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C36B5B24B577B000583CAA /* CallAudioView.swift */; };
-		A6C36B6124B577B000583CAA /* CallAudioView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A6C36B5C24B577B000583CAA /* CallAudioView.xib */; };
 		A6C36B6224B577B000583CAA /* CallVideoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A6C36B5E24B577B000583CAA /* CallVideoView.xib */; };
 		A6C36B6324B577B000583CAA /* CallVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C36B5F24B577B000583CAA /* CallVideoView.swift */; };
 		A6C36B7C24B57BD200583CAA /* callaudio_blank@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A6C36B6B24B57BD200583CAA /* callaudio_blank@2x.png */; };
@@ -281,6 +281,8 @@
 /* Begin PBXFileReference section */
 		040FA1B62679215700E60DDA /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		040FA1B8267954A400E60DDA /* DeleteOPTViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteOPTViewController.swift; sourceTree = "<group>"; };
+		04619A452680C0A600FEE00E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/CallAudioView.xib; sourceTree = "<group>"; };
+		04619A482680C0B200FEE00E /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/CallAudioView.strings; sourceTree = "<group>"; };
 		0485B9E1266DCD510014A0A4 /* AddFriendPendingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendPendingCell.swift; sourceTree = "<group>"; };
 		049C109A267EF1D5003884F6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		049C109F267EF270003884F6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -404,7 +406,6 @@
 		A6C36B5424B5761F00583CAA /* NYTPhotoSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NYTPhotoSource.swift; sourceTree = "<group>"; };
 		A6C36B5524B5761F00583CAA /* NYTPhotoItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NYTPhotoItem.swift; sourceTree = "<group>"; };
 		A6C36B5B24B577B000583CAA /* CallAudioView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallAudioView.swift; sourceTree = "<group>"; };
-		A6C36B5C24B577B000583CAA /* CallAudioView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CallAudioView.xib; sourceTree = "<group>"; };
 		A6C36B5E24B577B000583CAA /* CallVideoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CallVideoView.xib; sourceTree = "<group>"; };
 		A6C36B5F24B577B000583CAA /* CallVideoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallVideoView.swift; sourceTree = "<group>"; };
 		A6C36B6B24B57BD200583CAA /* callaudio_blank@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "callaudio_blank@2x.png"; sourceTree = "<group>"; };
@@ -803,7 +804,7 @@
 			isa = PBXGroup;
 			children = (
 				A6C36B5B24B577B000583CAA /* CallAudioView.swift */,
-				A6C36B5C24B577B000583CAA /* CallAudioView.xib */,
+				04619A462680C0A600FEE00E /* CallAudioView.xib */,
 			);
 			path = CallAudio;
 			sourceTree = "<group>";
@@ -1477,7 +1478,7 @@
 				A6EDA03C24ACE5B100CA3A5F /* Montserrat-Medium.ttf in Resources */,
 				A67587F224B7B1BF00724B08 /* sent@3x.png in Resources */,
 				04F4E3E7267CCE6F00CD94FD /* TransactionCell.xib in Resources */,
-				A6C36B6124B577B000583CAA /* CallAudioView.xib in Resources */,
+				04619A442680C0A600FEE00E /* CallAudioView.xib in Resources */,
 				A6BD966A24B4D56900E1B873 /* StickersCell.xib in Resources */,
 				A6F564C324A8D73D0061007E /* rcmessages_videoplay@2x.png in Resources */,
 				A6188EAE24BCBE3300587710 /* callaudio_hangup@3x.png in Resources */,
@@ -1879,6 +1880,15 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		04619A462680C0A600FEE00E /* CallAudioView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				04619A452680C0A600FEE00E /* Base */,
+				04619A482680C0B200FEE00E /* ja */,
+			);
+			name = CallAudioView.xib;
+			sourceTree = "<group>";
+		};
 		049C10A0267EF270003884F6 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (

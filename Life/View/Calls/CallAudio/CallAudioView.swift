@@ -41,6 +41,9 @@ class CallAudioView: UIViewController {
 	private var call: SINCall?
 	private var audioController: SINAudioController?
     private var personsFullName:String?
+    private var type = 0
+    private var group:Group?
+    private var callString = ""
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	init(call: SINCall?) {
 
@@ -52,31 +55,58 @@ class CallAudioView: UIViewController {
 		let app = UIApplication.shared.delegate as? AppDelegate
 
 		self.call = call
-		call?.delegate = self
-
+        self.call?.delegate = self
+        incoming = true
 		audioController = app?.client?.audioController()
+        callString = (self.call?.headers["name"])! as! String
 	}
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	init(userId: String) {
-        personsFullName = Persons.fullname()
 		super.init(nibName: nil, bundle: nil)
-
+        let recipentUser = realm.object(ofType: Person.self, forPrimaryKey: userId)
+        callString = recipentUser!.fullname
 		self.isModalInPresentation = true
 		self.modalPresentationStyle = .fullScreen
 
 		let app = UIApplication.shared.delegate as? AppDelegate
         
         
-        
+        app?.callKitProvider?.setGroupCall(false)
         //DispatchQueue.main.asyncAfter(deadline: .now()+1) {
-        self.call = app?.client?.call().callUser(withId: userId, headers: ["name": self.personsFullName!])
+        self.call = app?.client?.call().callUser(withId: userId, headers: ["name": Persons.fullname()])
             self.call?.delegate = self
             
             self.audioController = app?.client?.audioController()
-        //}
+        outgoing = true
         
 	}
+    init(group: Group, persons: [String]) {
+        
+        super.init(nibName: nil, bundle: nil)
+        type = 1
+        self.group = group
+        callString = group.name
+        outgoing = true
+        self.isModalInPresentation = true
+        self.modalPresentationStyle = .fullScreen
+
+        let app = UIApplication.shared.delegate as? AppDelegate
+        app?.callKitProvider?.setGroupCall(true)
+        for person in persons {
+            if(person == AuthUser.userId()){
+                continue
+            }
+            let call = app?.client?.call().callUser(withId: person, headers: ["name": callString])
+            call?.delegate = self
+            
+            app?.callKitProvider?.insertCall(call: call!)
+        }
+        
+       
+        self.audioController = app?.client?.audioController()
+        
+    }
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	required init?(coder aDecoder: NSCoder) {
@@ -101,9 +131,9 @@ class CallAudioView: UIViewController {
 		buttonVideo.setImage(UIImage(named: "callaudio_video1"), for: .normal)
 		buttonVideo.setImage(UIImage(named: "callaudio_video1"), for: .highlighted)
 
-		incoming = (call?.direction == .incoming)
-		outgoing = (call?.direction == .outgoing)
-                
+		
+        if (incoming) { updateDetails2() }
+        if (outgoing) { updateDetails1() }
         // dotted progressview
         dottedProgressBar = DottedProgressBar()
         dottedProgressBar?.progressAppearance = DottedProgressBar.DottedProgressAppearance(dotRadius: 6.0, dotsColor: UIColor(hexString: "#33000000")!, dotsProgressColor: UIColor(hexString: "#00406E")!, backColor: UIColor.clear)
@@ -146,10 +176,14 @@ class CallAudioView: UIViewController {
 
 		super.viewWillAppear(animated)
 
-		if (outgoing) { updateDetails1() }
-		if (incoming) { updateDetails2() }
-
-		loadPerson()
+		
+        if(type==0){
+            loadPerson()
+        }else{
+            loadGroup(self.group!)
+        }
+        labelName.text = callString
+        
 	}
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
@@ -177,27 +211,41 @@ class CallAudioView: UIViewController {
 		if let remoteUserId = call?.remoteUserId {
 			person = realm.object(ofType: Person.self, forPrimaryKey: remoteUserId)
 
-			labelInitials.text = person.initials()
+            labelInitials.text = nil
 			MediaDownload.startUser(person.objectId, pictureAt: person.pictureAt) { image, error in
 				if (error == nil) {
 					self.imageUser.image = image
-					self.labelInitials.text = nil
+					
 				}
                 else {
                     self.imageUser.image = UIImage(named: "ic_default_profile")
                 }
 			}
-
-			labelName.text = person.fullname
 		}
 	}
+    func loadGroup(_ group:Group) {
+
+        self.labelInitials.text = nil
+        MediaDownload.startGroup(group.objectId, pictureAt: group.pictureAt) { image, error in
+            if (error == nil) {
+                self.imageUser.image = image
+                
+            }
+            else {
+                self.imageUser.image = UIImage(named: "ic_default_profile")
+            }
+        }
+
+        
+        
+    }
 
 	// MARK: - Timer methods
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	func timerStart() {
+    func timerStart(_ call: SINCall?) {
 
 		timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { _ in
-			self.updateStatus()
+			self.updateStatus(call)
 		}
 	}
 
@@ -209,9 +257,12 @@ class CallAudioView: UIViewController {
 	}
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	func updateStatus() {
-
-		if let date = call?.details.establishedTime {
+    func updateStatus(_ call:SINCall?) {
+        if(call == nil){
+            labelStatus.isHidden = true
+            return
+        }
+        if let date = call?.details.establishedTime {
 			let interval = Date().timeIntervalSince(date)
 			let seconds = Int(interval) % 60
 			let minutes = Int(interval) / 60
@@ -273,7 +324,7 @@ class CallAudioView: UIViewController {
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	func updateDetails1() {
 
-		labelStatus.text = "Calling..."
+        labelStatus.text = "Calling...".localized
 
 		viewButtons.isHidden = incoming
 		viewButtons1.isHidden = outgoing
@@ -297,7 +348,7 @@ class CallAudioView: UIViewController {
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	func updateDetails3() {
 
-		labelStatus.text = "Ended"
+        labelStatus.text = "Ended".localized
 
 		viewEnded.isHidden = false
 	}
@@ -316,7 +367,7 @@ extension CallAudioView: SINCallDelegate {
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	func callDidEstablish(_ call: SINCall?) {
 
-		timerStart()
+		timerStart(call)
 		audioController?.stopPlayingSoundFile()
 		updateDetails2()
 	}

@@ -37,6 +37,9 @@ class CallVideoView: UIViewController {
 	private var audioController: SINAudioController?
 	private var videoController: SINVideoController?
     private var personsFullName:String?
+    private var callString = ""
+    private var type = 0
+    private var group: Group?
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	init(call: SINCall?) {
 
@@ -52,31 +55,61 @@ class CallVideoView: UIViewController {
 
 		audioController = app?.client?.audioController()
 		videoController = app?.client?.videoController()
+        incoming = true
+        
+        callString = (self.call?.headers["name"])! as! String
 	}
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	init(userId: String) {
-        personsFullName = Persons.fullname()
+        
 		super.init(nibName: nil, bundle: nil)
-
+        let recipentUser = realm.object(ofType: Person.self, forPrimaryKey: userId)
+        callString = recipentUser!.fullname
 		self.isModalInPresentation = true
 		self.modalPresentationStyle = .fullScreen
 
 		let app = UIApplication.shared.delegate as? AppDelegate
 
         personsFullName = Persons.fullname()
-        
+        app?.callKitProvider?.setGroupCall(false)
         //DispatchQueue.main.asyncAfter(deadline: .now()+1) {
-        self.call = app?.client?.call().callUserVideo(withId: userId, headers: ["name": self.personsFullName!])
+        self.call = app?.client?.call().callUserVideo(withId: userId, headers: ["name": Persons.fullname()])
             self.call?.delegate = self
 
             self.audioController = app?.client?.audioController()
             self.videoController = app?.client?.videoController()
         //}
-        
+        outgoing = true
 		
 	}
+    init(group: Group, persons: [String]) {
+        
+        super.init(nibName: nil, bundle: nil)
+        type = 1
+        self.group = group
+        callString = group.name
+        print(callString)
+        outgoing = true
+        self.isModalInPresentation = true
+        self.modalPresentationStyle = .fullScreen
 
+        let app = UIApplication.shared.delegate as? AppDelegate
+        app?.callKitProvider?.setGroupCall(true)
+        for person in persons {
+            if(person == AuthUser.userId()){
+                continue
+            }
+            let call = app?.client?.call().callUserVideo(withId: person, headers: ["name": callString])
+            call?.delegate = self
+            
+            app?.callKitProvider?.insertCall(call: call!)
+        }
+        
+        self.audioController = app?.client?.audioController()
+        self.videoController = app?.client?.videoController()
+        
+    }
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	required init?(coder aDecoder: NSCoder) {
 
@@ -113,8 +146,8 @@ class CallVideoView: UIViewController {
 		buttonSwitch.setImage(UIImage(named: "callvideo_switch1"), for: .normal)
 		buttonSwitch.setImage(UIImage(named: "callvideo_switch1"), for: .highlighted)
 
-		incoming = (call?.direction == .incoming)
-		outgoing = (call?.direction == .outgoing)
+        if (incoming) { updateDetails2() }
+        if (outgoing) { updateDetails1() }
 	}
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
@@ -122,10 +155,13 @@ class CallVideoView: UIViewController {
 
 		super.viewWillAppear(animated)
 
-		if (outgoing) { updateDetails1() }
-		if (incoming) { updateDetails2() }
+        if(type == 0){
+            loadPerson()
+        }else{
+            loadGroup(self.group!)
+        }
 
-		loadPerson()
+		
 	}
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
@@ -153,7 +189,7 @@ class CallVideoView: UIViewController {
 		if let remoteUserId = call?.remoteUserId {
 			person = realm.object(ofType: Person.self, forPrimaryKey: remoteUserId)
 
-			labelInitials.text = person.initials()
+			labelInitials.text = nil
 			MediaDownload.startUser(person.objectId, pictureAt: person.pictureAt) { image, error in
 				if (error == nil) {
 					self.imageUser.image = image
@@ -164,10 +200,25 @@ class CallVideoView: UIViewController {
                 }
 			}
 
-			labelName.text = person.fullname
+			labelName.text = callString
 		}
 	}
+    func loadGroup(_ group:Group) {
 
+        self.labelInitials.text = nil
+        MediaDownload.startGroup(group.objectId, pictureAt: group.pictureAt) { image, error in
+            if (error == nil) {
+                self.imageUser.image = image
+                
+            }
+            else {
+                self.imageUser.image = UIImage(named: "ic_default_profile")
+            }
+        }
+        labelName.text = callString
+        
+        
+    }
 	// MARK: - User actions
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	@objc func actionTap() {
@@ -232,7 +283,7 @@ class CallVideoView: UIViewController {
 
 		viewDetails.isHidden = false
 
-		labelStatus.text = "Calling..."
+        labelStatus.text = "Calling...".localized
 
 		viewButtons1.isHidden = outgoing
 		viewButtons2.isHidden = incoming
@@ -264,7 +315,7 @@ class CallVideoView: UIViewController {
 
 		viewDetails.isHidden = false
 
-		labelStatus.text = "Ended"
+        labelStatus.text = "Ended".localized
 
 		viewEnded.isHidden = false
 	}
@@ -282,10 +333,12 @@ extension CallVideoView: SINCallDelegate {
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	func callDidEstablish(_ call: SINCall?) {
-
+        self.imageUser.isHidden = true
+    
+        self.labelName.isHidden = true
 		audioController?.stopPlayingSoundFile()
 		audioController?.enableSpeaker()
-
+        
 		updateDetails2()
 	}
 

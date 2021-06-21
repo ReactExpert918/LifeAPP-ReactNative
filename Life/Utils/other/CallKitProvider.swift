@@ -18,10 +18,11 @@ class CallKitProvider: NSObject {
 	private var client: SINClient!
 	private var cxprovider: CXProvider!
 	private var callController = CXCallController()
-
+    
 	private var name = ""
 	private var calls: [UUID: SINCall] = [:]
-
+    private var type = false
+    private var initCall:SINCall?
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	override init() {
 
@@ -30,9 +31,9 @@ class CallKitProvider: NSObject {
 		let configuration = CXProviderConfiguration(localizedName: "LIFE")
 		configuration.supportsVideo = true
 		configuration.maximumCallGroups = 1
-		configuration.maximumCallsPerCallGroup = 1
+		configuration.maximumCallsPerCallGroup = 50
 		configuration.includesCallsInRecents = true
-
+        configuration.supportedHandleTypes = [.generic]
 		cxprovider = CXProvider(configuration: configuration)
 		cxprovider.setDelegate(self, queue: nil)
 
@@ -44,7 +45,9 @@ class CallKitProvider: NSObject {
 		NotificationCenter.default.addObserver(self, selector: #selector(callDidProgress(notification:)), name: nameDidProgress, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(callDidEstablish(notification:)), name: nameDidEstablish, object: nil)
 	}
-
+    func setGroupCall(_ type: Bool){
+        self.type = type
+    }
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	func setClient(_ client: SINClient?) {
 
@@ -74,6 +77,7 @@ class CallKitProvider: NSObject {
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	func reportNewIncomingCall(call: SINCall) {
 
+        
 		guard let callUUID = UUID(uuidString: call.callId) else { return }
 
 		let update = CXCallUpdate()
@@ -105,23 +109,42 @@ class CallKitProvider: NSObject {
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	private func reportCallProgress(call: SINCall) {
+        if(type == false || self.initCall == nil){
+            guard let callUUID = UUID(uuidString: call.callId) else { return }
+            guard let name = call.headers["name"] as? String else { return }
+            self.initCall = call
+            let handle = CXHandle(type: .generic, value: name)
+            let startCallAction = CXStartCallAction(call: callUUID, handle: handle)
 
-		guard let callUUID = UUID(uuidString: call.callId) else { return }
-		guard let name = call.headers["name"] as? String else { return }
+            if let details = call.details {
+                startCallAction.isVideo = details.isVideoOffered
+            }
 
-		let handle = CXHandle(type: .generic, value: name)
-		let startCallAction = CXStartCallAction(call: callUUID, handle: handle)
+            let transaction = CXTransaction(action: startCallAction)
+            callController.request(transaction) { error in
+                if let error = error {
+                    print(error.localizedDescription)
+                }
+            }
+        }
+        if(type == true && self.initCall != nil){
+            guard let callUUID = UUID(uuidString: call.callId) else { return }
+            //guard let name = call.headers["name"] as? String else { return }
 
-		if let details = call.details {
-			startCallAction.isVideo = details.isVideoOffered
-		}
+            //let handle = CXHandle(type: .generic, value: name)
+            let startCallAction = CXSetGroupCallAction(call: UUID(uuidString: (self.initCall?.callId)!)!, callUUIDToGroupWith: callUUID)
+            /*
+            if let details = call.details {
+                startCallAction.isVideo = details.isVideoOffered
+            }*/
 
-		let transaction = CXTransaction(action: startCallAction)
-		callController.request(transaction) { error in
-			if let error = error {
-				print(error.localizedDescription)
-			}
-		}
+            let transaction = CXTransaction(action: startCallAction)
+            callController.request(transaction) { error in
+                if let error = error {
+                    print(error.localizedDescription)
+                }
+            }
+        }
 	}
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
