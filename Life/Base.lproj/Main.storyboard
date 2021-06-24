@@ -131,7 +131,7 @@
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TKB-94-g9R" userLabel="ZedPayView">
+                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TKB-94-g9R" userLabel="ZedPayView">
                                                 <rect key="frame" x="313" y="12" width="40" height="40"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_zed_pay" translatesAutoresizingMaskIntoConstraints="NO" id="1aI-vA-zt8">
@@ -149,10 +149,18 @@
                                                             <action selector="onZedPay:" destination="zA1-5F-Rsf" eventType="touchUpInside" id="mwC-zz-pBN"/>
                                                         </connections>
                                                     </button>
+                                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_red_circle" translatesAutoresizingMaskIntoConstraints="NO" id="Lll-tt-mHa">
+                                                        <rect key="frame" x="29" y="5" width="9" height="9"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="9" id="E8E-DU-Y8E"/>
+                                                            <constraint firstAttribute="width" constant="9" id="Jf9-zz-CuW"/>
+                                                        </constraints>
+                                                    </imageView>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="1Gw-aV-5SM"/>
+                                                    <constraint firstItem="Lll-tt-mHa" firstAttribute="top" secondItem="TKB-94-g9R" secondAttribute="top" constant="5" id="1a3-Pt-ubN"/>
                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="3y3-O6-bFI"/>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="8Sp-x8-RTe"/>
                                                     <constraint firstItem="n6P-Ay-09e" firstAttribute="top" secondItem="TKB-94-g9R" secondAttribute="top" id="9N0-k9-ach"/>
@@ -162,6 +170,7 @@
                                                     <constraint firstAttribute="trailing" secondItem="n6P-Ay-09e" secondAttribute="trailing" id="MN1-6L-6pJ"/>
                                                     <constraint firstAttribute="bottom" secondItem="n6P-Ay-09e" secondAttribute="bottom" id="U83-mM-nCK"/>
                                                     <constraint firstItem="1aI-vA-zt8" firstAttribute="centerY" secondItem="TKB-94-g9R" secondAttribute="centerY" id="Zvn-Xb-ITM"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Lll-tt-mHa" secondAttribute="trailing" constant="2" id="gJr-ky-6fh"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nuh-TU-THI" userLabel="AddFriendView">
@@ -304,11 +313,19 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OwM-a1-47q" userLabel="zed icon">
                                                 <rect key="frame" x="109.5" y="27" width="195" height="150"/>
                                                 <subviews>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_zed_pay" translatesAutoresizingMaskIntoConstraints="NO" id="rZ5-qi-AYh">
-                                                        <rect key="frame" x="64" y="20" width="67" height="64"/>
-                                                    </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ZEDPAY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wnf-WC-MMA">
-                                                        <rect key="frame" x="61.5" y="109" width="72.5" height="21"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BBI-ni-leY">
+                                                        <rect key="frame" x="57.5" y="10" width="80" height="80"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="80" id="5ru-mR-V20"/>
+                                                            <constraint firstAttribute="width" constant="80" id="GlY-iL-BnV"/>
+                                                        </constraints>
+                                                        <state key="normal" title="Button" image="qrcode"/>
+                                                        <connections>
+                                                            <action selector="actionTapScan:" destination="zA1-5F-Rsf" eventType="touchUpInside" id="sLe-9j-7aJ"/>
+                                                        </connections>
+                                                    </button>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scan QR Code" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wnf-WC-MMA">
+                                                        <rect key="frame" x="35" y="110" width="125.5" height="21"/>
                                                         <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -316,11 +333,11 @@
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
-                                                    <constraint firstItem="rZ5-qi-AYh" firstAttribute="centerX" secondItem="OwM-a1-47q" secondAttribute="centerX" id="2lE-IF-Eif"/>
-                                                    <constraint firstItem="rZ5-qi-AYh" firstAttribute="top" secondItem="OwM-a1-47q" secondAttribute="top" constant="20" id="3V2-7z-hfW"/>
-                                                    <constraint firstItem="wnf-WC-MMA" firstAttribute="top" secondItem="rZ5-qi-AYh" secondAttribute="bottom" constant="25" id="5tu-NQ-cOg"/>
                                                     <constraint firstAttribute="height" constant="150" id="7Qv-rf-LLf"/>
+                                                    <constraint firstItem="BBI-ni-leY" firstAttribute="centerX" secondItem="OwM-a1-47q" secondAttribute="centerX" id="8je-Nh-aqh"/>
+                                                    <constraint firstItem="BBI-ni-leY" firstAttribute="top" secondItem="OwM-a1-47q" secondAttribute="top" constant="10" id="SbP-gU-7Qt"/>
                                                     <constraint firstAttribute="width" constant="195" id="Tyx-SO-cb7"/>
+                                                    <constraint firstItem="wnf-WC-MMA" firstAttribute="top" secondItem="BBI-ni-leY" secondAttribute="bottom" constant="20" id="mQF-Vy-rkx"/>
                                                     <constraint firstItem="wnf-WC-MMA" firstAttribute="centerX" secondItem="OwM-a1-47q" secondAttribute="centerX" id="rNP-4f-I6x"/>
                                                 </constraints>
                                             </view>
@@ -442,6 +459,7 @@
                     <connections>
                         <outlet property="balanceView" destination="IA5-mD-GwH" id="fzY-Yh-pcB"/>
                         <outlet property="homeTableView" destination="CYM-iw-S5U" id="Fd8-cA-vkp"/>
+                        <outlet property="imageReceivedUnRead" destination="Lll-tt-mHa" id="z3g-Gh-xgA"/>
                         <outlet property="labelBalance" destination="OWS-iN-NWj" id="Jqv-io-qys"/>
                         <outlet property="redCircle" destination="VPs-FR-jyi" id="srV-Ti-qTa"/>
                         <outlet property="searchBar" destination="rA2-7L-UWc" id="Ttu-Qe-OoS"/>
@@ -930,7 +948,7 @@
                                                     <constraint firstItem="y4C-VR-qct" firstAttribute="leading" secondItem="PYD-Cf-dVg" secondAttribute="leading" id="xuU-ec-gYy"/>
                                                 </constraints>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dSJ-HK-Xnd" userLabel="ZedPayView">
+                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dSJ-HK-Xnd" userLabel="ZedPayView">
                                                 <rect key="frame" x="48" y="16" width="32" height="32"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sZb-ex-ZEb">
@@ -1121,6 +1139,7 @@
         <image name="ic_video" width="111.5" height="64"/>
         <image name="ic_zed_pay" width="67" height="64"/>
         <image name="message.fill" catalog="system" width="128" height="113"/>
+        <image name="qrcode" width="100" height="100"/>
         <image name="setting" width="75" height="75"/>
         <systemColor name="darkTextColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

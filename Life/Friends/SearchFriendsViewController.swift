@@ -277,9 +277,7 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
     func searchBarSearchButtonClicked(_ searchBar_: UISearchBar) {
         searchBar.resignFirstResponder()
         let searchText = searchBar_.text
-        if searchText?.isEmpty == true {
-            return
-        }
+        
         if radioGroup.selectedCheckBox == radioUsername{
             searchPersonsByUserName(text: searchText ?? "")
         }else{

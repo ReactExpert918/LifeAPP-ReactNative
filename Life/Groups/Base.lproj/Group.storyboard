@@ -848,7 +848,7 @@
                                             <constraint firstAttribute="height" constant="40" id="R5M-BT-ETf"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="twitter" returnKeyType="next"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="But-em-xsh">
                                         <rect key="frame" x="372" y="40" width="20" height="22"/>
@@ -1047,6 +1047,9 @@
         </scene>
     </scenes>
     <designables>
+        <designable name="IN8-AK-Ma2">
+            <size key="intrinsicContentSize" width="36" height="36"/>
+        </designable>
         <designable name="nPu-8C-Ce9">
             <size key="intrinsicContentSize" width="100" height="100"/>
         </designable>

@@ -245,8 +245,9 @@ class CallVideoView: UIViewController {
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	@IBAction func actionHangup(_ sender: Any) {
-
-		call?.hangup()
+        
+        call?.hangup()
+        
 	}
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
@@ -327,7 +328,7 @@ extension CallVideoView: SINCallDelegate {
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	func callDidProgress(_ call: SINCall?) {
-
+        self.call = call
 		audioController?.startPlayingSoundFile(Dir.application("call_ringback.wav"), loop: true)
 	}
 

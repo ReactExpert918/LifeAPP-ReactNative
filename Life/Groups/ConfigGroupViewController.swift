@@ -151,6 +151,7 @@ class ConfigGroupViewController: UIViewController, UITableViewDataSource, UITabl
        
         downloadGroupImage()
         
+        //trashGroup.isHidden = false
         
         if(group.ownerId != AuthUser.userId()){
             trashGroup.isHidden = true
@@ -369,9 +370,7 @@ extension ConfigGroupViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar_: UISearchBar) {
         searchBar.resignFirstResponder()
         let searchText = searchBar_.text
-        if searchText?.isEmpty == true {
-            return
-        }
+        
         loadPersons(text: searchText ?? "")
         
     }

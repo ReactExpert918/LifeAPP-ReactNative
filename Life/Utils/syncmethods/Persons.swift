@@ -199,4 +199,11 @@ class Persons: NSObject {
     class func currentPerson() -> Person? {
         return realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId()) 
     }
+    
+    class func update(isBalanceRead: Bool) {
+
+        if let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId()) {
+            person.update(isBalanceRead: isBalanceRead)
+        }
+    }
 }

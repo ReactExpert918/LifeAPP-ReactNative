@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		040FA1B72679215700E60DDA /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040FA1B62679215700E60DDA /* TextField.swift */; };
 		040FA1B9267954A400E60DDA /* DeleteOPTViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040FA1B8267954A400E60DDA /* DeleteOPTViewController.swift */; };
+		043B8AF626832546004BF845 /* PassPayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043B8AF526832546004BF845 /* PassPayViewController.swift */; };
+		043B8AF826834E5A004BF845 /* FireZEDPayUpdaters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043B8AF726834E5A004BF845 /* FireZEDPayUpdaters.swift */; };
+		043B8AFA26836B51004BF845 /* PayResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043B8AF926836B51004BF845 /* PayResultViewController.swift */; };
 		04619A442680C0A600FEE00E /* CallAudioView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04619A462680C0A600FEE00E /* CallAudioView.xib */; };
 		0485B9E2266DCD510014A0A4 /* AddFriendPendingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0485B9E1266DCD510014A0A4 /* AddFriendPendingCell.swift */; };
 		049C109E267EF270003884F6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 049C10A0267EF270003884F6 /* InfoPlist.strings */; };
@@ -21,8 +24,8 @@
 		04D68F622678851E003DCF12 /* CreateGroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D68F612678851E003DCF12 /* CreateGroupTableViewCell.swift */; };
 		04D68F642678E6FB003DCF12 /* ConfigGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D68F632678E6FB003DCF12 /* ConfigGroupViewController.swift */; };
 		04D68F6826790E3E003DCF12 /* MemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D68F6726790E3E003DCF12 /* MemberCell.swift */; };
-		04F4E3CE267C524D00CD94FD /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4E3CD267C524D00CD94FD /* Transaction.swift */; };
-		04F4E3D0267C550100CD94FD /* Transactions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4E3CF267C550100CD94FD /* Transactions.swift */; };
+		04F4E3CE267C524D00CD94FD /* ZEDPay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4E3CD267C524D00CD94FD /* ZEDPay.swift */; };
+		04F4E3D0267C550100CD94FD /* ZEDPays.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4E3CF267C550100CD94FD /* ZEDPays.swift */; };
 		04F4E3D2267CBC7A00CD94FD /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4E3D1267CBC7A00CD94FD /* String+Extension.swift */; };
 		04F4E3D4267CBCF800CD94FD /* Float+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4E3D3267CBCF800CD94FD /* Float+Extension.swift */; };
 		04F4E3D9267CBFAB00CD94FD /* ZedHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4E3D8267CBFAB00CD94FD /* ZedHistoryViewController.swift */; };
@@ -281,6 +284,9 @@
 /* Begin PBXFileReference section */
 		040FA1B62679215700E60DDA /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		040FA1B8267954A400E60DDA /* DeleteOPTViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteOPTViewController.swift; sourceTree = "<group>"; };
+		043B8AF526832546004BF845 /* PassPayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassPayViewController.swift; sourceTree = "<group>"; };
+		043B8AF726834E5A004BF845 /* FireZEDPayUpdaters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireZEDPayUpdaters.swift; sourceTree = "<group>"; };
+		043B8AF926836B51004BF845 /* PayResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayResultViewController.swift; sourceTree = "<group>"; };
 		04619A452680C0A600FEE00E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/CallAudioView.xib; sourceTree = "<group>"; };
 		04619A482680C0B200FEE00E /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/CallAudioView.strings; sourceTree = "<group>"; };
 		0485B9E1266DCD510014A0A4 /* AddFriendPendingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendPendingCell.swift; sourceTree = "<group>"; };
@@ -296,8 +302,8 @@
 		04D68F612678851E003DCF12 /* CreateGroupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupTableViewCell.swift; sourceTree = "<group>"; };
 		04D68F632678E6FB003DCF12 /* ConfigGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigGroupViewController.swift; sourceTree = "<group>"; };
 		04D68F6726790E3E003DCF12 /* MemberCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberCell.swift; sourceTree = "<group>"; };
-		04F4E3CD267C524D00CD94FD /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
-		04F4E3CF267C550100CD94FD /* Transactions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transactions.swift; sourceTree = "<group>"; };
+		04F4E3CD267C524D00CD94FD /* ZEDPay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZEDPay.swift; sourceTree = "<group>"; };
+		04F4E3CF267C550100CD94FD /* ZEDPays.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZEDPays.swift; sourceTree = "<group>"; };
 		04F4E3D1267CBC7A00CD94FD /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		04F4E3D3267CBCF800CD94FD /* Float+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Float+Extension.swift"; sourceTree = "<group>"; };
 		04F4E3D8267CBFAB00CD94FD /* ZedHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZedHistoryViewController.swift; sourceTree = "<group>"; };
@@ -595,6 +601,8 @@
 				04C2C870267F861E0035B825 /* PayQRCodeViewController.swift */,
 				04C2C872267F874C0035B825 /* PayMyQrGenerateViewController.swift */,
 				04C2C874267F87F70035B825 /* PayBottomSheetViewController.swift */,
+				043B8AF526832546004BF845 /* PassPayViewController.swift */,
+				043B8AF926836B51004BF845 /* PayResultViewController.swift */,
 			);
 			path = ZedPay;
 			sourceTree = "<group>";
@@ -988,7 +996,7 @@
 				A6DEA86124A83FF700868625 /* Member.swift */,
 				A6DEA85924A83FCF00868625 /* Person.swift */,
 				A6DEA85F24A83FF000868625 /* Single.swift */,
-				04F4E3CD267C524D00CD94FD /* Transaction.swift */,
+				04F4E3CD267C524D00CD94FD /* ZEDPay.swift */,
 			);
 			path = syncobjects;
 			sourceTree = "<group>";
@@ -1028,6 +1036,7 @@
 				A6DEA84624A8365900868625 /* FireStorage.swift */,
 				A6DEA84724A8365900868625 /* AuthUser.swift */,
 				A6DEA84824A8365900868625 /* FireUpdaters.swift */,
+				043B8AF726834E5A004BF845 /* FireZEDPayUpdaters.swift */,
 			);
 			path = sync_firebase;
 			sourceTree = "<group>";
@@ -1070,7 +1079,7 @@
 				A6DEA86A24A8405300868625 /* Messages.swift */,
 				A6DEA86B24A8405300868625 /* Persons.swift */,
 				A6DEA86624A8405300868625 /* Singles.swift */,
-				04F4E3CF267C550100CD94FD /* Transactions.swift */,
+				04F4E3CF267C550100CD94FD /* ZEDPays.swift */,
 			);
 			path = syncmethods;
 			sourceTree = "<group>";
@@ -1768,7 +1777,7 @@
 				A6E73B4324A4F3140008CBFE /* RoundButton.swift in Sources */,
 				AB277A7F24ACFC6000D6C783 /* CornerView.swift in Sources */,
 				A6DEA88224A84E9600868625 /* MediaManager.swift in Sources */,
-				04F4E3CE267C524D00CD94FD /* Transaction.swift in Sources */,
+				04F4E3CE267C524D00CD94FD /* ZEDPay.swift in Sources */,
 				A6F564CC24A9B5310061007E /* RCHeaderLowerCell.swift in Sources */,
 				04C2C86F267F67EA0035B825 /* TransactionDetailViewController.swift in Sources */,
 				A67A49B024BA100C0016DD41 /* PrefsManager.swift in Sources */,
@@ -1800,10 +1809,12 @@
 				04C2C871267F861E0035B825 /* PayQRCodeViewController.swift in Sources */,
 				04C2C873267F874C0035B825 /* PayMyQrGenerateViewController.swift in Sources */,
 				A6C36B5824B5761F00583CAA /* NYTPhotoItem.swift in Sources */,
+				043B8AFA26836B51004BF845 /* PayResultViewController.swift in Sources */,
 				A6DEA83224A82F7100868625 /* AppConstant.swift in Sources */,
 				E15A398D2515221700536871 /* ForgotPasswordViewController.swift in Sources */,
 				04F4E3E6267CCE6F00CD94FD /* TransactionCell.swift in Sources */,
 				A6DEA86E24A8405300868625 /* Singles.swift in Sources */,
+				043B8AF826834E5A004BF845 /* FireZEDPayUpdaters.swift in Sources */,
 				A6DEA88624A8521700868625 /* Password.swift in Sources */,
 				04F4E3D2267CBC7A00CD94FD /* String+Extension.swift in Sources */,
 				AB5457A724B5C4F2008C7FB8 /* AddMemberCell.swift in Sources */,
@@ -1816,6 +1827,7 @@
 				AB82ACD124A5452700D83E47 /* SettingCellHeader.swift in Sources */,
 				AB3A81BF24AA539B0089127E /* SuccessViewController.swift in Sources */,
 				ABDAC92C24A64AE800E73667 /* SearchFriendsViewController.swift in Sources */,
+				043B8AF626832546004BF845 /* PassPayViewController.swift in Sources */,
 				A6F2534F24ABA19500A31599 /* UIImageView+RoundedBorder.swift in Sources */,
 				AB30FAFF24AFB2D20037BF25 /* AddFriendSection.swift in Sources */,
 				A6C9824E24AE72E2002280B6 /* ChatManager.swift in Sources */,
@@ -1827,7 +1839,7 @@
 				AB277A8924AD266D00D6C783 /* MyQrGenerateViewController.swift in Sources */,
 				A6DEA83F24A835F100868625 /* Realm+Extension.swift in Sources */,
 				A6C36B6024B577B000583CAA /* CallAudioView.swift in Sources */,
-				04F4E3D0267C550100CD94FD /* Transactions.swift in Sources */,
+				04F4E3D0267C550100CD94FD /* ZEDPays.swift in Sources */,
 				A6DEA84E24A8365900868625 /* FireStorage.swift in Sources */,
 				A6DEA8A824A8717800868625 /* RCVideoLoader.swift in Sources */,
 				A6C9824B24AE6DC7002280B6 /* ChatHistoryCell.swift in Sources */,
@@ -2087,7 +2099,7 @@
 				CODE_SIGN_ENTITLEMENTS = Life/Life.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_TEAM = 2AV3B2BH2Y;
 				INFOPLIST_FILE = Life/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2111,7 +2123,7 @@
 				CODE_SIGN_ENTITLEMENTS = Life/Life.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_TEAM = 2AV3B2BH2Y;
 				INFOPLIST_FILE = Life/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

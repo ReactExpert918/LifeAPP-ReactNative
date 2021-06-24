@@ -24,7 +24,7 @@ class FireUpdaters: NSObject {
 	private var updaterDetail:	FireUpdater?
 	private var updaterMessage:	FireUpdater?
     
-    private var updaterTransaction: FireUpdater?
+    private var updaterTransaction: FireZEDPayUpdaters?
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	static let shared: FireUpdaters = {
@@ -46,7 +46,7 @@ class FireUpdaters: NSObject {
 		updaterSingle	= FireUpdater(name: "Single", type: Single.self)
 		updaterDetail	= FireUpdater(name: "Detail", type: Detail.self)
 		updaterMessage	= FireUpdater(name: "Message", type: Message.self)
-        updaterTransaction    = FireUpdater(name: "Transaction", type: Transaction.self)
+        updaterTransaction    = FireZEDPayUpdaters(type: ZEDPay.self)
         
 	}
 }

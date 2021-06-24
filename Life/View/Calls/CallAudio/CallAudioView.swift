@@ -360,7 +360,7 @@ extension CallAudioView: SINCallDelegate {
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	func callDidProgress(_ call: SINCall?) {
-
+        self.call = call
 		audioController?.startPlayingSoundFile(Dir.application("call_ringback.wav"), loop: true)
 	}
 

@@ -36,3 +36,17 @@
 
 /* Class = "UILabel"; text = "SEND MONEY"; ObjectID = "tO9-Ln-yA8"; */
 "tO9-Ln-yA8.text" = "送金";
+
+/* Class = "UILabel"; text = "INPUT PASS CODE"; ObjectID = "LSS-99-NGu"; */
+"LSS-99-NGu.text" = "パスコードを入力して支払いを完了してください";
+
+/* Class = "UILabel"; text = "Security verificaiton"; ObjectID = "NvQ-lV-pR3"; */
+"NvQ-lV-pR3.text" = "セキュリティ検証";
+
+/* Class = "UILabel"; text = "Transaction reference number label"; ObjectID = "Ba6-JO-3gj"; */
+"Ba6-JO-3gj.text" = "取引参照番号";
+/* Class = "UIButton"; normalTitle = "DONE"; ObjectID = "isW-OK-8BI"; */
+"isW-OK-8BI.normalTitle" = "完了";
+/* Class = "UILabel"; text = "Transaction amount"; ObjectID = "j9k-Tv-AeC"; */
+"j9k-Tv-AeC.text" = "取引金額";
+

@@ -24,8 +24,17 @@ class RCMessageTextCell: RCMessageCell {
 		let rcmessage = messagesView.rcmessageAt(indexPath)
         
 		viewBubble.backgroundColor = rcmessage.incoming ? RCDefaults.textBubbleColorIncoming : RCDefaults.textBubbleColorOutgoing
-
-		if (textView == nil) {
+        var searchString = ""
+        if  messagesView.searchBar.text != nil  {
+            
+            searchString = messagesView.searchBar.text!
+        }
+        
+        if(textView != nil && searchString == ""){
+            textView.removeFromSuperview()
+            textView = nil
+        }
+		if (textView == nil ) {
 			textView = UITextView()
 			textView.font = RCDefaults.textFont
 			textView.isEditable = false
@@ -40,24 +49,21 @@ class RCMessageTextCell: RCMessageCell {
 
 		textView.textColor = rcmessage.incoming ? RCDefaults.textTextColorIncoming : RCDefaults.textTextColorOutgoing
   
-        guard let searchString = messagesView.searchBar.text else {
-            textView.text = rcmessage.text
-            return
-        }
-        if searchString == "" {
-            textView.text = rcmessage.text
-            return
-        }
         let baseString = rcmessage.text
 
         let attributed = NSMutableAttributedString(string: baseString)
-
+        if(searchString == ""){
+            textView.text = rcmessage.text
+            return
+        }
         
         do{
             let regex = try NSRegularExpression(pattern: searchString, options: .caseInsensitive)
             attributed.addAttribute(.font, value: RCDefaults.textFont, range:NSRange(location: 0, length: baseString.utf16.count))
+            attributed.addAttribute(.backgroundColor, value: viewBubble.backgroundColor as Any, range:NSRange(location: 0, length: baseString.utf16.count))
             for match in regex.matches(in: baseString, options: [], range: NSRange(location: 0, length: baseString.utf16.count)) as [NSTextCheckingResult] {
                 attributed.addAttribute(.backgroundColor, value: UIColor.yellow, range: match.range)
+                attributed.addAttribute(.foregroundColor, value: UIColor.black, range: match.range)
             }
 
             textView.attributedText = attributed

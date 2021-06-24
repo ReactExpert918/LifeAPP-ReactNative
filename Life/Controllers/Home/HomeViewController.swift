@@ -22,13 +22,14 @@ protocol ChatViewControllerProtocol {
 
 class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CreateGroupDelegate, ChatViewControllerProtocol {
 
-    private var person: Person!    
+    private var person: Person!
 
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var homeTableView: UITableView!
     @IBOutlet weak var redCircle: UIImageView!
     
     @IBOutlet weak var balanceView: UIView!
+    @IBOutlet weak var imageReceivedUnRead: UIImageView!
     
     let hud = JGProgressHUD(style: .light)
     var headerSections =  [HeaderSection(name: "My Status", collapsed: false), HeaderSection(name: "Groups".localized+" 0", collapsed: false), HeaderSection(name: "Friends".localized+" 0", collapsed: false)]
@@ -41,6 +42,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     private var persons = realm.objects(Person.self).filter(falsepredicate)
     private var groups = realm.objects(Group.self).filter(falsepredicate)
     private var members = realm.objects(Group.self).filter(falsepredicate)
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.backgroundImage = UIImage()
@@ -76,7 +79,11 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
         if (AuthUser.userId() != "") {
             loadPerson()
+            //let _: [String] = Members.chatIds()
+            loadMembers()
             
+            //let _ = Friends.friendAcceptedIds()
+            loadFriends()
         }
     }
     // MARK: - Realm methods
@@ -160,12 +167,12 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     func loadPerson() {
         person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
-        tokenPersons?.invalidate()
-        let _: [String] = Members.chatIds()
-        loadMembers()
+        if(person.isBalanceRead == false){
+            imageReceivedUnRead.isHidden = false
+        }else{
+            imageReceivedUnRead.isHidden = true
+        }
         
-        let _ = Friends.friendAcceptedIds()
-        loadFriends()
         
     }
     @IBAction func onSettingPressed(_ sender: Any) {
@@ -361,6 +368,16 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         self.present(vc, animated: true, completion: nil)
     }
     
+    // MARK: - scan qr code
+    
+    @IBAction func actionTapScan(_ sender: Any) {
+        let mainstoryboard = UIStoryboard.init(name: "ZedPay", bundle: nil)
+        let vc = mainstoryboard.instantiateViewController(withIdentifier: "payQrcodeVC") as! PayQRCodeViewController
+        
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true, completion: nil)
+    }
+    
     // MARK: - Add Money
     @IBAction func actionTapAddMoney(_ sender: Any) {
         print("Add Money")
@@ -404,9 +421,7 @@ extension HomeViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar_: UISearchBar) {
         searchBar.resignFirstResponder()
         let searchText = searchBar_.text
-        if searchText?.isEmpty == true {
-            return
-        }
+        
         loadGroups(text: searchText ?? "")
         loadPersons(text: searchText ?? "")
     }

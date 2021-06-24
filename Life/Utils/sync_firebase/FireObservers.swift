@@ -196,10 +196,10 @@ class FireObservers: NSObject {
     
     private func createObserverTransactions() {
 
-        let query1 = Firestore.firestore().collection("Transaction")
+        let query1 = Firestore.firestore().collection("ZEDPay")
             .whereField("fromUserId", isEqualTo: AuthUser.userId())
-        let query2 = Firestore.firestore().collection("Transaction")
+        let query2 = Firestore.firestore().collection("ZEDPay")
             .whereField("toUserId", isEqualTo: AuthUser.userId())
-        observerTransactions = FireObserver([query1, query2], to: Transaction.self)
+        observerTransactions = FireObserver([query1, query2], to: ZEDPay.self)
     }
 }

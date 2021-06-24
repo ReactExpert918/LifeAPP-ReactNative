@@ -78,14 +78,23 @@ class PayBottomSheetViewController: UIViewController {
             confirmationAlert.addAction(UIAlertAction(title: "OK".localized, style: .cancel, handler: { (action: UIAlertAction!) in
             }))
             present(confirmationAlert, animated: true, completion: nil)
+            return
         }
         if(floatAmount > currentPerson.getBalance()){
             let confirmationAlert = UIAlertController(title: "", message: "The amount must be smaller than available.".localized, preferredStyle: .alert)
             confirmationAlert.addAction(UIAlertAction(title: "OK".localized, style: .cancel, handler: { (action: UIAlertAction!) in
             }))
             present(confirmationAlert, animated: true, completion: nil)
+            return
         }
-            
+        inputAmount.resignFirstResponder()
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "passPayVC") as! PassPayViewController
+        vc.toUserId = person.objectId
+        vc.quantity = floatAmount
+        vc.payBottom = self
+        //vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true, completion: nil)
+        
     }
     override func viewDidDisappear(_ animated: Bool) {
         guard let qrView = qrView else {

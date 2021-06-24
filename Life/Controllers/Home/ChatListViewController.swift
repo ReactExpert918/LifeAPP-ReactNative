@@ -253,9 +253,7 @@ extension ChatListViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar_: UISearchBar) {
         searchBar.resignFirstResponder()
         let searchText = searchBar_.text
-        if searchText?.isEmpty == true {
-            return
-        }
+        
         loadChats(text: searchText ?? "")
     }
 }

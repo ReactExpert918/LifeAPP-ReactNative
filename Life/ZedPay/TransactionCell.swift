@@ -43,7 +43,7 @@ class TransactionCell: UITableViewCell {
         return aNib
     }
     
-    func bindData(transaction: Transaction, tableView: UITableView, indexPath: IndexPath) {
+    func bindData(transaction: ZEDPay, tableView: UITableView, indexPath: IndexPath) {
         
         
         if(transaction.fromUserId == AuthUser.userId()){

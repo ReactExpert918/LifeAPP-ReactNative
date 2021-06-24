@@ -25,7 +25,7 @@ class TransactionDetailViewController: UIViewController {
     
     @IBOutlet weak var labelTransactionType: UILabel!
     
-    var transaction: Transaction!
+    var transaction: ZEDPay!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -53,7 +53,7 @@ class TransactionDetailViewController: UIViewController {
         }
         
         labelTotal.text = "¥ " + String(format: "%.2f",transaction.getQuantity())
-        labelId.text = transaction.objectId
+        labelId.text = transaction.transId
         labelName.text = person?.fullname
         labelPhone.text = person?.phone
         downloadImage(person: person!)

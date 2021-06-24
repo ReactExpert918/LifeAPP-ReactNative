@@ -88,7 +88,7 @@ class PayQRCodeViewController: UIViewController, QRCodeReaderViewControllerDeleg
                         vc.person = person
                         vc.qrView = self
                         let sheetController = SheetViewController(controller: vc, sizes: [.fixed(470)])
-                        self.present(sheetController, animated: false, completion: nil)
+                        self.present(sheetController, animated: true, completion: nil)
                     }else{
                         DispatchQueue.main.async {
                             let alert = UIAlertController(title: "Error".localized, message: "Invalid QR code".localized, preferredStyle: .alert)

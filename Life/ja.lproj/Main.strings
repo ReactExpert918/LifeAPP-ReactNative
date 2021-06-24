@@ -33,3 +33,6 @@
 
 /* Class = "UILabel"; text = "Balance"; ObjectID = "65M-Bx-wLL"; */
 "65M-Bx-wLL.text" = "剰余";
+
+/* Class = "UILabel"; text = "Scan QR Code"; ObjectID = "wnf-WC-MMA"; */
+"wnf-WC-MMA.text" = "QRコードをスキャンする";

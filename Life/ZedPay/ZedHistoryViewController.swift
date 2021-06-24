@@ -16,7 +16,7 @@ class ZedHistoryViewController: UIViewController, UITableViewDataSource, UITable
 
     var person:Person?
     private var tokenTransactions: NotificationToken? = nil
-    private var transactions = realm.objects(Transaction.self).filter(falsepredicate)
+    private var transactions = realm.objects(ZEDPay.self).filter(falsepredicate)
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var labelBalance: UILabel!
@@ -30,7 +30,7 @@ class ZedHistoryViewController: UIViewController, UITableViewDataSource, UITable
         
         tableView.delegate = self
         tableView.dataSource = self
-        
+        Persons.update(isBalanceRead: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -41,9 +41,12 @@ class ZedHistoryViewController: UIViewController, UITableViewDataSource, UITable
     
     func loadTransactions(){
         let predicate1 = NSPredicate(format: "fromUserId == %@ OR toUserId == %@", AuthUser.userId(), AuthUser.userId())
-        let predicate2 = NSPredicate(format: "NOT status IN %@", [TRANSACTION_STATUS.DELETED] )
+        //let predicate2 = NSPredicate(format: "NOT status IN %@", [TRANSACTION_STATUS.PENDING] )
+        /// fix replace this
+        //let predicate2 = NSPredicate(format: "status IN %@", [TRANSACTION_STATUS.SUCCESS] )
         
-        transactions = realm.objects(Transaction.self).filter(predicate1).filter(predicate2).sorted(byKeyPath: "updatedAt", ascending: false)
+        //transactions = realm.objects(ZEDPay.self).filter(predicate1).filter(predicate2).sorted(byKeyPath: "updatedAt", ascending: false)
+        transactions = realm.objects(ZEDPay.self).filter(predicate1).sorted(byKeyPath: "updatedAt", ascending: false)
         tokenTransactions?.invalidate()
         transactions.safeObserve({ changes in
             self.refreshTableView()

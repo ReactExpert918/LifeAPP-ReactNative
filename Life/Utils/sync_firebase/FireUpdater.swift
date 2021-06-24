@@ -31,7 +31,7 @@ class FireUpdater: NSObject {
 		let predicate = NSPredicate(format: "syncRequired == YES")
 		objects = realm.objects(type).filter(predicate).sorted(byKeyPath: "updatedAt")
 
-		Timer.scheduledTimer(withTimeInterval: 0.25, repeats: true) { _ in
+		Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
 			if (AuthUser.userId() != "") {
 				if (Connectivity.isReachable()) {
 					self.updateNextObject()

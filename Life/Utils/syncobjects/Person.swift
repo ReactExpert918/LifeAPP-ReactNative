@@ -42,6 +42,7 @@ class Person: SyncObject {
     
     /// schema2 for ZED pay
     @objc dynamic var balance: String = ""
+    @objc dynamic var isBalanceRead = true
     @objc dynamic var payInfo1: String = ""
     @objc dynamic var payInfo2: String = ""
     @objc dynamic var payInfo3: String = ""
@@ -243,15 +244,19 @@ class Person: SyncObject {
     func update(balance value: Float) {
         
         let encryptedValue = value.encryptedString()
-        
-            
-        if (balance == encryptedValue) { return }
+        if (balance == encryptedValue) {
+            return
+        }
 
         let realm = try! Realm()
         try! realm.safeWrite {
+            if(encryptedValue > balance){
+                isBalanceRead = false
+            }
             balance = encryptedValue
-            syncRequired = true
+            //syncRequired = true
             updatedAt = Date().timestamp()
+            
         }
         
     }
@@ -259,5 +264,15 @@ class Person: SyncObject {
     func getBalance() -> Float {
         return balance.decryptedFloat()
         
+    }
+    
+    func update(isBalanceRead value: Bool){
+        if(isBalanceRead == value){return}
+        let realm = try! Realm()
+        try! realm.safeWrite {
+            isBalanceRead = value
+            syncRequired = true
+            updatedAt = Date().timestamp()
+        }
     }
 }

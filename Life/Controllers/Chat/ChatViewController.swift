@@ -283,7 +283,7 @@ class ChatViewController: UIViewController {
             let vc =  zedStoryboard.instantiateViewController(identifier: "payBottomSheetVC") as! PayBottomSheetViewController
             vc.person = recipient
             let sheetController = SheetViewController(controller: vc, sizes: [.fixed(470)])
-            self.present(sheetController, animated: false, completion: nil)
+            self.present(sheetController, animated: true, completion: nil)
         }
     }
     
@@ -1278,10 +1278,7 @@ extension ChatViewController: UISearchBarDelegate {
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func searchBarSearchButtonClicked(_ searchBar_: UISearchBar) {
         searchBar_.resignFirstResponder()
-        let searchText = searchBar_.text
-        if searchText?.isEmpty == true {
-            return
-        }
+        
         tableView.reloadData()
         
     }

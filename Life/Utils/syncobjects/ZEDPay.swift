@@ -9,11 +9,13 @@
 import RealmSwift
 import CryptoSwift
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-class Transaction: SyncObject {
+class ZEDPay: SyncObject {
+    @objc dynamic var transId = ""
     @objc dynamic var fromUserId = ""
     @objc dynamic var toUserId = ""
     @objc dynamic var quantity: String = ""
     @objc dynamic var status:Int = TRANSACTION_STATUS.PENDING
+   
     //---------------------------------------------------------------------------------------------------------------------------------------------
     class func lastUpdatedAt() -> Int64 {
 
