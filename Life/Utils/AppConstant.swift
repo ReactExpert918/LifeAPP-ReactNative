@@ -63,6 +63,7 @@ struct MESSAGE_TYPE {
     static let MESSAGE_VIDEO = "video"
     static let MESSAGE_AUDIO = "audio"
     static let MESSAGE_LOCATION = "location"
+    static let MESSAGE_MONEY = "pay"
 }
 
 struct TRANSACTION_STATUS {

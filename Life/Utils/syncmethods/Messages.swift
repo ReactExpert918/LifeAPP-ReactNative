@@ -15,7 +15,20 @@ import ProgressHUD
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 class Messages: NSObject {
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+    class func sendMoney(chatId: String, recipientId:String, payId: String){
+        let message = Message()
+
+        message.chatId = chatId
+
+        message.userId = AuthUser.userId()
+        message.userFullname = Persons.fullname()
+        message.userInitials = Persons.initials()
+        message.userPictureAt = Persons.pictureAt()
+        message.type = MESSAGE_TYPE.MESSAGE_MONEY
+        message.text = payId
+
+        createMessage(message: message, recipientId: recipientId)
+    }
     class func send(chatId: String, recipientId:String, text: String?, photo: UIImage?, video: URL?, audio: String?) {
 
 		let message = Message()
@@ -113,7 +126,9 @@ class Messages: NSObject {
 	}
 
 	// MARK: -
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
+   
+    
 	private class func sendMessageText(message: Message, text: String, recipientId:String) {
 
         message.type = Emoji.isEmoji(text: text) ? MESSAGE_TYPE.MESSAGE_EMOJI : MESSAGE_TYPE.MESSAGE_TEXT
@@ -196,7 +211,7 @@ class Messages: NSObject {
 		}
 
 		Audio.playMessageOutgoing()
-
+        //Audio.playMessageIncoming()
 		Details.updateAll(chatId: message.chatId, isDeleted: false)
 		Details.updateAll(chatId: message.chatId, isArchived: false)
 
