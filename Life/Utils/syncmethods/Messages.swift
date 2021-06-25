@@ -15,7 +15,7 @@ import ProgressHUD
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 class Messages: NSObject {
 
-    class func sendMoney(chatId: String, recipientId:String, payId: String){
+    class func sendMoney(chatId: String, recipientId:String, payId: String, failed: Bool){
         let message = Message()
 
         message.chatId = chatId
@@ -26,7 +26,7 @@ class Messages: NSObject {
         message.userPictureAt = Persons.pictureAt()
         message.type = MESSAGE_TYPE.MESSAGE_MONEY
         message.text = payId
-
+        message.isMediaFailed = failed
         createMessage(message: message, recipientId: recipientId)
     }
     class func send(chatId: String, recipientId:String, text: String?, photo: UIImage?, video: URL?, audio: String?) {

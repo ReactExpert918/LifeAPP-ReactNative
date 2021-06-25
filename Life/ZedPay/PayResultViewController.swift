@@ -19,6 +19,8 @@ class PayResultViewController: UIViewController {
     
     var transactionObjectId = ""
     var transaction: ZEDPay!
+    var chatId: String?
+    var recipientId: String?
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -27,9 +29,16 @@ class PayResultViewController: UIViewController {
         if(transaction.status == TRANSACTION_STATUS.SUCCESS){
             labelPaymenResult.text = "Payment Successful".localized
             imagePayResult.image = UIImage(named: "ic_pay_success")
+            if(chatId != nil && recipientId != nil){
+                Messages.sendMoney(chatId: chatId!, recipientId: recipientId!, payId: transaction.transId, failed: false)
+            }
+            
         }else if(transaction.status == TRANSACTION_STATUS.FAILED){
             labelPaymenResult.text = "Payment Failed".localized
             imagePayResult.image = UIImage(named: "ic_pay_fail")
+            if(chatId != nil && recipientId != nil){
+                Messages.sendMoney(chatId: chatId!, recipientId: recipientId!, payId: transaction.transId, failed: true)
+            }
         }
         
         

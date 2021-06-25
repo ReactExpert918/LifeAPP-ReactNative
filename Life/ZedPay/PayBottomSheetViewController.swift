@@ -24,7 +24,8 @@ class PayBottomSheetViewController: UIViewController {
     @IBOutlet weak var inputAmount: UITextField!
     
     let hud = JGProgressHUD(style: .light)
-    
+    var chatId: String?
+    var recipientId: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,12 +89,19 @@ class PayBottomSheetViewController: UIViewController {
             return
         }
         inputAmount.resignFirstResponder()
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "passPayVC") as! PassPayViewController
-        vc.toUserId = person.objectId
-        vc.quantity = floatAmount
-        vc.payBottom = self
-        //vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: true, completion: nil)
+        
+        weak var pvc = self.presentingViewController
+        self.dismiss(animated: false, completion: {
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "passPayVC") as! PassPayViewController
+            vc.toUserId = self.person.objectId
+            vc.quantity = floatAmount
+           
+            vc.chatId = self.chatId
+            vc.recipientId = self.recipientId
+            vc.modalPresentationStyle = .fullScreen
+            pvc?.present(vc, animated: true)
+        })
+        
         
     }
     override func viewDidDisappear(_ animated: Bool) {

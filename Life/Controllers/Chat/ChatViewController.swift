@@ -117,7 +117,7 @@ class ChatViewController: UIViewController {
         searchBar.delegate = self
         
         //searchView.isHidden = true
-        
+        MoneyTableViewCell.Register(withTableView: self.tableView)
         tableView.register(RCHeaderUpperCell.self, forCellReuseIdentifier: "RCHeaderUpperCell")
         tableView.register(RCHeaderLowerCell.self, forCellReuseIdentifier: "RCHeaderLowerCell")
 
@@ -127,7 +127,7 @@ class ChatViewController: UIViewController {
         tableView.register(RCMessageVideoCell.self, forCellReuseIdentifier: "RCMessageVideoCell")
         tableView.register(RCMessageAudioCell.self, forCellReuseIdentifier: "RCMessageAudioCell")
         tableView.register(RCMessageLocationCell.self, forCellReuseIdentifier: "RCMessageLocationCell")
-
+        
         tableView.register(RCFooterUpperCell.self, forCellReuseIdentifier: "RCFooterUpperCell")
         tableView.register(RCFooterLowerCell.self, forCellReuseIdentifier: "RCFooterLowerCell")
 
@@ -282,6 +282,8 @@ class ChatViewController: UIViewController {
             let zedStoryboard = UIStoryboard.init(name: "ZedPay", bundle: nil)
             let vc =  zedStoryboard.instantiateViewController(identifier: "payBottomSheetVC") as! PayBottomSheetViewController
             vc.person = recipient
+            vc.chatId = self.chatId
+            vc.recipientId = self.recipientId
             let sheetController = SheetViewController(controller: vc, sizes: [.fixed(470)])
             self.present(sheetController, animated: true, completion: nil)
         }
@@ -1013,6 +1015,7 @@ extension ChatViewController: UITableViewDataSource {
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_VIDEO)    { return cellForMessageVideo(tableView, at: indexPath)        }
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_AUDIO)    { return cellForMessageAudio(tableView, at: indexPath)        }
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_LOCATION)    { return cellForMessageLocation(tableView, at: indexPath)    }
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_MONEY)    { return cellForMessageMoney(tableView, at: indexPath)    }
         }
         return UITableViewCell()
     }
@@ -1056,7 +1059,22 @@ extension ChatViewController: UITableViewDataSource {
         cell.bindData(self, at: indexPath)
         return cell
     }
+    
+    
+    func cellForMessageMoney(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
 
+        let cell = tableView.dequeueReusableCell(withIdentifier: MoneyTableViewCell.GetCellReuseIdentifier(), for: indexPath) as! MoneyTableViewCell
+        
+        cell.bindData(messageAt(indexPath), messageView: self)
+        return cell
+    }
+
+    func goPayDetail(_ zedPay: ZEDPay){
+        let mainstoryboard = UIStoryboard.init(name: "ZedPay", bundle: nil)
+        let vc = mainstoryboard.instantiateViewController(withIdentifier: "detailVC") as! TransactionDetailViewController
+        vc.transaction = zedPay
+        self.present(vc, animated: true, completion: nil)
+    }
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func cellForMessageVideo(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
 
@@ -1126,6 +1144,7 @@ extension ChatViewController: UITableViewDelegate {
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_VIDEO)    { return RCMessageVideoCell.height(self, at: indexPath)      }
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_AUDIO)    { return RCMessageAudioCell.height(self, at: indexPath)         }
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_LOCATION)    { return RCMessageLocationCell.height(self, at: indexPath)   }
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_MONEY)    { return 143   }
         }
         return 0
     }

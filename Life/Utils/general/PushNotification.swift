@@ -56,6 +56,11 @@ class PushNotification: NSObject {
             en_text = en_text + " " + "sent you a video."
             
         }
+        if (type == MESSAGE_TYPE.MESSAGE_MONEY && !message.isMediaFailed)        {
+            ja_text = ja_text + " " + "sent you money.".localized
+            en_text = en_text + " " + "sent you money."
+            
+        }
         /*
 		if (type == MESSAGE_TYPE.MESSAGE_AUDIO) 		{
             ja_text = ja_text + (" sent you an audio.")

@@ -11,7 +11,7 @@ import DPOTPView
 import JGProgressHUD
 import RealmSwift
 class PassPayViewController: UIViewController {
-
+    weak var pvc : UIViewController?
     @IBOutlet weak var nextButton: RoundButton!
     @IBOutlet weak var nextBottomContraint: NSLayoutConstraint!
     @IBOutlet weak var imageNext: UIImageView!
@@ -25,10 +25,13 @@ class PassPayViewController: UIViewController {
     var quantity: Float = 0
     var updating = false
     var transactionObjectId = ""
-    var payBottom: PayBottomSheetViewController?
+    
+    
+    var chatId: String?
+    var recipientId: String?
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         dpPassCode.dpOTPViewDelegate = self
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -103,12 +106,15 @@ class PassPayViewController: UIViewController {
         self.hud.dismiss()
         
         self.updating = false
-        
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "payResultVC") as! PayResultViewController
-        vc.transaction = self.transactions.first!
-        
-        vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: true, completion: nil)
+        weak var pvc = self.presentingViewController
+        self.dismiss(animated: false, completion: {
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "payResultVC") as! PayResultViewController
+            vc.transaction = self.transactions.first!
+            vc.chatId = self.chatId
+            vc.recipientId = self.recipientId
+            vc.modalPresentationStyle = .fullScreen
+            pvc?.present(vc, animated: true)
+        })
         
     }
 

@@ -14,6 +14,8 @@
 		043B8AFA26836B51004BF845 /* PayResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043B8AF926836B51004BF845 /* PayResultViewController.swift */; };
 		04619A442680C0A600FEE00E /* CallAudioView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04619A462680C0A600FEE00E /* CallAudioView.xib */; };
 		0485B9E2266DCD510014A0A4 /* AddFriendPendingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0485B9E1266DCD510014A0A4 /* AddFriendPendingCell.swift */; };
+		04975C1326859AB300A10CC1 /* MoneyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04975C1126859AB300A10CC1 /* MoneyTableViewCell.swift */; };
+		04975C1426859AB300A10CC1 /* MoneyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04975C1226859AB300A10CC1 /* MoneyTableViewCell.xib */; };
 		049C109E267EF270003884F6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 049C10A0267EF270003884F6 /* InfoPlist.strings */; };
 		04C2C86B267F4C4E0035B825 /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C2C86A267F4C4E0035B825 /* Data+Extension.swift */; };
 		04C2C86D267F5B050035B825 /* NoRecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C2C86C267F5B050035B825 /* NoRecordCell.swift */; };
@@ -290,6 +292,8 @@
 		04619A452680C0A600FEE00E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/CallAudioView.xib; sourceTree = "<group>"; };
 		04619A482680C0B200FEE00E /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/CallAudioView.strings; sourceTree = "<group>"; };
 		0485B9E1266DCD510014A0A4 /* AddFriendPendingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendPendingCell.swift; sourceTree = "<group>"; };
+		04975C1126859AB300A10CC1 /* MoneyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyTableViewCell.swift; sourceTree = "<group>"; };
+		04975C1226859AB300A10CC1 /* MoneyTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MoneyTableViewCell.xib; sourceTree = "<group>"; };
 		049C109A267EF1D5003884F6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		049C109F267EF270003884F6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		049C10A1267EF274003884F6 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -972,6 +976,8 @@
 				A6DEA81F24A82A7100868625 /* RCMessageAudioCell.swift */,
 				A6DEA82024A82A7100868625 /* RCMessageLocationCell.swift */,
 				A6DEA82124A82A7100868625 /* RCMessageCell.swift */,
+				04975C1126859AB300A10CC1 /* MoneyTableViewCell.swift */,
+				04975C1226859AB300A10CC1 /* MoneyTableViewCell.xib */,
 			);
 			path = Message;
 			sourceTree = "<group>";
@@ -1557,6 +1563,7 @@
 				A6F564C224A8D73D0061007E /* rcmessages_audioplay@2x.png in Resources */,
 				A6188EEA24BCDCEA00587710 /* callaudio_speaker2.png in Resources */,
 				A675884624B810A900724B08 /* callaudio_video1@2x.png in Resources */,
+				04975C1426859AB300A10CC1 /* MoneyTableViewCell.xib in Resources */,
 				A67A49C024BA338F0016DD41 /* Group.storyboard in Resources */,
 				A675882924B80F3100724B08 /* callaudio_mute1@2x.png in Resources */,
 				A663A6C724BA4EAE0090A13D /* SettingCellHeader.xib in Resources */,
@@ -1761,6 +1768,7 @@
 				040FA1B72679215700E60DDA /* TextField.swift in Sources */,
 				A60845BB24A3033D005F23A9 /* SignInViewController.swift in Sources */,
 				A6BD967D24B4D76900E1B873 /* SelectUsersView.swift in Sources */,
+				04975C1326859AB300A10CC1 /* MoneyTableViewCell.swift in Sources */,
 				A6DEA87F24A84E9600868625 /* MediaUploader.swift in Sources */,
 				A6DEA82324A82A7100868625 /* RCMessagePhotoCell.swift in Sources */,
 				A6DEA87724A848DB00868625 /* Group.swift in Sources */,
@@ -2099,14 +2107,14 @@
 				CODE_SIGN_ENTITLEMENTS = Life/Life.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2AV3B2BH2Y;
 				INFOPLIST_FILE = Life/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zed.life;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2123,14 +2131,14 @@
 				CODE_SIGN_ENTITLEMENTS = Life/Life.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2AV3B2BH2Y;
 				INFOPLIST_FILE = Life/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zed.life;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

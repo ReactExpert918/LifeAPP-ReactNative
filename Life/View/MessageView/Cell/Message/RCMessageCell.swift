@@ -27,6 +27,7 @@ class RCMessageCell: UITableViewCell {
     var labelHeight: CGFloat = 0
     var nameHeight: CGFloat = 0
     private var labelTimeText: UILabel!
+    var type = 0
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	func bindData(_ messagesView: ChatViewController, at indexPath: IndexPath) {
 
@@ -154,14 +155,15 @@ class RCMessageCell: UITableViewCell {
         labelTimeText.frame = CGRect(x: xTime, y: size.height-time_height , width: time_width, height: time_height)
         
         
-        
-        let imageName = rcmessage.incoming ? "chat_incoming_mask" : "chat_outgoing_mask"
-        guard let image = UIImage(named: imageName) else { return }
-        let maskView = UIImageView()
-        maskView.image = image.resizableImage(withCapInsets:UIEdgeInsets(top: 17, left: 21, bottom: 17, right: 21),resizingMode: .stretch)
-        maskView.frame = CGRect(x: 0, y: 0, width: viewBubble.frame.size.width, height: viewBubble.frame.size.height)
-        //contentView.addSubview(maskView)
-        viewBubble.mask = maskView
+        if(type == 0){
+            let imageName = rcmessage.incoming ? "chat_incoming_mask" : "chat_outgoing_mask"
+            guard let image = UIImage(named: imageName) else { return }
+            let maskView = UIImageView()
+            maskView.image = image.resizableImage(withCapInsets:UIEdgeInsets(top: 17, left: 21, bottom: 17, right: 21),resizingMode: .stretch)
+            maskView.frame = CGRect(x: 0, y: 0, width: viewBubble.frame.size.width, height: viewBubble.frame.size.height)
+            //contentView.addSubview(maskView)
+            viewBubble.mask = maskView
+        }
         
     }
 
