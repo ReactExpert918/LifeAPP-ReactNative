@@ -85,7 +85,7 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
         AuthUser.updatePassword(password: password) { (error) in
             self.hud.dismiss()
             if let error = error {
-                Util.showAlert(vc: self, error.localizedDescription , "")
+                Util.showAlert(vc: self, error.localizedDescription.localized , "")
                 return
             }
            

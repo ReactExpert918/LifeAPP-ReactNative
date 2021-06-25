@@ -232,7 +232,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 (action: UIAlertAction!) in
                 confirmationAlert.dismiss(animated: true, completion: nil)
                 Friends.removeFriend(friend.objectId){
-                    self.refreshTableView()
+                    self.loadFriends() 
                 }
             
             })
