@@ -9,6 +9,7 @@
 import UIKit
 import SwiftyAvatar
 import JGProgressHUD
+import RealmSwift
 class PayBottomSheetViewController: UIViewController {
     var isFriend : Bool = false
     var person: Person!
@@ -26,6 +27,10 @@ class PayBottomSheetViewController: UIViewController {
     let hud = JGProgressHUD(style: .light)
     var chatId: String?
     var recipientId: String?
+    var quantity: Float?
+    
+    
+    private var stripeCustomers = realm.objects(StripeCustomer.self).filter(falsepredicate)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,7 +44,10 @@ class PayBottomSheetViewController: UIViewController {
             return
         }
         labelBalance.text = "¥" + String(format: "%.2f", currentPerson.getBalance())
-            
+        
+        if(quantity != nil){
+            inputAmount.text = String(format: "%.2f", quantity!)
+        }
         MediaDownload.startUser(person.objectId, pictureAt: person.pictureAt) { image, error in
             if (error == nil) {
                 self.profile.image = image
@@ -90,25 +98,36 @@ class PayBottomSheetViewController: UIViewController {
         }
         inputAmount.resignFirstResponder()
         
-        weak var pvc = self.presentingViewController
-        self.dismiss(animated: false, completion: {
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: "passPayVC") as! PassPayViewController
-            vc.toUserId = self.person.objectId
-            vc.quantity = floatAmount
-           
-            vc.chatId = self.chatId
-            vc.recipientId = self.recipientId
+        let predicate = NSPredicate(format: "userId == %@ AND status == %@", AuthUser.userId(), ZEDPAY_STATUS.SUCCESS)
+        stripeCustomers = realm.objects(StripeCustomer.self).filter(predicate)
+        let stripeCustomer = stripeCustomers.first
+        if(stripeCustomer == nil){
+            /*let mainstoryboard = UIStoryboard.init(name: "Settings", bundle: nil)
+            let vc = mainstoryboard.instantiateViewController(withIdentifier: "settingVC") as! SettingViewController
+            
             vc.modalPresentationStyle = .fullScreen
-            pvc?.present(vc, animated: true)
-        })
+            self.present(vc, animated: true, completion: nil)*/
+        }else{
+            weak var pvc = self.presentingViewController
+            self.dismiss(animated: false, completion: {
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "passPayVC") as! PassPayViewController
+                vc.toUserId = self.person.objectId
+                vc.quantity = floatAmount
+               
+                vc.chatId = self.chatId
+                vc.recipientId = self.recipientId
+                vc.modalPresentationStyle = .fullScreen
+                pvc?.present(vc, animated: true)
+            })
+        }
         
         
     }
     override func viewDidDisappear(_ animated: Bool) {
-        guard let qrView = qrView else {
+        guard let _qrView = qrView else {
             return
         }
-        qrView.qrReader.startScanning()
+        _qrView.qrReader.startScanning()
     }
     
     @objc func keyboardWillShow(_ notification: Notification) {

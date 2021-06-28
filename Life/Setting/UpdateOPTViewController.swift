@@ -10,10 +10,13 @@ import UIKit
 import DPOTPView
 import FirebaseAuth
 import JGProgressHUD
-class DeleteOPTViewController: UIViewController {
+import FittedSheets
+class UpdateOPTViewController: UIViewController {
 
     @IBOutlet weak var optView: DPOTPView!
     var delegate: UpdateDataDelegateProtocol? = nil
+    
+    var updateType = UPDATE_ACCOUNT.UNKNOWN
     let hud = JGProgressHUD(style: .light)
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,17 +50,31 @@ class DeleteOPTViewController: UIViewController {
         }
         Auth.auth().signIn(with: credential) { (authResult, error) in
             self.hud.dismiss()
-            if let error = error {
+            if let _ = error {
                 
                 Util.showAlert(vc: self, "Incorrect verification code, please try again.".localized , "")
                 return
             }
             
-            //DispatchQueue.main.asyncAfter(deadline: .now()+2) {
-                self.dismiss(animated: true) {
+            weak var pvc = self.presentingViewController
+            self.dismiss(animated: true) {
+                if(self.updateType == UPDATE_ACCOUNT.DELETE){
                     self.delegate?.deleteAccount()
+                }else if(self.updateType == UPDATE_ACCOUNT.PASSWORD){
+                    let vc =  self.storyboard?.instantiateViewController(identifier: "updatePasswordVC") as! UpdatePasswordViewController
+                    vc.delegate = self.delegate
+                    
+                    let sheetController = SheetViewController(controller: vc, sizes: [.fixed(350)])
+                    pvc?.present(sheetController, animated: false, completion: nil)
+                }else if(self.updateType == UPDATE_ACCOUNT.EMAIL){
+                    let vc =  self.storyboard?.instantiateViewController(identifier: "updateEmailVC") as! UpdateEmailViewController
+                    vc.delegate = self.delegate
+                    
+                    let sheetController = SheetViewController(controller: vc, sizes: [.fixed(350)])
+                    pvc?.present(sheetController, animated: false, completion: nil)
                 }
-            //}
+            }
+            
 
         }
 

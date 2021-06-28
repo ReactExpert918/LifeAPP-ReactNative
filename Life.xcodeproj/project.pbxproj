@@ -8,7 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		040FA1B72679215700E60DDA /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040FA1B62679215700E60DDA /* TextField.swift */; };
-		040FA1B9267954A400E60DDA /* DeleteOPTViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040FA1B8267954A400E60DDA /* DeleteOPTViewController.swift */; };
+		040FA1B9267954A400E60DDA /* UpdateOPTViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040FA1B8267954A400E60DDA /* UpdateOPTViewController.swift */; };
+		04180C7426887E3D00BBF636 /* UpdateEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04180C7326887E3D00BBF636 /* UpdateEmailViewController.swift */; };
+		04180C7626889D8300BBF636 /* StripeCustomer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04180C7526889D8300BBF636 /* StripeCustomer.swift */; };
+		04180C782688A6E800BBF636 /* StripeCustomers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04180C772688A6E800BBF636 /* StripeCustomers.swift */; };
+		04180C7A2688AA5F00BBF636 /* ZEDPaySettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04180C792688AA5F00BBF636 /* ZEDPaySettingsViewController.swift */; };
+		04180C7C2688ACEF00BBF636 /* UpdatePasscodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04180C7B2688ACEF00BBF636 /* UpdatePasscodeViewController.swift */; };
+		04180C7E2688ADEE00BBF636 /* CreateCustomerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04180C7D2688ADEE00BBF636 /* CreateCustomerViewController.swift */; };
 		043B8AF626832546004BF845 /* PassPayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043B8AF526832546004BF845 /* PassPayViewController.swift */; };
 		043B8AF826834E5A004BF845 /* FireZEDPayUpdaters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043B8AF726834E5A004BF845 /* FireZEDPayUpdaters.swift */; };
 		043B8AFA26836B51004BF845 /* PayResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043B8AF926836B51004BF845 /* PayResultViewController.swift */; };
@@ -285,7 +291,13 @@
 
 /* Begin PBXFileReference section */
 		040FA1B62679215700E60DDA /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
-		040FA1B8267954A400E60DDA /* DeleteOPTViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteOPTViewController.swift; sourceTree = "<group>"; };
+		040FA1B8267954A400E60DDA /* UpdateOPTViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateOPTViewController.swift; sourceTree = "<group>"; };
+		04180C7326887E3D00BBF636 /* UpdateEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateEmailViewController.swift; sourceTree = "<group>"; };
+		04180C7526889D8300BBF636 /* StripeCustomer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripeCustomer.swift; sourceTree = "<group>"; };
+		04180C772688A6E800BBF636 /* StripeCustomers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripeCustomers.swift; sourceTree = "<group>"; };
+		04180C792688AA5F00BBF636 /* ZEDPaySettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZEDPaySettingsViewController.swift; sourceTree = "<group>"; };
+		04180C7B2688ACEF00BBF636 /* UpdatePasscodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePasscodeViewController.swift; sourceTree = "<group>"; };
+		04180C7D2688ADEE00BBF636 /* CreateCustomerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCustomerViewController.swift; sourceTree = "<group>"; };
 		043B8AF526832546004BF845 /* PassPayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassPayViewController.swift; sourceTree = "<group>"; };
 		043B8AF726834E5A004BF845 /* FireZEDPayUpdaters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireZEDPayUpdaters.swift; sourceTree = "<group>"; };
 		043B8AF926836B51004BF845 /* PayResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayResultViewController.swift; sourceTree = "<group>"; };
@@ -1003,6 +1015,7 @@
 				A6DEA85924A83FCF00868625 /* Person.swift */,
 				A6DEA85F24A83FF000868625 /* Single.swift */,
 				04F4E3CD267C524D00CD94FD /* ZEDPay.swift */,
+				04180C7526889D8300BBF636 /* StripeCustomer.swift */,
 			);
 			path = syncobjects;
 			sourceTree = "<group>";
@@ -1086,6 +1099,7 @@
 				A6DEA86B24A8405300868625 /* Persons.swift */,
 				A6DEA86624A8405300868625 /* Singles.swift */,
 				04F4E3CF267C550100CD94FD /* ZEDPays.swift */,
+				04180C772688A6E800BBF636 /* StripeCustomers.swift */,
 			);
 			path = syncmethods;
 			sourceTree = "<group>";
@@ -1331,7 +1345,11 @@
 				AB82ACCC24A5452600D83E47 /* SettingCellHeader.swift */,
 				AB82ACCE24A5452600D83E47 /* SettingViewController.swift */,
 				AB26B2B724AE7CED0045981F /* AccountSettingsViewController.swift */,
-				040FA1B8267954A400E60DDA /* DeleteOPTViewController.swift */,
+				040FA1B8267954A400E60DDA /* UpdateOPTViewController.swift */,
+				04180C7326887E3D00BBF636 /* UpdateEmailViewController.swift */,
+				04180C792688AA5F00BBF636 /* ZEDPaySettingsViewController.swift */,
+				04180C7B2688ACEF00BBF636 /* UpdatePasscodeViewController.swift */,
+				04180C7D2688ADEE00BBF636 /* CreateCustomerViewController.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -1742,15 +1760,17 @@
 				A6DEA83A24A8351100868625 /* SyncObject.swift in Sources */,
 				AB5457A524B5C3C1008C7FB8 /* CreateGroupViewController.swift in Sources */,
 				A6DEA87524A8483600868625 /* NSError+Extension.swift in Sources */,
+				04180C7426887E3D00BBF636 /* UpdateEmailViewController.swift in Sources */,
 				AB5457A924B5D9FC008C7FB8 /* AddedMemberCell.swift in Sources */,
 				0485B9E2266DCD510014A0A4 /* AddFriendPendingCell.swift in Sources */,
 				A682AA2124BC51F600003BD7 /* DottedProgressBar.swift in Sources */,
 				A6DEA85C24A83FDA00868625 /* Friend.swift in Sources */,
 				A6DEA84924A8365900868625 /* FireFetcher.swift in Sources */,
-				040FA1B9267954A400E60DDA /* DeleteOPTViewController.swift in Sources */,
+				040FA1B9267954A400E60DDA /* UpdateOPTViewController.swift in Sources */,
 				AB13A9DB24A2EF610028731D /* AppDelegate.swift in Sources */,
 				A6DEA82724A82A7100868625 /* RCMessageLocationCell.swift in Sources */,
 				A6DEA86224A83FF700868625 /* Member.swift in Sources */,
+				04180C782688A6E800BBF636 /* StripeCustomers.swift in Sources */,
 				A6DEA82624A82A7100868625 /* RCMessageAudioCell.swift in Sources */,
 				A6DEA82524A82A7100868625 /* RCMessageEmojiCell.swift in Sources */,
 				A6DEA85A24A83FCF00868625 /* Person.swift in Sources */,
@@ -1777,6 +1797,7 @@
 				A6DEA85024A8365900868625 /* FireUpdaters.swift in Sources */,
 				A6DEA87224A8405300868625 /* Messages.swift in Sources */,
 				A6E7000B24B6C5B1004586E0 /* UserStatusCell.swift in Sources */,
+				04180C7E2688ADEE00BBF636 /* CreateCustomerViewController.swift in Sources */,
 				04D68F622678851E003DCF12 /* CreateGroupTableViewCell.swift in Sources */,
 				A6BD966C24B4D56900E1B873 /* StickersView.swift in Sources */,
 				A6DEA89224A8557000868625 /* Convert.swift in Sources */,
@@ -1820,6 +1841,7 @@
 				043B8AFA26836B51004BF845 /* PayResultViewController.swift in Sources */,
 				A6DEA83224A82F7100868625 /* AppConstant.swift in Sources */,
 				E15A398D2515221700536871 /* ForgotPasswordViewController.swift in Sources */,
+				04180C7A2688AA5F00BBF636 /* ZEDPaySettingsViewController.swift in Sources */,
 				04F4E3E6267CCE6F00CD94FD /* TransactionCell.swift in Sources */,
 				A6DEA86E24A8405300868625 /* Singles.swift in Sources */,
 				043B8AF826834E5A004BF845 /* FireZEDPayUpdaters.swift in Sources */,
@@ -1836,6 +1858,7 @@
 				AB3A81BF24AA539B0089127E /* SuccessViewController.swift in Sources */,
 				ABDAC92C24A64AE800E73667 /* SearchFriendsViewController.swift in Sources */,
 				043B8AF626832546004BF845 /* PassPayViewController.swift in Sources */,
+				04180C7C2688ACEF00BBF636 /* UpdatePasscodeViewController.swift in Sources */,
 				A6F2534F24ABA19500A31599 /* UIImageView+RoundedBorder.swift in Sources */,
 				AB30FAFF24AFB2D20037BF25 /* AddFriendSection.swift in Sources */,
 				A6C9824E24AE72E2002280B6 /* ChatManager.swift in Sources */,
@@ -1863,6 +1886,7 @@
 				A6DEA84A24A8365900868625 /* FireObservers.swift in Sources */,
 				AB82ACD924A5453100D83E47 /* AddFriendCell.swift in Sources */,
 				ABDAC93024A67D8C00E73667 /* SearchFriendCell.swift in Sources */,
+				04180C7626889D8300BBF636 /* StripeCustomer.swift in Sources */,
 				A6DEA87124A8405300868625 /* Groups.swift in Sources */,
 				A6F564D024A9B53C0061007E /* RCFooterUpperCell.swift in Sources */,
 			);
@@ -2107,14 +2131,14 @@
 				CODE_SIGN_ENTITLEMENTS = Life/Life.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_TEAM = 2AV3B2BH2Y;
 				INFOPLIST_FILE = Life/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zed.life;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2131,14 +2155,14 @@
 				CODE_SIGN_ENTITLEMENTS = Life/Life.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_TEAM = 2AV3B2BH2Y;
 				INFOPLIST_FILE = Life/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zed.life;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

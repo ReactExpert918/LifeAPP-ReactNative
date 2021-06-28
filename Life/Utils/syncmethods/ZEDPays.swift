@@ -18,11 +18,11 @@ class ZEDPays: NSObject {
         zedPay.fromUserId = fromUserId
         zedPay.toUserId = toUserId
         zedPay.quantity = quantity.encryptedString()
+        zedPay.status = TRANSACTION_STATUS.PENDING
         //transaction.callBack = callBack
         let realm = try! Realm()
         try! realm.safeWrite {
             realm.add(zedPay, update: .modified)
-            
         }
         return zedPay.objectId
         

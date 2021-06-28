@@ -108,3 +108,17 @@
 "Do you want to add" = "追加しますか";
 "your friend list?" = "あなたの友達リスト？";
 "sent you money." = "あなたに送金";
+"ZED Settings" = "ZED 設定";
+"TRY AGAIN" = "再試行";
+"MAKE ANOTHER PAYMENT" = "別の支払いをする";
+"Success!" = "成功!";
+"Error!" = "エラー!";
+"Password reset email sent." = "パスワードリセットメールが送信されました。";
+"Password reset email sent has failed." = "送信されたパスワードリセットメールが失敗しました。";
+"Update password failed" = "パスワードの更新に失敗しました";
+"Update email failed" = "メールの更新に失敗しました";
+"Verification code send failed" = "確認コードの送信に失敗しました";
+"Update passcode failed" = "パスコードの更新に失敗しました";
+"Successfully updated the passcode" = "パスコードが正常に更新されました";
+"Leave Group" = "グループを離れる";
+"Are you sure leave Group?" = "本当にグループを離れますか？";

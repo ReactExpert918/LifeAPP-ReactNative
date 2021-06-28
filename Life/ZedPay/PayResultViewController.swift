@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import FittedSheets
 class PayResultViewController: UIViewController {
 
     @IBOutlet weak var labelTransactionId: UILabel!
@@ -21,6 +22,7 @@ class PayResultViewController: UIViewController {
     var transaction: ZEDPay!
     var chatId: String?
     var recipientId: String?
+    @IBOutlet weak var btnAgain: RoundButton!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -32,6 +34,7 @@ class PayResultViewController: UIViewController {
             if(chatId != nil && recipientId != nil){
                 Messages.sendMoney(chatId: chatId!, recipientId: recipientId!, payId: transaction.transId, failed: false)
             }
+            btnAgain.setTitle("MAKE ANOTHER PAYMENT".localized, for: .normal)
             
         }else if(transaction.status == TRANSACTION_STATUS.FAILED){
             labelPaymenResult.text = "Payment Failed".localized
@@ -39,13 +42,32 @@ class PayResultViewController: UIViewController {
             if(chatId != nil && recipientId != nil){
                 Messages.sendMoney(chatId: chatId!, recipientId: recipientId!, payId: transaction.transId, failed: true)
             }
+            btnAgain.setTitle("TRY AGAIN".localized, for: .normal)
+            
         }
         
         
     }
     
     @IBAction func actionTapAgain(_ sender: Any) {
+        
+        let toPerson = realm.object(ofType: Person.self, forPrimaryKey: transaction.toUserId)
+        weak var pvc = self.presentingViewController
+        self.dismiss(animated: false, completion: {
+            let vc =  self.storyboard?.instantiateViewController(identifier: "payBottomSheetVC") as! PayBottomSheetViewController
+            vc.person = toPerson
+            vc.chatId = self.chatId
+            vc.recipientId = self.recipientId
+            if(self.transaction.status == TRANSACTION_STATUS.FAILED){
+                vc.quantity = self.transaction.getQuantity()
+            }
+            vc.quantity = self.transaction.getQuantity()
+            let sheetController = SheetViewController(controller: vc, sizes: [.fixed(470)])
+            pvc?.present(sheetController, animated: true, completion: nil)
+        })
+        
     }
+    
     @IBAction func actionTapDone(_ sender: Any) {
         self.dismiss(animated: false, completion: nil)
     }

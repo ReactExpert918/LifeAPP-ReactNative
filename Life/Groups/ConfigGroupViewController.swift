@@ -110,22 +110,37 @@ class ConfigGroupViewController: UIViewController, UITableViewDataSource, UITabl
         }
     }
     @IBAction func actionTapTrash(_ sender: Any) {
-        
-        let confirmationAlert = UIAlertController(title: "Remove Group".localized, message: "Are you sure remove Group".localized , preferredStyle: .alert)
+        /*if(group.ownerId == AuthUser.userId()){
+            let confirmationAlert = UIAlertController(title: "Remove Group".localized, message: "Are you sure remove Group".localized , preferredStyle: .alert)
+
+            confirmationAlert.addAction(UIAlertAction(title: "Yes".localized, style: .default, handler: {
+                    (action: UIAlertAction!) in
+                    confirmationAlert.dismiss(animated: true, completion: nil)
+                Groups.remove(self.group)
+                self.dismiss(animated: true, completion: nil)
+                })
+            )
+            confirmationAlert.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: { (action: UIAlertAction!) in
+            }))
+            present(confirmationAlert, animated: true, completion: nil)
+            
+        }else{
+            
+            
+        }*/
+        let confirmationAlert = UIAlertController(title: "Leave Group".localized, message: "Are you sure leave Group?".localized , preferredStyle: .alert)
 
         confirmationAlert.addAction(UIAlertAction(title: "Yes".localized, style: .default, handler: {
                 (action: UIAlertAction!) in
                 confirmationAlert.dismiss(animated: true, completion: nil)
-            Groups.remove(self.group)
+            Groups.leaveGroup(self.group)
             self.dismiss(animated: true, completion: nil)
-            
             })
         )
-        
-        
         confirmationAlert.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: { (action: UIAlertAction!) in
         }))
         present(confirmationAlert, animated: true, completion: nil)
+        
     }
     
     @IBAction func actionTapInvite(_ sender: Any) {
@@ -154,12 +169,12 @@ class ConfigGroupViewController: UIViewController, UITableViewDataSource, UITabl
         //trashGroup.isHidden = false
         
         if(group.ownerId != AuthUser.userId()){
-            trashGroup.isHidden = true
+            
             changeImage.isHidden = true
             inputGroupName.isHidden = true
             labelGroupName.isHidden = false
         }else{
-            trashGroup.isHidden = false
+            
             changeImage.isHidden = false
             inputGroupName.isHidden = false
             labelGroupName.isHidden = true

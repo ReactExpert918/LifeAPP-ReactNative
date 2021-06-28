@@ -20,12 +20,13 @@ protocol UpdateDataDelegateProtocol {
     func updateUserName(name: String)
     func updatePassword(password: String)
     func deleteAccount()
+    func updateEmail(email: String)
 }
 
 class AccountSettingsViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UpdateDataDelegateProtocol {
     
     private var person: Person! 
-
+    private var tokenPerson: NotificationToken? = nil
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var phoneNumber: UILabel!
@@ -47,10 +48,10 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
     override func viewDidLoad() {
         super.viewDidLoad()
         phoneNumberButton.isHidden = true
-        emailButton.isHidden = true
-        emailRight.isHidden = true
+        //emailButton.isHidden = true
+        //emailRight.isHidden = true
         phoneRight.isHidden = true
-        deleteRight.isHidden = true
+        //deleteRight.isHidden = true
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) { // As soon as vc appears
@@ -84,13 +85,40 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
         }
         AuthUser.updatePassword(password: password) { (error) in
             self.hud.dismiss()
-            if let error = error {
-                Util.showAlert(vc: self, error.localizedDescription.localized , "")
-                return
+            if let _ = error {
+                self.imgPopup.image = UIImage(named: "ic_pay_fail")
+                self.labelPopup.text = "Update password failed".localized
+            }else{
+                self.imgPopup.image = UIImage(named: "ic_checkmark_success")
+                self.labelPopup.text = "Successfully updated the password.".localized
             }
            
-            self.imgPopup.image = UIImage(named: "ic_checkmark_success")
-            self.labelPopup.text = "Successfully updated the password.".localized
+            
+            self.popUpView.isHidden = false
+            
+            DispatchQueue.main.asyncAfter(deadline: .now()+2) {
+                self.popUpView.isHidden = true
+            }
+        }
+    }
+    
+    func updateEmail(email: String) {
+        DispatchQueue.main.async {
+            self.hud.show(in: self.view, animated: true)
+        }
+        AuthUser.updateEmail(email: email){ (error) in
+            self.hud.dismiss()
+            if let _ = error {
+                
+                self.imgPopup.image = UIImage(named: "ic_pay_fail")
+                self.labelPopup.text = "Update email failed".localized
+            }else{
+                self.person.update(email: email)
+                self.imgPopup.image = UIImage(named: "ic_checkmark_success")
+                self.labelPopup.text = "Successfully updated the password.".localized
+            }
+           
+            
             self.popUpView.isHidden = false
             
             DispatchQueue.main.asyncAfter(deadline: .now()+2) {
@@ -106,12 +134,14 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
         AuthUser.deleteAccount { (error) in
             self.hud.dismiss()
             if let _ = error {
-                Util.showAlert(vc: self, "Delete Account Error".localized , "")
-                return
+                
+                self.imgPopup.image = UIImage(named: "ic_pay_fail")
+                self.labelPopup.text = "Delete Account Error".localized
+            }else{
+                self.person.update(isDeleted: true)
+                self.imgPopup.image = UIImage(named: "ic_checkmark_delete")
+                self.labelPopup.text = "Successfully deleted your account.".localized
             }
-            self.person.update(isDeleted: true)
-            self.imgPopup.image = UIImage(named: "ic_checkmark_delete")
-            self.labelPopup.text = "Successfully deleted your account.".localized
             self.popUpView.isHidden = false
             
             DispatchQueue.main.asyncAfter(deadline: .now()+2) {
@@ -142,22 +172,44 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
         self.present(sheetController, animated: false, completion: nil)
     }
     @IBAction func onPasswordChangeTapped(_ sender: Any) {
-        let vc =  self.storyboard?.instantiateViewController(identifier: "updatePasswordVC") as! UpdatePasswordViewController
-        vc.delegate = self
-        
-        let sheetController = SheetViewController(controller: vc, sizes: [.fixed(350)])
-        //sheetController.blurBottomSafeArea = false
-        //sheetController.adjustForBottomSafeArea = false
-
-        // Make corners more round
-        //sheetController.topCornersRadius = 15
-
-        // It is important to set animated to false or it behaves weird currently
-        self.present(sheetController, animated: false, completion: nil)
+        self.hud.textLabel.text = ""
+        self.hud.show(in: self.view, animated: true)
+        PhoneAuthProvider.provider().verifyPhoneNumber(self.person.phone, uiDelegate: nil) { (verificationID, error) in
+            self.hud.dismiss(afterDelay: 1.0, animated: true)
+            if error != nil {
+                Util.showAlert(vc: self, "Verification code send failed".localized, "")
+                return
+            }
+            // Save Verification ID
+            UserDefaults.standard.set(verificationID, forKey: "authVerificationID")
+            let vc =  self.storyboard?.instantiateViewController(identifier: "updateOPTVC") as! UpdateOPTViewController
+            vc.delegate = self
+            vc.updateType = UPDATE_ACCOUNT.PASSWORD
+            let sheetController = SheetViewController(controller: vc, sizes: [.fixed(300)])
+            
+            self.present(sheetController, animated: false, completion: nil)
+        }
     }
     @IBAction func onPhoneNumberChangeTapped(_ sender: Any) {
     }
     @IBAction func onEmailChangeTapped(_ sender: Any) {
+        self.hud.textLabel.text = ""
+        self.hud.show(in: self.view, animated: true)
+        PhoneAuthProvider.provider().verifyPhoneNumber(self.person.phone, uiDelegate: nil) { (verificationID, error) in
+            self.hud.dismiss(afterDelay: 1.0, animated: true)
+            if error != nil {
+                Util.showAlert(vc: self, "Verification code send failed".localized, "")
+                return
+            }
+            // Save Verification ID
+            UserDefaults.standard.set(verificationID, forKey: "authVerificationID")
+            let vc =  self.storyboard?.instantiateViewController(identifier: "updateOPTVC") as! UpdateOPTViewController
+            vc.delegate = self
+            vc.updateType = UPDATE_ACCOUNT.EMAIL
+            let sheetController = SheetViewController(controller: vc, sizes: [.fixed(300)])
+            
+            self.present(sheetController, animated: false, completion: nil)
+        }
     }
     @IBAction func onDeleteAccountTapped(_ sender: Any) {
         let refreshAlert = UIAlertController(title: "Are you sure to delete your account?".localized, message: "", preferredStyle: .alert)
@@ -167,20 +219,20 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
             self.hud.show(in: self.view, animated: true)
             
             PhoneAuthProvider.provider().verifyPhoneNumber(self.person.phone, uiDelegate: nil) { (verificationID, error) in
-                        self.hud.dismiss(afterDelay: 1.0, animated: true)
-                        if error != nil {
-                            Util.showAlert(vc: self, error?.localizedDescription ?? "", "")
-                            return
-                        }
-                        // Save Verification ID
-                        UserDefaults.standard.set(verificationID, forKey: "authVerificationID")
-                        let vc =  self.storyboard?.instantiateViewController(identifier: "deleteOPTVC") as! DeleteOPTViewController
-                        vc.delegate = self
-                        
-                        let sheetController = SheetViewController(controller: vc, sizes: [.fixed(300)])
-                        
-                        self.present(sheetController, animated: false, completion: nil)
-                    }
+                self.hud.dismiss(afterDelay: 1.0, animated: true)
+                if error != nil {
+                    Util.showAlert(vc: self, "Verification code send failed".localized, "")
+                    return
+                }
+                // Save Verification ID
+                UserDefaults.standard.set(verificationID, forKey: "authVerificationID")
+                let vc =  self.storyboard?.instantiateViewController(identifier: "updateOPTVC") as! UpdateOPTViewController
+                vc.delegate = self
+                vc.updateType = UPDATE_ACCOUNT.DELETE
+                let sheetController = SheetViewController(controller: vc, sizes: [.fixed(300)])
+                
+                self.present(sheetController, animated: false, completion: nil)
+            }
             
             
             
@@ -197,7 +249,20 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
     }
     
     func loadPerson() {
-        person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
+        let predicate = NSPredicate(format: "objectId == %@", AuthUser.userId())
+        let persons = realm.objects(Person.self).filter(predicate)
+        
+        
+        tokenPerson?.invalidate()
+        persons.safeObserve({ changes in
+            self.person = persons.first!
+            self.refreshAccountInfo()
+        }, completion: { token in
+            self.tokenPerson = token
+        })
+        
+    }
+    func refreshAccountInfo(){
         MediaDownload.startUser(person.objectId, pictureAt: person.pictureAt) { image, error in
             if (error == nil) {
                 self.profileImageView.image = image

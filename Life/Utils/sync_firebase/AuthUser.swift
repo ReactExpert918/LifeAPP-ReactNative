@@ -96,11 +96,20 @@ class AuthUser: NSObject {
 		guard let firuser = Auth.auth().currentUser else {
 			fatalError("AuthUser.updatePassword currentUser error.")
 		}
-
 		firuser.updatePassword(to: password) { error in
 			completion(error)
 		}
 	}
+    
+    class func updateEmail(email: String, completion: @escaping (_ error: Error?) -> Void) {
+
+        guard let firuser = Auth.auth().currentUser else {
+            fatalError("AuthUser.updatePassword currentUser error.")
+        }
+        firuser.updateEmail(to: email){ error in
+            completion(error)
+        }
+    }
 
 	// MARK: -
 	//---------------------------------------------------------------------------------------------------------------------------------------------

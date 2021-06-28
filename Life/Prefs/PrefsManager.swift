@@ -111,6 +111,19 @@ class PrefsManager:NSObject{
         return getString(key: "password")
     }
 
+    class func setEULAAgree(val: Bool){
+        set(key: "EULA", value: val)
+    }
     
+    class func getEULAAgree() -> Bool{
+        get(key: "EULA")
+    }
+    
+    class func setReadEULA(val: Bool){
+        set(key: "ReadEULA", value: val)
+    }
+    class func getReadEULA() -> Bool{
+        get(key: "ReadEULA")
+    }
 
 }

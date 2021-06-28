@@ -1,6 +1,10 @@
 
-/* Class = "UIButton"; normalTitle = "ADD MONEY"; ObjectID = "ooz-y7-yQa"; */
-"ooz-y7-yQa.normalTitle" = "お金を追加";
+/* Class = "UIButton"; normalTitle = "ADD"; ObjectID = "ooz-y7-yQa"; */
+"ooz-y7-yQa.normalTitle" = "追加";
+
+
+/* Class = "UIButton"; normalTitle = "SEND"; ObjectID = "Ey5-ok-rTe"; */
+"Ey5-ok-rTe.normalTitle" = "送金";
 
 /* Class = "UILabel"; text = "Balance"; ObjectID = "ah5-3V-J9h"; */
 "ah5-3V-J9h.text" = "剰余";

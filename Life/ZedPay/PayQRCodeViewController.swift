@@ -82,6 +82,10 @@ class PayQRCodeViewController: UIViewController, QRCodeReaderViewControllerDeleg
                     }
                 }
                 else{
+                    if(qrCode == AuthUser.userId()){
+                        self.qrReader.startScanning()
+                        return
+                    }
                     let person = realm.object(ofType: Person.self, forPrimaryKey: qrCode)
                     if let person = person{
                         let vc =  self.storyboard?.instantiateViewController(identifier: "payBottomSheetVC") as! PayBottomSheetViewController

@@ -28,11 +28,20 @@
 /* Class = "UIButton"; normalTitle = "HISTORY"; ObjectID = "iIb-wd-ykL"; */
 "iIb-wd-ykL.normalTitle" = "記録";
 
-/* Class = "UIButton"; normalTitle = "ADD MONEY"; ObjectID = "l3J-cj-jKs"; */
-"l3J-cj-jKs.normalTitle" = "お金を追加";
+/* Class = "UIButton"; normalTitle = "ADD"; ObjectID = "l3J-cj-jKs"; */
+"l3J-cj-jKs.normalTitle" = "追加";
 
 /* Class = "UILabel"; text = "Balance"; ObjectID = "65M-Bx-wLL"; */
 "65M-Bx-wLL.text" = "剰余";
 
-/* Class = "UILabel"; text = "Scan QR Code"; ObjectID = "wnf-WC-MMA"; */
-"wnf-WC-MMA.text" = "QRコードをスキャンする";
+/* Class = "UILabel"; text = "ZED PAY"; ObjectID = "wnf-WC-MMA"; */
+"wnf-WC-MMA.text" = "ZEDペイ";
+
+/* Class = "UIButton"; normalTitle = "SEND"; ObjectID = "Bul-Uv-j7Z"; */
+"Bul-Uv-j7Z.normalTitle" = "送金";
+
+/* Class = "UIButton"; normalTitle = "ACCEPT"; ObjectID = "isp-iM-d3A"; */
+"isp-iM-d3A.normalTitle" = "同意する";
+/* Class = "UIButton"; normalTitle = "DON'T ACEEPT"; ObjectID = "tqF-l3-UaB"; */
+"tqF-l3-UaB.normalTitle" = "同意しない";
+

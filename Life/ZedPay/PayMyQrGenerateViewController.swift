@@ -90,4 +90,11 @@ class PayMyQrGenerateViewController: UIViewController {
         present(ac, animated: true)
     }
     
+    @IBAction func actionTapShare(_ sender: Any) {
+        guard let shareImage = myQrcode.image else{
+            return
+        }
+        let activityController = UIActivityViewController(activityItems: [shareImage], applicationActivities: nil)
+        present(activityController, animated: true)
+    }
 }

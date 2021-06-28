@@ -14,7 +14,7 @@ class ZEDPay: SyncObject {
     @objc dynamic var fromUserId = ""
     @objc dynamic var toUserId = ""
     @objc dynamic var quantity: String = ""
-    @objc dynamic var status:Int = TRANSACTION_STATUS.PENDING
+    @objc dynamic var status:Int = TRANSACTION_STATUS.SUCCESS
    
     //---------------------------------------------------------------------------------------------------------------------------------------------
     class func lastUpdatedAt() -> Int64 {
@@ -78,6 +78,13 @@ class ZEDPay: SyncObject {
         }
     }
     
+    func updateLast(){
+        let realm = try! Realm()
+        try! realm.safeWrite {
+            syncRequired = true
+            updatedAt = Date().timestamp()
+        }
+    }
     func getQuantity() -> Float {
         
         return quantity.decryptedFloat()

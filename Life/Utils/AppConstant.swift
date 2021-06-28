@@ -77,3 +77,17 @@ struct LIFE_CRYPT {
     static let key = "-tM=Yn=7pEVXXGrd"
     static let iv = "AypfS&2wGr59*_U%"
 }
+
+struct UPDATE_ACCOUNT {
+    static let UNKNOWN = 0
+    static let NAME = 1
+    static let EMAIL = 2
+    static let PASSWORD = 3
+    static let DELETE = 4
+}
+
+struct ZEDPAY_STATUS{
+    static let PENDING = "pending"
+    static let SUCCESS = "success"
+    static let FAILED = "failed"
+}

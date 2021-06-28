@@ -103,9 +103,18 @@ class PassPayViewController: UIViewController {
     
     //MARK: - Transcation callback
     func callBack(){
+        
+        guard let transaction = self.transactions.first else{
+            return
+        }
+        if transaction.status == TRANSACTION_STATUS.PENDING{
+            return
+        }
         self.hud.dismiss()
         
         self.updating = false
+        
+        
         weak var pvc = self.presentingViewController
         self.dismiss(animated: false, completion: {
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "payResultVC") as! PayResultViewController

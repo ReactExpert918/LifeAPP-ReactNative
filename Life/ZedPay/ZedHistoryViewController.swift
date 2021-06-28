@@ -43,10 +43,10 @@ class ZedHistoryViewController: UIViewController, UITableViewDataSource, UITable
         let predicate1 = NSPredicate(format: "fromUserId == %@ OR toUserId == %@", AuthUser.userId(), AuthUser.userId())
         //let predicate2 = NSPredicate(format: "NOT status IN %@", [TRANSACTION_STATUS.PENDING] )
         /// fix replace this
-        //let predicate2 = NSPredicate(format: "status IN %@", [TRANSACTION_STATUS.SUCCESS] )
+        let predicate2 = NSPredicate(format: "status IN %@", [TRANSACTION_STATUS.SUCCESS] )
         
-        //transactions = realm.objects(ZEDPay.self).filter(predicate1).filter(predicate2).sorted(byKeyPath: "updatedAt", ascending: false)
-        transactions = realm.objects(ZEDPay.self).filter(predicate1).sorted(byKeyPath: "updatedAt", ascending: false)
+        transactions = realm.objects(ZEDPay.self).filter(predicate1).filter(predicate2).sorted(byKeyPath: "updatedAt", ascending: false)
+        //transactions = realm.objects(ZEDPay.self).filter(predicate1).sorted(byKeyPath: "updatedAt", ascending: false)
         tokenTransactions?.invalidate()
         transactions.safeObserve({ changes in
             self.refreshTableView()
@@ -108,4 +108,13 @@ class ZedHistoryViewController: UIViewController, UITableViewDataSource, UITable
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true, completion: nil)
     }
+    
+    
+    @IBAction func actionTapSendMoney(_ sender: Any) {
+        let vc = self.storyboard!.instantiateViewController(withIdentifier: "payQrcodeVC") as! PayQRCodeViewController
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true, completion: nil)
+    }
+    
+    
 }

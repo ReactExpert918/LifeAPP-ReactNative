@@ -93,6 +93,18 @@ class Person: SyncObject {
             updatedAt = Date().timestamp()
         }
     }
+    
+    func update(email value: String) {
+
+        if (email == value) { return }
+
+        let realm = try! Realm()
+        try! realm.safeWrite {
+            email = value
+            syncRequired = true
+            updatedAt = Date().timestamp()
+        }
+    }
 	// MARK: -
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	func update(pictureAt value: Int64) {

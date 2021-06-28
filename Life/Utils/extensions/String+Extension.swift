@@ -40,6 +40,33 @@ extension String {
         }
         return 0
     }
+    
+    func decryptedString() -> String {
+
+        let _bytes:[UInt8]? = self.hexadecimal?.bytes
+        //let s = String(format: "%.2f", value)
+        guard let bytes = _bytes else {
+            return ""
+        }
+        if let aes = try? AES(key: LIFE_CRYPT.key, iv: LIFE_CRYPT.iv),
+           let aesD = try? aes.decrypt(bytes) {
+            
+            if let balanceDecrypted = String(bytes: aesD, encoding: .utf8) {
+                return balanceDecrypted
+            }
+        }
+        return ""
+    }
+    
+    func encryptedString() -> String {
+        let bytes:[UInt8] = Array(self.utf8)
+        
+        if let aes = try? AES(key: LIFE_CRYPT.key, iv: LIFE_CRYPT.iv),
+           let aesE = try? aes.encrypt(bytes) {
+            return Data(aesE).hexadecimal
+        }
+        return ""
+    }
 
     
 }

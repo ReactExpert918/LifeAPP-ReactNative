@@ -36,17 +36,19 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate {
             present(alertController, animated: true, completion: nil)
             
         } else {
+           
+            
             Auth.auth().sendPasswordReset(withEmail: self.emailTextField.text!, completion: { (error) in
                 
                 var title = ""
                 var message = ""
                 
                 if error != nil {
-                    title = "Error!"
-                    message = (error?.localizedDescription)!
+                    title = "Error!".localized
+                    message = "Password reset email sent has failed.".localized
                 } else {
-                    title = "Success!"
-                    message = "Password reset email sent."
+                    title = "Success!".localized
+                    message = "Password reset email sent.".localized
                     self.emailTextField.text = ""
                 }
                 

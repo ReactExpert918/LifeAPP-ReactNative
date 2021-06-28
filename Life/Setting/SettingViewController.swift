@@ -7,7 +7,8 @@
 //
 
 import UIKit
-
+import RealmSwift
+import FittedSheets
 class SettingViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
 
     @IBOutlet weak var tableView: UITableView!
@@ -17,8 +18,14 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
     let items = [[NSLocalizedString("Mirai AI", comment: "Mirai AI"), NSLocalizedString("Zed Pay", comment: "Zed Pay"), NSLocalizedString("Account Settings", comment: "Account Settings"), NSLocalizedString("Privacy Policy", comment: "Privacy Policy"), NSLocalizedString("About Us", comment: "About Us")]]
     let icons = [[UIImage(named: "ic_setting_mirai"), UIImage(named: "ic_zed_pay"), UIImage(named: "setting_account"), UIImage(named: "setting_privacy"), UIImage(named: "setting_about")]]
     */
+    /*let items = [[NSLocalizedString("Account Settings", comment: "Account Settings"), "ZED Settings".localized]]
+    let icons = [[UIImage(named: "setting_account"), UIImage(named: "ic_zed_pay")]]*/
+    
     let items = [[NSLocalizedString("Account Settings", comment: "Account Settings")]]
     let icons = [[UIImage(named: "setting_account")]]
+    private var stripeCustomers = realm.objects(StripeCustomer.self).filter(falsepredicate)
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -97,6 +104,23 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
                 navigationController?.pushViewController(viewController, animated: true)
             }
         }
+        if indexPath.row == 1 {
+            let predicate = NSPredicate(format: "userId == %@ AND status == %@", AuthUser.userId(), ZEDPAY_STATUS.SUCCESS)
+            stripeCustomers = realm.objects(StripeCustomer.self).filter(predicate)
+            let stripeCustomer = stripeCustomers.first
+            if(stripeCustomer == nil){
+                let vc =  self.storyboard?.instantiateViewController(identifier: "createCustomerVC") as! CreateCustomerViewController
+                let sheetController = SheetViewController(controller: vc, sizes: [.fixed(360)])
+                self.present(sheetController, animated: false, completion: nil)
+            }
+            else{
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "zedPaySettingsVC") as! ZEDPaySettingsViewController
+                vc.modalPresentationStyle = .fullScreen
+                self.present(vc, animated: true)
+            }
+        }
+       
+        
     }
 
 }
