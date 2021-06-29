@@ -27,6 +27,30 @@ class ZEDPays: NSObject {
         return zedPay.objectId
         
     }
+    
+    class func createAdd(userId: String, customerId: String, cardId: String, quantity: Float) -> String {
+
+
+        let zedPay = ZEDPay()
+        
+        zedPay.transId = zedPay.objectId.crc32().uppercased()
+        zedPay.fromUserId = userId
+        zedPay.toUserId = userId
+        //usd dollar smallest unit 0.5
+        zedPay.amount = Int(floor(quantity * 100))
+        
+        zedPay.quantity = ((Persons.currentPerson()?.getBalance())! + quantity).encryptedString()
+        zedPay.customerId = customerId
+        zedPay.status = TRANSACTION_STATUS.PENDING
+        zedPay.cardId = cardId
+        //transaction.callBack = callBack
+        let realm = try! Realm()
+        try! realm.safeWrite {
+            realm.add(zedPay, update: .modified)
+        }
+        return zedPay.objectId
+        
+    }
 
     // MARK: -
     //---------------------------------------------------------------------------------------------------------------------------------------------

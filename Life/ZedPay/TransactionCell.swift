@@ -45,22 +45,28 @@ class TransactionCell: UITableViewCell {
     
     func bindData(transaction: ZEDPay, tableView: UITableView, indexPath: IndexPath) {
         
-        
-        if(transaction.fromUserId == AuthUser.userId()){
+        if(transaction.toUserId == transaction.fromUserId){
+            let person = Persons.getById(transaction.fromUserId)
+            imageType.image = UIImage(named: "ic_pay_charge")
+            labelType.text = "Add Money".localized
+            labelQuantity.text = "+" + String(format: "%.2f",Double(transaction.amount)/100.0)+"¥"
+            labelName.text = person?.fullname
+            downloadImage(person: person!, tableView: tableView, indexPath: indexPath)
+        }else if(transaction.fromUserId == AuthUser.userId()){
             //sent
             let person = Persons.getById(transaction.toUserId)
             imageType.image = UIImage(named: "ic_pay_sent")
             labelType.text = "Money Sent".localized
-            labelQuantity.text = "-¥" + String(format: "%.2f",transaction.getQuantity())
+            labelQuantity.text = "-" + String(format: "%.2f",transaction.getQuantity())+"¥"
             labelName.text = person?.fullname
             downloadImage(person: person!, tableView: tableView, indexPath: indexPath)
             
-        }else{
+        }else if(transaction.toUserId == AuthUser.userId()){
             //received
             let person = Persons.getById(transaction.fromUserId)
             imageType.image = UIImage(named: "ic_pay_received")
             labelType.text = "Money Received".localized
-            labelQuantity.text = "+¥" + String(format: "%.2f",transaction.getQuantity())
+            labelQuantity.text = "+" + String(format: "%.2f",transaction.getQuantity())+"¥"
             labelName.text = person?.fullname
             downloadImage(person: person!, tableView: tableView, indexPath: indexPath)
         }

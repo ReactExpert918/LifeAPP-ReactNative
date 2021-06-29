@@ -31,28 +31,40 @@ class TransactionDetailViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         var person:Person?
-        if(transaction.fromUserId == AuthUser.userId()){
+        if(transaction.toUserId == transaction.fromUserId){
+            person = Persons.getById(transaction.fromUserId)
+            imageType.image = UIImage(named: "ic_pay_charge")
+            labelPaidAt.text = "Added At".localized + " " + Convert.timestampPaid(transaction.updatedAt)
+            
+            labelAmout.text = "+" + String(format: "%.2f",Double(transaction.amount)/100.0)+"¥"
+            labelUserType.text = "Money Received From".localized
+            labelTransactionType.text = "Added with ZED Pay".localized
+            labelTotal.text = String(format: "%.2f",Double(transaction.amount)/100.0)+"¥"
+            
+            
+        }else if(transaction.fromUserId == AuthUser.userId()){
             //sent
             person = Persons.getById(transaction.toUserId)
             imageType.image = UIImage(named: "ic_pay_send_large")
             labelPaidAt.text = "Paid at".localized + " " + Convert.timestampPaid(transaction.updatedAt)
-            labelAmout.text = "-¥ " + String(format: "%.2f",transaction.getQuantity())
+            labelAmout.text = "-" + String(format: "%.2f",transaction.getQuantity())+"¥"
             labelUserType.text = "Money Sent To".localized
             labelTransactionType.text = "Paid with ZED Pay".localized
-
+            labelTotal.text = String(format: "%.2f",transaction.getQuantity())+"¥"
             
-        }else{
+        }else if(transaction.toUserId == AuthUser.userId()){
             //received
             person = Persons.getById(transaction.fromUserId)
             imageType.image = UIImage(named: "ic_pay_receive_large")
             labelPaidAt.text = "Received at".localized + " " + Convert.timestampPaid(transaction.updatedAt)
             
-            labelAmout.text = "+¥ " + String(format: "%.2f",transaction.getQuantity())
+            labelAmout.text = "+" + String(format: "%.2f",transaction.getQuantity())+"¥"
             labelUserType.text = "Money Received From".localized
             labelTransactionType.text = "Received with ZED Pay".localized
+            labelTotal.text = String(format: "%.2f",transaction.getQuantity())+"¥"
         }
         
-        labelTotal.text = "¥ " + String(format: "%.2f",transaction.getQuantity())
+        
         labelId.text = transaction.transId
         labelName.text = person?.fullname
         labelPhone.text = person?.phone

@@ -891,6 +891,7 @@ class ChatViewController: UIViewController {
     //---------------------------------------------------------------------------------------------------------------------------------------------
     @objc func keyboardWillShow(_ notification: Notification) {
         self.popupView.isHidden = true
+        showCallToolbar(value: false)
         if (heightKeyboard != 0) { return }
         // print("keyboardwillshow")
         keyboardWillShow = true

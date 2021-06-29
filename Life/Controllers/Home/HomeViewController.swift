@@ -9,6 +9,7 @@
 import UIKit
 import RealmSwift
 import JGProgressHUD
+import FittedSheets
 protocol CreateGroupDelegate {
     func onGroupCreated(group: Group)
 }
@@ -387,8 +388,17 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     @IBOutlet weak var labelBalance: UILabel!
     @IBAction func onZedPay(_ sender: Any) {
-        labelBalance.text = "¥ " + String(format: "%.2f", person.getBalance())
-        balanceView.isHidden = false
+        //labelBalance.text = "¥ " + String(format: "%.2f", person.getBalance())
+        //balanceView.isHidden = false
+        let mainstoryboard = UIStoryboard.init(name: "ZedPay", bundle: nil)
+        let vc = mainstoryboard.instantiateViewController(withIdentifier: "zedHistoryVC") as! ZedHistoryViewController
+        vc.person = self.person
+        
+        let sheetController = SheetViewController(controller: vc, sizes: [.fixed(400), .fullscreen])
+        self.present(sheetController, animated: true, completion: nil)
+        
+        //self.present(vc, animated: true, completion: nil)
+        
     }
     
     // MARK: - BalanceView close

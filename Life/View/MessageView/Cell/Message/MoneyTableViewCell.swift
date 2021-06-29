@@ -50,7 +50,7 @@ class MoneyTableViewCell: UITableViewCell {
         labelPayResult.text = message.isMediaFailed ? "Payment Failed".localized : "Payment Successful".localized
         imagePayResult.image = message.isMediaFailed ? UIImage(named: "ic_pay_fail") : UIImage(named: "ic_pay_success")
         
-        moneyQuantity.text = "¥ " + String(format: "%.2f", zedPay?.getQuantity() as! CVarArg)
+        moneyQuantity.text = zedPay?.getQuantity().moneyString()
         sendDate.text = Convert.timestampToDayTime(message.createdAt)
         
     }

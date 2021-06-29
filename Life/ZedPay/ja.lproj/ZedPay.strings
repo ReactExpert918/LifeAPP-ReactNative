@@ -53,4 +53,7 @@
 "isW-OK-8BI.normalTitle" = "完了";
 /* Class = "UILabel"; text = "Transaction amount"; ObjectID = "j9k-Tv-AeC"; */
 "j9k-Tv-AeC.text" = "取引金額";
+"oS8-Y3-u0T.text" = "お金を追加する";
+"Slg-hS-pda.normalTitle" = "お金を追加する";
+
 

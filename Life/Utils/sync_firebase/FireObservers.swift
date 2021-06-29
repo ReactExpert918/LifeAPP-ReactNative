@@ -28,6 +28,7 @@ class FireObservers: NSObject {
 	private var observerMessages:	[String: FireObserver] = [:]
     private var observerTransactions: FireObserver?
     private var observerStripeCustomers: FireObserver?
+    private var observerPaymentMethods: FireObserver?
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	static let shared: FireObservers = {
 		let instance = FireObservers()
@@ -58,6 +59,7 @@ class FireObservers: NSObject {
 			if (observerMember == nil)	{ createObserverMember()	}
             if (observerTransactions == nil) { createObserverTransactions() }
             if (observerStripeCustomers == nil) { createObserverStripeCustomers() }
+            if (observerPaymentMethods == nil) { createObserverPaymentMethods() }
 		}
 	}
 
@@ -73,6 +75,7 @@ class FireObservers: NSObject {
 		observerMember?.removeObserver();	observerMember = nil
         observerTransactions?.removeObserver(); observerTransactions = nil
         observerStripeCustomers?.removeObserver(); observerStripeCustomers = nil
+        observerPaymentMethods?.removeObserver(); observerStripeCustomers = nil
 		for chatId in observerMembers.keys	{ observerMembers[chatId]?.removeObserver()	 }
 		for chatId in observerGroups.keys	{ observerGroups[chatId]?.removeObserver()	 }
 		for chatId in observerDetails.keys	{ observerDetails[chatId]?.removeObserver()	 }
@@ -208,5 +211,11 @@ class FireObservers: NSObject {
         let query = Firestore.firestore().collection("StripeCustomer")
             .whereField("userId", isEqualTo: AuthUser.userId())
         observerStripeCustomers = FireObserver(query, to: StripeCustomer.self)
+    }
+    
+    private func createObserverPaymentMethods(){
+        let query = Firestore.firestore().collection("PaymentMethod")
+            .whereField("userId", isEqualTo: AuthUser.userId())
+        observerPaymentMethods = FireObserver(query, to: PaymentMethod.self)
     }
 }

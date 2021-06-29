@@ -135,6 +135,11 @@ class UpdatePasscodeViewController: UIViewController, UITextFieldDelegate {
             self.dismiss(animated: true) {
                 self.delegate?.updatePasscode(result: true)
             }
+        }else {
+            self.hud.dismiss()
+            self.dismiss(animated: true) {
+                self.delegate?.updatePasscode(result: false)
+            }
         }
         
     }

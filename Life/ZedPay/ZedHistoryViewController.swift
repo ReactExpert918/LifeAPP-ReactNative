@@ -104,16 +104,44 @@ class ZedHistoryViewController: UIViewController, UITableViewDataSource, UITable
     // MARK: - Add money tap
     @IBAction func actionTapAddMoney(_ sender: Any) {
         /// just for test
-        let vc = self.storyboard!.instantiateViewController(withIdentifier: "payQrcodeVC") as! PayQRCodeViewController
-        vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: true, completion: nil)
+        let predicate = NSPredicate(format: "userId == %@ AND status == %@ AND isDeleted == NO", AuthUser.userId(), ZEDPAY_STATUS.SUCCESS)
+        let paymentMethods = realm.objects(PaymentMethod.self).filter(predicate)
+        
+        if let paymentMethod = paymentMethods.first {
+            weak var pvc = self.presentingViewController
+            self.dismiss(animated: false){
+                let vc = self.storyboard!.instantiateViewController(withIdentifier: "addMoneyVC") as! AddMoneyViewController
+                vc.modalPresentationStyle = .fullScreen
+                vc.paymentMethod = paymentMethod
+                pvc?.present(vc, animated: true, completion: nil)
+            }
+        }else{
+            weak var pvc = self.presentingViewController
+            let alert = UIAlertController(title: "", message: "Please complete ZED pay settings".localized, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: {_ in
+                pvc?.dismiss(animated: true){
+                    let mainstoryboard = UIStoryboard.init(name: "Setting", bundle: nil)
+                    let vc = mainstoryboard.instantiateViewController(withIdentifier: "settingVC") as! SettingViewController
+                    
+                    vc.modalPresentationStyle = .fullScreen
+                    pvc?.present(vc, animated: true, completion: nil)
+                }
+            }))
+            self.present(alert, animated: true, completion: nil)
+        }
+        
     }
     
     
     @IBAction func actionTapSendMoney(_ sender: Any) {
-        let vc = self.storyboard!.instantiateViewController(withIdentifier: "payQrcodeVC") as! PayQRCodeViewController
-        vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: true, completion: nil)
+        
+        weak var pvc = self.presentingViewController
+        self.dismiss(animated: false){
+            let vc = self.storyboard!.instantiateViewController(withIdentifier: "payQrcodeVC") as! PayQRCodeViewController
+            vc.modalPresentationStyle = .fullScreen
+            pvc?.present(vc, animated: true, completion: nil)
+        }
+        
     }
     
     

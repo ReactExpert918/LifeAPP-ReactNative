@@ -11,7 +11,7 @@ import FittedSheets
 import FirebaseFirestore
 import Contacts
 import ContactsUI
-
+import RealmSwift
 class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
@@ -28,7 +28,9 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
     
     let sections = ["New Friend Requests".localized, "New Friend Pendings".localized, "Friend Recommendations".localized]
     private var persons = realm.objects(Person.self).filter(falsepredicate)
+    private var tokenPendingFriends: NotificationToken? = nil
     private var pendingFriends = realm.objects(Person.self).filter(falsepredicate)
+    private var tokenRequestFriends: NotificationToken? = nil
     private var requestFriends = realm.objects(Person.self).filter(falsepredicate)
     var personList = [Person]()
     
@@ -49,15 +51,10 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func refreshView(){
-        
-        persons = realm.objects(Person.self).filter(falsepredicate)
-        pendingFriends = realm.objects(Person.self).filter(falsepredicate)
-        requestFriends = realm.objects(Person.self).filter(falsepredicate)
-        personList.removeAll()
         loadFriendsRecommend()
         loadPendingFriends()
         loadRequestFriends()
-        refreshTableView()
+        //refreshTableView()
     }
     
     @IBAction func onStartChatTapped(_ sender: Any) {
@@ -118,6 +115,7 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
                 return
             }
             if granted {
+                self.personList.removeAll()
                 let keys = [CNContactFamilyNameKey, CNContactGivenNameKey,  CNContactPhoneNumbersKey, CNContactImageDataKey, CNContactPostalAddressesKey]
                 let request = CNContactFetchRequest(keysToFetch: keys as [CNKeyDescriptor])
                 
@@ -146,7 +144,11 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
                                         trim = phoneCode+trim
                                     }
                                     
-                                    self.searchPersonsByPhoneNumber(text:trim)
+                                    if let _person = self.searchPersonsByPhoneNumber(text:trim){
+                                        self.personList.append(_person)
+                                    }
+                                    
+                                    
                                 }
                             }
                         }
@@ -167,13 +169,14 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
         //print(personList.count)
     }
     
-    func searchPersonsByPhoneNumber(text: String = "") {
+    func searchPersonsByPhoneNumber(text: String = "") -> Person?{
         //print(text)
         let predicate1 = NSPredicate(format: "objectId != %@ AND NOT objectId IN %@", AuthUser.userId(), Friends.friendIds())
         let predicate2 = (text != "") ? NSPredicate(format: "phone == %@", text) : NSPredicate(value: true)
         persons = realm.objects(Person.self).filter(predicate1).filter(predicate2).sorted(byKeyPath: "phone")
         //persons = realm.objects(Person.self)
-        personList.append(contentsOf: persons)
+        return persons.first
+        
     }
     
     func loadPendingFriends(){
@@ -181,6 +184,13 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
         // print(Friends.friendPendingIds())
         let predicate1 = NSPredicate(format: "objectId IN %@ AND NOT objectId IN %@ AND isDeleted == NO", Friends.friendPendingIds(), Blockeds.blockerIds())
         pendingFriends = realm.objects(Person.self).filter(predicate1).sorted(byKeyPath: "fullname")
+        
+        tokenPendingFriends?.invalidate()
+        pendingFriends.safeObserve({ changes in
+            self.refreshTableView()
+        }, completion: { token in
+            self.tokenPendingFriends = token
+        })
         // print(pendingFriends.count)
     }
     func loadRequestFriends(){
@@ -188,7 +198,12 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
         // print(Friends.friendRequestIds())
         let predicate1 = NSPredicate(format: "objectId IN %@ AND NOT objectId IN %@ AND isDeleted == NO", Friends.friendRequestIds(), Blockeds.blockerIds())
         requestFriends = realm.objects(Person.self).filter(predicate1).sorted(byKeyPath: "fullname")
-        // print(requestFriends.count)
+        tokenRequestFriends?.invalidate()
+        requestFriends.safeObserve({ changes in
+            self.refreshTableView()
+        }, completion: { token in
+            self.tokenRequestFriends = token
+        })
     }
     
     func refreshTableView(){
@@ -401,7 +416,7 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         refreshView()
     }
     

@@ -33,7 +33,8 @@ target 'Life' do
   pod 'FittedSheets'
   pod 'Kingfisher'
   pod 'SCLAlertView'
-
+  pod 'FormTextField'
+  pod 'CreditCardValidator'
   target 'LifeTests' do
     inherit! :search_paths
     # Pods for testing

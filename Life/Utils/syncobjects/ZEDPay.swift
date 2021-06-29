@@ -14,8 +14,12 @@ class ZEDPay: SyncObject {
     @objc dynamic var fromUserId = ""
     @objc dynamic var toUserId = ""
     @objc dynamic var quantity: String = ""
-    @objc dynamic var status:Int = TRANSACTION_STATUS.SUCCESS
-   
+    @objc dynamic var status:Int = TRANSACTION_STATUS.PENDING
+    @objc dynamic var amount: Int = 0
+    @objc dynamic var customerId = ""
+    @objc dynamic var error = ""
+    @objc dynamic var cardId = ""
+    
     //---------------------------------------------------------------------------------------------------------------------------------------------
     class func lastUpdatedAt() -> Int64 {
 

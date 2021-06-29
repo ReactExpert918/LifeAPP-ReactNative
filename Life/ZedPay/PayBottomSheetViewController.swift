@@ -35,28 +35,29 @@ class PayBottomSheetViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
-        name.text = person.fullname
+            // Do any additional setup after loading the view.
+            name.text = person.fullname
+            
+            phoneNumber.text = person.phone
         
-        phoneNumber.text = person.phone
-    
-        guard let currentPerson = Persons.currentPerson() else{
-            return
-        }
-        labelBalance.text = "¥" + String(format: "%.2f", currentPerson.getBalance())
+            guard let currentPerson = Persons.currentPerson() else{
+                return
+            }
+            labelBalance.text = String(format: "%.2f", currentPerson.getBalance())+"¥"
+            
+            if(quantity != nil){
+                inputAmount.text = String(format: "%.2f", quantity!)
+            }
+            MediaDownload.startUser(person.objectId, pictureAt: person.pictureAt) { image, error in
+                if (error == nil) {
+                    self.profile.image = image
+                }
+                else {
+                    self.profile.image = UIImage(named: "ic_default_profile")
+                }
+                self.view.isHidden = false
+            }
         
-        if(quantity != nil){
-            inputAmount.text = String(format: "%.2f", quantity!)
-        }
-        MediaDownload.startUser(person.objectId, pictureAt: person.pictureAt) { image, error in
-            if (error == nil) {
-                self.profile.image = image
-            }
-            else {
-                self.profile.image = UIImage(named: "ic_default_profile")
-            }
-            self.view.isHidden = false
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) { // As soon as vc appears
@@ -98,28 +99,19 @@ class PayBottomSheetViewController: UIViewController {
         }
         inputAmount.resignFirstResponder()
         
-        let predicate = NSPredicate(format: "userId == %@ AND status == %@", AuthUser.userId(), ZEDPAY_STATUS.SUCCESS)
-        stripeCustomers = realm.objects(StripeCustomer.self).filter(predicate)
-        let stripeCustomer = stripeCustomers.first
-        if(stripeCustomer == nil){
-            /*let mainstoryboard = UIStoryboard.init(name: "Settings", bundle: nil)
-            let vc = mainstoryboard.instantiateViewController(withIdentifier: "settingVC") as! SettingViewController
-            
+        
+        weak var pvc = self.presentingViewController
+        self.dismiss(animated: false, completion: {
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "passPayVC") as! PassPayViewController
+            vc.toUserId = self.person.objectId
+            vc.quantity = floatAmount
+           
+            vc.chatId = self.chatId
+            vc.recipientId = self.recipientId
             vc.modalPresentationStyle = .fullScreen
-            self.present(vc, animated: true, completion: nil)*/
-        }else{
-            weak var pvc = self.presentingViewController
-            self.dismiss(animated: false, completion: {
-                let vc = self.storyboard?.instantiateViewController(withIdentifier: "passPayVC") as! PassPayViewController
-                vc.toUserId = self.person.objectId
-                vc.quantity = floatAmount
-               
-                vc.chatId = self.chatId
-                vc.recipientId = self.recipientId
-                vc.modalPresentationStyle = .fullScreen
-                pvc?.present(vc, animated: true)
-            })
-        }
+            pvc?.present(vc, animated: true)
+        })
+        
         
         
     }

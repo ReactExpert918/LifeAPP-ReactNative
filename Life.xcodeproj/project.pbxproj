@@ -20,9 +20,14 @@
 		043B8AFA26836B51004BF845 /* PayResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043B8AF926836B51004BF845 /* PayResultViewController.swift */; };
 		04619A442680C0A600FEE00E /* CallAudioView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04619A462680C0A600FEE00E /* CallAudioView.xib */; };
 		0485B9E2266DCD510014A0A4 /* AddFriendPendingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0485B9E1266DCD510014A0A4 /* AddFriendPendingCell.swift */; };
+		048DFD89268ABF5700796D3D /* AddMoneyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048DFD88268ABF5700796D3D /* AddMoneyViewController.swift */; };
 		04975C1326859AB300A10CC1 /* MoneyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04975C1126859AB300A10CC1 /* MoneyTableViewCell.swift */; };
 		04975C1426859AB300A10CC1 /* MoneyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04975C1226859AB300A10CC1 /* MoneyTableViewCell.xib */; };
 		049C109E267EF270003884F6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 049C10A0267EF270003884F6 /* InfoPlist.strings */; };
+		049F975226897D66008E4789 /* AddPaymentMethodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049F975126897D66008E4789 /* AddPaymentMethodViewController.swift */; };
+		049F97542689A9FD008E4789 /* RemovePaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049F97532689A9FD008E4789 /* RemovePaymentViewController.swift */; };
+		049F97562689DAB0008E4789 /* PaymentMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049F97552689DAB0008E4789 /* PaymentMethod.swift */; };
+		049F97582689DBBB008E4789 /* PaymentMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049F97572689DBBB008E4789 /* PaymentMethods.swift */; };
 		04C2C86B267F4C4E0035B825 /* Data+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C2C86A267F4C4E0035B825 /* Data+Extension.swift */; };
 		04C2C86D267F5B050035B825 /* NoRecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C2C86C267F5B050035B825 /* NoRecordCell.swift */; };
 		04C2C86F267F67EA0035B825 /* TransactionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C2C86E267F67EA0035B825 /* TransactionDetailViewController.swift */; };
@@ -304,11 +309,16 @@
 		04619A452680C0A600FEE00E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/CallAudioView.xib; sourceTree = "<group>"; };
 		04619A482680C0B200FEE00E /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/CallAudioView.strings; sourceTree = "<group>"; };
 		0485B9E1266DCD510014A0A4 /* AddFriendPendingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendPendingCell.swift; sourceTree = "<group>"; };
+		048DFD88268ABF5700796D3D /* AddMoneyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMoneyViewController.swift; sourceTree = "<group>"; };
 		04975C1126859AB300A10CC1 /* MoneyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyTableViewCell.swift; sourceTree = "<group>"; };
 		04975C1226859AB300A10CC1 /* MoneyTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MoneyTableViewCell.xib; sourceTree = "<group>"; };
 		049C109A267EF1D5003884F6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		049C109F267EF270003884F6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		049C10A1267EF274003884F6 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		049F975126897D66008E4789 /* AddPaymentMethodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPaymentMethodViewController.swift; sourceTree = "<group>"; };
+		049F97532689A9FD008E4789 /* RemovePaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemovePaymentViewController.swift; sourceTree = "<group>"; };
+		049F97552689DAB0008E4789 /* PaymentMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethod.swift; sourceTree = "<group>"; };
+		049F97572689DBBB008E4789 /* PaymentMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethods.swift; sourceTree = "<group>"; };
 		04C2C86A267F4C4E0035B825 /* Data+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Extension.swift"; sourceTree = "<group>"; };
 		04C2C86C267F5B050035B825 /* NoRecordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoRecordCell.swift; sourceTree = "<group>"; };
 		04C2C86E267F67EA0035B825 /* TransactionDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailViewController.swift; sourceTree = "<group>"; };
@@ -619,6 +629,7 @@
 				04C2C874267F87F70035B825 /* PayBottomSheetViewController.swift */,
 				043B8AF526832546004BF845 /* PassPayViewController.swift */,
 				043B8AF926836B51004BF845 /* PayResultViewController.swift */,
+				048DFD88268ABF5700796D3D /* AddMoneyViewController.swift */,
 			);
 			path = ZedPay;
 			sourceTree = "<group>";
@@ -1016,6 +1027,7 @@
 				A6DEA85F24A83FF000868625 /* Single.swift */,
 				04F4E3CD267C524D00CD94FD /* ZEDPay.swift */,
 				04180C7526889D8300BBF636 /* StripeCustomer.swift */,
+				049F97552689DAB0008E4789 /* PaymentMethod.swift */,
 			);
 			path = syncobjects;
 			sourceTree = "<group>";
@@ -1100,6 +1112,7 @@
 				A6DEA86624A8405300868625 /* Singles.swift */,
 				04F4E3CF267C550100CD94FD /* ZEDPays.swift */,
 				04180C772688A6E800BBF636 /* StripeCustomers.swift */,
+				049F97572689DBBB008E4789 /* PaymentMethods.swift */,
 			);
 			path = syncmethods;
 			sourceTree = "<group>";
@@ -1350,6 +1363,8 @@
 				04180C792688AA5F00BBF636 /* ZEDPaySettingsViewController.swift */,
 				04180C7B2688ACEF00BBF636 /* UpdatePasscodeViewController.swift */,
 				04180C7D2688ADEE00BBF636 /* CreateCustomerViewController.swift */,
+				049F975126897D66008E4789 /* AddPaymentMethodViewController.swift */,
+				049F97532689A9FD008E4789 /* RemovePaymentViewController.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -1769,6 +1784,7 @@
 				040FA1B9267954A400E60DDA /* UpdateOPTViewController.swift in Sources */,
 				AB13A9DB24A2EF610028731D /* AppDelegate.swift in Sources */,
 				A6DEA82724A82A7100868625 /* RCMessageLocationCell.swift in Sources */,
+				049F97562689DAB0008E4789 /* PaymentMethod.swift in Sources */,
 				A6DEA86224A83FF700868625 /* Member.swift in Sources */,
 				04180C782688A6E800BBF636 /* StripeCustomers.swift in Sources */,
 				A6DEA82624A82A7100868625 /* RCMessageAudioCell.swift in Sources */,
@@ -1797,6 +1813,7 @@
 				A6DEA85024A8365900868625 /* FireUpdaters.swift in Sources */,
 				A6DEA87224A8405300868625 /* Messages.swift in Sources */,
 				A6E7000B24B6C5B1004586E0 /* UserStatusCell.swift in Sources */,
+				049F97582689DBBB008E4789 /* PaymentMethods.swift in Sources */,
 				04180C7E2688ADEE00BBF636 /* CreateCustomerViewController.swift in Sources */,
 				04D68F622678851E003DCF12 /* CreateGroupTableViewCell.swift in Sources */,
 				A6BD966C24B4D56900E1B873 /* StickersView.swift in Sources */,
@@ -1821,6 +1838,7 @@
 				A6DEA88A24A8536300868625 /* PushNotification.swift in Sources */,
 				A6BD967E24B4D76900E1B873 /* SelectUsersCell.swift in Sources */,
 				A6DEA85524A83A3E00868625 /* File.swift in Sources */,
+				049F97542689A9FD008E4789 /* RemovePaymentViewController.swift in Sources */,
 				A6DEA85E24A83FE500868625 /* Blocked.swift in Sources */,
 				04C2C86D267F5B050035B825 /* NoRecordCell.swift in Sources */,
 				AB82ACDA24A5453100D83E47 /* AddFriendsViewController.swift in Sources */,
@@ -1862,6 +1880,7 @@
 				A6F2534F24ABA19500A31599 /* UIImageView+RoundedBorder.swift in Sources */,
 				AB30FAFF24AFB2D20037BF25 /* AddFriendSection.swift in Sources */,
 				A6C9824E24AE72E2002280B6 /* ChatManager.swift in Sources */,
+				049F975226897D66008E4789 /* AddPaymentMethodViewController.swift in Sources */,
 				A6DEA88424A84EC600868625 /* Cryptor.swift in Sources */,
 				AB5457AD24B623C4008C7FB8 /* AddParticipantCell.swift in Sources */,
 				A6DEA82C24A82AB000868625 /* RCMessage.swift in Sources */,
@@ -1881,6 +1900,7 @@
 				A6C36B5624B5761F00583CAA /* CallKitProvider.swift in Sources */,
 				A6DEA84D24A8365900868625 /* FireUpdater.swift in Sources */,
 				A6DEA88E24A8537500868625 /* Audio.swift in Sources */,
+				048DFD89268ABF5700796D3D /* AddMoneyViewController.swift in Sources */,
 				AB82ACDC24A5453100D83E47 /* QrCodeViewController.swift in Sources */,
 				A6302BB424B9A34B00345FC9 /* NewConversationViewController.swift in Sources */,
 				A6DEA84A24A8365900868625 /* FireObservers.swift in Sources */,

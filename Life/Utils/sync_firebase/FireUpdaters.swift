@@ -24,6 +24,7 @@ class FireUpdaters: NSObject {
 	private var updaterDetail:	FireUpdater?
 	private var updaterMessage:	FireUpdater?
     private var updaterStripeCustomer: FireUpdater?
+    private var updaterPaymentMethod: FireUpdater?
     private var updaterTransaction: FireZEDPayUpdaters?
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
@@ -47,6 +48,8 @@ class FireUpdaters: NSObject {
 		updaterDetail = FireUpdater(name: "Detail", type: Detail.self)
 		updaterMessage = FireUpdater(name: "Message", type: Message.self)
         updaterStripeCustomer = FireUpdater(name: "StripeCustomer", type: StripeCustomer.self)
+        updaterPaymentMethod = FireUpdater(name: "PaymentMethod", type: PaymentMethod.self)
+        
         updaterTransaction = FireZEDPayUpdaters(type: ZEDPay.self)
         
 	}

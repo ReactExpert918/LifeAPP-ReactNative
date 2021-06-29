@@ -84,7 +84,7 @@ class FireUpdater: NSObject {
 
 		for property in object.objectSchema.properties {
 			let name = property.name
-			if (name != "neverSynced") && (name != "syncRequired") {
+			if (name != "neverSynced") && (name != "syncRequired") && (name != "balance") {
 				switch property.type {
 					case .int:		if let value = object[name] as? Int64	{ values[name] = value }
 					case .bool:		if let value = object[name] as? Bool	{ values[name] = value }
