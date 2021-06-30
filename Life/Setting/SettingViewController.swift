@@ -18,11 +18,11 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
     let items = [[NSLocalizedString("Mirai AI", comment: "Mirai AI"), NSLocalizedString("Zed Pay", comment: "Zed Pay"), NSLocalizedString("Account Settings", comment: "Account Settings"), NSLocalizedString("Privacy Policy", comment: "Privacy Policy"), NSLocalizedString("About Us", comment: "About Us")]]
     let icons = [[UIImage(named: "ic_setting_mirai"), UIImage(named: "ic_zed_pay"), UIImage(named: "setting_account"), UIImage(named: "setting_privacy"), UIImage(named: "setting_about")]]
     */
-    let items = [[NSLocalizedString("Account Settings", comment: "Account Settings"), "ZED Settings".localized]]
-    let icons = [[UIImage(named: "setting_account"), UIImage(named: "ic_zed_pay")]]
+    /*let items = [[NSLocalizedString("Account Settings", comment: "Account Settings"), "ZED Settings".localized]]
+    let icons = [[UIImage(named: "setting_account"), UIImage(named: "ic_zed_pay")]]*/
     
-    /*let items = [[NSLocalizedString("Account Settings", comment: "Account Settings")]]
-    let icons = [[UIImage(named: "setting_account")]]*/
+    let items = [[NSLocalizedString("Account Settings", comment: "Account Settings")]]
+    let icons = [[UIImage(named: "setting_account")]]
     private var stripeCustomers = realm.objects(StripeCustomer.self).filter(falsepredicate)
     
     

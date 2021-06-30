@@ -393,6 +393,7 @@ class ChatViewController: UIViewController {
                     self.refreshTableView()
                     self.scrollToBottom()
                 case .update(_, let delete, let insert, _):
+                    print("messages update")
                     self.messageToDisplay -= delete.count
                     self.messageToDisplay += insert.count
                     self.refreshTableView()
@@ -414,7 +415,7 @@ class ChatViewController: UIViewController {
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func refreshTableView() {
-
+        print("refresh table view")
         tableView.reloadData()
     }
 
@@ -621,11 +622,12 @@ class ChatViewController: UIViewController {
         let menuItemCopy = RCMenuItem(title: "Copy".localized, action: #selector(actionMenuCopy(_:)))
         let menuItemSave = RCMenuItem(title: "Save".localized, action: #selector(actionMenuSave(_:)))
         let menuItemDelete = RCMenuItem(title: "Delete".localized, action: #selector(actionMenuDelete(_:)))
-        //let menuItemForward = RCMenuItem(title: "Forward", action: #selector(actionMenuForward(_:)))
+        let menuItemMark = RCMenuItem(title: "Objectionable".localized, action: #selector(actionMenuMark(_:)))
 
         menuItemCopy.indexPath = indexPath
         menuItemSave.indexPath = indexPath
         menuItemDelete.indexPath = indexPath
+        menuItemMark.indexPath = indexPath
         //menuItemForward.indexPath = indexPath
 
         let rcmessage = rcmessageAt(indexPath)
@@ -640,6 +642,7 @@ class ChatViewController: UIViewController {
         if (rcmessage.type == MESSAGE_TYPE.MESSAGE_AUDIO)    { array.append(menuItemSave) }
 
         array.append(menuItemDelete)
+        array.append(menuItemMark)
         //array.append(menuItemForward)
 
         return array
@@ -649,7 +652,7 @@ class ChatViewController: UIViewController {
         if (action == #selector(actionMenuCopy(_:)))    { return true }
         if (action == #selector(actionMenuSave(_:)))    { return true }
         if (action == #selector(actionMenuDelete(_:)))    { return true }
-        if (action == #selector(actionMenuForward(_:)))    { return true }
+        if (action == #selector(actionMenuMark(_:)))    { return true }
         return false
     }
 
@@ -791,6 +794,13 @@ class ChatViewController: UIViewController {
         if let indexPath = RCMenuItem.indexPath(sender as! UIMenuController) {
             let message = messageAt(indexPath)
             message.update(isDeleted: true)
+        }
+    }
+    @objc func actionMenuMark(_ sender: Any?) {
+
+        if let indexPath = RCMenuItem.indexPath(sender as! UIMenuController) {
+            let message = messageAt(indexPath)
+            message.update(isObjectionable: true)
         }
     }
 

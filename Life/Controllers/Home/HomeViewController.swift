@@ -29,10 +29,10 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet weak var homeTableView: UITableView!
     @IBOutlet weak var redCircle: UIImageView!
     
-    @IBOutlet weak var balanceView: UIView!
+    
     @IBOutlet weak var imageReceivedUnRead: UIImageView!
     @IBOutlet weak var addFriendView: UIView!
-    @IBOutlet weak var agreeView: UIView!
+    
     
     let hud = JGProgressHUD(style: .light)
     var headerSections =  [HeaderSection(name: "My Status", collapsed: false), HeaderSection(name: "Groups".localized+" 0", collapsed: false), HeaderSection(name: "Friends".localized+" 0", collapsed: false)]
@@ -70,45 +70,13 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         homeTableView.dataSource = self
         homeTableView.delegate = self
         
-        if(PrefsManager.getReadEULA() == false){
-            agreeView.isHidden = false
-            addFriendView.isHidden = true
-            let preferredLanguage = Bundle.main.preferredLocalizations.first!
-            print(preferredLanguage)
-            if(preferredLanguage == "ja"){
-                textEULA.text = "モバイルアプリケーションをダウンロード、インストール、または使用する前に、これらの条件をよくお読みください。このアプリをダウンロード、インス トール、または使用することにより、または以下の「同意する」をクリックすること により、お客様は本契約を読み、理解し、その条件に拘束されることに同意したこと になります。本規約に同意しない場合は、このアプリのダウンロード、使用、サービ スの使用、または「同意する」をクリックしないでください。\n";
-                textEULA.text += "\t1. 本エンドユーザー使用許諾契約書（以下「本EULA」）は、個人または事業体としての お客様（以下「お客様」）とMirai group Japan（以下「当社」）との間で締結さ れ、当社がダウンロードを可能にしているLIFEモバイルアプリケーションを含むが これに限られない、すべてのモバイルソフトウェアアプリケーション( (以下「本アプ リ」) に関連するおよび/または当社に代わって所有または管理さ れているその他のウェブサイト（総称して以下「本ウェブサイト」、本アプリと総称 して以下「本サービス」)のユーザーの使用を規定するものです。\n";
-                textEULA.text += "\t2. お客様は、本EULAに定められた個人的（非商業的）な目的のために 本サービスを使用する非独占的かつ限定的な権利を有することを認めます。お 客様は、適用法によって明示的に許可されている場合を除き、リバースエンジ ニアリング、逆コンパイル、逆アセンブルまたは本サービスのソースコードへ のアクセスを試みることはできず、適用法で許可されている範囲で、契約上の 権利放棄が認められている場合、お客様はここにその権利を放棄するものとします。\n";
-                textEULA.text += "\t3. お客様が本EULAに基づく重大な義務に違反した場合、本契約に基づくお客様の権 利は自動的に終了します。本EULAが終了した場合、お客様は本サービスのすべ てのコピーを速やかに破棄し、終了後は本サービスのすべての使用を停止するものとします。\n";
-                textEULA.text += "\t4. 禁止事項。 ユーザーは、当社が単独で判断した「禁止コンテンツ」に該当すると判断したユーザーコンテンツを本サービスに投稿することはできません。禁止コンテンツには以下のものが含まれますが、これらに限定されません。\n";
-                textEULA.text += "\t5. 性的に露骨な内容（例：アイコン、タイトル、音声、音声、写真、説明を含むポルノまたはアダルトコンテンツ）。 児童の性的虐待の画像は一切容認しない方針です。 児童の性的虐待の画像を含むユーザーコンテンツを発見した場合、直ちに当局に報告し、投稿されたユーザーアカウントを削除し、最大限の法的措置を講じます。\n";
-                textEULA.text += "\t6. 暴力といじめ（例として、ユーザーコンテンツには、他のユーザーや第三者を脅迫、嫌がらせ、いじめるような内容のもの、暴力描写、人、場所や財産、その他の暴力描写、自殺を含む暴力行為を扇動するもの等）。\n";
-            }else{
-                textEULA.text = "Please read these terms carefully before downloading, installing, or using the mobile application. By downloading, installing, or using this app, or by clicking \"Agree\" below, you agree that you have read, understood, and are bound by the terms of this Agreement. I will. If you do not agree to these Terms, please do not download, use, use the service, or click I Agree.\n";
-                textEULA.text += "\t1. This End User License Agreement (\"EULA\") is entered into between you as an individual or business entity (\"Customer\") and Mirai group Japan (\"Company\"). Related to, but not limited to, all mobile software applications (the \"Appli\") and / or owned or controlled on our behalf, including, but not limited to, the LIFE mobile application that allows download. It regulates the use of users of other websites (collectively, \"this website\", collectively, \"this service\").\n";
-                textEULA.text += "\t2. You acknowledge that you have a non-exclusive and limited right to use the Services for personal (non-commercial) purposes set forth in this EULA. You may not attempt reverse engineering, decompiling, disassembling or accessing the source code of the Services except as expressly permitted by applicable law and is permitted by applicable law. To the extent that the contractual waiver is permitted, you hereby waive that right.\n";
-                textEULA.text += "\t3. If you violate any material obligations under this EULA, your rights under this Agreement will automatically terminate. Upon termination of this EULA, you shall promptly destroy all her copies of the Services and suspend all use of the Services after termination.\n";
-                textEULA.text += "\t4. Users may not post user content that we have determined to fall under \"prohibited content\" independently to this service. Banned content includes, but is limited to.\n";
-                textEULA.text += "\t5. Sexually explicit content (eg pornographic or adult content including icons, titles, audio, audio, photos, descriptions). It is our policy not to tolerate any images of child sexual abuse. If we discover user content that contains images of child sexual abuse, we will immediately report it to the authorities, delete the posted user account and take maximum legal action.\n";
-                textEULA.text += "\t6. Violence and bullying (for example, user content includes content that threatens, harasses, or bullies other users or third parties, depictions of violence, people, places or property, other depictions of violence, or acts of violence, including suicide. Those that incite).\n";
-                
-            }
-            
-        }else{
-            agreeView.isHidden = true
-            if(PrefsManager.getEULAAgree() == false){
-                addFriendView.isHidden = true
-            }else{
-                addFriendView.isHidden = false
-            }
-            
-        }
+        
         
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) { // As soon as vc appears
         super.viewWillAppear(animated)
-        balanceView.isHidden = true
+        
         if(Friends.friendPendingIds().count > 0){
             redCircle.isHidden = false
         }else{
@@ -401,52 +369,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
     }
     
-    // MARK: - BalanceView close
-    @IBAction func actionTapBalanceClose(_ sender: Any) {
-        balanceView.isHidden = true
-    }
-    // MARK: - History Tap
-    @IBAction func actionTapHistory(_ sender: Any) {
-        /// Just for test
-        ///person.update(balance: 500.23)
-        
-        let mainstoryboard = UIStoryboard.init(name: "ZedPay", bundle: nil)
-        let vc = mainstoryboard.instantiateViewController(withIdentifier: "zedHistoryVC") as! ZedHistoryViewController
-        vc.person = self.person
-        vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: true, completion: nil)
-    }
     
-    // MARK: - scan qr code
     
-    @IBAction func actionTapScan(_ sender: Any) {
-        let mainstoryboard = UIStoryboard.init(name: "ZedPay", bundle: nil)
-        let vc = mainstoryboard.instantiateViewController(withIdentifier: "payQrcodeVC") as! PayQRCodeViewController
-        
-        vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: true, completion: nil)
-    }
-    
-    // MARK: - Add Money
-    @IBAction func actionTapAddMoney(_ sender: Any) {
-        print("Add Money")
-    }
-    
-    // MARK: - EULA
-    @IBAction func actionTapAgree(_ sender: Any) {
-        PrefsManager.setReadEULA(val: true)
-        PrefsManager.setEULAAgree(val: true)
-        agreeView.isHidden = true
-        addFriendView.isHidden = false
-        self.refreshTableView()
-    }
-    @IBAction func actionTapNoAgree(_ sender: Any) {
-        PrefsManager.setReadEULA(val: true)
-        PrefsManager.setEULAAgree(val: false)
-        agreeView.isHidden = true
-        addFriendView.isHidden = true
-        self.refreshTableView()
-    }
     
 }
 

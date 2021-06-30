@@ -95,4 +95,7 @@
 "spi-yy-ddB.normalTitle" = "パスワードリセットを送信";
 
 
-
+/* Class = "UIButton"; normalTitle = "ACCEPT"; ObjectID = "FmW-QF-FnA"; */
+"FmW-QF-FnA.normalTitle" = "同意する";
+/* Class = "UIButton"; normalTitle = "DON'T ACEEPT"; ObjectID = "tqF-l3-UaB"; */
+"fNR-QM-lAH.normalTitle" = "同意しない";

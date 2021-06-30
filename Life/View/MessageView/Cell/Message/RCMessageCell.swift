@@ -18,7 +18,7 @@ class RCMessageCell: UITableViewCell {
 	var messagesView: ChatViewController!
 
 	var viewBubble: UIView!
-
+    private var objectionableMark: UIImageView!
 	private var imageAvatar: UIImageView!
 	private var labelAvatar: UILabel!
     private var labelText: UILabel!
@@ -108,9 +108,19 @@ class RCMessageCell: UITableViewCell {
         labelName.text = (messagesView.recipientId == "" && rcmessage.incoming==true) ?  rcmessage.userFullname : nil
         nameHeight = (labelName.text != nil) ? RCDefaults.headerLowerHeight : 0
         
+        print(rcmessage.isObjectionalbe)
+        if(objectionableMark == nil && rcmessage.isObjectionalbe){
+            print("create mark")
+            objectionableMark = UIImageView()
+            objectionableMark.image = UIImage(named: "ic_pay_fail")
+            contentView.addSubview(objectionableMark)
+        }else if (objectionableMark != nil && rcmessage.isObjectionalbe == false){
+            objectionableMark.removeFromSuperview()
+            objectionableMark = nil
+        }
         
 	}
-
+    
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	func layoutSubviews(_ size: CGSize) {
 
@@ -138,7 +148,11 @@ class RCMessageCell: UITableViewCell {
         
         let xBubble = rcmessage.incoming ? RCDefaults.bubbleMarginLeft : (widthTable - RCDefaults.bubbleMarginRight - size.width)
         viewBubble.frame = CGRect(x: xBubble, y: labelHeight+RCDefaults.viewBubbleMarginTop+nameHeight, width: size.width, height: size.height-labelHeight-RCDefaults.viewBubbleMarginTop-nameHeight)
-
+        let xMark = rcmessage.incoming ? RCDefaults.bubbleMarginLeft + size.width + 10 : (widthTable - RCDefaults.bubbleMarginRight - size.width - 20 - 10)
+        if(objectionableMark != nil){
+            print("display mark")
+            objectionableMark.frame = CGRect(x: xMark, y:labelHeight+RCDefaults.viewBubbleMarginTop+nameHeight + 5, width: 18, height: 18 )
+        }
         let diameter = RCDefaults.avatarDiameter
         let xAvatar = rcmessage.incoming ? RCDefaults.avatarMarginLeft : (widthTable - RCDefaults.avatarMarginRight - diameter)
         imageAvatar.frame = CGRect(x: xAvatar, y: labelHeight, width: diameter, height: diameter)

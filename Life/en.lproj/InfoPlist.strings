@@ -11,7 +11,7 @@
     NSPhotoLibraryUsageDescription = "We use photo library to save picture and video messages.";
     NSPhotoLibraryAddUsageDescription = "We use photo library to save picture and video messages.";
     NSMicrophoneUsageDescription = "We use your microphone to send audio messages.";
-    NSContactsUsageDescription = "App needs to access contacts to get list.";
+    NSContactsUsageDescription = "App needs to access contacts to recommend friends to you.";
     NSLocationAlwaysUsageDescription = "We use your location to send location messages.";
     NSLocationWhenInUseUsageDescription = "We use your location to send location messages.";
 }

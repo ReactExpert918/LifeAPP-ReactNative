@@ -48,7 +48,7 @@ class RCMessage: NSObject {
 	var photoImage: UIImage?
 	var videoThumbnail: UIImage?
 	var locationThumbnail: UIImage?
-
+    var isObjectionalbe: Bool = false
     var audioStatus = AudioStatus.AUDIOSTATUS_STOPPED
     var mediaStatus = MediaStatus.MEDIASTATUS_UNKNOWN
 
@@ -91,6 +91,7 @@ class RCMessage: NSObject {
 		let currentId = AuthUser.userId()
 		self.incoming = (message.userId != currentId)
 		self.outgoing = (message.userId == currentId)
+        self.isObjectionalbe = message.isObjectionable
 	}
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
@@ -98,5 +99,6 @@ class RCMessage: NSObject {
 
 		self.isMediaQueued = message.isMediaQueued
 		self.isMediaFailed = message.isMediaFailed
+        self.isObjectionalbe = message.isObjectionable
 	}
 }

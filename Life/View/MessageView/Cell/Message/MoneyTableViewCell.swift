@@ -37,7 +37,7 @@ class MoneyTableViewCell: UITableViewCell {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(actionContentView))
         contentView.addGestureRecognizer(tapGesture)
         self.messageView = messageView
-        print(message.text)
+        
         
         let predicate = NSPredicate(format: "transId == %@ ", message.text)
         zedPay = realm.objects(ZEDPay.self).filter(predicate).first

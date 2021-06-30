@@ -32,9 +32,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
        
         
         let configuration = Realm.Configuration(
-            schemaVersion: 10,
+            schemaVersion: 11,
             migrationBlock: { migration, oldSchemaVersion in
-                if oldSchemaVersion < 10 {
+                if oldSchemaVersion < 11 {
                     // if you added a new property or removed a property you don't
                     // have to do anything because Realm automatically detects that
                 }

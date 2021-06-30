@@ -15,7 +15,7 @@ import UIKit
 class RCMessageTextCell: RCMessageCell {
 
 	private var textView: UITextView!
-
+    
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	override func bindData(_ messagesView: ChatViewController, at indexPath: IndexPath) {
 
@@ -71,6 +71,7 @@ class RCMessageTextCell: RCMessageCell {
             textView.text = rcmessage.text
             return
         }
+        
         
 	}
 

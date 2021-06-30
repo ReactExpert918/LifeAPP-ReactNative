@@ -77,7 +77,13 @@ class PassPayViewController: UIViewController {
     // MARK: - next tap
     @IBAction func actionTapNext(_ sender: Any) {
         let passCode = dpPassCode.text ?? ""
-        if(passCode != "1234"){
+        
+        let predicate = NSPredicate(format: "userId == %@ AND status == %@ ", AuthUser.userId(), ZEDPAY_STATUS.SUCCESS)
+        let customers = realm.objects(StripeCustomer.self).filter(predicate)
+        guard let customer = customers.first else{
+            return
+        }
+        if(passCode != customer.passcode.decryptedString()){
             let confirmationAlert = UIAlertController(title: "", message: "PassCode incorrect".localized, preferredStyle: .alert)
             confirmationAlert.addAction(UIAlertAction(title: "OK".localized, style: .cancel, handler: { (action: UIAlertAction!) in
             }))

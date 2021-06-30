@@ -112,18 +112,18 @@ class PrefsManager:NSObject{
     }
 
     class func setEULAAgree(val: Bool){
-        set(key: "EULA", value: val)
+        set(key: "EULA1", value: val)
     }
     
     class func getEULAAgree() -> Bool{
-        get(key: "EULA")
+        get(key: "EULA1")
     }
     
     class func setReadEULA(val: Bool){
-        set(key: "ReadEULA", value: val)
+        set(key: "ReadEULA1", value: val)
     }
     class func getReadEULA() -> Bool{
-        get(key: "ReadEULA")
+        get(key: "ReadEULA1")
     }
 
 }
