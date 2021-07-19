@@ -10,27 +10,27 @@ import Foundation
 
 class PrefsManager:NSObject{
     
-    class func set(key:String,value:Bool){
+    class func set(key:String,value:Bool) {
         UserDefaults.standard.set(value, forKey: key)
         UserDefaults.standard.synchronize()
     }
     
-    class func get(key:String) -> Bool{
+    class func get(key:String) -> Bool {
         let value = UserDefaults.standard.bool(forKey: key)
         return value
     }
     
-    class func setString(key:String,value:String){
+    class func setString(key:String,value:String) {
         UserDefaults.standard.set(value, forKey: key)
         UserDefaults.standard.synchronize()
     }
     
-    class func getString(key:String) -> String{
+    class func getString(key:String) -> String {
         let value = UserDefaults.standard.string(forKey: key) ?? ""
         return value
     }
     
-    class func setInt(key:String,value:Int){
+    class func setInt(key:String,value:Int) {
         UserDefaults.standard.set(value, forKey: key)
         UserDefaults.standard.synchronize()
     }
@@ -41,73 +41,61 @@ class PrefsManager:NSObject{
     }
     
     
-    class func setFCMToken(val : String)
-    {
+    class func setFCMToken(val : String) {
         setString(key: "fcmToken", value: val)
     }
     
-    class func  getFCMToken() -> String
-    {
+    class func  getFCMToken() -> String {
         return getString(key: "fcmToken")
     }
     
-    class func setUserID(val : String)
-    {
+    class func setUserID(val : String) {
         setString(key: "userid", value: val)
     }
     
-    class func  getUserID() -> String
-    {
+    class func  getUserID() -> String {
         return getString(key: "userid")
     }
     
     
-    class func setEmail(val : String)
-    {
+    class func setEmail(val : String) {
         setString(key: "email", value: val)
     }
     
-    class func  getEmail() -> String
-    {
+    class func  getEmail() -> String {
         return getString(key: "email")
     }
     
-    class func setAvatar(val : String)
-    {
+    class func setAvatar(val : String) {
         setString(key: "avatar", value: val)
     }
     
-    class func  getAvatar() -> String
-    {
+    class func  getAvatar() -> String {
         return getString(key: "avatar")
     }
     
 
-    class func setFirstName(val : String)
-    {
+    class func setFirstName(val : String) {
         setString(key: "firstname", value: val)
     }
     
-    class func  getFirstName() -> String
-    {
+    class func  getFirstName() -> String {
         return getString(key: "firstname")
     }
-    class func setLastName(val : String)
-    {
+    
+    class func setLastName(val : String) {
         setString(key: "lastname", value: val)
     }
     
-    class func  getLastName() -> String
-    {
+    class func  getLastName() -> String {
         return getString(key: "lastname")
     }
-    class func setPassword(val : String)
-    {
+    
+    class func setPassword(val : String) {
         setString(key: "password", value: val)
     }
     
-    class func  getPassword() -> String
-    {
+    class func  getPassword() -> String {
         return getString(key: "password")
     }
 

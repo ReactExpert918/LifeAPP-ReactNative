@@ -17,13 +17,15 @@ class PushNotification: NSObject {
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	class func oneSignalId() -> String {
 
-		if let status = OneSignal.getPermissionSubscriptionState() {
-			if (status.subscriptionStatus.pushToken != nil) {
-				if let userId = status.subscriptionStatus.userId {
-					return userId
-				}
-			}
+		if let status = OneSignal.getDeviceState() {
+            let subcribed = status.isSubscribed
+            if subcribed {
+                if let uid = status.userId {
+                    return uid
+                }
+            }
 		}
+        
 		return ""
 	}
 
@@ -38,7 +40,7 @@ class PushNotification: NSObject {
 		if (type == MESSAGE_TYPE.MESSAGE_EMOJI)		{ text = text + (" sent you an emoji.")			}
 		if (type == MESSAGE_TYPE.MESSAGE_PHOTO)		{ text = text + (" sent you a photo.")			}
 		if (type == MESSAGE_TYPE.MESSAGE_VIDEO)		{ text = text + (" sent you a video.")			}
-		if (type == MESSAGE_TYPE.MESSAGE_AUDIO) 		{ text = text + (" sent you an audio.")			}
+		if (type == MESSAGE_TYPE.MESSAGE_AUDIO) 	{ text = text + (" sent you an audio.")			}
 		if (type == MESSAGE_TYPE.MESSAGE_LOCATION)	{ text = text + (" sent you a location.")		}
 
 		let chatId = message.chatId

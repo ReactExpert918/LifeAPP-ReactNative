@@ -1,5 +1,5 @@
 //
-//  SuccessViewController.swift
+//  SuccessVC.swift
 //  Life
 //
 //  Created by Yun Li on 2020/6/30.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SuccessViewController: UIViewController {
+class SuccessVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

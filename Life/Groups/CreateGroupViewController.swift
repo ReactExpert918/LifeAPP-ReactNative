@@ -20,7 +20,7 @@ class CreateGroupViewController: UIViewController, UICollectionViewDelegate, UIC
     
     private var selectedUsers: [String] = []
     private var groupPicture: UIImage? = nil
-    let hud = JGProgressHUD(style: .light)
+    
 
     var delegate: CreateGroupDelegate? = nil
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -135,11 +135,11 @@ class CreateGroupViewController: UIViewController, UICollectionViewDelegate, UIC
         
         let name = groupNameTextField.text ?? ""
         if name.count == 0 {
-            Util.showAlert(vc: self, "Please enter the name", "")
+            //Util.showAlert(vc: self, "Please enter the name", "")
             return
         }
         if selectedPersonsForGroup.count == 0 {
-            Util.showAlert(vc: self, "Please select users", "")
+            //Util.showAlert(vc: self, "Please select users", "")
             return
         }
         // Append user id
@@ -155,22 +155,22 @@ class CreateGroupViewController: UIViewController, UICollectionViewDelegate, UIC
         if self.groupPicture != nil {
             // upload picture
             if let data = groupPicture?.jpegData(compressionQuality: 0.6) {
-                self.hud.textLabel.text = "Creating new group..."
-                self.hud.show(in: self.view, animated: true)
+                //self.hud.textLabel.text = "Creating new group..."
+                //self.hud.show(in: self.view, animated: true)
                 MediaUpload.group(group.objectId, data: data, completion: { error in
                     if (error == nil) {
                         MediaDownload.saveGroup(group.objectId, data: data)
                         group.update(pictureAt: Date().timestamp())
-                        self.hud.dismiss()
+                        //self.hud.dismiss()
                         self.dismiss(animated: true) {
                             self.delegate?.onGroupCreated(group: group)
                         }
                     } else {
                         DispatchQueue.main.async {
-                            self.hud.textLabel.text = "Picture upload error."
-                            self.hud.show(in: self.view, animated: true)
+                            //self.hud.textLabel.text = "Picture upload error."
+                            //self.hud.show(in: self.view, animated: true)
                         }
-                        self.hud.dismiss(afterDelay: 1.0, animated: true)
+                        //self.hud.dismiss(afterDelay: 1.0, animated: true)
                     }
                 })
             }

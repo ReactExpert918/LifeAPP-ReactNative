@@ -25,7 +25,7 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
     @IBOutlet weak var phoneNumber: UILabel!
     @IBOutlet weak var emailAddress: UILabel!
     @IBOutlet weak var profileImageView: SwiftyAvatar!
-    let hud = JGProgressHUD(style: .light)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -45,20 +45,21 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
     func updateUserName(name: String) {
         self.person.update(fullname: name)
         loadPerson()
-        Util.showSuccessAlert(vc: self, "Successfully updated the name.", "")
+        //Util.showSuccessAlert(vc: self, "Successfully updated the name.", "")
     }
     
     func updatePassword(password: String) {
+        
         DispatchQueue.main.async {
-            self.hud.show(in: self.view, animated: true)
+            //self.hud.show(in: self.view, animated: true)
         }
         AuthUser.updatePassword(password: password) { (error) in
-            self.hud.dismiss()
+            //self.hud.dismiss()
             if let error = error {
-                Util.showAlert(vc: self, error.localizedDescription , "")
+                //Util.showAlert(vc: self, error.localizedDescription , "")
                 return
             }
-            Util.showSuccessAlert(vc: self, "Successfully updated the password.", "")
+            //Util.showSuccessAlert(vc: self, "Successfully updated the password.", "")
         }
     }
     
@@ -68,12 +69,12 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
         vc.delegate = self
 
         let sheetController = SheetViewController(controller: vc, sizes: [.fixed(290)])
-        sheetController.blurBottomSafeArea = false
-        sheetController.adjustForBottomSafeArea = false
+//        sheetController.blurBottomSafeArea = false
+//        sheetController.adjustForBottomSafeArea = false
 
         // Make corners more round
-        sheetController.topCornersRadius = 15
-        
+//        sheetController.topCornersRadius = 15
+        sheetController.cornerRadius = 15
 
         // It is important to set animated to false or it behaves weird currently
         self.present(sheetController, animated: false, completion: nil)
@@ -83,11 +84,12 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
         vc.delegate = self
         
         let sheetController = SheetViewController(controller: vc, sizes: [.fixed(350)])
-        sheetController.blurBottomSafeArea = false
-        sheetController.adjustForBottomSafeArea = false
+//        sheetController.blurBottomSafeArea = false
+//        sheetController.adjustForBottomSafeArea = false
 
         // Make corners more round
-        sheetController.topCornersRadius = 15
+//        sheetController.topCornersRadius = 15
+        sheetController.cornerRadius = 15
 
         // It is important to set animated to false or it behaves weird currently
         self.present(sheetController, animated: false, completion: nil)
@@ -101,17 +103,17 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
 
         refreshAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action: UIAlertAction!) in
             DispatchQueue.main.async {
-                self.hud.show(in: self.view, animated: true)
+                //self.hud.show(in: self.view, animated: true)
             }
             AuthUser.deleteAccount { (error) in
-                self.hud.dismiss()
+                //self.hud.dismiss()
                 if let error = error {
-                    Util.showAlert(vc: self, error.localizedDescription, "")
+                    //Util.showAlert(vc: self, error.localizedDescription, "")
                     return
                 }
                 self.person.update(isDeleted: true)
                 PrefsManager.setEmail(val: "")
-                self.gotoWelcomeViewController()
+                self.gotoWelcomeVC()
             }
             
         }))
@@ -120,9 +122,9 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
         }))
         present(refreshAlert, animated: true, completion: nil)
     }
-    func gotoWelcomeViewController() {
+    func gotoWelcomeVC() {
         let mainstoryboard = UIStoryboard.init(name: "Login", bundle: nil)
-        let vc = mainstoryboard.instantiateViewController(withIdentifier: "rootNavigationViewController")
+        let vc = mainstoryboard.instantiateViewController(withIdentifier: "rootNavigationVC")
         UIApplication.shared.windows.first?.rootViewController = vc
     }
     func loadPerson() {
@@ -198,10 +200,10 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
                     self.person.update(pictureAt: Date().timestamp())
                 } else {
                     DispatchQueue.main.async {
-                        self.hud.textLabel.text = "Picture upload error."
-                        self.hud.show(in: self.view, animated: true)
+                        //self.hud.textLabel.text = "Picture upload error."
+                        //self.hud.show(in: self.view, animated: true)
                     }
-                    self.hud.dismiss(afterDelay: 1.0, animated: true)
+                    //self.hud.dismiss(afterDelay: 1.0, animated: true)
                 }
             })
         }

@@ -24,10 +24,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var client: SINClient?
     var push: SINManagedPush?
     var callKitProvider: CallKitProvider?
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         IQKeyboardManager.shared.enable = true
-       
         
         let configuration = Realm.Configuration(
             schemaVersion: 1,
@@ -61,10 +61,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //-----------------------------------------------------------------------------------------------------------------------------------------
         // OneSignal initialization
         //-----------------------------------------------------------------------------------------------------------------------------------------
-        OneSignal.initWithLaunchOptions(launchOptions, appId: ONESIGNAL.ONESIGNAL_APPID, handleNotificationReceived: nil,
-                                        handleNotificationAction: nil, settings: [kOSSettingsKeyAutoPrompt: false])
+//        OneSignal.initWithLaunchOptions(launchOptions, appId: ONESIGNAL.ONESIGNAL_APPID, handleNotificationReceived: nil,
+//                                        handleNotificationAction: nil, settings: [kOSSettingsKeyAutoPrompt: false])
+        OneSignal.initWithLaunchOptions(launchOptions)
+        OneSignal.setAppId(ONESIGNAL.ONESIGNAL_APPID)
+        OneSignal.promptForPushNotifications(userResponse: { accepted in
+            print("User accepted notifications: \(accepted)")
+        })
+        
         OneSignal.setLogLevel(ONE_S_LOG_LEVEL.LL_NONE, visualLevel: ONE_S_LOG_LEVEL.LL_NONE)
-        OneSignal.inFocusDisplayType = OSNotificationDisplayType.none
+//        OneSignal.inFocusDisplayType = OSNotificationDisplayType.none
+        
         //-----------------------------------------------------------------------------------------------------------------------------------------
         // Manager initialization
         //-----------------------------------------------------------------------------------------------------------------------------------------
@@ -96,7 +103,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let firebaseAuth = Auth.auth()
         print("device token: \(deviceToken.toHexString())")
-        firebaseAuth.setAPNSToken(deviceToken, type: .sandbox)
+//        firebaseAuth.setAPNSToken(deviceToken, type: .sandbox)
         firebaseAuth.setAPNSToken(deviceToken, type: .prod)
 
     }
@@ -104,7 +111,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         let firebaseAuth = Auth.auth()
         if (firebaseAuth.canHandleNotification(userInfo)){
-            print(userInfo)
+            print("+++++++++++++++++++++", userInfo)
             return
         }
     }

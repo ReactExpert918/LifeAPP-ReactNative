@@ -39,7 +39,7 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
                     
                 }
                 PrefsManager.setEmail(val: "")
-                self.gotoWelcomeViewController()
+                self.gotoWelcomeVC()
             }
             
         }))
@@ -49,9 +49,9 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
         present(refreshAlert, animated: true, completion: nil)
     }
     
-    func gotoWelcomeViewController() {
+    func gotoWelcomeVC() {
         let mainstoryboard = UIStoryboard.init(name: "Login", bundle: nil)
-        let vc = mainstoryboard.instantiateViewController(withIdentifier: "rootNavigationViewController")
+        let vc = mainstoryboard.instantiateViewController(withIdentifier: "rootNavigationVC")
         UIApplication.shared.windows.first?.rootViewController = vc
     }
     

@@ -20,7 +20,7 @@ class OTPVerificationViewController: UIViewController {
     
     @IBOutlet weak var otpCodeView: DPOTPView!
     
-    let hud = JGProgressHUD(style: .light)
+    
     
     var phoneNumber = ""
     
@@ -81,23 +81,23 @@ class OTPVerificationViewController: UIViewController {
             withVerificationID: verificationID!,
             verificationCode: verificationCode)
         DispatchQueue.main.async {
-            self.hud.textLabel.text = ""
-            self.hud.show(in: self.view, animated: true)
+            //self.hud.textLabel.text = ""
+            //self.hud.show(in: self.view, animated: true)
         }
         Auth.auth().signIn(with: credential) { (authResult, error) in
             if let error = error {
-                self.hud.dismiss()
-                Util.showAlert(vc: self, "Incorrect verification code, please try again." , "")
+                //self.hud.dismiss()
+                //Util.showAlert(vc: self, "Incorrect verification code, please try again." , "")
                 return
             }
             
             // Create Person
             self.createPerson()
             // OTP Verification completed
-            self.hud.textLabel.text = "Signup successful."
-            self.hud.dismiss(afterDelay: 2.0, animated: true)
+            //self.hud.textLabel.text = "Signup successful."
+            //self.hud.dismiss(afterDelay: 2.0, animated: true)
             DispatchQueue.main.asyncAfter(deadline: .now()+2.1, execute: {
-                self.gotoBasicDetailInsertViewController()
+                self.gotoBasicDetailInsertVC()
             })
         }
     }
@@ -106,20 +106,20 @@ class OTPVerificationViewController: UIViewController {
         let userId = AuthUser.userId()
         Persons.create(userId, phone: self.phoneNumber)
     }
-    func gotoBasicDetailInsertViewController() {
-        let vc =  self.storyboard?.instantiateViewController(identifier: "basicDetailInsertVC") as! BasicDetailInsertViewController
+    func gotoBasicDetailInsertVC() {
+        let vc =  self.storyboard?.instantiateViewController(identifier: "basicDetailInsertVC") as! BasicDetailInsertVC
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction func onResendCodePressed(_ sender: Any) {
         DispatchQueue.main.async {
-            self.hud.textLabel.text = "Sending..."
-            self.hud.show(in: self.view, animated: true)
+            //self.hud.textLabel.text = "Sending..."
+            //self.hud.show(in: self.view, animated: true)
         }
         PhoneAuthProvider.provider().verifyPhoneNumber(phoneNumber, uiDelegate: nil) { (verificationID, error) in
-            self.hud.dismiss(afterDelay: 1.0, animated: true)
+            //self.hud.dismiss(afterDelay: 1.0, animated: true)
             if error != nil {
-                Util.showAlert(vc: self, error?.localizedDescription ?? "", "")
+                //Util.showAlert(vc: self, error?.localizedDescription ?? "", "")
                 return
             }
             // Save Verification ID

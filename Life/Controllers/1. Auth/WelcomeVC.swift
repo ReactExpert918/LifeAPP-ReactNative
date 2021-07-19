@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WelcomeViewController: UIViewController {
+class WelcomeVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,14 +18,14 @@ class WelcomeViewController: UIViewController {
     
     @IBAction func onLoginPressed(_ sender: Any) {
         //gotoMainViewController()
-        let vc =  self.storyboard?.instantiateViewController(identifier: "signinVC") as! SignInViewController
+        let vc =  self.storyboard?.instantiateViewController(identifier: "signinVC") as! SigninVC
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction func onSignupPressed(_ sender: Any) {
-        let vc =  self.storyboard?.instantiateViewController(identifier: "signupViewController") as! SignupViewController
+        let vc =  self.storyboard?.instantiateViewController(identifier: "SignupVC") as! SignupVC
         self.navigationController?.pushViewController(vc, animated: true)
-//        let vc =  self.storyboard?.instantiateViewController(identifier: "basicDetailInsertVC") as! BasicDetailInsertViewController
+//        let vc =  self.storyboard?.instantiateViewController(identifier: "basicDetailInsertVC") as! BasicDetailInsertVC
 //        self.navigationController?.pushViewController(vc, animated: true)
     }
     

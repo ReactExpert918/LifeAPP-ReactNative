@@ -1,5 +1,5 @@
 //
-//  SplashViewController.swift
+//  SplashVC.swift
 //  Life
 //
 //  Created by XianHuang on 6/23/20.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SplashViewController: UIViewController {
+class SplashVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,14 +18,14 @@ class SplashViewController: UIViewController {
             let password = PrefsManager.getPassword()
             AuthUser.signIn(email: email, password: password) { (error) in
                 if error != nil {
-                    self.gotoWelcomeViewController()
+                    self.gotoWelcomeVC()
                     return
                 }
                 let userId = AuthUser.userId()
                 FireFetcher.fetchPerson(userId) { error in
                     self.dismiss(animated: true) {
                         if error != nil {
-                            self.gotoWelcomeViewController()
+                            self.gotoWelcomeVC()
                         }
                         else {
                             NotificationCenter.default.post(name: Notification.Name(NotificationStatus.NOTIFICATION_USER_LOGGED_IN), object: nil)
@@ -41,13 +41,13 @@ class SplashViewController: UIViewController {
         }
         else{
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                self.gotoWelcomeViewController()
+                self.gotoWelcomeVC()
             }
         }
     }
-    func gotoWelcomeViewController() {
+    func gotoWelcomeVC() {
         let mainstoryboard = UIStoryboard.init(name: "Login", bundle: nil)
-        let vc = mainstoryboard.instantiateViewController(withIdentifier: "rootNavigationViewController")
+        let vc = mainstoryboard.instantiateViewController(withIdentifier: "rootNavigationVC")
         UIApplication.shared.windows.first?.rootViewController = vc
     }
 

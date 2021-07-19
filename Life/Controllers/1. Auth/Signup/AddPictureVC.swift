@@ -1,5 +1,5 @@
 //
-//  AddPictureViewController.swift
+//  AddPictureVC.swift
 //  Life
 //
 //  Created by Yun Li on 2020/6/29.
@@ -11,14 +11,15 @@ import FirebaseAuth
 import FirebaseStorage
 import JGProgressHUD
 import RealmSwift
-class AddPictureViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+
+class AddPictureVC: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
     var avatarCovered : Bool = false
     @IBOutlet weak var cameraView: UIView!
     @IBOutlet weak var avata: UIImageView!
     @IBOutlet weak var publicName: UITextField!
     
-    let hud = JGProgressHUD(style: .light)
+    
     private var person: Person!    
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,7 +91,7 @@ class AddPictureViewController: UIViewController, UINavigationControllerDelegate
         }
  */
         if publicName.text == ""{
-            Util.showAlert(vc: self, "Attention" , "Please enter public name first.")
+            //Util.showAlert(vc: self, "Attention" , "Please enter public name first.")
             return
         }
         
@@ -100,7 +101,7 @@ class AddPictureViewController: UIViewController, UINavigationControllerDelegate
             person.syncRequired = true
             person.updatedAt = Date().timestamp()
         }
-        let vc =  self.storyboard?.instantiateViewController(identifier: "successVC") as! SuccessViewController
+        let vc =  self.storyboard?.instantiateViewController(identifier: "successVC") as! SuccessVC
         self.navigationController?.pushViewController(vc, animated: true)
     }
     //---------------------------------------------------------------------------------------------------------------------------------------------
@@ -111,12 +112,12 @@ class AddPictureViewController: UIViewController, UINavigationControllerDelegate
                 if (error == nil) {
                     MediaDownload.saveUser(AuthUser.userId(), data: data)
                     self.person.update(pictureAt: Date().timestamp())
-                } else {
+                } else {/*
                     DispatchQueue.main.async {
                         self.hud.textLabel.text = "Picture upload error."
                         self.hud.show(in: self.view, animated: true)
                     }
-                    self.hud.dismiss(afterDelay: 1.0, animated: true)
+                    self.hud.dismiss(afterDelay: 1.0, animated: true)*/
                 }
             })
         }

@@ -21,7 +21,7 @@ class AddFriendBottomSheetViewController: UIViewController {
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var addFriendButton: RoundButton!
     
-    let hud = JGProgressHUD(style: .light)
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,11 +66,12 @@ class AddFriendBottomSheetViewController: UIViewController {
                 addFriendButton.setTitleColor(UIColor.white, for: .normal)
                 checkMark.isHidden = false
             }
+            /*
             self.hud.show(in: self.view, animated: true)
             DispatchQueue.main.asyncAfter(deadline: .now()+2.0) {
                 self.hud.dismiss(animated: true)
                 self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
-            }
+            }*/
         }
         else{
             dismiss(animated: true, completion: nil)

@@ -1,5 +1,5 @@
 //
-//  BasicDetailInsertViewController.swift
+//  BasicDetailInsertVC.swift
 //  Life
 //
 //  Created by Yun Li on 2020/6/29.
@@ -10,11 +10,12 @@ import UIKit
 import FirebaseAuth
 import JGProgressHUD
 import RealmSwift
-class BasicDetailInsertViewController: UIViewController, UITextFieldDelegate{
+
+class BasicDetailInsertVC: UIViewController, UITextFieldDelegate{
     
     var password_eye_off = true
     var confirmPassword_eye_off = true
-    let hud = JGProgressHUD(style: .light)
+    
 
     @IBOutlet weak var userName: UITextField!
     @IBOutlet weak var password: UITextField!
@@ -39,32 +40,32 @@ class BasicDetailInsertViewController: UIViewController, UITextFieldDelegate{
     }
     @IBAction func submitTapped(_ sender: Any) {
         if userName.text == ""{
-            Util.showAlert(vc: self, "Attention" , "Please enter email first.")
+            //Util.showAlert(vc: self, "Attention" , "Please enter email first.")
             return
         }else if password.text == ""{
-            Util.showAlert(vc: self, "Attention" , "Please enter password first.")
+            //Util.showAlert(vc: self, "Attention" , "Please enter password first.")
             return
         }else if confirmPassword.text == ""{
-            Util.showAlert(vc: self, "Attention" , "Please enter confirm password first.")
+            //Util.showAlert(vc: self, "Attention" , "Please enter confirm password first.")
             return
         }else if password.text != confirmPassword.text{
-            Util.showAlert(vc: self, "Attention" , "Confirm password should be matched with password.")
+            //Util.showAlert(vc: self, "Attention" , "Confirm password should be matched with password.")
             return
         }
         DispatchQueue.main.async {
-            self.hud.textLabel.text = "Updating..."
-            self.hud.show(in: self.view, animated: true)
+            //self.hud.textLabel.text = "Updating..."
+            //self.hud.show(in: self.view, animated: true)
         }
         Auth.auth().currentUser?.updateEmail(to: userName.text!) { (error) in
             if error != nil {
-                self.hud.dismiss(afterDelay: 1.0, animated: true)
-                Util.showAlert(vc: self, error?.localizedDescription ?? "", "")
+                //self.hud.dismiss(afterDelay: 1.0, animated: true)
+                //Util.showAlert(vc: self, error?.localizedDescription ?? "", "")
                 return
             }
             Auth.auth().currentUser?.updatePassword(to: self.password.text!) { (error) in
-                self.hud.dismiss(afterDelay: 1.0, animated: true)
+                //self.hud.dismiss(afterDelay: 1.0, animated: true)
                 if error != nil {
-                    Util.showAlert(vc: self, error?.localizedDescription ?? "", "")
+                    //Util.showAlert(vc: self, error?.localizedDescription ?? "", "")
                     return
                 }
                 // Save Email
@@ -78,7 +79,7 @@ class BasicDetailInsertViewController: UIViewController, UITextFieldDelegate{
                 PrefsManager.setEmail(val: self.userName?.text ?? "")
                 PrefsManager.setPassword(val: self.password?.text ?? "")
                 
-                let vc =  self.storyboard?.instantiateViewController(identifier: "addPictureVC") as! AddPictureViewController
+                let vc =  self.storyboard?.instantiateViewController(identifier: "addPictureVC") as! AddPictureVC
                 self.navigationController?.pushViewController(vc, animated: true)
             }
         

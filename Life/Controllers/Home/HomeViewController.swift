@@ -112,7 +112,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         })
     }
     func onGroupCreated(group: Group) {
-        Util.showAlert(vc: self, "\(group.name) has been created successfully.", "")
+        //Util.showAlert(vc: self, "\(group.name) has been created successfully.", "")
     }
 
     // MARK: - Refresh methods
