@@ -35,6 +35,17 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UINavigationControl
 
 
 extension UIViewController {
+    /// show progress/loading view
+    func showProgress(_ status: String? = nil) {
+        DispatchQueue.main.async {
+            ProgressHUD.show(status)
+        }
+    }
+    
+    /// hide progress view
+    func hideProgress() {
+        ProgressHUD.dismiss()
+    }
     
     func showToast(_ message: String) {
         UIView.hr_setToastFontName(fontName: MyFont.MontserratRegular)
@@ -51,29 +62,6 @@ extension UIViewController {
     func hideLoading() {
         UIApplication.shared.keyWindow!.hideToastActivity()
     }
-    
-    /// show progress/loading view
-    func showProgress(_ status: String? = nil) {
-        DispatchQueue.main.async {
-            ProgressHUD.show(status)
-        }
-    }
-    
-    /// hide progress view
-    func hideProgress() {
-        ProgressHUD.dismiss()
-    }
-    /*
-    func showLoading() {
-        UIView.hr_setToastThemeColor(color: .black)
-//        UIApplication.shared.keyWindow!.makeToastActivity()
-        self.view.makeToastActivity()
-    }
-    
-    func hideLoading() {
-//        UIApplication.shared.keyWindow!.hideToastActivity()
-        self.view.hideToastActivity()
-    }*/
     
     // show alert
     func showAlert(_ title: String!, message: String!, positive: String?, negative: String?, positiveAction: ((_ positiveAciton: UIAlertAction) -> Void)?, negativeAction: ((_ negativeAction: UIAlertAction) -> Void)?, completion:(() -> Void)?) {

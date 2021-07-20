@@ -9,18 +9,18 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Sinch
+//import Sinch
 import CallKit
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 class CallKitProvider: NSObject {
 
-	private var client: SINClient!
+	//private var client: SINClient!
 	private var cxprovider: CXProvider!
 	private var callController = CXCallController()
 
 	private var name = ""
-	private var calls: [UUID: SINCall] = [:]
+	//private var calls: [UUID: SINCall] = [:]
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	override init() {
@@ -34,26 +34,23 @@ class CallKitProvider: NSObject {
 		configuration.includesCallsInRecents = true
 
 		cxprovider = CXProvider(configuration: configuration)
-		cxprovider.setDelegate(self, queue: nil)
-
+		//cxprovider.setDelegate(self, queue: nil)
+/*
 		let nameDidProgress		= NSNotification.Name.SINCallDidProgress
 		let nameDidEstablish	= NSNotification.Name.SINCallDidEstablish
 		let nameDidEnd			= NSNotification.Name.SINCallDidEnd
 
 		NotificationCenter.default.addObserver(self, selector: #selector(callDidEnd(notification:)), name: nameDidEnd, object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(callDidProgress(notification:)), name: nameDidProgress, object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(callDidEstablish(notification:)), name: nameDidEstablish, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(callDidEstablish(notification:)), name: nameDidEstablish, object: nil)*/
 	}
-
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+/*
 	func setClient(_ client: SINClient?) {
-
 		self.client = client
-	}
-
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	}*/
+    /*
 	func didReceivePush(withPayload payload: [AnyHashable: Any]?) {
-
+/*
 		if let notificationResult = SINPushHelper.queryPushNotificationPayload(payload) {
 			if notificationResult.isCall() {
 				if let callResult = notificationResult.call() {
@@ -67,7 +64,7 @@ class CallKitProvider: NSObject {
 					}
 				}
 			}
-		}
+		}*/
 	}
 
 	// MARK: -
@@ -204,9 +201,10 @@ class CallKitProvider: NSObject {
 		}
 		return viewController
 	}
+    */
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
+/*
 extension CallKitProvider: CXProviderDelegate {
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
@@ -277,3 +275,4 @@ extension CallKitProvider: CXProviderDelegate {
 		action.fulfill()
 	}
 }
+*/

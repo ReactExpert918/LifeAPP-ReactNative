@@ -11,15 +11,15 @@ import FirebaseAuth
 import JGProgressHUD
 import RealmSwift
 
-class BasicDetailInsertVC: UIViewController, UITextFieldDelegate{
+class BasicDetailInsertVC: BaseVC {
     
     var password_eye_off = true
-    var confirmPassword_eye_off = true
+    var confirm_eye_off = true
     
-
-    @IBOutlet weak var userName: UITextField!
-    @IBOutlet weak var password: UITextField!
-    @IBOutlet weak var confirmPassword: UITextField!
+    @IBOutlet weak var txtEmail: UITextField!
+    @IBOutlet weak var txtPassword: UITextField!
+    @IBOutlet weak var txtConfirmPwd: UITextField!
+    
     @IBOutlet weak var passwordEye: UIButton!
     @IBOutlet weak var confirmPasswordEye: UIButton!
     
@@ -28,88 +28,121 @@ class BasicDetailInsertVC: UIViewController, UITextFieldDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        userName.delegate = self
-        password.delegate = self
-        confirmPassword.delegate = self
-        // load Person
+        txtEmail.delegate = self
+        txtPassword.delegate = self
+        txtConfirmPwd.delegate = self
+        
         person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
-
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = true
+    }
+    
     @IBAction func backTapped(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
+    
     @IBAction func submitTapped(_ sender: Any) {
-        if userName.text == ""{
-            //Util.showAlert(vc: self, "Attention" , "Please enter email first.")
-            return
-        }else if password.text == ""{
-            //Util.showAlert(vc: self, "Attention" , "Please enter password first.")
-            return
-        }else if confirmPassword.text == ""{
-            //Util.showAlert(vc: self, "Attention" , "Please enter confirm password first.")
-            return
-        }else if password.text != confirmPassword.text{
-            //Util.showAlert(vc: self, "Attention" , "Confirm password should be matched with password.")
-            return
+        gotoNext()
+        /*
+        if checkValid() {
+            doUploadDetail()
+        }*/
+    }
+    
+    fileprivate func checkValid() -> Bool {
+        if txtEmail.text!.trim().isEmpty {
+            showAlert(R.msgEnterEmail)
+            return false
         }
-        DispatchQueue.main.async {
-            //self.hud.textLabel.text = "Updating..."
-            //self.hud.show(in: self.view, animated: true)
+        
+        if txtPassword.text!.trim().isEmpty {
+            showAlert(R.msgEnterPassword)
+            return false
         }
-        Auth.auth().currentUser?.updateEmail(to: userName.text!) { (error) in
+        
+        if txtConfirmPwd.text!.trim().isEmpty {
+            showAlert(R.msgConfirmPassword)
+            return false
+        }
+        
+        if txtPassword.text!.trim() != txtConfirmPwd.text!.trim() {
+            showAlert(R.msgPwdDontMatch)
+            return false
+        }
+        
+        return true
+    }
+    
+    fileprivate func doUploadDetail() {
+        
+        showProgress("Updating...")
+        
+        Auth.auth().currentUser?.updateEmail(to: txtEmail.text!) { (error) in
             if error != nil {
-                //self.hud.dismiss(afterDelay: 1.0, animated: true)
-                //Util.showAlert(vc: self, error?.localizedDescription ?? "", "")
+                self.hideProgress()
+                self.showAlert(error?.localizedDescription)
                 return
             }
-            Auth.auth().currentUser?.updatePassword(to: self.password.text!) { (error) in
-                //self.hud.dismiss(afterDelay: 1.0, animated: true)
+            
+            Auth.auth().currentUser?.updatePassword(to: self.txtPassword.text!) { (error) in
                 if error != nil {
-                    //Util.showAlert(vc: self, error?.localizedDescription ?? "", "")
+                    self.hideProgress()
+                    self.showAlert(error?.localizedDescription)
                     return
                 }
-                // Save Email
+                
+                self.hideProgress()
+                
                 let realm = try! Realm()
                 try! realm.safeWrite {
-                    self.person.email = self.userName.text!
+                    self.person.email = self.txtEmail.text!
                     self.person.syncRequired = true
                     self.person.updatedAt = Date().timestamp()
                 }
                 // Save to the UserDefaults
-                PrefsManager.setEmail(val: self.userName?.text ?? "")
-                PrefsManager.setPassword(val: self.password?.text ?? "")
+                PrefsManager.setEmail(val: self.txtEmail.text!)
+                PrefsManager.setPassword(val: self.txtPassword.text!)
                 
-                let vc =  self.storyboard?.instantiateViewController(identifier: "addPictureVC") as! AddPictureVC
-                self.navigationController?.pushViewController(vc, animated: true)
+                self.gotoNext()
             }
-        
         }
     }
     
     @IBAction func passwordEyeTapped(_ sender: Any) {
         if password_eye_off {
-            password.isSecureTextEntry = false
+            txtPassword.isSecureTextEntry = false
             passwordEye.setImage(UIImage(named: "eye_on"), for: .normal)
         } else {
-            password.isSecureTextEntry = true
+            txtPassword.isSecureTextEntry = true
             passwordEye.setImage(UIImage(named: "eye_off"), for: .normal)
         }
 
         password_eye_off = !password_eye_off
     }
+    
     @IBAction func confirmPasswordEyeTapped(_ sender: Any) {
-        if confirmPassword_eye_off {
-            confirmPassword.isSecureTextEntry = false
+        if confirm_eye_off {
+            txtConfirmPwd.isSecureTextEntry = false
             confirmPasswordEye.setImage(UIImage(named: "eye_on"), for: .normal)
         } else {
-            confirmPassword.isSecureTextEntry = true
+            txtConfirmPwd.isSecureTextEntry = true
             confirmPasswordEye.setImage(UIImage(named: "eye_off"), for: .normal)
         }
 
-        confirmPassword_eye_off = !confirmPassword_eye_off
+        confirm_eye_off = !confirm_eye_off
     }
-    
 
+    fileprivate func gotoNext() {
+        let vc = self.storyboard?.instantiateViewController(identifier: "AddPictureVC") as! AddPictureVC
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+extension BasicDetailInsertVC: UITextFieldDelegate {
+    // MARK: - UITextField delegate
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         let nextTag = textField.tag + 1
         // Try to find next responder
@@ -125,5 +158,5 @@ class BasicDetailInsertVC: UIViewController, UITextFieldDelegate{
 
         return false
     }
-
+    
 }

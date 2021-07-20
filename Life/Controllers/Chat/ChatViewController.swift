@@ -170,8 +170,8 @@ class ChatViewController: UIViewController {
     }
     @IBAction func actionAudioCall(_ sender: Any) {
         showCallToolbar(value: false)
-        let callAudioView = CallAudioView(userId: self.recipientId)
-        present(callAudioView, animated: true)
+        //let callAudioView = CallAudioView(userId: self.recipientId)
+        //present(callAudioView, animated: true)
     }
     
     @IBAction func actionVideoCall(_ sender: Any) {
@@ -629,11 +629,11 @@ class ChatViewController: UIViewController {
     }
     
     func actionOpenCamera() {
-        ImagePicker.cameraMulti(target: self, edit: true)
+        //ImagePicker.cameraMulti(target: self, edit: true)
     }
     
     func actionOpenGallery() {
-        ImagePicker.photoLibrary(target: self, edit: true)
+        //ImagePicker.photoLibrary(target: self, edit: true)
     }
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func actionSendMessage(_ text: String) {

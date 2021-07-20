@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class SplashVC: UIViewController {
 
@@ -38,13 +39,15 @@ class SplashVC: UIViewController {
                     }
                 }
             }
-        }
-        else{
+        } else {
+            self.gotoWelcomeVC()
+            /*
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                self.gotoWelcomeVC()
-            }
+                
+            }*/
         }
     }
+    
     func gotoWelcomeVC() {
         let mainstoryboard = UIStoryboard.init(name: "Login", bundle: nil)
         let vc = mainstoryboard.instantiateViewController(withIdentifier: "rootNavigationVC")

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 import FirebaseAuth
 import FlagPhoneNumber
 import JGProgressHUD
@@ -16,7 +17,7 @@ class SignupVC: BaseVC {
     @IBOutlet weak var phoneNumberTextField: FPNTextField!
     @IBOutlet weak var nextButtonBottomConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var nextButton: RoundButton!
+    @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var nextButtonArrow: UIImageView!
     
     var phoneNumber = ""
@@ -36,6 +37,11 @@ class SignupVC: BaseVC {
         subscribeToShowKeyboardNotifications()
         
         checkPhoneNumberValidation()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -77,10 +83,10 @@ class SignupVC: BaseVC {
     }
     
     @IBAction func onNextPressed(_ sender: Any) {
-         
-        phoneNumber = "+15303242463" //phoneNumberTextField.getFormattedPhoneNumber(format: .E164)!
-        self.sendOTPCode()
-/*
+        
+        phoneNumber = phoneNumberTextField.getFormattedPhoneNumber(format: .E164)!
+        self.gotoNext()
+        /*
         if checkValid() {
             showAlert(phoneNumber, message: R.msgSendCode, positive: R.btnSend, negative: R.btnCancel, positiveAction: { (_) in
                 self.sendOTPCode()
@@ -105,22 +111,24 @@ class SignupVC: BaseVC {
         PhoneAuthProvider.provider().verifyPhoneNumber(phoneNumber, uiDelegate: nil) { (verificationID, error) in
             self.hideProgress()
             if error == nil {
-                // Save Verification ID
                 UserDefaults.standard.set(verificationID, forKey: "authVerificationID")
-                let vc =  self.storyboard?.instantiateViewController(identifier: "otpVerificationViewController") as! OTPVerificationViewController
-                vc.setPhoneNumber(withPhoneNumber: self.phoneNumber)
-                self.navigationController?.pushViewController(vc, animated: true)
+                self.gotoNext()
             } else {
-                print(error)
                 self.showAlert(error?.localizedDescription ?? "")
                 return
             }
         }
     }
+    
     @IBAction func onBackPressed(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
     
+    fileprivate func gotoNext() {
+        let vc = self.storyboard?.instantiateViewController(identifier: "OTPVerificationVC") as! OTPVerificationVC
+        vc.phoneNumber = phoneNumber
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
 }
 
 extension SignupVC: FPNTextFieldDelegate {

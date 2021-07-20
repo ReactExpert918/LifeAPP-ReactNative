@@ -8,13 +8,14 @@
 
 import UIKit
 
-class SuccessVC: UIViewController {
+class SuccessVC: BaseVC {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
+    
     @IBAction func onStartTapped(_ sender: Any) {
         NotificationCenter.default.post(name: Notification.Name(NotificationStatus.NOTIFICATION_USER_LOGGED_IN), object: nil)
         
@@ -24,15 +25,9 @@ class SuccessVC: UIViewController {
         UIApplication.shared.windows.first?.rootViewController = vc
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isNavigationBarHidden = true
     }
-    */
 
 }

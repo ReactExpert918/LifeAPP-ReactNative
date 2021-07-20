@@ -9,7 +9,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Sinch
+//import Sinch
 import MediaPlayer
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -38,10 +38,10 @@ class CallAudioView: UIViewController {
 	private var muted = false
 	private var speaker = false
 
-	private var call: SINCall?
-	private var audioController: SINAudioController?
+	//private var call: SINCall?
+	//private var audioController: SINAudioController?
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	/*
 	init(call: SINCall?) {
 
 		super.init(nibName: nil, bundle: nil)
@@ -71,7 +71,7 @@ class CallAudioView: UIViewController {
 		call?.delegate = self
 
 		audioController = app?.client?.audioController()
-	}
+	}*/
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	required init?(coder aDecoder: NSCoder) {
@@ -84,8 +84,8 @@ class CallAudioView: UIViewController {
 
 		super.viewDidLoad()
 
-		audioController?.unmute()
-		audioController?.disableSpeaker()
+		//audioController?.unmute()
+		//audioController?.disableSpeaker()
 
 		buttonMute.setImage(UIImage(named: "callaudio_mute2"), for: .normal)
 		buttonMute.setImage(UIImage(named: "callaudio_mute2"), for: .highlighted)
@@ -96,8 +96,8 @@ class CallAudioView: UIViewController {
 		buttonVideo.setImage(UIImage(named: "callaudio_video1"), for: .normal)
 		buttonVideo.setImage(UIImage(named: "callaudio_video1"), for: .highlighted)
 
-		incoming = (call?.direction == .incoming)
-		outgoing = (call?.direction == .outgoing)
+		//incoming = (call?.direction == .incoming)
+		//outgoing = (call?.direction == .outgoing)
                 
         // dotted progressview
         dottedProgressBar = DottedProgressBar()
@@ -168,7 +168,7 @@ class CallAudioView: UIViewController {
 	// MARK: - Realm methods
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	func loadPerson() {
-
+/*
 		if let remoteUserId = call?.remoteUserId {
 			person = realm.object(ofType: Person.self, forPrimaryKey: remoteUserId)
 
@@ -184,7 +184,7 @@ class CallAudioView: UIViewController {
 			}
 
 			labelName.text = person.fullname
-		}
+		}*/
 	}
 
 	// MARK: - Timer methods
@@ -205,13 +205,13 @@ class CallAudioView: UIViewController {
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	func updateStatus() {
-
+/*
 		if let date = call?.details.establishedTime {
 			let interval = Date().timeIntervalSince(date)
 			let seconds = Int(interval) % 60
 			let minutes = Int(interval) / 60
 			labelStatus.text = String(format: "%02d:%02d", minutes, seconds)
-		}
+		}*/
 	}
 
 	// MARK: - User actions
@@ -222,12 +222,12 @@ class CallAudioView: UIViewController {
 			muted = false
 			buttonMute.setImage(UIImage(named: "callaudio_mute2"), for: .normal)
 			buttonMute.setImage(UIImage(named: "callaudio_mute2"), for: .highlighted)
-			audioController?.unmute()
+			//audioController?.unmute()
 		} else {
 			muted = true
 			buttonMute.setImage(UIImage(named: "callaudio_mute3"), for: .normal)
 			buttonMute.setImage(UIImage(named: "callaudio_mute3"), for: .highlighted)
-			audioController?.mute()
+			//audioController?.mute()
 		}
 	}
 
@@ -238,12 +238,12 @@ class CallAudioView: UIViewController {
 			speaker = false
 			buttonSpeaker.setImage(UIImage(named: "callaudio_speaker2"), for: .normal)
 			buttonSpeaker.setImage(UIImage(named: "callaudio_speaker2"), for: .highlighted)
-			audioController?.disableSpeaker()
+			//audioController?.disableSpeaker()
 		} else {
 			speaker = true
 			buttonSpeaker.setImage(UIImage(named: "callaudio_speaker3"), for: .normal)
 			buttonSpeaker.setImage(UIImage(named: "callaudio_speaker3"), for: .highlighted)
-			audioController?.enableSpeaker()
+			//audioController?.enableSpeaker()
 		}
 	}
 
@@ -255,13 +255,13 @@ class CallAudioView: UIViewController {
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	@IBAction func actionHangup(_ sender: Any) {
 
-		call?.hangup()
+		//call?.hangup()
 	}
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	@IBAction func actionAnswer(_ sender: Any) {
 
-		call?.answer()
+		//call?.answer()
 	}
 
 	// MARK: - Helper methods
@@ -297,9 +297,8 @@ class CallAudioView: UIViewController {
 		viewEnded.isHidden = false
 	}
 }
-
+/*
 // MARK: - SINCallDelegate
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 extension CallAudioView: SINCallDelegate {
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
@@ -328,3 +327,4 @@ extension CallAudioView: SINCallDelegate {
 		}
 	}
 }
+*/

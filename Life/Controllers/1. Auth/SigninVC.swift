@@ -16,6 +16,10 @@ class SigninVC: BaseVC {
     @IBOutlet weak var txtPassword: UITextField!
     @IBOutlet weak var passwordEye: UIButton!
     
+    @IBOutlet weak var emailBgView: UIView!
+    @IBOutlet weak var passwordBgView: UIView!
+    
+    
     @IBOutlet weak var scrollViewHeightConstraint: NSLayoutConstraint!
     
     var eye_off = true
@@ -25,11 +29,16 @@ class SigninVC: BaseVC {
     
         txtEmail.delegate = self
         txtPassword.delegate = self
-        scrollViewHeightConstraint.constant = UIScreen.main.bounds.size.height
+        scrollViewHeightConstraint.constant = Const.shared.SCREEN_HEIGHT //UIScreen.main.bounds.size.height
         
-        
-        txtEmail.text = "test@test.com"
+        txtEmail.text = "test667@test.com"
         txtPassword.text = "1234567890"
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.isNavigationBarHidden = true
     }
     
     @IBAction func onRegisterTapped(_ sender: Any) {
@@ -82,10 +91,7 @@ class SigninVC: BaseVC {
                 self?.loadPerson()
             } else {
                 self?.hideProgress()
-                
-                self!.lblError.text = R.errFailedSignin
-                self!.lblError.textColor = .errorRedColor //UIColor(hexString: "#DF1747")
-                self!.lblError.font = UIFont(name: MyFont.MontserratRegular, size: 14.0)
+                self?.displayError()
                 return
             }
         }
@@ -96,8 +102,6 @@ class SigninVC: BaseVC {
         PrefsManager.setEmail(val: txtEmail.text!)
         
         let userId = AuthUser.userId()
-        print("*****************************")
-        print(userId)
         FireFetcher.fetchPerson(userId) { error in
             self.hideProgress()
             if (error == nil) {
@@ -110,9 +114,9 @@ class SigninVC: BaseVC {
                     UIApplication.shared.windows.first?.rootViewController = vc
                 }
             } else {
-                self.lblError.text = "Network connection error,\nPlease try again!"
-                self.lblError.textColor = UIColor(hexString: "#DF1747")
-                self.lblError.font = UIFont(name: "Montserrat-Regular", size: 14.0)
+                self.lblError.text = R.errNetwork
+                self.lblError.textColor = .errorRedColor
+                self.lblError.font = UIFont(name: MyFont.MontserratRegular, size: 14.0)
 
             }
         }
@@ -129,11 +133,23 @@ class SigninVC: BaseVC {
     @IBAction func onForgottxtPasswordTapped(_ sender: Any) {
     }
     
-    
+    fileprivate func displayError() {
+        lblError.text = R.errFailedSignin
+        lblError.textColor = .errorRedColor
+        lblError.font = UIFont(name: MyFont.MontserratRegular, size: 14.0)
+        
+        emailBgView.backgroundColor = .errorLightColor
+        passwordBgView.backgroundColor = .errorLightColor
+    }
 }
 
 extension SigninVC: UITextFieldDelegate {
     // MARK: - UITextField delegate
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        emailBgView.backgroundColor = .systemGray6
+        passwordBgView.backgroundColor = .systemGray6
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if(textField == txtEmail) {
             txtPassword.becomeFirstResponder()

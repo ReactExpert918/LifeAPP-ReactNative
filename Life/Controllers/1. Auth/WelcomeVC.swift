@@ -1,5 +1,5 @@
 //
-//  LoginViewController.swift
+//  WelcomeVC.swift
 //  Life
 //
 //  Created by XianHuang on 6/23/20.
@@ -17,7 +17,6 @@ class WelcomeVC: UIViewController {
     }
     
     @IBAction func onLoginPressed(_ sender: Any) {
-        //gotoMainViewController()
         let vc =  self.storyboard?.instantiateViewController(identifier: "signinVC") as! SigninVC
         self.navigationController?.pushViewController(vc, animated: true)
     }
@@ -25,8 +24,6 @@ class WelcomeVC: UIViewController {
     @IBAction func onSignupPressed(_ sender: Any) {
         let vc =  self.storyboard?.instantiateViewController(identifier: "SignupVC") as! SignupVC
         self.navigationController?.pushViewController(vc, animated: true)
-//        let vc =  self.storyboard?.instantiateViewController(identifier: "basicDetailInsertVC") as! BasicDetailInsertVC
-//        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func gotoMainViewController() {

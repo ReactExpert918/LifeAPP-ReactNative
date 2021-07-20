@@ -42,15 +42,19 @@ class R {
     static let msgEnterUsername         = "Please enter Username"
     static let msgEnterPhone            = "Please enter Phone Number"
     static let msgEnterCode             = "Please enter verification code"
-    static let msgInvalidCode           = "Code should be 6 digits"
     static let msgSendCode              = "A Verification code will be sent to this number via text messages."
+    static let msgTakePhoto             = "Please take profile photo."
+    static let msgEnterPublicName       = "Please enter public name."
     
     static let qstCancelLove            = "Do you want to remove this loved item?"
     
     static let altIapRestored           = "Successfully restored Premium membership"
     static let altIapFailed             = "Sorry. Failed to purchase Premium membership. Try it later."
     
-    static let errFailedSignin          = "Incorrect email or txtPassword,\nPlease try again!"
+    static let errFailedSignin          = "Incorrect email or password,\nPlease try again!"
+    static let errNetwork               = "Network connection error,\nPlease try again!"
+    static let errInvalidCode           = "Incorrect verification code, please try again."
+    static let errFailedUploadPhoto     = "Picture upload error."
     
     static let titleError       = "Error"
     static let titleWarning     = "Warning"

@@ -25,9 +25,7 @@ end
   pod 'BEMCheckBox'
   pod 'CryptoSwift'
   pod 'MessageKit'
-  pod 'OneSignal', '>= 3.0.0', '< 4.0'
   pod 'RealmSwift'
-  pod 'SinchRTC'
   pod 'NYTPhotoViewer'
   pod 'Reachability'
   pod 'ProgressHUD'
@@ -38,6 +36,8 @@ end
   pod 'Kingfisher'
   pod 'UIColor_Hex_Swift'
 #  pod 'SCLAlertView'
+#pod 'OneSignal', '>= 3.0.0', '< 4.0'
+#pod 'SinchRTC'
 
   target 'LifeTests' do
     inherit! :search_paths

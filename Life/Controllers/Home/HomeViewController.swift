@@ -156,7 +156,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         if indexPath.section == 1 {
             if indexPath.row == 0 {
                 let mainstoryboard = UIStoryboard.init(name: "Group", bundle: nil)
-                let vc = mainstoryboard.instantiateViewController(withIdentifier: "createGroupVC") as! CreateGroupViewController
+                let vc = mainstoryboard.instantiateViewController(withIdentifier: "CreateGroupVC") as! CreateGroupVC
                 vc.delegate = self
                 vc.modalPresentationStyle = .fullScreen
                 self.present(vc, animated: true, completion: nil)

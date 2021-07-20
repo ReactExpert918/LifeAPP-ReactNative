@@ -11,8 +11,8 @@ import UIKit
 //import SCLAlertView
 
 class Utils {
-    static let shared = Utils()
     
+    static let shared = Utils()
     let defaults = UserDefaults.standard
     
     func isValidEmail(_ email: String) -> Bool {
@@ -20,6 +20,8 @@ class Utils {
         let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailTest.evaluate(with: email)
     }
+    
+    
 }
 
 

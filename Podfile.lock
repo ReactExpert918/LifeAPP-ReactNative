@@ -392,7 +392,6 @@ PODS:
     - PINRemoteImage/iOS (~> 3.0.1)
     - PINRemoteImage/PINCache
   - NYTPhotoViewer/Core (5.0.5)
-  - OneSignal (3.5.3)
   - PINCache (3.0.3):
     - PINCache/Arc-exception-safe (= 3.0.3)
     - PINCache/Core (= 3.0.3)
@@ -418,7 +417,6 @@ PODS:
   - RealmSwift (10.10.0):
     - Realm (= 10.10.0)
   - RNCryptor-objc (3.0.6)
-  - SinchRTC (4.2.6)
   - SkyFloatingLabelTextField (3.8.0)
   - SwiftyAvatar (1.1.3)
   - UIColor_Hex_Swift (5.1.0)
@@ -440,13 +438,11 @@ DEPENDENCIES:
   - Kingfisher
   - MessageKit
   - NYTPhotoViewer
-  - OneSignal (< 4.0, >= 3.0.0)
   - ProgressHUD
   - QRCodeReader.swift (~> 10.1.0)
   - Reachability
   - RealmSwift
   - RNCryptor-objc
-  - SinchRTC
   - SkyFloatingLabelTextField (~> 3.0)
   - SwiftyAvatar (~> 1.1)
   - UIColor_Hex_Swift
@@ -484,7 +480,6 @@ SPEC REPOS:
     - MessageKit
     - nanopb
     - NYTPhotoViewer
-    - OneSignal
     - PINCache
     - PINOperation
     - PINRemoteImage
@@ -495,7 +490,6 @@ SPEC REPOS:
     - Realm
     - RealmSwift
     - RNCryptor-objc
-    - SinchRTC
     - SkyFloatingLabelTextField
     - SwiftyAvatar
     - UIColor_Hex_Swift
@@ -532,7 +526,6 @@ SPEC CHECKSUMS:
   MessageKit: d153fbbbcb12f3f4045a1ba8874298924dacfb62
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   NYTPhotoViewer: 6f50ea92f265d54a350b39a7ab7a1b91ca487ff6
-  OneSignal: e12773ef3dfc68f42103c8cd28ad50660209528f
   PINCache: 7a8fc1a691173d21dbddbf86cd515de6efa55086
   PINOperation: 00c935935f1e8cf0d1e2d6b542e75b88fc3e5e20
   PINRemoteImage: f1295b29f8c5e640e25335a1b2bd9d805171bd01
@@ -543,11 +536,10 @@ SPEC CHECKSUMS:
   Realm: f501df41a4222c67850c77cf135d472192ecf294
   RealmSwift: c69aadfc7db0d60075178d037c2f34ada73d5201
   RNCryptor-objc: d1b228f9c02e2173df063f0617684c134aed890e
-  SinchRTC: fe399ba403baa6fa09715a39555da25aec4bbff1
   SkyFloatingLabelTextField: 5a338412114808e961fe2d14ea2c5452c8b6e4aa
   SwiftyAvatar: 33aecda825c91851cac2aabd06b33f3698b2414c
   UIColor_Hex_Swift: 8be7432edacb7fa91c78aa05ef3c30b66e4f9415
 
-PODFILE CHECKSUM: e504ff290d91d64aa7c9af5d07d2d3994429093b
+PODFILE CHECKSUM: abf3c50bea91dfcbcab8ffe63d63cd7997847029
 
 COCOAPODS: 1.10.1

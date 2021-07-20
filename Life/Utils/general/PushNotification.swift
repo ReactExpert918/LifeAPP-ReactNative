@@ -9,14 +9,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import OneSignal
+//import OneSignal
+import Foundation
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 class PushNotification: NSObject {
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
+    
 	class func oneSignalId() -> String {
-
+/*
 		if let status = OneSignal.getDeviceState() {
             let subcribed = status.isSubscribed
             if subcribed {
@@ -24,7 +25,7 @@ class PushNotification: NSObject {
                     return uid
                 }
             }
-		}
+		}*/
         
 		return ""
 	}
@@ -32,7 +33,7 @@ class PushNotification: NSObject {
 	// MARK: -
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	class func send(message: Message) {
-
+/*
 		let type = message.type
 		var text = message.userFullname
 
@@ -56,12 +57,12 @@ class PushNotification: NSObject {
         userIds.removeAll(where: { $0 == AuthUser.userId()})
 //		userIds.removeObject(AuthUser.userId())
 
-		send(userIds: userIds, text: text)
+		send(userIds: userIds, text: text)*/
 	}
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	private class func send(userIds: [String], text: String) {
-
+/*
 		let predicate = NSPredicate(format: "objectId IN %@", userIds)
 		let persons = realm.objects(Person.self).filter(predicate).sorted(byKeyPath: "fullname")
 
@@ -73,6 +74,6 @@ class PushNotification: NSObject {
 			}
 		}
 
-		OneSignal.postNotification(["contents": ["en": text], "include_player_ids": oneSignalIds])
+		OneSignal.postNotification(["contents": ["en": text], "include_player_ids": oneSignalIds])*/
 	}
 }
