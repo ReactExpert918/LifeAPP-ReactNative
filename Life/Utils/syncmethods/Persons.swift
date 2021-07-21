@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2020 Related Code 
+// Copyright (c) 2020 Related Code
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -14,180 +14,180 @@ import RealmSwift
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 class Persons: NSObject {
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	class func create(_ objectId: String, email: String) {
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    class func create(_ objectId: String, email: String) {
 
-		let realm = try! Realm()
-		try! realm.safeWrite {
-			let person = Person()
-			person.objectId = objectId
-			person.email = email
+        let realm = try! Realm()
+        try! realm.safeWrite {
+            let person = Person()
+            person.objectId = objectId
+            person.email = email
             person.loginMethod = LoginInfo.LOGIN_EMAIL
-			realm.add(person, update: .modified)
-		}
-	}
+            realm.add(person, update: .modified)
+        }
+    }
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	class func create(_ objectId: String, phone: String) {
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    class func create(_ objectId: String, phone: String) {
 
-		let realm = try! Realm()
-		try! realm.safeWrite {
-			let person = Person()
-			person.objectId = objectId
-			person.phone = phone
-			person.loginMethod = LoginInfo.LOGIN_PHONE
-			realm.add(person, update: .modified)
-		}
-	}
+        let realm = try! Realm()
+        try! realm.safeWrite {
+            let person = Person()
+            person.objectId = objectId
+            person.phone = phone
+            person.loginMethod = LoginInfo.LOGIN_PHONE
+            realm.add(person, update: .modified)
+        }
+    }
 
-	// MARK: -
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	class func fullname() -> String {
+    // MARK: -
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    class func fullname() -> String {
 
-		let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
-		return person?.fullname ?? ""
-	}
+        let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
+        return person?.fullname ?? ""
+    }
     
     class func getById(_ objectId:String) -> Person?{
         let person = realm.object(ofType: Person.self, forPrimaryKey: objectId)
         return person
     }
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	class func initials() -> String {
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    class func initials() -> String {
 
-		let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
-		return person?.initials() ?? ""
-	}
+        let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
+        return person?.initials() ?? ""
+    }
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	class func pictureAt() -> Int64 {
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    class func pictureAt() -> Int64 {
 
-		let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
-		return person?.pictureAt ?? 0
-	}
+        let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
+        return person?.pictureAt ?? 0
+    }
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	class func status() -> String {
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    class func status() -> String {
 
-		let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
-		return person?.status ?? ""
-	}
+        let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
+        return person?.status ?? ""
+    }
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	class func keepMedia() -> Int32 {
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    class func keepMedia() -> Int32 {
 
-		let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
+        let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
         return person?.keepMedia ?? Int32(KEEPMEDIA_PERIOD.KEEPMEDIA_FOREVER)
-	}
+    }
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	class func networkPhoto() -> Int32 {
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    class func networkPhoto() -> Int32 {
 
-		let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
+        let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
         return person?.networkPhoto ?? Int32(NETWORK_MODE.NETWORK_ALL)
-	}
+    }
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	class func networkVideo() -> Int32 {
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    class func networkVideo() -> Int32 {
 
-		let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
+        let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
         return person?.networkVideo ?? Int32(NETWORK_MODE.NETWORK_ALL)
-	}
+    }
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	class func networkAudio() -> Int32 {
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    class func networkAudio() -> Int32 {
 
-		let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
+        let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
         return person?.networkAudio ?? Int32(NETWORK_MODE.NETWORK_ALL)
-	}
+    }
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	class func wallpaper() -> String {
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    class func wallpaper() -> String {
 
-		let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
-		return person?.wallpaper ?? ""
-	}
+        let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
+        return person?.wallpaper ?? ""
+    }
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	class func loginMethod() -> String {
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    class func loginMethod() -> String {
 
-		let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
-		return person?.loginMethod ?? ""
-	}
+        let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
+        return person?.loginMethod ?? ""
+    }
 
-	// MARK: -
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	class func update(status: String) {
+    // MARK: -
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    class func update(status: String) {
 
-		if let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId()) {
-			person.update(status: status)
-		}
-	}
+        if let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId()) {
+            person.update(status: status)
+        }
+    }
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	class func update(keepMedia: Int32) {
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    class func update(keepMedia: Int32) {
 
-		if let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId()) {
-			person.update(keepMedia: keepMedia)
-		}
-	}
+        if let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId()) {
+            person.update(keepMedia: keepMedia)
+        }
+    }
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	class func update(networkPhoto: Int32) {
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    class func update(networkPhoto: Int32) {
 
-		if let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId()) {
-			person.update(networkPhoto: networkPhoto)
-		}
-	}
+        if let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId()) {
+            person.update(networkPhoto: networkPhoto)
+        }
+    }
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	class func update(networkVideo: Int32) {
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    class func update(networkVideo: Int32) {
 
-		if let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId()) {
-			person.update(networkVideo: networkVideo)
-		}
-	}
+        if let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId()) {
+            person.update(networkVideo: networkVideo)
+        }
+    }
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	class func update(networkAudio: Int32) {
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    class func update(networkAudio: Int32) {
 
-		if let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId()) {
-			person.update(networkAudio: networkAudio)
-		}
-	}
+        if let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId()) {
+            person.update(networkAudio: networkAudio)
+        }
+    }
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	class func update(wallpaper: String) {
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    class func update(wallpaper: String) {
 
-		if let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId()) {
-			person.update(wallpaper: wallpaper)
-		}
-	}
+        if let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId()) {
+            person.update(wallpaper: wallpaper)
+        }
+    }
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	class func update(oneSignalId: String) {
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    class func update(oneSignalId: String) {
 
-		if let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId()) {
-			person.update(oneSignalId: oneSignalId)
-		}
-	}
+        if let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId()) {
+            person.update(oneSignalId: oneSignalId)
+        }
+    }
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	class func update(lastActive: Int64) {
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    class func update(lastActive: Int64) {
 
-		if let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId()) {
-			person.update(lastActive: lastActive)
-		}
-	}
+        if let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId()) {
+            person.update(lastActive: lastActive)
+        }
+    }
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	class func update(lastTerminate: Int64) {
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    class func update(lastTerminate: Int64) {
 
-		if let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId()) {
-			person.update(lastTerminate: lastTerminate)
-		}
-	}
+        if let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId()) {
+            person.update(lastTerminate: lastTerminate)
+        }
+    }
     
     class func update(balance: Float) {
 
@@ -197,7 +197,7 @@ class Persons: NSObject {
     }
     
     class func currentPerson() -> Person? {
-        return realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId()) 
+        return realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
     }
     
     class func update(isBalanceRead: Bool) {
@@ -207,3 +207,4 @@ class Persons: NSObject {
         }
     }
 }
+

@@ -1,18 +1,22 @@
-# Uncomment the next line to define a global platform for your project
-# platform :ios, '9.0'
-
 target 'Life' do
-  # Comment the next line if you don't want to use dynamic frameworks
-  use_frameworks!
+platform :ios, '13.0'
+use_frameworks!
 
-  # Pods for Life
+post_install do |installer|
+ installer.pods_project.targets.each do |target|
+  target.build_configurations.each do |config|
+   config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '8.0'
+  end
+ end
+end
+
   pod 'Firebase/Analytics'
   pod 'Firebase/Messaging'
   pod 'Firebase/Database'
   pod 'Firebase/Firestore'
   pod 'Firebase/Auth'
   pod 'Firebase/Storage'
-  pod 'Firebase/AppCheck'
+  
   pod 'SkyFloatingLabelTextField', '~> 3.0'
   pod 'IQKeyboardManagerSwift'
   pod 'DPOTPView'
@@ -21,9 +25,7 @@ target 'Life' do
   pod 'BEMCheckBox'
   pod 'CryptoSwift'
   pod 'MessageKit'
-  pod 'OneSignal'
   pod 'RealmSwift'
-  pod 'SinchRTC'
   pod 'NYTPhotoViewer'
   pod 'Reachability'
   pod 'ProgressHUD'
@@ -32,9 +34,15 @@ target 'Life' do
   pod 'QRCodeReader.swift', '~> 10.1.0'
   pod 'FittedSheets'
   pod 'Kingfisher'
-  pod 'SCLAlertView'
+  pod 'UIColor_Hex_Swift'
   pod 'FormTextField'
   pod 'CreditCardValidator'
+  
+  
+#  pod 'SCLAlertView'
+#pod 'OneSignal', '>= 3.0.0', '< 4.0'
+#pod 'SinchRTC'
+
   target 'LifeTests' do
     inherit! :search_paths
     # Pods for testing

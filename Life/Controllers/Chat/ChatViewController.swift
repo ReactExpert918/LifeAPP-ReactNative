@@ -11,22 +11,11 @@ import RealmSwift
 import ProgressHUD
 import InputBarAccessoryView
 import IQKeyboardManagerSwift
-import FittedSheets
-class User {
-    
-    let name: String
-    let image: UIImage
-    init(name: String, image: UIImage) {
-        self.image = image
-        self.name = name
-    }
-    
-}
 
 class ChatViewController: UIViewController {
 
-    var chatId = ""
-    var recipientId = ""
+    private var chatId = ""
+    private var recipientId = ""
     
     private var detail: Detail?
     private var details = realm.objects(Detail.self).filter(falsepredicate)
@@ -35,9 +24,7 @@ class ChatViewController: UIViewController {
     private var tokenDetails: NotificationToken? = nil
     private var tokenMessages: NotificationToken? = nil
 
-    @IBOutlet weak var videoCallView: UIView!
-    
-    @IBOutlet weak var voiceCallView: UIView!
+
     private var isShowingToolbar = false
     @IBOutlet weak var plusButton: UIButton!
     @IBOutlet weak var callToolbarView: UIView!
@@ -47,7 +34,6 @@ class ChatViewController: UIViewController {
     @IBOutlet weak var statusbarView: UIView!
     @IBOutlet weak var topbarView: UIView!
 
-    @IBOutlet weak var searchView: UIView!
     @IBOutlet weak var searchBar: UISearchBar!
     
     @IBOutlet weak var tableView: UITableView!
@@ -73,41 +59,13 @@ class ChatViewController: UIViewController {
 
     private var indexForward: IndexPath?
     
-    @IBOutlet weak var popupView: UIView!
-    
-    @IBOutlet weak var popupUserName: UILabel!
-    @IBOutlet weak var popupPhoneNumber: UILabel!
-    @IBOutlet weak var popupUserAvatar: UIImageView!
-    @IBOutlet weak var popupCheckmark: UIImageView!
-    
-    private var tokenPersons: NotificationToken? = nil
-    private var persons = realm.objects(Person.self).filter(falsepredicate)
-    
-    private var tokenMembers: NotificationToken? = nil
-    private var members = realm.objects(Member.self).filter(falsepredicate)
-    private var users:[User] = []
-    
-    @IBOutlet weak var zedPayButton: UIView!
-    
-    
-    lazy var autocompleteManager: AutocompleteManager = { [unowned self] in
-        let manager = AutocompleteManager(for: self.messageInputBar.inputTextView)
-        manager.delegate = self
-        manager.dataSource = self
-        manager.maxSpaceCountDuringCompletion = 1
-        return manager
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.popupView.isHidden = true
-        
         searchBar.backgroundImage = UIImage()
         searchBar.barStyle = .default
         searchBar.barTintColor = UIColor(hexString: "#16406F")
         searchBar.layer.cornerRadius = 8
-        searchBar.placeholder = "Search".localized
+        searchBar.placeholder = "Search"
 //        searchBar.backgroundColor = UIColor(hexString: "165c90")
         searchBar.set(textColor: UIColor(hexString: "#96B4D2")!)
         searchBar.setPlaceholder(textColor: UIColor(hexString: "#96B4D2")!)
@@ -116,8 +74,6 @@ class ChatViewController: UIViewController {
         searchBar.tintColor = UIColor(hexString: "#FFFFFF")
         searchBar.delegate = self
         
-        //searchView.isHidden = true
-        MoneyTableViewCell.Register(withTableView: self.tableView)
         tableView.register(RCHeaderUpperCell.self, forCellReuseIdentifier: "RCHeaderUpperCell")
         tableView.register(RCHeaderLowerCell.self, forCellReuseIdentifier: "RCHeaderLowerCell")
 
@@ -127,13 +83,12 @@ class ChatViewController: UIViewController {
         tableView.register(RCMessageVideoCell.self, forCellReuseIdentifier: "RCMessageVideoCell")
         tableView.register(RCMessageAudioCell.self, forCellReuseIdentifier: "RCMessageAudioCell")
         tableView.register(RCMessageLocationCell.self, forCellReuseIdentifier: "RCMessageLocationCell")
-        
+
         tableView.register(RCFooterUpperCell.self, forCellReuseIdentifier: "RCFooterUpperCell")
         tableView.register(RCFooterLowerCell.self, forCellReuseIdentifier: "RCFooterLowerCell")
 
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1.0)
         //tableView.tableHeaderView = viewLoadEarlier
         
         refreshControl.addTarget(self, action: #selector(actionLoadEarlier), for: UIControl.Event.valueChanged)
@@ -141,12 +96,8 @@ class ChatViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-        
-        //tableView.keyboardDismissMode = .onDrag
+
         // Do any additional setup after loading the view.
-        
-        
-        
         configureMessageInputBar()
         
         loadDetail()
@@ -155,73 +106,16 @@ class ChatViewController: UIViewController {
         
         IQKeyboardManager.shared.enableAutoToolbar = false
         IQKeyboardManager.shared.enable = false
-        IQKeyboardManager.shared.shouldResignOnTouchOutside = false
-        
-        ///zed pay button
-        if(recipientId == ""){
-            zedPayButton.isUserInteractionEnabled = false
-        }else{
-            zedPayButton.isUserInteractionEnabled = true
-        }
 
-    }
-    func loadMembers() {
-
-        let predicate = NSPredicate(format: "chatId == %@ AND isActive == YES", self.chatId)
-        members = realm.objects(Member.self).filter(predicate)
-        
-        
-        tokenMembers?.invalidate()
-        members.safeObserve({ changes in
-            self.loadPersons()
-        }, completion: { token in
-            self.tokenMembers = token
-        })
-    }
-    
-    func loadPersons() {
-
-        let predicate1 = NSPredicate(format: "objectId IN %@ AND NOT objectId IN %@ AND isDeleted == NO", Members.userIds(chatId: self.chatId), Blockeds.blockerIds())
-        
-
-        persons = realm.objects(Person.self).filter(predicate1)
-        
-        
-        tokenPersons?.invalidate()
-        persons.safeObserve({ changes in
-            self.refreshUsers()
-        }, completion: { token in
-            self.tokenPersons = token
-        })
-    }
-    
-    
-    func refreshUsers(){
-        
-        for person in persons {
-            if(person.objectId == AuthUser.userId()){
-                continue
-            }
-            MediaDownload.startUser(person.objectId, pictureAt: person.pictureAt) { image, error in
-                if (error == nil && image != nil) {
-                    self.users.append(User(name:person.fullname, image: image!))
-                } else{
-                    self.users.append(User(name:person.fullname, image: UIImage(named: "ic_default_profile")!))
-                }
-            }
-        }
-        
     }
     //---------------------------------------------------------------------------------------------------------------------------------------------
     override func viewWillAppear(_ animated: Bool) {
 
         super.viewWillAppear(animated)
-        
+
         updateTitleDetails()
         showCallToolbar(value: false)
-        if(recipientId == ""){
-            loadMembers()
-        }
+
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
@@ -229,8 +123,8 @@ class ChatViewController: UIViewController {
 
         super.viewDidDisappear(animated)
 
-        //IQKeyboardManager.shared.enableAutoToolbar = true
-        //IQKeyboardManager.shared.enable = true
+        IQKeyboardManager.shared.enableAutoToolbar = true
+        IQKeyboardManager.shared.enable = true
         
         if (isMovingFromParent) {
             actionCleanup()
@@ -262,72 +156,28 @@ class ChatViewController: UIViewController {
         }
     }
     @IBAction func actionPlusButton(_ sender: Any) {
-        
-        isShowingToolbar = !isShowingToolbar
-        
+        if isShowingToolbar == false {
+            isShowingToolbar = true
+        }
+        else{
+            isShowingToolbar = false
+        }
         showCallToolbar(value: isShowingToolbar)
     }
     
-    // MARK: - ZED PAY
     @IBAction func actionZedPay(_ sender: Any) {
-        //showCallToolbar(value: false)
-        if(recipientId == ""){
-            return
-        }else{
-            isShowingToolbar = false
-            
-            showCallToolbar(value: isShowingToolbar)
-            
-            let recipient = realm.object(ofType: Person.self, forPrimaryKey: recipientId)
-            let zedStoryboard = UIStoryboard.init(name: "ZedPay", bundle: nil)
-            let vc =  zedStoryboard.instantiateViewController(identifier: "payBottomSheetVC") as! PayBottomSheetViewController
-            vc.person = recipient
-            vc.chatId = self.chatId
-            vc.recipientId = self.recipientId
-            let sheetController = SheetViewController(controller: vc, sizes: [.fixed(470)])
-            self.present(sheetController, animated: true, completion: nil)
-        }
+        showCallToolbar(value: false)
     }
-    
-    // MARK: - Audio and video call
     @IBAction func actionAudioCall(_ sender: Any) {
         showCallToolbar(value: false)
-        
-        if(recipientId != ""){
-            let callAudioView = CallAudioView(userId: self.recipientId)
-            present(callAudioView, animated: true)
-        }else{
-            var personsId: [String] = []
-            for person in persons{
-                personsId.append(person.objectId)
-            }
-            if let group=realm.object(ofType: Group.self, forPrimaryKey: chatId){
-                let callAudioView = CallAudioView(group: group, persons: personsId)
-                present(callAudioView, animated: true)
-            }
-            
-        }
+        //let callAudioView = CallAudioView(userId: self.recipientId)
+        //present(callAudioView, animated: true)
     }
     
     @IBAction func actionVideoCall(_ sender: Any) {
         showCallToolbar(value: false)
-        //let callVideoView = CallVideoView(userId: self.recipientId)
-        //present(callVideoView, animated: true)
-        
-        if(recipientId != ""){
-            let callVideoView = CallVideoView(userId: self.recipientId)
-            present(callVideoView, animated: true)
-        }else{
-            
-            var personsId: [String] = []
-            for person in persons{
-                personsId.append(person.objectId)
-            }
-            if let group=realm.object(ofType: Group.self, forPrimaryKey: chatId){
-                let callVideoView = CallVideoView(group: group, persons: personsId)
-                present(callVideoView, animated: true)
-            }
-        }
+        let callVideoView = CallVideoView(userId: self.recipientId)
+        present(callVideoView, animated: true)
     }
     
     // MARK: - Title details methods
@@ -337,13 +187,7 @@ class ChatViewController: UIViewController {
         if let person = realm.object(ofType: Person.self, forPrimaryKey: recipientId) {
             participantNameLabel.text = person.fullname
 //            labelTitle2.text = person.lastActiveText()
-        }else if let group=realm.object(ofType: Group.self, forPrimaryKey: chatId) {
-            participantNameLabel.text = group.name
-                
-            }else{
-                participantNameLabel.text = ""
-                
-            }
+        }
     }
     // MARK: - Cleanup methods
     //---------------------------------------------------------------------------------------------------------------------------------------------
@@ -393,7 +237,6 @@ class ChatViewController: UIViewController {
                     self.refreshTableView()
                     self.scrollToBottom()
                 case .update(_, let delete, let insert, _):
-                    print("messages update")
                     self.messageToDisplay -= delete.count
                     self.messageToDisplay += insert.count
                     self.refreshTableView()
@@ -415,7 +258,7 @@ class ChatViewController: UIViewController {
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func refreshTableView() {
-        print("refresh table view")
+
         tableView.reloadData()
     }
 
@@ -469,7 +312,6 @@ class ChatViewController: UIViewController {
             self.scrollToBottom(animated: true)
         }
         //Shortcut.update(userId: recipientId)
-        
     }
     // MARK: - Load earlier methods
     //---------------------------------------------------------------------------------------------------------------------------------------------
@@ -542,9 +384,7 @@ class ChatViewController: UIViewController {
     func avatarImage(_ indexPath: IndexPath) -> UIImage? {
 
         let rcmessage = rcmessageAt(indexPath)
-        let imageAvatar = avatarImages[rcmessage.userId]
-        // print(rcmessage.userId)
-        //print(rcmessage.userPictureAt)
+        var imageAvatar = avatarImages[rcmessage.userId]
 /*
         if (imageAvatar == nil) {
             if let path = MediaDownload.pathUser(rcmessage.userId) {
@@ -555,10 +395,9 @@ class ChatViewController: UIViewController {
 */
         if (imageAvatar == nil) {
             MediaDownload.startUser(rcmessage.userId, pictureAt: rcmessage.userPictureAt) { image, error in
-                // print(error)
                 if (error == nil) {
-                    //imageAvatar = image
-                    self.avatarImages[rcmessage.userId] = image
+                    imageAvatar = image
+                    self.avatarImages[rcmessage.userId] = imageAvatar
                     //self.refreshTableView()
                 }
                 else{
@@ -576,7 +415,7 @@ class ChatViewController: UIViewController {
 
         let rcmessage = rcmessageAt(indexPath)
         var previousDate = ""
-        //// print("row: \(indexPath.row), section:\(indexPath.section)")
+        //print("row: \(indexPath.row), section:\(indexPath.section)")
         if indexPath.section != 0 {
             let previousIndexPath = IndexPath(row: indexPath.row, section: indexPath.section - 1)
             let previousrcmMessage = rcmessageAt(previousIndexPath)
@@ -588,7 +427,6 @@ class ChatViewController: UIViewController {
         }
         return date
     }
-    
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func textHeaderLower(_ indexPath: IndexPath) -> String? {
@@ -619,16 +457,15 @@ class ChatViewController: UIViewController {
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func menuItems(_ indexPath: IndexPath) -> [RCMenuItem]? {
 
-        let menuItemCopy = RCMenuItem(title: "Copy".localized, action: #selector(actionMenuCopy(_:)))
-        let menuItemSave = RCMenuItem(title: "Save".localized, action: #selector(actionMenuSave(_:)))
-        let menuItemDelete = RCMenuItem(title: "Delete".localized, action: #selector(actionMenuDelete(_:)))
-        let menuItemMark = RCMenuItem(title: "Objectionable".localized, action: #selector(actionMenuMark(_:)))
+        let menuItemCopy = RCMenuItem(title: "Copy", action: #selector(actionMenuCopy(_:)))
+        let menuItemSave = RCMenuItem(title: "Save", action: #selector(actionMenuSave(_:)))
+        let menuItemDelete = RCMenuItem(title: "Delete", action: #selector(actionMenuDelete(_:)))
+        let menuItemForward = RCMenuItem(title: "Forward", action: #selector(actionMenuForward(_:)))
 
         menuItemCopy.indexPath = indexPath
         menuItemSave.indexPath = indexPath
         menuItemDelete.indexPath = indexPath
-        menuItemMark.indexPath = indexPath
-        //menuItemForward.indexPath = indexPath
+        menuItemForward.indexPath = indexPath
 
         let rcmessage = rcmessageAt(indexPath)
 
@@ -642,8 +479,7 @@ class ChatViewController: UIViewController {
         if (rcmessage.type == MESSAGE_TYPE.MESSAGE_AUDIO)    { array.append(menuItemSave) }
 
         array.append(menuItemDelete)
-        array.append(menuItemMark)
-        //array.append(menuItemForward)
+        array.append(menuItemForward)
 
         return array
     }
@@ -652,7 +488,7 @@ class ChatViewController: UIViewController {
         if (action == #selector(actionMenuCopy(_:)))    { return true }
         if (action == #selector(actionMenuSave(_:)))    { return true }
         if (action == #selector(actionMenuDelete(_:)))    { return true }
-        if (action == #selector(actionMenuMark(_:)))    { return true }
+        if (action == #selector(actionMenuForward(_:)))    { return true }
         return false
     }
 
@@ -708,45 +544,11 @@ class ChatViewController: UIViewController {
  */
         }
     }
-    
-    @IBAction func actionTapClose(_ sender: Any) {
-        self.popupView.isHidden = true
-    }
+
     // MARK: - User actions (avatar tap)
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func actionTapAvatar(_ indexPath: IndexPath) {
-        let rcmessage = rcmessageAt(indexPath)
-        if(rcmessage.userId == AuthUser.userId()){
-            return
-        }
-        guard let person = Persons.getById(rcmessage.userId) else {
-            return
-        }
-        
-        self.popupUserName.text = person.fullname
-        self.popupPhoneNumber.text = person.phone
-        self.popupCheckmark.isHidden = true
-        if let path = MediaDownload.pathUser(person.objectId) {
-            self.popupUserAvatar.image = UIImage.image(path, size: 40)
-            self.popupCheckmark.isHidden = false
-        } else {
-            self.popupUserAvatar.image = nil
-            //labelInitials.text = person.initials()
-            MediaDownload.startUser(person.objectId, pictureAt: person.pictureAt) { image, error in
-                if (error == nil) {
-                    self.popupUserAvatar.image = image
-                    self.popupUserAvatar.makeRounded()
-                }
-                else{
-                    self.popupUserAvatar.image = UIImage(named: "ic_default_profile")
-                }
-                self.popupCheckmark.isHidden = false
-            }
-        }
-        self.popupUserAvatar.makeRounded()
 
-                    
-        self.popupView.isHidden = false
     }
     // MARK: - User actions (menu)
     //---------------------------------------------------------------------------------------------------------------------------------------------
@@ -796,13 +598,6 @@ class ChatViewController: UIViewController {
             message.update(isDeleted: true)
         }
     }
-    @objc func actionMenuMark(_ sender: Any?) {
-
-        if let indexPath = RCMenuItem.indexPath(sender as! UIMenuController) {
-            let message = messageAt(indexPath)
-            message.update(isObjectionable: true)
-        }
-    }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
     @objc func actionMenuForward(_ sender: Any?) {
@@ -836,11 +631,11 @@ class ChatViewController: UIViewController {
     }
     
     func actionOpenCamera() {
-        ImagePicker.cameraMulti(target: self, edit: false)
+        //ImagePicker.cameraMulti(target: self, edit: true)
     }
     
     func actionOpenGallery() {
-        ImagePicker.photoLibrary(target: self, edit: false)
+        //ImagePicker.photoLibrary(target: self, edit: true)
     }
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func actionSendMessage(_ text: String) {
@@ -849,14 +644,26 @@ class ChatViewController: UIViewController {
     // MARK: - Helper methods
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func layoutTableView() {
-        // print("layoutTableView")
+
         let heightInput = messageInputBar.bounds.height
-        
+/*
+        let widthView    = view.frame.size.width
+        let heightView    = view.frame.size.height
+
+        let leftSafe    = view.safeAreaInsets.left
+        let rightSafe    = view.safeAreaInsets.right
+
+        let tableviewtoppos = statusbarView.frame.height + topbarView.frame.height
+
+        let widthTable = widthView - leftSafe - rightSafe
+        let heightTable = heightView - heightInput - heightKeyboard - tableviewtoppos
+
+        tableView.frame = CGRect(x: leftSafe, y: tableviewtoppos, width: widthTable, height: heightTable)
+*/
         let edgeInset = UIEdgeInsets(top: 0, left: 0, bottom: heightInput + heightKeyboard, right: 0)
 
-        tableView.contentInset = edgeInset
+        tableView.contentInset = edgeInset        
         tableView.scrollIndicatorInsets = edgeInset
-        
     }
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func scrollToBottom(animated: Bool) {
@@ -900,12 +707,19 @@ class ChatViewController: UIViewController {
     // MARK: - Keyboard methods
     //---------------------------------------------------------------------------------------------------------------------------------------------
     @objc func keyboardWillShow(_ notification: Notification) {
-        self.popupView.isHidden = true
-        showCallToolbar(value: false)
+
         if (heightKeyboard != 0) { return }
-        // print("keyboardwillshow")
+
         keyboardWillShow = true
-        
+        /*
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            self.heightKeyboard = keyboardRectangle.height
+            self.layoutTableView()
+            self.scrollToBottom(animated: true)
+
+        }
+ */
         if let info = notification.userInfo {
             if let duration = info[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double {
                 if let keyboard = info[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
@@ -913,7 +727,7 @@ class ChatViewController: UIViewController {
                         if (self.keyboardWillShow) {
                             self.heightKeyboard = keyboard.size.height
                             self.layoutTableView()
-                            self.scrollToBottom()
+                            
                         }
                     }
                 }
@@ -934,9 +748,8 @@ class ChatViewController: UIViewController {
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func dismissKeyboard() {
-        if(keyboardWillShow){
-            messageInputBar.inputTextView.resignFirstResponder()
-        }
+
+        messageInputBar.inputTextView.resignFirstResponder()
     }
     func configureMessageInputBar() {
 
@@ -944,55 +757,71 @@ class ChatViewController: UIViewController {
         callToolbarView.layer.zPosition = 1
 
         keyboardManager.bind(inputAccessoryView: messageInputBar)
-        //keyboardManager.bind(to: tableView)
+        keyboardManager.bind(to: tableView)
 
         messageInputBar.delegate = self
 
+        /*
+        let button = InputBarButtonItem()
+        button.image = UIImage(systemName: "plus")
+        button.setSize(CGSize(width: 36, height: 36), animated: false)
+
+        button.onKeyboardSwipeGesture { item, gesture in
+            if (gesture.direction == .left)     { item.inputBarAccessoryView?.setLeftStackViewWidthConstant(to: 0, animated: true)        }
+            if (gesture.direction == .right) { item.inputBarAccessoryView?.setLeftStackViewWidthConstant(to: 36, animated: true)    }
+        }
+         */
         let cameraButton = InputBarButtonItem()
         cameraButton.image = UIImage(named: "ic_camera")
-        cameraButton.setSize(CGSize(width: 30, height: 40), animated: false)
-        
+        cameraButton.setSize(CGSize(width: 34, height: 36), animated: false)
+        //cameraButton.contentEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+
+        cameraButton.onKeyboardSwipeGesture { item, gesture in
+            if (gesture.direction == .left)     { item.inputBarAccessoryView?.setLeftStackViewWidthConstant(to: 0, animated: true)        }
+            if (gesture.direction == .right) { item.inputBarAccessoryView?.setLeftStackViewWidthConstant(to: 36, animated: true)    }
+        }
+
         cameraButton.onTouchUpInside { item in
             self.actionOpenCamera()
         }
 
         let galleryButton = InputBarButtonItem()
         galleryButton.image = UIImage(named: "ic_gallery")
-        galleryButton.setSize(CGSize(width: 25, height: 40), animated: false)
+        galleryButton.setSize(CGSize(width: 30, height: 36), animated: false)
+        //galleryButton.contentEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         
+        galleryButton.onKeyboardSwipeGesture { item, gesture in
+            if (gesture.direction == .left)     { item.inputBarAccessoryView?.setLeftStackViewWidthConstant(to: 0, animated: true)        }
+            if (gesture.direction == .right) { item.inputBarAccessoryView?.setLeftStackViewWidthConstant(to: 36, animated: true)    }
+        }
+
         galleryButton.onTouchUpInside { item in
             self.actionOpenGallery()
         }
-        
+
         messageInputBar.setStackViewItems([cameraButton, galleryButton], forStack: .left, animated: false)
         messageInputBar.leftStackView.isLayoutMarginsRelativeArrangement = false
         messageInputBar.leftStackView.spacing = 8
-        
+
         messageInputBar.sendButton.title = nil
         messageInputBar.sendButton.image = UIImage(named: "ic_send")
-        messageInputBar.sendButton.setSize(CGSize(width: 27, height: 40), animated: false)
-        
-        messageInputBar.setLeftStackViewWidthConstant(to: 62, animated: false)
-        messageInputBar.setRightStackViewWidthConstant(to: 28, animated: false)
-        
-        messageInputBar.middleContentViewPadding = UIEdgeInsets(top: 1, left: 8, bottom: 1, right: 5)
-        messageInputBar.inputTextView.font = RCDefaults.textFont
-        messageInputBar.inputTextView.placeholder = "Enter a message".localized
+        messageInputBar.sendButton.setSize(CGSize(width: 32, height: 36), animated: false)        
+
+        messageInputBar.setLeftStackViewWidthConstant(to: 72, animated: false)
+        messageInputBar.setRightStackViewWidthConstant(to: 36, animated: false)
+
+        messageInputBar.middleContentViewPadding = UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 5)
+        messageInputBar.inputTextView.placeholder = "Enter a message"
         messageInputBar.inputTextView.backgroundColor = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1)
         messageInputBar.inputTextView.placeholderTextColor = UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
-        messageInputBar.inputTextView.textContainerInset = UIEdgeInsets(top: 10, left: 16, bottom: 10, right: 36)
-        messageInputBar.inputTextView.placeholderLabelInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 36)
+        messageInputBar.inputTextView.textContainerInset = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 36)
+        messageInputBar.inputTextView.placeholderLabelInsets = UIEdgeInsets(top: 8, left: 20, bottom: 8, right: 36)
         messageInputBar.inputTextView.layer.borderColor = UIColor(red: 200/255, green: 200/255, blue: 200/255, alpha: 1).cgColor
         messageInputBar.inputTextView.layer.borderWidth = 1.0
-        messageInputBar.inputTextView.layer.cornerRadius = 11.0
+        messageInputBar.inputTextView.layer.cornerRadius = 16.0
         messageInputBar.inputTextView.layer.masksToBounds = true
-        messageInputBar.inputTextView.scrollIndicatorInsets = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
+        messageInputBar.inputTextView.scrollIndicatorInsets = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
         messageInputBar.inputTextView.isImagePasteEnabled = false
-        messageInputBar.inputTextView.keyboardType = .twitter
-        if(recipientId == ""){
-            autocompleteManager.register(prefix: "@", with: [.font: UIFont.preferredFont(forTextStyle: .body),.foregroundColor: UIColor.systemBlue,.backgroundColor: UIColor.systemBlue.withAlphaComponent(0.1)])
-        }
-        
     }
     @IBAction func onBackPressed(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
@@ -1005,20 +834,22 @@ extension ChatViewController: UITableViewDataSource {
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-        return 1
+        return 5
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func numberOfSections(in tableView: UITableView) -> Int {
+
         return messageLoadedCount()
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        
-        
-        if (indexPath.row == 0) {
+
+        if (indexPath.row == 0)                        { return cellForHeaderUpper(tableView, at: indexPath)        }
+        if (indexPath.row == 1)                        { return cellForHeaderLower(tableView, at: indexPath)        }
+
+        if (indexPath.row == 2) {
             let rcmessage = rcmessageAt(indexPath)
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_TEXT)        { return cellForMessageText(tableView, at: indexPath)        }
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_EMOJI)    { return cellForMessageEmoji(tableView, at: indexPath)        }
@@ -1026,8 +857,11 @@ extension ChatViewController: UITableViewDataSource {
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_VIDEO)    { return cellForMessageVideo(tableView, at: indexPath)        }
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_AUDIO)    { return cellForMessageAudio(tableView, at: indexPath)        }
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_LOCATION)    { return cellForMessageLocation(tableView, at: indexPath)    }
-            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_MONEY)    { return cellForMessageMoney(tableView, at: indexPath)    }
         }
+
+        if (indexPath.row == 3)                        { return cellForFooterUpper(tableView, at: indexPath)        }
+        if (indexPath.row == 4)                        { return cellForFooterLower(tableView, at: indexPath)        }
+
         return UITableViewCell()
     }
 
@@ -1070,22 +904,7 @@ extension ChatViewController: UITableViewDataSource {
         cell.bindData(self, at: indexPath)
         return cell
     }
-    
-    
-    func cellForMessageMoney(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
 
-        let cell = tableView.dequeueReusableCell(withIdentifier: MoneyTableViewCell.GetCellReuseIdentifier(), for: indexPath) as! MoneyTableViewCell
-        
-        cell.bindData(messageAt(indexPath), messageView: self)
-        return cell
-    }
-
-    func goPayDetail(_ zedPay: ZEDPay){
-        let mainstoryboard = UIStoryboard.init(name: "ZedPay", bundle: nil)
-        let vc = mainstoryboard.instantiateViewController(withIdentifier: "detailVC") as! TransactionDetailViewController
-        vc.transaction = zedPay
-        self.present(vc, animated: true, completion: nil)
-    }
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func cellForMessageVideo(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
 
@@ -1145,35 +964,29 @@ extension ChatViewController: UITableViewDelegate {
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 
-        
-        if (indexPath.row == 0) {
+        if (indexPath.row == 0)                        { return RCHeaderUpperCell.height(self, at: indexPath)        }
+        if (indexPath.row == 1)                        { return RCHeaderLowerCell.height(self, at: indexPath)        }
+
+        if (indexPath.row == 2) {
             let rcmessage = rcmessageAt(indexPath)
-            
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_TEXT)        { return RCMessageTextCell.height(self, at: indexPath)        }
-            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_EMOJI)    { return RCMessageEmojiCell.height(self, at: indexPath)         }
-            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_PHOTO)    { return RCMessagePhotoCell.height(self, at: indexPath)     }
-            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_VIDEO)    { return RCMessageVideoCell.height(self, at: indexPath)      }
-            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_AUDIO)    { return RCMessageAudioCell.height(self, at: indexPath)         }
-            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_LOCATION)    { return RCMessageLocationCell.height(self, at: indexPath)   }
-            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_MONEY)    { return 143   }
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_EMOJI)    { return RCMessageEmojiCell.height(self, at: indexPath)        }
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_PHOTO)    { return RCMessagePhotoCell.height(self, at: indexPath)        }
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_VIDEO)    { return RCMessageVideoCell.height(self, at: indexPath)        }
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_AUDIO)    { return RCMessageAudioCell.height(self, at: indexPath)        }
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_LOCATION)    { return RCMessageLocationCell.height(self, at: indexPath)    }
         }
+
+        if (indexPath.row == 3)                        { return RCFooterUpperCell.height(self, at: indexPath)        }
+        if (indexPath.row == 4)                        { return RCFooterLowerCell.height(self, at: indexPath)        }
+
         return 0
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        let offset = messageTotalCount() - messageLoadedCount()
-        let message = messages[section + offset]
-        var prevUserId = ""
-        if(section > 0){
-            prevUserId = messages[section + offset - 1].userId
-        }
-        var offsetHeight = CGFloat(3)
-        if (prevUserId != message.userId){
-            offsetHeight = RCDefaults.sectionHeaderMargin
-            prevUserId = message.userId
-        }
-        return offsetHeight
+
+        return RCDefaults.sectionHeaderMargin
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
@@ -1195,9 +1008,11 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func inputBar(_ inputBar: InputBarAccessoryView, didChangeIntrinsicContentTo size: CGSize) {
         
-        
-        
-        
+        /*
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.scrollToBottom(animated: true)
+        }
+        */
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
@@ -1205,12 +1020,7 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
 
         for component in inputBar.inputTextView.components {
             if let text = component as? String {
-                self.messageInputBar.sendButton.startAnimating()
                 actionSendMessage(text)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    self.messageInputBar.sendButton.stopAnimating()
-                }
-                //self.messageInputBar.sendButton.stopAnimating()
             }
         }
         messageInputBar.inputTextView.text = ""
@@ -1307,67 +1117,11 @@ extension ChatViewController: UISearchBarDelegate {
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func searchBarSearchButtonClicked(_ searchBar_: UISearchBar) {
-        searchBar_.resignFirstResponder()
-        
-        tableView.reloadData()
+        searchBar.resignFirstResponder()
+        let searchText = searchBar_.text
+        if searchText?.isEmpty == true {
+            return
+        }
         
     }
 }
-
-extension ChatViewController: AutocompleteManagerDelegate, AutocompleteManagerDataSource {
-
-    // MARK: - AutocompleteManagerDataSource
-
-    func autocompleteManager(_ manager: AutocompleteManager, autocompleteSourceFor prefix: String) -> [AutocompleteCompletion] {
-
-        if prefix == "@" {
-            
-            var autoList:[AutocompleteCompletion] = []
-            for user in users {
-                autoList.append(AutocompleteCompletion(text: user.name))
-            }
-            return autoList
-        } else {
-            return ["InputBarAccessoryView", "iOS"].map { AutocompleteCompletion(text: $0) }
-        }
-    }
-
-    func autocompleteManager(_ manager: AutocompleteManager, tableView: UITableView, cellForRowAt indexPath: IndexPath, for session: AutocompleteSession) -> UITableViewCell {
-
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: AutocompleteCell.reuseIdentifier, for: indexPath) as? AutocompleteCell else {
-            fatalError("Oops, some unknown error occurred")
-        }
-        if session.prefix == "@" {
-            let user = users[indexPath.row]
-            cell.imageView?.image = user.image
-            cell.imageViewEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
-            cell.imageView?.layer.cornerRadius = 8
-            cell.imageView?.layer.borderWidth = 1
-            cell.imageView?.layer.borderColor = UIColor.systemBlue.cgColor
-            cell.imageView?.layer.masksToBounds = true
-        }
-        cell.textLabel?.attributedText = manager.attributedText(matching: session, fontSize: 15, keepPrefix: session.prefix == "#" )
-        return cell
-    }
-
-    // MARK: - AutocompleteManagerDelegate
-
-    func autocompleteManager(_ manager: AutocompleteManager, shouldBecomeVisible: Bool) {
-        setAutocompleteManager(active: shouldBecomeVisible)
-    }
-
-    // MARK: - AutocompleteManagerDelegate Helper
-
-    func setAutocompleteManager(active: Bool) {
-        let topStackView = self.messageInputBar.topStackView
-        if active && !topStackView.arrangedSubviews.contains(autocompleteManager.tableView) {
-            topStackView.insertArrangedSubview(autocompleteManager.tableView, at: topStackView.arrangedSubviews.count)
-            topStackView.layoutIfNeeded()
-        } else if !active && topStackView.arrangedSubviews.contains(autocompleteManager.tableView) {
-            topStackView.removeArrangedSubview(autocompleteManager.tableView)
-            topStackView.layoutIfNeeded()
-        }
-        self.messageInputBar.invalidateIntrinsicContentSize()
-    }
-}
-

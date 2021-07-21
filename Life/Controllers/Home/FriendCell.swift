@@ -10,39 +10,19 @@ import UIKit
 import SwiftyAvatar
 class FriendCell: UITableViewCell {
     
-    var homeViewController: ChatViewControllerProtocol!
-    var indexPath: IndexPath!
-    var group: Group!
     @IBOutlet weak var profileImageView: SwiftyAvatar!
     
     @IBOutlet weak var userNameLabel: UILabel!
-    @IBOutlet weak var removeFriend: UIImageView!
-    var cellType = 0
     
-    
-    func bindData(person: Person, indexPath: IndexPath) {
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func bindData(person: Person) {
 
         userNameLabel.text = person.fullname
-        cellType = 0
-        removeFriend.image = UIImage(named: "remove_friend")
-        self.indexPath = indexPath
-        //homeViewController.singleChatView(indexPath)
-        //removeGestureRecognizer()
-        //cellGestureRecognizer()
-        
     }
 
-    func bindGroupData(group: Group, indexPath: IndexPath) {
+    func bindGroupData(group: Group) {
 
         userNameLabel.text = group.name
-        cellType = 1
-        removeFriend.image = UIImage(named: "config_group")
-        self.indexPath = indexPath
-        self.group = group
-        //homeViewController.groupChatView(indexPath)
-        //removeGestureRecognizer()
-        //cellGestureRecognizer()
-        
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
@@ -106,9 +86,6 @@ class FriendCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        
-        removeGestureRecognizer()
-        cellGestureRecognizer()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -128,46 +105,4 @@ class FriendCell: UITableViewCell {
         let aNib = UINib.init(nibName: "FriendCell",bundle: Bundle.main);
         return aNib
     }
-    
-    func removeGestureRecognizer() {
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(actionTapRemove))
-        
-        removeFriend.isUserInteractionEnabled = true
-        removeFriend.addGestureRecognizer(tapGesture)
-        //contentView.addGestureRecognizer(tapGesture)
-        //tapGesture.cancelsTouchesInView = false
-    }
-    func cellGestureRecognizer() {
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(actionTapCell))
-        profileImageView.isUserInteractionEnabled = true
-        profileImageView.addGestureRecognizer(tapGesture)
-        let tapGesture1 = UITapGestureRecognizer(target: self, action: #selector(actionTapCell))
-        userNameLabel.isUserInteractionEnabled = true
-        userNameLabel.addGestureRecognizer(tapGesture1)
-        
-        
-    }
-    
-    
-    @objc func actionTapRemove() {
-        
-        if(cellType == 0){
-            homeViewController.removeFriend(indexPath)
-        }else if cellType == 1{
-            homeViewController.groupInfo(group)
-        }
-    }
-    
-    @objc func actionTapCell() {
-        if(cellType == 0){
-            homeViewController.singleChatView(indexPath)
-        }else if cellType == 1{
-            homeViewController.groupChatView(indexPath)
-        }
-    }
-    
-    
-    
 }

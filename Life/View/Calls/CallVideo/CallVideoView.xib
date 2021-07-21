@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -39,7 +38,7 @@
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4xH-2r-f6Q">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                            <color key="backgroundColor" systemColor="tableCellGroupedBackgroundColor"/>
+                            <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                         </view>
                         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aty-bH-sVM">
                             <rect key="frame" x="0.0" y="54" width="320" height="460"/>
@@ -198,7 +197,7 @@
                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                         </view>
                     </subviews>
-                    <color key="backgroundColor" systemColor="tableCellGroupedBackgroundColor"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="Gaf-ab-Y7P" secondAttribute="bottom" id="6mM-70-nxg"/>
                         <constraint firstAttribute="bottom" secondItem="73p-HQ-VN9" secondAttribute="bottom" id="8LT-Qj-poF"/>
@@ -222,22 +221,17 @@
                     </constraints>
                 </view>
             </subviews>
-            <viewLayoutGuide key="safeArea" id="Mqm-46-MqP"/>
-            <color key="backgroundColor" systemColor="tableCellGroupedBackgroundColor"/>
+            <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
             <constraints>
                 <constraint firstItem="Mqm-46-MqP" firstAttribute="bottom" secondItem="i5M-Pr-FkT" secondAttribute="bottom" id="BM9-bE-80x"/>
                 <constraint firstItem="Mqm-46-MqP" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" id="LVA-3M-RfV"/>
                 <constraint firstItem="i5M-Pr-FkT" firstAttribute="leading" secondItem="Mqm-46-MqP" secondAttribute="leading" id="S0s-Kp-3G9"/>
                 <constraint firstItem="i5M-Pr-FkT" firstAttribute="top" secondItem="Mqm-46-MqP" secondAttribute="top" id="TVP-F3-VCv"/>
             </constraints>
+            <viewLayoutGuide key="safeArea" id="Mqm-46-MqP"/>
             <point key="canvasLocation" x="262" y="112"/>
         </view>
     </objects>
-    <designables>
-        <designable name="3Dn-fS-ES4">
-            <size key="intrinsicContentSize" width="70" height="70"/>
-        </designable>
-    </designables>
     <resources>
         <image name="callvideo_answer.png" width="72" height="72"/>
         <image name="callvideo_blank.png" width="70" height="70"/>
@@ -245,8 +239,5 @@
         <image name="callvideo_mute1.png" width="37.5" height="30"/>
         <image name="callvideo_switch1.png" width="30" height="30"/>
         <image name="callvideo_video1.png" width="37.5" height="30"/>
-        <systemColor name="tableCellGroupedBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
     </resources>
 </document>

@@ -24,13 +24,14 @@ class Audio: NSObject {
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	class func playMessageIncoming() {
 
-        AudioServicesPlaySystemSound (1003)
+		let path = Dir.application("rcmessage_incoming.aiff")
+//		RCAudioPlayer.shared.playSound(path)
 	}
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	class func playMessageOutgoing() {
 
-        AudioServicesPlaySystemSound (1004)
-        
+		let path = Dir.application("rcmessage_outgoing.aiff")
+//		RCAudioPlayer.shared.playSound(path)
 	}
 }

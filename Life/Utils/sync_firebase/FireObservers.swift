@@ -26,9 +26,7 @@ class FireObservers: NSObject {
 	private var observerGroups:		[String: FireObserver] = [:]
 	private var observerDetails:	[String: FireObserver] = [:]
 	private var observerMessages:	[String: FireObserver] = [:]
-    private var observerTransactions: FireObserver?
-    private var observerStripeCustomers: FireObserver?
-    private var observerPaymentMethods: FireObserver?
+
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	static let shared: FireObservers = {
 		let instance = FireObservers()
@@ -40,9 +38,9 @@ class FireObservers: NSObject {
 
 		super.init()
 
-        NotificationCenter.default.addObserver(self, selector: #selector(initObservers), name: NSNotification.Name(rawValue: NotificationStatus.NOTIFICATION_APP_STARTED), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(initObservers), name: NSNotification.Name(rawValue: NotificationStatus.NOTIFICATION_USER_LOGGED_IN), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(stopObservers), name: NSNotification.Name(rawValue: NotificationStatus.NOTIFICATION_USER_LOGGED_OUT), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(initObservers), name: .appStarted, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(initObservers), name: .loggedIn, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(stopObservers), name: .loggedOut, object: nil)
 	}
 
 	// MARK: -
@@ -57,9 +55,6 @@ class FireObservers: NSObject {
 			if (observerSingle1 == nil)	{ createObserverSingle1()	}
 			if (observerSingle2 == nil)	{ createObserverSingle2()	}
 			if (observerMember == nil)	{ createObserverMember()	}
-            if (observerTransactions == nil) { createObserverTransactions() }
-            if (observerStripeCustomers == nil) { createObserverStripeCustomers() }
-            if (observerPaymentMethods == nil) { createObserverPaymentMethods() }
 		}
 	}
 
@@ -73,9 +68,7 @@ class FireObservers: NSObject {
 		observerSingle1?.removeObserver();	observerSingle1 = nil
 		observerSingle2?.removeObserver();	observerSingle2 = nil
 		observerMember?.removeObserver();	observerMember = nil
-        observerTransactions?.removeObserver(); observerTransactions = nil
-        observerStripeCustomers?.removeObserver(); observerStripeCustomers = nil
-        observerPaymentMethods?.removeObserver(); observerStripeCustomers = nil
+
 		for chatId in observerMembers.keys	{ observerMembers[chatId]?.removeObserver()	 }
 		for chatId in observerGroups.keys	{ observerGroups[chatId]?.removeObserver()	 }
 		for chatId in observerDetails.keys	{ observerDetails[chatId]?.removeObserver()	 }
@@ -181,7 +174,7 @@ class FireObservers: NSObject {
 
 		for chatId in chatIds {
 			if (observerDetails[chatId] == nil) {
-                let query = Firestore.firestore().collection("Detail").whereField("chatId", isEqualTo: chatId)
+				let query = Firestore.firestore().collection("Detail").whereField("chatId", isEqualTo: chatId)
 				observerDetails[chatId] = FireObserver(query, to: Detail.self)
 			}
 		}
@@ -198,24 +191,4 @@ class FireObservers: NSObject {
 			}
 		}
 	}
-    
-    private func createObserverTransactions() {
-
-        let query1 = Firestore.firestore().collection("ZEDPay")
-            .whereField("fromUserId", isEqualTo: AuthUser.userId())
-        let query2 = Firestore.firestore().collection("ZEDPay")
-            .whereField("toUserId", isEqualTo: AuthUser.userId())
-        observerTransactions = FireObserver([query1, query2], to: ZEDPay.self)
-    }
-    private func createObserverStripeCustomers(){
-        let query = Firestore.firestore().collection("StripeCustomer")
-            .whereField("userId", isEqualTo: AuthUser.userId())
-        observerStripeCustomers = FireObserver(query, to: StripeCustomer.self)
-    }
-    
-    private func createObserverPaymentMethods(){
-        let query = Firestore.firestore().collection("PaymentMethod")
-            .whereField("userId", isEqualTo: AuthUser.userId())
-        observerPaymentMethods = FireObserver(query, to: PaymentMethod.self)
-    }
 }

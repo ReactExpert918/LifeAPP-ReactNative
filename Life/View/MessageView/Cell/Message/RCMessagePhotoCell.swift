@@ -29,7 +29,8 @@ class RCMessagePhotoCell: RCMessageCell {
 
 		if (imageViewPhoto == nil) {
 			imageViewPhoto = UIImageView()
-			
+			imageViewPhoto.layer.masksToBounds = true
+			imageViewPhoto.layer.cornerRadius = RCDefaults.bubbleRadius
 			viewBubble.addSubview(imageViewPhoto)
 		}
 
@@ -75,7 +76,7 @@ class RCMessagePhotoCell: RCMessageCell {
 
 		super.layoutSubviews(size)
 
-		imageViewPhoto.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height-labelHeight-nameHeight)
+		imageViewPhoto.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
 
 		let widthActivity = activityIndicator.frame.size.width
 		let heightActivity = activityIndicator.frame.size.height
@@ -104,10 +105,7 @@ class RCMessagePhotoCell: RCMessageCell {
 		let rcmessage = messagesView.rcmessageAt(indexPath)
 
 		let photoWidth = CGFloat(rcmessage.photoWidth)
-        let labelHeight = (messagesView.textHeaderUpper(indexPath) != nil) ? RCDefaults.headerUpperHeight : 0
-        let nameHeight = (messagesView.recipientId=="" && rcmessage.incoming) ? RCDefaults.headerLowerHeight : 0
-		let photoHeight = CGFloat(rcmessage.photoHeight)+labelHeight+RCDefaults.viewBubbleMarginTop + nameHeight
-        
+		let photoHeight = CGFloat(rcmessage.photoHeight)
 
 		let width = CGFloat.minimum(RCDefaults.photoBubbleWidth, photoWidth)
 		return CGSize(width: width, height: photoHeight * width / photoWidth)

@@ -58,15 +58,9 @@ class Cryptor: NSObject {
 			if let dataEncrypted = encrypt(data: dataDecrypted, chatId: chatId) {
 				do {
 					try dataEncrypted.write(to: URL(fileURLWithPath: path), options: .atomic)
-				} catch {
-                    // print("Cryptor encryptFile error.")
-                    
-                }
+				} catch { print("Cryptor encryptFile error.") }
 			}
-		} catch {
-            // print("Cryptor encryptFile error.")
-            
-        }
+		} catch { print("Cryptor encryptFile error.") }
 	}
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
@@ -77,14 +71,8 @@ class Cryptor: NSObject {
 			if let dataDecrypted = decrypt(data: dataEncrypted, chatId: chatId) {
 				do {
 					try dataDecrypted.write(to: URL(fileURLWithPath: path), options: .atomic)
-				} catch {
-                    //print("Cryptor decryptFile error.")
-                    
-                }
+				} catch { print("Cryptor decryptFile error.") }
 			}
-		} catch {
-            //print("Cryptor decryptFile error.")
-            
-        }
+		} catch { print("Cryptor decryptFile error.") }
 	}
 }

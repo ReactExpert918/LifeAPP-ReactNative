@@ -23,7 +23,8 @@ class RCMessageEmojiCell: RCMessageCell {
 
 		let rcmessage = messagesView.rcmessageAt(indexPath)
 
-		
+		viewBubble.backgroundColor = rcmessage.incoming ? RCDefaults.emojiBubbleColorIncoming : RCDefaults.emojiBubbleColorOutgoing
+
 		if (textView == nil) {
 			textView = UITextView()
 			textView.font = RCDefaults.emojiFont
@@ -33,7 +34,7 @@ class RCMessageEmojiCell: RCMessageCell {
 			textView.isUserInteractionEnabled = false
 			textView.backgroundColor = UIColor.clear
 			textView.textContainer.lineFragmentPadding = 0
-            textView.textContainerInset = rcmessage.incoming == true ? RCDefaults.emojiInsetIncomming : RCDefaults.emojiInsetOutgoing
+			textView.textContainerInset = RCDefaults.emojiInset
 			viewBubble.addSubview(textView)
 		}
 
@@ -47,7 +48,7 @@ class RCMessageEmojiCell: RCMessageCell {
 
 		super.layoutSubviews(size)
 
-		textView.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height-labelHeight-nameHeight)
+		textView.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
 	}
 
 	// MARK: - Size methods
@@ -70,11 +71,8 @@ class RCMessageEmojiCell: RCMessageCell {
 		let rect = rcmessage.text.boundingRect(with: CGSize(width: maxwidth, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: RCDefaults.emojiFont], context: nil)
 
 		let width = rect.size.width + RCDefaults.emojiInsetLeft + RCDefaults.emojiInsetRight
-		
-        let labelHeight = (messagesView.textHeaderUpper(indexPath) != nil) ? RCDefaults.headerUpperHeight : 0
-        
-        let nameHeight = (messagesView.recipientId=="" && rcmessage.incoming) ? RCDefaults.headerLowerHeight : 0
-        let height = rect.size.height + RCDefaults.emojiInsetTop + RCDefaults.emojiInsetBottom + labelHeight+RCDefaults.viewBubbleMarginTop + nameHeight
+		let height = rect.size.height + RCDefaults.emojiInsetTop + RCDefaults.emojiInsetBottom
+
 		return CGSize(width: CGFloat.maximum(width, RCDefaults.emojiBubbleWidthMin), height: CGFloat.maximum(height, RCDefaults.emojiBubbleHeightMin))
 	}
 }

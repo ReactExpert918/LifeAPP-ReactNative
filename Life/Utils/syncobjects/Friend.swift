@@ -24,7 +24,7 @@ class Friend: SyncObject {
     @objc dynamic var isAccepted = false
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-    func update(isDeleted value: Bool, completion: ( ()->())?) {
+	func update(isDeleted value: Bool) {
 
 		if (isDeleted == value) { return }
 
@@ -33,7 +33,6 @@ class Friend: SyncObject {
 			isDeleted = value
 			syncRequired = true
 			updatedAt = Date().timestamp()
-            completion?()
 		}
 	}
     

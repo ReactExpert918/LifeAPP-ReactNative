@@ -9,7 +9,7 @@
 import Foundation
 
 class AppConstant {
-    static let VIDEO_LENGTH = 30
+    static let VIDEO_LENGTH = 5
     
 }
 

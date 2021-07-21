@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2020 Related Code 
+// Copyright (c) 2020 Related Code
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -14,29 +14,29 @@ import Foundation
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 class Convert: NSObject {
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	class func dateToShort(_ date: Date) -> String {
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    class func dateToShort(_ date: Date) -> String {
 
-		return DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .none)
-	}
+        return DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .none)
+    }
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	class func timestampToMediumTime(_ timestamp: Int64) -> String {
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    class func timestampToMediumTime(_ timestamp: Int64) -> String {
 
-		let date = Date.date(timestamp: timestamp)
-		return DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .short)
-	}
+        let date = Date.date(timestamp: timestamp)
+        return DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .short)
+    }
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	class func timestampToDayMonth(_ timestamp: Int64) -> String {
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    class func timestampToDayMonth(_ timestamp: Int64) -> String {
 
-		let date = Date.date(timestamp: timestamp)
+        let date = Date.date(timestamp: timestamp)
 
-		let formatter = DateFormatter()
-		formatter.dateFormat = "MMMM dd, YYYY"
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMMM dd, YYYY"
 
-		return formatter.string(from: date)
-	}
+        return formatter.string(from: date)
+    }
     
     //---------------------------------------------------------------------------------------------------------------------------------------------
     class func timestampToDayMonthTime(_ timestamp: Int64) -> String {
@@ -68,54 +68,54 @@ class Convert: NSObject {
 
         return formatter.string(from: date)
     }
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	class func timestampToElapsed(_ timestamp: Int64) -> String {
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    class func timestampToElapsed(_ timestamp: Int64) -> String {
 
-		var elapsed = ""
+        var elapsed = ""
 
-		let date = Date.date(timestamp: timestamp)
-		let seconds = Date().timeIntervalSince(date)
+        let date = Date.date(timestamp: timestamp)
+        let seconds = Date().timeIntervalSince(date)
 
-		if (seconds < 60) {
-			elapsed = "Just now"
-		} else if (seconds < 60 * 60) {
-			let minutes = Int(seconds / 60)
-			let text = (minutes > 1) ? "mins" : "min"
-			elapsed = "\(minutes) \(text)"
-		} else if (seconds < 24 * 60 * 60) {
-			let hours = Int(seconds / (60 * 60))
-			let text = (hours > 1) ? "hours" : "hour"
-			elapsed = "\(hours) \(text)"
-		} else if (seconds < 7 * 24 * 60 * 60) {
-			let formatter = DateFormatter()
-			formatter.dateFormat = "EEEE"
-			elapsed = formatter.string(from: date)
-		} else {
-			let formatter = DateFormatter()
-			formatter.dateFormat = "dd.MM.yy"
-			elapsed = formatter.string(from: date)
-		}
+        if (seconds < 60) {
+            elapsed = "Just now"
+        } else if (seconds < 60 * 60) {
+            let minutes = Int(seconds / 60)
+            let text = (minutes > 1) ? "mins" : "min"
+            elapsed = "\(minutes) \(text)"
+        } else if (seconds < 24 * 60 * 60) {
+            let hours = Int(seconds / (60 * 60))
+            let text = (hours > 1) ? "hours" : "hour"
+            elapsed = "\(hours) \(text)"
+        } else if (seconds < 7 * 24 * 60 * 60) {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "EEEE"
+            elapsed = formatter.string(from: date)
+        } else {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "dd.MM.yy"
+            elapsed = formatter.string(from: date)
+        }
 
-		return elapsed
-	}
+        return elapsed
+    }
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	class func timestampToCustom(_ timestamp: Int64?) -> String {
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    class func timestampToCustom(_ timestamp: Int64?) -> String {
 
-		guard let timestamp = timestamp else { return "" }
+        guard let timestamp = timestamp else { return "" }
 
-		let date = Date.date(timestamp: timestamp)
-		let seconds = Date().timeIntervalSince(date)
+        let date = Date.date(timestamp: timestamp)
+        let seconds = Date().timeIntervalSince(date)
 
-		let formatter = DateFormatter()
-		if (seconds < 24 * 60 * 60) {
-			formatter.dateFormat = "HH:mm"
-		} else if (seconds < 7 * 24 * 60 * 60) {
-			formatter.dateFormat = "EEEE"
-		} else {
-			formatter.dateFormat = "dd.MM.yy"
-		}
+        let formatter = DateFormatter()
+        if (seconds < 24 * 60 * 60) {
+            formatter.dateFormat = "HH:mm"
+        } else if (seconds < 7 * 24 * 60 * 60) {
+            formatter.dateFormat = "EEEE"
+        } else {
+            formatter.dateFormat = "dd.MM.yy"
+        }
 
-		return formatter.string(from: date)
-	}
+        return formatter.string(from: date)
+    }
 }

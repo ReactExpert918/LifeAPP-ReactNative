@@ -23,9 +23,6 @@ class FireUpdaters: NSObject {
 	private var updaterSingle:	FireUpdater?
 	private var updaterDetail:	FireUpdater?
 	private var updaterMessage:	FireUpdater?
-    private var updaterStripeCustomer: FireUpdater?
-    private var updaterPaymentMethod: FireUpdater?
-    private var updaterTransaction: FireZEDPayUpdaters?
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	static let shared: FireUpdaters = {
@@ -38,19 +35,14 @@ class FireUpdaters: NSObject {
 
 		super.init()
 
-		updaterPerson = FireUpdater(name: "Person", type: Person.self)
-		updaterFriend = FireUpdater(name: "Friend", type: Friend.self)
-		updaterBlocked = FireUpdater(name: "Blocked", type: Blocked.self)
-		updaterMember = FireUpdater(name: "Member", type: Member.self)
+		updaterPerson	= FireUpdater(name: "Person", type: Person.self)
+		updaterFriend	= FireUpdater(name: "Friend", type: Friend.self)
+		updaterBlocked	= FireUpdater(name: "Blocked", type: Blocked.self)
+		updaterMember	= FireUpdater(name: "Member", type: Member.self)
 
-		updaterGroup = FireUpdater(name: "Group", type: Group.self)
-		updaterSingle = FireUpdater(name: "Single", type: Single.self)
-		updaterDetail = FireUpdater(name: "Detail", type: Detail.self)
-		updaterMessage = FireUpdater(name: "Message", type: Message.self)
-        updaterStripeCustomer = FireUpdater(name: "StripeCustomer", type: StripeCustomer.self)
-        updaterPaymentMethod = FireUpdater(name: "PaymentMethod", type: PaymentMethod.self)
-        
-        updaterTransaction = FireZEDPayUpdaters(type: ZEDPay.self)
-        
+		updaterGroup	= FireUpdater(name: "Group", type: Group.self)
+		updaterSingle	= FireUpdater(name: "Single", type: Single.self)
+		updaterDetail	= FireUpdater(name: "Detail", type: Detail.self)
+		updaterMessage	= FireUpdater(name: "Message", type: Message.self)
 	}
 }

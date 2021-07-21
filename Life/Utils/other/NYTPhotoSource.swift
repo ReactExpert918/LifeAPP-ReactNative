@@ -12,7 +12,6 @@
 import NYTPhotoViewer
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-
 class NYTPhotoSource: NSObject, NYTPhotoViewerDataSource {
 
 	var photoItems: [NYTPhoto] = []

@@ -33,7 +33,6 @@ class RCHeaderUpperCell: UITableViewCell {
 			labelText = UILabel()
 			labelText.font = RCDefaults.headerUpperFont
 			labelText.textColor = RCDefaults.headerUpperColor
-            
 			contentView.addSubview(labelText)
 		}
 

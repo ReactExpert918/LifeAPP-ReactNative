@@ -37,7 +37,7 @@ class Message: SyncObject {
 	@objc dynamic var isMediaFailed = false
 
 	@objc dynamic var isDeleted = false
-    @objc dynamic var isObjectionable = false
+
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	class func lastUpdatedAt(_ chatId: String) -> Int64 {
 
@@ -78,7 +78,7 @@ class Message: SyncObject {
 	func update(isDeleted value: Bool) {
 
 		if (isDeleted == value) { return }
-        print("update isdeleted")
+
 		let realm = try! Realm()
 		try! realm.safeWrite {
 			isDeleted = value
@@ -86,15 +86,4 @@ class Message: SyncObject {
 			updatedAt = Date().timestamp()
 		}
 	}
-    
-    func update(isObjectionable value: Bool){
-        if (isObjectionable == value) { return }
-        print("update isObjectionable")
-        let realm = try! Realm()
-        try! realm.safeWrite {
-            isObjectionable = value
-            syncRequired = true
-            updatedAt = Date().timestamp()
-        }
-    }
 }

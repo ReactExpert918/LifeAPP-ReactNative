@@ -9,7 +9,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Sinch
+//import Sinch
 import SwiftyAvatar
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 class CallVideoView: UIViewController {
@@ -33,14 +33,11 @@ class CallVideoView: UIViewController {
 	private var muted = false
 	private var switched = false
 
-	private var call: SINCall?
-	private var audioController: SINAudioController?
-	private var videoController: SINVideoController?
-    private var personsFullName:String?
-    private var callString = ""
-    private var type = 0
-    private var group: Group?
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	//private var call: SINCall?
+	//private var audioController: SINAudioController?
+	//private var videoController: SINVideoController?
+
+	/*
 	init(call: SINCall?) {
 
 		super.init(nibName: nil, bundle: nil)
@@ -55,61 +52,25 @@ class CallVideoView: UIViewController {
 
 		audioController = app?.client?.audioController()
 		videoController = app?.client?.videoController()
-        incoming = true
-        
-        callString = (self.call?.headers["name"])! as! String
-	}
+	}*/
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	init(userId: String) {
-        
+
 		super.init(nibName: nil, bundle: nil)
-        let recipentUser = realm.object(ofType: Person.self, forPrimaryKey: userId)
-        callString = recipentUser!.fullname
+
 		self.isModalInPresentation = true
 		self.modalPresentationStyle = .fullScreen
 
 		let app = UIApplication.shared.delegate as? AppDelegate
+/*
+		call = app?.client?.call().callUserVideo(withId: userId, headers: ["name": Persons.fullname()])
+		call?.delegate = self
 
-        personsFullName = Persons.fullname()
-        app?.callKitProvider?.setGroupCall(false)
-        //DispatchQueue.main.asyncAfter(deadline: .now()+1) {
-        self.call = app?.client?.call().callUserVideo(withId: userId, headers: ["name": Persons.fullname()])
-            self.call?.delegate = self
-
-            self.audioController = app?.client?.audioController()
-            self.videoController = app?.client?.videoController()
-        //}
-        outgoing = true
-		
+		audioController = app?.client?.audioController()
+		videoController = app?.client?.videoController()*/
 	}
-    init(group: Group, persons: [String]) {
-        
-        super.init(nibName: nil, bundle: nil)
-        type = 1
-        self.group = group
-        callString = group.name
-        print(callString)
-        outgoing = true
-        self.isModalInPresentation = true
-        self.modalPresentationStyle = .fullScreen
 
-        let app = UIApplication.shared.delegate as? AppDelegate
-        app?.callKitProvider?.setGroupCall(true)
-        for person in persons {
-            if(person == AuthUser.userId()){
-                continue
-            }
-            let call = app?.client?.call().callUserVideo(withId: person, headers: ["name": callString])
-            call?.delegate = self
-            
-            app?.callKitProvider?.insertCall(call: call!)
-        }
-        
-        self.audioController = app?.client?.audioController()
-        self.videoController = app?.client?.videoController()
-        
-    }
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	required init?(coder aDecoder: NSCoder) {
 
@@ -120,7 +81,7 @@ class CallVideoView: UIViewController {
 	override func viewDidLoad() {
 
 		super.viewDidLoad()
-
+/*
 		audioController?.unmute()
 		audioController?.disableSpeaker()
 
@@ -139,15 +100,15 @@ class CallVideoView: UIViewController {
 		let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(actionTap))
 		videoController?.remoteView().addGestureRecognizer(gestureRecognizer)
 		gestureRecognizer.cancelsTouchesInView = false
-
+*/
 		buttonMute.setImage(UIImage(named: "callvideo_mute1"), for: .normal)
 		buttonMute.setImage(UIImage(named: "callvideo_mute1"), for: .highlighted)
 
 		buttonSwitch.setImage(UIImage(named: "callvideo_switch1"), for: .normal)
 		buttonSwitch.setImage(UIImage(named: "callvideo_switch1"), for: .highlighted)
 
-        if (incoming) { updateDetails2() }
-        if (outgoing) { updateDetails1() }
+		//incoming = (call?.direction == .incoming)
+		//outgoing = (call?.direction == .outgoing)
 	}
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
@@ -155,13 +116,10 @@ class CallVideoView: UIViewController {
 
 		super.viewWillAppear(animated)
 
-        if(type == 0){
-            loadPerson()
-        }else{
-            loadGroup(self.group!)
-        }
+		if (outgoing) { updateDetails1() }
+		if (incoming) { updateDetails2() }
 
-		
+		loadPerson()
 	}
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
@@ -185,11 +143,11 @@ class CallVideoView: UIViewController {
 	// MARK: - Realm methods
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	func loadPerson() {
-
+/*
 		if let remoteUserId = call?.remoteUserId {
 			person = realm.object(ofType: Person.self, forPrimaryKey: remoteUserId)
 
-			labelInitials.text = nil
+			labelInitials.text = person.initials()
 			MediaDownload.startUser(person.objectId, pictureAt: person.pictureAt) { image, error in
 				if (error == nil) {
 					self.imageUser.image = image
@@ -200,25 +158,10 @@ class CallVideoView: UIViewController {
                 }
 			}
 
-			labelName.text = callString
-		}
+			labelName.text = person.fullname
+		}*/
 	}
-    func loadGroup(_ group:Group) {
 
-        self.labelInitials.text = nil
-        MediaDownload.startGroup(group.objectId, pictureAt: group.pictureAt) { image, error in
-            if (error == nil) {
-                self.imageUser.image = image
-                
-            }
-            else {
-                self.imageUser.image = UIImage(named: "ic_default_profile")
-            }
-        }
-        labelName.text = callString
-        
-        
-    }
 	// MARK: - User actions
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	@objc func actionTap() {
@@ -245,15 +188,14 @@ class CallVideoView: UIViewController {
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	@IBAction func actionHangup(_ sender: Any) {
-        
-        call?.hangup()
-        
+
+		//call?.hangup()
 	}
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	@IBAction func actionAnswer(_ sender: Any) {
 
-		call?.answer()
+		//call?.answer()
 	}
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
@@ -263,12 +205,12 @@ class CallVideoView: UIViewController {
 			switched = false
 			buttonSwitch.setImage(UIImage(named: "callvideo_switch1"), for: .normal)
 			buttonSwitch.setImage(UIImage(named: "callvideo_switch1"), for: .highlighted)
-			videoController?.captureDevicePosition = .front
+			//videoController?.captureDevicePosition = .front
 		} else {
 			switched = true
 			buttonSwitch.setImage(UIImage(named: "callvideo_switch1"), for: .normal)
 			buttonSwitch.setImage(UIImage(named: "callvideo_switch1"), for: .highlighted)
-			videoController?.captureDevicePosition = .back
+			//videoController?.captureDevicePosition = .back
 		}
 	}
 
@@ -279,12 +221,12 @@ class CallVideoView: UIViewController {
 		let screenWidth = UIScreen.main.bounds.size.width
 		let screenHeight = UIScreen.main.bounds.size.height
 
-		videoController?.remoteView().frame = CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight)
-		videoController?.localView().frame = CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight)
+		//videoController?.remoteView().frame = CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight)
+		//videoController?.localView().frame = CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight)
 
 		viewDetails.isHidden = false
 
-        labelStatus.text = "Calling...".localized
+		labelStatus.text = "Calling..."
 
 		viewButtons1.isHidden = outgoing
 		viewButtons2.isHidden = incoming
@@ -298,8 +240,8 @@ class CallVideoView: UIViewController {
 		let screenWidth = UIScreen.main.bounds.size.width
 		let screenHeight = UIScreen.main.bounds.size.height
 
-		videoController?.remoteView().frame = CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight)
-		videoController?.localView().frame = CGRect(x: 20, y: 20, width: 70, height: 100)
+		//videoController?.remoteView().frame = CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight)
+		//videoController?.localView().frame = CGRect(x: 20, y: 20, width: 70, height: 100)
 
 		viewDetails.isHidden = true
 
@@ -316,30 +258,28 @@ class CallVideoView: UIViewController {
 
 		viewDetails.isHidden = false
 
-        labelStatus.text = "Ended".localized
+		labelStatus.text = "Ended"
 
 		viewEnded.isHidden = false
 	}
 }
 
 // MARK: - SINCallDelegate
-//-------------------------------------------------------------------------------------------------------------------------------------------------
+/*
 extension CallVideoView: SINCallDelegate {
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	func callDidProgress(_ call: SINCall?) {
-        self.call = call
+
 		audioController?.startPlayingSoundFile(Dir.application("call_ringback.wav"), loop: true)
 	}
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	func callDidEstablish(_ call: SINCall?) {
-        self.imageUser.isHidden = true
-    
-        self.labelName.isHidden = true
+
 		audioController?.stopPlayingSoundFile()
 		audioController?.enableSpeaker()
-        
+
 		updateDetails2()
 	}
 
@@ -356,3 +296,4 @@ extension CallVideoView: SINCallDelegate {
 		}
 	}
 }
+*/

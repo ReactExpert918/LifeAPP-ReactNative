@@ -1,0 +1,81 @@
+/* Class = "UILabel"; text = "Password"; ObjectID = "1w0-KL-Hj5"; */
+"1w0-KL-Hj5.text" = "パスワード";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "5PZ-GN-u6h"; */
+"5PZ-GN-u6h.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "Phone Number"; ObjectID = "bfQ-mc-5in"; */
+"bfQ-mc-5in.text" = "電話番号";
+
+/* Class = "UILabel"; text = "Account Setting"; ObjectID = "ew7-Lw-t1g"; */
+"ew7-Lw-t1g.text" = "アカウント設定";
+
+/* Class = "UILabel"; text = "Shane Watson"; ObjectID = "FI0-Jn-VA4"; */
+"FI0-Jn-VA4.text" = "Shane Watson";
+
+/* Class = "UILabel"; text = "Name"; ObjectID = "g2B-8B-TFw"; */
+"g2B-8B-TFw.text" = "名前";
+
+/* Class = "UITextField"; placeholder = "Confirm Password"; ObjectID = "Gyk-jC-q2S"; */
+"Gyk-jC-q2S.placeholder" = "パスワードを確認";
+
+/* Class = "UILabel"; text = "Settings"; ObjectID = "kxp-jm-a3y"; */
+"kxp-jm-a3y.text" = "設定";
+
+/* Class = "UILabel"; text = "Email Address"; ObjectID = "lTD-Vm-Ipx"; */
+"lTD-Vm-Ipx.text" = "Eメールアドレス";
+
+/* Class = "UILabel"; text = "Shane Watson"; ObjectID = "lTY-wD-cIU"; */
+"lTY-wD-cIU.text" = "Shane Watson";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "lXE-Ty-IOP"; */
+"lXE-Ty-IOP.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "Profile"; ObjectID = "n0P-it-8Yg"; */
+"n0P-it-8Yg.text" = "プロフィール";
+
+/* Class = "UILabel"; text = "Name"; ObjectID = "N9N-8i-2PO"; */
+"N9N-8i-2PO.text" = "名前";
+
+/* Class = "UILabel"; text = "Password"; ObjectID = "nYa-Op-htE"; */
+"nYa-Op-htE.text" = "パスワード";
+
+/* Class = "UILabel"; text = "Sign out"; ObjectID = "r4W-DO-YCn"; */
+"r4W-DO-YCn.text" = "サインアウト";
+
+/* Class = "UIButton"; normalTitle = "SUBMIT"; ObjectID = "RBD-Vv-t2A"; */
+"RBD-Vv-t2A.normalTitle" = "参加する";
+
+/* Class = "UITextField"; text = "Shane Watson"; ObjectID = "Re3-mQ-gkn"; */
+"Re3-mQ-gkn.text" = "Shane Watson";
+
+/* Class = "UIButton"; normalTitle = "SUBMIT"; ObjectID = "rev-z0-A2N"; */
+"rev-z0-A2N.normalTitle" = "参加する";
+
+/* Class = "UITextField"; placeholder = "John Smith"; ObjectID = "ScM-tO-bdY"; */
+"ScM-tO-bdY.placeholder" = "John Smith";
+
+/* Class = "UILabel"; text = "Password not match."; ObjectID = "vGC-Wi-fwX"; */
+"vGC-Wi-fwX.text" = "パスワードが一致しません。";
+
+/* Class = "UILabel"; text = "Confirm Password"; ObjectID = "VIy-5H-iOZ"; */
+"VIy-5H-iOZ.text" = "パスワードを確認";
+
+/* Class = "UILabel"; text = "Shane Watson"; ObjectID = "wE7-1H-zKP"; */
+"wE7-1H-zKP.text" = "Shane Watson";
+
+/* Class = "UILabel"; text = "Update Name"; ObjectID = "wKs-Og-r8C"; */
+"wKs-Og-r8C.text" = "名前を更新";
+
+/* Class = "UITextField"; placeholder = "New Password"; ObjectID = "Ww3-fz-evJ"; */
+"Ww3-fz-evJ.placeholder" = "新しいパスワード";
+
+/* Class = "UILabel"; text = "Delete Account"; ObjectID = "XpV-uq-Skn"; */
+"XpV-uq-Skn.text" = "アカウントを削除";
+
+/* Class = "UILabel"; text = "Account Settings"; ObjectID = "XRp-yO-n2Q"; */
+"XRp-yO-n2Q.text" = "アカウント設定";
+
+/* Class = "UILabel"; text = "Update Password"; ObjectID = "z5d-rt-Lqn"; */
+"z5d-rt-Lqn.text" = "パスワードを更新";
+
