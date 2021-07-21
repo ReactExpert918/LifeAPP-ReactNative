@@ -9,12 +9,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import OneSignal
+//import OneSignal
+import Foundation
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 class PushNotification: NSObject {
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
+<<<<<<< HEAD
     class func oneSignalId() -> String{
         guard let status = OneSignal.getDeviceState() else{
             return ""
@@ -32,10 +33,32 @@ class PushNotification: NSObject {
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	class func send(message: Message, recipientId:String) {
 
+=======
+    
+	class func oneSignalId() -> String {
+/*
+		if let status = OneSignal.getDeviceState() {
+            let subcribed = status.isSubscribed
+            if subcribed {
+                if let uid = status.userId {
+                    return uid
+                }
+            }
+		}*/
+        
+		return ""
+	}
+
+	// MARK: -
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+	class func send(message: Message) {
+/*
+>>>>>>> master
 		let type = message.type
 		var en_text = message.userFullname
         var ja_text = message.userFullname
 
+<<<<<<< HEAD
         if (type == MESSAGE_TYPE.MESSAGE_TEXT)		{
             ja_text = ja_text + " "+"sent you a text message.".localized
             en_text = en_text + " "+"sent you a text message."
@@ -70,6 +93,14 @@ class PushNotification: NSObject {
             text = text + (" sent you a location.")
             
         }*/
+=======
+		if (type == MESSAGE_TYPE.MESSAGE_TEXT)		{ text = text + (" sent you a text message.")	}
+		if (type == MESSAGE_TYPE.MESSAGE_EMOJI)		{ text = text + (" sent you an emoji.")			}
+		if (type == MESSAGE_TYPE.MESSAGE_PHOTO)		{ text = text + (" sent you a photo.")			}
+		if (type == MESSAGE_TYPE.MESSAGE_VIDEO)		{ text = text + (" sent you a video.")			}
+		if (type == MESSAGE_TYPE.MESSAGE_AUDIO) 	{ text = text + (" sent you an audio.")			}
+		if (type == MESSAGE_TYPE.MESSAGE_LOCATION)	{ text = text + (" sent you a location.")		}
+>>>>>>> master
 
 		let chatId = message.chatId
 		var userIds = Members.userIds(chatId: chatId)
@@ -83,6 +114,7 @@ class PushNotification: NSObject {
 		}
         userIds.removeAll(where: { $0 == AuthUser.userId()})
 //		userIds.removeObject(AuthUser.userId())
+<<<<<<< HEAD
         //print(AuthUser.userId())
         //print(userIds)
         send(userIds: userIds, en_text: en_text, ja_text: ja_text, chatId: message.chatId, recipientId: recipientId)
@@ -92,6 +124,16 @@ class PushNotification: NSObject {
     private class func send(userIds: [String], en_text: String, ja_text: String, chatId: String, recipientId:String) {
 
 		let predicate = NSPredicate(format: "objectId IN %@ AND isDeleted == NO", userIds)
+=======
+
+		send(userIds: userIds, text: text)*/
+	}
+
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+	private class func send(userIds: [String], text: String) {
+/*
+		let predicate = NSPredicate(format: "objectId IN %@", userIds)
+>>>>>>> master
 		let persons = realm.objects(Person.self).filter(predicate).sorted(byKeyPath: "fullname")
 
 		var oneSignalIds: [String] = []
@@ -106,8 +148,13 @@ class PushNotification: NSObject {
 				oneSignalIds.append(person.oneSignalId)
 			}
 		}
+<<<<<<< HEAD
         
         OneSignal.postNotification(["contents": ["en": en_text, "ja":ja_text], "include_player_ids": oneSignalIds,
             "data": ["chatId": chatId, "recipientId": recipientId]])
+=======
+
+		OneSignal.postNotification(["contents": ["en": text], "include_player_ids": oneSignalIds])*/
+>>>>>>> master
 	}
 }
