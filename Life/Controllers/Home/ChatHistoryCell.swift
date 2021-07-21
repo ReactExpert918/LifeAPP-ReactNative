@@ -12,10 +12,15 @@ import SwiftyAvatar
 class ChatHistoryCell: UITableViewCell {
 
     @IBOutlet weak var profileImageView: SwiftyAvatar!
+    
     @IBOutlet weak var userNameLabel: UILabel!
+    
     @IBOutlet weak var lastMessageLabel: UILabel!
+    
     @IBOutlet weak var lastUpdatedTimeLabel: UILabel!
-    @IBOutlet weak var viewUnread: UIView!
+    
+    @IBOutlet weak var viewUnread: ExtensionView!
+    
     @IBOutlet weak var labelUnread: UILabel!
     
     //---------------------------------------------------------------------------------------------------------------------------------------------

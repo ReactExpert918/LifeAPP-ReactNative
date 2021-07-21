@@ -12,7 +12,6 @@
 "Account Settings" = "アカウント設定";
 "Privacy Policy" = "個人情報保護方針";
 "About Us" = "私たちに関しては";
-<<<<<<< HEAD
 "Are you sure to sign out?" = "サインアウトしますか?";
 "Yes" = "確認";
 "No" = "キャンセル";
@@ -133,6 +132,3 @@
 "Added At" = "で追加";
 "Added with ZED Pay" = "ZED Payで追加";
 "Objectionable" = "反対すべき";
-=======
-
->>>>>>> master

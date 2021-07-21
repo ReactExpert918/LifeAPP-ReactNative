@@ -1199,7 +1199,11 @@ received in your device</string>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y9F-CJ-pla">
+<<<<<<< Updated upstream
                                 <rect key="frame" x="70.666666666666671" y="100" width="233.66666666666663" height="51.333333333333343"/>
+=======
+                                <rect key="frame" x="47.333333333333343" y="100" width="280.33333333333326" height="53.666666666666657"/>
+>>>>>>> Stashed changes
                                 <string key="text">Please fill basic details
 to complete registration</string>
                                 <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="22"/>
@@ -1207,13 +1211,21 @@ to complete registration</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="naq-Tp-eL7">
+<<<<<<< Updated upstream
                                 <rect key="frame" x="16.000000000000004" y="171.33333333333334" width="39.333333333333343" height="19.666666666666657"/>
+=======
+                                <rect key="frame" x="16" y="173.66666666666666" width="46" height="19.666666666666657"/>
+>>>>>>> Stashed changes
                                 <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="16"/>
                                 <color key="textColor" red="0.12941176470588234" green="0.12941176470588234" blue="0.12941176470588234" alpha="0.55395252951532725" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cyc-iJ-10X" customClass="ExtensionView" customModule="Life" customModuleProvider="target">
+<<<<<<< Updated upstream
                                 <rect key="frame" x="16" y="199" width="343" height="45"/>
+=======
+                                <rect key="frame" x="16" y="201.33333333333334" width="343" height="45"/>
+>>>>>>> Stashed changes
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Eg. john@gmail.com" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="93D-XB-FuQ">
                                         <rect key="frame" x="16" y="0.0" width="311" height="45"/>
@@ -1237,13 +1249,21 @@ to complete registration</string>
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G9R-qO-cR8">
+<<<<<<< Updated upstream
                                 <rect key="frame" x="16" y="255.99999999999997" width="71" height="18.666666666666657"/>
+=======
+                                <rect key="frame" x="16" y="258.33333333333331" width="77.333333333333329" height="19.666666666666686"/>
+>>>>>>> Stashed changes
                                 <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="16"/>
                                 <color key="textColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="0.55395252949999996" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y7Z-xX-oAD" customClass="ExtensionView" customModule="Life" customModuleProvider="target">
+<<<<<<< Updated upstream
                                 <rect key="frame" x="16" y="282.66666666666669" width="343" height="45"/>
+=======
+                                <rect key="frame" x="16" y="286" width="343" height="45"/>
+>>>>>>> Stashed changes
                                 <subviews>
                                     <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9hj-E6-YXw">
                                         <rect key="frame" x="16" y="0.0" width="311" height="45"/>
@@ -1252,7 +1272,11 @@ to complete registration</string>
                                         <textInputTraits key="textInputTraits" returnKeyType="next" secureTextEntry="YES"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nki-s4-cjt">
+<<<<<<< Updated upstream
                                         <rect key="frame" x="305" y="10.666666666666629" width="30" height="24"/>
+=======
+                                        <rect key="frame" x="305" y="10.666666666666686" width="30" height="24"/>
+>>>>>>> Stashed changes
                                         <constraints>
                                             <constraint firstAttribute="height" constant="24" id="47U-31-D9I"/>
                                             <constraint firstAttribute="width" constant="30" id="cFI-ei-yQF"/>
@@ -1281,13 +1305,21 @@ to complete registration</string>
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confirm Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xIp-cY-lDn">
+<<<<<<< Updated upstream
                                 <rect key="frame" x="16" y="339.66666666666669" width="132.33333333333334" height="18.666666666666686"/>
+=======
+                                <rect key="frame" x="16" y="343" width="147.66666666666666" height="18.666666666666686"/>
+>>>>>>> Stashed changes
                                 <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="16"/>
                                 <color key="textColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="0.55395252949999996" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EFK-AB-gVU" customClass="ExtensionView" customModule="Life" customModuleProvider="target">
+<<<<<<< Updated upstream
                                 <rect key="frame" x="16" y="366.33333333333331" width="343" height="45"/>
+=======
+                                <rect key="frame" x="16" y="369.66666666666669" width="343" height="45"/>
+>>>>>>> Stashed changes
                                 <subviews>
                                     <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aBt-wQ-MV3">
                                         <rect key="frame" x="16" y="0.0" width="311" height="45"/>
@@ -1296,7 +1328,11 @@ to complete registration</string>
                                         <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hQQ-ov-Kqb">
+<<<<<<< Updated upstream
                                         <rect key="frame" x="305" y="10.666666666666686" width="30" height="24"/>
+=======
+                                        <rect key="frame" x="305" y="10.666666666666629" width="30" height="24"/>
+>>>>>>> Stashed changes
                                         <constraints>
                                             <constraint firstAttribute="height" constant="24" id="GYu-Jc-wmK"/>
                                             <constraint firstAttribute="width" constant="30" id="Z4F-UC-N26"/>
@@ -1325,7 +1361,11 @@ to complete registration</string>
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ogy-KO-8bl" customClass="RoundButton" customModule="Life" customModuleProvider="target">
+<<<<<<< Updated upstream
                                 <rect key="frame" x="16" y="431.33333333333331" width="343" height="45"/>
+=======
+                                <rect key="frame" x="16" y="434.66666666666669" width="343" height="45"/>
+>>>>>>> Stashed changes
                                 <color key="backgroundColor" red="0.0" green="0.25098039220000001" blue="0.43137254899999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="Cai-c5-gbB"/>
@@ -1822,7 +1862,11 @@ to complete registration</string>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OKA-YG-E78">
+<<<<<<< Updated upstream
                                                 <rect key="frame" x="16.000000000000004" y="260.66666666666669" width="39.333333333333343" height="18.666666666666686"/>
+=======
+                                                <rect key="frame" x="16" y="260.66666666666669" width="46" height="18.666666666666686"/>
+>>>>>>> Stashed changes
                                                 <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="16"/>
                                                 <color key="textColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="0.55395252949999996" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
