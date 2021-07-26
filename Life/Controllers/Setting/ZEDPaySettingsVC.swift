@@ -17,22 +17,14 @@ protocol UpdatePayDelegateProtocol {
     func deleteCard(result: Bool)
 }
 
-class ZEDPaySettingsVC: UIViewController {
+class ZedPaySettingsVC: UIViewController {
 
-    @IBOutlet weak var labelResult: UILabel!
-    @IBOutlet weak var imgPopup: UIImageView!
-    @IBOutlet weak var resultView: UIView!
-    
     private var tokenPaymentMethod: NotificationToken? = nil
     private var paymentMethods = realm.objects(PaymentMethod.self).filter(falsepredicate)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-        resultView.isHidden = true
-        
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -71,58 +63,28 @@ class ZEDPaySettingsVC: UIViewController {
     
 }
 
-extension ZEDPaySettingsVC: UpdatePayDelegateProtocol{
+extension ZedPaySettingsVC: UpdatePayDelegateProtocol{
     func updatePasscode(result: Bool) {
-        if result==false {
-            self.imgPopup.image = UIImage(named: "ic_pay_fail")
-            self.labelResult.text = "Update passcode failed"
+        if result {
+            self.showSuccessAlert("Successfully updated the passcode")
         }else{
-            
-            self.imgPopup.image = UIImage(named: "ic_checkmark_success")
-            self.labelResult.text = "Successfully updated the passcode"
-        }
-       
-        
-        self.resultView.isHidden = false
-        
-        DispatchQueue.main.asyncAfter(deadline: .now()+2) {
-            self.resultView.isHidden = true
+            self.showFailedAlert("Failed to update passcode")
         }
     }
     
     func updateCard(result: Bool) {
-        if result==false {
-            self.imgPopup.image = UIImage(named: "ic_pay_fail")
-            self.labelResult.text = "Add payment method failed"
+        if result {
+            self.showSuccessAlert("Successfully added payment method")
         }else{
-            
-            self.imgPopup.image = UIImage(named: "ic_checkmark_success")
-            self.labelResult.text = "Successfully add payment method"
-        }
-       
-        
-        self.resultView.isHidden = false
-        
-        DispatchQueue.main.asyncAfter(deadline: .now()+2) {
-            self.resultView.isHidden = true
+            self.showFailedAlert("Failed to add payment method")
         }
     }
     
     func deleteCard(result: Bool) {
-        if result==false {
-            self.imgPopup.image = UIImage(named: "ic_pay_fail")
-            self.labelResult.text = "Delete payment method failed"
-        }else{
-            
-            self.imgPopup.image = UIImage(named: "ic_checkmark_success")
-            self.labelResult.text = "Successfully delete payment method"
-        }
-       
-        
-        self.resultView.isHidden = false
-        
-        DispatchQueue.main.asyncAfter(deadline: .now()+2) {
-            self.resultView.isHidden = true
+        if result {
+            self.showSuccessAlert("Successfully deleted payment method")
+        } else {
+            self.showFailedAlert("Failed to delete payment method")
         }
     }
     

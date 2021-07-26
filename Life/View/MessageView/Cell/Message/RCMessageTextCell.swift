@@ -15,17 +15,26 @@ import UIKit
 class RCMessageTextCell: RCMessageCell {
 
 	private var textView: UITextView!
-
+    
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	override func bindData(_ messagesView: ChatViewController, at indexPath: IndexPath) {
 
 		super.bindData(messagesView, at: indexPath)
 
 		let rcmessage = messagesView.rcmessageAt(indexPath)
-
+        
 		viewBubble.backgroundColor = rcmessage.incoming ? RCDefaults.textBubbleColorIncoming : RCDefaults.textBubbleColorOutgoing
-
-		if (textView == nil) {
+        var searchString = ""
+        if  messagesView.searchBar.text != nil  {
+            
+            searchString = messagesView.searchBar.text!
+        }
+        
+        if(textView != nil && searchString == ""){
+            textView.removeFromSuperview()
+            textView = nil
+        }
+		if (textView == nil ) {
 			textView = UITextView()
 			textView.font = RCDefaults.textFont
 			textView.isEditable = false
@@ -34,13 +43,36 @@ class RCMessageTextCell: RCMessageCell {
 			textView.isUserInteractionEnabled = false
 			textView.backgroundColor = UIColor.clear
 			textView.textContainer.lineFragmentPadding = 0
-			textView.textContainerInset = RCDefaults.textInset
+            textView.textContainerInset = rcmessage.incoming == true ? RCDefaults.textInsetIncoming : RCDefaults.textInsetOutgoing
 			viewBubble.addSubview(textView)
 		}
 
 		textView.textColor = rcmessage.incoming ? RCDefaults.textTextColorIncoming : RCDefaults.textTextColorOutgoing
+  
+        let baseString = rcmessage.text
 
-		textView.text = rcmessage.text
+        let attributed = NSMutableAttributedString(string: baseString)
+        if(searchString == ""){
+            textView.text = rcmessage.text
+            return
+        }
+        
+        do{
+            let regex = try NSRegularExpression(pattern: searchString, options: .caseInsensitive)
+            attributed.addAttribute(.font, value: RCDefaults.textFont, range:NSRange(location: 0, length: baseString.utf16.count))
+            attributed.addAttribute(.backgroundColor, value: viewBubble.backgroundColor as Any, range:NSRange(location: 0, length: baseString.utf16.count))
+            for match in regex.matches(in: baseString, options: [], range: NSRange(location: 0, length: baseString.utf16.count)) as [NSTextCheckingResult] {
+                attributed.addAttribute(.backgroundColor, value: UIColor.yellow, range: match.range)
+                attributed.addAttribute(.foregroundColor, value: UIColor.black, range: match.range)
+            }
+
+            textView.attributedText = attributed
+        }catch {
+            textView.text = rcmessage.text
+            return
+        }
+        
+        
 	}
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
@@ -49,20 +81,20 @@ class RCMessageTextCell: RCMessageCell {
 		let size = RCMessageTextCell.size(messagesView, at: indexPath)
 
 		super.layoutSubviews(size)
-
-		textView.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        
+		textView.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height-labelHeight-nameHeight)
 	}
 
 	// MARK: - Size methods
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	class func height(_ messagesView: ChatViewController, at indexPath: IndexPath) -> CGFloat {
+    class func height(_ messagesView: ChatViewController, at indexPath: IndexPath) -> CGFloat {
 
-		let size = self.size(messagesView, at: indexPath)
+		let size = RCMessageTextCell.size(messagesView, at: indexPath)
 		return size.height
 	}
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	class func size(_ messagesView: ChatViewController, at indexPath: IndexPath) -> CGSize {
+    class func size(_ messagesView: ChatViewController, at indexPath: IndexPath) -> CGSize {
 
 		let rcmessage = messagesView.rcmessageAt(indexPath)
 
@@ -71,10 +103,13 @@ class RCMessageTextCell: RCMessageCell {
 		let maxwidth = (0.6 * widthTable) - RCDefaults.textInsetLeft - RCDefaults.textInsetRight
 
 		let rect = rcmessage.text.boundingRect(with: CGSize(width: maxwidth, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: RCDefaults.textFont], context: nil)
-
+        
 		let width = rect.size.width + RCDefaults.textInsetLeft + RCDefaults.textInsetRight
-		let height = rect.size.height + RCDefaults.textInsetTop + RCDefaults.textInsetBottom
-
+        let labelHeight = (messagesView.textHeaderUpper(indexPath) != nil) ? RCDefaults.headerUpperHeight : 0
+        
+        let nameHeight = (messagesView.recipientId=="" && rcmessage.incoming) ? RCDefaults.headerLowerHeight : 0
+        let height = rect.size.height + RCDefaults.textInsetTop + RCDefaults.textInsetBottom+labelHeight+RCDefaults.viewBubbleMarginTop + nameHeight
+        
 		return CGSize(width: CGFloat.maximum(width, RCDefaults.textBubbleWidthMin), height: CGFloat.maximum(height, RCDefaults.textBubbleHeightMin))
 	}
 }

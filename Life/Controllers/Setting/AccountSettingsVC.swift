@@ -8,7 +8,6 @@
 
 import UIKit
 import SwiftyAvatar
-import JGProgressHUD
 import FittedSheets
 import FirebaseAuth
 import FirebaseStorage
@@ -24,42 +23,30 @@ protocol UpdateDataDelegateProtocol {
 
 class AccountSettingsVC: BaseVC, UIImagePickerControllerDelegate, UpdateDataDelegateProtocol {
     
+    @IBOutlet weak var imvProfile: SwiftyAvatar!
+    @IBOutlet weak var lblName: UILabel!
+    @IBOutlet weak var txtPassword: UITextField!
+    @IBOutlet weak var lblPhoneNum: UILabel!
+    @IBOutlet weak var lblEmail: UILabel!
+    
+    var imagePicker: ImagePicker!
     private var person: Person!
     private var tokenPerson: NotificationToken? = nil
-    @IBOutlet weak var name: UILabel!
-    @IBOutlet weak var password: UITextField!
-    @IBOutlet weak var phoneNumber: UILabel!
-    @IBOutlet weak var emailAddress: UILabel!
-    @IBOutlet weak var profileImageView: SwiftyAvatar!
     
-    @IBOutlet weak var phoneNumberButton: UIButton!
-    @IBOutlet weak var emailButton: UIButton!
-    @IBOutlet weak var deleteButton: UIButton!
-    @IBOutlet weak var deleteRight: UIImageView!
-    @IBOutlet weak var emailRight: UIImageView!
-    @IBOutlet weak var phoneRight: UIImageView!
-    
-    @IBOutlet weak var popUpView: UIView!
-    @IBOutlet weak var imgPopup: UIImageView!
-    @IBOutlet weak var labelPopup: UILabel!
-    
-    let hud = JGProgressHUD(style: .light)
     override func viewDidLoad() {
         super.viewDidLoad()
-        phoneNumberButton.isHidden = true
-        //emailButton.isHidden = true
-        //emailRight.isHidden = true
-        phoneRight.isHidden = true
-        //deleteRight.isHidden = true
-        // Do any additional setup after loading the view.
+        
+        imagePicker = ImagePicker(self, delegate: self)
     }
-    override func viewWillAppear(_ animated: Bool) { // As soon as vc appears
+    
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        popUpView.isHidden = true
+        
         if (AuthUser.userId() != "") {
             loadPerson()
         }
     }
+    
     @IBAction func onBackTapped(_ sender: Any) {
         navigationController?.popViewController(animated: true)
     }
@@ -68,88 +55,50 @@ class AccountSettingsVC: BaseVC, UIImagePickerControllerDelegate, UpdateDataDele
         self.person.update(fullname: name)
         loadPerson()
         
-        
-        imgPopup.image = UIImage(named: "ic_checkmark_success")
-        labelPopup.text = "Successfully updated the name."
-        popUpView.isHidden = false
-        
-        DispatchQueue.main.asyncAfter(deadline: .now()+2) {
-            self.popUpView.isHidden = true
-        }
+        showSuccessAlert("Successfully updated the name.")
     }
     
     func updatePassword(password: String) {
-        DispatchQueue.main.async {
-            self.hud.show(in: self.view, animated: true)
-        }
+        showProgress()
         AuthUser.updatePassword(password: password) { (error) in
-            self.hud.dismiss()
+            self.hideProgress()
             if let _ = error {
-                self.imgPopup.image = UIImage(named: "ic_pay_fail")
-                self.labelPopup.text = "Update password failed"
+                self.showFailedAlert("Failed to update password")
             }else{
-                self.imgPopup.image = UIImage(named: "ic_checkmark_success")
-                self.labelPopup.text = "Successfully updated the password."
-            }
-           
-            
-            self.popUpView.isHidden = false
-            
-            DispatchQueue.main.asyncAfter(deadline: .now()+2) {
-                self.popUpView.isHidden = true
+                self.showSuccessAlert("Successfully updated the password.")
             }
         }
     }
     
     func updateEmail(email: String) {
-        DispatchQueue.main.async {
-            self.hud.show(in: self.view, animated: true)
-        }
+        showProgress()
         AuthUser.updateEmail(email: email){ (error) in
-            self.hud.dismiss()
+            self.hideProgress()
             if let _ = error {
-                
-                self.imgPopup.image = UIImage(named: "ic_pay_fail")
-                self.labelPopup.text = "Update email failed"
+                self.showFailedAlert("Failed to update email")
             }else{
                 self.person.update(email: email)
-                self.imgPopup.image = UIImage(named: "ic_checkmark_success")
-                self.labelPopup.text = "Successfully updated the password."
+                self.showSuccessAlert("Successfully updated the password.")
             }
            
-            
-            self.popUpView.isHidden = false
-            
-            DispatchQueue.main.asyncAfter(deadline: .now()+2) {
-                self.popUpView.isHidden = true
-            }
         }
     }
     
     func deleteAccount(){
-        DispatchQueue.main.async {
-            self.hud.show(in: self.view, animated: true)
-        }
+        showProgress()
         AuthUser.deleteAccount { (error) in
-            self.hud.dismiss()
+            self.hideProgress()
             if let _ = error {
-                
-                self.imgPopup.image = UIImage(named: "ic_pay_fail")
-                self.labelPopup.text = "Delete Account Error"
+                self.showFailedAlert("Failed to delete account.")
             }else{
                 self.person.update(isDeleted: true)
-                self.imgPopup.image = UIImage(named: "ic_checkmark_delete")
-                self.labelPopup.text = "Successfully deleted your account."
+                self.showSuccessAlert("Successfully deleted your account.")
             }
-            self.popUpView.isHidden = false
             
-            DispatchQueue.main.asyncAfter(deadline: .now()+2) {
-                self.popUpView.isHidden = true
+            DispatchQueue.main.async() {
                 PrefsManager.setEmail(val: "")
-                self.gotoWelcomeViewController()
+                self.gotoWelcomeVC()
             }
-            
-            
         }
     }
     
@@ -160,21 +109,13 @@ class AccountSettingsVC: BaseVC, UIImagePickerControllerDelegate, UpdateDataDele
 
         let sheetController = SheetViewController(controller: vc, sizes: [.fixed(290)])
         
-        //sheetController.blurBottomSafeArea = false
-        //sheetController.adjustForBottomSafeArea = false
-
-        // Make corners more round
-        //sheetController.topCornersRadius = 15
-        
-
-        // It is important to set animated to false or it behaves weird currently
         self.present(sheetController, animated: false, completion: nil)
     }
+    
     @IBAction func onPasswordChangeTapped(_ sender: Any) {
-        self.hud.textLabel.text = ""
-        self.hud.show(in: self.view, animated: true)
+        showProgress()
         PhoneAuthProvider.provider().verifyPhoneNumber(self.person.phone, uiDelegate: nil) { (verificationID, error) in
-            self.hud.dismiss(afterDelay: 1.0, animated: true)
+            self.hideProgress()
             if error != nil {
                 self.showAlert("Verification code send failed")
                 return
@@ -189,13 +130,11 @@ class AccountSettingsVC: BaseVC, UIImagePickerControllerDelegate, UpdateDataDele
             self.present(sheetController, animated: false, completion: nil)
         }
     }
-    @IBAction func onPhoneNumberChangeTapped(_ sender: Any) {
-    }
+    
     @IBAction func onEmailChangeTapped(_ sender: Any) {
-        self.hud.textLabel.text = ""
-        self.hud.show(in: self.view, animated: true)
+        showProgress()
         PhoneAuthProvider.provider().verifyPhoneNumber(self.person.phone, uiDelegate: nil) { (verificationID, error) in
-            self.hud.dismiss(afterDelay: 1.0, animated: true)
+            self.hideProgress()
             if error != nil {
                 self.showAlert("Verification code send failed")
                 return
@@ -210,15 +149,15 @@ class AccountSettingsVC: BaseVC, UIImagePickerControllerDelegate, UpdateDataDele
             self.present(sheetController, animated: false, completion: nil)
         }
     }
+    
     @IBAction func onDeleteAccountTapped(_ sender: Any) {
         let refreshAlert = UIAlertController(title: "Are you sure to delete your account?", message: "", preferredStyle: .alert)
 
         refreshAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action: UIAlertAction!) in
-            self.hud.textLabel.text = ""
-            self.hud.show(in: self.view, animated: true)
+            self.showProgress()
             
             PhoneAuthProvider.provider().verifyPhoneNumber(self.person.phone, uiDelegate: nil) { (verificationID, error) in
-                self.hud.dismiss(afterDelay: 1.0, animated: true)
+                self.hideProgress()
                 if error != nil {
                     self.showAlert("Verification code send failed")
                     return
@@ -232,19 +171,18 @@ class AccountSettingsVC: BaseVC, UIImagePickerControllerDelegate, UpdateDataDele
                 
                 self.present(sheetController, animated: false, completion: nil)
             }
-            
-            
-            
         }))
 
         refreshAlert.addAction(UIAlertAction(title: "No", style: .cancel, handler: { (action: UIAlertAction!) in
         }))
         present(refreshAlert, animated: true, completion: nil)
     }
-    func gotoWelcomeViewController() {
-        let mainstoryboard = UIStoryboard.init(name: "Login", bundle: nil)
-        let vc = mainstoryboard.instantiateViewController(withIdentifier: "rootNavigationViewController")
-        UIApplication.shared.windows.first?.rootViewController = vc
+    
+    func gotoWelcomeVC() {
+        let vc = AppBoards.login.initialViewController
+        let window = UIApplication.shared.keyWindow
+        window?.rootViewController = vc
+        window?.makeKeyAndVisible()
     }
     
     func loadPerson() {
@@ -261,90 +199,87 @@ class AccountSettingsVC: BaseVC, UIImagePickerControllerDelegate, UpdateDataDele
         })
         
     }
+    
     func refreshAccountInfo(){
         MediaDownload.startUser(person.objectId, pictureAt: person.pictureAt) { image, error in
             if (error == nil) {
-                self.profileImageView.image = image
-            }
-            else {
-                self.profileImageView.image = UIImage(named: "ic_default_profile")
+                self.imvProfile.image = image
+            } else {
+                self.imvProfile.image = UIImage(named: "ic_default_profile")
             }
         }
-        name.text = person.fullname
-        password.text = person.fullname
-        phoneNumber.text = person.phone
-        emailAddress.text = person.email
+        lblName.text     = person.fullname
+        txtPassword.text = person.fullname
+        lblPhoneNum.text = person.phone
+        lblEmail.text    = person.email
     }
     
     @IBAction func onCameraTapped(_ sender: Any) {
-        
-        let confirmationAlert = UIAlertController(title: "Please select source type to set profile image.", message: "", preferredStyle: .alert)
-
-        confirmationAlert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action: UIAlertAction!) in
-            confirmationAlert.dismiss(animated: true, completion: nil)
-            self.openCamera()
-        }))
-        
-        confirmationAlert.addAction(UIAlertAction(title: "Gallery", style: .default, handler: { (action: UIAlertAction!) in
-            confirmationAlert.dismiss(animated: true, completion: nil)
-            self.openGallery()
-        }))
-
-        confirmationAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
-        }))
-        present(confirmationAlert, animated: true, completion: nil)
+        self.imagePicker.present(from: self.view)
     }
     
-    func openCamera(){
-        let vc = UIImagePickerController()
-        vc.sourceType = .camera
-        vc.allowsEditing = true
-        vc.delegate = self
-        present(vc, animated: true)
+    func uploadPicture() {
+        if let image = imvProfile.image {
+            if let data = image.jpegData(compressionQuality: 0.6) {
+                showProgress()
+                MediaUpload.user(AuthUser.userId(), data: data, completion: { error in
+                    self.hideProgress()
+                    if (error == nil) {
+                        MediaDownload.saveUser(AuthUser.userId(), data: data)
+                        self.person.update(pictureAt: Date().timestamp())
+                        self.showToast("Picture changed successfully")
+                    } else {
+                        self.showAlert("Picture upload error.")
+                    }
+                })
+            }
+        }
     }
     
-    func openGallery(){
-        let vc = UIImagePickerController()
-        vc.sourceType = .photoLibrary
-        vc.allowsEditing = true
-        vc.delegate = self
-        present(vc, animated: true)
+    fileprivate func openEditPhoto(_ image: UIImage) {
+        
+        var config = CropConfig()
+        // Do any additional customization here
+        config.showRatioButton = true
+        config.cropShapeType = .rect
+        config.ratioOptions = .square
+        
+        let cropViewController = CropViewController(image: image, config: config)
+        let cropNav = UINavigationController(rootViewController: cropViewController)
+        // set present style with fullScreen mode
+        cropNav.modalPresentationStyle = .fullScreen
+        
+        // set delegate and title
+        cropViewController.delegate = self
+        cropViewController.navigationItem.title = "Edit Photo"
+        
+        present(cropNav, animated: true)
     }
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        picker.dismiss(animated: true)
+    
+}
 
-        guard let image = info[.editedImage] as? UIImage else {
-            // print("No image found")
+// MARK: - ImagePickerDelegate
+extension AccountSettingsVC: ImagePickerDelegate {
+    
+    func didSelect(_ image: UIImage?) {
+        guard let image = image else {
             return
         }
-        let data = image.jpegData(compressionQuality: 1.0)
-        let correct_image = UIImage(data: data! as Data)
-        DispatchQueue.main.async{
-            self.profileImageView.image = correct_image
-        }
-        // print out the image size as a test
-        // print(correct_image?.size)
-        uploadPicture(image: correct_image!)
-    }
-    func uploadPicture(image: UIImage) {
-        // print("uploadPicture")
-        if let data = image.jpegData(compressionQuality: 0.6) {
-            MediaUpload.user(AuthUser.userId(), data: data, completion: { error in
-                if (error == nil) {
-                    MediaDownload.saveUser(AuthUser.userId(), data: data)
-                    self.person.update(pictureAt: Date().timestamp())
-                } else {
-                    DispatchQueue.main.async {
-                        self.hud.textLabel.text = "Picture upload error."
-                        self.hud.show(in: self.view, animated: true)
-                    }
-                    self.hud.dismiss(afterDelay: 1.0, animated: true)
-                }
-            })
-        }
-    }
-    override func viewWillDisappear(_ animated: Bool) {
         
+        openEditPhoto(image)
     }
-    
+}
+
+extension AccountSettingsVC: CropViewControllerDelegate {
+    func cropViewControllerDidCrop(_ cropViewController: CropViewController, cropped: UIImage, transformation: Transformation) {
+        imvProfile.image = cropped
+        
+        uploadPicture()
+    }
+
+    func cropViewControllerDidFailToCrop(_ cropViewController: CropViewController, original: UIImage) { }
+
+    func cropViewControllerDidCancel(_ cropViewController: CropViewController, original: UIImage) { }
+
+    func cropViewControllerWillDismiss(_ cropViewController: CropViewController) { }
 }

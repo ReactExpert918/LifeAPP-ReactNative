@@ -7,6 +7,7 @@ import UIKit
 import ProgressHUD
 import JGProgressHUD
 
+
 class BaseVC: UIViewController, UIGestureRecognizerDelegate, UINavigationControllerDelegate {
     
     override func viewDidLoad() {
@@ -24,7 +25,7 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UINavigationControl
         
         self.isModalInPresentation = true
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.plain, target:nil, action:nil)
-        navigationController?.isNavigationBarHidden = false
+        navigationController?.isNavigationBarHidden = true
     }
     
     func setTitle(_ title: String) {
@@ -50,7 +51,7 @@ extension UIViewController {
     func showToast(_ message: String) {
         UIView.hr_setToastFontName(fontName: MyFont.MontserratRegular)
         UIView.hr_setToastFontColor(color: .white)
-        UIView.hr_setToastThemeColor(color: .lightGray)
+        UIView.hr_setToastThemeColor(color: .primaryColor)
         UIApplication.shared.keyWindow!.makeToast(message: message, duration: HRToastDefaultDuration, position: HRToastPositionTop as AnyObject)
     }
     
@@ -113,6 +114,29 @@ extension UIViewController {
         alert.setMessage(UIFont(name: MyFont.MontserratRegular, size: 14), color: .black)
         
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    // show warning for empty data entry
+    func showSuccessAlert(_ message: String) {
+        
+        let alt = SCLAlertView(appearance: Const.shared.alertAppearance)
+        
+        alt.addButton(R.btnOk, backgroundColor: UIColor.white, textColor: UIColor.primaryColor) {
+            // no action
+        }
+        
+        alt.showSuccess(message)
+    }
+    
+    func showFailedAlert(_ message: String) {
+        
+        let alt = SCLAlertView(appearance: Const.shared.alertAppearance)
+        
+        alt.addButton(R.btnOk, backgroundColor: UIColor.white, textColor: UIColor.primaryColor) {
+            // no action
+        }
+        
+        alt.showError(message)
     }
 }
 

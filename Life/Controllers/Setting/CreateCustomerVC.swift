@@ -147,7 +147,7 @@ class CreateCustomerVC: UIViewController, UITextFieldDelegate {
         if stripeCustomer.status == ZEDPAY_STATUS.SUCCESS {
             weak var pvc = self.presentingViewController
             self.dismiss(animated: false, completion: {
-                let vc = self.storyboard?.instantiateViewController(withIdentifier: "zedPaySettingsVC") as! ZEDPaySettingsVC
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "ZedPaySettingsVC") as! ZedPaySettingsVC
                 vc.modalPresentationStyle = .fullScreen
                 pvc?.present(vc, animated: true)
             })

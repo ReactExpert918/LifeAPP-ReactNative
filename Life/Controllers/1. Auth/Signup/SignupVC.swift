@@ -32,7 +32,7 @@ class SignupVC: BaseVC {
         phoneNumberTextField.placeholder = R.msgEnterPhone
         phoneNumberTextField.layer.cornerRadius = 5
         
-        phoneNumberTextField.text = "530-324-2463"
+//        phoneNumberTextField.text = "530-324-2463"
         
         subscribeToShowKeyboardNotifications()
         

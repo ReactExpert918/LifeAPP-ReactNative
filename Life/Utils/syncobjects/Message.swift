@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2020 Related Code 
+// Copyright (c) 2020 Related Code
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -15,75 +15,86 @@ import CoreLocation
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 class Message: SyncObject {
 
-	@objc dynamic var chatId = ""
+    @objc dynamic var chatId = ""
 
-	@objc dynamic var userId = ""
-	@objc dynamic var userFullname = ""
-	@objc dynamic var userInitials = ""
-	@objc dynamic var userPictureAt: Int64 = 0
+    @objc dynamic var userId = ""
+    @objc dynamic var userFullname = ""
+    @objc dynamic var userInitials = ""
+    @objc dynamic var userPictureAt: Int64 = 0
 
-	@objc dynamic var type = ""
-	@objc dynamic var text = ""
+    @objc dynamic var type = ""
+    @objc dynamic var text = ""
 
-	@objc dynamic var photoWidth: Int = 0
-	@objc dynamic var photoHeight: Int = 0
-	@objc dynamic var videoDuration: Int = 0
-	@objc dynamic var audioDuration: Int = 0
+    @objc dynamic var photoWidth: Int = 0
+    @objc dynamic var photoHeight: Int = 0
+    @objc dynamic var videoDuration: Int = 0
+    @objc dynamic var audioDuration: Int = 0
 
-	@objc dynamic var latitude: CLLocationDegrees = 0
-	@objc dynamic var longitude: CLLocationDegrees = 0
+    @objc dynamic var latitude: CLLocationDegrees = 0
+    @objc dynamic var longitude: CLLocationDegrees = 0
 
-	@objc dynamic var isMediaQueued = false
-	@objc dynamic var isMediaFailed = false
+    @objc dynamic var isMediaQueued = false
+    @objc dynamic var isMediaFailed = false
 
-	@objc dynamic var isDeleted = false
+    @objc dynamic var isDeleted = false
+    @objc dynamic var isObjectionable = false
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    class func lastUpdatedAt(_ chatId: String) -> Int64 {
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	class func lastUpdatedAt(_ chatId: String) -> Int64 {
+        let realm = try! Realm()
+        let predicate = NSPredicate(format: "chatId == %@", chatId)
+        let object = realm.objects(Message.self).filter(predicate).sorted(byKeyPath: "updatedAt").last
+        return object?.updatedAt ?? 0
+    }
 
-		let realm = try! Realm()
-		let predicate = NSPredicate(format: "chatId == %@", chatId)
-		let object = realm.objects(Message.self).filter(predicate).sorted(byKeyPath: "updatedAt").last
-		return object?.updatedAt ?? 0
-	}
+    // MARK: -
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func update(isMediaQueued value: Bool) {
 
-	// MARK: -
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	func update(isMediaQueued value: Bool) {
+        if (isMediaQueued == value) { return }
 
-		if (isMediaQueued == value) { return }
+        let realm = try! Realm()
+        try! realm.safeWrite {
+            isMediaQueued = value
+            syncRequired = true
+            updatedAt = Date().timestamp()
+        }
+    }
 
-		let realm = try! Realm()
-		try! realm.safeWrite {
-			isMediaQueued = value
-			syncRequired = true
-			updatedAt = Date().timestamp()
-		}
-	}
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func update(isMediaFailed value: Bool) {
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	func update(isMediaFailed value: Bool) {
+        if (isMediaFailed == value) { return }
 
-		if (isMediaFailed == value) { return }
+        let realm = try! Realm()
+        try! realm.safeWrite {
+            isMediaFailed = value
+            syncRequired = true
+            updatedAt = Date().timestamp()
+        }
+    }
 
-		let realm = try! Realm()
-		try! realm.safeWrite {
-			isMediaFailed = value
-			syncRequired = true
-			updatedAt = Date().timestamp()
-		}
-	}
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func update(isDeleted value: Bool) {
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	func update(isDeleted value: Bool) {
-
-		if (isDeleted == value) { return }
-
-		let realm = try! Realm()
-		try! realm.safeWrite {
-			isDeleted = value
-			syncRequired = true
-			updatedAt = Date().timestamp()
-		}
-	}
+        if (isDeleted == value) { return }
+        print("update isdeleted")
+        let realm = try! Realm()
+        try! realm.safeWrite {
+            isDeleted = value
+            syncRequired = true
+            updatedAt = Date().timestamp()
+        }
+    }
+    
+    func update(isObjectionable value: Bool){
+        if (isObjectionable == value) { return }
+        print("update isObjectionable")
+        let realm = try! Realm()
+        try! realm.safeWrite {
+            isObjectionable = value
+            syncRequired = true
+            updatedAt = Date().timestamp()
+        }
+    }
 }

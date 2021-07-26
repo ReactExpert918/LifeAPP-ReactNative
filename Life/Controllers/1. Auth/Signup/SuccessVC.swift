@@ -18,12 +18,7 @@ class SuccessVC: BaseVC {
     
     @IBAction func onStartTapped(_ sender: Any) {
         NotificationCenter.default.post(name: .loggedIn, object: nil)
-        /*
-        UIApplication.shared.windows.first?.rootViewController?.dismiss(animated: true, completion: nil)
-        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
-
-        UIApplication.shared.windows.first?.rootViewController = vc
-        */
+        
         let vc = AppBoards.main.initialViewController
         let window = UIApplication.shared.keyWindow
         window?.rootViewController = vc

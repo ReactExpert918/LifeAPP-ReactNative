@@ -8,7 +8,6 @@
 
 import UIKit
 import FirebaseAuth
-import JGProgressHUD
 import RealmSwift
 
 class BasicDetailInsertVC: BaseVC {
@@ -142,19 +141,15 @@ class BasicDetailInsertVC: BaseVC {
 extension BasicDetailInsertVC: UITextFieldDelegate {
     // MARK: - UITextField delegate
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        let nextTag = textField.tag + 1
-        // Try to find next responder
-        let nextResponder = textField.superview?.superview?.viewWithTag(nextTag) as UIResponder?
-
-        if nextResponder != nil {
-            // Found next responder, so set it
-            nextResponder?.becomeFirstResponder()
-        } else {
-            // Not found, so remove keyboard
-            textField.resignFirstResponder()
+        if(textField == txtPassword) {
+            txtConfirmPwd.becomeFirstResponder()
+        } else if (textField == txtConfirmPwd) {
+            if (checkValid()) {
+                doUploadDetail()
+            }
         }
-
+        
+        textField.resignFirstResponder()
         return false
     }
-    
 }

@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2020 Related Code 
+// Copyright (c) 2020 Related Code
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -14,35 +14,43 @@ import Foundation
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 class FireUpdaters: NSObject {
 
-	private var updaterPerson:	FireUpdater?
-	private var updaterFriend:	FireUpdater?
-	private var updaterBlocked:	FireUpdater?
-	private var updaterMember:	FireUpdater?
+    private var updaterPerson:    FireUpdater?
+    private var updaterFriend:    FireUpdater?
+    private var updaterBlocked:    FireUpdater?
+    private var updaterMember:    FireUpdater?
 
-	private var updaterGroup:	FireUpdater?
-	private var updaterSingle:	FireUpdater?
-	private var updaterDetail:	FireUpdater?
-	private var updaterMessage:	FireUpdater?
+    private var updaterGroup:    FireUpdater?
+    private var updaterSingle:    FireUpdater?
+    private var updaterDetail:    FireUpdater?
+    private var updaterMessage:    FireUpdater?
+    private var updaterStripeCustomer: FireUpdater?
+    private var updaterPaymentMethod: FireUpdater?
+    private var updaterTransaction: FireZEDPayUpdaters?
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	static let shared: FireUpdaters = {
-		let instance = FireUpdaters()
-		return instance
-	} ()
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    static let shared: FireUpdaters = {
+        let instance = FireUpdaters()
+        return instance
+    } ()
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	override init() {
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    override init() {
 
-		super.init()
+        super.init()
 
-		updaterPerson	= FireUpdater(name: "Person", type: Person.self)
-		updaterFriend	= FireUpdater(name: "Friend", type: Friend.self)
-		updaterBlocked	= FireUpdater(name: "Blocked", type: Blocked.self)
-		updaterMember	= FireUpdater(name: "Member", type: Member.self)
+        updaterPerson = FireUpdater(name: "Person", type: Person.self)
+        updaterFriend = FireUpdater(name: "Friend", type: Friend.self)
+        updaterBlocked = FireUpdater(name: "Blocked", type: Blocked.self)
+        updaterMember = FireUpdater(name: "Member", type: Member.self)
 
-		updaterGroup	= FireUpdater(name: "Group", type: Group.self)
-		updaterSingle	= FireUpdater(name: "Single", type: Single.self)
-		updaterDetail	= FireUpdater(name: "Detail", type: Detail.self)
-		updaterMessage	= FireUpdater(name: "Message", type: Message.self)
-	}
+        updaterGroup = FireUpdater(name: "Group", type: Group.self)
+        updaterSingle = FireUpdater(name: "Single", type: Single.self)
+        updaterDetail = FireUpdater(name: "Detail", type: Detail.self)
+        updaterMessage = FireUpdater(name: "Message", type: Message.self)
+        updaterStripeCustomer = FireUpdater(name: "StripeCustomer", type: StripeCustomer.self)
+        updaterPaymentMethod = FireUpdater(name: "PaymentMethod", type: PaymentMethod.self)
+        
+        updaterTransaction = FireZEDPayUpdaters(type: ZEDPay.self)
+        
+    }
 }

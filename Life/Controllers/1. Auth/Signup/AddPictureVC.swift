@@ -9,7 +9,6 @@
 import UIKit
 import FirebaseAuth
 import FirebaseStorage
-import JGProgressHUD
 import RealmSwift
 
 class AddPictureVC: BaseVC {
@@ -78,6 +77,26 @@ class AddPictureVC: BaseVC {
         return true
     }
     
+    func uploadPicture() {
+        showProgress()
+        
+        if let image = imvProfile.image {
+            let temp = image.square(to: 300)
+            if let data = temp.jpegData(compressionQuality: 0.6) {
+                MediaUpload.user(AuthUser.userId(), data: data, completion: { error in
+                    self.hideProgress()
+                    if (error == nil) {
+                        MediaDownload.saveUser(AuthUser.userId(), data: data)
+                        self.person.update(pictureAt: Date().timestamp())
+                        self.updateUser()
+                    } else {
+                        self.showToast(R.errFailedUploadPhoto)
+                    }
+                })
+            }
+        }
+    }
+    
     fileprivate func updateUser() {
         let realm = try! Realm()
         try! realm.safeWrite {
@@ -92,23 +111,6 @@ class AddPictureVC: BaseVC {
     fileprivate func gotoNext() {
         let vc =  self.storyboard?.instantiateViewController(identifier: "successVC") as! SuccessVC
         self.navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    func uploadPicture() {
-        if let image = imvProfile.image {
-            let temp = image.square(to: 300)
-            if let data = temp.jpegData(compressionQuality: 0.6) {
-                MediaUpload.user(AuthUser.userId(), data: data, completion: { error in
-                    if (error == nil) {
-                        MediaDownload.saveUser(AuthUser.userId(), data: data)
-                        self.person.update(pictureAt: Date().timestamp())
-                        self.updateUser()
-                    } else {
-                        self.showToast(R.errFailedUploadPhoto)
-                    }
-                })
-            }
-        }
     }
     
     fileprivate func openEditPhoto(_ image: UIImage) {

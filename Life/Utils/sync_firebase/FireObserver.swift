@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2020 Related Code 
+// Copyright (c) 2020 Related Code
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -15,98 +15,124 @@ import RealmSwift
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 class FireObserver: NSObject {
 
-	private var query: Query!
-	private var type: SyncObject.Type!
+    private var query: Query!
+    private var type: SyncObject.Type!
 
-	private var listener: ListenerRegistration?
+    private var listeners: [ListenerRegistration] = []
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	init(_ query: Query, to type: SyncObject.Type) {
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    init(_ query: Query, to type: SyncObject.Type) {
 
-		super.init()
+        super.init()
 
-		self.query = query
-		self.type = type
+        self.query = query
+        self.type = type
 
-		listener = query.addSnapshotListener { querySnapshot, error in
-			if let snapshot = querySnapshot {
-				DispatchQueue.main.async {
-					let realm = try! Realm()
-					try! realm.safeWrite {
-						for documentChange in snapshot.documentChanges {
-							let data = documentChange.document.data()
-							self.updateRealm(realm, data)
-						}
-					}
-				}
-			}
-		}
-	}
+        listeners.append( query.addSnapshotListener { querySnapshot, error in
+            if let snapshot = querySnapshot {
+                DispatchQueue.main.async {
+                    let realm = try! Realm()
+                    try! realm.safeWrite {
+                        for documentChange in snapshot.documentChanges {
+                            let data = documentChange.document.data()
+                            self.updateRealm(realm, data)
+                        }
+                    }
+                }
+            }
+        })
+    }
+    
+    init(_ queries: [Query], to type: SyncObject.Type) {
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	init(_ query: Query, to type: SyncObject.Type, refreshCallback: @escaping (_ insert: Bool, _ modify: Bool) -> Void) {
+        super.init()
+        self.type = type
+        for query in queries{
+            listeners.append( query.addSnapshotListener { querySnapshot, error in
+                if let snapshot = querySnapshot {
+                    DispatchQueue.main.async {
+                        let realm = try! Realm()
+                        try! realm.safeWrite {
+                            for documentChange in snapshot.documentChanges {
+                                let data = documentChange.document.data()
+                                self.updateRealm(realm, data)
+                            }
+                        }
+                    }
+                }
+            })
+            
+        }
 
-		super.init()
+        
+    }
 
-		self.query = query
-		self.type = type
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    init(_ query: Query, to type: SyncObject.Type, refreshCallback: @escaping (_ insert: Bool, _ modify: Bool) -> Void) {
 
-		listener = query.addSnapshotListener { querySnapshot, error in
-			if let snapshot = querySnapshot {
-				DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-					var insert = false
-					var modify = false
+        super.init()
 
-					let realm = try! Realm()
-					try! realm.safeWrite {
-						for documentChange in snapshot.documentChanges {
-							if (documentChange.type == .added) { insert = true }
-							if (documentChange.type == .modified) { modify = true }
-							let data = documentChange.document.data()
-							self.updateRealm(realm, data)
-						}
-					}
+        self.query = query
+        self.type = type
 
-					refreshCallback(insert, modify)
-				}
-			}
-		}
-	}
+        listeners.append( query.addSnapshotListener { querySnapshot, error in
+            if let snapshot = querySnapshot {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    var insert = false
+                    var modify = false
 
-	// MARK: -
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	func removeObserver() {
+                    let realm = try! Realm()
+                    try! realm.safeWrite {
+                        for documentChange in snapshot.documentChanges {
+                            if (documentChange.type == .added) { insert = true }
+                            if (documentChange.type == .modified) { modify = true }
+                            let data = documentChange.document.data()
+                            self.updateRealm(realm, data)
+                        }
+                    }
 
-		listener?.remove()
-		listener = nil
-	}
+                    refreshCallback(insert, modify)
+                }
+            }
+        })
+    }
 
-	// MARK: -
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	private func updateRealm(_ realm: Realm, _ values: [String: Any]) {
+    // MARK: -
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func removeObserver() {
+        for listener in listeners{
+            listener.remove()
+        }
+        listeners.removeAll()
+        //listener = nil
+    }
 
-		var temp = values
+    // MARK: -
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    private func updateRealm(_ realm: Realm, _ values: [String: Any]) {
 
-		temp["neverSynced"] = false
-		temp["syncRequired"] = false
+        var temp = values
 
-		realm.create(type, value: temp, update: .modified)
-	}
+        temp["neverSynced"] = false
+        temp["syncRequired"] = false
 
-	// MARK: -
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	private func printDetails(_ text: String, _ snapshot: QuerySnapshot) {
+        realm.create(type, value: temp, update: .modified)
+    }
 
-		var delete = "", insert = "", modify = ""
+    // MARK: -
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    private func printDetails(_ text: String, _ snapshot: QuerySnapshot) {
 
-		for documentChange in snapshot.documentChanges {
-			if (documentChange.type == .removed)	{ delete = "delete" }
-			if (documentChange.type == .added)		{ insert = "insert" }
-			if (documentChange.type == .modified)	{ modify = "modify" }
-		}
+        var delete = "", insert = "", modify = ""
 
-		let source = snapshot.metadata.isFromCache ? "local" : "server"
+        for documentChange in snapshot.documentChanges {
+            if (documentChange.type == .removed)    { delete = "delete" }
+            if (documentChange.type == .added)        { insert = "insert" }
+            if (documentChange.type == .modified)    { modify = "modify" }
+        }
 
-		print("\(text): \(type.description()) \(snapshot.documentChanges.count) \(source) - \(delete)\(insert)\(modify)")
-	}
+        let source = snapshot.metadata.isFromCache ? "local" : "server"
+
+        // print("\(text): \(type.description()) \(snapshot.documentChanges.count) \(source) - \(delete)\(insert)\(modify)")
+    }
 }

@@ -197,7 +197,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             .foregroundColor: UIColor.white
         ], for: .normal)
         // UITextField Appearance
-        UITextField.appearance().tintColor = .black
+//        UITextField.appearance().tintColor = .black
         UITextView.appearance().tintColor = .black
         
         IQKeyboardManager.shared.toolbarTintColor = .black

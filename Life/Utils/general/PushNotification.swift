@@ -38,27 +38,27 @@ class PushNotification: NSObject {
         var ja_text = message.userFullname
 
         if (type == MESSAGE_TYPE.MESSAGE_TEXT)        {
-            ja_text = ja_text + " "+"sent you a text message.".localized
+            ja_text = ja_text + " "+"sent you a text message."
             en_text = en_text + " "+"sent you a text message."
             
         }
         if (type == MESSAGE_TYPE.MESSAGE_EMOJI)        {
-            ja_text = ja_text + " " + "sent you an emoji.".localized
+            ja_text = ja_text + " " + "sent you an emoji."
             en_text = en_text + " " + "sent you an emoji."
             
         }
         if (type == MESSAGE_TYPE.MESSAGE_PHOTO)        {
-            ja_text = ja_text + " " + "sent you a photo.".localized
+            ja_text = ja_text + " " + "sent you a photo."
             en_text = en_text + " " + "sent you a photo."
             
         }
         if (type == MESSAGE_TYPE.MESSAGE_VIDEO)        {
-            ja_text = ja_text + " " + "sent you a video.".localized
+            ja_text = ja_text + " " + "sent you a video."
             en_text = en_text + " " + "sent you a video."
             
         }
         if (type == MESSAGE_TYPE.MESSAGE_MONEY && !message.isMediaFailed)        {
-            ja_text = ja_text + " " + "sent you money.".localized
+            ja_text = ja_text + " " + "sent you money."
             en_text = en_text + " " + "sent you money."
             
         }

@@ -12,7 +12,14 @@ class Const {
     let SCREEN_WIDTH  = UIScreen.main.bounds.width
     let SCREEN_HEIGHT = UIScreen.main.bounds.height
     
-    
+    let alertAppearance = SCLAlertView.SCLAppearance(
+        kTitleFont: UIFont(name: MyFont.MontserratSemiBold, size: 20)!,
+        kTextFont: UIFont(name: MyFont.MontserratMedium, size: 14)!,
+        kButtonFont: UIFont(name: MyFont.MontserratSemiBold, size: 14)!,
+        
+        showCloseButton: false,
+        buttonCornerRadius : 20
+    )
 }
 
 class R {

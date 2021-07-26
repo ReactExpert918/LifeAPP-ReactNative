@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2020 Related Code 
+// Copyright (c) 2020 Related Code
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -14,181 +14,208 @@ import FirebaseFirestore
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 class FireObservers: NSObject {
 
-	private var observerPerson:		FireObserver?
-	private var observerFriend:		FireObserver?
-	private var observerBlocked:	FireObserver?
-	private var observerBlocker:	FireObserver?
-	private var observerSingle1:	FireObserver?
-	private var observerSingle2:	FireObserver?
-	private var observerMember:		FireObserver?
+    private var observerPerson:        FireObserver?
+    private var observerFriend:        FireObserver?
+    private var observerBlocked:    FireObserver?
+    private var observerBlocker:    FireObserver?
+    private var observerSingle1:    FireObserver?
+    private var observerSingle2:    FireObserver?
+    private var observerMember:        FireObserver?
 
-	private var observerMembers:	[String: FireObserver] = [:]
-	private var observerGroups:		[String: FireObserver] = [:]
-	private var observerDetails:	[String: FireObserver] = [:]
-	private var observerMessages:	[String: FireObserver] = [:]
+    private var observerMembers:    [String: FireObserver] = [:]
+    private var observerGroups:        [String: FireObserver] = [:]
+    private var observerDetails:    [String: FireObserver] = [:]
+    private var observerMessages:    [String: FireObserver] = [:]
+    private var observerTransactions: FireObserver?
+    private var observerStripeCustomers: FireObserver?
+    private var observerPaymentMethods: FireObserver?
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    static let shared: FireObservers = {
+        let instance = FireObservers()
+        return instance
+    } ()
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	static let shared: FireObservers = {
-		let instance = FireObservers()
-		return instance
-	} ()
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    override init() {
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	override init() {
+        super.init()
 
-		super.init()
+        NotificationCenter.default.addObserver(self, selector: #selector(initObservers), name: NSNotification.Name(rawValue: NotificationStatus.NOTIFICATION_APP_STARTED), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(initObservers), name: NSNotification.Name(rawValue: NotificationStatus.NOTIFICATION_USER_LOGGED_IN), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(stopObservers), name: NSNotification.Name(rawValue: NotificationStatus.NOTIFICATION_USER_LOGGED_OUT), object: nil)
+    }
 
-        NotificationCenter.default.addObserver(self, selector: #selector(initObservers), name: .appStarted, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(initObservers), name: .loggedIn, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(stopObservers), name: .loggedOut, object: nil)
-	}
+    // MARK: -
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    @objc private func initObservers() {
 
-	// MARK: -
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	@objc private func initObservers() {
+        if (AuthUser.userId() != "") {
+            if (observerPerson == nil)    { createObserverPerson()    }
+            if (observerFriend == nil)    { createObserverFriend()    }
+            if (observerBlocked == nil)    { createObserverBlocked()    }
+            if (observerBlocker == nil)    { createObserverBlocker()    }
+            if (observerSingle1 == nil)    { createObserverSingle1()    }
+            if (observerSingle2 == nil)    { createObserverSingle2()    }
+            if (observerMember == nil)    { createObserverMember()    }
+            if (observerTransactions == nil) { createObserverTransactions() }
+            if (observerStripeCustomers == nil) { createObserverStripeCustomers() }
+            if (observerPaymentMethods == nil) { createObserverPaymentMethods() }
+        }
+    }
 
-		if (AuthUser.userId() != "") {
-			if (observerPerson == nil)	{ createObserverPerson()	}
-			if (observerFriend == nil)	{ createObserverFriend()	}
-			if (observerBlocked == nil)	{ createObserverBlocked()	}
-			if (observerBlocker == nil)	{ createObserverBlocker()	}
-			if (observerSingle1 == nil)	{ createObserverSingle1()	}
-			if (observerSingle2 == nil)	{ createObserverSingle2()	}
-			if (observerMember == nil)	{ createObserverMember()	}
-		}
-	}
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    @objc private func stopObservers() {
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	@objc private func stopObservers() {
+        observerPerson?.removeObserver();    observerPerson = nil
+        observerFriend?.removeObserver();    observerFriend = nil
+        observerBlocked?.removeObserver();    observerBlocked = nil
+        observerBlocker?.removeObserver();    observerBlocker = nil
+        observerSingle1?.removeObserver();    observerSingle1 = nil
+        observerSingle2?.removeObserver();    observerSingle2 = nil
+        observerMember?.removeObserver();    observerMember = nil
+        observerTransactions?.removeObserver(); observerTransactions = nil
+        observerStripeCustomers?.removeObserver(); observerStripeCustomers = nil
+        observerPaymentMethods?.removeObserver(); observerStripeCustomers = nil
+        for chatId in observerMembers.keys    { observerMembers[chatId]?.removeObserver()     }
+        for chatId in observerGroups.keys    { observerGroups[chatId]?.removeObserver()     }
+        for chatId in observerDetails.keys    { observerDetails[chatId]?.removeObserver()     }
+        for chatId in observerMessages.keys    { observerMessages[chatId]?.removeObserver() }
 
-		observerPerson?.removeObserver();	observerPerson = nil
-		observerFriend?.removeObserver();	observerFriend = nil
-		observerBlocked?.removeObserver();	observerBlocked = nil
-		observerBlocker?.removeObserver();	observerBlocker = nil
-		observerSingle1?.removeObserver();	observerSingle1 = nil
-		observerSingle2?.removeObserver();	observerSingle2 = nil
-		observerMember?.removeObserver();	observerMember = nil
+        observerMembers.removeAll()
+        observerGroups.removeAll()
+        observerDetails.removeAll()
+        observerMessages.removeAll()
+    }
 
-		for chatId in observerMembers.keys	{ observerMembers[chatId]?.removeObserver()	 }
-		for chatId in observerGroups.keys	{ observerGroups[chatId]?.removeObserver()	 }
-		for chatId in observerDetails.keys	{ observerDetails[chatId]?.removeObserver()	 }
-		for chatId in observerMessages.keys	{ observerMessages[chatId]?.removeObserver() }
+    // MARK: -
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    private func createObserverPerson() {
 
-		observerMembers.removeAll()
-		observerGroups.removeAll()
-		observerDetails.removeAll()
-		observerMessages.removeAll()
-	}
+        let query = Firestore.firestore().collection("Person")
+            .whereField("updatedAt", isGreaterThan: Person.lastUpdatedAt())
+        observerPerson = FireObserver(query, to: Person.self)
+    }
 
-	// MARK: -
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	private func createObserverPerson() {
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    private func createObserverFriend() {
 
-		let query = Firestore.firestore().collection("Person")
-			.whereField("updatedAt", isGreaterThan: Person.lastUpdatedAt())
-		observerPerson = FireObserver(query, to: Person.self)
-	}
+        let query = Firestore.firestore().collection("Friend")
+        observerFriend = FireObserver(query, to: Friend.self)
+    }
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	private func createObserverFriend() {
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    private func createObserverBlocked() {
 
-		let query = Firestore.firestore().collection("Friend")
-		observerFriend = FireObserver(query, to: Friend.self)
-	}
+        let query = Firestore.firestore().collection("Blocked")
+            .whereField("blockedId", isEqualTo: AuthUser.userId())
+        observerBlocked = FireObserver(query, to: Blocked.self)
+    }
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	private func createObserverBlocked() {
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    private func createObserverBlocker() {
 
-		let query = Firestore.firestore().collection("Blocked")
-			.whereField("blockedId", isEqualTo: AuthUser.userId())
-		observerBlocked = FireObserver(query, to: Blocked.self)
-	}
+        let query = Firestore.firestore().collection("Blocked")
+            .whereField("blockerId", isEqualTo: AuthUser.userId())
+        observerBlocker = FireObserver(query, to: Blocked.self)
+    }
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	private func createObserverBlocker() {
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    private func createObserverSingle1() {
 
-		let query = Firestore.firestore().collection("Blocked")
-			.whereField("blockerId", isEqualTo: AuthUser.userId())
-		observerBlocker = FireObserver(query, to: Blocked.self)
-	}
+        let query = Firestore.firestore().collection("Single")
+            .whereField("userId1", isEqualTo: AuthUser.userId())
+        observerSingle1 = FireObserver(query, to: Single.self)
+    }
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	private func createObserverSingle1() {
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    private func createObserverSingle2() {
 
-		let query = Firestore.firestore().collection("Single")
-			.whereField("userId1", isEqualTo: AuthUser.userId())
-		observerSingle1 = FireObserver(query, to: Single.self)
-	}
+        let query = Firestore.firestore().collection("Single")
+            .whereField("userId2", isEqualTo: AuthUser.userId())
+        observerSingle2 = FireObserver(query, to: Single.self)
+    }
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	private func createObserverSingle2() {
+    // MARK: -
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    private func createObserverMember() {
 
-		let query = Firestore.firestore().collection("Single")
-			.whereField("userId2", isEqualTo: AuthUser.userId())
-		observerSingle2 = FireObserver(query, to: Single.self)
-	}
+        let query = Firestore.firestore().collection("Member")
+            .whereField("userId", isEqualTo: AuthUser.userId())
+        observerMember = FireObserver(query, to: Member.self) { insert, modify in
+            if (insert) {
+                if let chatIds = Members.chatIds() {
+                    self.createObserverMembers(chatIds)
+                    self.createObserverGroup(chatIds)
+                    self.createObserverDetail(chatIds)
+                    self.createObserverMessage(chatIds)
+                }
+            }
+        }
+    }
 
-	// MARK: -
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	private func createObserverMember() {
+    // MARK: -
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    private func createObserverMembers(_ chatIds: [String]) {
 
-		let query = Firestore.firestore().collection("Member")
-			.whereField("userId", isEqualTo: AuthUser.userId())
-		observerMember = FireObserver(query, to: Member.self) { insert, modify in
-			if (insert) {
-				if let chatIds = Members.chatIds() {
-					self.createObserverMembers(chatIds)
-					self.createObserverGroup(chatIds)
-					self.createObserverDetail(chatIds)
-					self.createObserverMessage(chatIds)
-				}
-			}
-		}
-	}
+        for chatId in chatIds {
+            if (observerMembers[chatId] == nil) {
+                let query = Firestore.firestore().collection("Member").whereField("chatId", isEqualTo: chatId)
+                observerMembers[chatId] = FireObserver(query, to: Member.self)
+            }
+        }
+    }
 
-	// MARK: -
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	private func createObserverMembers(_ chatIds: [String]) {
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    private func createObserverGroup(_ chatIds: [String]) {
 
-		for chatId in chatIds {
-			if (observerMembers[chatId] == nil) {
-				let query = Firestore.firestore().collection("Member").whereField("chatId", isEqualTo: chatId)
-				observerMembers[chatId] = FireObserver(query, to: Member.self)
-			}
-		}
-	}
+        for chatId in chatIds {
+            if (observerGroups[chatId] == nil) {
+                let query = Firestore.firestore().collection("Group").whereField("chatId", isEqualTo: chatId)
+                observerGroups[chatId] = FireObserver(query, to: Group.self)
+            }
+        }
+    }
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	private func createObserverGroup(_ chatIds: [String]) {
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    private func createObserverDetail(_ chatIds: [String]) {
 
-		for chatId in chatIds {
-			if (observerGroups[chatId] == nil) {
-				let query = Firestore.firestore().collection("Group").whereField("chatId", isEqualTo: chatId)
-				observerGroups[chatId] = FireObserver(query, to: Group.self)
-			}
-		}
-	}
+        for chatId in chatIds {
+            if (observerDetails[chatId] == nil) {
+                let query = Firestore.firestore().collection("Detail").whereField("chatId", isEqualTo: chatId)
+                observerDetails[chatId] = FireObserver(query, to: Detail.self)
+            }
+        }
+    }
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	private func createObserverDetail(_ chatIds: [String]) {
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    private func createObserverMessage(_ chatIds: [String]) {
 
-		for chatId in chatIds {
-			if (observerDetails[chatId] == nil) {
-				let query = Firestore.firestore().collection("Detail").whereField("chatId", isEqualTo: chatId)
-				observerDetails[chatId] = FireObserver(query, to: Detail.self)
-			}
-		}
-	}
+        for chatId in chatIds {
+            if (observerMessages[chatId] == nil) {
+                let query = Firestore.firestore().collection("Message").whereField("chatId", isEqualTo: chatId)
+//                    .whereField("updatedAt", isGreaterThan: Message.lastUpdatedAt(chatId))
+                observerMessages[chatId] = FireObserver(query, to: Message.self)
+            }
+        }
+    }
+    
+    private func createObserverTransactions() {
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	private func createObserverMessage(_ chatIds: [String]) {
-
-		for chatId in chatIds {
-			if (observerMessages[chatId] == nil) {
-				let query = Firestore.firestore().collection("Message").whereField("chatId", isEqualTo: chatId)
-//					.whereField("updatedAt", isGreaterThan: Message.lastUpdatedAt(chatId))
-				observerMessages[chatId] = FireObserver(query, to: Message.self)
-			}
-		}
-	}
+        let query1 = Firestore.firestore().collection("ZEDPay")
+            .whereField("fromUserId", isEqualTo: AuthUser.userId())
+        let query2 = Firestore.firestore().collection("ZEDPay")
+            .whereField("toUserId", isEqualTo: AuthUser.userId())
+        observerTransactions = FireObserver([query1, query2], to: ZEDPay.self)
+    }
+    private func createObserverStripeCustomers(){
+        let query = Firestore.firestore().collection("StripeCustomer")
+            .whereField("userId", isEqualTo: AuthUser.userId())
+        observerStripeCustomers = FireObserver(query, to: StripeCustomer.self)
+    }
+    
+    private func createObserverPaymentMethods(){
+        let query = Firestore.firestore().collection("PaymentMethod")
+            .whereField("userId", isEqualTo: AuthUser.userId())
+        observerPaymentMethods = FireObserver(query, to: PaymentMethod.self)
+    }
 }

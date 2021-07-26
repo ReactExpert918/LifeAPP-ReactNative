@@ -13,6 +13,7 @@ extension UIColor {
     
     enum LocalColorName: String {
         case primaryColor      = "#16406F"
+        case lightPrimaryColor = "#96B4D2"
         case errorRedColor     = "#DF1747"
         case errorLightColor   = "#fadde2"
         
@@ -22,8 +23,9 @@ extension UIColor {
         self.init(name.rawValue)
     }
     
-    static let errorRedColor = UIColor(.errorRedColor)
     static let primaryColor  = UIColor(.primaryColor)
+    static let lightPrimaryColor  = UIColor(.lightPrimaryColor)
+    static let errorRedColor = UIColor(.errorRedColor)
     static let errorLightColor = UIColor(.errorLightColor)
     
 }

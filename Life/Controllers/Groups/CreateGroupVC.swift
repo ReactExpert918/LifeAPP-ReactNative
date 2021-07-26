@@ -70,7 +70,7 @@ class CreateGroupVC: UIViewController, UICollectionViewDelegate, UICollectionVie
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.row == 0{
-            if let viewController = storyboard?.instantiateViewController(identifier: "addParticipantVC") as? AddParticipantsViewController {
+            if let viewController = storyboard?.instantiateViewController(identifier: "addParticipantVC") as? AddParticipantsVC {
                 viewController.ownerVC = self
                 self.present(viewController, animated: true, completion: nil)
             }
