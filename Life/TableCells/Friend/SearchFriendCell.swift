@@ -20,14 +20,14 @@ class SearchFriendCell : UITableViewCell{
     
     var index: Int!
     var callbackAddFriend: ((_ index: Int) -> ())?
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func bindData(person: Person) {
 
         userNameLabel.text = person.fullname
         phoneNumberLabel.text = person.phone
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func loadImage(person: Person, tableView: UITableView, indexPath: IndexPath) {
 /*
         if let path = MediaDownload.pathUser(person.objectId) {
@@ -44,7 +44,7 @@ class SearchFriendCell : UITableViewCell{
         
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func downloadImage(person: Person, tableView: UITableView, indexPath: IndexPath) {
 
         MediaDownload.startUser(person.objectId, pictureAt: person.pictureAt) { image, error in

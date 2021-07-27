@@ -11,7 +11,7 @@
 
 import RealmSwift
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
+//----
 class Friend: SyncObject {
 
     @objc dynamic var userId = ""
@@ -23,7 +23,7 @@ class Friend: SyncObject {
     
     @objc dynamic var isAccepted = false
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func update(isDeleted value: Bool, completion: ( ()->())?) {
 
         if (isDeleted == value) { return }

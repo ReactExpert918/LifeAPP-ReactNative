@@ -9,7 +9,8 @@
 import Foundation
 import RealmSwift
 import CryptoSwift
-//-------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 class StripeCustomer: SyncObject {
     @objc dynamic var userId = ""
     @objc dynamic var email = ""

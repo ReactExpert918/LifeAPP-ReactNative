@@ -12,7 +12,7 @@
 import RealmSwift
 import CoreLocation
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
+//----
 class Message: SyncObject {
 
     @objc dynamic var chatId = ""
@@ -38,7 +38,7 @@ class Message: SyncObject {
 
     @objc dynamic var isDeleted = false
     @objc dynamic var isObjectionable = false
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     class func lastUpdatedAt(_ chatId: String) -> Int64 {
 
         let realm = try! Realm()
@@ -48,7 +48,7 @@ class Message: SyncObject {
     }
 
     // MARK: -
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func update(isMediaQueued value: Bool) {
 
         if (isMediaQueued == value) { return }
@@ -61,7 +61,7 @@ class Message: SyncObject {
         }
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func update(isMediaFailed value: Bool) {
 
         if (isMediaFailed == value) { return }
@@ -74,7 +74,7 @@ class Message: SyncObject {
         }
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func update(isDeleted value: Bool) {
 
         if (isDeleted == value) { return }

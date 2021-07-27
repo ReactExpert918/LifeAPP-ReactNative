@@ -12,7 +12,7 @@
 import FirebaseFirestore
 import RealmSwift
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
+//----
 class FireUpdater: NSObject {
 
 	private var collection: String = ""
@@ -21,7 +21,7 @@ class FireUpdater: NSObject {
 
 	private var objects: Results<SyncObject>?
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	init(name: String, type: SyncObject.Type) {
 
 		super.init()
@@ -41,7 +41,7 @@ class FireUpdater: NSObject {
 	}
 
 	// MARK: -
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	private func updateNextObject() {
 
 		if (updating) { return }
@@ -52,7 +52,7 @@ class FireUpdater: NSObject {
 	}
 
 	// MARK: -
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	private func updateObject(_ object: SyncObject) {
 
 		updating = true
@@ -77,7 +77,7 @@ class FireUpdater: NSObject {
 	}
 
 	// MARK: -
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	private func populateObject(_ object: SyncObject) -> [String: Any] {
 
 		var values: [String: Any] = [:]

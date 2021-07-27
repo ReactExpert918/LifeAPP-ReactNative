@@ -24,6 +24,7 @@ class QRCodeVC: UIViewController, QRCodeReaderViewControllerDelegate {
         })
       }
     }
+    
     func reader(_ reader: QRCodeReaderViewController, didScanResult result: QRCodeReaderResult) {
         reader.stopScanning()
 
@@ -42,7 +43,7 @@ class QRCodeVC: UIViewController, QRCodeReaderViewControllerDelegate {
     func readerDidCancel(_ reader: QRCodeReaderViewController) {
         reader.stopScanning()
 
-        dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
     }
     
     lazy var reader: QRCodeReader = QRCodeReader()
@@ -65,21 +66,17 @@ class QRCodeVC: UIViewController, QRCodeReaderViewControllerDelegate {
         super.viewDidLoad()
         startReader()
     }
+    
     func startReader(){
         guard checkScanPermissions(), !reader.isRunning else { return }
 
         reader.didFindCode = { result in
-            let vc =  self.storyboard?.instantiateViewController(identifier: "addFriendBottomSheetVC") as! AddFriendBottomSheetVC
+            let vc =  self.storyboard?.instantiateViewController(identifier: "AddFriendBottomSheetVC") as! AddFriendBottomSheetVC
             self.reader.startScanning()
             let qrcodeValue = result.value.components(separatedBy: "timestamp")
             vc.qrCode = qrcodeValue[0]
 
             let sheetController = SheetViewController(controller: vc, sizes: [.fixed(376)])
-//            sheetController.blurBottomSafeArea = false
-//            sheetController.adjustForBottomSafeArea = false
-
-            // Make corners more round
-//            sheetController.topCornersRadius= 15
             sheetController.cornerRadius = 15
 
             // It is important to set animated to false or it behaves weird currently
@@ -90,50 +87,33 @@ class QRCodeVC: UIViewController, QRCodeReaderViewControllerDelegate {
     }
     
     private func checkScanPermissions() -> Bool {
-      do {
-        return try QRCodeReader.supportsMetadataObjectTypes()
-      } catch let error as NSError {
-        let alert: UIAlertController
-
-        switch error.code {
-        case -11852:
-          alert = UIAlertController(title: "Error", message: "This app is not authorized to use Back Camera.", preferredStyle: .alert)
-
-          alert.addAction(UIAlertAction(title: "Setting", style: .default, handler: { (_) in
-            DispatchQueue.main.async {
-              if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
-                UIApplication.shared.openURL(settingsURL)
-              }
+        do {
+            return try QRCodeReader.supportsMetadataObjectTypes()
+        } catch let error as NSError {
+            switch error.code {
+            case -11852:
+                self.showAlert("Error", message: "This app is not authorized to use Back Camera.", positive: "Setting", negative: R.btnCancel, positiveAction: { (_) in
+                    DispatchQueue.main.async {
+                        if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
+                            UIApplication.shared.open(settingsURL)
+                        }
+                    }
+                }, negativeAction: nil, completion: nil)
+            default:
+                self.showAlert("Error", message: "Reader not supported by the current device", positive: R.btnOk, negative: nil)
             }
-          }))
-
-          alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        default:
-          alert = UIAlertController(title: "Error", message: "Reader not supported by the current device", preferredStyle: .alert)
-          alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            return false
         }
-
-        present(alert, animated: true, completion: nil)
-
-        return false
-      }
     }
+    
     @IBAction func onBackTapped(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func onMyQrTapped(_ sender: Any) {
-        let vc =  self.storyboard?.instantiateViewController(identifier: "myQrVC") as! MyQRGenerateVC
-
+        let vc =  self.storyboard?.instantiateViewController(identifier: "MyQRGenerateVC") as! MyQRGenerateVC
         let sheetController = SheetViewController(controller: vc, sizes: [.fixed(460)])
-//        sheetController.blurBottomSafeArea = false
-//        sheetController.adjustForBottomSafeArea = false
-
-        // Make corners more round
-//        sheetController.topCornersRadius = 15
         sheetController.cornerRadius = 15
-
-        // It is important to set animated to false or it behaves weird currently
         self.present(sheetController, animated: false, completion: nil)
     }
     

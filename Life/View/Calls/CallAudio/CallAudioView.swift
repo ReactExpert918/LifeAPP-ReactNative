@@ -12,7 +12,7 @@
 //import Sinch
 import MediaPlayer
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
+//----
 class CallAudioView: UIViewController {
 
     @IBOutlet var imageUser: UIImageView!
@@ -62,7 +62,7 @@ class CallAudioView: UIViewController {
         callString = (self.call?.headers["name"])! as! String
     }*/
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     init(userId: String) {
         super.init(nibName: nil, bundle: nil)
         let recipentUser = realm.object(ofType: Person.self, forPrimaryKey: userId)
@@ -110,13 +110,13 @@ class CallAudioView: UIViewController {
         
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     required init?(coder aDecoder: NSCoder) {
 
         super.init(coder: aDecoder)
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     override func viewDidLoad() {
 
         super.viewDidLoad()
@@ -173,7 +173,7 @@ class CallAudioView: UIViewController {
         dottedProgressBar?.setProgress(value: Int(progress))
         // print("Device Volume:\(volume)")
     }
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     override func viewWillAppear(_ animated: Bool) {
 
         super.viewWillAppear(animated)
@@ -188,26 +188,26 @@ class CallAudioView: UIViewController {
         
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
 
         return .portrait
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
 
         return .portrait
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     override var shouldAutorotate: Bool {
 
         return false
     }
 
     // MARK: - Realm methods
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func loadPerson() {
 /*
         if let remoteUserId = call?.remoteUserId {
@@ -251,7 +251,7 @@ class CallAudioView: UIViewController {
         }
     }*/
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func timerStop() {
 
         timer?.invalidate()
@@ -273,7 +273,7 @@ class CallAudioView: UIViewController {
     }*/
 
     // MARK: - User actions
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     @IBAction func actionMute(_ sender: Any) {
 
         if (muted) {
@@ -289,7 +289,7 @@ class CallAudioView: UIViewController {
         }
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     @IBAction func actionSpeaker(_ sender: Any) {
 
         if (speaker) {
@@ -305,25 +305,25 @@ class CallAudioView: UIViewController {
         }
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     @IBAction func actionVideo(_ sender: Any) {
 
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     @IBAction func actionHangup(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
         //call?.hangup()
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     @IBAction func actionAnswer(_ sender: Any) {
 
         //call?.answer()
     }
 
     // MARK: - Helper methods
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func updateDetails1() {
 
         labelStatus.text = "Calling..."
@@ -335,7 +335,7 @@ class CallAudioView: UIViewController {
         viewEnded.isHidden = true
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func updateDetails2() {
 
         labelStatus.text = "00:00"
@@ -347,7 +347,7 @@ class CallAudioView: UIViewController {
         viewEnded.isHidden = true
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func updateDetails3() {
 
         labelStatus.text = "Ended"
@@ -360,13 +360,13 @@ class CallAudioView: UIViewController {
 // MARK: - SINCallDelegate
 extension CallAudioView: SINCallDelegate {
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func callDidProgress(_ call: SINCall?) {
         self.call = call
         audioController?.startPlayingSoundFile(Dir.application("call_ringback.wav"), loop: true)
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func callDidEstablish(_ call: SINCall?) {
 
         timerStart(call)
@@ -374,7 +374,7 @@ extension CallAudioView: SINCallDelegate {
         updateDetails2()
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func callDidEnd(_ call: SINCall?) {
 
         timerStop()

@@ -146,7 +146,7 @@ class PayQRCodeViewController: UIViewController, QRCodeReaderViewControllerDeleg
     }
     
     @IBAction func onMyQrTapped(_ sender: Any) {
-        let vc =  self.storyboard?.instantiateViewController(identifier: "payMyQrVC") as! PayMyQrGenerateViewController
+        let vc =  self.storyboard?.instantiateViewController(identifier: "PayMyQrGenerateVC") as! PayMyQrGenerateVC
 
         let sheetController = SheetViewController(controller: vc, sizes: [.fixed(460)])
         

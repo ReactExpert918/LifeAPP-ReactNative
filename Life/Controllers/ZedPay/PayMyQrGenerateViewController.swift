@@ -1,5 +1,5 @@
 //
-//  PayMyQrGenerateViewController.swift
+//  PayMyQrGenerateVC.swift
 //  Life
 //
 //  Created by mac on 2021/6/20.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PayMyQrGenerateViewController: UIViewController {
+class PayMyQrGenerateVC: UIViewController {
     
     private var person: Person!
 

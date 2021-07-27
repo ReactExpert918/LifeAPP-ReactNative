@@ -326,7 +326,7 @@ class ChatViewController: UIViewController {
         }
     }
     // MARK: - Cleanup methods
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func actionCleanup() {
 
         tokenDetails?.invalidate()
@@ -339,14 +339,14 @@ class ChatViewController: UIViewController {
         self.recipientId = recipientId
     }
     // MARK: - Realm methods
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func loadDetail() {
 
         let predicate = NSPredicate(format: "chatId == %@ AND userId == %@", chatId, AuthUser.userId())
         detail = realm.objects(Detail.self).filter(predicate).first
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func loadDetails() {
 
         let predicate = NSPredicate(format: "chatId == %@ AND userId != %@", chatId, AuthUser.userId())
@@ -676,7 +676,7 @@ class ChatViewController: UIViewController {
         self.popupView.isHidden = true
     }
     // MARK: - User actions (avatar tap)
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func actionTapAvatar(_ indexPath: IndexPath) {
         let rcmessage = rcmessageAt(indexPath)
         if(rcmessage.userId == AuthUser.userId()){
@@ -712,7 +712,7 @@ class ChatViewController: UIViewController {
         self.popupView.isHidden = false
     }
     // MARK: - User actions (menu)
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     @objc func actionMenuCopy(_ sender: Any?) {
 
         if let indexPath = RCMenuItem.indexPath(sender as! UIMenuController) {
@@ -721,7 +721,7 @@ class ChatViewController: UIViewController {
         }
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     @objc func actionMenuSave(_ sender: Any?) {
 
         if let indexPath = RCMenuItem.indexPath(sender as! UIMenuController) {
@@ -751,7 +751,7 @@ class ChatViewController: UIViewController {
         }
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     @objc func actionMenuDelete(_ sender: Any?) {
 
         if let indexPath = RCMenuItem.indexPath(sender as! UIMenuController) {
@@ -768,7 +768,7 @@ class ChatViewController: UIViewController {
         }
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     @objc func actionMenuForward(_ sender: Any?) {
 
         if let indexPath = RCMenuItem.indexPath(sender as! UIMenuController) {
@@ -782,19 +782,19 @@ class ChatViewController: UIViewController {
     }
 
     // MARK: - UISaveVideoAtPathToSavedPhotosAlbum
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     @objc func image(_ image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: UnsafeMutableRawPointer?) {
 
         if (error != nil) { ProgressHUD.showError("Saving failed.") } else { ProgressHUD.showSuccess("Successfully saved.") }
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     @objc func video(_ videoPath: String, didFinishSavingWithError error: NSError?, contextInfo: UnsafeMutableRawPointer?) {
 
         if (error != nil) { ProgressHUD.showError("Saving failed.") } else { ProgressHUD.showSuccess("Successfully saved.") }
     }
     // MARK: - User actions (input panel)
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func actionAttachMessage() {
 
     }
@@ -806,12 +806,12 @@ class ChatViewController: UIViewController {
     func actionOpenGallery() {
         //ImagePicker.photoLibrary(target: self, edit: false)
     }
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func actionSendMessage(_ text: String) {
         messageSend(text: text, photo: nil, video: nil, audio: nil)
     }
     // MARK: - Helper methods
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func layoutTableView() {
         // print("layoutTableView")
         let heightInput = messageInputBar.bounds.height
@@ -822,7 +822,7 @@ class ChatViewController: UIViewController {
         tableView.scrollIndicatorInsets = edgeInset
         
     }
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func scrollToBottom(animated: Bool) {
 
         if (tableView.numberOfSections > 0) {
@@ -831,7 +831,7 @@ class ChatViewController: UIViewController {
         }
     }
     // MARK: - Typing indicator methods
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func typingIndicatorShow(_ typing: Bool, text: String = "typing...") {
 
         if (typing == true) && (isTyping == false) {
@@ -844,7 +844,7 @@ class ChatViewController: UIViewController {
         isTyping = typing
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func typingIndicatorUpdate() {
         typingCounter += 1
         detail?.update(typing: true)
@@ -853,7 +853,7 @@ class ChatViewController: UIViewController {
             self.typingIndicatorStop()
         }
     }
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func typingIndicatorStop() {
 
         typingCounter -= 1
@@ -862,7 +862,7 @@ class ChatViewController: UIViewController {
         }
     }
     // MARK: - Keyboard methods
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     @objc func keyboardWillShow(_ notification: Notification) {
         self.popupView.isHidden = true
         showCallToolbar(value: false)
@@ -887,7 +887,7 @@ class ChatViewController: UIViewController {
         UIMenuController.shared.menuItems = nil
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     @objc func keyboardWillHide(_ notification: Notification?) {
 
         heightKeyboard = 0
@@ -896,7 +896,7 @@ class ChatViewController: UIViewController {
         layoutTableView()
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func dismissKeyboard() {
         if(keyboardWillShow){
             messageInputBar.inputTextView.resignFirstResponder()
@@ -964,20 +964,19 @@ class ChatViewController: UIViewController {
     
 }
 // MARK: - UITableViewDataSource
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 extension ChatViewController: UITableViewDataSource {
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
         return 1
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return messageLoadedCount()
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         
@@ -995,7 +994,7 @@ extension ChatViewController: UITableViewDataSource {
         return UITableViewCell()
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func cellForHeaderUpper(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "RCHeaderUpperCell", for: indexPath) as! RCHeaderUpperCell
@@ -1003,7 +1002,7 @@ extension ChatViewController: UITableViewDataSource {
         return cell
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func cellForHeaderLower(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "RCHeaderLowerCell", for: indexPath) as! RCHeaderLowerCell
@@ -1011,7 +1010,7 @@ extension ChatViewController: UITableViewDataSource {
         return cell
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func cellForMessageText(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "RCMessageTextCell", for: indexPath) as! RCMessageTextCell
@@ -1019,7 +1018,7 @@ extension ChatViewController: UITableViewDataSource {
         return cell
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func cellForMessageEmoji(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "RCMessageEmojiCell", for: indexPath) as! RCMessageEmojiCell
@@ -1027,7 +1026,7 @@ extension ChatViewController: UITableViewDataSource {
         return cell
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func cellForMessagePhoto(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "RCMessagePhotoCell", for: indexPath) as! RCMessagePhotoCell
@@ -1046,11 +1045,11 @@ extension ChatViewController: UITableViewDataSource {
 
     func goPayDetail(_ zedPay: ZEDPay){
         let mainstoryboard = UIStoryboard.init(name: "ZedPay", bundle: nil)
-        let vc = mainstoryboard.instantiateViewController(withIdentifier: "detailVC") as! TransactionDetailViewController
+        let vc = mainstoryboard.instantiateViewController(withIdentifier: "TransactionDetailVC") as! TransactionDetailVC
         vc.transaction = zedPay
         self.present(vc, animated: true, completion: nil)
     }
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func cellForMessageVideo(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "RCMessageVideoCell", for: indexPath) as! RCMessageVideoCell
@@ -1058,7 +1057,7 @@ extension ChatViewController: UITableViewDataSource {
         return cell
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func cellForMessageAudio(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "RCMessageAudioCell", for: indexPath) as! RCMessageAudioCell
@@ -1066,7 +1065,7 @@ extension ChatViewController: UITableViewDataSource {
         return cell
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func cellForMessageLocation(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "RCMessageLocationCell", for: indexPath) as! RCMessageLocationCell
@@ -1074,7 +1073,7 @@ extension ChatViewController: UITableViewDataSource {
         return cell
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func cellForFooterUpper(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "RCFooterUpperCell", for: indexPath) as! RCFooterUpperCell
@@ -1082,7 +1081,7 @@ extension ChatViewController: UITableViewDataSource {
         return cell
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func cellForFooterLower(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "RCFooterLowerCell", for: indexPath) as! RCFooterLowerCell
@@ -1092,21 +1091,21 @@ extension ChatViewController: UITableViewDataSource {
 }
 
 // MARK: - UITableViewDelegate
-//-------------------------------------------------------------------------------------------------------------------------------------------------
+
 extension ChatViewController: UITableViewDelegate {
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
 
         view.tintColor = UIColor.clear
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
 
         view.tintColor = UIColor.clear
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 
         
@@ -1124,7 +1123,7 @@ extension ChatViewController: UITableViewDelegate {
         return 0
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         let offset = messageTotalCount() - messageLoadedCount()
         let message = messages[section + offset]
@@ -1140,7 +1139,7 @@ extension ChatViewController: UITableViewDelegate {
         return offsetHeight
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
 
         return RCDefaults.sectionFooterMargin
@@ -1148,7 +1147,7 @@ extension ChatViewController: UITableViewDelegate {
 }
 extension ChatViewController: InputBarAccessoryViewDelegate {
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func inputBar(_ inputBar: InputBarAccessoryView, textViewTextDidChangeTo text: String) {
 
         if (text != "") {
@@ -1156,7 +1155,7 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
         }
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func inputBar(_ inputBar: InputBarAccessoryView, didChangeIntrinsicContentTo size: CGSize) {
         
         
@@ -1164,7 +1163,7 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
         
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
 
         for component in inputBar.inputTextView.components {
@@ -1183,10 +1182,9 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
 }
 
 // MARK: - UIImagePickerControllerDelegate
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 extension ChatViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
 
         let video = info[.mediaURL] as? URL
@@ -1199,10 +1197,9 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
 }
 
 // MARK: - AudioDelegate
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 extension ChatViewController: AudioDelegate {
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func didRecordAudio(path: String) {
 
         messageSend(text: nil, photo: nil, video: nil, audio: path)
@@ -1210,10 +1207,9 @@ extension ChatViewController: AudioDelegate {
 }
 
 // MARK: - StickersDelegate
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 extension ChatViewController: StickersDelegate {
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func didSelectSticker(sticker: UIImage) {
 
         messageSend(text: nil, photo: sticker, video: nil, audio: nil)
@@ -1221,10 +1217,9 @@ extension ChatViewController: StickersDelegate {
 }
 
 // MARK: - SelectUsersDelegate
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 extension ChatViewController: SelectUsersDelegate {
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func didSelectUsers(userIds: [String]) {
 
         if let indexPath = indexForward {

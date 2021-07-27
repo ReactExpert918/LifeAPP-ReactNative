@@ -11,16 +11,14 @@
 
 import MapKit
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 class RCLocationLoader: NSObject {
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
 	class func start(_ rcmessage: RCMessage, in tableView: UITableView) {
 
 		loadMedia(rcmessage, in: tableView)
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	private class func loadMedia(_ rcmessage: RCMessage, in tableView: UITableView) {
 
         rcmessage.mediaStatus = MediaStatus.MEDIASTATUS_LOADING
@@ -47,7 +45,7 @@ class RCLocationLoader: NSObject {
 		})
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	private class func showMedia(_ rcmessage: RCMessage, snapshot: MKMapSnapshotter.Snapshot) {
 
 		UIGraphicsBeginImageContextWithOptions(snapshot.image.size, true, snapshot.image.scale)

@@ -13,7 +13,7 @@ protocol NewConversationDelegate {
     func newConversationStart(chatId: String, recipientId: String)
 }
 
-class ChatListVC: UIViewController, UITableViewDataSource, UITableViewDelegate, NewConversationDelegate {
+class ChatListVC: BaseVC, UITableViewDataSource, UITableViewDelegate, NewConversationDelegate {
 
     @IBOutlet weak var searchBar: UISearchBar!
     
@@ -71,7 +71,7 @@ class ChatListVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
     }
     
     // MARK: - Realm methods
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     @objc func loadMembers() {
 
         let predicate = NSPredicate(format: "userId == %@ AND isActive == YES", AuthUser.userId())
@@ -85,7 +85,7 @@ class ChatListVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
         })
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func loadChats(text: String = "") {
 
         let predicate1 = NSPredicate(format: "objectId IN %@ AND lastMessageAt != 0", Members.chatIds())
@@ -103,14 +103,14 @@ class ChatListVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
         })
     }
     // MARK: - Refresh methods
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func refreshTableView() {
 
         chatsTableView.reloadData()
         self.refreshTabCounter()
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func refreshTabCounter() {
 
         var total: Int = 0
@@ -125,7 +125,7 @@ class ChatListVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
         UIApplication.shared.applicationIconBadgeNumber = total
     }
     // MARK: - Cleanup methods
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     @objc func actionCleanup() {
 
         tokenMembers?.invalidate()
@@ -136,7 +136,7 @@ class ChatListVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
 
         refreshTableView()
     }
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func actionDelete(at indexPath: IndexPath) {
 
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
@@ -167,7 +167,7 @@ class ChatListVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func numberOfSections(in tableView: UITableView) -> Int {
 
         return 1
@@ -188,7 +188,7 @@ class ChatListVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
 
         let actionDelete = UIContextualAction(style: .destructive, title: "Delete") {  action, sourceView, completionHandler in
@@ -214,28 +214,27 @@ class ChatListVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
 }
 
 // MARK: - UISearchBarDelegate
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 extension ChatListVC: UISearchBarDelegate {
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
 
         
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func searchBarTextDidBeginEditing(_ searchBar_: UISearchBar) {
 
         searchBar.setShowsCancelButton(true, animated: true)
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func searchBarTextDidEndEditing(_ searchBar_: UISearchBar) {
 
         searchBar.setShowsCancelButton(false, animated: true)
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func searchBarCancelButtonClicked(_ searchBar_: UISearchBar) {
 
         searchBar.text = ""
@@ -243,7 +242,7 @@ extension ChatListVC: UISearchBarDelegate {
         loadChats()
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func searchBarSearchButtonClicked(_ searchBar_: UISearchBar) {
         searchBar.resignFirstResponder()
         let searchText = searchBar_.text

@@ -12,13 +12,13 @@
 import RealmSwift
 import ProgressHUD
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
+
 @objc protocol SelectUsersDelegate: class {
 
 	func didSelectUsers(userIds: [String])
 }
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
+
 class SelectUsersView: UIViewController {
 
 	@IBOutlet weak var delegate: SelectUsersDelegate?
@@ -32,7 +32,7 @@ class SelectUsersView: UIViewController {
 	private var sections: [[Person]] = []
 	private let collation = UILocalizedIndexedCollation.current()
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	override func viewDidLoad() {
 
 		super.viewDidLoad()
@@ -48,7 +48,7 @@ class SelectUsersView: UIViewController {
 		loadPersons()
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	override func viewWillDisappear(_ animated: Bool) {
 
 		super.viewWillDisappear(animated)
@@ -56,14 +56,14 @@ class SelectUsersView: UIViewController {
 		dismissKeyboard()
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	func dismissKeyboard() {
 
 		view.endEditing(true)
 	}
 
 	// MARK: - Realm methods
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	func loadPersons(text: String = "") {
 
 		let predicate1 = NSPredicate(format: "objectId IN %@ AND NOT objectId IN %@", Friends.friendIds(), Blockeds.blockerIds())
@@ -75,14 +75,14 @@ class SelectUsersView: UIViewController {
 	}
 
 	// MARK: - Refresh methods
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	func refreshTableView() {
 
 		setObjects()
 		tableView.reloadData()
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	func setObjects() {
 
 		sections.removeAll()
@@ -99,13 +99,13 @@ class SelectUsersView: UIViewController {
 	}
 
 	// MARK: - User actions
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	@objc func actionDismiss() {
 
 		dismiss(animated: true)
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	@objc func actionDone() {
 
 		if (selection.count != 0) {
@@ -119,10 +119,9 @@ class SelectUsersView: UIViewController {
 }
 
 // MARK: - UIScrollViewDelegate
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 extension SelectUsersView: UIScrollViewDelegate {
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
 
 		dismissKeyboard()
@@ -130,40 +129,39 @@ extension SelectUsersView: UIScrollViewDelegate {
 }
 
 // MARK: - UITableViewDataSource
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 extension SelectUsersView: UITableViewDataSource {
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	func numberOfSections(in tableView: UITableView) -> Int {
 
 		return sections.count
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
 		return sections[section].count
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 
 		return (sections[section].count != 0) ? collation.sectionTitles[section] : nil
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	func sectionIndexTitles(for tableView: UITableView) -> [String]? {
 
 		return collation.sectionIndexTitles
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
 
 		return collation.section(forSectionIndexTitle: index)
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
 		let cell = tableView.dequeueReusableCell(withIdentifier: "SelectUsersCell", for: indexPath) as! SelectUsersCell
@@ -179,10 +177,9 @@ extension SelectUsersView: UITableViewDataSource {
 }
 
 // MARK: - UITableViewDelegate
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 extension SelectUsersView: UITableViewDelegate {
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
 		tableView.deselectRow(at: indexPath, animated: true)
@@ -203,28 +200,27 @@ extension SelectUsersView: UITableViewDelegate {
 }
 
 // MARK: - UISearchBarDelegate
-//-------------------------------------------------------------------------------------------------------------------------------------------------
 extension SelectUsersView: UISearchBarDelegate {
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
 
 		loadPersons(text: searchText)
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	func searchBarTextDidBeginEditing(_ searchBar_: UISearchBar) {
 
 		searchBar.setShowsCancelButton(true, animated: true)
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	func searchBarTextDidEndEditing(_ searchBar_: UISearchBar) {
 
 		searchBar.setShowsCancelButton(false, animated: true)
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	func searchBarCancelButtonClicked(_ searchBar_: UISearchBar) {
 
 		searchBar.text = ""
@@ -232,7 +228,7 @@ extension SelectUsersView: UISearchBarDelegate {
 		loadPersons()
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	func searchBarSearchButtonClicked(_ searchBar_: UISearchBar) {
 
 		searchBar.resignFirstResponder()

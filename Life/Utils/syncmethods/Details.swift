@@ -12,10 +12,10 @@
 import RealmSwift
 import CryptoSwift
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
+
 class Details: NSObject {
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	class func create(chatId: String, userIds: [String]) {
 
 		let realm = try! Realm()
@@ -31,7 +31,7 @@ class Details: NSObject {
 	}
 
 	// MARK: -
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	class func update(chatId: String, userIds: [String]) {
 
 		var userIds = userIds
@@ -47,7 +47,7 @@ class Details: NSObject {
 		self.create(chatId: chatId, userIds: userIds)
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	class func update(chatId: String, mutedUntil: Int64) {
 
 		let predicate = NSPredicate(format: "chatId == %@ AND userId == %@", chatId, AuthUser.userId())
@@ -56,7 +56,7 @@ class Details: NSObject {
 		}
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	class func update(chatId: String, isDeleted: Bool) {
 
 		let predicate = NSPredicate(format: "chatId == %@ AND userId == %@", chatId, AuthUser.userId())
@@ -65,7 +65,7 @@ class Details: NSObject {
 		}
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	class func update(chatId: String, isArchived: Bool) {
 
 		let predicate = NSPredicate(format: "chatId == %@ AND userId == %@", chatId, AuthUser.userId())
@@ -75,7 +75,7 @@ class Details: NSObject {
 	}
 
 	// MARK: -
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	class func updateAll(chatId: String, isDeleted: Bool) {
 
 		let predicate = NSPredicate(format: "chatId == %@", chatId)
@@ -84,7 +84,7 @@ class Details: NSObject {
 		}
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	class func updateAll(chatId: String, isArchived: Bool) {
 
 		let predicate = NSPredicate(format: "chatId == %@", chatId)

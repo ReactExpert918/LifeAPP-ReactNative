@@ -11,14 +11,14 @@
 
 import MapKit
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
+//----
 class MapView: UIViewController {
 
 	@IBOutlet var mapView: MKMapView!
 
 	private var location: CLLocation!
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	init(location: CLLocation) {
 
 		super.init(nibName: nil, bundle: nil)
@@ -26,7 +26,7 @@ class MapView: UIViewController {
 		self.location = location
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	init(latitude: CLLocationDegrees, longitude: CLLocationDegrees) {
 
 		super.init(nibName: nil, bundle: nil)
@@ -34,13 +34,13 @@ class MapView: UIViewController {
 		self.location = CLLocation(latitude: latitude, longitude: longitude)
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	required init?(coder aDecoder: NSCoder) {
 
 		super.init(coder: aDecoder)
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	override func viewDidLoad() {
 
 		super.viewDidLoad()
@@ -49,7 +49,7 @@ class MapView: UIViewController {
 		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(actionDismiss))
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	override func viewWillAppear(_ animated: Bool) {
 
 		super.viewWillAppear(animated)
@@ -66,7 +66,7 @@ class MapView: UIViewController {
 		annotation.coordinate = location.coordinate
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	@objc func actionDismiss() {
 
 		dismiss(animated: true)

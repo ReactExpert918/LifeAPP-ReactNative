@@ -12,10 +12,10 @@
 import FirebaseFirestore
 import RealmSwift
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
+//----
 class FireFetcher: NSObject {
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	class func fetchPerson(_ objectId: String, completion: @escaping (_ error: Error?) -> Void) {
 
 		let query = Firestore.firestore().collection("Person").whereField("objectId", isEqualTo: objectId)

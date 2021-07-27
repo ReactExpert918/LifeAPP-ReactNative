@@ -11,12 +11,12 @@
 
 import UIKit
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
+//----
 class RCMessageEmojiCell: RCMessageCell {
 
 	private var textView: UITextView!
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	override func bindData(_ messagesView: ChatViewController, at indexPath: IndexPath) {
 
 		super.bindData(messagesView, at: indexPath)
@@ -40,7 +40,7 @@ class RCMessageEmojiCell: RCMessageCell {
 		textView.text = rcmessage.text
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	override func layoutSubviews() {
 
 		let size = RCMessageEmojiCell.size(messagesView, at: indexPath)
@@ -51,14 +51,14 @@ class RCMessageEmojiCell: RCMessageCell {
 	}
 
 	// MARK: - Size methods
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	class func height(_ messagesView: ChatViewController, at indexPath: IndexPath) -> CGFloat {
 
 		let size = self.size(messagesView, at: indexPath)
 		return size.height
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	class func size(_ messagesView: ChatViewController, at indexPath: IndexPath) -> CGSize {
 
 		let rcmessage = messagesView.rcmessageAt(indexPath)

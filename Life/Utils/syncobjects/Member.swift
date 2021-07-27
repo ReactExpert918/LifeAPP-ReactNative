@@ -11,7 +11,7 @@
 
 import RealmSwift
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
+//----
 class Member: SyncObject {
 
 	@objc dynamic var chatId = ""
@@ -19,7 +19,7 @@ class Member: SyncObject {
 
 	@objc dynamic var isActive = true
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	func update(isActive value: Bool) {
 
 		if (isActive == value) { return }

@@ -11,7 +11,7 @@
 
 import UIKit
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
+//----
 class RCMessageVideoCell: RCMessageCell {
 
 	private var imageViewThumb: UIImageView!
@@ -19,7 +19,7 @@ class RCMessageVideoCell: RCMessageCell {
 	private var imageViewManual: UIImageView!
 	private var activityIndicator: UIActivityIndicatorView!
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	override func bindData(_ messagesView: ChatViewController, at indexPath: IndexPath) {
 
 		super.bindData(messagesView, at: indexPath)
@@ -78,7 +78,7 @@ class RCMessageVideoCell: RCMessageCell {
 		}
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	override func layoutSubviews() {
 
 		let size = RCMessageVideoCell.size(messagesView, at: indexPath)
@@ -107,14 +107,14 @@ class RCMessageVideoCell: RCMessageCell {
 	}
 
 	// MARK: - Size methods
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	class func height(_ messagesView: ChatViewController, at indexPath: IndexPath) -> CGFloat {
 
 		let size = self.size(messagesView, at: indexPath)
 		return size.height
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	class func size(_ messagesView: ChatViewController, at indexPath: IndexPath) -> CGSize {
         let rcmessage = messagesView.rcmessageAt(indexPath)
 

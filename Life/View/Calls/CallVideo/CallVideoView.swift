@@ -11,7 +11,7 @@
 
 //import Sinch
 import SwiftyAvatar
-//-------------------------------------------------------------------------------------------------------------------------------------------------
+//----
 class CallVideoView: UIViewController {
 
 	@IBOutlet var viewBackground: UIView!
@@ -61,7 +61,7 @@ class CallVideoView: UIViewController {
         callString = (self.call?.headers["name"])! as! String
 	}*/
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	init(userId: String) {
         
 		super.init(nibName: nil, bundle: nil)
@@ -112,13 +112,13 @@ class CallVideoView: UIViewController {
         self.videoController = app?.client?.videoController()*/
         
     }
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	required init?(coder aDecoder: NSCoder) {
 
 		super.init(coder: aDecoder)
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	override func viewDidLoad() {
 
 		super.viewDidLoad()
@@ -152,7 +152,7 @@ class CallVideoView: UIViewController {
         if (outgoing) { updateDetails1() }
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	override func viewWillAppear(_ animated: Bool) {
 
 		super.viewWillAppear(animated)
@@ -166,26 +166,26 @@ class CallVideoView: UIViewController {
 		
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
 
 		return .portrait
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
 
 		return .portrait
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	override var shouldAutorotate: Bool {
 
 		return false
 	}
 
 	// MARK: - Realm methods
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	func loadPerson() {
 /*
 		if let remoteUserId = call?.remoteUserId {
@@ -222,13 +222,13 @@ class CallVideoView: UIViewController {
         
     }
 	// MARK: - User actions
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	@objc func actionTap() {
 
 		viewButtons2.isHidden = !viewButtons2.isHidden
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	@IBAction func actionMute(_ sender: Any) {
 /*
 		if (muted) {
@@ -245,20 +245,20 @@ class CallVideoView: UIViewController {
 */
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	@IBAction func actionHangup(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
         //call?.hangup()
         
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	@IBAction func actionAnswer(_ sender: Any) {
 
 		//call?.answer()
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	@IBAction func actionSwitch(_ sender: Any) {
 
 		if (switched) {
@@ -275,7 +275,7 @@ class CallVideoView: UIViewController {
 	}
 
 	// MARK: - Helper methods
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	func updateDetails1() {
 
 		let screenWidth = UIScreen.main.bounds.size.width
@@ -294,7 +294,7 @@ class CallVideoView: UIViewController {
 		viewEnded.isHidden = true
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	func updateDetails2() {
 
 		let screenWidth = UIScreen.main.bounds.size.width
@@ -313,7 +313,7 @@ class CallVideoView: UIViewController {
 		viewEnded.isHidden = true
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	func updateDetails3() {
 
 		viewDetails.isHidden = false
@@ -328,13 +328,13 @@ class CallVideoView: UIViewController {
 /*
 extension CallVideoView: SINCallDelegate {
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	func callDidProgress(_ call: SINCall?) {
         self.call = call
 		audioController?.startPlayingSoundFile(Dir.application("call_ringback.wav"), loop: true)
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	func callDidEstablish(_ call: SINCall?) {
         self.imageUser.isHidden = true
     
@@ -345,7 +345,7 @@ extension CallVideoView: SINCallDelegate {
 		updateDetails2()
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	func callDidEnd(_ call: SINCall?) {
 
 		audioController?.stopPlayingSoundFile()

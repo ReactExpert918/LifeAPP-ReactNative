@@ -1,5 +1,5 @@
 //
-//  TransactionDetailViewController.swift
+//  TransactionDetailVC.swift
 //  Life
 //
 //  Created by mac on 2021/6/20.
@@ -8,7 +8,8 @@
 
 import UIKit
 import SwiftyAvatar
-class TransactionDetailViewController: UIViewController {
+
+class TransactionDetailVC: UIViewController {
 
     @IBOutlet weak var imageType: UIImageView!
     @IBOutlet weak var labelAmout: UILabel!

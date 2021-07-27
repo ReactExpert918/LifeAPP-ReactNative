@@ -178,14 +178,11 @@ class HomeVC: BaseVC, CreateGroupDelegate, ChatViewControllerProtocol {
     
     @IBAction func onZedPay(_ sender: Any) {
         let mainstoryboard = UIStoryboard.init(name: "ZedPay", bundle: nil)
-        let vc = mainstoryboard.instantiateViewController(withIdentifier: "zedHistoryVC") as! ZedHistoryViewController
+        let vc = mainstoryboard.instantiateViewController(withIdentifier: "ZedHistoryVC") as! ZedHistoryVC
         vc.person = self.person
         
         let sheetController = SheetViewController(controller: vc, sizes: [.fixed(400), .fullscreen])
         self.present(sheetController, animated: true, completion: nil)
-        
-        //self.present(vc, animated: true, completion: nil)
-        
     }
     
     @IBAction func onAddFriendPressed(_ sender: Any) {

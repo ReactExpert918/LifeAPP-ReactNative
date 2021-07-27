@@ -20,7 +20,7 @@ class SettingsVC: BaseVC {
         NSLocalizedString("Zed Pay", comment: "Zed Pay"),
         NSLocalizedString("Account Settings", comment: "Account Settings"),
         NSLocalizedString("Privacy Policy", comment: "Privacy Policy"),
-        NSLocalizedString("About Us", comment: "About Us")
+        NSLocalizedString("EULA", comment: "EULA")
     ]
     
     let icons = [
@@ -104,9 +104,19 @@ extension SettingsVC: UITableViewDelegate, UITableViewDataSource {
                     self.present(vc, animated: true)
                 }
             }
-        case 1:
+        case 1: // account settings
             if let viewController = storyboard?.instantiateViewController(identifier: "AccountSettingsVC") as? AccountSettingsVC {
                 navigationController?.pushViewController(viewController, animated: true)
+            }
+        case 2: // privacy policy
+            if let vc = storyboard?.instantiateViewController(identifier: "PrivacyEulaVC") as? PrivacyEulaVC {
+                vc.privacy = true
+                navigationController?.pushViewController(vc, animated: true)
+            }
+        case 3: // eula
+            if let vc = storyboard?.instantiateViewController(identifier: "PrivacyEulaVC") as? PrivacyEulaVC {
+                vc.privacy = false
+                navigationController?.pushViewController(vc, animated: true)
             }
         default:
             self.showToast("Coming soon")

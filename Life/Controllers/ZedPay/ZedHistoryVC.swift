@@ -1,5 +1,5 @@
 //
-//  ZedHistoryViewController.swift
+//  ZedHistoryVC.swift
 //  Life
 //
 //  Created by mac on 2021/6/18.
@@ -10,7 +10,7 @@ import UIKit
 import CryptoSwift
 import RealmSwift
 
-class ZedHistoryViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ZedHistoryVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     
 
@@ -90,7 +90,7 @@ class ZedHistoryViewController: UIViewController, UITableViewDataSource, UITable
             return
         }
         
-        let vc = self.storyboard!.instantiateViewController(withIdentifier: "detailVC") as! TransactionDetailViewController
+        let vc = self.storyboard!.instantiateViewController(withIdentifier: "TransactionDetailVC") as! TransactionDetailVC
         vc.transaction = transactions[indexPath.row]
         self.present(vc, animated: true, completion: nil)
 
@@ -137,7 +137,7 @@ class ZedHistoryViewController: UIViewController, UITableViewDataSource, UITable
         
         weak var pvc = self.presentingViewController
         self.dismiss(animated: false){
-            let vc = self.storyboard!.instantiateViewController(withIdentifier: "payQrcodeVC") as! PayQRCodeViewController
+            let vc = self.storyboard!.instantiateViewController(withIdentifier: "payQRCodeVC") as! PayQRCodeViewController
             vc.modalPresentationStyle = .fullScreen
             pvc?.present(vc, animated: true, completion: nil)
         }

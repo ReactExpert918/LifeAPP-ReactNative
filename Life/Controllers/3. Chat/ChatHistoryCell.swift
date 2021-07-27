@@ -18,7 +18,7 @@ class ChatHistoryCell: UITableViewCell {
     @IBOutlet weak var viewUnread: UIView!
     @IBOutlet weak var labelUnread: UILabel!
     
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func bindData(chat: Chat) {
 
         if chat.isPrivate  {
@@ -39,7 +39,7 @@ class ChatHistoryCell: UITableViewCell {
         labelUnread.text = (chat.unreadCount < 100) ? "\(chat.unreadCount)" : "..."
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func loadImage(chat: Chat, tableView: UITableView, indexPath: IndexPath) {
 
         if (chat.isPrivate) {
@@ -65,7 +65,7 @@ class ChatHistoryCell: UITableViewCell {
         
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func downloadImage(chat: Chat, tableView: UITableView, indexPath: IndexPath) {
         let isRecipient = (chat.userId1 != AuthUser.userId())
         let userId = isRecipient ? chat.userId1 : chat.userId2

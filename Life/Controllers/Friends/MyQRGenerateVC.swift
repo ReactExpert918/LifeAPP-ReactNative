@@ -8,7 +8,11 @@
 
 import UIKit
 
-class MyQRGenerateVC: UIViewController {
+class MyQRGenerateVC: BaseVC {
+    
+    @IBOutlet weak var myQrcode: UIImageView!
+    @IBOutlet weak var name: UILabel!
+    @IBOutlet weak var phoneNumber: UILabel!
     
     private var person: Person!
 
@@ -28,9 +32,6 @@ class MyQRGenerateVC: UIViewController {
         }
     }
     
-    @IBOutlet weak var myQrcode: UIImageView!
-    @IBOutlet weak var name: UILabel!
-    @IBOutlet weak var phoneNumber: UILabel!
     @IBAction func onCancelTapped(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }

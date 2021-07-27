@@ -12,7 +12,7 @@
 import RealmSwift
 import ProgressHUD
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
+//----
 class Messages: NSObject {
 
     class func sendMoney(chatId: String, recipientId:String, payId: String, failed: Bool){
@@ -47,7 +47,7 @@ class Messages: NSObject {
         else                    { sendMessageLoaction(message: message, recipientId: recipientId)                    }
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     class func forward(chatId: String, message source: Message) {
 
         let message = Message()
@@ -80,7 +80,7 @@ class Messages: NSObject {
     }
 
     // MARK: -
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     private class func forwardMessagePhoto(message: Message, source: Message) {
 
         message.isMediaQueued = true
@@ -95,7 +95,7 @@ class Messages: NSObject {
         }
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     private class func forwardMessageVideo(message: Message, source: Message) {
 
         message.isMediaQueued = true
@@ -110,7 +110,7 @@ class Messages: NSObject {
         }
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     private class func forwardMessageAudio(message: Message, source: Message) {
 
         message.isMediaQueued = true
@@ -137,7 +137,7 @@ class Messages: NSObject {
         createMessage(message: message, recipientId: recipientId)
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     private class func sendMessagePhoto(message: Message, photo: UIImage, recipientId:String) {
 
         message.type = MESSAGE_TYPE.MESSAGE_PHOTO
@@ -155,7 +155,7 @@ class Messages: NSObject {
         }
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     private class func sendMessageVideo(message: Message, video: URL, recipientId:String) {
 
         message.type = MESSAGE_TYPE.MESSAGE_VIDEO
@@ -172,7 +172,7 @@ class Messages: NSObject {
         }
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     private class func sendMessageAudio(message: Message, audio: String, recipientId:String) {
 
         message.type = MESSAGE_TYPE.MESSAGE_AUDIO
@@ -189,7 +189,7 @@ class Messages: NSObject {
         }
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     private class func sendMessageLoaction(message: Message, recipientId:String) {
 
         message.type = MESSAGE_TYPE.MESSAGE_LOCATION
@@ -202,7 +202,7 @@ class Messages: NSObject {
     }
 
     // MARK: -
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     private class func createMessage(message: Message, recipientId:String) {
 
         let realm = try! Realm()

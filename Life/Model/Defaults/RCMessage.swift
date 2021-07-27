@@ -12,7 +12,7 @@
 import UIKit
 import CoreLocation
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
+//----
 class RCMessage: NSObject {
 
     var chatId: String = ""
@@ -53,13 +53,13 @@ class RCMessage: NSObject {
     var mediaStatus = MediaStatus.MEDIASTATUS_UNKNOWN
 
     // MARK: - Initialization methods
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     override init() {
 
         super.init()
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     init(message: Message) {
 
         super.init()
@@ -94,7 +94,7 @@ class RCMessage: NSObject {
         self.isObjectionalbe = message.isObjectionable
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func update(_ message: Message) {
 
         self.isMediaQueued = message.isMediaQueued

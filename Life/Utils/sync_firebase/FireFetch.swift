@@ -12,10 +12,10 @@
 import FirebaseFirestore
 import RealmSwift
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
+//----
 class FireFetch: NSObject {
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	class func perform(_ query: Query, to type: SyncObject.Type) {
 
 		query.getDocuments() { querySnapshot, error in
@@ -33,7 +33,7 @@ class FireFetch: NSObject {
 		}
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	class func perform(_ query: Query, to type: SyncObject.Type, completion: @escaping (_ count: Int, _ error: Error?) -> Void) {
 
 		query.getDocuments() { querySnapshot, error in
@@ -55,7 +55,7 @@ class FireFetch: NSObject {
 	}
 
 	// MARK: -
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	private class func updateRealm(_ realm: Realm, _ values: [String: Any], _ type: SyncObject.Type) {
 
 		var temp = values

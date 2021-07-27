@@ -11,7 +11,7 @@ import RealmSwift
 
 class StripeCustomers: NSObject {
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     class func create(passcode: String) {
 
 

@@ -11,7 +11,7 @@
 
 import RealmSwift
 import CryptoSwift
-//-------------------------------------------------------------------------------------------------------------------------------------------------
+//----
 class Person: SyncObject {
 
     @objc dynamic var email = ""
@@ -46,7 +46,7 @@ class Person: SyncObject {
     @objc dynamic var payInfo1: String = ""
     @objc dynamic var payInfo2: String = ""
     @objc dynamic var payInfo3: String = ""
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     class func lastUpdatedAt() -> Int64 {
 
         let realm = try! Realm()
@@ -56,7 +56,7 @@ class Person: SyncObject {
     }
 
     // MARK: -
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func initials() -> String {
 
         let initial1 = (firstname.count != 0) ? firstname.prefix(1) : ""
@@ -65,7 +65,7 @@ class Person: SyncObject {
         return "\(initial1)\(initial2)"
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func lastActiveText() -> String {
 
         if (Blockeds.isBlocker(objectId)) {
@@ -81,7 +81,7 @@ class Person: SyncObject {
     }
 
     // MARK: -
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func update(fullname value: String) {
 
         if (fullname == value) { return }
@@ -106,7 +106,7 @@ class Person: SyncObject {
         }
     }
     // MARK: -
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func update(pictureAt value: Int64) {
 
         if (pictureAt == value) { return }
@@ -119,7 +119,7 @@ class Person: SyncObject {
         }
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func update(status value: String) {
 
         if (status == value) { return }
@@ -132,7 +132,7 @@ class Person: SyncObject {
         }
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func update(keepMedia value: Int32) {
 
         if (keepMedia == value) { return }
@@ -145,7 +145,7 @@ class Person: SyncObject {
         }
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func update(networkPhoto value: Int32) {
 
         if (networkPhoto == value) { return }
@@ -158,7 +158,7 @@ class Person: SyncObject {
         }
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func update(networkVideo value: Int32) {
 
         if (networkVideo == value) { return }
@@ -171,7 +171,7 @@ class Person: SyncObject {
         }
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func update(networkAudio value: Int32) {
 
         if (networkAudio == value) { return }
@@ -184,7 +184,7 @@ class Person: SyncObject {
         }
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func update(wallpaper value: String) {
 
         if (wallpaper == value) { return }
@@ -197,7 +197,7 @@ class Person: SyncObject {
         }
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func update(oneSignalId value: String) {
 
         if (oneSignalId == value) { return }
@@ -210,7 +210,7 @@ class Person: SyncObject {
         }
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func update(lastActive value: Int64) {
 
         if (lastActive == value) { return }
@@ -225,7 +225,7 @@ class Person: SyncObject {
         }
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func update(lastTerminate value: Int64) {
 
         if (lastTerminate == value) { return }
@@ -240,7 +240,7 @@ class Person: SyncObject {
         }
     }
 
-//---------------------------------------------------------------------------------------------------------------------------------------------
+
     func update(isDeleted value: Bool) {
 
         if (isDeleted == value) { return }

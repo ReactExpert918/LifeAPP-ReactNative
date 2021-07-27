@@ -11,23 +11,23 @@
 
 import Foundation
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
+//----
 class Convert: NSObject {
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     class func dateToShort(_ date: Date) -> String {
 
         return DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .none)
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     class func timestampToMediumTime(_ timestamp: Int64) -> String {
 
         let date = Date.date(timestamp: timestamp)
         return DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .short)
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     class func timestampToDayMonth(_ timestamp: Int64) -> String {
 
         let date = Date.date(timestamp: timestamp)
@@ -38,7 +38,7 @@ class Convert: NSObject {
         return formatter.string(from: date)
     }
     
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     class func timestampToDayMonthTime(_ timestamp: Int64) -> String {
 
         let date = Date.date(timestamp: timestamp)
@@ -48,7 +48,7 @@ class Convert: NSObject {
 
         return formatter.string(from: date)
     }
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     class func timestampToDayTime(_ timestamp: Int64) -> String {
 
         let date = Date.date(timestamp: timestamp)
@@ -68,7 +68,7 @@ class Convert: NSObject {
 
         return formatter.string(from: date)
     }
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     class func timestampToElapsed(_ timestamp: Int64) -> String {
 
         var elapsed = ""
@@ -99,7 +99,7 @@ class Convert: NSObject {
         return elapsed
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     class func timestampToCustom(_ timestamp: Int64?) -> String {
 
         guard let timestamp = timestamp else { return "" }

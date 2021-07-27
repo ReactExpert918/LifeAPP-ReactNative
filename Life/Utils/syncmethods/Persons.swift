@@ -11,10 +11,10 @@
 
 import RealmSwift
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
+//----
 class Persons: NSObject {
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     class func create(_ objectId: String, email: String) {
 
         let realm = try! Realm()
@@ -27,7 +27,7 @@ class Persons: NSObject {
         }
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     class func create(_ objectId: String, phone: String) {
 
         let realm = try! Realm()
@@ -41,7 +41,7 @@ class Persons: NSObject {
     }
 
     // MARK: -
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     class func fullname() -> String {
 
         let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
@@ -53,63 +53,63 @@ class Persons: NSObject {
         return person
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     class func initials() -> String {
 
         let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
         return person?.initials() ?? ""
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     class func pictureAt() -> Int64 {
 
         let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
         return person?.pictureAt ?? 0
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     class func status() -> String {
 
         let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
         return person?.status ?? ""
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     class func keepMedia() -> Int32 {
 
         let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
         return person?.keepMedia ?? Int32(KEEPMEDIA_PERIOD.KEEPMEDIA_FOREVER)
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     class func networkPhoto() -> Int32 {
 
         let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
         return person?.networkPhoto ?? Int32(NETWORK_MODE.NETWORK_ALL)
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     class func networkVideo() -> Int32 {
 
         let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
         return person?.networkVideo ?? Int32(NETWORK_MODE.NETWORK_ALL)
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     class func networkAudio() -> Int32 {
 
         let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
         return person?.networkAudio ?? Int32(NETWORK_MODE.NETWORK_ALL)
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     class func wallpaper() -> String {
 
         let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
         return person?.wallpaper ?? ""
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     class func loginMethod() -> String {
 
         let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
@@ -117,7 +117,7 @@ class Persons: NSObject {
     }
 
     // MARK: -
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     class func update(status: String) {
 
         if let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId()) {
@@ -125,7 +125,7 @@ class Persons: NSObject {
         }
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     class func update(keepMedia: Int32) {
 
         if let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId()) {
@@ -133,7 +133,7 @@ class Persons: NSObject {
         }
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     class func update(networkPhoto: Int32) {
 
         if let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId()) {
@@ -141,7 +141,7 @@ class Persons: NSObject {
         }
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     class func update(networkVideo: Int32) {
 
         if let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId()) {
@@ -149,7 +149,7 @@ class Persons: NSObject {
         }
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     class func update(networkAudio: Int32) {
 
         if let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId()) {
@@ -157,7 +157,7 @@ class Persons: NSObject {
         }
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     class func update(wallpaper: String) {
 
         if let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId()) {
@@ -165,7 +165,7 @@ class Persons: NSObject {
         }
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     class func update(oneSignalId: String) {
 
         if let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId()) {
@@ -173,7 +173,7 @@ class Persons: NSObject {
         }
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     class func update(lastActive: Int64) {
 
         if let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId()) {
@@ -181,7 +181,7 @@ class Persons: NSObject {
         }
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     class func update(lastTerminate: Int64) {
 
         if let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId()) {

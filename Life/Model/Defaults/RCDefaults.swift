@@ -11,16 +11,16 @@
 
 import UIKit
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
+//----
 enum RCDefaults {
 
     // Section
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     static let sectionHeaderMargin            = CGFloat(15)
     static let sectionFooterMargin            = CGFloat(5)
 
     // Header upper
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     static let headerUpperHeight            = CGFloat(20)
     static let headerUpperLeft                = CGFloat(10)
     static let headerUpperRight                = CGFloat(10)
@@ -29,7 +29,7 @@ enum RCDefaults {
     static let headerUpperFont                = UIFont.boldSystemFont(ofSize: 15)
 
     // Header lower
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     static let headerLowerHeight            = CGFloat(15)
     static let headerLowerLeft                = CGFloat(50)
     static let headerLowerRight                = CGFloat(50)
@@ -38,7 +38,7 @@ enum RCDefaults {
     static let headerLowerFont                = UIFont.systemFont(ofSize: 12)
 
     // Footer upper
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     static let footerUpperHeight            = CGFloat(15)
     static let footerUpperLeft                = CGFloat(50)
     static let footerUpperRight                = CGFloat(50)
@@ -47,7 +47,7 @@ enum RCDefaults {
     static let footerUpperFont                = UIFont.systemFont(ofSize: 12)
 
     // Footer lower
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     static let footerLowerHeight            = CGFloat(15)
     static let footerLowerLeft                = CGFloat(10)
     static let footerLowerRight                = CGFloat(10)
@@ -56,13 +56,13 @@ enum RCDefaults {
     static let footerLowerFont                = UIFont.systemFont(ofSize: 12)
 
     // Bubble
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     static let bubbleMarginLeft                = CGFloat(40)
     static let bubbleMarginRight            = CGFloat(40)
     static let bubbleRadius                    = CGFloat(15)
 
     // Avatar
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     static let avatarDiameter                = CGFloat(30)
     static let avatarMarginLeft                = CGFloat(5)
     static let avatarMarginRight            = CGFloat(5)
@@ -73,7 +73,7 @@ enum RCDefaults {
     static let avatarFont                    = UIFont.systemFont(ofSize: 12)
 
     // Text cell
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     static let textBubbleWidthMin            = CGFloat(60)
     static let textBubbleHeightMin            = CGFloat(35)
 
@@ -94,7 +94,7 @@ enum RCDefaults {
     
     static let viewBubbleMarginTop          = CGFloat(5)
     // Emoji cell
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     static let emojiBubbleWidthMin            = CGFloat(45)
     static let emojiBubbleHeightMin            = CGFloat(30)
     static let privacyColor        = UIColor(red: 0/255, green: 63/255, blue: 113/255, alpha: 1.0)
@@ -112,7 +112,7 @@ enum RCDefaults {
     static let emojiInsetOutgoing = UIEdgeInsets.init(top: emojiInsetTop, left: emojiInsetRight, bottom: emojiInsetBottom, right: emojiInsetLeft)
 
     // Photo cell
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     static let photoBubbleWidth                = CGFloat(200)
 
     static let photoBubbleColorOutgoing        = UIColor(red: 0/255, green: 122/255, blue: 255/255, alpha: 1.0)
@@ -121,7 +121,7 @@ enum RCDefaults {
     static let photoImageManual                = UIImage(named: "rcmessages_manual")!
 
     // Video cell
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     static let videoBubbleWidth                = CGFloat(200)
     static let videoBubbleHeight            = CGFloat(200)
 
@@ -132,7 +132,7 @@ enum RCDefaults {
     static let videoImageManual                = UIImage(named: "rcmessages_manual")!
 
     // Audio cell
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     static let audioBubbleWidht                = CGFloat(150)
     static let audioBubbleHeight            = CGFloat(40)
 
@@ -148,7 +148,7 @@ enum RCDefaults {
     static let audioFont                    = UIFont.systemFont(ofSize: 16)
 
     // Location cell
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     static let locationBubbleWidth            = CGFloat(200)
     static let locationBubbleHeight         = CGFloat(200)
 

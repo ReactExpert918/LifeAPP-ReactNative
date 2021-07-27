@@ -11,10 +11,10 @@
 
 import FirebaseAuth
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
+//----
 class AuthUser: NSObject {
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     class func userId() -> String {
 
         if let currentUser = Auth.auth().currentUser {
@@ -24,7 +24,7 @@ class AuthUser: NSObject {
     }
 
     // MARK: -
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     class func signIn(email: String, password: String, completion: @escaping (_ error: Error?) -> Void) {
 
         Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
@@ -32,7 +32,7 @@ class AuthUser: NSObject {
         }
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     class func signUp(email: String, password: String, completion: @escaping (_ error: Error?) -> Void) {
 
         Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
@@ -40,14 +40,14 @@ class AuthUser: NSObject {
         }
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     class func signIn(credential: AuthCredential, completion: @escaping (_ error: Error?) -> Void) {
 
         Auth.auth().signIn(with: credential) { authResult, error in
             completion(error)
         }
     }
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     class func signOut(completion: @escaping (_ error: Error?) -> Void) {
         do {
             try Auth.auth().signOut()
@@ -64,7 +64,7 @@ class AuthUser: NSObject {
         })
     }
     // MARK: -
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     class func checkPassword(password: String, completion: @escaping (_ error: Error?) -> Void) {
 
         guard let firuser = Auth.auth().currentUser else {
@@ -81,7 +81,7 @@ class AuthUser: NSObject {
         }
     }
     
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     class func passwordReset(email: String, completion: @escaping (_ error: Error?) -> Void) {
         
         Auth.auth().sendPasswordReset(withEmail: email, completion: { (error) in
@@ -90,7 +90,7 @@ class AuthUser: NSObject {
         
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     class func updatePassword(password: String, completion: @escaping (_ error: Error?) -> Void) {
 
         guard let firuser = Auth.auth().currentUser else {
@@ -112,7 +112,7 @@ class AuthUser: NSObject {
     }
 
     // MARK: -
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     class func logOut() {
 
         try! Auth.auth().signOut()

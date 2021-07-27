@@ -67,7 +67,7 @@ extension ZedPaySettingsVC: UpdatePayDelegateProtocol{
     func updatePasscode(result: Bool) {
         if result {
             self.showSuccessAlert("Successfully updated the passcode")
-        }else{
+        } else {
             self.showFailedAlert("Failed to update passcode")
         }
     }

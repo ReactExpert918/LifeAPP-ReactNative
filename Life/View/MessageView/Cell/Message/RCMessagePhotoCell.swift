@@ -11,14 +11,14 @@
 
 import UIKit
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
+//----
 class RCMessagePhotoCell: RCMessageCell {
 
 	private var imageViewPhoto: UIImageView!
 	private var imageViewManual: UIImageView!
 	private var activityIndicator: UIActivityIndicatorView!
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	override func bindData(_ messagesView: ChatViewController, at indexPath: IndexPath) {
 
 		super.bindData(messagesView, at: indexPath)
@@ -68,7 +68,7 @@ class RCMessagePhotoCell: RCMessageCell {
 		}
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	override func layoutSubviews() {
 
 		let size = RCMessagePhotoCell.size(messagesView, at: indexPath)
@@ -91,14 +91,14 @@ class RCMessagePhotoCell: RCMessageCell {
 	}
 
 	// MARK: - Size methods
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	class func height(_ messagesView: ChatViewController, at indexPath: IndexPath) -> CGFloat {
 
 		let size = self.size(messagesView, at: indexPath)
 		return size.height
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	class func size(_ messagesView: ChatViewController, at indexPath: IndexPath) -> CGSize {
 
 		let rcmessage = messagesView.rcmessageAt(indexPath)

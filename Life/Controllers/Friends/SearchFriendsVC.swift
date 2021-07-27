@@ -8,23 +8,24 @@
 
 import UIKit
 import BEMCheckBox
+import FittedSheets
 
-class SearchFriendsVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
+class SearchFriendsVC: BaseVC {
 
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var searchResultTxt: UILabel!
     @IBOutlet weak var searchResultBk: UIImageView!
     @IBOutlet weak var showingResult: UILabel!
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tblSearchFriends: UITableView!
     var radioGroup : BEMCheckBoxGroup!
-    @IBOutlet weak var radioUsername: BEMCheckBox!
+    @IBOutlet weak var radioEmail: BEMCheckBox!
     @IBOutlet weak var radioPhoneNumber: BEMCheckBox!
-    
+    /*
     @IBOutlet weak var popupView: UIView!
     @IBOutlet weak var popupProfileImageView: UIImageView!
     @IBOutlet weak var popupNameLabel: UILabel!
     @IBOutlet weak var popupPhoneNumberLabel: UILabel!
-    @IBOutlet weak var popupStatusLabel: UILabel!
+    @IBOutlet weak var popupStatusLabel: UILabel!*/
     
     @IBOutlet weak var resultPictureHeight: NSLayoutConstraint!
     @IBOutlet weak var resultViewBottomConstraint: NSLayoutConstraint!
@@ -33,24 +34,35 @@ class SearchFriendsVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.isHidden = true
-        tableView.delegate = self
-        tableView.dataSource = self
+        
+        tblSearchFriends.isHidden = true
+        tblSearchFriends.delegate = self
+        tblSearchFriends.dataSource = self
+        
         showingResult.isHidden = true
-        radioGroup = BEMCheckBoxGroup(checkBoxes: [radioUsername, radioPhoneNumber])
+        radioGroup = BEMCheckBoxGroup(checkBoxes: [radioEmail, radioPhoneNumber])
         radioGroup.mustHaveSelection = true
-        radioGroup.selectedCheckBox = radioUsername
+        radioGroup.selectedCheckBox = radioEmail
+        
+        searchBar.tintColor = .primaryColor
+        let attributes:[NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor.primaryColor,
+            .font: UIFont(name: MyFont.MontserratRegular, size: 16)
+        ]
+        UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).setTitleTextAttributes(attributes, for: .normal)
+        /*
         // Initialize search bar
-        searchBar.backgroundImage = UIImage()
+//        searchBar.backgroundImage = UIImage()
         searchBar.barStyle = .default
-        searchBar.barTintColor = UIColor(hexString: "#999999")
-        searchBar.layer.cornerRadius = 8
+//        searchBar.barTintColor = UIColor(hexString: "#999999")
+//        searchBar.layer.cornerRadius = 8
         searchBar.placeholder = "Search friends"
         searchBar.set(textColor: UIColor(hexString: "#333333")!)
-        searchBar.setPlaceholder(textColor: UIColor(hexString: "#999999")!)
-        searchBar.setSearchImage(color: UIColor(hexString: "#999999")!)
+//        searchBar.setPlaceholder(textColor: UIColor(hexString: "#999999")!)
+//        searchBar.setSearchImage(color: UIColor(hexString: "#999999")!)
 //        searchBar.setClearButton(color: UIColor(hexString: "#96B4D2")!)
-        searchBar.tintColor = UIColor(hexString: "#333333")
+        
+ */
         // Subscribe Keyboard Popup
         subscribeToShowKeyboardNotifications()
     }
@@ -72,74 +84,37 @@ class SearchFriendsVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @objc func keyboardWillHide(_ notification: Notification) {
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
-            let keyboardHeight = keyboardRectangle.height
+            let _ = keyboardRectangle.height
             resultViewBottomConstraint.constant = 0
             resultPictureHeight.constant = 200
         }
     }
+    
     @IBAction func backTapped(_ sender: Any) {
-        //dismiss(animated: true, completion: nil)
         self.navigationController?.popViewController(animated: true)
     }
     
-    @IBAction func onPopupClosePreseed(_ sender: Any) {
-        popupView.isHidden = true
-    }
-    
-    @IBAction func onStartChatPressed(_ sender: Any) {
-        popupView.isHidden = true
-        self.dismiss(animated: true) {
-            
-        }        
-    }
-    func loadImage(person: Person) {
+}
 
-        if let path = MediaDownload.pathUser(person.objectId) {
-            popupProfileImageView.image = UIImage.image(path, size: 40)
-            //labelInitials.text = nil
-        } else {
-            popupProfileImageView.image = nil
-            //labelInitials.text = person.initials()
-            downloadImage(person: person)
-        }
-        popupProfileImageView.makeRounded()
-
-    }
-    //---------------------------------------------------------------------------------------------------------------------------------------------
-    func downloadImage(person: Person) {
-
-        MediaDownload.startUser(person.objectId, pictureAt: person.pictureAt) { image, error in
-            if (error == nil) {
-                self.popupProfileImageView.image = image
-                self.popupProfileImageView.makeRounded()
-            }
-            else{
-                self.popupProfileImageView.image = UIImage(named: "ic_default_profile")
-            }
-        }
-    }
-    // MARK: - Refresh methods
-    //---------------------------------------------------------------------------------------------------------------------------------------------
-    func refreshTableView() {
-        tableView.reloadData()
-    }
+extension SearchFriendsVC: UISearchBarDelegate, UISearchDisplayDelegate {
     // MARK: - Backend methods
-    //---------------------------------------------------------------------------------------------------------------------------------------------
-    func searchPersonsByUserName(text: String = "") {
-        if text.count < 4 {
+    func searchPersonsByEmail(text: String = "") {
+        
+        if !Utils.shared.isValidEmail(text) {
+            showToast(R.msgInvalidEmail)
             return
         }
+        
         let predicate1 = NSPredicate(format: "objectId != %@ AND isDeleted == NO", AuthUser.userId())
-        let predicate2 = (text != "") ? NSPredicate(format: "fullname CONTAINS[c] %@", text) : NSPredicate(value: true)
+        let predicate2 = (text != "") ? NSPredicate(format: "email CONTAINS[c] %@", text) : NSPredicate(value: true)
 
         persons = realm.objects(Person.self).filter(predicate1).filter(predicate2).sorted(byKeyPath: "fullname")
         
         if persons.count > 0 {
-            tableView.isHidden = false
-            refreshTableView()
-        }
-        else{
-            tableView.isHidden = true
+            tblSearchFriends.isHidden = false
+            tblSearchFriends.reloadData()
+        } else {
+            tblSearchFriends.isHidden = true
         }
     }
     
@@ -152,19 +127,58 @@ class SearchFriendsVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 
         persons = realm.objects(Person.self).filter(predicate1).filter(predicate2).sorted(byKeyPath: "fullname")
         if persons.count > 0 {
-            tableView.isHidden = false
-            refreshTableView()
-        }
-        else{
-            tableView.isHidden = true
+            tblSearchFriends.isHidden = false
+            tblSearchFriends.reloadData()
+        } else {
+            tblSearchFriends.isHidden = true
         }
     }
+    
+    func searchBarTextDidBeginEditing(_ searchBar_: UISearchBar) {
+        searchBar.setShowsCancelButton(true, animated: true)
+    }
+
+    func searchBarTextDidEndEditing(_ searchBar_: UISearchBar) {
+        searchBar.setShowsCancelButton(false, animated: true)
+    }
+
+    func searchBarCancelButtonClicked(_ searchBar_: UISearchBar) {
+        searchBar.setShowsCancelButton(false, animated: true)
+        searchBar.text = ""
+        searchBar.resignFirstResponder()
+    }
+
+    func searchBarSearchButtonClicked(_ searchBar_: UISearchBar) {
+        searchBar.resignFirstResponder()
+        let searchText = searchBar_.text
+        if searchText?.isEmpty == true {
+            return
+        }
+        
+        if radioGroup.selectedCheckBox == radioEmail {
+            searchPersonsByEmail(text: searchText ?? "")
+        } else {
+            searchPersonsByPhoneNumber(text: searchText ?? "")
+        }
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        searchResultBk.image = UIImage(named: "no_available_bk")
+        if radioGroup.selectedCheckBox == radioEmail {
+            searchResultTxt.text = "No user is available by that username"
+        } else {
+            searchResultTxt.text = "No user is available by that phone number"
+        }
+    }
+}
+
+extension SearchFriendsVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return persons.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "searchFriendCell", for: indexPath) as! SearchFriendCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SearchFriendCell", for: indexPath) as! SearchFriendCell
         let person = persons[indexPath.row]
         cell.index = indexPath.row
         cell.bindData(person: person)
@@ -173,62 +187,17 @@ class SearchFriendsVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         
         cell.callbackAddFriend = { (index) in
             let person = self.persons[index]
-            // Display info on popupview
-            self.popupNameLabel.text = person.fullname
-            self.popupPhoneNumberLabel.text = person.phone
-            self.loadImage(person: person)
             
-            self.popupView.isHidden = false
-            if (Friends.isFriend(person.objectId)) {
-                self.popupStatusLabel.text = "Already existing in your friend list."
-            } else {
-                Friends.create(person.objectId)
-                self.popupStatusLabel.text = "Successfully added to your friend list."
+            let vc = self.storyboard?.instantiateViewController(identifier: "StartChatVC") as! StartChatVC
+            vc.person = person
+            let sheetController = SheetViewController(controller: vc, sizes: [.fixed(360)])
+            sheetController.didDismiss = { _ in
+                
             }
+            
+            self.present(sheetController, animated: true, completion: nil)
         }
+        
         return cell
     }
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        searchResultBk.image = UIImage(named: "no_available_bk")
-        if radioGroup.selectedCheckBox == radioUsername{
-            searchResultTxt.text = "No user is available by that username"
-        }else{
-            searchResultTxt.text = "No user is available by that phone number"
-        }
-    }
-    
-    //---------------------------------------------------------------------------------------------------------------------------------------------
-    func searchBarTextDidBeginEditing(_ searchBar_: UISearchBar) {
-
-        searchBar.setShowsCancelButton(true, animated: true)
-    }
-
-    //---------------------------------------------------------------------------------------------------------------------------------------------
-    func searchBarTextDidEndEditing(_ searchBar_: UISearchBar) {
-
-        searchBar.setShowsCancelButton(false, animated: true)
-    }
-
-    //---------------------------------------------------------------------------------------------------------------------------------------------
-    func searchBarCancelButtonClicked(_ searchBar_: UISearchBar) {
-
-        searchBar.text = ""
-        searchBar.resignFirstResponder()
-        //loadPersons()
-    }
-
-    //---------------------------------------------------------------------------------------------------------------------------------------------
-    func searchBarSearchButtonClicked(_ searchBar_: UISearchBar) {
-        searchBar.resignFirstResponder()
-        let searchText = searchBar_.text
-        if searchText?.isEmpty == true {
-            return
-        }
-        if radioGroup.selectedCheckBox == radioUsername{
-            searchPersonsByUserName(text: searchText ?? "")
-        }else{
-            searchPersonsByPhoneNumber(text: searchText ?? "")
-        }
-    }
-
 }

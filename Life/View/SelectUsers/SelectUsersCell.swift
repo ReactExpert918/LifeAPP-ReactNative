@@ -11,7 +11,7 @@
 
 import UIKit
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
+//----
 class SelectUsersCell: UITableViewCell {
 
 	@IBOutlet var imageUser: UIImageView!
@@ -19,14 +19,14 @@ class SelectUsersCell: UITableViewCell {
 	@IBOutlet var labelName: UILabel!
 	@IBOutlet var labelStatus: UILabel!
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	func bindData(person: Person) {
 
 		labelName.text = person.fullname
 		labelStatus.text = person.status
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	func loadImage(person: Person, tableView: UITableView, indexPath: IndexPath) {
 
 		if let path = MediaDownload.pathUser(person.objectId) {
@@ -39,7 +39,7 @@ class SelectUsersCell: UITableViewCell {
 		}
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	func downloadImage(person: Person, tableView: UITableView, indexPath: IndexPath) {
 
 		MediaDownload.startUser(person.objectId, pictureAt: person.pictureAt) { image, error in

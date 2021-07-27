@@ -11,7 +11,7 @@
 
 import FirebaseFirestore
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
+//----
 class FireObservers: NSObject {
 
     private var observerPerson:        FireObserver?
@@ -29,13 +29,13 @@ class FireObservers: NSObject {
     private var observerTransactions: FireObserver?
     private var observerStripeCustomers: FireObserver?
     private var observerPaymentMethods: FireObserver?
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     static let shared: FireObservers = {
         let instance = FireObservers()
         return instance
     } ()
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     override init() {
 
         super.init()
@@ -46,7 +46,7 @@ class FireObservers: NSObject {
     }
 
     // MARK: -
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     @objc private func initObservers() {
 
         if (AuthUser.userId() != "") {
@@ -63,7 +63,7 @@ class FireObservers: NSObject {
         }
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     @objc private func stopObservers() {
 
         observerPerson?.removeObserver();    observerPerson = nil
@@ -88,7 +88,7 @@ class FireObservers: NSObject {
     }
 
     // MARK: -
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     private func createObserverPerson() {
 
         let query = Firestore.firestore().collection("Person")
@@ -96,14 +96,14 @@ class FireObservers: NSObject {
         observerPerson = FireObserver(query, to: Person.self)
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     private func createObserverFriend() {
 
         let query = Firestore.firestore().collection("Friend")
         observerFriend = FireObserver(query, to: Friend.self)
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     private func createObserverBlocked() {
 
         let query = Firestore.firestore().collection("Blocked")
@@ -111,7 +111,7 @@ class FireObservers: NSObject {
         observerBlocked = FireObserver(query, to: Blocked.self)
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     private func createObserverBlocker() {
 
         let query = Firestore.firestore().collection("Blocked")
@@ -119,7 +119,7 @@ class FireObservers: NSObject {
         observerBlocker = FireObserver(query, to: Blocked.self)
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     private func createObserverSingle1() {
 
         let query = Firestore.firestore().collection("Single")
@@ -127,7 +127,7 @@ class FireObservers: NSObject {
         observerSingle1 = FireObserver(query, to: Single.self)
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     private func createObserverSingle2() {
 
         let query = Firestore.firestore().collection("Single")
@@ -136,7 +136,7 @@ class FireObservers: NSObject {
     }
 
     // MARK: -
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     private func createObserverMember() {
 
         let query = Firestore.firestore().collection("Member")
@@ -154,7 +154,7 @@ class FireObservers: NSObject {
     }
 
     // MARK: -
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     private func createObserverMembers(_ chatIds: [String]) {
 
         for chatId in chatIds {
@@ -165,7 +165,7 @@ class FireObservers: NSObject {
         }
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     private func createObserverGroup(_ chatIds: [String]) {
 
         for chatId in chatIds {
@@ -176,7 +176,7 @@ class FireObservers: NSObject {
         }
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     private func createObserverDetail(_ chatIds: [String]) {
 
         for chatId in chatIds {
@@ -187,7 +187,7 @@ class FireObservers: NSObject {
         }
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     private func createObserverMessage(_ chatIds: [String]) {
 
         for chatId in chatIds {

@@ -11,10 +11,10 @@
 
 //import OneSignal
 import Foundation
-//-------------------------------------------------------------------------------------------------------------------------------------------------
+//----
 class PushNotification: NSObject {
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     class func oneSignalId() -> String{
         /*
         guard let status = OneSignal.getDeviceState() else{
@@ -30,7 +30,7 @@ class PushNotification: NSObject {
     }
 
     // MARK: -
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     class func send(message: Message, recipientId:String) {
 /*
         let type = message.type
@@ -89,7 +89,7 @@ class PushNotification: NSObject {
         send(userIds: userIds, en_text: en_text, ja_text: ja_text, chatId: message.chatId, recipientId: recipientId)*/
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     private class func send(userIds: [String], en_text: String, ja_text: String, chatId: String, recipientId:String) {
 /*
         let predicate = NSPredicate(format: "objectId IN %@ AND isDeleted == NO", userIds)

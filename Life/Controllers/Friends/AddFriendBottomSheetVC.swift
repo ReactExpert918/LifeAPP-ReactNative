@@ -9,6 +9,7 @@
 import UIKit
 import SwiftyAvatar
 import JGProgressHUD
+
 class AddFriendBottomSheetVC: UIViewController {
 
     var isFriend : Bool = false
@@ -20,8 +21,6 @@ class AddFriendBottomSheetVC: UIViewController {
     @IBOutlet weak var profile: SwiftyAvatar!
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var addFriendButton: UIButton!
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -12,10 +12,10 @@
 import RealmSwift
 import CryptoSwift
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
+//----
 class Friends: NSObject {
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     class func create(_ userId: String) {
 
         let predicate = NSPredicate(format: "userId == %@ AND friendId == %@", AuthUser.userId(), userId)
@@ -36,7 +36,7 @@ class Friends: NSObject {
     }
 
     // MARK: -
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     class func update(_ userId: String, isDeleted: Bool) {
 
         let predicate = NSPredicate(format: "userId == %@ AND friendId == %@", AuthUser.userId(), userId)
@@ -46,7 +46,7 @@ class Friends: NSObject {
     }
     
     // MARK: -
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     class func update(_ userId: String, isAccepted: Bool) {
 
         let predicate = NSPredicate(format: "userId == %@ AND friendId == %@", userId, AuthUser.userId())
@@ -56,7 +56,7 @@ class Friends: NSObject {
     }
 
     // MARK: -
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     class func isFriend(_ userId: String) -> Bool {
 
         let predicate = NSPredicate(format: "userId == %@ AND friendId == %@ AND isDeleted == NO", AuthUser.userId(), userId)
@@ -67,7 +67,7 @@ class Friends: NSObject {
     }
 
     // MARK: -
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     class func friendIds() -> [String] {
 
         let predicate = NSPredicate(format: "userId == %@ AND isDeleted == NO", AuthUser.userId())

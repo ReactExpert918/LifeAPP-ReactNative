@@ -12,7 +12,7 @@
 //import Sinch
 import CallKit
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
+//----
 class CallKitProvider: NSObject {
 
 	//private var client: SINClient!
@@ -22,7 +22,7 @@ class CallKitProvider: NSObject {
 	private var name = ""
 	//private var calls: [UUID: SINCall] = [:]
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	override init() {
 
 		super.init()
@@ -68,7 +68,7 @@ class CallKitProvider: NSObject {
 	}
 
 	// MARK: -
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	func reportNewIncomingCall(call: SINCall) {
 
 		guard let callUUID = UUID(uuidString: call.callId) else { return }
@@ -84,7 +84,7 @@ class CallKitProvider: NSObject {
 		}
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	private func reportNewIncomingCall(_ result: SINCallNotificationResult) {
 
 		guard let callUUID = UUID(uuidString: result.callId) else { return }
@@ -100,7 +100,7 @@ class CallKitProvider: NSObject {
 		}
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	private func reportCallProgress(call: SINCall) {
 
 		guard let callUUID = UUID(uuidString: call.callId) else { return }
@@ -121,7 +121,7 @@ class CallKitProvider: NSObject {
 		}
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	private func reportCallEstablish(call: SINCall) {
 
 		guard let callUUID = UUID(uuidString: call.callId) else { return }
@@ -129,7 +129,7 @@ class CallKitProvider: NSObject {
 		cxprovider.reportOutgoingCall(with: callUUID, connectedAt: Date())
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	private func reportCallEnded(call: SINCall) {
 
 		guard let callUUID = UUID(uuidString: call.callId) else { return }
@@ -147,7 +147,7 @@ class CallKitProvider: NSObject {
 	}
 
 	// MARK: -
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	func insertCall(call: SINCall) {
 
 		if let callUUID = UUID(uuidString: call.callId) {
@@ -155,7 +155,7 @@ class CallKitProvider: NSObject {
 		}
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	private func deleteCall(call: SINCall) {
 
 		if let callUUID = UUID(uuidString: call.callId) {
@@ -164,7 +164,7 @@ class CallKitProvider: NSObject {
 	}
 
 	// MARK: - SINCall notifications
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	@objc private func callDidProgress(notification: Notification) {
 
 		if let call = notification.userInfo?[SINCallKey] as? SINCall {
@@ -172,7 +172,7 @@ class CallKitProvider: NSObject {
 		}
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	@objc private func callDidEstablish(notification: Notification) {
 
 		if let call = notification.userInfo?[SINCallKey] as? SINCall {
@@ -180,7 +180,7 @@ class CallKitProvider: NSObject {
 		}
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	@objc private func callDidEnd(notification: Notification) {
 
 		if let call = notification.userInfo?[SINCallKey] as? SINCall {
@@ -190,7 +190,7 @@ class CallKitProvider: NSObject {
 	}
 
 	// MARK: - Helper methods
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	private func topViewController() -> UIViewController? {
 
 		let keyWindow = UIApplication.shared.windows.first { $0.isKeyWindow }
@@ -207,31 +207,31 @@ class CallKitProvider: NSObject {
 /*
 extension CallKitProvider: CXProviderDelegate {
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	func providerDidBegin(_ provider: CXProvider) {
 
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	func providerDidReset(_ provider: CXProvider) {
 
 	}
 
 	// MARK: -
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	func provider(_ provider: CXProvider, didActivate audioSession: AVAudioSession) {
 
 		client.call().provider(provider, didActivate: audioSession)
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	func provider(_ provider: CXProvider, didDeactivate audioSession: AVAudioSession) {
 
 		client.call().provider(provider, didDeactivate: audioSession)
 	}
 
 	// MARK: -
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	func provider(_ provider: CXProvider, perform action: CXStartCallAction) {
 
 		guard let callUUID = UUID(uuidString: action.callUUID.uuidString) else { return }
@@ -241,7 +241,7 @@ extension CallKitProvider: CXProviderDelegate {
 		provider.reportOutgoingCall(with: callUUID, connectedAt: Date())
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	func provider(_ provider: CXProvider, perform action: CXAnswerCallAction) {
 
 		guard let call = calls[action.callUUID] else { return }
@@ -265,7 +265,7 @@ extension CallKitProvider: CXProviderDelegate {
 		action.fulfill()
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	func provider(_ provider: CXProvider, perform action: CXEndCallAction) {
 
 		guard let call = calls[action.callUUID] else { return }

@@ -11,7 +11,7 @@
 
 import Foundation
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
+//----
 class FireUpdaters: NSObject {
 
     private var updaterPerson:    FireUpdater?
@@ -27,13 +27,13 @@ class FireUpdaters: NSObject {
     private var updaterPaymentMethod: FireUpdater?
     private var updaterTransaction: FireZEDPayUpdaters?
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     static let shared: FireUpdaters = {
         let instance = FireUpdaters()
         return instance
     } ()
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     override init() {
 
         super.init()

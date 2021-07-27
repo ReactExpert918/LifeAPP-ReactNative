@@ -355,25 +355,25 @@ class ConfigGroupVC: UIViewController, UITableViewDataSource, UITableViewDelegat
 
 extension ConfigGroupVC: UISearchBarDelegate {
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
 
         
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func searchBarTextDidBeginEditing(_ searchBar_: UISearchBar) {
 
         searchBar.setShowsCancelButton(true, animated: true)
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func searchBarTextDidEndEditing(_ searchBar_: UISearchBar) {
 
         searchBar.setShowsCancelButton(false, animated: true)
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func searchBarCancelButtonClicked(_ searchBar_: UISearchBar) {
 
         searchBar.text = ""
@@ -381,7 +381,7 @@ extension ConfigGroupVC: UISearchBarDelegate {
         
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
+    
     func searchBarSearchButtonClicked(_ searchBar_: UISearchBar) {
         searchBar.resignFirstResponder()
         let searchText = searchBar_.text

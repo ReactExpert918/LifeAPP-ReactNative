@@ -11,7 +11,7 @@
 
 import UIKit
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
+//----
 class RCMessageAudioCell: RCMessageCell {
 
 	private var imageViewPlay: UIImageView!
@@ -19,7 +19,7 @@ class RCMessageAudioCell: RCMessageCell {
 	private var imageViewManual: UIImageView!
 	private var activityIndicator: UIActivityIndicatorView!
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	override func bindData(_ messagesView: ChatViewController, at indexPath: IndexPath) {
 
 		super.bindData(messagesView, at: indexPath)
@@ -90,7 +90,7 @@ class RCMessageAudioCell: RCMessageCell {
 		}
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	override func layoutSubviews() {
 
 		let size = RCMessageAudioCell.size(messagesView, at: indexPath)
@@ -118,14 +118,14 @@ class RCMessageAudioCell: RCMessageCell {
 	}
 
 	// MARK: - Size methods
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	class func height(_ messagesView: ChatViewController, at indexPath: IndexPath) -> CGFloat {
 
 		let size = self.size(messagesView, at: indexPath)
 		return size.height
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	class func size(_ messagesView: ChatViewController, at indexPath: IndexPath) -> CGSize {
 
 		return CGSize(width: RCDefaults.audioBubbleWidht, height: RCDefaults.audioBubbleHeight)

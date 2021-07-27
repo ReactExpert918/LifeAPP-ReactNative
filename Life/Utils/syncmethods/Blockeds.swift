@@ -12,10 +12,10 @@
 import RealmSwift
 import CryptoSwift
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
+//----
 class Blockeds: NSObject {
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	class func create(_ userId: String) {
 
 		let predicate = NSPredicate(format: "blockerId == %@ AND blockedId == %@", AuthUser.userId(), userId)
@@ -35,7 +35,7 @@ class Blockeds: NSObject {
 	}
 
 	// MARK: -
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	class func update(_ userId: String, isDeleted: Bool) {
 
 		let predicate = NSPredicate(format: "blockerId == %@ AND blockedId == %@", AuthUser.userId(), userId)
@@ -45,14 +45,14 @@ class Blockeds: NSObject {
 	}
 
 	// MARK: -
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	class func isBlocker(_ userId: String) -> Bool {
 
 		let predicate = NSPredicate(format: "blockerId == %@ AND blockedId == %@ AND isDeleted == NO", userId, AuthUser.userId())
 		return (realm.objects(Blocked.self).filter(predicate).first != nil)
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	class func isBlocked(_ userId: String) -> Bool {
 
 		let predicate = NSPredicate(format: "blockerId == %@ AND blockedId == %@ AND isDeleted == NO", AuthUser.userId(), userId)
@@ -60,7 +60,7 @@ class Blockeds: NSObject {
 	}
 
 	// MARK: -
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	class func blockerIds() -> [String] {
 
 		let predicate = NSPredicate(format: "blockedId == %@ AND isDeleted == NO", AuthUser.userId())
@@ -73,7 +73,7 @@ class Blockeds: NSObject {
 		return blockerIds
 	}
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	class func blockedIds() -> [String] {
 
 		let predicate = NSPredicate(format: "blockerId == %@ AND isDeleted == NO", AuthUser.userId())
