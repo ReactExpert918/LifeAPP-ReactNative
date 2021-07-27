@@ -14,52 +14,50 @@ import FirebaseFirestore
 //----
 class FireObservers: NSObject {
 
-    private var observerPerson:        FireObserver?
-    private var observerFriend:        FireObserver?
-    private var observerBlocked:    FireObserver?
-    private var observerBlocker:    FireObserver?
-    private var observerSingle1:    FireObserver?
-    private var observerSingle2:    FireObserver?
-    private var observerMember:        FireObserver?
+    private var observerPerson:  FireObserver?
+    private var observerFriend:  FireObserver?
+    private var observerBlocked: FireObserver?
+    private var observerBlocker: FireObserver?
+    private var observerSingle1: FireObserver?
+    private var observerSingle2: FireObserver?
+    private var observerMember:  FireObserver?
 
-    private var observerMembers:    [String: FireObserver] = [:]
-    private var observerGroups:        [String: FireObserver] = [:]
-    private var observerDetails:    [String: FireObserver] = [:]
-    private var observerMessages:    [String: FireObserver] = [:]
-    private var observerTransactions: FireObserver?
+    private var observerMembers:         [String: FireObserver] = [:]
+    private var observerGroups:          [String: FireObserver] = [:]
+    private var observerDetails:         [String: FireObserver] = [:]
+    private var observerMessages:        [String: FireObserver] = [:]
+    private var observerTransactions:    FireObserver?
     private var observerStripeCustomers: FireObserver?
-    private var observerPaymentMethods: FireObserver?
+    private var observerPaymentMethods:  FireObserver?
     
     static let shared: FireObservers = {
         let instance = FireObservers()
         return instance
-    } ()
+    }()
 
     
     override init() {
 
         super.init()
 
-        NotificationCenter.default.addObserver(self, selector: #selector(initObservers), name: NSNotification.Name(rawValue: NotificationStatus.NOTIFICATION_APP_STARTED), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(initObservers), name: NSNotification.Name(rawValue: NotificationStatus.NOTIFICATION_USER_LOGGED_IN), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(stopObservers), name: NSNotification.Name(rawValue: NotificationStatus.NOTIFICATION_USER_LOGGED_OUT), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(initObservers), name: .appStarted, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(initObservers), name: .loggedIn, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(stopObservers), name: .loggedOut, object: nil)
     }
 
-    // MARK: -
-    
     @objc private func initObservers() {
 
         if (AuthUser.userId() != "") {
-            if (observerPerson == nil)    { createObserverPerson()    }
-            if (observerFriend == nil)    { createObserverFriend()    }
-            if (observerBlocked == nil)    { createObserverBlocked()    }
-            if (observerBlocker == nil)    { createObserverBlocker()    }
-            if (observerSingle1 == nil)    { createObserverSingle1()    }
-            if (observerSingle2 == nil)    { createObserverSingle2()    }
-            if (observerMember == nil)    { createObserverMember()    }
-            if (observerTransactions == nil) { createObserverTransactions() }
+            if (observerPerson == nil)          { createObserverPerson()    }
+            if (observerFriend == nil)          { createObserverFriend()    }
+            if (observerBlocked == nil)         { createObserverBlocked()    }
+            if (observerBlocker == nil)         { createObserverBlocker()    }
+            if (observerSingle1 == nil)         { createObserverSingle1()    }
+            if (observerSingle2 == nil)         { createObserverSingle2()    }
+            if (observerMember == nil)          { createObserverMember()    }
+            if (observerTransactions == nil)    { createObserverTransactions() }
             if (observerStripeCustomers == nil) { createObserverStripeCustomers() }
-            if (observerPaymentMethods == nil) { createObserverPaymentMethods() }
+            if (observerPaymentMethods == nil)  { createObserverPaymentMethods() }
         }
     }
 
@@ -92,7 +90,7 @@ class FireObservers: NSObject {
     private func createObserverPerson() {
 
         let query = Firestore.firestore().collection("Person")
-            .whereField("updatedAt", isGreaterThan: Person.lastUpdatedAt())
+//            .whereField("updatedAt", isGreaterThan: Person.lastUpdatedAt())
         observerPerson = FireObserver(query, to: Person.self)
     }
 
@@ -153,8 +151,7 @@ class FireObservers: NSObject {
         }
     }
 
-    // MARK: -
-    
+
     private func createObserverMembers(_ chatIds: [String]) {
 
         for chatId in chatIds {

@@ -25,7 +25,7 @@
             <objects>
                 <viewController id="R9N-Yx-9Qd" customClass="SplashVC" customModule="Life" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="f8e-fc-SqF">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_logo" translatesAutoresizingMaskIntoConstraints="NO" id="N2D-oS-dvV">
@@ -53,7 +53,7 @@
             <objects>
                 <viewController id="fGE-OE-Xbc" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3Fa-nq-iv7">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LZB-wb-9Om">
@@ -138,7 +138,7 @@ continue</string>
             <objects>
                 <viewController storyboardIdentifier="signinVC" id="CJ6-ZW-Hjd" customClass="SigninVC" customModule="Life" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ACP-v7-Yl6">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CXK-KU-YEu">
@@ -377,7 +377,7 @@ continue</string>
             <objects>
                 <viewController storyboardIdentifier="SignupVC" id="J1a-Yy-2lE" customClass="SignupVC" customModule="Life" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1Dz-5t-5yH">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ltS-f1-a4h" userLabel="TitleView">
@@ -645,7 +645,7 @@ rates may apply.</string>
             <objects>
                 <viewController storyboardIdentifier="OTPVerificationVC" id="FqT-5V-73Z" userLabel="OTPVerificationVC" customClass="OTPVerificationVC" customModule="Life" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0W6-Jy-TMV">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lAr-AW-d3R" userLabel="TitleView">
@@ -903,7 +903,7 @@ received in your device</string>
             <objects>
                 <viewController storyboardIdentifier="BasicDetailInsertVC" id="TZh-pi-xa9" customClass="BasicDetailInsertVC" customModule="Life" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kJp-cW-59R">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ick-rZ-leT" userLabel="TitleView">
@@ -1211,7 +1211,7 @@ to complete registration</string>
             <objects>
                 <viewController storyboardIdentifier="AddPictureVC" id="5K5-Hw-sW5" customClass="AddPictureVC" customModule="Life" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ldb-LA-XkI">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WOj-rw-a1f" userLabel="TitleView">
@@ -1334,7 +1334,7 @@ to complete registration</string>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y2G-iS-JMx">
-                                <rect key="frame" x="47.5" y="100" width="280.5" height="54"/>
+                                <rect key="frame" x="71" y="100" width="233.5" height="51.5"/>
                                 <string key="text">Please fill basic details
 to complete registration</string>
                                 <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="22"/>
@@ -1342,7 +1342,7 @@ to complete registration</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="camera.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="tOP-h7-A3L" userLabel="camera">
-                                <rect key="frame" x="167.5" y="224.5" width="40" height="38"/>
+                                <rect key="frame" x="167.5" y="222" width="40" height="38"/>
                                 <color key="tintColor" name="themeColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="LVG-RS-edy"/>
@@ -1350,7 +1350,7 @@ to complete registration</string>
                                 </constraints>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4pd-AN-h2m" userLabel="imvProfile">
-                                <rect key="frame" x="127.5" y="184" width="120" height="120"/>
+                                <rect key="frame" x="127.5" y="181.5" width="120" height="120"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.084919674295774641" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="120" id="Ejp-EC-C7P"/>
@@ -1363,7 +1363,7 @@ to complete registration</string>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dJZ-H1-S2c" userLabel="camera button">
-                                <rect key="frame" x="127.5" y="184" width="120" height="120"/>
+                                <rect key="frame" x="127.5" y="181.5" width="120" height="120"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="120" id="Mgr-aX-Wxj"/>
                                     <constraint firstAttribute="height" constant="120" id="Ncv-G2-Ohl"/>
@@ -1374,7 +1374,7 @@ to complete registration</string>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RYg-AF-rXE">
-                                <rect key="frame" x="212.5" y="269" width="30" height="30"/>
+                                <rect key="frame" x="212.5" y="266.5" width="30" height="30"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gfD-9V-MdY" userLabel="camera">
                                         <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
@@ -1407,13 +1407,13 @@ to complete registration</string>
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Public Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ssU-OU-JWI">
-                                <rect key="frame" x="16" y="312" width="343" height="20"/>
+                                <rect key="frame" x="16" y="309.5" width="343" height="19"/>
                                 <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="16"/>
                                 <color key="textColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="0.55395252949999996" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gGv-Sy-b9d" customClass="ExtensionView" customModule="Life" customModuleProvider="target">
-                                <rect key="frame" x="16" y="340" width="343" height="45"/>
+                                <rect key="frame" x="16" y="336.5" width="343" height="45"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Public Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WvK-xu-gWB">
                                         <rect key="frame" x="16" y="0.0" width="311" height="45"/>
@@ -1437,7 +1437,7 @@ to complete registration</string>
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aer-CS-QRP" customClass="ThemeButton" customModule="Life" customModuleProvider="target">
-                                <rect key="frame" x="16" y="409" width="343" height="45"/>
+                                <rect key="frame" x="16" y="405.5" width="343" height="45"/>
                                 <color key="backgroundColor" red="0.0" green="0.25098039220000001" blue="0.43137254899999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="XBx-oC-r1a"/>
@@ -1496,7 +1496,7 @@ to complete registration</string>
             <objects>
                 <viewController storyboardIdentifier="successVC" id="Ndv-Hb-ugm" customClass="SuccessVC" customModule="Life" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ega-sS-XBa">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="success_bk" translatesAutoresizingMaskIntoConstraints="NO" id="pnx-u8-RSq">
@@ -1576,7 +1576,7 @@ to complete registration</string>
             <objects>
                 <viewController storyboardIdentifier="ForgotPasswordVC" id="zdv-sR-Ate" customClass="ForgotPasswordVC" customModule="Life" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cdY-P4-hCW">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PEv-Uc-L7f">

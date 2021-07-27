@@ -84,6 +84,8 @@ class HomeVC: BaseVC, CreateGroupDelegate, ChatViewControllerProtocol {
         
         homeTableView.dataSource = self
         homeTableView.delegate = self
+        
+        //updateFcmToken()
     }
     
     // MARK: - Realm methods
@@ -253,6 +255,11 @@ class HomeVC: BaseVC, CreateGroupDelegate, ChatViewControllerProtocol {
         
     }
     
+    // MARK: - upload fcm token
+    fileprivate func updateFcmToken() {
+        let token = PrefsManager.getFCMToken()
+        Persons.update(oneSignalId: token)
+    }
     
     
 }

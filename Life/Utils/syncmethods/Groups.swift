@@ -11,18 +11,17 @@
 
 import RealmSwift
 
-//----
 class Groups: NSObject {
 
     
-    class func create(_ name: String, userIds: [String]) -> Group{
+    class func create(_ name: String, userIds: [String]) -> Group {
 
         let group = Group()
 
         group.chatId    = group.objectId
 
-        group.name        = name
-        group.ownerId    = AuthUser.userId()
+        group.name    = name
+        group.ownerId = AuthUser.userId()
 
         let realm = try! Realm()
         try! realm.safeWrite {

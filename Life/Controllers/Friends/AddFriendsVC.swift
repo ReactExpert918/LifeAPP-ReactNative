@@ -157,7 +157,7 @@ extension AddFriendsVC: UITableViewDelegate, UITableViewDataSource {
                     let person = self.pendingFriends[index]
                     self.selectedPerson = person
                     // Display info on popupview
-                    self.confirmPopupLabel.text = "Do you want to add \(person.fullname) your friend list?"
+                    self.confirmPopupLabel.text = "Do you want to add \(person.fullname) to your friend list?"
                     self.loadRequestedFriendImage(person: person)
 
                     self.confirmPopupView.isHidden = false
@@ -174,10 +174,8 @@ extension AddFriendsVC: UITableViewDelegate, UITableViewDataSource {
                     let person = self.personList[index]
                     let vc = self.storyboard?.instantiateViewController(identifier: "StartChatVC") as! StartChatVC
                     vc.person = person
+                    print("Selcted Person TOKEN: ", person.oneSignalId)
                     let sheetController = SheetViewController(controller: vc, sizes: [.fixed(360)])
-                    sheetController.didDismiss = { _ in
-                        
-                    }
                     
                     self.present(sheetController, animated: true, completion: nil)
                 }
@@ -194,10 +192,8 @@ extension AddFriendsVC: UITableViewDelegate, UITableViewDataSource {
                 let person = self.personList[index]
                 let vc = self.storyboard?.instantiateViewController(identifier: "StartChatVC") as! StartChatVC
                 vc.person = person
+                print("Selcted Person TOKEN ============= ", person.oneSignalId)
                 let sheetController = SheetViewController(controller: vc, sizes: [.fixed(360)])
-                sheetController.didDismiss = { _ in
-                    
-                }
                 
                 self.present(sheetController, animated: true, completion: nil)
             }

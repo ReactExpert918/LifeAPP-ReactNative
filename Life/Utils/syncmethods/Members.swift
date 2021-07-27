@@ -84,6 +84,7 @@ class Members: NSObject {
 		for member in members {
 			chatIds.append(member.chatId)
 		}
+        
 		return chatIds
 	}
 

@@ -31,8 +31,8 @@ class SigninVC: BaseVC {
         txtPassword.delegate = self
         scrollViewHeightConstraint.constant = Const.shared.SCREEN_HEIGHT //UIScreen.main.bounds.size.height
         
-        txtEmail.text = "bright.test@test.com"
-        txtPassword.text = "1234567890"
+        txtEmail.text = "bright.test@test.com" //"isso@zedinternational.net"
+        txtPassword.text = "1234567890" //"abcdef123456"
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -106,7 +106,7 @@ class SigninVC: BaseVC {
             self.hideProgress()
             if (error == nil) {
                 self.dismiss(animated: true) {
-                    NotificationCenter.default.post(name: Notification.Name(NotificationStatus.NOTIFICATION_USER_LOGGED_IN), object: nil)
+                    NotificationCenter.default.post(name: .loggedIn, object: nil)
                     
                     UIApplication.shared.windows.first?.rootViewController?.dismiss(animated: true, completion: nil)
                     let vc = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()

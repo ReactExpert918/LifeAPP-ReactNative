@@ -45,6 +45,7 @@ class StartChatVC: BaseVC {
     }
     
     @IBAction func onStartChatTapped(_ sender: Any) {
+        PushNotification.send(token: person.oneSignalId, title: "Want to be your friend", body: "I'd like to be your friend. Please accept my request.")
         self.dismiss(animated: true, completion: nil)
     }
     

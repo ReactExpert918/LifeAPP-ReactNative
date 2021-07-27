@@ -11,21 +11,14 @@
 
 import Firebase
 
-//----
+
 class SyncEngine: NSObject {
 
-	
 	class func initBackend() {
 
-		////------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//-----
-		// Firebase initialization
-		////------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//-----
 		FirebaseApp.configure()
 		FirebaseConfiguration().setLoggerLevel(.error)
 
-		////------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//-----
-		// Firebase auth issue fix
-		////------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//-----
         if (UserDefaults.standard.bool(forKey: "Initialized") == false) {
             UserDefaults.standard.set(true, forKey: "Initialized")
 			AuthUser.logOut()
@@ -34,13 +27,11 @@ class SyncEngine: NSObject {
 
 	
 	class func initUpdaters() {
-
 		_ = FireUpdaters.shared
 	}
 
 	
 	class func initObservers() {
-
 		_ = FireObservers.shared
 	}
 }

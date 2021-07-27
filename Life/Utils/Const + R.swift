@@ -34,6 +34,8 @@ class R {
     static let btnFollow           = "Follow"
     static let btnUnfollow         = "Unfollow"
     static let btnSend             = "Send"
+    static let btnAccept           = "Accept"
+    static let btnDecline          = "Decline"
     
     static let msgRegister              = "Please register or login to get the data"
     static let msgEnterEmail            = "Please enter your Email address"

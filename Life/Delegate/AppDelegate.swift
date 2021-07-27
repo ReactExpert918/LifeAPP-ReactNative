@@ -39,20 +39,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setupNavigationBar()
         setupOthers()
         
-    ////------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//-----
-        // SyncEngine initialization
-        ////------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//-----
         SyncEngine.initBackend()
         SyncEngine.initUpdaters()
         SyncEngine.initObservers()
-        ////------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//-----
-        // Push notification initialization
-        ////------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//-----
-        // MARK: Push notification
-        // Use Firebase library to configure APIs
-        if FirebaseApp.app() == nil {
-            FirebaseApp.configure()
-        }
         
         // [START set_messaging_delegate]
         Messaging.messaging().delegate = self
@@ -226,6 +215,39 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         // Print full message.
         print(userInfo)
 
+        let aps = userInfo["aps"] as? [AnyHashable : Any]
+        let noti = aps!["notification"] as? [AnyHashable : Any]
+        let msgTitle = noti!["title"] as! String
+        let msgBody  = noti!["body"] as! String
+        
+        let tmpData = aps!["data"] as? [AnyHashable : Any]
+        let userId  = tmpData!["userId"] as! String
+        
+        // display alert for notification
+        let alert = UIAlertController(title: "Life", message: msgBody, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: R.btnAccept, style: .default, handler: { (_) in
+            
+        }))
+        alert.addAction(UIAlertAction(title: R.btnDecline, style: .cancel, handler: { (_) in
+            
+        }))
+        alert.setTintColor(.black)
+        alert.setTitle(UIFont(name: MyFont.MontserratBold, size: 16), color: .black)
+        alert.setMessage(UIFont(name: MyFont.MontserratRegular, size: 14), color: .black)
+        UIApplication.shared.windows.first?.rootViewController?.present(alert, animated: true, completion: nil)
+        /*
+        let alt = SCLAlertView(appearance: Const.shared.alertAppearance)
+        let profileImage = UIImage(named: "ic_default_profile")
+        alt.addButton(R.btnAccept, backgroundColor: UIColor.primaryColor, textColor: UIColor.white) {
+            // no action
+        }
+        
+        alt.addButton(R.btnDecline, backgroundColor: UIColor.lightGray, textColor: UIColor.black) {
+            // no action
+        }
+        
+        alt.showInfo("Notice", subTitle: msgBody, circleIconImage: profileImage)
+        */
         // Change this to your preferred presentation option
         completionHandler([[.banner, .badge, .sound]])
     }
@@ -261,9 +283,8 @@ extension AppDelegate : MessagingDelegate {
 
         NotificationCenter.default.post(name: .FCMToken, object: nil, userInfo: dataDict)
         
+        ////Persons.update(oneSignalId: fcmToken ?? "")
         
-        // TODO: If necessary send token to application server.
-        // Note: This callback is fired at each app startup and whenever a new token is generated.
         PrefsManager.setFCMToken(fcmToken ?? "")
     }
     

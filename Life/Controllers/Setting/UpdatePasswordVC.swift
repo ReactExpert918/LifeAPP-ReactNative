@@ -11,17 +11,12 @@ import UIKit
 class UpdatePasswordVC: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var newPasswordTextField: UITextField!
-    
     @IBOutlet weak var confirmPasswordTextField: UITextField!
-    
     @IBOutlet weak var informLabel: UILabel!
-    
     @IBOutlet weak var newPasswordEye: UIButton!
-    
     @IBOutlet weak var confirmPasswordEye: UIButton!
     
     var delegate: UpdateDataDelegateProtocol? = nil
-    
     var newpassword_eye_off = true
     var confirmpassword_eye_off = true
     
@@ -47,7 +42,7 @@ class UpdatePasswordVC: UIViewController, UITextFieldDelegate {
         if newpassword_eye_off{
             newPasswordTextField.isSecureTextEntry = false
             newPasswordEye.setImage(UIImage(named: "eye_on"), for: .normal)
-        }else {
+        } else {
             newPasswordTextField.isSecureTextEntry = true
             newPasswordEye.setImage(UIImage(named: "eye_off"), for: .normal)
         }
@@ -65,11 +60,11 @@ class UpdatePasswordVC: UIViewController, UITextFieldDelegate {
         confirmpassword_eye_off = !confirmpassword_eye_off
     }
     
-    func showInformText(withOption option: Bool, withText value: String = "")
-    {
+    func showInformText(withOption option: Bool, withText value: String = "") {
         informLabel.isHidden = option
         informLabel.text = value
     }
+    
     @IBAction func onSubmitTapped(_ sender: Any) {
         let newPassword = self.newPasswordTextField.text
         if newPassword?.isEmpty == true {
@@ -80,8 +75,7 @@ class UpdatePasswordVC: UIViewController, UITextFieldDelegate {
             self.dismiss(animated: true) {
                 self.delegate?.updatePassword(password: self.newPasswordTextField.text!)
             }
-        }
-        else{
+        } else {
             showInformText(withOption: false, withText: "Confirm Password does not match.")
         }
     }

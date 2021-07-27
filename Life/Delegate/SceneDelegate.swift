@@ -37,7 +37,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             Persons.update(lastActive: Date().timestamp())
-            Persons.update(oneSignalId: PushNotification.oneSignalId())
         }
     }
 

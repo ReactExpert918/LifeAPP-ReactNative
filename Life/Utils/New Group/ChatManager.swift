@@ -35,9 +35,9 @@ class ChatManager: NSObject {
 
 		super.init()
 
-        NotificationCenter.default.addObserver(self, selector: #selector(initObservers), name: NSNotification.Name(rawValue: NotificationStatus.NOTIFICATION_APP_STARTED), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(initObservers), name: NSNotification.Name(rawValue: NotificationStatus.NOTIFICATION_USER_LOGGED_IN), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(stopObservers), name: NSNotification.Name(rawValue: NotificationStatus.NOTIFICATION_USER_LOGGED_OUT), object: nil)	}
+        NotificationCenter.default.addObserver(self, selector: #selector(initObservers), name: .appStarted, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(initObservers), name: .loggedIn, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(stopObservers), name: .loggedOut, object: nil)	}
 
 	// MARK: -
 	

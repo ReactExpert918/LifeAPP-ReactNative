@@ -12,15 +12,11 @@
 import FirebaseFirestore
 import RealmSwift
 
-//----
 class FireUpdater: NSObject {
 
 	private var collection: String = ""
-
 	private var updating = false
-
 	private var objects: Results<SyncObject>?
-
 	
 	init(name: String, type: SyncObject.Type) {
 

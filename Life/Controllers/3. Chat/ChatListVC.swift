@@ -45,8 +45,8 @@ class ChatListVC: BaseVC, UITableViewDataSource, UITableViewDelegate, NewConvers
         chatsTableView.dataSource = self
         chatsTableView.delegate = self
         
-        NotificationCenter.default.addObserver(self, selector: #selector(loadMembers), name: NSNotification.Name(rawValue: NotificationStatus.NOTIFICATION_USER_LOGGED_IN), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(actionCleanup), name: NSNotification.Name(rawValue: NotificationStatus.NOTIFICATION_USER_LOGGED_OUT), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(loadMembers), name: .loggedIn, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(actionCleanup), name: .loggedOut, object: nil)
         
         if (AuthUser.userId() != "") {
             loadMembers()

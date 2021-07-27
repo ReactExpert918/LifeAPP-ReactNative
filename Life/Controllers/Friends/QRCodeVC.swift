@@ -112,8 +112,10 @@ class QRCodeVC: UIViewController, QRCodeReaderViewControllerDelegate {
     
     @IBAction func onMyQrTapped(_ sender: Any) {
         let vc =  self.storyboard?.instantiateViewController(identifier: "MyQRGenerateVC") as! MyQRGenerateVC
+
         let sheetController = SheetViewController(controller: vc, sizes: [.fixed(460)])
         sheetController.cornerRadius = 15
+
         self.present(sheetController, animated: false, completion: nil)
     }
     

@@ -11,10 +11,8 @@
 
 import RealmSwift
 
-//----
 class Persons: NSObject {
 
-    
     class func create(_ objectId: String, email: String) {
 
         let realm = try! Realm()
@@ -27,7 +25,6 @@ class Persons: NSObject {
         }
     }
 
-    
     class func create(_ objectId: String, phone: String) {
 
         let realm = try! Realm()
@@ -40,10 +37,7 @@ class Persons: NSObject {
         }
     }
 
-    // MARK: -
-    
     class func fullname() -> String {
-
         let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
         return person?.fullname ?? ""
     }
@@ -55,14 +49,12 @@ class Persons: NSObject {
 
     
     class func initials() -> String {
-
         let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
         return person?.initials() ?? ""
     }
 
     
     class func pictureAt() -> Int64 {
-
         let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
         return person?.pictureAt ?? 0
     }
@@ -117,7 +109,6 @@ class Persons: NSObject {
     }
 
     // MARK: -
-    
     class func update(status: String) {
 
         if let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId()) {

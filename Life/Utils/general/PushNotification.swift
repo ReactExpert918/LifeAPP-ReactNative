@@ -13,102 +13,34 @@
 import Foundation
 //----
 class PushNotification: NSObject {
-
     
-    class func oneSignalId() -> String{
-        /*
-        guard let status = OneSignal.getDeviceState() else{
-            return ""
-        }
-        if (status.pushToken != nil) {
-           if let userId = status.userId {
-                return userId
-           }
-       }*/
-
-        return ""
-    }
-
-    // MARK: -
-    
-    class func send(message: Message, recipientId:String) {
-/*
-        let type = message.type
-        var en_text = message.userFullname
-        var ja_text = message.userFullname
-
-        if (type == MESSAGE_TYPE.MESSAGE_TEXT)        {
-            ja_text = ja_text + " "+"sent you a text message."
-            en_text = en_text + " "+"sent you a text message."
-            
-        }
-        if (type == MESSAGE_TYPE.MESSAGE_EMOJI)        {
-            ja_text = ja_text + " " + "sent you an emoji."
-            en_text = en_text + " " + "sent you an emoji."
-            
-        }
-        if (type == MESSAGE_TYPE.MESSAGE_PHOTO)        {
-            ja_text = ja_text + " " + "sent you a photo."
-            en_text = en_text + " " + "sent you a photo."
-            
-        }
-        if (type == MESSAGE_TYPE.MESSAGE_VIDEO)        {
-            ja_text = ja_text + " " + "sent you a video."
-            en_text = en_text + " " + "sent you a video."
-            
-        }
-        if (type == MESSAGE_TYPE.MESSAGE_MONEY && !message.isMediaFailed)        {
-            ja_text = ja_text + " " + "sent you money."
-            en_text = en_text + " " + "sent you money."
-            
-        }
-        /*
-        if (type == MESSAGE_TYPE.MESSAGE_AUDIO)         {
-            ja_text = ja_text + (" sent you an audio.")
-            
-        }
-        if (type == MESSAGE_TYPE.MESSAGE_LOCATION)    {
-            text = text + (" sent you a location.")
-            
-        }*/
-
-        let chatId = message.chatId
-        var userIds = Members.userIds(chatId: chatId)
-
-        let predicate = NSPredicate(format: "chatId == %@", chatId)
-        for detail in realm.objects(Detail.self).filter(predicate) {
-            if (detail.mutedUntil > Date().timestamp()) {
-                //userIds.removeObject(detail.userId)
-                userIds.removeAll(where: { $0 == detail.userId})
+    class func send(token: String, title: String, body: String) {
+        let urlString = "https://fcm.googleapis.com/fcm/send"
+        let url = NSURL(string: urlString)!
+        let serverKey = "AAAAa2uhe4c:APA91bEnMUCK-H2Bf3gM3o4Zo8TbDi_5oK41qzWcpOdf4JE4xHVOkwVrjrhBIJDd2JqTWTwo34LZBCmz2NARPLxOOLbxpAwloXAd5RLfQYPSQSenTf7Lz8kDXnWzNZB0IvhsQ8PH8Uwr"
+        
+        let userId = AuthUser.userId()
+        let paramString: [String : Any] = ["to" : token,
+                                           "notification" : ["title" : title, "body" : body],
+                                           "data" : ["userId" : userId]
+        ]
+        let request = NSMutableURLRequest(url: url as URL)
+        request.httpMethod = "POST"
+        request.httpBody = try? JSONSerialization.data(withJSONObject:paramString, options: [.prettyPrinted])
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("key=\(serverKey)", forHTTPHeaderField: "Authorization")
+        let task =  URLSession.shared.dataTask(with: request as URLRequest)  { (data, response, error) in
+            do {
+                if let jsonData = data {
+                    if let jsonDataDict  = try JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions.allowFragments) as? [String: AnyObject] {
+                        NSLog("Received data:\n\(jsonDataDict))")
+                    }
+                }
+            } catch let err as NSError {
+                print(err.debugDescription)
             }
         }
-        userIds.removeAll(where: { $0 == AuthUser.userId()})
-//        userIds.removeObject(AuthUser.userId())
-        //print(AuthUser.userId())
-        //print(userIds)
-        send(userIds: userIds, en_text: en_text, ja_text: ja_text, chatId: message.chatId, recipientId: recipientId)*/
+        task.resume()
     }
-
     
-    private class func send(userIds: [String], en_text: String, ja_text: String, chatId: String, recipientId:String) {
-/*
-        let predicate = NSPredicate(format: "objectId IN %@ AND isDeleted == NO", userIds)
-        let persons = realm.objects(Person.self).filter(predicate).sorted(byKeyPath: "fullname")
-
-        var oneSignalIds: [String] = []
-        
-        let predicateMine = NSPredicate(format: "objectId == %@ AND isDeleted == NO", AuthUser.userId())
-        guard let personMine = realm.objects(Person.self).filter(predicateMine).first else{
-            return
-        }
-        
-        for person in persons {
-            if (person.oneSignalId.count != 0 && person.oneSignalId != personMine.oneSignalId && person.lastTerminate > person.lastActive ) {
-                oneSignalIds.append(person.oneSignalId)
-            }
-        }
-        
-        OneSignal.postNotification(["contents": ["en": en_text, "ja":ja_text], "include_player_ids": oneSignalIds,
-            "data": ["chatId": chatId, "recipientId": recipientId]])*/
-    }
 }

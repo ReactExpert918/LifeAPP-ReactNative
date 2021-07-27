@@ -11,7 +11,7 @@
 
 import FirebaseAuth
 
-//----
+
 class AuthUser: NSObject {
 
     
@@ -23,8 +23,6 @@ class AuthUser: NSObject {
         return ""
     }
 
-    // MARK: -
-    
     class func signIn(email: String, password: String, completion: @escaping (_ error: Error?) -> Void) {
 
         Auth.auth().signIn(withEmail: email, password: password) { authResult, error in

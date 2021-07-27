@@ -108,6 +108,7 @@ extension SearchFriendsVC: UISearchBarDelegate, UISearchDisplayDelegate {
         let predicate1 = NSPredicate(format: "objectId != %@ AND isDeleted == NO", AuthUser.userId())
         let predicate2 = (text != "") ? NSPredicate(format: "email CONTAINS[c] %@", text) : NSPredicate(value: true)
 
+//        persons = realm.objects(Person.self).filter(predicate2).sorted(byKeyPath: "fullname")
         persons = realm.objects(Person.self).filter(predicate1).filter(predicate2).sorted(byKeyPath: "fullname")
         
         if persons.count > 0 {

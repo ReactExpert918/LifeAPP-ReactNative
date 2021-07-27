@@ -11,7 +11,7 @@
 
 import RealmSwift
 
-//----
+
 class MediaUploader: NSObject {
 
 	private var uploading = false
@@ -31,8 +31,8 @@ class MediaUploader: NSObject {
 
 		loadMessages()
 
-        NotificationCenter.default.addObserver(self, selector: #selector(loadMessages), name: NSNotification.Name(rawValue: NotificationStatus.NOTIFICATION_USER_LOGGED_IN), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(unloadMessages), name: NSNotification.Name(rawValue: NotificationStatus.NOTIFICATION_USER_LOGGED_OUT), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(loadMessages), name: .loggedIn, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(unloadMessages), name: .loggedOut, object: nil)
 
 		Timer.scheduledTimer(withTimeInterval: 0.25, repeats: true) { _ in
 			if (AuthUser.userId() != "") {

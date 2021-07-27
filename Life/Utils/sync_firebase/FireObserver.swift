@@ -12,7 +12,6 @@
 import FirebaseFirestore
 import RealmSwift
 
-//----
 class FireObserver: NSObject {
 
     private var query: Query!
@@ -20,7 +19,6 @@ class FireObserver: NSObject {
 
     private var listeners: [ListenerRegistration] = []
 
-    
     init(_ query: Query, to type: SyncObject.Type) {
 
         super.init()
@@ -97,18 +95,13 @@ class FireObserver: NSObject {
         })
     }
 
-    // MARK: -
-    
     func removeObserver() {
         for listener in listeners{
             listener.remove()
         }
         listeners.removeAll()
-        //listener = nil
     }
 
-    // MARK: -
-    
     private func updateRealm(_ realm: Realm, _ values: [String: Any]) {
 
         var temp = values
@@ -132,7 +125,5 @@ class FireObserver: NSObject {
         }
 
         let source = snapshot.metadata.isFromCache ? "local" : "server"
-
-        // print("\(text): \(type.description()) \(snapshot.documentChanges.count) \(source) - \(delete)\(insert)\(modify)")
     }
 }
