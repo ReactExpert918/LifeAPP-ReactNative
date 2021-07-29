@@ -20,9 +20,15 @@ class PushNotification: NSObject {
         let serverKey = "AAAAa2uhe4c:APA91bEnMUCK-H2Bf3gM3o4Zo8TbDi_5oK41qzWcpOdf4JE4xHVOkwVrjrhBIJDd2JqTWTwo34LZBCmz2NARPLxOOLbxpAwloXAd5RLfQYPSQSenTf7Lz8kDXnWzNZB0IvhsQ8PH8Uwr"
         
         let userId = AuthUser.userId()
-        let paramString: [String : Any] = ["to" : token,
-                                           "notification" : ["title" : title, "body" : body],
-                                           "data" : ["userId" : userId]
+        let paramString: [String : Any] = [
+            "to" : token,
+            "notification" :
+                [
+                    "title" : title,
+                    "body" : body,
+                    "sound": "default"
+                ],
+            "data" : ["userId" : userId]
         ]
         let request = NSMutableURLRequest(url: url as URL)
         request.httpMethod = "POST"

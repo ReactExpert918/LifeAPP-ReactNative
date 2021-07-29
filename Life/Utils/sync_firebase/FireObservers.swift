@@ -43,6 +43,8 @@ class FireObservers: NSObject {
         NotificationCenter.default.addObserver(self, selector: #selector(initObservers), name: .appStarted, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(initObservers), name: .loggedIn, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(stopObservers), name: .loggedOut, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(updateFcmToken), name: .gotNewFCMToken, object: nil)
     }
 
     @objc private func initObservers() {
@@ -84,7 +86,12 @@ class FireObservers: NSObject {
         observerDetails.removeAll()
         observerMessages.removeAll()
     }
-
+    
+    // MARK: - upload fcm token
+    @objc fileprivate func updateFcmToken() {
+        let token = PrefsManager.getFCMToken()
+        Persons.update(oneSignalId: token)
+    }
     // MARK: -
     
     private func createObserverPerson() {

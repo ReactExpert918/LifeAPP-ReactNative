@@ -47,7 +47,7 @@ class SearchFriendsVC: BaseVC {
         searchBar.tintColor = .primaryColor
         let attributes:[NSAttributedString.Key: Any] = [
             .foregroundColor: UIColor.primaryColor,
-            .font: UIFont(name: MyFont.MontserratRegular, size: 16)
+            .font: UIFont(name: MyFont.MontserratRegular, size: 16)!
         ]
         UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).setTitleTextAttributes(attributes, for: .normal)
         /*
@@ -192,9 +192,6 @@ extension SearchFriendsVC: UITableViewDelegate, UITableViewDataSource {
             let vc = self.storyboard?.instantiateViewController(identifier: "StartChatVC") as! StartChatVC
             vc.person = person
             let sheetController = SheetViewController(controller: vc, sizes: [.fixed(360)])
-            sheetController.didDismiss = { _ in
-                
-            }
             
             self.present(sheetController, animated: true, completion: nil)
         }

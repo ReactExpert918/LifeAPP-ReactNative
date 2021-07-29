@@ -5,7 +5,7 @@
 import Foundation
 
 extension Notification.Name {
-    static let FCMToken = Notification.Name("FCMToken")
+    static let gotNewFCMToken = Notification.Name("gotNewFCMToken")
     
     static let appStarted = Notification.Name("AppStarted")
     static let loggedIn  = Notification.Name("UserLoggedIn")

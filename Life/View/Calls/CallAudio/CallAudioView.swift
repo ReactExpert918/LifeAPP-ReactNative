@@ -70,7 +70,7 @@ class CallAudioView: UIViewController {
         self.isModalInPresentation = true
         self.modalPresentationStyle = .fullScreen
 
-        let app = UIApplication.shared.delegate as? AppDelegate
+        _ = UIApplication.shared.delegate as? AppDelegate
         
         /*
         app?.callKitProvider?.setGroupCall(false)
@@ -92,7 +92,7 @@ class CallAudioView: UIViewController {
         self.isModalInPresentation = true
         self.modalPresentationStyle = .fullScreen
 
-        let app = UIApplication.shared.delegate as? AppDelegate
+        _ = UIApplication.shared.delegate as? AppDelegate
         /*
         app?.callKitProvider?.setGroupCall(true)
         for person in persons {

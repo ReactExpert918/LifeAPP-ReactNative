@@ -14,10 +14,11 @@ class SplashVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let email    = PrefsManager.getEmail()
-        
-        if email != "" {
+        let registered = PrefsManager.getRegistered()
+        if registered {
+            let email    = PrefsManager.getEmail()
             let password = PrefsManager.getPassword()
+            
             AuthUser.signIn(email: email, password: password) { (error) in
                 if error != nil {
                     self.gotoWelcomeVC()

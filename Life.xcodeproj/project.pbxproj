@@ -230,6 +230,7 @@
 		ABDAC92C24A64AE800E73667 /* SearchFriendsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDAC92B24A64AE800E73667 /* SearchFriendsVC.swift */; };
 		ABDAC93024A67D8C00E73667 /* SearchFriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDAC92F24A67D8C00E73667 /* SearchFriendCell.swift */; };
 		C6056B6826A567DE005D2123 /* Const + R.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6056B6726A567DE005D2123 /* Const + R.swift */; };
+		C607F44526B0E4EE0076394D /* AcceptDeclineVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C607F44426B0E4EE0076394D /* AcceptDeclineVC.swift */; };
 		C60985A526A543EF00ED72E5 /* BaseCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60985A126A543EF00ED72E5 /* BaseCVC.swift */; };
 		C60985A626A543EF00ED72E5 /* BaseTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60985A226A543EF00ED72E5 /* BaseTVC.swift */; };
 		C60985A726A543EF00ED72E5 /* BaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60985A326A543EF00ED72E5 /* BaseVC.swift */; };
@@ -239,6 +240,7 @@
 		C62AB17226AAA9C0001F21F6 /* HomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62AB17126AAA9C0001F21F6 /* HomeCell.swift */; };
 		C634B09D26AD3AEF0058932C /* SCLAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C634B09A26AD3AEF0058932C /* SCLAlertView.swift */; };
 		C634B09E26AD3AEF0058932C /* SCLExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C634B09B26AD3AEF0058932C /* SCLExtensions.swift */; };
+		C691E0DD26B2845C0083895B /* AccountSettingsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C691E0DC26B2845C0083895B /* AccountSettingsTVC.swift */; };
 		C6A5ED0C26AE571B005DA3FB /* Privacy.pdf in Resources */ = {isa = PBXBuildFile; fileRef = C6A5ED0A26AE571A005DA3FB /* Privacy.pdf */; };
 		C6A5ED0D26AE571B005DA3FB /* EULA.pdf in Resources */ = {isa = PBXBuildFile; fileRef = C6A5ED0B26AE571A005DA3FB /* EULA.pdf */; };
 		C6A5ED1626AE5864005DA3FB /* PrivacyEulaVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A5ED1526AE5864005DA3FB /* PrivacyEulaVC.swift */; };
@@ -292,15 +294,15 @@
 		C6D6B11D26A684F7001D7D1C /* UILabel+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D6B11826A684F7001D7D1C /* UILabel+Ex.swift */; };
 		C6D6B11E26A684F7001D7D1C /* UIButton+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D6B11926A684F7001D7D1C /* UIButton+Ex.swift */; };
 		C6EAAAEB26A7CBD7004F72AF /* ForgotPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EAAAEA26A7CBD7004F72AF /* ForgotPasswordVC.swift */; };
-		C6EAAB3526A7F4D4004F72AF /* AddMoneyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EAAB2626A7F4D4004F72AF /* AddMoneyViewController.swift */; };
+		C6EAAB3526A7F4D4004F72AF /* AddMoneyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EAAB2626A7F4D4004F72AF /* AddMoneyVC.swift */; };
 		C6EAAB3626A7F4D4004F72AF /* ZedPay.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C6EAAB2726A7F4D4004F72AF /* ZedPay.storyboard */; };
 		C6EAAB3726A7F4D4004F72AF /* ZedPay.strings in Resources */ = {isa = PBXBuildFile; fileRef = C6EAAB2926A7F4D4004F72AF /* ZedPay.strings */; };
 		C6EAAB3826A7F4D4004F72AF /* NoRecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EAAB2B26A7F4D4004F72AF /* NoRecordCell.swift */; };
-		C6EAAB3926A7F4D4004F72AF /* PassPayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EAAB2C26A7F4D4004F72AF /* PassPayViewController.swift */; };
-		C6EAAB3A26A7F4D4004F72AF /* PayBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EAAB2D26A7F4D4004F72AF /* PayBottomSheetViewController.swift */; };
-		C6EAAB3B26A7F4D4004F72AF /* PayMyQrGenerateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EAAB2E26A7F4D4004F72AF /* PayMyQrGenerateViewController.swift */; };
-		C6EAAB3C26A7F4D4004F72AF /* PayQRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EAAB2F26A7F4D4004F72AF /* PayQRCodeViewController.swift */; };
-		C6EAAB3D26A7F4D4004F72AF /* PayResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EAAB3026A7F4D4004F72AF /* PayResultViewController.swift */; };
+		C6EAAB3926A7F4D4004F72AF /* PassPayVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EAAB2C26A7F4D4004F72AF /* PassPayVC.swift */; };
+		C6EAAB3A26A7F4D4004F72AF /* PayBottomSheetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EAAB2D26A7F4D4004F72AF /* PayBottomSheetVC.swift */; };
+		C6EAAB3B26A7F4D4004F72AF /* PayMyQrGenerateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EAAB2E26A7F4D4004F72AF /* PayMyQrGenerateVC.swift */; };
+		C6EAAB3C26A7F4D4004F72AF /* PayQRCodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EAAB2F26A7F4D4004F72AF /* PayQRCodeVC.swift */; };
+		C6EAAB3D26A7F4D4004F72AF /* PayResultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EAAB3026A7F4D4004F72AF /* PayResultVC.swift */; };
 		C6EAAB3E26A7F4D4004F72AF /* TransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EAAB3126A7F4D4004F72AF /* TransactionCell.swift */; };
 		C6EAAB3F26A7F4D4004F72AF /* TransactionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6EAAB3226A7F4D4004F72AF /* TransactionCell.xib */; };
 		C6EAAB4026A7F4D4004F72AF /* TransactionDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EAAB3326A7F4D4004F72AF /* TransactionDetailVC.swift */; };
@@ -586,6 +588,7 @@
 		C2CCA01F5382939D3C8C584B /* Pods-LifeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LifeTests.debug.xcconfig"; path = "Target Support Files/Pods-LifeTests/Pods-LifeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C6056B6726A567DE005D2123 /* Const + R.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Const + R.swift"; sourceTree = "<group>"; };
 		C6056BC826A594DF005D2123 /* Life.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = Life.entitlements; sourceTree = "<group>"; };
+		C607F44426B0E4EE0076394D /* AcceptDeclineVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptDeclineVC.swift; sourceTree = "<group>"; };
 		C60985A126A543EF00ED72E5 /* BaseCVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseCVC.swift; sourceTree = "<group>"; };
 		C60985A226A543EF00ED72E5 /* BaseTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTVC.swift; sourceTree = "<group>"; };
 		C60985A326A543EF00ED72E5 /* BaseVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseVC.swift; sourceTree = "<group>"; };
@@ -595,6 +598,7 @@
 		C62AB17126AAA9C0001F21F6 /* HomeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCell.swift; sourceTree = "<group>"; };
 		C634B09A26AD3AEF0058932C /* SCLAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCLAlertView.swift; sourceTree = "<group>"; };
 		C634B09B26AD3AEF0058932C /* SCLExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCLExtensions.swift; sourceTree = "<group>"; };
+		C691E0DC26B2845C0083895B /* AccountSettingsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingsTVC.swift; sourceTree = "<group>"; };
 		C6A5ED0A26AE571A005DA3FB /* Privacy.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Privacy.pdf; sourceTree = "<group>"; };
 		C6A5ED0B26AE571A005DA3FB /* EULA.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = EULA.pdf; sourceTree = "<group>"; };
 		C6A5ED1526AE5864005DA3FB /* PrivacyEulaVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyEulaVC.swift; sourceTree = "<group>"; };
@@ -648,15 +652,15 @@
 		C6D6B11826A684F7001D7D1C /* UILabel+Ex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+Ex.swift"; sourceTree = "<group>"; };
 		C6D6B11926A684F7001D7D1C /* UIButton+Ex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Ex.swift"; sourceTree = "<group>"; };
 		C6EAAAEA26A7CBD7004F72AF /* ForgotPasswordVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotPasswordVC.swift; sourceTree = "<group>"; };
-		C6EAAB2626A7F4D4004F72AF /* AddMoneyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddMoneyViewController.swift; sourceTree = "<group>"; };
+		C6EAAB2626A7F4D4004F72AF /* AddMoneyVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddMoneyVC.swift; sourceTree = "<group>"; };
 		C6EAAB2826A7F4D4004F72AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/ZedPay.storyboard; sourceTree = "<group>"; };
 		C6EAAB2A26A7F4D4004F72AF /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/ZedPay.strings; sourceTree = "<group>"; };
 		C6EAAB2B26A7F4D4004F72AF /* NoRecordCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoRecordCell.swift; sourceTree = "<group>"; };
-		C6EAAB2C26A7F4D4004F72AF /* PassPayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassPayViewController.swift; sourceTree = "<group>"; };
-		C6EAAB2D26A7F4D4004F72AF /* PayBottomSheetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayBottomSheetViewController.swift; sourceTree = "<group>"; };
-		C6EAAB2E26A7F4D4004F72AF /* PayMyQrGenerateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayMyQrGenerateViewController.swift; sourceTree = "<group>"; };
-		C6EAAB2F26A7F4D4004F72AF /* PayQRCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayQRCodeViewController.swift; sourceTree = "<group>"; };
-		C6EAAB3026A7F4D4004F72AF /* PayResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayResultViewController.swift; sourceTree = "<group>"; };
+		C6EAAB2C26A7F4D4004F72AF /* PassPayVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassPayVC.swift; sourceTree = "<group>"; };
+		C6EAAB2D26A7F4D4004F72AF /* PayBottomSheetVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayBottomSheetVC.swift; sourceTree = "<group>"; };
+		C6EAAB2E26A7F4D4004F72AF /* PayMyQrGenerateVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayMyQrGenerateVC.swift; sourceTree = "<group>"; };
+		C6EAAB2F26A7F4D4004F72AF /* PayQRCodeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayQRCodeVC.swift; sourceTree = "<group>"; };
+		C6EAAB3026A7F4D4004F72AF /* PayResultVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayResultVC.swift; sourceTree = "<group>"; };
 		C6EAAB3126A7F4D4004F72AF /* TransactionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionCell.swift; sourceTree = "<group>"; };
 		C6EAAB3226A7F4D4004F72AF /* TransactionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionCell.xib; sourceTree = "<group>"; };
 		C6EAAB3326A7F4D4004F72AF /* TransactionDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionDetailVC.swift; sourceTree = "<group>"; };
@@ -1382,6 +1386,7 @@
 				A675884A24B8621400724B08 /* UpdatePasswordVC.swift */,
 				C6EAAB6226A80498004F72AF /* ZEDPaySettingsVC.swift */,
 				C6A5ED1526AE5864005DA3FB /* PrivacyEulaVC.swift */,
+				C691E0DC26B2845C0083895B /* AccountSettingsTVC.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -1389,12 +1394,13 @@
 		AB82ACD424A5453000D83E47 /* Friends */ = {
 			isa = PBXGroup;
 			children = (
-				AB277A8624AD17F800D6C783 /* AddFriendBottomSheetVC.swift */,
 				AB82ACD624A5453000D83E47 /* AddFriendsVC.swift */,
 				AB277A8824AD266D00D6C783 /* MyQRGenerateVC.swift */,
 				AB82ACD824A5453000D83E47 /* QRCodeVC.swift */,
 				ABDAC92B24A64AE800E73667 /* SearchFriendsVC.swift */,
 				C6A5ED6426AE9573005DA3FB /* StartChatVC.swift */,
+				C607F44426B0E4EE0076394D /* AcceptDeclineVC.swift */,
+				AB277A8624AD17F800D6C783 /* AddFriendBottomSheetVC.swift */,
 			);
 			path = Friends;
 			sourceTree = "<group>";
@@ -1609,13 +1615,13 @@
 		C6EAAB2526A7F4D4004F72AF /* ZedPay */ = {
 			isa = PBXGroup;
 			children = (
-				C6EAAB2626A7F4D4004F72AF /* AddMoneyViewController.swift */,
+				C6EAAB2626A7F4D4004F72AF /* AddMoneyVC.swift */,
 				C6EAAB2B26A7F4D4004F72AF /* NoRecordCell.swift */,
-				C6EAAB2C26A7F4D4004F72AF /* PassPayViewController.swift */,
-				C6EAAB2D26A7F4D4004F72AF /* PayBottomSheetViewController.swift */,
-				C6EAAB2E26A7F4D4004F72AF /* PayMyQrGenerateViewController.swift */,
-				C6EAAB2F26A7F4D4004F72AF /* PayQRCodeViewController.swift */,
-				C6EAAB3026A7F4D4004F72AF /* PayResultViewController.swift */,
+				C6EAAB2C26A7F4D4004F72AF /* PassPayVC.swift */,
+				C6EAAB2D26A7F4D4004F72AF /* PayBottomSheetVC.swift */,
+				C6EAAB2E26A7F4D4004F72AF /* PayMyQrGenerateVC.swift */,
+				C6EAAB2F26A7F4D4004F72AF /* PayQRCodeVC.swift */,
+				C6EAAB3026A7F4D4004F72AF /* PayResultVC.swift */,
 				C6EAAB3126A7F4D4004F72AF /* TransactionCell.swift */,
 				C6EAAB3226A7F4D4004F72AF /* TransactionCell.xib */,
 				C6EAAB3326A7F4D4004F72AF /* TransactionDetailVC.swift */,
@@ -2021,13 +2027,13 @@
 				AB5457A924B5D9FC008C7FB8 /* AddedMemberCell.swift in Sources */,
 				A682AA2124BC51F600003BD7 /* DottedProgressBar.swift in Sources */,
 				C6AB61BC26A6DD6F001F5F29 /* CGAngle.swift in Sources */,
-				C6EAAB3A26A7F4D4004F72AF /* PayBottomSheetViewController.swift in Sources */,
+				C6EAAB3A26A7F4D4004F72AF /* PayBottomSheetVC.swift in Sources */,
 				C6AB61A626A6DD6E001F5F29 /* CropMaskViewManager.swift in Sources */,
 				A6DEA85C24A83FDA00868625 /* Friend.swift in Sources */,
 				A6DEA84924A8365900868625 /* FireFetcher.swift in Sources */,
 				AB13A9DB24A2EF610028731D /* AppDelegate.swift in Sources */,
 				A6DEA82724A82A7100868625 /* RCMessageLocationCell.swift in Sources */,
-				C6EAAB3D26A7F4D4004F72AF /* PayResultViewController.swift in Sources */,
+				C6EAAB3D26A7F4D4004F72AF /* PayResultVC.swift in Sources */,
 				C6BFFF3C26A9062A0001D3BA /* CreateGroupTableViewCell.swift in Sources */,
 				A6DEA86224A83FF700868625 /* Member.swift in Sources */,
 				A6DEA82624A82A7100868625 /* RCMessageAudioCell.swift in Sources */,
@@ -2046,7 +2052,7 @@
 				C6D6B11A26A684F7001D7D1C /* UITextField+Ex.swift in Sources */,
 				AB82ACD324A5452700D83E47 /* SettingsVC.swift in Sources */,
 				C6EAACF626A818FA004F72AF /* UpdatePasscodeVC.swift in Sources */,
-				C6EAAB3B26A7F4D4004F72AF /* PayMyQrGenerateViewController.swift in Sources */,
+				C6EAAB3B26A7F4D4004F72AF /* PayMyQrGenerateVC.swift in Sources */,
 				A6DEA8A724A8717800868625 /* RCAudioLoader.swift in Sources */,
 				A6BD966324B4D54800E1B873 /* AudioView.swift in Sources */,
 				A6DEA87324A8405300868625 /* Persons.swift in Sources */,
@@ -2065,10 +2071,10 @@
 				A6DEA87024A8405300868625 /* Friends.swift in Sources */,
 				C6AB61B526A6DD6E001F5F29 /* CoreGraphicsExtensions.swift in Sources */,
 				A6DEA85024A8365900868625 /* FireUpdaters.swift in Sources */,
-				C6EAAB3926A7F4D4004F72AF /* PassPayViewController.swift in Sources */,
+				C6EAAB3926A7F4D4004F72AF /* PassPayVC.swift in Sources */,
 				A6DEA87224A8405300868625 /* Messages.swift in Sources */,
 				C6EAAB6426A80498004F72AF /* UpdateOPTVC.swift in Sources */,
-				C6EAAB3C26A7F4D4004F72AF /* PayQRCodeViewController.swift in Sources */,
+				C6EAAB3C26A7F4D4004F72AF /* PayQRCodeVC.swift in Sources */,
 				A6E7000B24B6C5B1004586E0 /* UserStatusCell.swift in Sources */,
 				A6BD966C24B4D56900E1B873 /* StickersView.swift in Sources */,
 				A6DEA89224A8557000868625 /* Convert.swift in Sources */,
@@ -2085,6 +2091,7 @@
 				AB82ACD024A5452700D83E47 /* SettingCell.swift in Sources */,
 				AB277A8724AD17F800D6C783 /* AddFriendBottomSheetVC.swift in Sources */,
 				A6E7001A24B6DBEB004586E0 /* PictureView.swift in Sources */,
+				C607F44526B0E4EE0076394D /* AcceptDeclineVC.swift in Sources */,
 				AB5457AB24B623A7008C7FB8 /* AddParticipantsVC.swift in Sources */,
 				A6DEA88A24A8536300868625 /* PushNotification.swift in Sources */,
 				C6AB61C226A6DD6F001F5F29 /* RotationDialViewModel.swift in Sources */,
@@ -2107,7 +2114,7 @@
 				C6AB61BA26A6DD6F001F5F29 /* CropVisualEffectView.swift in Sources */,
 				C6EAAAEB26A7CBD7004F72AF /* ForgotPasswordVC.swift in Sources */,
 				C6AB617526A6B57E001F5F29 /* ImagePicker.swift in Sources */,
-				C6EAAB3526A7F4D4004F72AF /* AddMoneyViewController.swift in Sources */,
+				C6EAAB3526A7F4D4004F72AF /* AddMoneyVC.swift in Sources */,
 				C6AB61A826A6DD6E001F5F29 /* CropScrollView.swift in Sources */,
 				C6D6B11E26A684F7001D7D1C /* UIButton+Ex.swift in Sources */,
 				C6AB61AF26A6DD6E001F5F29 /* CropToolbar.swift in Sources */,
@@ -2117,6 +2124,7 @@
 				C6EAAB3E26A7F4D4004F72AF /* TransactionCell.swift in Sources */,
 				C6AB61AD26A6DD6E001F5F29 /* CropViewStatus.swift in Sources */,
 				A6E73B4C24A532880008CBFE /* UIColor+Hex.swift in Sources */,
+				C691E0DD26B2845C0083895B /* AccountSettingsTVC.swift in Sources */,
 				C6AB61B426A6DD6E001F5F29 /* CGImageExtensions.swift in Sources */,
 				C6AB61C126A6DD6F001F5F29 /* RotationDialPlate.swift in Sources */,
 				A6C36B5824B5761F00583CAA /* NYTPhotoItem.swift in Sources */,
@@ -2418,10 +2426,10 @@
 				CODE_SIGN_ENTITLEMENTS = Life/Life.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 14;
 				DEVELOPMENT_TEAM = 2AV3B2BH2Y;
 				INFOPLIST_FILE = Life/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2443,10 +2451,10 @@
 				CODE_SIGN_ENTITLEMENTS = Life/Life.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 14;
 				DEVELOPMENT_TEAM = 2AV3B2BH2Y;
 				INFOPLIST_FILE = Life/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

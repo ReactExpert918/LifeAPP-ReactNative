@@ -25,7 +25,7 @@ class RCFooterLowerCell: UITableViewCell {
 		self.indexPath = indexPath
 		self.messagesView = messagesView
 
-		let rcmessage = messagesView.rcmessageAt(indexPath)
+		let _ = messagesView.rcmessageAt(indexPath)
 
 		backgroundColor = UIColor.clear
 
@@ -45,7 +45,7 @@ class RCFooterLowerCell: UITableViewCell {
 
 		let widthTable = messagesView.tableView.frame.size.width
 
-		let width = widthTable - RCDefaults.footerLowerLeft - RCDefaults.footerLowerRight
+		let _ = widthTable - RCDefaults.footerLowerLeft - RCDefaults.footerLowerRight
 		let height = (statusImageView != nil) ? RCDefaults.footerLowerHeight : 0
 
 		statusImageView.frame = CGRect(x: widthTable - 15 - RCDefaults.footerLowerRight, y: 0, width: 20, height: height)

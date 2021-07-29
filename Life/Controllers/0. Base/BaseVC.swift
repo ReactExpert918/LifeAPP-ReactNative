@@ -7,6 +7,7 @@ import UIKit
 import ProgressHUD
 import JGProgressHUD
 
+var _currentVC : UIViewController?
 
 class BaseVC: UIViewController, UIGestureRecognizerDelegate, UINavigationControllerDelegate {
     
@@ -22,6 +23,8 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate, UINavigationControl
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+    
+        _currentVC = self
         
         self.isModalInPresentation = true
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.plain, target:nil, action:nil)

@@ -17,6 +17,7 @@ class SuccessVC: BaseVC {
     }
     
     @IBAction func onStartTapped(_ sender: Any) {
+        PrefsManager.setRegistered(true)
         NotificationCenter.default.post(name: .loggedIn, object: nil)
         
         let vc = AppBoards.main.initialViewController

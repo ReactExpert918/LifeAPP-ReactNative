@@ -265,7 +265,7 @@ class ChatViewController: UIViewController {
             
             let recipient = realm.object(ofType: Person.self, forPrimaryKey: recipientId)
             let zedStoryboard = UIStoryboard.init(name: "ZedPay", bundle: nil)
-            let vc =  zedStoryboard.instantiateViewController(identifier: "payBottomSheetVC") as! PayBottomSheetViewController
+            let vc =  zedStoryboard.instantiateViewController(identifier: "PayBottomSheetVC") as! PayBottomSheetVC
             vc.person = recipient
             vc.chatId = self.chatId
             vc.recipientId = self.recipientId
@@ -1324,9 +1324,9 @@ extension ChatViewController: AutocompleteManagerDelegate, AutocompleteManagerDa
 extension ChatViewController: ImagePickerDelegate {
     
     func didSelect(_ image: UIImage?) {
-        guard let image = image else {
-            return
-        }
+//        guard let image = image else {
+//            return
+//        }
         
     }
 }

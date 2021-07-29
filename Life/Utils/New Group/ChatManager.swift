@@ -170,7 +170,7 @@ class ChatManager: NSObject {
 	
 	private func update(with single: Single) {
 
-		let isRecipient = (single.userId1 != AuthUser.userId())
+        _ = (single.userId1 != AuthUser.userId())
 
 		var temp: [String: Any] = [:]
 		temp["objectId"] = single.chatId

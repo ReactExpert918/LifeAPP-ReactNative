@@ -30,13 +30,12 @@ class BasicDetailInsertVC: BaseVC {
         txtEmail.delegate = self
         txtPassword.delegate = self
         txtConfirmPwd.delegate = self
-        
-        person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.isNavigationBarHidden = true
+        
+        person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
     }
     
     @IBAction func backTapped(_ sender: Any) {
@@ -100,8 +99,8 @@ class BasicDetailInsertVC: BaseVC {
                     self.person.updatedAt = Date().timestamp()
                 }
                 // Save to the UserDefaults
-                PrefsManager.setEmail(val: self.txtEmail.text!)
-                PrefsManager.setPassword(val: self.txtPassword.text!)
+                PrefsManager.setEmail(self.txtEmail.text!)
+                PrefsManager.setPassword(self.txtPassword.text!)
                 
                 self.gotoNext()
             }

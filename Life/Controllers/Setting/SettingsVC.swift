@@ -56,7 +56,7 @@ class SettingsVC: BaseVC {
                     if error != nil {
                         return
                     }
-                    PrefsManager.setEmail(val: "")
+                    PrefsManager.setEmail("")
                     self.gotoWelcomeViewController()
                 }
             }

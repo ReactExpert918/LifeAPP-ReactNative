@@ -18,6 +18,9 @@ class AddFriendsVC: BaseVC {
     @IBOutlet weak var confirmPopupProfileImage: UIImageView!
     @IBOutlet weak var confirmPopupLabel: UILabel!
     
+    @IBOutlet weak var btnBack: UIButton!
+    @IBOutlet weak var btnClose: UIButton!
+    
     let sections = ["New Friend Requests", "Friend Recommendations"]
     private var persons = realm.objects(Person.self).filter(falsepredicate)
     private var pendingFriends = realm.objects(Person.self).filter(falsepredicate)
@@ -30,6 +33,11 @@ class AddFriendsVC: BaseVC {
         
         tblFriends.register(UINib(nibName: "AddFriendSection", bundle: nil), forHeaderFooterViewReuseIdentifier: AddFriendSection.reuseIdentifier)
         tblFriends.tableFooterView = UIView(frame: .zero)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         loadFriendsRecommend()
         loadPendingFriends()
     }
@@ -85,10 +93,12 @@ class AddFriendsVC: BaseVC {
         personList.append(contentsOf: persons)
     }
     
+    @IBAction func onBackTapped(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
+    }
+    
     @IBAction func closeTapped(_ sender: Any) {
-        self.dismiss(animated: true){
-            
-        }
+        dismiss(animated: true, completion: nil)
     }
     
     @IBAction func qrcodeTapped(_ sender: Any) {

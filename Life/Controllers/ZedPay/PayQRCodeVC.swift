@@ -1,5 +1,5 @@
 //
-//  PayQRCodeViewController.swift
+//  PayQRCodeVC.swift
 //  Life
 //
 //  Created by mac on 2021/6/20.
@@ -11,7 +11,7 @@ import QRCodeReader
 import AVFoundation
 import FittedSheets
 
-class PayQRCodeViewController: UIViewController, QRCodeReaderViewControllerDelegate {
+class PayQRCodeVC: UIViewController, QRCodeReaderViewControllerDelegate {
     @IBOutlet weak var preView: QRCodeReaderView!{
       didSet {
         preView.setupComponents(with: QRCodeReaderViewControllerBuilder {
@@ -88,7 +88,7 @@ class PayQRCodeViewController: UIViewController, QRCodeReaderViewControllerDeleg
                     }
                     let person = realm.object(ofType: Person.self, forPrimaryKey: qrCode)
                     if let person = person{
-                        let vc =  self.storyboard?.instantiateViewController(identifier: "payBottomSheetVC") as! PayBottomSheetViewController
+                        let vc =  self.storyboard?.instantiateViewController(identifier: "PayBottomSheetVC") as! PayBottomSheetVC
                         vc.person = person
                         vc.qrView = self
                         let sheetController = SheetViewController(controller: vc, sizes: [.fixed(470)])
@@ -125,7 +125,7 @@ class PayQRCodeViewController: UIViewController, QRCodeReaderViewControllerDeleg
             alert.addAction(UIAlertAction(title: "Setting", style: .default, handler: { (_) in
             DispatchQueue.main.async {
               if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
-                UIApplication.shared.openURL(settingsURL)
+                UIApplication.shared.open(settingsURL)
               }
             }
           }))

@@ -98,7 +98,7 @@ class FriendCell: UITableViewCell {
     }
     
     func removeGestureRecognizer() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(actionTapRemove))
+        _ = UITapGestureRecognizer(target: self, action: #selector(actionTapRemove))
     }
     
     func cellGestureRecognizer() {

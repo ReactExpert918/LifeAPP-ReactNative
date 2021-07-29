@@ -26,7 +26,7 @@ class UpdateOPTVC: BaseVC {
     }
     override func viewDidAppear(_ animated: Bool) {
         
-        optView.becomeFirstResponder()
+        _ = optView.becomeFirstResponder()
     }
 
     @IBAction func onCloseTapped(_ sender: Any) {
@@ -35,7 +35,7 @@ class UpdateOPTVC: BaseVC {
     }
 
     @IBAction func onSubmitTapped(_ sender: Any) {
-        optView.resignFirstResponder()
+        _ = optView.resignFirstResponder()
         let verificationCode = optView.text ?? "123456"
         if verificationCode.count != 6 {
             return

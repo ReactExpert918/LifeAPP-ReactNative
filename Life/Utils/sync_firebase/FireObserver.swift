@@ -115,15 +115,17 @@ class FireObserver: NSObject {
     // MARK: -
     
     private func printDetails(_ text: String, _ snapshot: QuerySnapshot) {
-
-        var delete = "", insert = "", modify = ""
+/*
+        var delete = ""
+        var insert = ""
+        var modify = ""
 
         for documentChange in snapshot.documentChanges {
             if (documentChange.type == .removed)    { delete = "delete" }
-            if (documentChange.type == .added)        { insert = "insert" }
-            if (documentChange.type == .modified)    { modify = "modify" }
-        }
+            if (documentChange.type == .added)      { insert = "insert" }
+            if (documentChange.type == .modified)   { modify = "modify" }
+        }*/
 
-        let source = snapshot.metadata.isFromCache ? "local" : "server"
+        _ = snapshot.metadata.isFromCache ? "local" : "server"
     }
 }

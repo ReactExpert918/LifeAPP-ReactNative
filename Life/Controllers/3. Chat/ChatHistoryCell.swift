@@ -44,7 +44,7 @@ class ChatHistoryCell: UITableViewCell {
 
         if (chat.isPrivate) {
             let isRecipient = (chat.userId1 != AuthUser.userId())
-            let userId = isRecipient ? chat.userId1 : chat.userId2
+            let _ = isRecipient ? chat.userId1 : chat.userId2 // userId
             /*
             if let path = MediaDownload.pathUser(userId) {
                 profileImageView.image = UIImage.image(path, size: 50)

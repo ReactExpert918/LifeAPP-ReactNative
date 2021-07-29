@@ -1,5 +1,5 @@
 //
-//  PassPayViewController.swift
+//  PassPayVC.swift
 //  Life
 //
 //  Created by mac on 2021/6/23.
@@ -11,7 +11,7 @@ import DPOTPView
 import JGProgressHUD
 import RealmSwift
 
-class PassPayViewController: UIViewController {
+class PassPayVC: UIViewController {
     weak var pvc : UIViewController?
     @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var nextBottomContraint: NSLayoutConstraint!
@@ -65,7 +65,7 @@ class PassPayViewController: UIViewController {
     }
 
     @objc func keyboardWillHide(_ notification: Notification) {
-        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+        if let _: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             nextBottomContraint.constant = 30
         }
     }
@@ -124,7 +124,7 @@ class PassPayViewController: UIViewController {
         
         weak var pvc = self.presentingViewController
         self.dismiss(animated: false, completion: {
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: "payResultVC") as! PayResultViewController
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "payResultVC") as! PayResultVC
             vc.transaction = self.transactions.first!
             vc.chatId = self.chatId
             vc.recipientId = self.recipientId
@@ -135,7 +135,7 @@ class PassPayViewController: UIViewController {
     }
 
 }
-extension PassPayViewController : DPOTPViewDelegate {
+extension PassPayVC : DPOTPViewDelegate {
    func dpOTPViewAddText(_ text: String, at position: Int) {
         //// print("addText:- " + text + " at:- \(position)" )
         self.checkValidation(text: text)

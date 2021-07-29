@@ -31,8 +31,8 @@ class SigninVC: BaseVC {
         txtPassword.delegate = self
         scrollViewHeightConstraint.constant = Const.shared.SCREEN_HEIGHT //UIScreen.main.bounds.size.height
         
-        txtEmail.text = "bright.test@test.com" //"isso@zedinternational.net"
-        txtPassword.text = "1234567890" //"abcdef123456"
+        txtEmail.text = "bright.test@test.com"
+        txtPassword.text = "1234567890"
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -99,18 +99,18 @@ class SigninVC: BaseVC {
     
     fileprivate func loadPerson() {
         
-        PrefsManager.setEmail(val: txtEmail.text!)
+        PrefsManager.setEmail(txtEmail.text!)
+        PrefsManager.setPassword(self.txtPassword.text!)
         
         let userId = AuthUser.userId()
         FireFetcher.fetchPerson(userId) { error in
             self.hideProgress()
             if (error == nil) {
                 self.dismiss(animated: true) {
+                    PrefsManager.setRegistered(true)
                     NotificationCenter.default.post(name: .loggedIn, object: nil)
-                    
                     UIApplication.shared.windows.first?.rootViewController?.dismiss(animated: true, completion: nil)
                     let vc = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
-            
                     UIApplication.shared.windows.first?.rootViewController = vc
                 }
             } else {
@@ -128,9 +128,6 @@ class SigninVC: BaseVC {
 
         let userId = AuthUser.userId()
         Persons.create(userId, email: email)
-    }
-    
-    @IBAction func onForgottxtPasswordTapped(_ sender: Any) {
     }
     
     fileprivate func displayError() {

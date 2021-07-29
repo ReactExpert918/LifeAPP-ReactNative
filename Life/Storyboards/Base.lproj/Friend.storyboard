@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="IkP-on-BeF">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -35,18 +36,29 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xI5-gY-3a5" userLabel="top bar">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="140"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1j6-ES-RnF">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1j6-ES-RnF" userLabel="title">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
                                         <subviews>
-                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RXf-SV-9F7">
+                                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_arrow_back" translatesAutoresizingMaskIntoConstraints="NO" id="m6O-MC-AYT">
+                                                <rect key="frame" x="16" y="22" width="20" height="20"/>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="20" id="V1f-83-nJh"/>
+                                                    <constraint firstAttribute="height" constant="20" id="y1d-uB-Cyi"/>
+                                                </constraints>
+                                            </imageView>
+                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RXf-SV-9F7" userLabel="btnBack">
                                                 <rect key="frame" x="16" y="20" width="24" height="24"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="24" id="6f3-dU-yVr"/>
                                                     <constraint firstAttribute="width" constant="24" id="D9A-xQ-Izd"/>
                                                 </constraints>
-                                                <state key="normal" image="setting"/>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <connections>
+                                                    <action selector="onBackTapped:" destination="LxM-be-Wx5" eventType="touchUpInside" id="wSp-vJ-Tk1"/>
+                                                </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Friends" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LnT-M0-fN7">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Friends" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LnT-M0-fN7" customClass="TitleLabel" customModule="Life" customModuleProvider="target">
                                                 <rect key="frame" x="131" y="20" width="113" height="24"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -67,10 +79,12 @@
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
+                                            <constraint firstItem="m6O-MC-AYT" firstAttribute="leading" secondItem="RXf-SV-9F7" secondAttribute="leading" id="0i8-o8-sh5"/>
                                             <constraint firstAttribute="trailing" secondItem="XFh-tw-SRH" secondAttribute="trailing" constant="16" id="5Or-o8-N34"/>
                                             <constraint firstItem="XFh-tw-SRH" firstAttribute="centerY" secondItem="1j6-ES-RnF" secondAttribute="centerY" id="9Tm-zd-b9E"/>
                                             <constraint firstAttribute="height" constant="64" id="EZR-ng-RIS"/>
                                             <constraint firstItem="RXf-SV-9F7" firstAttribute="centerY" secondItem="1j6-ES-RnF" secondAttribute="centerY" id="G8y-6t-Ikv"/>
+                                            <constraint firstItem="m6O-MC-AYT" firstAttribute="centerY" secondItem="1j6-ES-RnF" secondAttribute="centerY" id="T7v-JC-ZLh"/>
                                             <constraint firstItem="LnT-M0-fN7" firstAttribute="centerX" secondItem="1j6-ES-RnF" secondAttribute="centerX" id="Wiz-GI-NrB"/>
                                             <constraint firstItem="LnT-M0-fN7" firstAttribute="centerY" secondItem="1j6-ES-RnF" secondAttribute="centerY" id="kli-Uu-l7B"/>
                                             <constraint firstItem="RXf-SV-9F7" firstAttribute="leading" secondItem="1j6-ES-RnF" secondAttribute="leading" constant="16" id="qot-wm-PaW"/>
@@ -359,11 +373,16 @@
                                                         <state key="normal" title="Decline">
                                                             <color key="titleColor" red="0.12941176470588234" green="0.12941176470588234" blue="0.12941176470588234" alpha="1" colorSpace="calibratedRGB"/>
                                                         </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="8"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="onDeclineTapped:" destination="LxM-be-Wx5" eventType="touchUpInside" id="mth-Fj-MRQ"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wA6-CJ-wcO">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wA6-CJ-wcO" customClass="ThemeButton" customModule="Life" customModuleProvider="target">
                                                         <rect key="frame" x="125" y="0.0" width="110" height="45"/>
                                                         <color key="backgroundColor" red="0.086274509799999996" green="0.25098039220000001" blue="0.43529411759999997" alpha="1" colorSpace="calibratedRGB"/>
                                                         <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="17"/>
@@ -437,6 +456,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="ozT-PR-4gK"/>
                     <connections>
+                        <outlet property="btnBack" destination="RXf-SV-9F7" id="zfm-jx-XIA"/>
+                        <outlet property="btnClose" destination="XFh-tw-SRH" id="O9n-GV-X20"/>
                         <outlet property="confirmPopupLabel" destination="gTG-sD-69E" id="Kfj-MJ-mp7"/>
                         <outlet property="confirmPopupProfileImage" destination="G3e-nL-Lu1" id="KVk-5r-bjO"/>
                         <outlet property="confirmPopupView" destination="0o4-XZ-zQ0" id="Zev-hs-Nk8"/>
@@ -497,7 +518,7 @@
                                                     <constraint firstAttribute="width" constant="40" id="zsp-6Q-PMv"/>
                                                 </constraints>
                                             </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search Friends" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="geZ-Ja-ngt">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search Friends" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="geZ-Ja-ngt" customClass="TitleLabel" customModule="Life" customModuleProvider="target">
                                                 <rect key="frame" x="117" y="20" width="141" height="24"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1257,19 +1278,24 @@ friend scan your QR code</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xFn-xy-Zcp" customClass="RoundedCornerBorderView" customModule="Life" customModuleProvider="target">
                                 <rect key="frame" x="112.5" y="469" width="150" height="50"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="my_qrcode" translatesAutoresizingMaskIntoConstraints="NO" id="yDa-px-PH5">
-                                        <rect key="frame" x="12" y="13" width="24" height="24"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="24" id="7EW-b9-WGL"/>
-                                            <constraint firstAttribute="height" constant="24" id="aLM-Us-GI3"/>
-                                        </constraints>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My QR Code" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ah6-Wn-Dfi">
-                                        <rect key="frame" x="51" y="16.5" width="87" height="17"/>
-                                        <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="14"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="cxe-LQ-YQT">
+                                        <rect key="frame" x="14.5" y="13" width="121" height="24"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="my_qrcode" translatesAutoresizingMaskIntoConstraints="NO" id="yDa-px-PH5">
+                                                <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="24" id="7EW-b9-WGL"/>
+                                                    <constraint firstAttribute="height" constant="24" id="aLM-Us-GI3"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My QR Code" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ah6-Wn-Dfi">
+                                                <rect key="frame" x="34" y="0.0" width="87" height="24"/>
+                                                <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="14"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gZc-cZ-e4d">
                                         <rect key="frame" x="0.0" y="0.0" width="150" height="50"/>
                                         <connections>
@@ -1282,11 +1308,9 @@ friend scan your QR code</string>
                                     <constraint firstAttribute="height" constant="50" id="12G-Vq-xXn"/>
                                     <constraint firstItem="gZc-cZ-e4d" firstAttribute="top" secondItem="xFn-xy-Zcp" secondAttribute="top" id="1oc-0x-Sow"/>
                                     <constraint firstAttribute="width" constant="150" id="3zE-4V-DhA"/>
-                                    <constraint firstItem="yDa-px-PH5" firstAttribute="centerY" secondItem="xFn-xy-Zcp" secondAttribute="centerY" id="Ekb-IC-gSE"/>
-                                    <constraint firstItem="Ah6-Wn-Dfi" firstAttribute="centerY" secondItem="xFn-xy-Zcp" secondAttribute="centerY" id="QLQ-VM-1zc"/>
+                                    <constraint firstItem="cxe-LQ-YQT" firstAttribute="centerX" secondItem="xFn-xy-Zcp" secondAttribute="centerX" id="C2Y-id-f6H"/>
                                     <constraint firstAttribute="trailing" secondItem="gZc-cZ-e4d" secondAttribute="trailing" id="SSu-fx-4eT"/>
-                                    <constraint firstAttribute="trailing" secondItem="Ah6-Wn-Dfi" secondAttribute="trailing" constant="12" id="aMR-fk-Lnm"/>
-                                    <constraint firstItem="yDa-px-PH5" firstAttribute="leading" secondItem="xFn-xy-Zcp" secondAttribute="leading" constant="12" id="bNa-fv-jLE"/>
+                                    <constraint firstItem="cxe-LQ-YQT" firstAttribute="centerY" secondItem="xFn-xy-Zcp" secondAttribute="centerY" id="iWE-yp-hvo"/>
                                     <constraint firstAttribute="bottom" secondItem="gZc-cZ-e4d" secondAttribute="bottom" id="oOi-6q-v0E"/>
                                     <constraint firstItem="gZc-cZ-e4d" firstAttribute="leading" secondItem="xFn-xy-Zcp" secondAttribute="leading" id="r8z-yn-iUE"/>
                                 </constraints>
@@ -1381,24 +1405,161 @@ to your friend list</string>
         <!--Navigation Controller-->
         <scene sceneID="IPJ-Es-P4i">
             <objects>
-                <navigationController storyboardIdentifier="addFriendRootVC" automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="IkP-on-BeF" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="IkP-on-BeF" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="61O-ZJ-uxF">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="LxM-be-Wx5" kind="relationship" relationship="rootViewController" id="Gd2-6s-X99"/>
+                        <segue destination="LxM-be-Wx5" kind="relationship" relationship="rootViewController" id="jBC-CF-yht"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J9B-bT-3Kb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-520.79999999999995" y="64.285714285714292"/>
+            <point key="canvasLocation" x="-335" y="63"/>
+        </scene>
+        <!--AcceptDeclineVC-->
+        <scene sceneID="k30-T9-dZg">
+            <objects>
+                <viewController storyboardIdentifier="AcceptDeclineVC" id="b2B-uI-8G4" userLabel="AcceptDeclineVC" customClass="AcceptDeclineVC" customModule="Life" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="RhP-t3-34m">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="360"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2hk-kT-cXo" customClass="RoundedCornerBorderView" customModule="Life" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="360"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Do you want to add Andrea to your friend list ?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EQD-RP-hTn">
+                                        <rect key="frame" x="30" y="194.5" width="315" height="17.5"/>
+                                        <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="15"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="4GL-Pu-hbm">
+                                        <rect key="frame" x="30" y="285" width="315" height="45"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ajR-zG-pjF">
+                                                <rect key="frame" x="0.0" y="0.0" width="150" height="45"/>
+                                                <color key="backgroundColor" red="0.78823529410000004" green="0.78823529410000004" blue="0.78823529410000004" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="17"/>
+                                                <state key="normal" title="Decline">
+                                                    <color key="titleColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="8"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="onDeclineTapped:" destination="b2B-uI-8G4" eventType="touchUpInside" id="FgN-wP-nNd"/>
+                                                    <action selector="onDeclineTapped:" destination="LxM-be-Wx5" eventType="touchUpInside" id="Kfb-oC-coL"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hiu-RQ-YqP" customClass="ThemeButton" customModule="Life" customModuleProvider="target">
+                                                <rect key="frame" x="165" y="0.0" width="150" height="45"/>
+                                                <color key="backgroundColor" red="0.086274509799999996" green="0.25098039220000001" blue="0.43529411759999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="17"/>
+                                                <state key="normal" title="Accept">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="onAcceptTapped:" destination="b2B-uI-8G4" eventType="touchUpInside" id="bEV-XG-3pC"/>
+                                                    <action selector="onAcceptTapped:" destination="LxM-be-Wx5" eventType="touchUpInside" id="jOB-aB-Drm"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="45" id="Jft-6A-ynn"/>
+                                        </constraints>
+                                    </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="James Watson" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dwa-ez-Y9f">
+                                        <rect key="frame" x="16" y="130" width="343" height="19"/>
+                                        <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="16"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9876543210" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dVq-iI-INc">
+                                        <rect key="frame" x="16" y="161" width="343" height="17.5"/>
+                                        <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
+                                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_default_profile" translatesAutoresizingMaskIntoConstraints="NO" id="Rk6-MF-Kwo">
+                                        <rect key="frame" x="147.5" y="30" width="80" height="80"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="80" id="SKJ-Rq-vEl"/>
+                                            <constraint firstAttribute="width" constant="80" id="lyt-iV-MxL"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="40"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="2"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" name="avatarViewBackground"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="EQD-RP-hTn" firstAttribute="leading" secondItem="2hk-kT-cXo" secondAttribute="leading" constant="30" id="370-kB-qtG"/>
+                                    <constraint firstItem="Rk6-MF-Kwo" firstAttribute="centerX" secondItem="2hk-kT-cXo" secondAttribute="centerX" id="39O-nQ-xS0"/>
+                                    <constraint firstAttribute="trailing" secondItem="4GL-Pu-hbm" secondAttribute="trailing" constant="30" id="4fB-Sn-CXM"/>
+                                    <constraint firstItem="Dwa-ez-Y9f" firstAttribute="leading" secondItem="2hk-kT-cXo" secondAttribute="leading" constant="16" id="IUg-QD-u9y"/>
+                                    <constraint firstAttribute="bottom" secondItem="4GL-Pu-hbm" secondAttribute="bottom" constant="30" id="Nbs-eI-x3z"/>
+                                    <constraint firstItem="EQD-RP-hTn" firstAttribute="centerX" secondItem="2hk-kT-cXo" secondAttribute="centerX" id="NpZ-yO-y5H"/>
+                                    <constraint firstItem="dVq-iI-INc" firstAttribute="centerX" secondItem="2hk-kT-cXo" secondAttribute="centerX" id="Oxm-Tn-OGe"/>
+                                    <constraint firstItem="Rk6-MF-Kwo" firstAttribute="top" secondItem="2hk-kT-cXo" secondAttribute="top" constant="30" id="PaN-1C-9VI"/>
+                                    <constraint firstItem="dVq-iI-INc" firstAttribute="top" secondItem="Dwa-ez-Y9f" secondAttribute="bottom" constant="12" id="Rw2-44-kdB"/>
+                                    <constraint firstItem="4GL-Pu-hbm" firstAttribute="leading" secondItem="2hk-kT-cXo" secondAttribute="leading" constant="30" id="bvH-3B-2u2"/>
+                                    <constraint firstItem="Dwa-ez-Y9f" firstAttribute="centerX" secondItem="2hk-kT-cXo" secondAttribute="centerX" id="cXr-Xz-mVr"/>
+                                    <constraint firstItem="dVq-iI-INc" firstAttribute="leading" secondItem="2hk-kT-cXo" secondAttribute="leading" constant="16" id="fsH-fp-6jm"/>
+                                    <constraint firstItem="Dwa-ez-Y9f" firstAttribute="top" secondItem="Rk6-MF-Kwo" secondAttribute="bottom" constant="20" id="pIU-uK-hX8"/>
+                                    <constraint firstAttribute="bottom" secondItem="4GL-Pu-hbm" secondAttribute="bottom" constant="30" id="tQx-cl-cwt"/>
+                                    <constraint firstItem="EQD-RP-hTn" firstAttribute="top" secondItem="dVq-iI-INc" secondAttribute="bottom" constant="16" id="zjv-uX-QzF"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="topCornerRadius">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="SpP-br-HOm"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="SpP-br-HOm" firstAttribute="bottom" secondItem="2hk-kT-cXo" secondAttribute="bottom" id="KkT-mX-n9K"/>
+                            <constraint firstItem="SpP-br-HOm" firstAttribute="trailing" secondItem="2hk-kT-cXo" secondAttribute="trailing" id="YlJ-8G-hLF"/>
+                            <constraint firstItem="2hk-kT-cXo" firstAttribute="leading" secondItem="SpP-br-HOm" secondAttribute="leading" id="Zqg-NU-fHb"/>
+                            <constraint firstItem="2hk-kT-cXo" firstAttribute="top" secondItem="SpP-br-HOm" secondAttribute="top" id="y6h-3N-nGd"/>
+                        </constraints>
+                    </view>
+                    <size key="freeformSize" width="375" height="360"/>
+                    <connections>
+                        <outlet property="imvProfile" destination="Rk6-MF-Kwo" id="yr3-Ui-Pwy"/>
+                        <outlet property="lblMessage" destination="EQD-RP-hTn" id="shv-sY-Dfc"/>
+                        <outlet property="lblName" destination="Dwa-ez-Y9f" id="cVr-z0-ezj"/>
+                        <outlet property="lblPhoneNum" destination="dVq-iI-INc" id="pq2-3W-Z4l"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="N5b-h0-eOt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2486" y="65"/>
         </scene>
     </scenes>
     <designables>
         <designable name="30M-F4-H2b">
             <size key="intrinsicContentSize" width="100" height="100"/>
+        </designable>
+        <designable name="FGb-wg-7lO">
+            <size key="intrinsicContentSize" width="24" height="24"/>
         </designable>
         <designable name="XTB-YZ-7kB">
             <size key="intrinsicContentSize" width="100" height="100"/>
@@ -1409,11 +1570,14 @@ to your friend list</string>
         <designable name="eFc-sT-5XE">
             <size key="intrinsicContentSize" width="100" height="100"/>
         </designable>
+        <designable name="lGe-Ck-jXC">
+            <size key="intrinsicContentSize" width="24" height="24"/>
+        </designable>
     </designables>
     <resources>
         <image name="add_friend" width="60" height="60"/>
         <image name="cancel" width="55" height="55.5"/>
-        <image name="chevron.left" catalog="system" width="96" height="128"/>
+        <image name="chevron.left" catalog="system" width="32" height="32"/>
         <image name="colored_cancel" width="55" height="55.5"/>
         <image name="download" width="73.5" height="70.5"/>
         <image name="ic_arrow_back" width="35.5" height="62"/>
@@ -1425,7 +1589,9 @@ to your friend list</string>
         <image name="reload" width="68" height="68.5"/>
         <image name="search" width="100" height="98"/>
         <image name="search_bk" width="1015" height="595.5"/>
-        <image name="setting" width="25" height="25"/>
+        <namedColor name="avatarViewBackground">
+            <color red="0.55699998140335083" green="0.55699998140335083" blue="0.57599997520446777" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="themeColor">
             <color red="0.086000002920627594" green="0.25099998712539673" blue="0.43500000238418579" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

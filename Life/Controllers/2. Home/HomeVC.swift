@@ -85,7 +85,7 @@ class HomeVC: BaseVC, CreateGroupDelegate, ChatViewControllerProtocol {
         homeTableView.dataSource = self
         homeTableView.delegate = self
         
-        //updateFcmToken()
+        updateFcmToken()
     }
     
     // MARK: - Realm methods
@@ -188,11 +188,9 @@ class HomeVC: BaseVC, CreateGroupDelegate, ChatViewControllerProtocol {
     }
     
     @IBAction func onAddFriendPressed(_ sender: Any) {
-        let mainstoryboard = UIStoryboard.init(name: "Friend", bundle: nil)
-        let vc = mainstoryboard.instantiateViewController(withIdentifier: "addFriendRootVC")
-//        self.navigationController?.pushViewController(vc, animated: true)
+        let vc = AppBoards.friend.initialViewController
         vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: true, completion: nil)
+        present(vc, animated: true, completion: nil)
     }
     
     func openPrivateChat(chatId: String, recipientId: String) {

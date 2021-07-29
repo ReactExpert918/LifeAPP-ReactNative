@@ -1,5 +1,5 @@
 //
-//  PayResultViewController.swift
+//  PayResultVC.swift
 //  Life
 //
 //  Created by mac on 2021/6/23.
@@ -9,7 +9,8 @@
 import UIKit
 import RealmSwift
 import FittedSheets
-class PayResultViewController: UIViewController {
+
+class PayResultVC: UIViewController {
 
     @IBOutlet weak var labelTransactionId: UILabel!
     @IBOutlet weak var labelAmount: UILabel!
@@ -54,7 +55,7 @@ class PayResultViewController: UIViewController {
         let toPerson = realm.object(ofType: Person.self, forPrimaryKey: transaction.toUserId)
         weak var pvc = self.presentingViewController
         self.dismiss(animated: false, completion: {
-            let vc =  self.storyboard?.instantiateViewController(identifier: "payBottomSheetVC") as! PayBottomSheetViewController
+            let vc =  self.storyboard?.instantiateViewController(identifier: "PayBottomSheetVC") as! PayBottomSheetVC
             vc.person = toPerson
             vc.chatId = self.chatId
             vc.recipientId = self.recipientId

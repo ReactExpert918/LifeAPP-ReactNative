@@ -15,7 +15,7 @@ extension UIColor {
         case primaryColor      = "#16406F"
         case lightPrimaryColor = "#96B4D2"
         case errorRedColor     = "#DF1747"
-        case errorLightColor   = "#fadde2"
+        case errorLightColor   = "#FADDE2"
         
     }
     

@@ -110,7 +110,7 @@ class ZedHistoryVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         if let paymentMethod = paymentMethods.first {
             weak var pvc = self.presentingViewController
             self.dismiss(animated: false){
-                let vc = self.storyboard!.instantiateViewController(withIdentifier: "addMoneyVC") as! AddMoneyViewController
+                let vc = self.storyboard!.instantiateViewController(withIdentifier: "addMoneyVC") as! AddMoneyVC
                 vc.modalPresentationStyle = .fullScreen
                 vc.paymentMethod = paymentMethod
                 pvc?.present(vc, animated: true, completion: nil)
@@ -137,7 +137,7 @@ class ZedHistoryVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         
         weak var pvc = self.presentingViewController
         self.dismiss(animated: false){
-            let vc = self.storyboard!.instantiateViewController(withIdentifier: "payQRCodeVC") as! PayQRCodeViewController
+            let vc = self.storyboard!.instantiateViewController(withIdentifier: "payQRCodeVC") as! PayQRCodeVC
             vc.modalPresentationStyle = .fullScreen
             pvc?.present(vc, animated: true, completion: nil)
         }

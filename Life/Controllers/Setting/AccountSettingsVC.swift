@@ -96,7 +96,7 @@ class AccountSettingsVC: BaseVC, UIImagePickerControllerDelegate, UpdateDataDele
             }
             
             DispatchQueue.main.async() {
-                PrefsManager.setEmail(val: "")
+                PrefsManager.setEmail("")
                 self.gotoWelcomeVC()
             }
         }

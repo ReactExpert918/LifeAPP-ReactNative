@@ -11,6 +11,7 @@ import IQKeyboardManagerSwift
 import Firebase
 import FirebaseAuth
 import RealmSwift
+import FittedSheets
 
 var realm = try! Realm()
 let falsepredicate = NSPredicate(value: false)
@@ -75,7 +76,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("device token: \(deviceToken.toHexString())")
         print("device token: \(deviceToken.description)")
         firebaseAuth.setAPNSToken(deviceToken, type: .unknown)
-//        firebaseAuth.setAPNSToken(deviceToken, type: .sandbox)
     }
 
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any],
@@ -153,7 +153,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             standardAppearance.titleTextAttributes = [
                 .foregroundColor: UIColor.white,
-                .font: UIFont(name: MyFont.MontserratMedium, size: 18)!
+                .font: UIFont(name: MyFont.MontserratBold, size: 20)!
             ]
             standardAppearance.shadowColor = nil
 
@@ -170,7 +170,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             navigationBar.tintColor = .white//.colorPrimary
             navigationBar.titleTextAttributes = [
                 NSAttributedString.Key.foregroundColor: UIColor.white,
-                NSAttributedString.Key.font: UIFont(name: MyFont.MontserratMedium, size: 18)!
+                NSAttributedString.Key.font: UIFont(name: MyFont.MontserratBold, size: 20)!
             ]
             navigationBar.shadowImage = UIImage()
         }
@@ -216,40 +216,23 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         print(userInfo)
 
         let aps = userInfo["aps"] as? [AnyHashable : Any]
-        let noti = aps!["notification"] as? [AnyHashable : Any]
-        let msgTitle = noti!["title"] as! String
-        let msgBody  = noti!["body"] as! String
+        let alertMessage = aps!["alert"] as? [AnyHashable : Any]
+        _  = alertMessage!["body"] as! String
         
-        let tmpData = aps!["data"] as? [AnyHashable : Any]
-        let userId  = tmpData!["userId"] as! String
+        let userId = userInfo["userId"] as? String
         
         // display alert for notification
-        let alert = UIAlertController(title: "Life", message: msgBody, preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: R.btnAccept, style: .default, handler: { (_) in
-            
-        }))
-        alert.addAction(UIAlertAction(title: R.btnDecline, style: .cancel, handler: { (_) in
-            
-        }))
-        alert.setTintColor(.black)
-        alert.setTitle(UIFont(name: MyFont.MontserratBold, size: 16), color: .black)
-        alert.setMessage(UIFont(name: MyFont.MontserratRegular, size: 14), color: .black)
-        UIApplication.shared.windows.first?.rootViewController?.present(alert, animated: true, completion: nil)
-        /*
-        let alt = SCLAlertView(appearance: Const.shared.alertAppearance)
-        let profileImage = UIImage(named: "ic_default_profile")
-        alt.addButton(R.btnAccept, backgroundColor: UIColor.primaryColor, textColor: UIColor.white) {
-            // no action
-        }
+        let vc = AppBoards.friend.viewController(withIdentifier: "AcceptDeclineVC") as! AcceptDeclineVC
+        vc.userId = userId ?? ""
+        let sheetController = SheetViewController(controller: vc, sizes: [.fixed(360)])
+        UIApplication.shared.windows.first?.rootViewController?.present(sheetController, animated: true, completion: nil)
         
-        alt.addButton(R.btnDecline, backgroundColor: UIColor.lightGray, textColor: UIColor.black) {
-            // no action
+        if #available(iOS 14.0, *) {
+            completionHandler([[.banner, .badge, .sound]])
+        } else {
+            // Fallback on earlier versions
+            completionHandler([[.badge, .sound]])
         }
-        
-        alt.showInfo("Notice", subTitle: msgBody, circleIconImage: profileImage)
-        */
-        // Change this to your preferred presentation option
-        completionHandler([[.banner, .badge, .sound]])
     }
 
     func userNotificationCenter(_ center: UNUserNotificationCenter,
@@ -267,7 +250,16 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         // Messaging.messaging().appDidReceiveMessage(userInfo)
         // Print full message.
         print(userInfo)
-
+        
+        // push to AddFriendsVC page as soon as opened by clicking the notification
+        let home = AppBoards.main.initialViewController
+        let vc = AppBoards.friend.viewController(withIdentifier: "AddFriendsVC") as! AddFriendsVC
+        vc.modalPresentationStyle = .fullScreen
+        let window = UIApplication.shared.keyWindow
+        window?.rootViewController = home
+        window?.makeKeyAndVisible()
+        home.present(vc, animated: false, completion: nil)
+        
         completionHandler()
     }
 }
@@ -281,9 +273,9 @@ extension AppDelegate : MessagingDelegate {
 
         let dataDict:[String: String] = ["token": fcmToken ?? ""]
 
-        NotificationCenter.default.post(name: .FCMToken, object: nil, userInfo: dataDict)
+        NotificationCenter.default.post(name: .gotNewFCMToken, object: nil, userInfo: dataDict)
         
-        ////Persons.update(oneSignalId: fcmToken ?? "")
+        Persons.update(oneSignalId: fcmToken ?? "")
         
         PrefsManager.setFCMToken(fcmToken ?? "")
     }

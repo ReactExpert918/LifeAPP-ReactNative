@@ -70,7 +70,7 @@ class CallVideoView: UIViewController {
 		self.isModalInPresentation = true
 		self.modalPresentationStyle = .fullScreen
 
-		let app = UIApplication.shared.delegate as? AppDelegate
+        _ = UIApplication.shared.delegate as? AppDelegate
 /*
         personsFullName = Persons.fullname()
         app?.callKitProvider?.setGroupCall(false)
@@ -278,9 +278,6 @@ class CallVideoView: UIViewController {
 	
 	func updateDetails1() {
 
-		let screenWidth = UIScreen.main.bounds.size.width
-		let screenHeight = UIScreen.main.bounds.size.height
-
 		//videoController?.remoteView().frame = CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight)
 		//videoController?.localView().frame = CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight)
 
@@ -296,9 +293,6 @@ class CallVideoView: UIViewController {
 
 	
 	func updateDetails2() {
-
-		let screenWidth = UIScreen.main.bounds.size.width
-		let screenHeight = UIScreen.main.bounds.size.height
 
 		//videoController?.remoteView().frame = CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight)
 		//videoController?.localView().frame = CGRect(x: 20, y: 20, width: 70, height: 100)

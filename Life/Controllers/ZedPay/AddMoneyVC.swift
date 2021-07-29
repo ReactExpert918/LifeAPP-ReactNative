@@ -1,5 +1,5 @@
 //
-//  AddMoneyViewController.swift
+//  AddMoneyVC.swift
 //  Life
 //
 //  Created by mac on 2021/6/29.
@@ -10,7 +10,7 @@ import UIKit
 import JGProgressHUD
 import RealmSwift
 
-class AddMoneyViewController: UIViewController {
+class AddMoneyVC: UIViewController {
 
     @IBOutlet weak var imageCard: UIImageView!
     var paymentMethod: PaymentMethod?

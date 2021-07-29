@@ -1,5 +1,5 @@
 //
-//  PayBottomSheetViewController.swift
+//  PayBottomSheetVC.swift
 //  Life
 //
 //  Created by mac on 2021/6/20.
@@ -10,12 +10,13 @@ import UIKit
 import SwiftyAvatar
 import JGProgressHUD
 import RealmSwift
-class PayBottomSheetViewController: UIViewController {
+
+class PayBottomSheetVC: UIViewController {
     var isFriend : Bool = false
     var person: Person!
     
     var qrCode : String!
-    var qrView : PayQRCodeViewController!
+    var qrView : PayQRCodeVC!
     
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var phoneNumber: UILabel!
@@ -102,7 +103,7 @@ class PayBottomSheetViewController: UIViewController {
         
         weak var pvc = self.presentingViewController
         self.dismiss(animated: false, completion: {
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: "passPayVC") as! PassPayViewController
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "passPayVC") as! PassPayVC
             vc.toUserId = self.person.objectId
             vc.quantity = floatAmount
            
