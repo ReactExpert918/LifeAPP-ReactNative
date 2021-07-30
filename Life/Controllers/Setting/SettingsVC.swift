@@ -17,7 +17,7 @@ class SettingsVC: BaseVC {
     let sections = [NSLocalizedString("General Settings", comment: "General Settings")]
     
     let items = [
-        NSLocalizedString("Zed Pay", comment: "Zed Pay"),
+        NSLocalizedString("Buy Points", comment: "Buy Points"),
         NSLocalizedString("Account Settings", comment: "Account Settings"),
         NSLocalizedString("Privacy Policy", comment: "Privacy Policy"),
         NSLocalizedString("EULA", comment: "EULA")
@@ -90,7 +90,10 @@ extension SettingsVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
-        case 0: // zed pay
+        case 0: // buy points
+            let vc = self.storyboard?.instantiateViewController(identifier: "BuyPointsTVC") as! BuyPointsTVC
+            self.navigationController?.pushViewController(vc, animated: true)
+            /*
             let predicate = NSPredicate(format: "userId == %@ AND status == %@", AuthUser.userId(), ZEDPAY_STATUS.SUCCESS)
             stripeCustomers = realm.objects(StripeCustomer.self).filter(predicate)
             let stripeCustomer = stripeCustomers.first
@@ -103,7 +106,7 @@ extension SettingsVC: UITableViewDelegate, UITableViewDataSource {
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true)
                 }
-            }
+            }*/
         case 1: // account settings
             if let viewController = storyboard?.instantiateViewController(identifier: "AccountSettingsVC") as? AccountSettingsVC {
                 navigationController?.pushViewController(viewController, animated: true)
