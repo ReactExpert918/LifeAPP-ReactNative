@@ -197,45 +197,6 @@
             </objects>
             <point key="canvasLocation" x="114.40000000000001" y="111.99400299850076"/>
         </scene>
-        <!--BuyPointsTVC-->
-        <scene sceneID="Ouh-vl-pQ4">
-            <objects>
-                <tableViewController storyboardIdentifier="BuyPointsTVC" id="Qib-8l-Uih" userLabel="BuyPointsTVC" customClass="BuyPointsTVC" customModule="Life" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="wl9-cK-ROF">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="BuyCell" textLabel="6Sl-Wy-Roh" style="IBUITableViewCellStyleDefault" id="Xw5-dt-rAQ" userLabel="BuyCell">
-                                <rect key="frame" x="0.0" y="28" width="375" height="43.5"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Xw5-dt-rAQ" id="yBg-yb-t4c">
-                                    <rect key="frame" x="0.0" y="0.0" width="348" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Buy 5 Points" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6Sl-Wy-Roh" customClass="ThemeLabel" customModule="Life" customModuleProvider="target">
-                                            <rect key="frame" x="16" y="0.0" width="324" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <sections/>
-                        <connections>
-                            <outlet property="dataSource" destination="Qib-8l-Uih" id="9z4-aB-ayX"/>
-                            <outlet property="delegate" destination="Qib-8l-Uih" id="gU3-2L-Nlg"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="y7f-HJ-cv8"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fX7-G3-xuh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="799" y="820"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="nlE-TA-ga8">
             <objects>
@@ -1537,7 +1498,7 @@ received in your device</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I0d-ak-Zqu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3407.1999999999998" y="819.94002998500753"/>
+            <point key="canvasLocation" x="114" y="820"/>
         </scene>
         <!--PrivacyEulaVC-->
         <scene sceneID="1yR-R1-HQV">
@@ -1824,7 +1785,7 @@ received in your device</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IhH-0C-QJ9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4208.8000000000002" y="819.94002998500753"/>
+            <point key="canvasLocation" x="916" y="819.94002998500753"/>
         </scene>
         <!--Create CustomerVC-->
         <scene sceneID="MV2-f5-h1r">
@@ -2027,7 +1988,7 @@ received in your device</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aJy-yI-ZE6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4956.8000000000002" y="681.85907046476768"/>
+            <point key="canvasLocation" x="1664" y="682"/>
         </scene>
         <!--Remove PaymentVC-->
         <scene sceneID="9t8-du-6ve">
@@ -2276,7 +2237,7 @@ received in your device</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9IQ-Pj-232" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5716" y="819.94002998500753"/>
+            <point key="canvasLocation" x="2422" y="820"/>
         </scene>
         <!--Account SettingsVC-->
         <scene sceneID="M14-ZD-otF">
@@ -2722,24 +2683,6 @@ received in your device</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="88Q-EI-kpb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1620" y="-546"/>
-        </scene>
-        <!--BuyNav-->
-        <scene sceneID="HDO-Ta-Mzp">
-            <objects>
-                <navigationController storyboardIdentifier="BuyNav" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="lhk-Ht-ruu" userLabel="BuyNav" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="GCb-ef-DIa">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="Qib-8l-Uih" kind="relationship" relationship="rootViewController" id="UQv-DG-Db2"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="DfI-mV-BFa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="112.8" y="819.94002998500753"/>
         </scene>
     </scenes>
     <designables>

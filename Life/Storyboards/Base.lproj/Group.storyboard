@@ -152,11 +152,6 @@
                                                     <constraint firstAttribute="trailing" secondItem="YZN-At-B8n" secondAttribute="trailing" constant="16" id="Dri-ar-sS9"/>
                                                     <constraint firstAttribute="height" constant="40" id="iGY-J4-Ehl"/>
                                                 </constraints>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                        <real key="value" value="4"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
                                             </view>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -326,7 +321,7 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="James" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ee3-Lu-usT">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="James" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ee3-Lu-usT">
                                                     <rect key="frame" x="0.0" y="92" width="80" height="16.5"/>
                                                     <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="14"/>
                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -633,7 +628,7 @@
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="James" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LzF-Mh-Nds">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="James" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LzF-Mh-Nds">
                                                             <rect key="frame" x="0.0" y="78" width="70" height="15"/>
                                                             <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="12"/>
                                                             <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -827,7 +822,7 @@
                                             <action selector="actionTapImage:" destination="eZj-Je-SkH" eventType="touchUpInside" id="SRh-A8-509"/>
                                         </connections>
                                     </button>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Eg. Dev Group" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5fB-BG-unp" customClass="TextField" customModule="Life" customModuleProvider="target">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Eg. Dev Group" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5fB-BG-unp" customClass="TextField" customModule="Life" customModuleProvider="target">
                                         <rect key="frame" x="115" y="31" width="232" height="40"/>
                                         <color key="backgroundColor" systemColor="systemGray5Color"/>
                                         <constraints>
@@ -910,7 +905,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Invite New Members" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j2S-Ru-wrn">
-                                        <rect key="frame" x="88" y="29.5" width="176.5" height="21"/>
+                                        <rect key="frame" x="217.5" y="29.5" width="176.5" height="21"/>
                                         <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="17"/>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -921,9 +916,9 @@
                                     <constraint firstAttribute="height" constant="80" id="AQL-1m-CPF"/>
                                     <constraint firstItem="j2S-Ru-wrn" firstAttribute="centerY" secondItem="bIf-RC-Od3" secondAttribute="centerY" id="FqJ-Lb-ScE"/>
                                     <constraint firstItem="CPh-lI-E5E" firstAttribute="leading" secondItem="bIf-RC-Od3" secondAttribute="leading" constant="30" id="cRE-Zc-tNN"/>
-                                    <constraint firstItem="j2S-Ru-wrn" firstAttribute="leading" secondItem="CPh-lI-E5E" secondAttribute="trailing" constant="8" symbolic="YES" id="goo-rJ-NAe"/>
+                                    <constraint firstItem="j2S-Ru-wrn" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="CPh-lI-E5E" secondAttribute="trailing" symbolic="YES" id="goo-rJ-NAe"/>
                                     <constraint firstItem="CPh-lI-E5E" firstAttribute="centerY" secondItem="bIf-RC-Od3" secondAttribute="centerY" id="iME-0v-T7a"/>
-                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="j2S-Ru-wrn" secondAttribute="trailing" constant="20" id="ka6-kx-xnw"/>
+                                    <constraint firstAttribute="trailing" secondItem="j2S-Ru-wrn" secondAttribute="trailing" constant="20" id="ka6-kx-xnw"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r5k-Fp-L5A">

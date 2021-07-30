@@ -260,7 +260,6 @@
 		C62AB17226AAA9C0001F21F6 /* HomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62AB17126AAA9C0001F21F6 /* HomeCell.swift */; };
 		C634B09D26AD3AEF0058932C /* SCLAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C634B09A26AD3AEF0058932C /* SCLAlertView.swift */; };
 		C634B09E26AD3AEF0058932C /* SCLExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C634B09B26AD3AEF0058932C /* SCLExtensions.swift */; };
-		C63550F526B3B05B009F96C5 /* BuyPointsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C63550F426B3B05B009F96C5 /* BuyPointsTVC.swift */; };
 		C691E0DD26B2845C0083895B /* AccountSettingsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C691E0DC26B2845C0083895B /* AccountSettingsTVC.swift */; };
 		C6A5ED0C26AE571B005DA3FB /* Privacy.pdf in Resources */ = {isa = PBXBuildFile; fileRef = C6A5ED0A26AE571A005DA3FB /* Privacy.pdf */; };
 		C6A5ED0D26AE571B005DA3FB /* EULA.pdf in Resources */ = {isa = PBXBuildFile; fileRef = C6A5ED0B26AE571A005DA3FB /* EULA.pdf */; };
@@ -652,7 +651,6 @@
 		C62AB17126AAA9C0001F21F6 /* HomeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCell.swift; sourceTree = "<group>"; };
 		C634B09A26AD3AEF0058932C /* SCLAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCLAlertView.swift; sourceTree = "<group>"; };
 		C634B09B26AD3AEF0058932C /* SCLExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SCLExtensions.swift; sourceTree = "<group>"; };
-		C63550F426B3B05B009F96C5 /* BuyPointsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyPointsTVC.swift; sourceTree = "<group>"; };
 		C691E0DC26B2845C0083895B /* AccountSettingsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingsTVC.swift; sourceTree = "<group>"; };
 		C6A5ED0A26AE571A005DA3FB /* Privacy.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Privacy.pdf; sourceTree = "<group>"; };
 		C6A5ED0B26AE571A005DA3FB /* EULA.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = EULA.pdf; sourceTree = "<group>"; };
@@ -1462,7 +1460,6 @@
 		AB82ACC924A5452600D83E47 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
-				C63550F326B3B02F009F96C5 /* In-app purchase */,
 				AB26B2B724AE7CED0045981F /* AccountSettingsVC.swift */,
 				C6EAAB6126A80498004F72AF /* AddPaymentMethodVC.swift */,
 				C6EAAB6026A80498004F72AF /* CreateCustomerVC.swift */,
@@ -1549,14 +1546,6 @@
 				C634B09B26AD3AEF0058932C /* SCLExtensions.swift */,
 			);
 			path = SCLAlertView;
-			sourceTree = "<group>";
-		};
-		C63550F326B3B02F009F96C5 /* In-app purchase */ = {
-			isa = PBXGroup;
-			children = (
-				C63550F426B3B05B009F96C5 /* BuyPointsTVC.swift */,
-			);
-			path = "In-app purchase";
 			sourceTree = "<group>";
 		};
 		C649A85D26A5055700AA44D0 /* Delegate */ = {
@@ -2244,7 +2233,6 @@
 				C691E0DD26B2845C0083895B /* AccountSettingsTVC.swift in Sources */,
 				C6AB61B426A6DD6E001F5F29 /* CGImageExtensions.swift in Sources */,
 				C6AB61C126A6DD6F001F5F29 /* RotationDialPlate.swift in Sources */,
-				C63550F526B3B05B009F96C5 /* BuyPointsTVC.swift in Sources */,
 				A6C36B5824B5761F00583CAA /* NYTPhotoItem.swift in Sources */,
 				C6EAAB6626A80498004F72AF /* UpdateEmailVC.swift in Sources */,
 				A6DEA83224A82F7100868625 /* AppConstant.swift in Sources */,

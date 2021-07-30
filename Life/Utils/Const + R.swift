@@ -20,10 +20,6 @@ class Const {
         showCloseButton: false,
         buttonCornerRadius : 20
     )
-    
-    
-    
-    
 }
 
 class R {

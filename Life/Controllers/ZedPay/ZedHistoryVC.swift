@@ -12,13 +12,14 @@ import RealmSwift
 
 class ZedHistoryVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var labelBalance: UILabel!
     
+
     var person:Person?
     private var tokenTransactions: NotificationToken? = nil
     private var transactions = realm.objects(ZEDPay.self).filter(falsepredicate)
     
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var labelBalance: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -102,13 +103,6 @@ class ZedHistoryVC: UIViewController, UITableViewDataSource, UITableViewDelegate
     
     // MARK: - Add money tap
     @IBAction func actionTapAddMoney(_ sender: Any) {
-        weak var pvc = self.presentingViewController
-        self.dismiss(animated: false){
-            let vc = AppBoards.setting.viewController(withIdentifier: "BuyNav") as! UINavigationController
-            vc.modalPresentationStyle = .fullScreen
-            pvc?.present(vc, animated: true, completion: nil)
-        }
-        /*
         /// just for test
         let predicate = NSPredicate(format: "userId == %@ AND status == %@ AND isDeleted == NO", AuthUser.userId(), ZEDPAY_STATUS.SUCCESS)
         let paymentMethods = realm.objects(PaymentMethod.self).filter(predicate)
@@ -121,7 +115,7 @@ class ZedHistoryVC: UIViewController, UITableViewDataSource, UITableViewDelegate
                 vc.paymentMethod = paymentMethod
                 pvc?.present(vc, animated: true, completion: nil)
             }
-        } else {
+        }else{
             weak var pvc = self.presentingViewController
             let alert = UIAlertController(title: "", message: "Please complete ZED pay settings", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: {_ in
@@ -134,7 +128,7 @@ class ZedHistoryVC: UIViewController, UITableViewDataSource, UITableViewDelegate
                 }
             }))
             self.present(alert, animated: true, completion: nil)
-        }*/
+        }
         
     }
     

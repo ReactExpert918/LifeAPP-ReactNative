@@ -1577,7 +1577,7 @@ to your friend list</string>
     <resources>
         <image name="add_friend" width="60" height="60"/>
         <image name="cancel" width="55" height="55.5"/>
-        <image name="chevron.left" catalog="system" width="96" height="128"/>
+        <image name="chevron.left" catalog="system" width="32" height="32"/>
         <image name="colored_cancel" width="55" height="55.5"/>
         <image name="download" width="73.5" height="70.5"/>
         <image name="ic_arrow_back" width="35.5" height="62"/>
