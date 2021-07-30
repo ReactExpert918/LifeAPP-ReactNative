@@ -31,8 +31,11 @@ class SigninVC: BaseVC {
         txtPassword.delegate = self
         scrollViewHeightConstraint.constant = Const.shared.SCREEN_HEIGHT //UIScreen.main.bounds.size.height
         
-        txtEmail.text = "bright.test@test.com"
-        txtPassword.text = "1234567890"
+//        txtEmail.text = "bright.test@test.com"
+//        txtPassword.text = "1234567890"
+        
+        txtEmail.text = "topdevme@gmail.com"
+        txtPassword.text = "Password123!@#"
     }
     
     override func viewWillAppear(_ animated: Bool) {

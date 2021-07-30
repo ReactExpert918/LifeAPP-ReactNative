@@ -7,6 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		052DD0C726B3DB62005CCC33 /* FirebaseAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052DD0C626B3DB62005CCC33 /* FirebaseAPI.swift */; };
+		05EFC6C626B3AB190034B984 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 05EFC6C526B3AB190034B984 /* libc++.tbd */; };
+		05EFC6CB26B3AB260034B984 /* CoreML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05EFC6CA26B3AB260034B984 /* CoreML.framework */; };
+		05EFC6CD26B3AB340034B984 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05EFC6CC26B3AB340034B984 /* Accelerate.framework */; };
+		05EFC6CF26B3AB3D0034B984 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05EFC6CE26B3AB3D0034B984 /* AVFoundation.framework */; };
+		05EFC6D126B3AB500034B984 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 05EFC6D026B3AB500034B984 /* libresolv.tbd */; };
+		05EFC6D626B3AB5A0034B984 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05EFC6D526B3AB5A0034B984 /* CoreMedia.framework */; };
+		05EFC6DB26B3AB660034B984 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 05EFC6DA26B3AB660034B984 /* libz.tbd */; };
+		05EFC6E026B3AB6E0034B984 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05EFC6DF26B3AB6E0034B984 /* CoreMotion.framework */; };
+		05EFC6E526B3AB7A0034B984 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05EFC6E426B3AB7A0034B984 /* AudioToolbox.framework */; };
+		05EFC6E726B3AB860034B984 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05EFC6E626B3AB860034B984 /* VideoToolbox.framework */; };
+		05EFC6E926B3AB8F0034B984 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05EFC6E826B3AB8F0034B984 /* CoreTelephony.framework */; };
+		05EFC6EB26B3AB980034B984 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05EFC6EA26B3AB980034B984 /* SystemConfiguration.framework */; };
+		05EFC6F026B3AE180034B984 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05EFC6EF26B3AE180034B984 /* StoreKit.framework */; };
+		05EFC6F226B3AE220034B984 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05EFC6F126B3AE220034B984 /* EventKit.framework */; };
+		05EFC73C26B3B1B00034B984 /* AgoraRtcCryptoLoader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05EFC6F626B3AEB90034B984 /* AgoraRtcCryptoLoader.framework */; };
+		05EFC73D26B3B1B00034B984 /* AgoraRtcCryptoLoader.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 05EFC6F626B3AEB90034B984 /* AgoraRtcCryptoLoader.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		05EFC73F26B3B1B20034B984 /* AgoraRtcKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05EFC6F726B3AEB90034B984 /* AgoraRtcKit.framework */; };
+		05EFC74026B3B1B20034B984 /* AgoraRtcKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 05EFC6F726B3AEB90034B984 /* AgoraRtcKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		05EFC74926B3B28E0034B984 /* LogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EFC74626B3B28D0034B984 /* LogViewController.swift */; };
 		817604C864DF746D26361B72 /* Pods_Life_LifeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4882E1B6E6C326533A5E1BDF /* Pods_Life_LifeUITests.framework */; };
 		A60845B124A2FEC1005F23A9 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A60845AF24A2FEC1005F23A9 /* Login.storyboard */; };
 		A60845BB24A3033D005F23A9 /* SigninVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60845BA24A3033D005F23A9 /* SigninVC.swift */; };
@@ -344,7 +364,40 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		05EFC73E26B3B1B00034B984 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				05EFC74026B3B1B20034B984 /* AgoraRtcKit.framework in Embed Frameworks */,
+				05EFC73D26B3B1B00034B984 /* AgoraRtcCryptoLoader.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		052DD0C626B3DB62005CCC33 /* FirebaseAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseAPI.swift; sourceTree = "<group>"; };
+		05EFC6C526B3AB190034B984 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		05EFC6CA26B3AB260034B984 /* CoreML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreML.framework; path = System/Library/Frameworks/CoreML.framework; sourceTree = SDKROOT; };
+		05EFC6CC26B3AB340034B984 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		05EFC6CE26B3AB3D0034B984 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		05EFC6D026B3AB500034B984 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
+		05EFC6D526B3AB5A0034B984 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		05EFC6DA26B3AB660034B984 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		05EFC6DF26B3AB6E0034B984 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		05EFC6E426B3AB7A0034B984 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		05EFC6E626B3AB860034B984 /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
+		05EFC6E826B3AB8F0034B984 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		05EFC6EA26B3AB980034B984 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		05EFC6EF26B3AE180034B984 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		05EFC6F126B3AE220034B984 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
+		05EFC6F626B3AEB90034B984 /* AgoraRtcCryptoLoader.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AgoraRtcCryptoLoader.framework; sourceTree = "<group>"; };
+		05EFC6F726B3AEB90034B984 /* AgoraRtcKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AgoraRtcKit.framework; sourceTree = "<group>"; };
+		05EFC74626B3B28D0034B984 /* LogViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogViewController.swift; sourceTree = "<group>"; };
 		13FCD29106C16A3D2D2FC3B7 /* Pods_LifeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LifeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F299E90E5B6BB50A7323655 /* Pods-Life-LifeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Life-LifeUITests.release.xcconfig"; path = "Target Support Files/Pods-Life-LifeUITests/Pods-Life-LifeUITests.release.xcconfig"; sourceTree = "<group>"; };
 		2DA0512779D2347E705F5CEF /* Pods-LifeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LifeTests.release.xcconfig"; path = "Target Support Files/Pods-LifeTests/Pods-LifeTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -688,7 +741,23 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05EFC6F226B3AE220034B984 /* EventKit.framework in Frameworks */,
+				05EFC6F026B3AE180034B984 /* StoreKit.framework in Frameworks */,
+				05EFC6EB26B3AB980034B984 /* SystemConfiguration.framework in Frameworks */,
+				05EFC6E926B3AB8F0034B984 /* CoreTelephony.framework in Frameworks */,
+				05EFC6E726B3AB860034B984 /* VideoToolbox.framework in Frameworks */,
+				05EFC6E526B3AB7A0034B984 /* AudioToolbox.framework in Frameworks */,
+				05EFC6E026B3AB6E0034B984 /* CoreMotion.framework in Frameworks */,
+				05EFC6DB26B3AB660034B984 /* libz.tbd in Frameworks */,
+				05EFC6D626B3AB5A0034B984 /* CoreMedia.framework in Frameworks */,
+				05EFC6D126B3AB500034B984 /* libresolv.tbd in Frameworks */,
+				05EFC6CF26B3AB3D0034B984 /* AVFoundation.framework in Frameworks */,
+				05EFC6CD26B3AB340034B984 /* Accelerate.framework in Frameworks */,
+				05EFC6CB26B3AB260034B984 /* CoreML.framework in Frameworks */,
+				05EFC6C626B3AB190034B984 /* libc++.tbd in Frameworks */,
+				05EFC73F26B3B1B20034B984 /* AgoraRtcKit.framework in Frameworks */,
 				E87CD6D6D8F4EEBDA7AF3284 /* Pods_Life.framework in Frameworks */,
+				05EFC73C26B3B1B00034B984 /* AgoraRtcCryptoLoader.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -711,6 +780,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		05EFC6BC26B3AA790034B984 /* AgoraModule */ = {
+			isa = PBXGroup;
+			children = (
+				052DD0C626B3DB62005CCC33 /* FirebaseAPI.swift */,
+				05EFC74626B3B28D0034B984 /* LogViewController.swift */,
+			);
+			path = AgoraModule;
+			sourceTree = "<group>";
+		};
+		05EFC6BD26B3AA890034B984 /* Libs */ = {
+			isa = PBXGroup;
+			children = (
+				05EFC6F626B3AEB90034B984 /* AgoraRtcCryptoLoader.framework */,
+				05EFC6F726B3AEB90034B984 /* AgoraRtcKit.framework */,
+			);
+			path = Libs;
+			sourceTree = "<group>";
+		};
 		3BC3C3CE23618C232BF0BFDD /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -727,6 +814,7 @@
 		A60845B224A2FF8F005F23A9 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				05EFC6BC26B3AA790034B984 /* AgoraModule */,
 				C60985A026A543EF00ED72E5 /* 0. Base */,
 				C609858D26A542C000ED72E5 /* 1. Auth */,
 				A6E73B4D24A598A60008CBFE /* 2. Home */,
@@ -1332,6 +1420,7 @@
 		AB13A9D924A2EF610028731D /* Life */ = {
 			isa = PBXGroup;
 			children = (
+				05EFC6BD26B3AA890034B984 /* Libs */,
 				C62AB16A26AAA8EA001F21F6 /* TableCells */,
 				C6D6B11126A68446001D7D1C /* Vendor */,
 				A6E73B4124A4F2EC0008CBFE /* Extension */,
@@ -1634,6 +1723,20 @@
 		E01C3F04B71ECC3608E50572 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				05EFC6F126B3AE220034B984 /* EventKit.framework */,
+				05EFC6EF26B3AE180034B984 /* StoreKit.framework */,
+				05EFC6EA26B3AB980034B984 /* SystemConfiguration.framework */,
+				05EFC6E826B3AB8F0034B984 /* CoreTelephony.framework */,
+				05EFC6E626B3AB860034B984 /* VideoToolbox.framework */,
+				05EFC6E426B3AB7A0034B984 /* AudioToolbox.framework */,
+				05EFC6DF26B3AB6E0034B984 /* CoreMotion.framework */,
+				05EFC6DA26B3AB660034B984 /* libz.tbd */,
+				05EFC6D526B3AB5A0034B984 /* CoreMedia.framework */,
+				05EFC6D026B3AB500034B984 /* libresolv.tbd */,
+				05EFC6CE26B3AB3D0034B984 /* AVFoundation.framework */,
+				05EFC6CC26B3AB340034B984 /* Accelerate.framework */,
+				05EFC6CA26B3AB260034B984 /* CoreML.framework */,
+				05EFC6C526B3AB190034B984 /* libc++.tbd */,
 				38331365FE453AF276FB4BD0 /* Pods_Life.framework */,
 				4882E1B6E6C326533A5E1BDF /* Pods_Life_LifeUITests.framework */,
 				13FCD29106C16A3D2D2FC3B7 /* Pods_LifeTests.framework */,
@@ -1653,6 +1756,7 @@
 				AB13A9D424A2EF610028731D /* Frameworks */,
 				AB13A9D524A2EF610028731D /* Resources */,
 				DFF84A4F464B010F92740D83 /* [CP] Embed Pods Frameworks */,
+				05EFC73E26B3B1B00034B984 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1998,6 +2102,7 @@
 				C6EAAB4026A7F4D4004F72AF /* TransactionDetailVC.swift in Sources */,
 				AB3A81BB24A9B4920089127E /* BasicDetailInsertVC.swift in Sources */,
 				A6E73B4F24A598CD0008CBFE /* HomeVC.swift in Sources */,
+				052DD0C726B3DB62005CCC33 /* FirebaseAPI.swift in Sources */,
 				C6AB61B926A6DD6F001F5F29 /* CropMaskProtocal.swift in Sources */,
 				C6BFFF2B26A9003E0001D3BA /* FireZEDPayUpdaters.swift in Sources */,
 				C6D6B11D26A684F7001D7D1C /* UILabel+Ex.swift in Sources */,
@@ -2058,6 +2163,7 @@
 				A6DEA87324A8405300868625 /* Persons.swift in Sources */,
 				A6C9824824AE6B8C002280B6 /* Chat.swift in Sources */,
 				A6F564CD24A9B5310061007E /* RCHeaderUpperCell.swift in Sources */,
+				05EFC74926B3B28E0034B984 /* LogViewController.swift in Sources */,
 				C634B09D26AD3AEF0058932C /* SCLAlertView.swift in Sources */,
 				A6DEA86024A83FF000868625 /* Single.swift in Sources */,
 				A60845BB24A3033D005F23A9 /* SigninVC.swift in Sources */,
@@ -2428,6 +2534,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 14;
 				DEVELOPMENT_TEAM = 2AV3B2BH2Y;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Life/Libs",
+				);
 				INFOPLIST_FILE = Life/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2453,6 +2563,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 14;
 				DEVELOPMENT_TEAM = 2AV3B2BH2Y;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Life/Libs",
+				);
 				INFOPLIST_FILE = Life/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (

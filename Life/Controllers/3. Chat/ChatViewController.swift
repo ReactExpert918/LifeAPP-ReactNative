@@ -46,7 +46,7 @@ class ChatViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     
     @IBOutlet weak var tableView: UITableView!
-//    @IBOutlet weak var plusButton: UIBarButtonItem!
+    @IBOutlet weak var plusButton: UIBarButtonItem!
     
     private var isShowingToolbar = true
     var refreshControl = UIRefreshControl()
@@ -75,6 +75,9 @@ class ChatViewController: UIViewController {
     @IBOutlet weak var popupPhoneNumber: UILabel!
     @IBOutlet weak var popupUserAvatar: UIImageView!
     @IBOutlet weak var popupCheckmark: UIImageView!
+    
+    var videoStatusHandle: UInt?
+    var audioStatusHandle: UInt?
     
     private var tokenPersons: NotificationToken? = nil
     private var persons = realm.objects(Person.self).filter(falsepredicate)
@@ -155,6 +158,7 @@ class ChatViewController: UIViewController {
         }
 
         imagePicker = ImagePicker(self, delegate: self)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -168,6 +172,7 @@ class ChatViewController: UIViewController {
         if(recipientId == ""){
             loadMembers()
         }
+        self.videoAudioCallStatusListner(self.chatId)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -176,12 +181,39 @@ class ChatViewController: UIViewController {
         if (isMovingFromParent) {
             actionCleanup()
         }
+        
+        if let videoStatusHandle = videoStatusHandle{
+            FirebaseAPI.removeVideoCallListnerObserver(self.chatId, videoStatusHandle)
+        }
+        if let audioStatusHandle = audioStatusHandle{
+            FirebaseAPI.removeVoiceCallListnerObserver(self.chatId, audioStatusHandle)
+        }
+        NotificationCenter.default.removeObserver(self)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         layoutTableView()
     }
+    
+    
+    func videoAudioCallStatusListner(_ roomId : String)  {
+        self.videoStatusHandle = FirebaseAPI.setVideoCallAddListener(roomId){ [self] (receiverid) in
+            if !receiverid.isEmpty{
+                print(receiverid)
+                let callVideoView = CallVideoView(userId: self.recipientId)
+                callVideoView.roomID = self.chatId
+                callVideoView.receiver = recipientId
+                callVideoView.outgoing = false
+                callVideoView.incoming = true
+                present(callVideoView, animated: true)
+            }
+        }
+        self.audioStatusHandle = FirebaseAPI.setVideoCallAddListener(roomId){ [self] (statusModel) in
+            print(statusModel)
+        }
+    }
+    
 
     func loadMembers() {
 
@@ -241,11 +273,13 @@ class ChatViewController: UIViewController {
     func showCallToolbar(value: Bool) {
         callToolbarView.isHidden = !value
         isShowingToolbar = value
-//        if value == true {
-//            plusButton.setImage(UIImage(named: "cancel"), for: .normal)
-//        } else {
-//            plusButton.setImage(UIImage(named: "ic_plus"), for: .normal)
-//        }
+        if value == true {
+            //plusButton.setImage(UIImage(named: "cancel"), for: .normal)
+            plusButton.image = UIImage(named: "cancel")
+        } else {
+            //plusButton.setImage(UIImage(named: "ic_plus"), for: .normal)
+            plusButton.image = UIImage(named: "ic_plus")
+        }
     }
     
     @IBAction func actionPlusButton(_ sender: Any) {
@@ -279,8 +313,17 @@ class ChatViewController: UIViewController {
         showCallToolbar(value: false)
         
         if(recipientId != ""){
-            let callAudioView = CallAudioView(userId: self.recipientId)
-            present(callAudioView, animated: true)
+//            let callAudioView = CallAudioView(userId: self.recipientId)
+//            present(callAudioView, animated: true)
+            
+            let callAdudioView = CallAudioView(userId: self.recipientId)
+            callAdudioView.roomID = self.chatId
+            callAdudioView.receiver = recipientId
+            callAdudioView.outgoing = true
+            callAdudioView.incoming = false
+            present(callAdudioView, animated: true)
+            
+            
         }else{
             var personsId: [String] = []
             for person in persons{
@@ -290,7 +333,6 @@ class ChatViewController: UIViewController {
                 let callAudioView = CallAudioView(group: group, persons: personsId)
                 present(callAudioView, animated: true)
             }
-            
         }
     }
     
@@ -299,7 +341,18 @@ class ChatViewController: UIViewController {
         
         if (recipientId != "") {
             let callVideoView = CallVideoView(userId: self.recipientId)
+            callVideoView.roomID = self.chatId
+            callVideoView.receiver = recipientId
+            callVideoView.outgoing = true
+            callVideoView.incoming = false
             present(callVideoView, animated: true)
+            
+//            let storyBoard : UIStoryboard = UIStoryboard(name: "Chat", bundle: nil)
+//            let toVC = storyBoard.instantiateViewController(withIdentifier: "VideoChatViewController")
+//            toVC.modalPresentationStyle = .fullScreen
+//            present(toVC, animated: true, completion: nil)
+            
+            
         } else {
             var personsId: [String] = []
             for person in persons {

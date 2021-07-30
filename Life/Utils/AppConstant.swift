@@ -10,7 +10,7 @@ import Foundation
 
 class AppConstant {
     static let VIDEO_LENGTH = 5
-    
+    static let agoraAppID = "7385eb633290453aaee4530d4c05f109"
 }
 
 struct ONESIGNAL {

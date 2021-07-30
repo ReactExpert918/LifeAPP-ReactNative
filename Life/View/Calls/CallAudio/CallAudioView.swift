@@ -11,6 +11,8 @@
 
 //import Sinch
 import MediaPlayer
+import UIKit
+import AgoraRtcKit
 
 //----
 class CallAudioView: UIViewController {
@@ -33,8 +35,8 @@ class CallAudioView: UIViewController {
     private var person: Person!
     private var timer: Timer?
 
-    private var incoming = false
-    private var outgoing = false
+    var incoming = false
+    var outgoing = false
     private var muted = false
     private var speaker = false
 
@@ -44,6 +46,10 @@ class CallAudioView: UIViewController {
     private var type = 0
     private var group:Group?
     private var callString = ""
+    
+    var roomID = ""
+    var receiver: String = ""
+    var agoraKit: AgoraRtcEngineKit!
     
     /*
     init(call: SINCall?) {
@@ -164,7 +170,20 @@ class CallAudioView: UIViewController {
         dottedProgressBar?.setProgress(value: Int(progress))
 
 
+        agoraKit = AgoraRtcEngineKit.sharedEngine(withAppId: AppConstant.agoraAppID, delegate: self)
+        joinChannel()
+        
     }
+    
+    func joinChannel() {
+        // Allows a user to join a channel.
+        agoraKit.joinChannel(byToken: "", channelId: roomID, info:nil, uid:0) {[unowned self] (sid, uid, elapsed) -> Void in
+            // Joined channel "demoChannel"
+            self.agoraKit.setEnableSpeakerphone(true)
+            UIApplication.shared.isIdleTimerDisabled = true
+        }
+    }
+    
     @objc func volumeDidChange(notification: NSNotification) {
         //// print("VOLUME CHANGING", AVAudioSession.sharedInstance().outputVolume)
 
@@ -275,7 +294,7 @@ class CallAudioView: UIViewController {
     // MARK: - User actions
     
     @IBAction func actionMute(_ sender: Any) {
-
+        let sender = sender as! UIButton
         if (muted) {
             muted = false
             buttonMute.setImage(UIImage(named: "callaudio_mute2"), for: .normal)
@@ -287,11 +306,16 @@ class CallAudioView: UIViewController {
             buttonMute.setImage(UIImage(named: "callaudio_mute3"), for: .highlighted)
             //audioController?.mute()
         }
+        
+        sender.isSelected = !sender.isSelected
+        // Stops/Resumes sending the local audio stream.
+        agoraKit.muteLocalAudioStream(sender.isSelected)
+        
     }
 
     
     @IBAction func actionSpeaker(_ sender: Any) {
-
+        let sender = sender as! UIButton
         if (speaker) {
             speaker = false
             buttonSpeaker.setImage(UIImage(named: "callaudio_speaker2"), for: .normal)
@@ -303,6 +327,10 @@ class CallAudioView: UIViewController {
             buttonSpeaker.setImage(UIImage(named: "callaudio_speaker3"), for: .highlighted)
             //audioController?.enableSpeaker()
         }
+        
+        sender.isSelected = !sender.isSelected
+        agoraKit.setEnableSpeakerphone(sender.isSelected)
+        
     }
 
     
@@ -310,10 +338,18 @@ class CallAudioView: UIViewController {
 
     }
 
+    func leaveChannel() {
+        agoraKit.leaveChannel(nil)
+        UIApplication.shared.isIdleTimerDisabled = false
+    }
+    
     
     @IBAction func actionHangup(_ sender: Any) {
+        self.leaveChannel()
+        
         self.dismiss(animated: true, completion: nil)
         //call?.hangup()
+        
     }
 
     
@@ -387,3 +423,15 @@ extension CallAudioView: SINCallDelegate {
     }
 }
 */
+
+extension CallAudioView: AgoraRtcEngineDelegate{
+    func rtcEngine(_ engine: AgoraRtcEngineKit, remoteAudioStateChangedOfUid uid: UInt, state: AgoraAudioRemoteState, reason: AgoraAudioRemoteStateReason, elapsed: Int) {
+        if state.rawValue == 0{
+            self.leaveChannel()
+//            let storyBoard : UIStoryboard = UIStoryboard(name: "Chat", bundle: nil)
+//            let toVC = storyBoard.instantiateViewController( withIdentifier: VCs.MESSAGESENDNAV)
+//            toVC.modalPresentationStyle = .fullScreen
+//            self.present(toVC, animated: false, completion: nil)
+        }
+    }
+}

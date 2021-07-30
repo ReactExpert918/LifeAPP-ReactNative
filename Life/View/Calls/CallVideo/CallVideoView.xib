@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,16 +16,19 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CallVideoView">
             <connections>
-                <outlet property="buttonMute" destination="AW3-7M-3qX" id="fcH-W0-Hub"/>
-                <outlet property="buttonSwitch" destination="NQ2-UN-SbC" id="dCE-C4-xOj"/>
+                <outlet property="cameraButton" destination="NQ2-UN-SbC" id="aGP-o7-uii"/>
                 <outlet property="imageUser" destination="3Dn-fS-ES4" id="Yh8-XH-6Tt"/>
                 <outlet property="labelInitials" destination="qUo-VN-lF5" id="jhY-q2-NqA"/>
                 <outlet property="labelName" destination="B31-qG-HXG" id="W1h-oG-EqS"/>
                 <outlet property="labelStatus" destination="g21-s9-4FN" id="B4x-r0-6sj"/>
+                <outlet property="localContainer" destination="IKj-6S-PfQ" id="w96-4O-D7y"/>
+                <outlet property="micButton" destination="AW3-7M-3qX" id="PKP-zs-PA1"/>
+                <outlet property="remoteContainer" destination="jNm-tt-xBW" id="SbV-ur-ztV"/>
                 <outlet property="view" destination="UT9-Nv-lbz" id="kPH-Mz-aOJ"/>
                 <outlet property="viewBackground" destination="4xH-2r-f6Q" id="ti4-bc-LPS"/>
                 <outlet property="viewButtons1" destination="bsc-ZX-ncE" id="9cb-Vk-cMa"/>
                 <outlet property="viewButtons2" destination="Gaf-ab-Y7P" id="Kka-UR-A22"/>
+                <outlet property="viewButtons3" destination="3Jl-NR-Oer" id="PkJ-ZR-5g9"/>
                 <outlet property="viewDetails" destination="aty-bH-sVM" id="gxV-7J-dle"/>
                 <outlet property="viewEnded" destination="73p-HQ-VN9" id="cyc-eN-Yfm"/>
             </connections>
@@ -40,6 +44,11 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4xH-2r-f6Q">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                             <color key="backgroundColor" systemColor="tableCellGroupedBackgroundColor"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jNm-tt-xBW" userLabel="remoteVideo">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            <color key="backgroundColor" name="typingIndicatorDot"/>
+                            <gestureRecognizers/>
                         </view>
                         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aty-bH-sVM">
                             <rect key="frame" x="0.0" y="54" width="320" height="460"/>
@@ -197,21 +206,45 @@
                             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                         </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IKj-6S-PfQ" userLabel="localVideo">
+                            <rect key="frame" x="200" y="20" width="100" height="133.5"/>
+                            <color key="backgroundColor" red="0.51017522810000004" green="0.48047775030000001" blue="0.57149040699999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="100" id="aDf-76-s8u"/>
+                                <constraint firstAttribute="width" secondItem="IKj-6S-PfQ" secondAttribute="height" multiplier="3:4" id="h0l-x3-ZPc"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="8"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <outletCollection property="gestureRecognizers" destination="ler-xb-c1X" appends="YES" id="m5a-aZ-aAU"/>
+                            </connections>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" systemColor="tableCellGroupedBackgroundColor"/>
+                    <gestureRecognizers/>
                     <constraints>
+                        <constraint firstAttribute="trailing" secondItem="IKj-6S-PfQ" secondAttribute="trailing" constant="20" id="0vV-Lt-fDT"/>
+                        <constraint firstAttribute="bottom" secondItem="jNm-tt-xBW" secondAttribute="bottom" id="3G2-al-cAx"/>
+                        <constraint firstItem="jNm-tt-xBW" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="63g-Hq-s19"/>
                         <constraint firstAttribute="bottom" secondItem="Gaf-ab-Y7P" secondAttribute="bottom" id="6mM-70-nxg"/>
                         <constraint firstAttribute="bottom" secondItem="73p-HQ-VN9" secondAttribute="bottom" id="8LT-Qj-poF"/>
                         <constraint firstItem="73p-HQ-VN9" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="BCe-dd-LvM"/>
                         <constraint firstItem="3Jl-NR-Oer" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Bto-hZ-9hL"/>
+                        <constraint firstItem="IKj-6S-PfQ" firstAttribute="width" secondItem="IKj-6S-PfQ" secondAttribute="height" multiplier="3:4" id="DOL-ra-s1r"/>
                         <constraint firstAttribute="trailing" secondItem="bsc-ZX-ncE" secondAttribute="trailing" id="FAN-kw-nSU"/>
                         <constraint firstItem="4xH-2r-f6Q" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="IjN-Wx-tVZ"/>
                         <constraint firstAttribute="bottom" secondItem="4xH-2r-f6Q" secondAttribute="bottom" id="Iu8-Ut-2kZ"/>
                         <constraint firstItem="4xH-2r-f6Q" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="JKV-c8-a7W"/>
+                        <constraint firstItem="jNm-tt-xBW" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Jxm-GP-Uvb"/>
                         <constraint firstAttribute="trailing" secondItem="73p-HQ-VN9" secondAttribute="trailing" id="LmS-Kf-MPT"/>
                         <constraint firstItem="aty-bH-sVM" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="Q7m-K7-L8C"/>
+                        <constraint firstAttribute="trailing" secondItem="jNm-tt-xBW" secondAttribute="trailing" id="V8b-pz-byt"/>
                         <constraint firstAttribute="trailing" secondItem="3Jl-NR-Oer" secondAttribute="trailing" id="Wdy-MR-Jar"/>
                         <constraint firstItem="Gaf-ab-Y7P" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="gpL-q1-ZyG"/>
+                        <constraint firstItem="IKj-6S-PfQ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" id="kAu-ZM-pSK"/>
                         <constraint firstItem="aty-bH-sVM" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="mCC-wq-dqC"/>
                         <constraint firstItem="bsc-ZX-ncE" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="n3a-kC-1sQ"/>
                         <constraint firstItem="bsc-ZX-ncE" firstAttribute="top" secondItem="3Jl-NR-Oer" secondAttribute="bottom" id="nDA-BR-nNB"/>
@@ -232,6 +265,11 @@
             </constraints>
             <point key="canvasLocation" x="262" y="112"/>
         </view>
+        <tapGestureRecognizer id="ler-xb-c1X">
+            <connections>
+                <action selector="didClickLocalContainer:" destination="-1" id="SS5-tY-8XI"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
     <designables>
         <designable name="3Dn-fS-ES4">
@@ -245,6 +283,9 @@
         <image name="callvideo_mute1.png" width="37.5" height="30"/>
         <image name="callvideo_switch1.png" width="30" height="30"/>
         <image name="callvideo_video1.png" width="37.5" height="30"/>
+        <namedColor name="typingIndicatorDot">
+            <color red="0.68199998140335083" green="0.68199998140335083" blue="0.69800001382827759" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="tableCellGroupedBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
