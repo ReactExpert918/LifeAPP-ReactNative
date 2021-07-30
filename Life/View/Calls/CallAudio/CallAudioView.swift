@@ -85,8 +85,6 @@ class CallAudioView: UIViewController {
             self.call?.delegate = self
             
             self.audioController = app?.client?.audioController()*/
-        outgoing = true
-        
     }
     init(group: Group, persons: [String]) {
         
@@ -140,8 +138,8 @@ class CallAudioView: UIViewController {
         buttonVideo.setImage(UIImage(named: "callaudio_video1"), for: .highlighted)
 
         
-        if (incoming) { updateDetails2() }
-        if (outgoing) { updateDetails1() }
+        if (incoming) { setIncomingUI() }
+        if (outgoing) { setOutgoingUI() }
         // dotted progressview
         dottedProgressBar = DottedProgressBar()
         dottedProgressBar?.progressAppearance = DottedProgressBar.DottedProgressAppearance(dotRadius: 6.0, dotsColor: UIColor(hexString: "#33000000")!, dotsProgressColor: UIColor(hexString: "#00406E")!, backColor: UIColor.clear)
@@ -168,11 +166,11 @@ class CallAudioView: UIViewController {
         //audioSession.addObserver(self, forKeyPath: "outputVolume", options: NSKeyValueObservingOptions.new, context: nil)
         let progress = audioSession.outputVolume / 1.0 * 6
         dottedProgressBar?.setProgress(value: Int(progress))
-
-
+    }
+    
+    func joinAction()  {
         agoraKit = AgoraRtcEngineKit.sharedEngine(withAppId: AppConstant.agoraAppID, delegate: self)
         joinChannel()
-        
     }
     
     func joinChannel() {
@@ -360,26 +358,26 @@ class CallAudioView: UIViewController {
 
     // MARK: - Helper methods
     
-    func updateDetails1() {
-
+    func setOutgoingUI() {
         labelStatus.text = "Calling..."
-
         viewButtons.isHidden = incoming
         viewButtons1.isHidden = outgoing
         viewButtons2.isHidden = incoming
-
         viewEnded.isHidden = true
+        var status = [String: Any]()
+        status["receiver"]   = self.receiver
+        status["status"]   = Status.outgoing.rawValue
+        FirebaseAPI.sendVoiceCallStatus(status, self.roomID) { (isSuccess, data) in
+            
+        }
     }
 
     
-    func updateDetails2() {
-
+    func setIncomingUI() {
         labelStatus.text = "00:00"
-
         viewButtons.isHidden = false
         viewButtons1.isHidden = true
         viewButtons2.isHidden = false
-
         viewEnded.isHidden = true
     }
 
@@ -407,7 +405,7 @@ extension CallAudioView: SINCallDelegate {
 
         timerStart(call)
         audioController?.stopPlayingSoundFile()
-        updateDetails2()
+        setIncomingUI()
     }
 
     

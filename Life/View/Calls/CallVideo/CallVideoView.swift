@@ -16,12 +16,12 @@ class CallVideoView: BaseVC {
 	@IBOutlet var labelInitials: UILabel!
 	@IBOutlet var labelName: UILabel!
 	@IBOutlet var labelStatus: UILabel!
-	@IBOutlet var viewButtons1: UIView!
-	@IBOutlet var viewButtons2: UIView!
-    @IBOutlet var viewButtons3: UIView!
-	//@IBOutlet var buttonMute: UIButton!
-	//@IBOutlet var buttonSwitch: UIButton!
-	@IBOutlet var viewEnded: UIView!
+	@IBOutlet var uiv_anwserhangup: UIView!
+	@IBOutlet var uiv_muteswitch: UIView!
+    @IBOutlet var uiv_power: UIView!
+	@IBOutlet var buttonMute: UIButton!
+	@IBOutlet var buttonSwitch: UIButton!
+	//@IBOutlet var viewEnded: UIView!
 
 	private var person: Person!
 
@@ -42,6 +42,9 @@ class CallVideoView: BaseVC {
     @IBOutlet weak var localContainer: UIView!
     @IBOutlet weak var remoteContainer: UIView!
     
+    @IBOutlet weak var remoteVideoMutedIndicator: UIImageView!
+    @IBOutlet weak var localVideoMutedIndicator: UIView!
+    
     @IBOutlet weak var micButton: UIButton!
     @IBOutlet weak var cameraButton: UIButton!
     
@@ -56,8 +59,10 @@ class CallVideoView: BaseVC {
         didSet {
             if let it = localVideo, let view = it.view {
                 if view.superview == localContainer {
+                    remoteVideoMutedIndicator.isHidden = isRemoteVideoRender
                     remoteContainer.isHidden = !isRemoteVideoRender
                 } else if view.superview == remoteContainer {
+                    localVideoMutedIndicator.isHidden = isRemoteVideoRender
                 }
             }
         }
@@ -67,9 +72,9 @@ class CallVideoView: BaseVC {
         didSet {
             if let it = localVideo, let view = it.view {
                 if view.superview == localContainer {
-                    //localVideoMutedIndicator.isHidden = isLocalVideoRender
+                    localVideoMutedIndicator.isHidden = isLocalVideoRender
                 } else if view.superview == remoteContainer {
-                   // remoteVideoMutedIndicator.isHidden = isLocalVideoRender
+                    remoteVideoMutedIndicator.isHidden = isLocalVideoRender
                 }
             }
         }
@@ -118,6 +123,7 @@ class CallVideoView: BaseVC {
 		self.modalPresentationStyle = .fullScreen
 
         _ = UIApplication.shared.delegate as? AppDelegate
+        print("=================>",Persons.fullname())
 /*
         personsFullName = Persons.fullname()
         app?.callKitProvider?.setGroupCall(false)
@@ -190,9 +196,6 @@ class CallVideoView: BaseVC {
 //		gestureRecognizer.cancelsTouchesInView = false
 
         
-        agoraKit = AgoraRtcEngineKit.sharedEngine(withAppId: AppConstant.agoraAppID, delegate: self)
-        setupVideo()
-        
 		micButton.setImage(UIImage(named: "callvideo_mute1"), for: .normal)
         micButton.setImage(UIImage(named: "callvideo_mute1"), for: .highlighted)
 
@@ -255,16 +258,17 @@ class CallVideoView: BaseVC {
     }
     
     func joinAction() {
-        
+        agoraKit = AgoraRtcEngineKit.sharedEngine(withAppId: AppConstant.agoraAppID, delegate: self)
+        setupVideo()
+        self.viewDetails.isHidden = true
+        self.uiv_anwserhangup.isHidden = true
+        self.uiv_muteswitch.isHidden = false
+        self.uiv_power.isHidden = false
         self.localContainer.isHidden = false
         self.remoteContainer.isHidden = false
-        self.viewEnded.isHidden = true
+        //self.viewEnded.isHidden = true
         setupLocalVideo()
         joinChannel()
-        self.viewDetails.isHidden = true
-        self.viewButtons1.isHidden = true
-        self.viewButtons2.isHidden = false
-        self.viewButtons3.isHidden = false
     }
     
     //******************************* Agora module start *****************************//
@@ -339,19 +343,19 @@ class CallVideoView: BaseVC {
         sender.isSelected.toggle()
         // mute local audio
         agoraKit.muteLocalAudioStream(sender.isSelected)
-/*
+
         if (muted) {
             muted = false
             buttonMute.setImage(UIImage(named: "callvideo_mute1"), for: .normal)
             buttonMute.setImage(UIImage(named: "callvideo_mute1"), for: .highlighted)
-            audioController?.unmute()
+            //audioController?.unmute()
         } else {
             muted = true
             buttonMute.setImage(UIImage(named: "callvideo_mute2"), for: .normal)
             buttonMute.setImage(UIImage(named: "callvideo_mute2"), for: .highlighted)
-            audioController?.mute()
+            //audioController?.mute()
         }
-*/
+
     }
     
     @IBAction func actionSwitch(_ sender: Any) {
@@ -435,24 +439,22 @@ class CallVideoView: BaseVC {
 	// MARK: - Realm methods
 	
 	func loadPerson() {
-/*
-		if let remoteUserId = call?.remoteUserId {
-			person = realm.object(ofType: Person.self, forPrimaryKey: remoteUserId)
+        person = realm.object(ofType: Person.self, forPrimaryKey: self.receiver)
 
-			labelInitials.text = nil
-			MediaDownload.startUser(person.objectId, pictureAt: person.pictureAt) { image, error in
-				if (error == nil) {
-					self.imageUser.image = image
-					self.labelInitials.text = nil
-				}
-                else {
-                    self.imageUser.image = UIImage(named: "ic_default_profile")
-                }
-			}
+        labelInitials.text = nil
+        MediaDownload.startUser(person.objectId, pictureAt: person.pictureAt) { image, error in
+            if (error == nil) {
+                self.imageUser.image = image
+                self.labelInitials.text = nil
+            }
+            else {
+                self.imageUser.image = UIImage(named: "ic_default_profile")
+            }
+        }
 
-			labelName.text = callString
-		}*/
+        labelName.text = callString
 	}
+    
     func loadGroup(_ group:Group) {
 
         self.labelInitials.text = nil
@@ -473,7 +475,7 @@ class CallVideoView: BaseVC {
 	
 	@objc func actionTap() {
 
-		viewButtons2.isHidden = !viewButtons2.isHidden
+		uiv_muteswitch.isHidden = !uiv_muteswitch.isHidden
 	}
 
 	
@@ -500,10 +502,10 @@ class CallVideoView: BaseVC {
 
         labelStatus.text = "Calling..."
 
-		viewButtons1.isHidden = outgoing
-		viewButtons2.isHidden = incoming
+		uiv_anwserhangup.isHidden = outgoing
+		uiv_muteswitch.isHidden = incoming
 
-		viewEnded.isHidden = true
+		//viewEnded.isHidden = true
         localContainer.isHidden = true
         var status = [String: Any]()
         status["receiver"]   = self.receiver
@@ -524,22 +526,25 @@ class CallVideoView: BaseVC {
 
 		labelStatus.text = "Incomming..."
         localContainer.isHidden = true
-		viewButtons1.isHidden = false // answer , hangout
-		viewButtons2.isHidden = true // mute, switch
-        viewButtons3.isHidden = true //one call hangout
+		uiv_anwserhangup.isHidden = false // answer , hangout
+		uiv_muteswitch.isHidden = true // mute, switch
+        uiv_power.isHidden = true //one call hangout
 
-		viewEnded.isHidden = true
+		//viewEnded.isHidden = true
 	}
 
-	
-	func updateDetails3() {
-
-		viewDetails.isHidden = false
-
-        labelStatus.text = "Ended"
-
-		viewEnded.isHidden = false
-	}
+    
+    func updateEnd() {
+        self.viewDetails.isHidden = false
+        self.labelStatus.text = "End"
+        self.uiv_muteswitch.isHidden = true
+        self.uiv_anwserhangup.isHidden = true
+        self.uiv_power.isHidden = false
+        self.remoteContainer.isHidden = true
+        self.remoteVideoMutedIndicator.isHidden = true
+        self.localVideoMutedIndicator.isHidden = true
+        self.localContainer.isHidden = true
+    }
 }
 
 // MARK: - SINCallDelegate
@@ -589,6 +594,32 @@ extension CallVideoView: AgoraRtcEngineDelegate {
 //            toVC.modalPresentationStyle = .fullScreen
 //            self.present(toVC, animated: false, completion: nil)
         }
+    }
+    
+    func rtcEngine(_ engine: AgoraRtcEngineKit, didJoinedOfUid uid: UInt, elapsed: Int) {
+        //isRemoteVideoRender = true
+
+        let parent: UIView = remoteContainer
+//        if let it = localVideo, let view = it.view {
+//            if view.superview == parent {
+//                parent = localContainer
+//            }
+//        }
+
+        // Only one remote video view is available for this
+        // tutorial. Here we check if there exists a surface
+        // view tagged as this uid.
+        if remoteVideo != nil {
+            return
+        }
+
+        let view = UIView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: parent.frame.size))
+        remoteVideo = AgoraRtcVideoCanvas()
+        remoteVideo!.view = view
+        remoteVideo!.renderMode = .hidden
+        remoteVideo!.uid = uid
+        parent.addSubview(remoteVideo!.view!)
+        agoraKit.setupRemoteVideo(remoteVideo!)
     }
     
     /*func rtcEngineVideoDidStop(_ engine: AgoraRtcEngineKit) {
@@ -665,6 +696,10 @@ extension CallVideoView: AgoraRtcEngineDelegate {
         if let it = remoteVideo, it.uid == uid {
             removeFromParent(it)
             remoteVideo = nil
+        }
+        // dismisss action
+        DispatchQueue.main.async {
+            self.updateEnd()
         }
     }
     

@@ -173,6 +173,7 @@ class ChatViewController: UIViewController {
             loadMembers()
         }
         self.videoAudioCallStatusListner(self.chatId)
+        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -211,6 +212,15 @@ class ChatViewController: UIViewController {
         }
         self.audioStatusHandle = FirebaseAPI.setVideoCallAddListener(roomId){ [self] (statusModel) in
             print(statusModel)
+            if !receiverid.isEmpty{
+                print(receiverid)
+                let callAudioView = CallAudioView(userId: self.recipientId)
+                callAudioView.roomID = self.chatId
+                callAudioView.receiver = recipientId
+                callAudioView.outgoing = false
+                callAudioView.incoming = true
+                present(callAudioView, animated: true)
+            }
         }
     }
     
@@ -245,7 +255,6 @@ class ChatViewController: UIViewController {
     
     
     func refreshUsers(){
-        
         for person in persons {
             if(person.objectId == AuthUser.userId()){
                 continue
@@ -311,19 +320,15 @@ class ChatViewController: UIViewController {
     // MARK: - Audio and video call
     @IBAction func actionAudioCall(_ sender: Any) {
         showCallToolbar(value: false)
-        
         if(recipientId != ""){
 //            let callAudioView = CallAudioView(userId: self.recipientId)
 //            present(callAudioView, animated: true)
-            
             let callAdudioView = CallAudioView(userId: self.recipientId)
             callAdudioView.roomID = self.chatId
             callAdudioView.receiver = recipientId
             callAdudioView.outgoing = true
             callAdudioView.incoming = false
             present(callAdudioView, animated: true)
-            
-            
         }else{
             var personsId: [String] = []
             for person in persons{
@@ -346,12 +351,6 @@ class ChatViewController: UIViewController {
             callVideoView.outgoing = true
             callVideoView.incoming = false
             present(callVideoView, animated: true)
-            
-//            let storyBoard : UIStoryboard = UIStoryboard(name: "Chat", bundle: nil)
-//            let toVC = storyBoard.instantiateViewController(withIdentifier: "VideoChatViewController")
-//            toVC.modalPresentationStyle = .fullScreen
-//            present(toVC, animated: true, completion: nil)
-            
             
         } else {
             var personsId: [String] = []
