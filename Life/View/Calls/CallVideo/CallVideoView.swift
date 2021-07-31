@@ -19,10 +19,8 @@ class CallVideoView: BaseVC {
 	@IBOutlet var uiv_anwserhangup: UIView!
 	@IBOutlet var uiv_muteswitch: UIView!
     @IBOutlet var uiv_power: UIView!
-	@IBOutlet var buttonMute: UIButton!
-	@IBOutlet var buttonSwitch: UIButton!
-	//@IBOutlet var viewEnded: UIView!
-
+    @IBOutlet weak var uiv_request: UIView!
+    
 	private var person: Person!
 
 	 var incoming = false
@@ -49,8 +47,9 @@ class CallVideoView: BaseVC {
     @IBOutlet weak var cameraButton: UIButton!
     
     var videoStatusHandle: UInt?
+    var videoStatusRemoveHandle: UInt?
     
-    var agoraKit: AgoraRtcEngineKit!
+    var agoraKit: AgoraRtcEngineKit?
     var localVideo: AgoraRtcVideoCanvas?
     var remoteVideo: AgoraRtcVideoCanvas?
     var roomID: String = ""
@@ -144,8 +143,6 @@ class CallVideoView: BaseVC {
         type = 1
         self.group = group
         callString = group.name
-        print(callString)
-        
         self.isModalInPresentation = true
         self.modalPresentationStyle = .fullScreen
 /*
@@ -202,8 +199,8 @@ class CallVideoView: BaseVC {
 		cameraButton.setImage(UIImage(named: "callvideo_switch1"), for: .normal)
         cameraButton.setImage(UIImage(named: "callvideo_switch1"), for: .highlighted)
 
-        if (incoming) { updateDetails2() }
-        if (outgoing) { updateDetails1() }
+        if (incoming) { setIncomingUI() }
+        if (outgoing) { setOutGoingUI() }
         
         
         
@@ -214,13 +211,13 @@ class CallVideoView: BaseVC {
         if let videoStatusHandle = videoStatusHandle{
             FirebaseAPI.removeVideoCallListnerObserver(self.roomID, videoStatusHandle)
         }
+        if let videoStatusRemoveHandle = videoStatusRemoveHandle{
+            FirebaseAPI.removeVideoCallRemoveListnerObserver(self.roomID, videoStatusRemoveHandle)
+        }
         NotificationCenter.default.removeObserver(self)
     }
     
     func videoCallStatusListner(_ roomId : String)  {
-        self.videoStatusHandle = FirebaseAPI.setVideoCallAddListener(roomId){ [self] (statusModel) in
-            print(statusModel)
-        }
         self.videoStatusHandle = FirebaseAPI.setVideoCallChangeListener(roomId){ [self] (status) in
             
             switch status {
@@ -239,20 +236,30 @@ class CallVideoView: BaseVC {
                 break
             case 3:
                 break
-                
             case 4:// accept acction and start calling
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                    self.joinAction()
-                }
-                
+                self.joinAction()
                 break
             case 5:
                 break
             case 6:
                 break
-                
             default:
                 print("default")
+            }
+        }
+        
+        self.videoStatusRemoveHandle = FirebaseAPI.setVideoCallRemoveListener(roomId){ [self] (receiverid) in
+            if receiverid == AuthUser.userId(){
+                self.leaveChannel()
+                self.dismiss(animated: true, completion: nil)
+            }else{
+                if outgoing{
+                    self.labelStatus.text = "Declined"
+                    self.labelStatus.textColor = .red
+                }else{
+                    self.leaveChannel()
+                    self.dismiss(animated: true, completion: nil)
+                }
             }
         }
     }
@@ -264,6 +271,7 @@ class CallVideoView: BaseVC {
         self.uiv_anwserhangup.isHidden = true
         self.uiv_muteswitch.isHidden = false
         self.uiv_power.isHidden = false
+        self.uiv_request.isHidden = false
         self.localContainer.isHidden = false
         self.remoteContainer.isHidden = false
         //self.viewEnded.isHidden = true
@@ -274,18 +282,20 @@ class CallVideoView: BaseVC {
     //******************************* Agora module start *****************************//
     
     func setupVideo() {
-        // In simple use cases, we only need to enable video capturing
-        // and rendering once at the initialization step.
-        // Note: audio recording and playing is enabled by default.
-        agoraKit.enableVideo()
-        
-        // Set video configuration
-        // Please go to this page for detailed explanation
-        // https://docs.agora.io/cn/Voice/API%20Reference/java/classio_1_1agora_1_1rtc_1_1_rtc_engine.html#af5f4de754e2c1f493096641c5c5c1d8f
-        agoraKit.setVideoEncoderConfiguration(AgoraVideoEncoderConfiguration(size: AgoraVideoDimension640x360,
-                                                                             frameRate: .fps15,
-                                                                             bitrate: AgoraVideoBitrateStandard,
-                                                                             orientationMode: .adaptative))
+        if let agoraKit = self.agoraKit{
+            // In simple use cases, we only need to enable video capturing
+            // and rendering once at the initialization step.
+            // Note: audio recording and playing is enabled by default.
+            agoraKit.enableVideo()
+            
+            // Set video configuration
+            // Please go to this page for detailed explanation
+            // https://docs.agora.io/cn/Voice/API%20Reference/java/classio_1_1agora_1_1rtc_1_1_rtc_engine.html#af5f4de754e2c1f493096641c5c5c1d8f
+            agoraKit.setVideoEncoderConfiguration(AgoraVideoEncoderConfiguration(size: AgoraVideoDimension640x360,
+                                                                                 frameRate: .fps15,
+                                                                                 bitrate: AgoraVideoBitrateStandard,
+                                                                                 orientationMode: .adaptative))
+        }
     }
     
     func setupLocalVideo() {
@@ -302,37 +312,55 @@ class CallVideoView: BaseVC {
         localVideo!.renderMode = .hidden
         localVideo!.uid = 0
         localContainer.addSubview(localVideo!.view!)
-        agoraKit.setupLocalVideo(localVideo)
+        if let agoraKit = self.agoraKit{
+            agoraKit.setupLocalVideo(localVideo)
+        }
+        
     }
     
     func joinChannel() {
-        // Set audio route to speaker
-        agoraKit.setDefaultAudioRouteToSpeakerphone(true)
-        
-        // 1. Users can only see each other after they join the
-        // same channel successfully using the same app id.
-        // 2. One token is only valid for the channel name that
-        // you use to generate this token.
-        agoraKit.joinChannel(byToken: "", channelId: self.roomID, info: nil, uid: 0) { [unowned self] (channel, uid, elapsed) -> Void in
-            // Did join channel "demoChannel1"
-            self.isLocalVideoRender = true
+        if let agoraKit = self.agoraKit{
+            // Set audio route to speaker
+            agoraKit.setDefaultAudioRouteToSpeakerphone(true)
+            
+            // 1. Users can only see each other after they join the
+            // same channel successfully using the same app id.
+            // 2. One token is only valid for the channel name that
+            // you use to generate this token.
+            agoraKit.joinChannel(byToken: "", channelId: self.roomID, info: nil, uid: 0) { [unowned self] (channel, uid, elapsed) -> Void in
+                // Did join channel "demoChannel1"
+                self.isLocalVideoRender = true
+            }
+            isStartCalling = true
+            UIApplication.shared.isIdleTimerDisabled = true
         }
-        isStartCalling = true
-        UIApplication.shared.isIdleTimerDisabled = true
     }
 
     func leaveChannel() {
-        // leave channel and end chat
-        agoraKit.leaveChannel(nil)
-        isRemoteVideoRender = false
-        isLocalVideoRender = false
-        isStartCalling = false
-        UIApplication.shared.isIdleTimerDisabled = false
+        if let agoraKit = self.agoraKit{
+            // leave channel and end chat
+            agoraKit.leaveChannel(nil)
+            isRemoteVideoRender = false
+            isLocalVideoRender = false
+            isStartCalling = false
+            UIApplication.shared.isIdleTimerDisabled = false
+        }
     }
     
     @IBAction func actionHangup(_ sender: Any) {
         ref.child("video_call").child(self.roomID).removeValue()
         self.leaveChannel()
+        self.dismiss(animated: true, completion: nil)
+        //call?.hangup()
+    }
+    
+    @IBAction func actionRequestHangup(_ sender: Any) {
+        ref.child("video_call").child(self.roomID).removeValue()
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func decline(_ sender: Any) {
+        ref.child("video_call").child(self.roomID).removeValue()
         self.dismiss(animated: true, completion: nil)
         //call?.hangup()
         
@@ -342,17 +370,20 @@ class CallVideoView: BaseVC {
         let sender = sender as! UIButton
         sender.isSelected.toggle()
         // mute local audio
-        agoraKit.muteLocalAudioStream(sender.isSelected)
+        if let agoraKit = self.agoraKit{
+            agoraKit.muteLocalAudioStream(sender.isSelected)
+        }
+        
 
         if (muted) {
             muted = false
-            buttonMute.setImage(UIImage(named: "callvideo_mute1"), for: .normal)
-            buttonMute.setImage(UIImage(named: "callvideo_mute1"), for: .highlighted)
+            micButton.setImage(UIImage(named: "callvideo_mute1"), for: .normal)
+            micButton.setImage(UIImage(named: "callvideo_mute1"), for: .highlighted)
             //audioController?.unmute()
         } else {
             muted = true
-            buttonMute.setImage(UIImage(named: "callvideo_mute2"), for: .normal)
-            buttonMute.setImage(UIImage(named: "callvideo_mute2"), for: .highlighted)
+            micButton.setImage(UIImage(named: "callvideo_mute2"), for: .normal)
+            micButton.setImage(UIImage(named: "callvideo_mute2"), for: .highlighted)
             //audioController?.mute()
         }
 
@@ -361,7 +392,10 @@ class CallVideoView: BaseVC {
     @IBAction func actionSwitch(_ sender: Any) {
         let sender = sender as! UIButton
         sender.isSelected.toggle()
-        agoraKit.switchCamera()
+        if let agoraKit = self.agoraKit{
+            agoraKit.switchCamera()
+        }
+        
         if (switched) {
             switched = false
             cameraButton.setImage(UIImage(named: "callvideo_switch1"), for: .normal)
@@ -474,7 +508,6 @@ class CallVideoView: BaseVC {
 	// MARK: - User actions
 	
 	@objc func actionTap() {
-
 		uiv_muteswitch.isHidden = !uiv_muteswitch.isHidden
 	}
 
@@ -493,7 +526,7 @@ class CallVideoView: BaseVC {
 
 	// MARK: - Helper methods
 	
-	func updateDetails1() {
+	func setOutGoingUI() {
 
 		//videoController?.remoteView().frame = CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight)
 		//videoController?.localView().frame = CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight)
@@ -501,23 +534,23 @@ class CallVideoView: BaseVC {
 		viewDetails.isHidden = false
 
         labelStatus.text = "Calling..."
-
-		uiv_anwserhangup.isHidden = outgoing
-		uiv_muteswitch.isHidden = incoming
+        labelStatus.textColor = .white
+		uiv_anwserhangup.isHidden = true
+		uiv_muteswitch.isHidden = true
+        uiv_power.isHidden = true
+        uiv_request.isHidden = false
 
 		//viewEnded.isHidden = true
         localContainer.isHidden = true
         var status = [String: Any]()
         status["receiver"]   = self.receiver
         status["status"]   = Status.outgoing.rawValue
-        
         FirebaseAPI.sendVideoCallStatus(status, self.roomID) { (isSuccess, data) in
-            
         }
 	}
 
 	
-	func updateDetails2() {
+	func setIncomingUI() {
 
 		//videoController?.remoteView().frame = CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight)
 		//videoController?.localView().frame = CGRect(x: 20, y: 20, width: 70, height: 100)
@@ -525,11 +558,12 @@ class CallVideoView: BaseVC {
 		viewDetails.isHidden = false
 
 		labelStatus.text = "Incomming..."
+        labelStatus.textColor = .white
         localContainer.isHidden = true
 		uiv_anwserhangup.isHidden = false // answer , hangout
 		uiv_muteswitch.isHidden = true // mute, switch
         uiv_power.isHidden = true //one call hangout
-
+        uiv_request.isHidden = true
 		//viewEnded.isHidden = true
 	}
 
@@ -537,9 +571,11 @@ class CallVideoView: BaseVC {
     func updateEnd() {
         self.viewDetails.isHidden = false
         self.labelStatus.text = "End"
+        labelStatus.textColor = .white
         self.uiv_muteswitch.isHidden = true
         self.uiv_anwserhangup.isHidden = true
         self.uiv_power.isHidden = false
+        self.uiv_request.isHidden = true
         self.remoteContainer.isHidden = true
         self.remoteVideoMutedIndicator.isHidden = true
         self.localVideoMutedIndicator.isHidden = true
@@ -565,7 +601,7 @@ extension CallVideoView: SINCallDelegate {
 		audioController?.stopPlayingSoundFile()
 		audioController?.enableSpeaker()
         
-		updateDetails2()
+		setIncomingUI()
 	}
 
 	
@@ -587,28 +623,11 @@ extension CallVideoView: SINCallDelegate {
 extension CallVideoView: AgoraRtcEngineDelegate {
     
     func rtcEngine(_ engine: AgoraRtcEngineKit, remoteVideoStateChangedOfUid uid: UInt, state: AgoraVideoRemoteState, reason: AgoraVideoRemoteStateReason, elapsed: Int) {
-        if state.rawValue == 0{
-            self.leaveChannel()
-//            let storyBoard : UIStoryboard = UIStoryboard(name: "Chat", bundle: nil)
-//            let toVC = storyBoard.instantiateViewController( withIdentifier: VCs.MESSAGESENDNAV)
-//            toVC.modalPresentationStyle = .fullScreen
-//            self.present(toVC, animated: false, completion: nil)
-        }
+        print("remotestatechagne==>",state.rawValue)
     }
     
     func rtcEngine(_ engine: AgoraRtcEngineKit, didJoinedOfUid uid: UInt, elapsed: Int) {
-        //isRemoteVideoRender = true
-
         let parent: UIView = remoteContainer
-//        if let it = localVideo, let view = it.view {
-//            if view.superview == parent {
-//                parent = localContainer
-//            }
-//        }
-
-        // Only one remote video view is available for this
-        // tutorial. Here we check if there exists a surface
-        // view tagged as this uid.
         if remoteVideo != nil {
             return
         }
@@ -619,47 +638,12 @@ extension CallVideoView: AgoraRtcEngineDelegate {
         remoteVideo!.renderMode = .hidden
         remoteVideo!.uid = uid
         parent.addSubview(remoteVideo!.view!)
-        agoraKit.setupRemoteVideo(remoteVideo!)
+        if let agoraKit = self.agoraKit{
+            agoraKit.setupRemoteVideo(remoteVideo!)
+        }
+        
     }
     
-    /*func rtcEngineVideoDidStop(_ engine: AgoraRtcEngineKit) {
-        print("rtcEngineVideoDidStop")
-    }
-    
-    func rtcEngineTranscodingUpdated(_ engine: AgoraRtcEngineKit) {
-        print("rtcEngineTranscodingUpdated")
-    }
-    
-    func rtcEngine(_ engine: AgoraRtcEngineKit, reportRtcStats stats: AgoraChannelStats) {
-        print("reportRtcStats")
-    }
-    
-    func rtcEngineConnectionDidLost(_ engine: AgoraRtcEngineKit) {
-        print("rtcEngineConnectionDidLost")
-    }
-    
-    func rtcEngine(_ engine: AgoraRtcEngineKit, didLeaveChannelWith stats: AgoraChannelStats) {
-        print("didLeaveChannelWith")
-    }
-    
-    func rtcEngine(_ engine: AgoraRtcEngineKit, remoteVideoStats stats: AgoraRtcRemoteVideoStats) {
-        print("remoteVideoStats")
-    }
-    
-    func rtcEngine(_ engine: AgoraRtcEngineKit, didReceive event: AgoraChannelMediaRelayEvent) {
-        print("didReceive event")
-    }
-    
-    func rtcEngine(_ engine: AgoraRtcEngineKit, connectionChangedTo state: AgoraConnectionStateType, reason: AgoraConnectionChangedReason) {
-        print("connectionChangedTo state")
-    }*/
-    
-    /// Callback to handle the event when the first frame of a remote video stream is decoded on the device.
-    /// - Parameters:
-    ///   - engine: RTC engine instance
-    ///   - uid: user id
-    ///   - size: the height and width of the video frame
-    ///   - elapsed: Time elapsed (ms) from the local user calling JoinChannel method until the SDK triggers this callback.
     func rtcEngine(_ engine: AgoraRtcEngineKit, firstRemoteVideoDecodedOfUid uid:UInt, size:CGSize, elapsed:Int) {
         isRemoteVideoRender = true
         
@@ -669,10 +653,6 @@ extension CallVideoView: AgoraRtcEngineDelegate {
                 parent = localContainer
             }
         }
-        
-        // Only one remote video view is available for this
-        // tutorial. Here we check if there exists a surface
-        // view tagged as this uid.
         if remoteVideo != nil {
             return
         }
@@ -683,14 +663,12 @@ extension CallVideoView: AgoraRtcEngineDelegate {
         remoteVideo!.renderMode = .hidden
         remoteVideo!.uid = uid
         parent.addSubview(remoteVideo!.view!)
-        agoraKit.setupRemoteVideo(remoteVideo!)
+        if let agoraKit = self.agoraKit{
+            agoraKit.setupRemoteVideo(remoteVideo!)
+        }
+        
     }
     
-    /// Occurs when a remote user (Communication)/host (Live Broadcast) leaves a channel.
-    /// - Parameters:
-    ///   - engine: RTC engine instance
-    ///   - uid: ID of the user or host who leaves a channel or goes offline.
-    ///   - reason: Reason why the user goes offline
     func rtcEngine(_ engine: AgoraRtcEngineKit, didOfflineOfUid uid:UInt, reason:AgoraUserOfflineReason) {
         isRemoteVideoRender = false
         if let it = remoteVideo, it.uid == uid {
@@ -698,6 +676,7 @@ extension CallVideoView: AgoraRtcEngineDelegate {
             remoteVideo = nil
         }
         // dismisss action
+        print("offline")
         DispatchQueue.main.async {
             self.updateEnd()
         }

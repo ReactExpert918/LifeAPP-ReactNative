@@ -16,9 +16,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CallVideoView">
             <connections>
-                <outlet property="buttonMute" destination="AW3-7M-3qX" id="7Af-Gr-LFz"/>
-                <outlet property="buttonSwitch" destination="NQ2-UN-SbC" id="nnM-KX-UnG"/>
-                <outlet property="cameraButton" destination="NQ2-UN-SbC" id="aGP-o7-uii"/>
+                <outlet property="cameraButton" destination="NQ2-UN-SbC" id="ON3-ae-Lo2"/>
                 <outlet property="imageUser" destination="3Dn-fS-ES4" id="Yh8-XH-6Tt"/>
                 <outlet property="labelInitials" destination="qUo-VN-lF5" id="jhY-q2-NqA"/>
                 <outlet property="labelName" destination="B31-qG-HXG" id="W1h-oG-EqS"/>
@@ -31,6 +29,7 @@
                 <outlet property="uiv_anwserhangup" destination="bsc-ZX-ncE" id="CNZ-6w-7m8"/>
                 <outlet property="uiv_muteswitch" destination="Gaf-ab-Y7P" id="MTd-y8-0LI"/>
                 <outlet property="uiv_power" destination="3Jl-NR-Oer" id="JVB-PU-g2a"/>
+                <outlet property="uiv_request" destination="0lJ-vh-mBF" id="DBv-QB-zIr"/>
                 <outlet property="view" destination="UT9-Nv-lbz" id="kPH-Mz-aOJ"/>
                 <outlet property="viewBackground" destination="4xH-2r-f6Q" id="ti4-bc-LPS"/>
                 <outlet property="viewDetails" destination="aty-bH-sVM" id="gxV-7J-dle"/>
@@ -53,7 +52,7 @@
                             <color key="backgroundColor" name="typingIndicatorDot"/>
                             <gestureRecognizers/>
                         </view>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="big_logo" translatesAutoresizingMaskIntoConstraints="NO" id="mG6-kt-o9R" userLabel="remoteVideoMutedIndicator">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_logo" translatesAutoresizingMaskIntoConstraints="NO" id="mG6-kt-o9R" userLabel="remoteVideoMutedIndicator">
                             <rect key="frame" x="110" y="234" width="100" height="100"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="100" id="3Xx-Fz-Bgh"/>
@@ -129,7 +128,7 @@
                                     </constraints>
                                     <state key="normal" image="callvideo_hangup.png"/>
                                     <connections>
-                                        <action selector="actionHangup:" destination="-1" eventType="touchUpInside" id="cCa-bS-G1L"/>
+                                        <action selector="decline:" destination="-1" eventType="touchUpInside" id="eiZ-z0-6uQ"/>
                                     </connections>
                                 </button>
                             </subviews>
@@ -190,6 +189,28 @@
                                 <constraint firstItem="cGz-6l-KdA" firstAttribute="top" secondItem="Gaf-ab-Y7P" secondAttribute="top" id="xR6-OL-TPc"/>
                             </constraints>
                         </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0lJ-vh-mBF" userLabel="requestPower">
+                            <rect key="frame" x="0.0" y="392" width="320" height="88"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UHE-ZD-9Uy">
+                                    <rect key="frame" x="124" y="0.0" width="72" height="72"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="72" id="ljz-eA-IuY"/>
+                                        <constraint firstAttribute="height" constant="72" id="zyJ-QA-OaP"/>
+                                    </constraints>
+                                    <state key="normal" image="callvideo_hangup.png"/>
+                                    <connections>
+                                        <action selector="actionRequestHangup:" destination="-1" eventType="touchUpInside" id="cBf-VF-sAW"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="UHE-ZD-9Uy" firstAttribute="top" secondItem="0lJ-vh-mBF" secondAttribute="top" id="OcI-bT-C4A"/>
+                                <constraint firstItem="UHE-ZD-9Uy" firstAttribute="centerX" secondItem="0lJ-vh-mBF" secondAttribute="centerX" id="fse-7i-vi5"/>
+                                <constraint firstAttribute="height" constant="88" id="huV-nN-zbw"/>
+                            </constraints>
+                        </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Jl-NR-Oer" userLabel="power">
                             <rect key="frame" x="0.0" y="392" width="320" height="88"/>
                             <subviews>
@@ -231,7 +252,7 @@
                         <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vcG-lN-R8l">
                             <rect key="frame" x="200" y="20" width="100" height="133.5"/>
                             <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="BDm-Br-cYi" userLabel="localVideoMutedIndicator">
+                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_logo" translatesAutoresizingMaskIntoConstraints="NO" id="BDm-Br-cYi" userLabel="localVideoMutedIndicator">
                                     <rect key="frame" x="32" y="48.5" width="36" height="36"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="36" id="iFZ-QN-vbM"/>
@@ -263,9 +284,11 @@
                         <constraint firstAttribute="bottom" secondItem="4xH-2r-f6Q" secondAttribute="bottom" id="Iu8-Ut-2kZ"/>
                         <constraint firstItem="4xH-2r-f6Q" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="JKV-c8-a7W"/>
                         <constraint firstItem="jNm-tt-xBW" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Jxm-GP-Uvb"/>
+                        <constraint firstItem="3Jl-NR-Oer" firstAttribute="leading" secondItem="0lJ-vh-mBF" secondAttribute="leading" id="M0Q-9a-zG4"/>
                         <constraint firstItem="aty-bH-sVM" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="Q7m-K7-L8C"/>
                         <constraint firstAttribute="trailing" secondItem="jNm-tt-xBW" secondAttribute="trailing" id="V8b-pz-byt"/>
                         <constraint firstAttribute="trailing" secondItem="3Jl-NR-Oer" secondAttribute="trailing" id="Wdy-MR-Jar"/>
+                        <constraint firstItem="3Jl-NR-Oer" firstAttribute="trailing" secondItem="0lJ-vh-mBF" secondAttribute="trailing" id="Ydb-AU-cIX"/>
                         <constraint firstItem="vcG-lN-R8l" firstAttribute="leading" secondItem="IKj-6S-PfQ" secondAttribute="leading" id="bXx-Sd-glf"/>
                         <constraint firstItem="Gaf-ab-Y7P" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="gpL-q1-ZyG"/>
                         <constraint firstItem="IKj-6S-PfQ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" id="kAu-ZM-pSK"/>
@@ -273,6 +296,8 @@
                         <constraint firstItem="aty-bH-sVM" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="mCC-wq-dqC"/>
                         <constraint firstItem="bsc-ZX-ncE" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="n3a-kC-1sQ"/>
                         <constraint firstItem="bsc-ZX-ncE" firstAttribute="top" secondItem="3Jl-NR-Oer" secondAttribute="bottom" id="nDA-BR-nNB"/>
+                        <constraint firstItem="3Jl-NR-Oer" firstAttribute="bottom" secondItem="0lJ-vh-mBF" secondAttribute="bottom" id="o79-2j-TIz"/>
+                        <constraint firstItem="3Jl-NR-Oer" firstAttribute="top" secondItem="0lJ-vh-mBF" secondAttribute="top" id="p5r-VO-vwE"/>
                         <constraint firstItem="mG6-kt-o9R" firstAttribute="width" secondItem="mG6-kt-o9R" secondAttribute="height" multiplier="1:1" id="qRb-Sy-NUX"/>
                         <constraint firstItem="mG6-kt-o9R" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="qqr-Kv-0H8"/>
                         <constraint firstAttribute="bottom" secondItem="bsc-ZX-ncE" secondAttribute="bottom" id="w4k-Om-pE0"/>
@@ -303,14 +328,13 @@
         </designable>
     </designables>
     <resources>
-        <image name="big_logo" width="100" height="106"/>
+        <image name="app_logo" width="525" height="524"/>
         <image name="callvideo_answer.png" width="72" height="72"/>
         <image name="callvideo_blank.png" width="70" height="70"/>
         <image name="callvideo_hangup.png" width="62" height="62"/>
         <image name="callvideo_mute1.png" width="37.5" height="30"/>
         <image name="callvideo_switch1.png" width="30" height="30"/>
         <image name="callvideo_video1.png" width="37.5" height="30"/>
-        <image name="logo" width="39" height="42"/>
         <namedColor name="typingIndicatorDot">
             <color red="0.68199998140335083" green="0.68199998140335083" blue="0.69800001382827759" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

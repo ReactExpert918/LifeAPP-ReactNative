@@ -11,23 +11,28 @@
 
 //import Sinch
 import MediaPlayer
+import SwiftyAvatar
 import UIKit
 import AgoraRtcKit
+import FirebaseDatabase
+import FirebaseFirestore
 
 //----
 class CallAudioView: UIViewController {
-
+    let ref = Database.database().reference()
+    
     @IBOutlet var imageUser: UIImageView!
     @IBOutlet var labelInitials: UILabel!
     @IBOutlet var labelName: UILabel!
     @IBOutlet var labelStatus: UILabel!
-    @IBOutlet var viewButtons: UIView!
+    @IBOutlet var uiv_mutespeaker: UIView!
     @IBOutlet var buttonMute: UIButton!
     @IBOutlet var buttonSpeaker: UIButton!
     @IBOutlet var buttonVideo: UIButton!
-    @IBOutlet var viewButtons1: UIView!
-    @IBOutlet var viewButtons2: UIView!
-    @IBOutlet var viewEnded: UIView!
+    @IBOutlet var uiv_answerdecline: UIView!
+    @IBOutlet var uiv_power: UIView!
+    
+    @IBOutlet weak var uiv_requst: UIView!
     @IBOutlet weak var dottedProgressView: UIView!
     
     private var dottedProgressBar:DottedProgressBar?
@@ -49,7 +54,10 @@ class CallAudioView: UIViewController {
     
     var roomID = ""
     var receiver: String = ""
-    var agoraKit: AgoraRtcEngineKit!
+    var agoraKit: AgoraRtcEngineKit?
+    
+    var voiceStatusHandle: UInt?
+    var voiceStatusRemoveHandle: UInt?
     
     /*
     init(call: SINCall?) {
@@ -68,6 +76,65 @@ class CallAudioView: UIViewController {
         callString = (self.call?.headers["name"])! as! String
     }*/
 
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        if let voiceStatusHandle = voiceStatusHandle{
+            FirebaseAPI.removeVoiceCallListnerObserver(self.roomID, voiceStatusHandle)
+        }
+        if let voiceStatusRemoveHandle = voiceStatusRemoveHandle{
+            FirebaseAPI.removeVoiceCallRemoveListnerObserver(self.roomID, voiceStatusRemoveHandle)
+        }
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    func voiceCallStatusListner(_ roomId : String)  {
+        self.voiceStatusHandle = FirebaseAPI.setVoiceCallChangeListener(roomId){ [self] (status) in
+            
+            switch status {
+            /*
+             case outgoing = 1
+             case incoming = 2
+             case end = 3
+             case accept = 4
+             case reject = 5
+             case null = 6
+             */
+            case 1:
+                break
+            case 2:
+                // show
+                break
+            case 3:
+                break
+            case 4:// accept acction and start calling
+                self.joinAction()
+                break
+            case 5:
+                break
+            case 6:
+                break
+                
+            default:
+                print("default")
+            }
+        }
+        
+        self.voiceStatusRemoveHandle = FirebaseAPI.setVoiceCallRemoveListener(roomId){ [self] (receiverid) in
+            if receiverid == AuthUser.userId(){
+                self.leaveChannel()
+                self.dismiss(animated: true, completion: nil)
+            }else{
+                if outgoing{
+                    self.labelStatus.text = "Declined"
+                    self.labelStatus.textColor = .red
+                }else{
+                    self.leaveChannel()
+                    self.dismiss(animated: true, completion: nil)
+                }
+            }
+        }
+    }
     
     init(userId: String) {
         super.init(nibName: nil, bundle: nil)
@@ -166,19 +233,20 @@ class CallAudioView: UIViewController {
         //audioSession.addObserver(self, forKeyPath: "outputVolume", options: NSKeyValueObservingOptions.new, context: nil)
         let progress = audioSession.outputVolume / 1.0 * 6
         dottedProgressBar?.setProgress(value: Int(progress))
+        
+        
     }
     
-    func joinAction()  {
+    func joinAction() {
         agoraKit = AgoraRtcEngineKit.sharedEngine(withAppId: AppConstant.agoraAppID, delegate: self)
-        joinChannel()
-    }
-    
-    func joinChannel() {
         // Allows a user to join a channel.
-        agoraKit.joinChannel(byToken: "", channelId: roomID, info:nil, uid:0) {[unowned self] (sid, uid, elapsed) -> Void in
-            // Joined channel "demoChannel"
-            self.agoraKit.setEnableSpeakerphone(true)
-            UIApplication.shared.isIdleTimerDisabled = true
+        if let agoraKit = self.agoraKit{
+            agoraKit.joinChannel(byToken: "", channelId: roomID, info:nil, uid:0) {[unowned self] (sid, uid, elapsed) -> Void in
+                // Joined channel "demoChannel"
+                agoraKit.setEnableSpeakerphone(false)
+                UIApplication.shared.isIdleTimerDisabled = true
+            }
+            self.setConnectedUI()
         }
     }
     
@@ -202,7 +270,7 @@ class CallAudioView: UIViewController {
             loadGroup(self.group!)
         }
         labelName.text = callString
-        
+        self.voiceCallStatusListner(self.roomID)
     }
 
     
@@ -292,7 +360,7 @@ class CallAudioView: UIViewController {
     // MARK: - User actions
     
     @IBAction func actionMute(_ sender: Any) {
-        let sender = sender as! UIButton
+        //let sender = sender as! UIButton
         if (muted) {
             muted = false
             buttonMute.setImage(UIImage(named: "callaudio_mute2"), for: .normal)
@@ -305,15 +373,16 @@ class CallAudioView: UIViewController {
             //audioController?.mute()
         }
         
-        sender.isSelected = !sender.isSelected
+        //sender.isSelected = !sender.isSelected
         // Stops/Resumes sending the local audio stream.
-        agoraKit.muteLocalAudioStream(sender.isSelected)
-        
+        if let agoraKit = self.agoraKit{
+            agoraKit.muteLocalAudioStream(muted)
+        }
     }
 
     
     @IBAction func actionSpeaker(_ sender: Any) {
-        let sender = sender as! UIButton
+        //let sender = sender as! UIButton
         if (speaker) {
             speaker = false
             buttonSpeaker.setImage(UIImage(named: "callaudio_speaker2"), for: .normal)
@@ -326,33 +395,48 @@ class CallAudioView: UIViewController {
             //audioController?.enableSpeaker()
         }
         
-        sender.isSelected = !sender.isSelected
-        agoraKit.setEnableSpeakerphone(sender.isSelected)
-        
+        //sender.isSelected = !sender.isSelected
+        if let agoraKit = self.agoraKit{
+            agoraKit.setEnableSpeakerphone(speaker)
+        }
     }
 
-    
-    @IBAction func actionVideo(_ sender: Any) {
-
-    }
 
     func leaveChannel() {
-        agoraKit.leaveChannel(nil)
-        UIApplication.shared.isIdleTimerDisabled = false
+        if let agoraKit = self.agoraKit{
+            agoraKit.leaveChannel(nil)
+            UIApplication.shared.isIdleTimerDisabled = false
+        }
     }
     
     
     @IBAction func actionHangup(_ sender: Any) {
         self.leaveChannel()
-        
+        ref.child("voice_call").child(self.roomID).removeValue()
         self.dismiss(animated: true, completion: nil)
-        //call?.hangup()
-        
+    }
+    
+    @IBAction func actionRequestHangup(_ sender: Any) {
+        ref.child("voice_call").child(self.roomID).removeValue()
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func actionDecline(_ sender: Any) {
+        ref.child("voice_call").child(self.roomID).removeValue()
+        self.dismiss(animated: true, completion: nil)
     }
 
     
     @IBAction func actionAnswer(_ sender: Any) {
-
+        self.joinAction()
+        var status = [String: Any]()
+        status["receiver"]   = self.receiver
+        status["status"]   = Status.accept.rawValue
+        
+        FirebaseAPI.sendVoiceCallStatus(status, self.roomID) { (isSuccess, data) in
+            
+        }
+        self.joinAction()
         //call?.answer()
     }
 
@@ -360,33 +444,48 @@ class CallAudioView: UIViewController {
     
     func setOutgoingUI() {
         labelStatus.text = "Calling..."
-        viewButtons.isHidden = incoming
-        viewButtons1.isHidden = outgoing
-        viewButtons2.isHidden = incoming
-        viewEnded.isHidden = true
+        labelStatus.textColor = .white
+        uiv_mutespeaker.isHidden = true
+        uiv_answerdecline.isHidden = true
+        uiv_power.isHidden = true
+        uiv_requst.isHidden = false
+        //viewEnded.isHidden = true
         var status = [String: Any]()
         status["receiver"]   = self.receiver
         status["status"]   = Status.outgoing.rawValue
         FirebaseAPI.sendVoiceCallStatus(status, self.roomID) { (isSuccess, data) in
-            
         }
     }
 
     
     func setIncomingUI() {
-        labelStatus.text = "00:00"
-        viewButtons.isHidden = false
-        viewButtons1.isHidden = true
-        viewButtons2.isHidden = false
-        viewEnded.isHidden = true
+        labelStatus.text = "Incoming..."
+        labelStatus.textColor = .white
+        uiv_mutespeaker.isHidden = true
+        uiv_answerdecline.isHidden = false
+        uiv_power.isHidden = true
+        uiv_requst.isHidden = true
+        //viewEnded.isHidden = true
+    }
+    
+    func setConnectedUI() {
+        labelStatus.text = "Connected"
+        labelStatus.textColor = .green
+        uiv_mutespeaker.isHidden = false
+        uiv_answerdecline.isHidden = true
+        uiv_power.isHidden = false
+        uiv_requst.isHidden = true
     }
 
     
-    func updateDetails3() {
-
+    func setEndUI() {
         labelStatus.text = "Ended"
-
-        viewEnded.isHidden = false
+        labelStatus.textColor = .white
+        uiv_mutespeaker.isHidden = true
+        uiv_answerdecline.isHidden = true
+        uiv_power.isHidden = false
+        uiv_requst.isHidden = true
+        //viewEnded.isHidden = false
     }
 }
 
@@ -424,12 +523,17 @@ extension CallAudioView: SINCallDelegate {
 
 extension CallAudioView: AgoraRtcEngineDelegate{
     func rtcEngine(_ engine: AgoraRtcEngineKit, remoteAudioStateChangedOfUid uid: UInt, state: AgoraAudioRemoteState, reason: AgoraAudioRemoteStateReason, elapsed: Int) {
-        if state.rawValue == 0{
-            self.leaveChannel()
-//            let storyBoard : UIStoryboard = UIStoryboard(name: "Chat", bundle: nil)
-//            let toVC = storyBoard.instantiateViewController( withIdentifier: VCs.MESSAGESENDNAV)
-//            toVC.modalPresentationStyle = .fullScreen
-//            self.present(toVC, animated: false, completion: nil)
-        }
+        print("this is remoteaudiostatechage=====>",state.rawValue)
+        
+    }
+    
+    func rtcEngine(_ engine: AgoraRtcEngineKit, localAudioStateChange state: AgoraAudioLocalState, error: AgoraAudioLocalError) {
+        print("this is localaudiostatechage=====>",state.rawValue)
+    }
+    
+    func rtcEngine(_ engine: AgoraRtcEngineKit, didOfflineOfUid uid: UInt, reason: AgoraUserOfflineReason) {
+        print("offline")
+        self.leaveChannel()
+        setEndUI()
     }
 }

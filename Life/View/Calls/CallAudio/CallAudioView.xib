@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -28,11 +30,11 @@
                 <outlet property="labelInitials" destination="Lhy-g4-Nkh" id="Ilz-ij-49p"/>
                 <outlet property="labelName" destination="Q92-lO-lJ2" id="9dD-vl-0LD"/>
                 <outlet property="labelStatus" destination="lal-1K-R9p" id="biB-9w-yfr"/>
+                <outlet property="uiv_answerdecline" destination="8Lj-w4-Vs5" id="pBO-sS-BeG"/>
+                <outlet property="uiv_mutespeaker" destination="Fyx-mg-p9e" id="ogl-oi-B6K"/>
+                <outlet property="uiv_power" destination="dyo-hq-D6y" id="Few-2L-5EK"/>
+                <outlet property="uiv_requst" destination="IqG-vv-JKg" id="rbb-sm-afx"/>
                 <outlet property="view" destination="wES-DP-Ocd" id="QwI-qG-8Ii"/>
-                <outlet property="viewButtons" destination="Fyx-mg-p9e" id="C4B-rm-8b1"/>
-                <outlet property="viewButtons1" destination="8Lj-w4-Vs5" id="fUC-rm-rMb"/>
-                <outlet property="viewButtons2" destination="IqG-vv-JKg" id="c1h-Nb-Q6J"/>
-                <outlet property="viewEnded" destination="6tH-ii-MRh" id="vDG-R3-LK8"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -57,7 +59,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
                                 <constraint firstItem="LNa-jM-AfD" firstAttribute="top" secondItem="vTx-xM-Pvw" secondAttribute="top" id="WRN-bE-dTo"/>
                                 <constraint firstAttribute="trailing" secondItem="LNa-jM-AfD" secondAttribute="trailing" id="jw0-I0-zcT"/>
@@ -85,7 +87,7 @@
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t3l-4o-0bA" userLabel="DottedProgressView">
                                             <rect key="frame" x="110" y="94.333333333333314" width="100" height="24"/>
-                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="24" id="c3t-mj-YsY"/>
                                                 <constraint firstAttribute="width" constant="100" id="w5t-M6-eCl"/>
@@ -97,7 +99,7 @@
                                             <color key="textColor" red="0.34901960784313724" green="0.34901960784313724" blue="0.34901960784313724" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fyx-mg-p9e">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fyx-mg-p9e" userLabel="mutespeaker">
                                             <rect key="frame" x="0.0" y="217.66666666666669" width="320" height="72"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rfX-gE-bZH">
@@ -128,7 +130,7 @@
                                                         <action selector="actionSpeaker:" destination="-1" eventType="touchUpInside" id="Ixl-gT-Xwa"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hXh-kj-cUR">
+                                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hXh-kj-cUR">
                                                     <rect key="frame" x="124" y="0.0" width="72" height="72"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
@@ -153,7 +155,7 @@
                                                 <constraint firstItem="hXh-kj-cUR" firstAttribute="leading" secondItem="rfX-gE-bZH" secondAttribute="trailing" constant="32" id="prJ-Zq-cI5"/>
                                             </constraints>
                                         </view>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Lj-w4-Vs5">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Lj-w4-Vs5" userLabel="answerdecline">
                                             <rect key="frame" x="35" y="372.33333333333331" width="250" height="75"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9yx-dT-igx">
@@ -169,7 +171,7 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" image="callaudio_hangup.png"/>
                                                     <connections>
-                                                        <action selector="actionHangup:" destination="-1" eventType="touchUpInside" id="i2D-sa-clT"/>
+                                                        <action selector="actionDecline:" destination="-1" eventType="touchUpInside" id="qin-q6-D2R"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -179,7 +181,7 @@
                                                 <constraint firstAttribute="height" constant="75" id="8eP-Y7-wiD"/>
                                             </constraints>
                                         </view>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IqG-vv-JKg">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IqG-vv-JKg" userLabel="reqeuest">
                                             <rect key="frame" x="35" y="372.33333333333331" width="250" height="75"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RzZ-Kq-p58">
@@ -187,7 +189,7 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" image="callaudio_hangup.png"/>
                                                     <connections>
-                                                        <action selector="actionHangup:" destination="-1" eventType="touchUpInside" id="xvS-h0-YtF"/>
+                                                        <action selector="actionRequestHangup:" destination="-1" eventType="touchUpInside" id="t7z-nC-vZe"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -195,6 +197,24 @@
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="250" id="nU8-w0-ucs"/>
                                                 <constraint firstAttribute="height" constant="75" id="wOA-jF-rrS"/>
+                                            </constraints>
+                                        </view>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dyo-hq-D6y" userLabel="power">
+                                            <rect key="frame" x="35" y="372.33333333333331" width="250" height="75"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sff-Nc-qsy">
+                                                    <rect key="frame" x="88" y="0.0" width="75" height="75"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" image="callaudio_hangup.png"/>
+                                                    <connections>
+                                                        <action selector="actionHangup:" destination="-1" eventType="touchUpInside" id="dxh-1q-mxL"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="75" id="dqA-pb-uJA"/>
+                                                <constraint firstAttribute="width" constant="250" id="oEB-Ad-vpC"/>
                                             </constraints>
                                         </view>
                                     </subviews>
@@ -205,32 +225,28 @@
                                         <constraint firstItem="Fyx-mg-p9e" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="44y-qZ-vGD"/>
                                         <constraint firstItem="t3l-4o-0bA" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="4G3-WZ-fiu"/>
                                         <constraint firstItem="Q92-lO-lJ2" firstAttribute="top" secondItem="NoQ-zg-0iN" secondAttribute="bottom" constant="12" id="BLm-8j-3AJ"/>
+                                        <constraint firstItem="IqG-vv-JKg" firstAttribute="trailing" secondItem="dyo-hq-D6y" secondAttribute="trailing" id="CL3-nu-SsF"/>
                                         <constraint firstItem="NoQ-zg-0iN" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="CpU-6u-b41"/>
                                         <constraint firstItem="Fyx-mg-p9e" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Kc6-au-PFt"/>
+                                        <constraint firstItem="IqG-vv-JKg" firstAttribute="bottom" secondItem="dyo-hq-D6y" secondAttribute="bottom" id="QWP-ed-zC9"/>
                                         <constraint firstItem="t3l-4o-0bA" firstAttribute="top" secondItem="Q92-lO-lJ2" secondAttribute="bottom" constant="10" id="WIE-HE-idg"/>
                                         <constraint firstItem="Fyx-mg-p9e" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" constant="10" id="aVO-Ra-AiX"/>
                                         <constraint firstAttribute="bottom" secondItem="IqG-vv-JKg" secondAttribute="bottom" constant="40" id="bXq-0z-4yU"/>
                                         <constraint firstItem="lal-1K-R9p" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="eoM-00-ld9"/>
+                                        <constraint firstItem="IqG-vv-JKg" firstAttribute="top" secondItem="dyo-hq-D6y" secondAttribute="top" id="f4Y-64-QR3"/>
                                         <constraint firstAttribute="bottom" secondItem="8Lj-w4-Vs5" secondAttribute="bottom" constant="40" id="kLQ-9b-K4a"/>
                                         <constraint firstItem="8Lj-w4-Vs5" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="nhI-4d-qT5"/>
+                                        <constraint firstItem="IqG-vv-JKg" firstAttribute="leading" secondItem="dyo-hq-D6y" secondAttribute="leading" id="tcO-Nf-yap"/>
                                         <constraint firstItem="lal-1K-R9p" firstAttribute="top" secondItem="t3l-4o-0bA" secondAttribute="bottom" constant="16" id="tjw-gE-Tze"/>
                                         <constraint firstAttribute="width" constant="320" id="tkW-BK-Atg"/>
                                         <constraint firstItem="Q92-lO-lJ2" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="tue-hk-M7w"/>
                                         <constraint firstAttribute="trailing" secondItem="Fyx-mg-p9e" secondAttribute="trailing" id="zGI-5L-V33"/>
                                     </constraints>
                                 </view>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6tH-ii-MRh">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="487.33333333333331"/>
-                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
-                                </view>
                             </subviews>
-                            <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                            <color key="backgroundColor" systemColor="tableCellGroupedBackgroundColor"/>
                             <constraints>
-                                <constraint firstItem="6tH-ii-MRh" firstAttribute="top" secondItem="zPM-gM-IRv" secondAttribute="top" id="5p7-2r-i81"/>
                                 <constraint firstItem="i5M-Pr-FkT" firstAttribute="top" secondItem="zPM-gM-IRv" secondAttribute="top" id="7Qe-cx-KT1"/>
-                                <constraint firstItem="6tH-ii-MRh" firstAttribute="leading" secondItem="zPM-gM-IRv" secondAttribute="leading" id="7pv-DR-NRU"/>
-                                <constraint firstAttribute="bottom" secondItem="6tH-ii-MRh" secondAttribute="bottom" id="BwU-rl-d7y"/>
-                                <constraint firstAttribute="trailing" secondItem="6tH-ii-MRh" secondAttribute="trailing" id="Q0c-dZ-Bkt"/>
                                 <constraint firstItem="i5M-Pr-FkT" firstAttribute="centerX" secondItem="zPM-gM-IRv" secondAttribute="centerX" id="XjN-Be-L6f"/>
                                 <constraint firstItem="i5M-Pr-FkT" firstAttribute="centerY" secondItem="zPM-gM-IRv" secondAttribute="centerY" id="fuZ-Xg-Rfy"/>
                                 <constraint firstAttribute="bottom" secondItem="i5M-Pr-FkT" secondAttribute="bottom" id="nbu-Og-Xix"/>
@@ -250,14 +266,14 @@
                     </constraints>
                 </view>
             </subviews>
-            <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+            <viewLayoutGuide key="safeArea" id="DZE-S6-fQX"/>
+            <color key="backgroundColor" systemColor="tableCellGroupedBackgroundColor"/>
             <constraints>
                 <constraint firstItem="XSo-im-Xkx" firstAttribute="leading" secondItem="DZE-S6-fQX" secondAttribute="leading" id="0ZY-Uv-wDZ"/>
                 <constraint firstAttribute="bottom" secondItem="XSo-im-Xkx" secondAttribute="bottom" id="PP8-oW-tfm"/>
                 <constraint firstItem="DZE-S6-fQX" firstAttribute="trailing" secondItem="XSo-im-Xkx" secondAttribute="trailing" id="piR-Xu-650"/>
                 <constraint firstItem="XSo-im-Xkx" firstAttribute="top" secondItem="wES-DP-Ocd" secondAttribute="top" id="ppC-VP-kQ8"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="DZE-S6-fQX"/>
             <point key="canvasLocation" x="-420" y="222.41379310344828"/>
         </view>
     </objects>
@@ -268,5 +284,11 @@
         <image name="callaudio_mute1.png" width="81.333335876464844" height="81.333335876464844"/>
         <image name="callaudio_speaker1.png" width="81.333335876464844" height="81.333335876464844"/>
         <image name="callaudio_video1.png" width="81.333335876464844" height="81.333335876464844"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="tableCellGroupedBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

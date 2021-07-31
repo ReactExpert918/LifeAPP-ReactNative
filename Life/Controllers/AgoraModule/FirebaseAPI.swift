@@ -34,6 +34,33 @@ class FirebaseAPI {
         }
     }
     
+    static func setVideoCallRemoveListener(_ roomId: String, handler:@escaping (_ msg: String)->()) -> UInt {
+        return ref.child(VIDEO_CALL).child(roomId).observe(.childRemoved) { (snapshot, error) in
+
+            if let childref = snapshot.value as? String{
+                handler(childref)
+            }
+        }
+    }
+    
+    static func setVoiceCallChangeListener(_ roomId: String, handler:@escaping (_ msg: Int)->()) -> UInt {
+        return ref.child(VOICE_CALL).child(roomId).observe(.childChanged) { (snapshot, error) in
+
+            if let childref = snapshot.value as? Int{
+                handler(childref)
+            }
+        }
+    }
+    
+    static func setVoiceCallRemoveListener(_ roomId: String, handler:@escaping (_ msg: String)->()) -> UInt {
+        return ref.child(VOICE_CALL).child(roomId).observe(.childRemoved) { (snapshot, error) in
+
+            if let childref = snapshot.value as? String{
+                handler(childref)
+            }
+        }
+    }
+    
     static func setVoiceCallListener(_ roomId: String, handler:@escaping (_ msg: String)->()) -> UInt {
         return ref.child(VOICE_CALL).child(roomId).observe(.childAdded) { (snapshot, error) in
 
@@ -50,7 +77,15 @@ class FirebaseAPI {
         ref.child(VIDEO_CALL).child(roomId).removeObserver(withHandle: handle)
     }
     
+    static func removeVideoCallRemoveListnerObserver(_ roomId: String, _ handle : UInt) {
+        ref.child(VIDEO_CALL).child(roomId).removeObserver(withHandle: handle)
+    }
+    
     static func removeVoiceCallListnerObserver(_ roomId: String, _ handle : UInt) {
+        ref.child(VOICE_CALL).child(roomId).removeObserver(withHandle: handle)
+    }
+    
+    static func removeVoiceCallRemoveListnerObserver(_ roomId: String, _ handle : UInt) {
         ref.child(VOICE_CALL).child(roomId).removeObserver(withHandle: handle)
     }
     
@@ -88,13 +123,12 @@ class FirebaseAPI {
                 statusModel.status = .null
             }
         }
-        
         return statusModel
     }
     
     // MARK: - send Statusmodel
-    static func sendVoiceCallStatus(_ voiceCallStatus:[String:String], _ roomId: String, completion: @escaping (_ status: Bool, _ message: String) -> ()) {
-        ref.child(VOICE_CALL).child(roomId).childByAutoId().setValue(voiceCallStatus) { (error, dataRef) in
+    static func sendVoiceCallStatus(_ voiceCallStatus:[String:Any], _ roomId: String, completion: @escaping (_ status: Bool, _ message: String) -> ()) {
+        ref.child(VOICE_CALL).child(roomId).setValue(voiceCallStatus) { (error, dataRef) in
             if let error = error {
                 completion(false, error.localizedDescription)
             } else {

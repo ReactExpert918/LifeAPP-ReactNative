@@ -201,25 +201,31 @@ class ChatViewController: UIViewController {
     func videoAudioCallStatusListner(_ roomId : String)  {
         self.videoStatusHandle = FirebaseAPI.setVideoCallAddListener(roomId){ [self] (receiverid) in
             if !receiverid.isEmpty{
-                print(receiverid)
-                let callVideoView = CallVideoView(userId: self.recipientId)
-                callVideoView.roomID = self.chatId
-                callVideoView.receiver = recipientId
-                callVideoView.outgoing = false
-                callVideoView.incoming = true
-                present(callVideoView, animated: true)
+                print("this is receiverid==>",receiverid)
+                print("this is userid==>",AuthUser.userId())
+                if receiverid == AuthUser.userId(){
+                    let callVideoView = CallVideoView(userId: self.recipientId)
+                    callVideoView.roomID = self.chatId
+                    callVideoView.receiver = recipientId
+                    callVideoView.outgoing = false
+                    callVideoView.incoming = true
+                    present(callVideoView, animated: true)
+                }
             }
         }
-        self.audioStatusHandle = FirebaseAPI.setVideoCallAddListener(roomId){ [self] (statusModel) in
-            print(statusModel)
+        self.audioStatusHandle = FirebaseAPI.setVoiceCallListener(roomId){ [self] (receiverid) in
+            print(receiverid)
             if !receiverid.isEmpty{
-                print(receiverid)
-                let callAudioView = CallAudioView(userId: self.recipientId)
-                callAudioView.roomID = self.chatId
-                callAudioView.receiver = recipientId
-                callAudioView.outgoing = false
-                callAudioView.incoming = true
-                present(callAudioView, animated: true)
+                print("this is receiverid==>",receiverid)
+                print("this is userid==>",AuthUser.userId())
+                if receiverid == AuthUser.userId(){
+                    let callAudioView = CallAudioView(userId: self.recipientId)
+                    callAudioView.roomID = self.chatId
+                    callAudioView.receiver = recipientId
+                    callAudioView.outgoing = false
+                    callAudioView.incoming = true
+                    present(callAudioView, animated: true)
+                }
             }
         }
     }
