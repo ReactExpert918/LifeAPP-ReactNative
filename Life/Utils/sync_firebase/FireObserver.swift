@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2020 Related Code
+// Copyright (c) 2020 Related Code 
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -12,34 +12,36 @@
 import FirebaseFirestore
 import RealmSwift
 
+//-------------------------------------------------------------------------------------------------------------------------------------------------
 class FireObserver: NSObject {
 
-    private var query: Query!
-    private var type: SyncObject.Type!
+	private var query: Query!
+	private var type: SyncObject.Type!
 
-    private var listeners: [ListenerRegistration] = []
+	private var listeners: [ListenerRegistration] = []
 
-    init(_ query: Query, to type: SyncObject.Type) {
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+	init(_ query: Query, to type: SyncObject.Type) {
 
-        super.init()
+		super.init()
 
-        self.query = query
-        self.type = type
+		self.query = query
+		self.type = type
 
         listeners.append( query.addSnapshotListener { querySnapshot, error in
-            if let snapshot = querySnapshot {
-                DispatchQueue.main.async {
-                    let realm = try! Realm()
-                    try! realm.safeWrite {
-                        for documentChange in snapshot.documentChanges {
-                            let data = documentChange.document.data()
-                            self.updateRealm(realm, data)
-                        }
-                    }
-                }
-            }
-        })
-    }
+			if let snapshot = querySnapshot {
+				DispatchQueue.main.async {
+					let realm = try! Realm()
+					try! realm.safeWrite {
+						for documentChange in snapshot.documentChanges {
+							let data = documentChange.document.data()
+							self.updateRealm(realm, data)
+						}
+					}
+				}
+			}
+		})
+	}
     
     init(_ queries: [Query], to type: SyncObject.Type) {
 
@@ -65,67 +67,72 @@ class FireObserver: NSObject {
         
     }
 
-    
-    init(_ query: Query, to type: SyncObject.Type, refreshCallback: @escaping (_ insert: Bool, _ modify: Bool) -> Void) {
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+	init(_ query: Query, to type: SyncObject.Type, refreshCallback: @escaping (_ insert: Bool, _ modify: Bool) -> Void) {
 
-        super.init()
+		super.init()
 
-        self.query = query
-        self.type = type
+		self.query = query
+		self.type = type
 
         listeners.append( query.addSnapshotListener { querySnapshot, error in
-            if let snapshot = querySnapshot {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    var insert = false
-                    var modify = false
+			if let snapshot = querySnapshot {
+				DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+					var insert = false
+					var modify = false
 
-                    let realm = try! Realm()
-                    try! realm.safeWrite {
-                        for documentChange in snapshot.documentChanges {
-                            if (documentChange.type == .added) { insert = true }
-                            if (documentChange.type == .modified) { modify = true }
-                            let data = documentChange.document.data()
-                            self.updateRealm(realm, data)
-                        }
-                    }
+					let realm = try! Realm()
+					try! realm.safeWrite {
+						for documentChange in snapshot.documentChanges {
+							if (documentChange.type == .added) { insert = true }
+							if (documentChange.type == .modified) { modify = true }
+							let data = documentChange.document.data()
+							self.updateRealm(realm, data)
+						}
+					}
 
-                    refreshCallback(insert, modify)
-                }
-            }
-        })
-    }
+					refreshCallback(insert, modify)
+				}
+			}
+		})
+	}
 
-    func removeObserver() {
+	// MARK: -
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+	func removeObserver() {
         for listener in listeners{
             listener.remove()
         }
         listeners.removeAll()
-    }
+		//listener = nil
+	}
 
-    private func updateRealm(_ realm: Realm, _ values: [String: Any]) {
+	// MARK: -
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+	private func updateRealm(_ realm: Realm, _ values: [String: Any]) {
 
-        var temp = values
+		var temp = values
 
-        temp["neverSynced"] = false
-        temp["syncRequired"] = false
+		temp["neverSynced"] = false
+		temp["syncRequired"] = false
 
-        realm.create(type, value: temp, update: .modified)
-    }
+		realm.create(type, value: temp, update: .modified)
+	}
 
-    // MARK: -
-    
-    private func printDetails(_ text: String, _ snapshot: QuerySnapshot) {
-/*
-        var delete = ""
-        var insert = ""
-        var modify = ""
+	// MARK: -
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+	private func printDetails(_ text: String, _ snapshot: QuerySnapshot) {
 
-        for documentChange in snapshot.documentChanges {
-            if (documentChange.type == .removed)    { delete = "delete" }
-            if (documentChange.type == .added)      { insert = "insert" }
-            if (documentChange.type == .modified)   { modify = "modify" }
-        }*/
+		var delete = "", insert = "", modify = ""
 
-        _ = snapshot.metadata.isFromCache ? "local" : "server"
-    }
+		for documentChange in snapshot.documentChanges {
+			if (documentChange.type == .removed)	{ delete = "delete" }
+			if (documentChange.type == .added)		{ insert = "insert" }
+			if (documentChange.type == .modified)	{ modify = "modify" }
+		}
+
+		let source = snapshot.metadata.isFromCache ? "local" : "server"
+
+		// print("\(text): \(type.description()) \(snapshot.documentChanges.count) \(source) - \(delete)\(insert)\(modify)")
+	}
 }

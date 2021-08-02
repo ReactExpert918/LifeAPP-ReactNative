@@ -12,10 +12,10 @@
 import UIKit
 import AVFoundation
 
-//----
+//-------------------------------------------------------------------------------------------------------------------------------------------------
 class Video: NSObject {
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	class func thumbnail(path: String) -> UIImage {
 
 		let asset = AVURLAsset(url: URL(fileURLWithPath: path), options: nil)
@@ -33,7 +33,7 @@ class Video: NSObject {
 		return UIImage()
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	class func duration(path: String) -> Int {
 
 		let asset = AVURLAsset(url: URL(fileURLWithPath: path), options: nil)

@@ -7,28 +7,6 @@
 //
 
 import UIKit
-import UIColor_Hex_Swift
-
-extension UIColor {
-    
-    enum LocalColorName: String {
-        case primaryColor      = "#16406F"
-        case lightPrimaryColor = "#96B4D2"
-        case errorRedColor     = "#DF1747"
-        case errorLightColor   = "#FADDE2"
-        
-    }
-    
-    convenience init(_ name: LocalColorName) {
-        self.init(name.rawValue)
-    }
-    
-    static let primaryColor  = UIColor(.primaryColor)
-    static let lightPrimaryColor  = UIColor(.lightPrimaryColor)
-    static let errorRedColor = UIColor(.errorRedColor)
-    static let errorLightColor = UIColor(.errorLightColor)
-    
-}
 
 extension UIColor {
     convenience init(red: Int, green: Int, blue: Int) {

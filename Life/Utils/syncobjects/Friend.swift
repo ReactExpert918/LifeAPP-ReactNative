@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2020 Related Code
+// Copyright (c) 2020 Related Code 
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -11,31 +11,31 @@
 
 import RealmSwift
 
-//----
+//-------------------------------------------------------------------------------------------------------------------------------------------------
 class Friend: SyncObject {
 
-    @objc dynamic var userId = ""
-    @objc dynamic var friendId = ""
+	@objc dynamic var userId = ""
+	@objc dynamic var friendId = ""
 
-    @objc dynamic var isDeleted = false
+	@objc dynamic var isDeleted = false
     
     @objc dynamic var pending = true
     
     @objc dynamic var isAccepted = false
 
-    
+	//---------------------------------------------------------------------------------------------------------------------------------------------
     func update(isDeleted value: Bool, completion: ( ()->())?) {
 
-        if (isDeleted == value) { return }
+		if (isDeleted == value) { return }
 
-        let realm = try! Realm()
-        try! realm.safeWrite {
-            isDeleted = value
-            syncRequired = true
-            updatedAt = Date().timestamp()
+		let realm = try! Realm()
+		try! realm.safeWrite {
+			isDeleted = value
+			syncRequired = true
+			updatedAt = Date().timestamp()
             completion?()
-        }
-    }
+		}
+	}
     
     func update(isAccepted value: Bool) {
 

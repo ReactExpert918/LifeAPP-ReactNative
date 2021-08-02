@@ -11,7 +11,7 @@
 
 import RealmSwift
 
-//----
+//-------------------------------------------------------------------------------------------------------------------------------------------------
 class SyncObject: Object {
 
 	@objc dynamic var objectId: String = UUID().uuidString
@@ -22,14 +22,14 @@ class SyncObject: Object {
 	@objc dynamic var createdAt: Int64 = Date().timestamp()
 	@objc dynamic var updatedAt: Int64 = Date().timestamp()
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	override static func primaryKey() -> String? {
 
 		return "objectId"
 	}
 
 	// MARK: -
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	func updateSynced() {
 
 		if (syncRequired) || (neverSynced) {

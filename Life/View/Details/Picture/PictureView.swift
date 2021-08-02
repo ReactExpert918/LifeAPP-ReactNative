@@ -11,13 +11,13 @@
 
 import NYTPhotoViewer
 
-//----
+//-------------------------------------------------------------------------------------------------------------------------------------------------
 class PictureView: NYTPhotosViewController {
 
 	private var photoDataSource: NYTPhotoSource!
 	private var isShareButtonVisible = false
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	convenience init(image: UIImage, isShareButtonVisible: Bool = false) {
 
 		let photoItem = NYTPhotoItem(image: image)
@@ -28,7 +28,7 @@ class PictureView: NYTPhotosViewController {
 		self.isShareButtonVisible = isShareButtonVisible
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	convenience init(chatId: String, messageId: String, isShareButtonVisible: Bool = true) {
 
 		var photoItems: [NYTPhotoItem] = []
@@ -69,7 +69,7 @@ class PictureView: NYTPhotosViewController {
 		self.isShareButtonVisible = isShareButtonVisible
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	override func viewDidLoad() {
 
 		super.viewDidLoad()
@@ -81,20 +81,20 @@ class PictureView: NYTPhotosViewController {
 		}
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	override var prefersStatusBarHidden: Bool {
 
 		return false
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	override var preferredStatusBarStyle: UIStatusBarStyle {
 
 		return .lightContent
 	}
 
 	// MARK: - User actions
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	@objc func actionShare() {
 
 		if let photoItem = currentlyDisplayedPhoto as? NYTPhotoItem {

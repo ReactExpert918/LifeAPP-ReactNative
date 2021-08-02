@@ -11,7 +11,7 @@
 
 import RealmSwift
 
-
+//-------------------------------------------------------------------------------------------------------------------------------------------------
 class Chat: Object {
 
 	@objc dynamic var objectId = ""
@@ -52,7 +52,7 @@ class Chat: Object {
 
 	@objc dynamic var isGroupDeleted = false
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	override static func primaryKey() -> String? {
 
 		return "objectId"

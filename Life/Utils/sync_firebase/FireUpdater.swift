@@ -12,12 +12,16 @@
 import FirebaseFirestore
 import RealmSwift
 
+//-------------------------------------------------------------------------------------------------------------------------------------------------
 class FireUpdater: NSObject {
 
 	private var collection: String = ""
+
 	private var updating = false
+
 	private var objects: Results<SyncObject>?
-	
+
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	init(name: String, type: SyncObject.Type) {
 
 		super.init()
@@ -27,7 +31,7 @@ class FireUpdater: NSObject {
 		let predicate = NSPredicate(format: "syncRequired == YES")
 		objects = realm.objects(type).filter(predicate).sorted(byKeyPath: "updatedAt")
 
-		Timer.scheduledTimer(withTimeInterval: 0.25, repeats: true) { _ in
+		Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
 			if (AuthUser.userId() != "") {
 				if (Connectivity.isReachable()) {
 					self.updateNextObject()
@@ -37,7 +41,7 @@ class FireUpdater: NSObject {
 	}
 
 	// MARK: -
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	private func updateNextObject() {
 
 		if (updating) { return }
@@ -48,7 +52,7 @@ class FireUpdater: NSObject {
 	}
 
 	// MARK: -
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	private func updateObject(_ object: SyncObject) {
 
 		updating = true
@@ -73,14 +77,14 @@ class FireUpdater: NSObject {
 	}
 
 	// MARK: -
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	private func populateObject(_ object: SyncObject) -> [String: Any] {
 
 		var values: [String: Any] = [:]
 
 		for property in object.objectSchema.properties {
 			let name = property.name
-			if (name != "neverSynced") && (name != "syncRequired") {
+			if (name != "neverSynced") && (name != "syncRequired") && (name != "balance") {
 				switch property.type {
 					case .int:		if let value = object[name] as? Int64	{ values[name] = value }
 					case .bool:		if let value = object[name] as? Bool	{ values[name] = value }
@@ -88,7 +92,8 @@ class FireUpdater: NSObject {
 					case .double:	if let value = object[name] as? Double	{ values[name] = value }
 					case .string:	if let value = object[name] as? String	{ values[name] = value }
 					case .date:		if let value = object[name] as? Date	{ values[name] = value }
-					default:		print("Property type \(property.type.rawValue) is not populated.")
+					default:
+                        print("Property type \(property.type.rawValue) is not populated.")
 				}
 			}
 		}

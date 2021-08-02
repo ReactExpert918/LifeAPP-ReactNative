@@ -11,7 +11,7 @@
 
 import UIKit
 
-//----
+//-------------------------------------------------------------------------------------------------------------------------------------------------
 class RCHeaderLowerCell: UITableViewCell {
 
 	private var indexPath: IndexPath!
@@ -19,7 +19,7 @@ class RCHeaderLowerCell: UITableViewCell {
 
 	private var labelText: UILabel!
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	func bindData(_ messagesView: ChatViewController, at indexPath: IndexPath) {
 
 		self.indexPath = indexPath
@@ -40,7 +40,7 @@ class RCHeaderLowerCell: UITableViewCell {
 		labelText.text = messagesView.textHeaderLower(indexPath)
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	override func layoutSubviews() {
 
 		super.layoutSubviews()
@@ -54,7 +54,7 @@ class RCHeaderLowerCell: UITableViewCell {
 	}
 
 	// MARK: - Size methods
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	class func height(_ messagesView: ChatViewController, at indexPath: IndexPath) -> CGFloat {
 
 		return (messagesView.textHeaderLower(indexPath) != nil) ? RCDefaults.headerLowerHeight : 0

@@ -11,7 +11,7 @@
 
 import RealmSwift
 
-//----
+//-------------------------------------------------------------------------------------------------------------------------------------------------
 class ChatManager: NSObject {
 
 	private var tokenGroups: NotificationToken? = nil
@@ -24,23 +24,23 @@ class ChatManager: NSObject {
 	private var details	= realm.objects(Detail.self).filter(falsepredicate)
 	private var messages = realm.objects(Message.self).filter(falsepredicate)
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	static let shared: ChatManager = {
 		let instance = ChatManager()
 		return instance
 	} ()
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	override init() {
 
 		super.init()
 
-        NotificationCenter.default.addObserver(self, selector: #selector(initObservers), name: .appStarted, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(initObservers), name: .loggedIn, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(stopObservers), name: .loggedOut, object: nil)	}
+        NotificationCenter.default.addObserver(self, selector: #selector(initObservers), name: NSNotification.Name(rawValue: NotificationStatus.NOTIFICATION_APP_STARTED), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(initObservers), name: NSNotification.Name(rawValue: NotificationStatus.NOTIFICATION_USER_LOGGED_IN), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(stopObservers), name: NSNotification.Name(rawValue: NotificationStatus.NOTIFICATION_USER_LOGGED_OUT), object: nil)	}
 
 	// MARK: -
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	@objc private func initObservers() {
 
 		if (AuthUser.userId() != "") {
@@ -51,7 +51,7 @@ class ChatManager: NSObject {
 		}
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	@objc private func stopObservers() {
 
 		tokenGroups?.invalidate();		tokenGroups = nil
@@ -66,7 +66,7 @@ class ChatManager: NSObject {
 	}
 
 	// MARK: -
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	private func loadGroups() {
 
 		groups = realm.objects(Group.self)
@@ -86,7 +86,7 @@ class ChatManager: NSObject {
 		})
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	private func loadSingles() {
 
 		singles = realm.objects(Single.self)
@@ -106,7 +106,7 @@ class ChatManager: NSObject {
 		})
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	private func loadDetails() {
 
 		details = realm.objects(Detail.self)
@@ -126,7 +126,7 @@ class ChatManager: NSObject {
 		})
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	private func loadMessages() {
 
 		messages = realm.objects(Message.self).sorted(byKeyPath: "createdAt", ascending: false)
@@ -147,7 +147,7 @@ class ChatManager: NSObject {
 	}
 
 	// MARK: -
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	private func update(with group: Group) {
 
 		var temp: [String: Any] = [:]
@@ -167,10 +167,10 @@ class ChatManager: NSObject {
 		}
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	private func update(with single: Single) {
 
-        _ = (single.userId1 != AuthUser.userId())
+		let isRecipient = (single.userId1 != AuthUser.userId())
 
 		var temp: [String: Any] = [:]
 		temp["objectId"] = single.chatId
@@ -202,7 +202,7 @@ class ChatManager: NSObject {
 		}
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	private func update(with detail: Detail) {
 
 		var temp: [String: Any] = [:]
@@ -228,7 +228,7 @@ class ChatManager: NSObject {
 	}
 
 	// MARK: - Update with Message
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	private func update(with message: Message) {
 
 		if (!message.isDeleted) {
@@ -238,7 +238,7 @@ class ChatManager: NSObject {
 		}
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	private func update(active message: Message) {
 
 		let chatId = message.chatId
@@ -258,7 +258,7 @@ class ChatManager: NSObject {
 		}
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	private func update(deleted message: Message) {
 
 		let chatId = message.chatId
@@ -279,7 +279,7 @@ class ChatManager: NSObject {
 		}
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	private func update(_ chatId: String, with message: Message, and unread: Int?) {
 
 		var temp: [String: Any] = [:]
@@ -299,7 +299,7 @@ class ChatManager: NSObject {
 		}
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	private func update(_ chatId: String, with unread: Int) {
 
 		var temp: [String: Any] = [:]
@@ -314,14 +314,14 @@ class ChatManager: NSObject {
 	}
 
 	// MARK: - Last Message methods
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	private func lastMessage(_ chatId: String) -> Message? {
 
 		let predicate = NSPredicate(format: "chatId == %@ AND isDeleted == NO", chatId)
 		return realm.objects(Message.self).filter(predicate).sorted(byKeyPath: "createdAt").last
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	private func clearLastMessage(_ chatId: String) {
 
 		var temp: [String: Any] = [:]
@@ -339,7 +339,7 @@ class ChatManager: NSObject {
 	}
 
 	// MARK: - Unread counter methods
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	private func unreadCount(_ chat: Chat, _ message: Message) -> Int? {
 
 		if (message.userId != AuthUser.userId()) {
@@ -351,7 +351,7 @@ class ChatManager: NSObject {
 		return nil
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	private func unreadCount(_ chatId: String, _ lastRead: Int64) -> Int {
 
 		let format = "chatId == %@ AND userId != %@ AND createdAt > %ld AND isDeleted == NO"

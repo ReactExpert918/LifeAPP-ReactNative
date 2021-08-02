@@ -9,7 +9,7 @@
 import Foundation
 
 class AppConstant {
-    static let VIDEO_LENGTH = 5
+    static let VIDEO_LENGTH = 30
     static let agoraAppID = "7385eb633290453aaee4530d4c05f109"
 }
 
@@ -29,15 +29,15 @@ struct AudioStatus{
 struct MediaStatus {
     static let MEDIASTATUS_UNKNOWN = 0
     static let MEDIASTATUS_LOADING = 1
-    static let MEDIASTATUS_MANUAL  = 2
+    static let MEDIASTATUS_MANUAL = 2
     static let MEDIASTATUS_SUCCEED = 3    
 }
-/*
+
 struct NotificationStatus {
     static let NOTIFICATION_APP_STARTED = "NotificationAppStarted"
     static let NOTIFICATION_USER_LOGGED_IN = "NotificationUserLoggedIn"
     static let NOTIFICATION_USER_LOGGED_OUT = "NotificationUserLoggedOut"
-}*/
+}
 
 struct LoginInfo {
     static let LOGIN_EMAIL = "Email"

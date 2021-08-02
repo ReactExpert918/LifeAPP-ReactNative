@@ -11,10 +11,10 @@
 
 import UIKit
 
-//----
+//-------------------------------------------------------------------------------------------------------------------------------------------------
 class RCVideoLoader: NSObject {
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	class func start(_ rcmessage: RCMessage, in tableView: UITableView) {
 
 		if let path = MediaDownload.pathVideo(rcmessage.messageId) {
@@ -24,7 +24,7 @@ class RCVideoLoader: NSObject {
 		}
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	class func manual(_ rcmessage: RCMessage, in tableView: UITableView) {
 
 		MediaDownload.clearManualVideo(rcmessage.messageId)
@@ -32,7 +32,7 @@ class RCVideoLoader: NSObject {
 		tableView.reloadData()
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	private class func loadMedia(_ rcmessage: RCMessage, in tableView: UITableView) {
 
 		let network = Persons.networkVideo()
@@ -44,7 +44,7 @@ class RCVideoLoader: NSObject {
 		}
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	private class func downloadMedia(_ rcmessage: RCMessage, in tableView: UITableView) {
 
         rcmessage.mediaStatus = MediaStatus.MEDIASTATUS_LOADING
@@ -60,7 +60,7 @@ class RCVideoLoader: NSObject {
 		}
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	private class func showMedia(_ rcmessage: RCMessage, path: String) {
 
 		let thumbnail = Video.thumbnail(path: path)

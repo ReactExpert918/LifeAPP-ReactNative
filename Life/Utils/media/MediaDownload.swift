@@ -11,10 +11,10 @@
 
 import UIKit
 
-//----
+//-------------------------------------------------------------------------------------------------------------------------------------------------
 class MediaDownload: NSObject {
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	class func startUser(_ name: String, pictureAt: Int64, completion: @escaping (_ image: UIImage?, _ error: Error?) -> Void) {
 
 		if (pictureAt != 0) {
@@ -44,26 +44,26 @@ class MediaDownload: NSObject {
         }
     }
 	// MARK: -
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	class func startPhoto(_ name: String, completion: @escaping (_ path: String, _ error: Error?) -> Void) {
 
 		start(dir: "media", name: name, ext: "jpg", manual: true, completion: completion)
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	class func startVideo(_ name: String, completion: @escaping (_ path: String, _ error: Error?) -> Void) {
 
 		start(dir: "media", name: name, ext: "mp4", manual: true, completion: completion)
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	class func startAudio(_ name: String, completion: @escaping (_ path: String, _ error: Error?) -> Void) {
 
 		start(dir: "media", name: name, ext: "m4a", manual: true, completion: completion)
 	}
 
 	// MARK: -
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	private class func start(dir: String, name: String, ext: String, manual: Bool,
 							 completion: @escaping (_ path: String, _ error: Error?) -> Void) {
 
@@ -77,14 +77,14 @@ class MediaDownload: NSObject {
 		let pathLoading = Dir.document(dir, and: fileLoading)
 
 		// Check if file is already downloaded
-		////------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//-----
+		//-----------------------------------------------------------------------------------------------------------------------------------------
 		if (File.exist(path: path)) {
 			completion(path, nil)
 			return
 		}
 
 		// Check if manual download is required
-		////------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//-----
+		//-----------------------------------------------------------------------------------------------------------------------------------------
 		if (manual) {
 			if (File.exist(path: pathManual)) {
 				completion("", NSError.description("Manual download required.", code: 101))
@@ -94,7 +94,7 @@ class MediaDownload: NSObject {
 		}
 
 		// Check if file is currently downloading
-		////------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//-----
+		//-----------------------------------------------------------------------------------------------------------------------------------------
 		let time = Int(Date().timeIntervalSince1970)
 
 		if (File.exist(path: pathLoading)) {
@@ -110,7 +110,7 @@ class MediaDownload: NSObject {
 		try? "\(time)".write(toFile: pathLoading, atomically: false, encoding: .utf8)
 
 		// Download the file
-		////------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//------//-----
+		//-----------------------------------------------------------------------------------------------------------------------------------------
 		FireStorage.download(dir: dir, name: name, ext: ext) { path, error in
 			File.remove(path: pathLoading)
 			DispatchQueue.main.async {
@@ -120,14 +120,14 @@ class MediaDownload: NSObject {
 	}
 
 	// MARK: -
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	class func pathUser(_ name: String) -> String?	{ return path(dir: "user", name: name, ext: "jpg")	}
 	class func pathPhoto(_ name: String) -> String?	{ return path(dir: "media", name: name, ext: "jpg")	}
 	class func pathVideo(_ name: String) -> String?	{ return path(dir: "media", name: name, ext: "mp4")	}
 	class func pathAudio(_ name: String) -> String?	{ return path(dir: "media", name: name, ext: "m4a")	}
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	private class func path(dir: String, name: String, ext: String) -> String? {
 
 		let file = "\(name).\(ext)"
@@ -137,13 +137,13 @@ class MediaDownload: NSObject {
 	}
 
 	// MARK: -
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	class func clearManualPhoto(_ name: String) { clearManual(dir: "media", name: name, ext: "jpg") }
 	class func clearManualVideo(_ name: String) { clearManual(dir: "media", name: name, ext: "mp4") }
 	class func clearManualAudio(_ name: String) { clearManual(dir: "media", name: name, ext: "m4a") }
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	private class func clearManual(dir: String, name: String, ext: String) {
 
 		let file = "\(name).\(ext)"
@@ -159,15 +159,15 @@ class MediaDownload: NSObject {
 	}
 
 	// MARK: -
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	class func saveUser(_ name: String, data: Data)		{ save(data: data, dir: "user", name: name, ext: "jpg", manual: false)	}
     class func saveGroup(_ name: String, data: Data)    { save(data: data, dir: "group", name: name, ext: "jpg", manual: false)    }
 	class func savePhoto(_ name: String, data: Data)	{ save(data: data, dir: "media", name: name, ext: "jpg", manual: true)	}
 	class func saveVideo(_ name: String, data: Data)	{ save(data: data, dir: "media", name: name, ext: "mp4", manual: true)	}
 	class func saveAudio(_ name: String, data: Data)	{ save(data: data, dir: "media", name: name, ext: "m4a", manual: true)	}
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	private class func save(data: Data, dir: String, name: String, ext: String, manual: Bool) {
 
 		let file = "\(name).\(ext)"

@@ -12,10 +12,10 @@
 import RealmSwift
 import CryptoSwift
 
-
+//-------------------------------------------------------------------------------------------------------------------------------------------------
 class Members: NSObject {
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	class func create(chatId: String, userIds: [String]) {
 
 		let realm = try! Realm()
@@ -31,7 +31,7 @@ class Members: NSObject {
 	}
 
 	// MARK: -
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	class func update(chatId: String, userIds: [String]) {
 
 		var userIds = userIds
@@ -49,7 +49,7 @@ class Members: NSObject {
 	}
 
 	// MARK: -
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	class func update(chatId: String, userId: String, isActive: Bool) {
 
 		let predicate = NSPredicate(format: "chatId == %@ AND userId == %@", chatId, userId)
@@ -59,7 +59,7 @@ class Members: NSObject {
 	}
 
 	// MARK: -
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	class func chatIds() -> [String]? {
 
 		let predicate = NSPredicate(format: "userId == %@", AuthUser.userId())
@@ -74,7 +74,7 @@ class Members: NSObject {
 		return chatIds
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	class func chatIds() -> [String] {
 
 		let predicate = NSPredicate(format: "userId == %@ AND isActive == YES", AuthUser.userId())
@@ -84,11 +84,10 @@ class Members: NSObject {
 		for member in members {
 			chatIds.append(member.chatId)
 		}
-        
 		return chatIds
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	class func userIds(chatId: String) -> [String] {
 
 		let predicate = NSPredicate(format: "chatId == %@ AND isActive == YES", chatId)

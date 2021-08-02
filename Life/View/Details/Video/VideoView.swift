@@ -11,13 +11,13 @@
 
 import AVKit
 
-//----
+//-------------------------------------------------------------------------------------------------------------------------------------------------
 class VideoView: UIViewController {
 
 	private var url: URL!
 	private var controller: AVPlayerViewController?
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	init(url: URL) {
 
 		super.init(nibName: nil, bundle: nil)
@@ -25,13 +25,13 @@ class VideoView: UIViewController {
 		self.url = url
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	required init?(coder aDecoder: NSCoder) {
 
 		super.init(coder: aDecoder)
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	override func viewDidLoad() {
 
 		super.viewDidLoad()
@@ -40,7 +40,7 @@ class VideoView: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(actionDone), name: NSNotification.Name(rawValue: notification.rawValue), object: nil)
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	override func viewWillAppear(_ animated: Bool) {
 
 		super.viewWillAppear(animated)
@@ -58,7 +58,7 @@ class VideoView: UIViewController {
 		}
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	override func viewWillDisappear(_ animated: Bool) {
 
 		super.viewWillDisappear(animated)
@@ -67,7 +67,7 @@ class VideoView: UIViewController {
 	}
 
 	// MARK: - User actions
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	@objc func actionDone() {
 
 		dismiss(animated: true)

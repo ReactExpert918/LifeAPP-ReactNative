@@ -11,7 +11,7 @@
 
 import UIKit
 
-//----
+//-------------------------------------------------------------------------------------------------------------------------------------------------
 class RCFooterLowerCell: UITableViewCell {
 
 	private var indexPath: IndexPath!
@@ -19,13 +19,13 @@ class RCFooterLowerCell: UITableViewCell {
 
 	private var statusImageView: UIImageView!
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	func bindData(_ messagesView: ChatViewController, at indexPath: IndexPath) {
 
 		self.indexPath = indexPath
 		self.messagesView = messagesView
 
-		let _ = messagesView.rcmessageAt(indexPath)
+		let rcmessage = messagesView.rcmessageAt(indexPath)
 
 		backgroundColor = UIColor.clear
 
@@ -38,21 +38,21 @@ class RCFooterLowerCell: UITableViewCell {
 		statusImageView.image = messagesView.textFooterLower(indexPath)
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	override func layoutSubviews() {
 
 		super.layoutSubviews()
 
 		let widthTable = messagesView.tableView.frame.size.width
 
-		let _ = widthTable - RCDefaults.footerLowerLeft - RCDefaults.footerLowerRight
+		let width = widthTable - RCDefaults.footerLowerLeft - RCDefaults.footerLowerRight
 		let height = (statusImageView != nil) ? RCDefaults.footerLowerHeight : 0
 
 		statusImageView.frame = CGRect(x: widthTable - 15 - RCDefaults.footerLowerRight, y: 0, width: 20, height: height)
 	}
 
 	// MARK: - Size methods
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	class func height(_ messagesView: ChatViewController, at indexPath: IndexPath) -> CGFloat {
 
 		return (messagesView.textFooterLower(indexPath) != nil) ? RCDefaults.footerLowerHeight : 0

@@ -11,7 +11,7 @@
 
 import RealmSwift
 
-//----
+//-------------------------------------------------------------------------------------------------------------------------------------------------
 class Detail: SyncObject {
 
 	@objc dynamic var chatId = ""
@@ -24,7 +24,7 @@ class Detail: SyncObject {
 	@objc dynamic var isDeleted = false
 	@objc dynamic var isArchived = false
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	func update(typing value: Bool) {
 
 		if (typing == value) { return }
@@ -37,7 +37,7 @@ class Detail: SyncObject {
 		}
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	func update(lastRead value: Int64) {
 
 		if (lastRead == value) { return }
@@ -50,7 +50,7 @@ class Detail: SyncObject {
 		}
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	func update(mutedUntil value: Int64) {
 
 		if (mutedUntil == value) { return }
@@ -63,7 +63,7 @@ class Detail: SyncObject {
 		}
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	func update(isDeleted value: Bool) {
 
 		if (isDeleted == value) { return }
@@ -76,7 +76,7 @@ class Detail: SyncObject {
 		}
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	func update(isArchived value: Bool) {
 
 		if (isArchived == value) { return }

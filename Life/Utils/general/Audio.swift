@@ -11,27 +11,26 @@
 
 import AVFoundation
 
-//----
+//-------------------------------------------------------------------------------------------------------------------------------------------------
 class Audio: NSObject {
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	class func duration(path: String) -> Int {
 
 		let asset = AVURLAsset(url: URL(fileURLWithPath: path), options: nil)
 		return Int(round(CMTimeGetSeconds(asset.duration)))
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	class func playMessageIncoming() {
 
-		let _ = Dir.application("rcmessage_incoming.aiff")
-//		RCAudioPlayer.shared.playSound(path)
+        AudioServicesPlaySystemSound (1003)
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	class func playMessageOutgoing() {
 
-		let _ = Dir.application("rcmessage_outgoing.aiff")
-//		RCAudioPlayer.shared.playSound(path)
+        AudioServicesPlaySystemSound (1004)
+        
 	}
 }

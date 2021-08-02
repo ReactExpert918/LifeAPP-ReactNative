@@ -11,10 +11,10 @@
 
 import FirebaseStorage
 
-//----
+//-------------------------------------------------------------------------------------------------------------------------------------------------
 class FireStorage: NSObject {
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	class func upload(data: Data, dir: String, name: String, ext: String, completion: @escaping (_ error: Error?) -> Void) {
 
 		let storage = "\(dir)/\(name).\(ext)"
@@ -25,7 +25,7 @@ class FireStorage: NSObject {
 		}
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	class func download(dir: String, name: String, ext: String, completion: @escaping (_ path: String, _ error: Error?) -> Void) {
 
 		let storage = "\(dir)/\(name).\(ext)"

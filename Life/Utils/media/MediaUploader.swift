@@ -11,28 +11,28 @@
 
 import RealmSwift
 
-
+//-------------------------------------------------------------------------------------------------------------------------------------------------
 class MediaUploader: NSObject {
 
 	private var uploading = false
 
 	private var messages = realm.objects(Message.self).filter(falsepredicate)
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	static let shared: MediaUploader = {
 		let instance = MediaUploader()
 		return instance
 	} ()
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	override init() {
 
 		super.init()
 
 		loadMessages()
 
-        NotificationCenter.default.addObserver(self, selector: #selector(loadMessages), name: .loggedIn, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(unloadMessages), name: .loggedOut, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(loadMessages), name: NSNotification.Name(rawValue: NotificationStatus.NOTIFICATION_USER_LOGGED_IN), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(unloadMessages), name: NSNotification.Name(rawValue: NotificationStatus.NOTIFICATION_USER_LOGGED_OUT), object: nil)
 
 		Timer.scheduledTimer(withTimeInterval: 0.25, repeats: true) { _ in
 			if (AuthUser.userId() != "") {
@@ -43,7 +43,7 @@ class MediaUploader: NSObject {
 		}
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	@objc private func loadMessages() {
 
 		if (AuthUser.userId() != "") {
@@ -52,14 +52,14 @@ class MediaUploader: NSObject {
 		}
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	@objc private func unloadMessages() {
 
 		messages = realm.objects(Message.self).filter(falsepredicate)
 	}
 
 	// MARK: -
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	private func uploadNextMedia() {
 
 		if (uploading) { return }
@@ -77,7 +77,7 @@ class MediaUploader: NSObject {
 	}
 
 	// MARK: -
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	private func upload(message: Message, completion: @escaping (_ error: Error?) -> Void) {
 
 		uploading = true
@@ -87,7 +87,7 @@ class MediaUploader: NSObject {
 		if (message.type == MESSAGE_TYPE.MESSAGE_AUDIO) { uploadAudio(message: message, completion: completion) }
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	private func uploadPhoto(message: Message, completion: @escaping (_ error: Error?) -> Void) {
 
 		if let path = MediaDownload.pathPhoto(message.objectId) {
@@ -101,7 +101,7 @@ class MediaUploader: NSObject {
 		} else { completion(NSError.description("Missing media file.", code: 103)) }
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	private func uploadVideo(message: Message, completion: @escaping (_ error: Error?) -> Void) {
 
 		if let path = MediaDownload.pathVideo(message.objectId) {
@@ -115,7 +115,7 @@ class MediaUploader: NSObject {
 		} else { completion(NSError.description("Missing media file.", code: 103)) }
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	private func uploadAudio(message: Message, completion: @escaping (_ error: Error?) -> Void) {
 
 		if let path = MediaDownload.pathAudio(message.objectId) {

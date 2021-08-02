@@ -11,7 +11,7 @@
 
 import RealmSwift
 
-//----
+//-------------------------------------------------------------------------------------------------------------------------------------------------
 class Blocked: SyncObject {
 
 	@objc dynamic var blockerId = ""
@@ -19,7 +19,7 @@ class Blocked: SyncObject {
 
 	@objc dynamic var isDeleted = false
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	func update(isDeleted value: Bool) {
 
 		if (isDeleted == value) { return }

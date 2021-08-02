@@ -19,7 +19,6 @@ import FirebaseFirestore
 
 //----
 class CallAudioView: UIViewController {
-    let ref = Database.database().reference()
     
     @IBOutlet var imageUser: UIImageView!
     @IBOutlet var labelInitials: UILabel!
@@ -35,6 +34,7 @@ class CallAudioView: UIViewController {
     @IBOutlet weak var uiv_requst: UIView!
     @IBOutlet weak var dottedProgressView: UIView!
     
+    let ref = Database.database().reference()
     private var dottedProgressBar:DottedProgressBar?
     
     private var person: Person!
@@ -45,8 +45,6 @@ class CallAudioView: UIViewController {
     private var muted = false
     private var speaker = false
 
-    //private var call: SINCall?
-    //private var audioController: SINAudioController?
     private var personsFullName:String?
     private var type = 0
     private var group:Group?
@@ -59,24 +57,6 @@ class CallAudioView: UIViewController {
     var voiceStatusHandle: UInt?
     var voiceStatusRemoveHandle: UInt?
     
-    /*
-    init(call: SINCall?) {
-
-        super.init(nibName: nil, bundle: nil)
-
-        self.isModalInPresentation = true
-        self.modalPresentationStyle = .fullScreen
-
-        let app = UIApplication.shared.delegate as? AppDelegate
-
-        self.call = call
-        self.call?.delegate = self
-        incoming = true
-        audioController = app?.client?.audioController()
-        callString = (self.call?.headers["name"])! as! String
-    }*/
-
-
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         if let voiceStatusHandle = voiceStatusHandle{
@@ -88,54 +68,6 @@ class CallAudioView: UIViewController {
         NotificationCenter.default.removeObserver(self)
     }
     
-    func voiceCallStatusListner(_ roomId : String)  {
-        self.voiceStatusHandle = FirebaseAPI.setVoiceCallChangeListener(roomId){ [self] (status) in
-            
-            switch status {
-            /*
-             case outgoing = 1
-             case incoming = 2
-             case end = 3
-             case accept = 4
-             case reject = 5
-             case null = 6
-             */
-            case 1:
-                break
-            case 2:
-                // show
-                break
-            case 3:
-                break
-            case 4:// accept acction and start calling
-                self.joinAction()
-                break
-            case 5:
-                break
-            case 6:
-                break
-                
-            default:
-                print("default")
-            }
-        }
-        
-        self.voiceStatusRemoveHandle = FirebaseAPI.setVoiceCallRemoveListener(roomId){ [self] (receiverid) in
-            if receiverid == AuthUser.userId(){
-                self.leaveChannel()
-                self.dismiss(animated: true, completion: nil)
-            }else{
-                if outgoing{
-                    self.labelStatus.text = "Declined"
-                    self.labelStatus.textColor = .red
-                }else{
-                    self.leaveChannel()
-                    self.dismiss(animated: true, completion: nil)
-                }
-            }
-        }
-    }
-    
     init(userId: String) {
         super.init(nibName: nil, bundle: nil)
         let recipentUser = realm.object(ofType: Person.self, forPrimaryKey: userId)
@@ -144,15 +76,8 @@ class CallAudioView: UIViewController {
         self.modalPresentationStyle = .fullScreen
 
         _ = UIApplication.shared.delegate as? AppDelegate
-        
-        /*
-        app?.callKitProvider?.setGroupCall(false)
-        //DispatchQueue.main.asyncAfter(deadline: .now()+1) {
-        self.call = app?.client?.call().callUser(withId: userId, headers: ["name": Persons.fullname()])
-            self.call?.delegate = self
-            
-            self.audioController = app?.client?.audioController()*/
     }
+    
     init(group: Group, persons: [String]) {
         
         super.init(nibName: nil, bundle: nil)
@@ -164,26 +89,10 @@ class CallAudioView: UIViewController {
         self.modalPresentationStyle = .fullScreen
 
         _ = UIApplication.shared.delegate as? AppDelegate
-        /*
-        app?.callKitProvider?.setGroupCall(true)
-        for person in persons {
-            if(person == AuthUser.userId()){
-                continue
-            }
-            let call = app?.client?.call().callUser(withId: person, headers: ["name": callString])
-            call?.delegate = self
-            
-            app?.callKitProvider?.insertCall(call: call!)
-        }
-        
-       
-        self.audioController = app?.client?.audioController()*/
-        
     }
 
     
     required init?(coder aDecoder: NSCoder) {
-
         super.init(coder: aDecoder)
     }
 
@@ -191,10 +100,6 @@ class CallAudioView: UIViewController {
     override func viewDidLoad() {
 
         super.viewDidLoad()
-
-        //audioController?.unmute()
-        //audioController?.disableSpeaker()
-
         buttonMute.setImage(UIImage(named: "callaudio_mute2"), for: .normal)
         buttonMute.setImage(UIImage(named: "callaudio_mute2"), for: .highlighted)
 
@@ -216,13 +121,7 @@ class CallAudioView: UIViewController {
         
         // get audio volume
         let audioSession = AVAudioSession.sharedInstance()
-        /*
-        do{
-            try! audioSession.setActive(true)
-        }catch {
-            print(error)
-        }
- */
+        
         /// Volume View
         let volumeView = MPVolumeView(frame: CGRect(x: 100, y: 100, width: 100, height: 100))
         volumeView.isHidden = false
@@ -230,14 +129,36 @@ class CallAudioView: UIViewController {
         view.addSubview(volumeView)
         /// Notification Observer
         NotificationCenter.default.addObserver(self, selector: #selector(self.volumeDidChange(notification:)), name: NSNotification.Name(rawValue: "AVSystemController_SystemVolumeDidChangeNotification"), object: nil)
-        //audioSession.addObserver(self, forKeyPath: "outputVolume", options: NSKeyValueObservingOptions.new, context: nil)
         let progress = audioSession.outputVolume / 1.0 * 6
         dottedProgressBar?.setProgress(value: Int(progress))
+    }
+    
+    // ------ call accept status listener
+    func voiceCallStatusListner(_ roomId : String)  {
+        self.voiceStatusHandle = FirebaseAPI.setVoiceCallChangeListener(roomId){ [self] (status) in
+            if status == Status.accept.rawValue{
+                self.joinAction()
+            }
+        }
         
-        
+        self.voiceStatusRemoveHandle = FirebaseAPI.setVoiceCallRemoveListener(roomId){ [self] (receiverid) in
+            if receiverid == AuthUser.userId(){
+                self.leaveChannel()
+                self.dismiss(animated: true, completion: nil)
+            }else{
+                if outgoing{
+                    self.labelStatus.text = "Declined"
+                    self.labelStatus.textColor = .red
+                }else{
+                    self.leaveChannel()
+                    self.dismiss(animated: true, completion: nil)
+                }
+            }
+        }
     }
     
     func joinAction() {
+        //------ agora setup and join action
         agoraKit = AgoraRtcEngineKit.sharedEngine(withAppId: AppConstant.agoraAppID, delegate: self)
         // Allows a user to join a channel.
         if let agoraKit = self.agoraKit{
@@ -251,19 +172,14 @@ class CallAudioView: UIViewController {
     }
     
     @objc func volumeDidChange(notification: NSNotification) {
-        //// print("VOLUME CHANGING", AVAudioSession.sharedInstance().outputVolume)
-
         let volume = notification.userInfo!["AVSystemController_AudioVolumeNotificationParameter"] as! Float
         let progress = volume / 1.0 * 6
         dottedProgressBar?.setProgress(value: Int(progress))
-        // print("Device Volume:\(volume)")
     }
     
     override func viewWillAppear(_ animated: Bool) {
 
         super.viewWillAppear(animated)
-
-        
         if(type==0){
             loadPerson()
         }else{
@@ -275,106 +191,63 @@ class CallAudioView: UIViewController {
 
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-
         return .portrait
     }
 
     
     override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
-
         return .portrait
     }
 
     
     override var shouldAutorotate: Bool {
-
         return false
     }
 
     // MARK: - Realm methods
     
     func loadPerson() {
-/*
-        if let remoteUserId = call?.remoteUserId {
-            person = realm.object(ofType: Person.self, forPrimaryKey: remoteUserId)
-
-            labelInitials.text = nil
-            MediaDownload.startUser(person.objectId, pictureAt: person.pictureAt) { image, error in
-                if (error == nil) {
-                    self.imageUser.image = image
-                    
-                }
-                else {
-                    self.imageUser.image = UIImage(named: "ic_default_profile")
-                }
-            }
-        }*/
-    }
-    func loadGroup(_ group:Group) {
-
-        self.labelInitials.text = nil
-        MediaDownload.startGroup(group.objectId, pictureAt: group.pictureAt) { image, error in
+        person = realm.object(ofType: Person.self, forPrimaryKey: self.receiver)
+        labelInitials.text = nil
+        MediaDownload.startUser(person.objectId, pictureAt: person.pictureAt) { image, error in
             if (error == nil) {
                 self.imageUser.image = image
-                
             }
             else {
                 self.imageUser.image = UIImage(named: "ic_default_profile")
             }
         }
-
-        
-        
     }
-
-    // MARK: - Timer methods
-    /*
-    func timerStart(_ call: SINCall?) {
-
-        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { _ in
-            self.updateStatus(call)
+    
+    func loadGroup(_ group:Group) {
+        self.labelInitials.text = nil
+        MediaDownload.startGroup(group.objectId, pictureAt: group.pictureAt) { image, error in
+            if (error == nil) {
+                self.imageUser.image = image
+            }
+            else {
+                self.imageUser.image = UIImage(named: "ic_default_profile")
+            }
         }
-    }*/
-
+    }
     
     func timerStop() {
-
         timer?.invalidate()
         timer = nil
     }
-
-    /*
-    func updateStatus(_ call:SINCall?) {
-        if(call == nil){
-            labelStatus.isHidden = true
-            return
-        }
-        if let date = call?.details.establishedTime {
-            let interval = Date().timeIntervalSince(date)
-            let seconds = Int(interval) % 60
-            let minutes = Int(interval) / 60
-            labelStatus.text = String(format: "%02d:%02d", minutes, seconds)
-        }
-    }*/
-
+    
     // MARK: - User actions
     
     @IBAction func actionMute(_ sender: Any) {
-        //let sender = sender as! UIButton
         if (muted) {
             muted = false
             buttonMute.setImage(UIImage(named: "callaudio_mute2"), for: .normal)
             buttonMute.setImage(UIImage(named: "callaudio_mute2"), for: .highlighted)
-            //audioController?.unmute()
         } else {
             muted = true
             buttonMute.setImage(UIImage(named: "callaudio_mute3"), for: .normal)
             buttonMute.setImage(UIImage(named: "callaudio_mute3"), for: .highlighted)
-            //audioController?.mute()
         }
-        
-        //sender.isSelected = !sender.isSelected
-        // Stops/Resumes sending the local audio stream.
         if let agoraKit = self.agoraKit{
             agoraKit.muteLocalAudioStream(muted)
         }
@@ -382,20 +255,15 @@ class CallAudioView: UIViewController {
 
     
     @IBAction func actionSpeaker(_ sender: Any) {
-        //let sender = sender as! UIButton
         if (speaker) {
             speaker = false
             buttonSpeaker.setImage(UIImage(named: "callaudio_speaker2"), for: .normal)
             buttonSpeaker.setImage(UIImage(named: "callaudio_speaker2"), for: .highlighted)
-            //audioController?.disableSpeaker()
         } else {
             speaker = true
             buttonSpeaker.setImage(UIImage(named: "callaudio_speaker3"), for: .normal)
             buttonSpeaker.setImage(UIImage(named: "callaudio_speaker3"), for: .highlighted)
-            //audioController?.enableSpeaker()
         }
-        
-        //sender.isSelected = !sender.isSelected
         if let agoraKit = self.agoraKit{
             agoraKit.setEnableSpeakerphone(speaker)
         }
@@ -432,40 +300,34 @@ class CallAudioView: UIViewController {
         var status = [String: Any]()
         status["receiver"]   = self.receiver
         status["status"]   = Status.accept.rawValue
-        
         FirebaseAPI.sendVoiceCallStatus(status, self.roomID) { (isSuccess, data) in
-            
         }
         self.joinAction()
-        //call?.answer()
     }
 
     // MARK: - Helper methods
     
     func setOutgoingUI() {
         labelStatus.text = "Calling..."
-        labelStatus.textColor = .white
+        labelStatus.textColor = .lightGray
         uiv_mutespeaker.isHidden = true
         uiv_answerdecline.isHidden = true
         uiv_power.isHidden = true
         uiv_requst.isHidden = false
-        //viewEnded.isHidden = true
         var status = [String: Any]()
         status["receiver"]   = self.receiver
         status["status"]   = Status.outgoing.rawValue
         FirebaseAPI.sendVoiceCallStatus(status, self.roomID) { (isSuccess, data) in
         }
     }
-
     
     func setIncomingUI() {
         labelStatus.text = "Incoming..."
-        labelStatus.textColor = .white
+        labelStatus.textColor = .lightGray
         uiv_mutespeaker.isHidden = true
         uiv_answerdecline.isHidden = false
         uiv_power.isHidden = true
         uiv_requst.isHidden = true
-        //viewEnded.isHidden = true
     }
     
     func setConnectedUI() {
@@ -480,46 +342,13 @@ class CallAudioView: UIViewController {
     
     func setEndUI() {
         labelStatus.text = "Ended"
-        labelStatus.textColor = .white
+        labelStatus.textColor = .lightGray
         uiv_mutespeaker.isHidden = true
         uiv_answerdecline.isHidden = true
         uiv_power.isHidden = false
         uiv_requst.isHidden = true
-        //viewEnded.isHidden = false
     }
 }
-
-/*
-// MARK: - SINCallDelegate
-extension CallAudioView: SINCallDelegate {
-
-    
-    func callDidProgress(_ call: SINCall?) {
-        self.call = call
-        audioController?.startPlayingSoundFile(Dir.application("call_ringback.wav"), loop: true)
-    }
-
-    
-    func callDidEstablish(_ call: SINCall?) {
-
-        timerStart(call)
-        audioController?.stopPlayingSoundFile()
-        setIncomingUI()
-    }
-
-    
-    func callDidEnd(_ call: SINCall?) {
-
-        timerStop()
-        audioController?.stopPlayingSoundFile()
-        updateDetails3()
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-            self.dismiss(animated: true)
-        }
-    }
-}
-*/
 
 extension CallAudioView: AgoraRtcEngineDelegate{
     func rtcEngine(_ engine: AgoraRtcEngineKit, remoteAudioStateChangedOfUid uid: UInt, state: AgoraAudioRemoteState, reason: AgoraAudioRemoteStateReason, elapsed: Int) {
@@ -532,7 +361,6 @@ extension CallAudioView: AgoraRtcEngineDelegate{
     }
     
     func rtcEngine(_ engine: AgoraRtcEngineKit, didOfflineOfUid uid: UInt, reason: AgoraUserOfflineReason) {
-        print("offline")
         self.leaveChannel()
         setEndUI()
     }

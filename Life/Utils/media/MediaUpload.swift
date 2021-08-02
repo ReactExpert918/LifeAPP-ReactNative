@@ -11,32 +11,32 @@
 
 import Foundation
 
-//----
+//-------------------------------------------------------------------------------------------------------------------------------------------------
 class MediaUpload: NSObject {
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	class func user(_ name: String, data: Data, completion: @escaping (_ error: Error?) -> Void) {
 
 		FireStorage.upload(data: data, dir: "user", name: name, ext: "jpg", completion: completion)
 	}
-    
+    //---------------------------------------------------------------------------------------------------------------------------------------------
     class func group(_ name: String, data: Data, completion: @escaping (_ error: Error?) -> Void) {
 
         FireStorage.upload(data: data, dir: "group", name: name, ext: "jpg", completion: completion)
     }
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	class func photo(_ name: String, data: Data, completion: @escaping (_ error: Error?) -> Void) {
 
 		FireStorage.upload(data: data, dir: "media", name: name, ext: "jpg", completion: completion)
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	class func video(_ name: String, data: Data, completion: @escaping (_ error: Error?) -> Void) {
 
 		FireStorage.upload(data: data, dir: "media", name: name, ext: "mp4", completion: completion)
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	class func audio(_ name: String, data: Data, completion: @escaping (_ error: Error?) -> Void) {
 
 		FireStorage.upload(data: data, dir: "media", name: name, ext: "m4a", completion: completion)

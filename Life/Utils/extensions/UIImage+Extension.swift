@@ -11,17 +11,17 @@
 
 import UIKit
 
-//----
+//-------------------------------------------------------------------------------------------------------------------------------------------------
 extension UIImage {
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	class func image(_ path: String, size: CGFloat) -> UIImage? {
 
 		let image = UIImage(contentsOfFile: path)
 		return image?.square(to: size)
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	func square(to extent: CGFloat) -> UIImage {
 
 		var cropped: UIImage!
@@ -42,7 +42,7 @@ extension UIImage {
 		return cropped.resize(width: extent, height: extent)
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	func resize(width: CGFloat, height: CGFloat) -> UIImage {
 
 		let size = CGSize(width: width, height: height)
@@ -56,7 +56,7 @@ extension UIImage {
 		return resized!
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	func crop(x: CGFloat, y: CGFloat, width: CGFloat, height: CGFloat) -> UIImage {
 
 		let rect = CGRect(x: x, y: y, width: width, height: height)

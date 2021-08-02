@@ -47,7 +47,7 @@ class MoneyTableViewCell: UITableViewCell {
         }else{
             sendDirection.image = UIImage(named: "ic_pay_received")
         }
-        labelPayResult.text = message.isMediaFailed ? "Payment Failed" : "Payment Successful"
+        labelPayResult.text = message.isMediaFailed ? "Payment Failed".localized : "Payment Successful".localized
         imagePayResult.image = message.isMediaFailed ? UIImage(named: "ic_pay_fail") : UIImage(named: "ic_pay_success")
         
         moneyQuantity.text = zedPay?.getQuantity().moneyString()

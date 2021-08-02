@@ -12,12 +12,13 @@
 import UIKit
 import AVFoundation
 
-
+//-------------------------------------------------------------------------------------------------------------------------------------------------
 @objc protocol AudioDelegate: class {
 
 	func didRecordAudio(path: String)
 }
 
+//-------------------------------------------------------------------------------------------------------------------------------------------------
 class AudioView: UIViewController {
 
 	@IBOutlet weak var delegate: AudioDelegate?
@@ -39,7 +40,7 @@ class AudioView: UIViewController {
 	private var audioPlayer: AVAudioPlayer?
 	private var audioRecorder: AVAudioRecorder?
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	override func viewDidLoad() {
 
 		super.viewDidLoad()
@@ -51,7 +52,7 @@ class AudioView: UIViewController {
 	}
 
 	// MARK: - User actions
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	@objc func actionDismiss() {
 
 		actionStop(0)
@@ -59,20 +60,20 @@ class AudioView: UIViewController {
 		dismiss(animated: true)
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	@IBAction func actionRecord(_ sender: Any) {
 
 		audioRecorderStart()
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	@IBAction func actionStop(_ sender: Any) {
 
 		if (isPlaying)		{ audioPlayerStop()		}
 		if (isRecording)	{ audioRecorderStop()	}
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	@IBAction func actionDelete(_ sender: Any) {
 
 		isRecorded = false
@@ -81,13 +82,13 @@ class AudioView: UIViewController {
 		timerReset()
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	@IBAction func actionPlay(_ sender: Any) {
 
 		audioPlayerStart()
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	@IBAction func actionSend(_ sender: Any) {
 
 		dismiss(animated: true)
@@ -98,7 +99,7 @@ class AudioView: UIViewController {
 	}
 
 	// MARK: - Audio recorder methods
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	func audioRecorderStart() {
 
 		isRecording = true
@@ -114,7 +115,7 @@ class AudioView: UIViewController {
 		audioRecorder?.record()
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	func audioRecorderStop() {
 
 		isRecording = false
@@ -127,7 +128,7 @@ class AudioView: UIViewController {
 	}
 
 	// MARK: - Audio player methods
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	func audioPlayerStart() {
 
 		isPlaying = true
@@ -145,7 +146,7 @@ class AudioView: UIViewController {
 		}
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	func audioPlayerStop() {
 
 		isPlaying = false
@@ -157,7 +158,7 @@ class AudioView: UIViewController {
 	}
 
 	// MARK: - Timer methods
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	func timerStart() {
 
 		dateTimer = Date()
@@ -167,7 +168,7 @@ class AudioView: UIViewController {
 		}
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	func timerUpdate() {
 
 		if (dateTimer != nil) {
@@ -179,21 +180,21 @@ class AudioView: UIViewController {
 		}
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	func timerStop() {
 
 		timer?.invalidate()
 		timer = nil
 	}
 
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	func timerReset() {
 
 		labelTimer.text = "00:00:00"
 	}
 
 	// MARK: - Helper methods
-	
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	func updateButtonDetails() {
 
 		buttonRecord.isHidden	= isRecorded
@@ -205,8 +206,10 @@ class AudioView: UIViewController {
 }
 
 // MARK: - AVAudioPlayerDelegate
+//-------------------------------------------------------------------------------------------------------------------------------------------------
 extension AudioView: AVAudioPlayerDelegate {
 
+	//---------------------------------------------------------------------------------------------------------------------------------------------
 	func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
 
 		isPlaying = false
