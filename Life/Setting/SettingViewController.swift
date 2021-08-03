@@ -14,15 +14,21 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var tableView: UITableView!
     
     let sections = [NSLocalizedString("General Settings", comment: "General Settings")]
-    /*
-    let items = [[NSLocalizedString("Mirai AI", comment: "Mirai AI"), NSLocalizedString("Zed Pay", comment: "Zed Pay"), NSLocalizedString("Account Settings", comment: "Account Settings"), NSLocalizedString("Privacy Policy", comment: "Privacy Policy"), NSLocalizedString("About Us", comment: "About Us")]]
-    let icons = [[UIImage(named: "ic_setting_mirai"), UIImage(named: "ic_zed_pay"), UIImage(named: "setting_account"), UIImage(named: "setting_privacy"), UIImage(named: "setting_about")]]
-    */
-    /*let items = [[NSLocalizedString("Account Settings", comment: "Account Settings"), "ZED Settings".localized]]
-    let icons = [[UIImage(named: "setting_account"), UIImage(named: "ic_zed_pay")]]*/
     
-    let items = [[NSLocalizedString("Account Settings", comment: "Account Settings")]]
-    let icons = [[UIImage(named: "setting_account")]]
+    let items = [
+        NSLocalizedString("Account Settings", comment: "Account Settings"),
+        NSLocalizedString("Zed Pay", comment: "Zed Pay"),
+        NSLocalizedString("Privacy Policy", comment: "Privacy Policy"),
+        NSLocalizedString("EULA", comment: "EULA")
+    ]
+    
+    let icons = [
+        UIImage(named: "setting_account"),
+        UIImage(named: "ic_zed_pay"),
+        UIImage(named: "setting_privacy"),
+        UIImage(named: "setting_about")
+    ]
+    
     private var stripeCustomers = realm.objects(StripeCustomer.self).filter(falsepredicate)
     
     
@@ -30,8 +36,6 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
         super.viewDidLoad()
         
         tableView.register(UINib(nibName: "SettingCellHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: SettingCellHeader.reuseIdentifier)
-        //tableView.tableFooterView = UIView(frame: .zero)
-        // Do any additional setup after loading the view.
     }
     
     @IBAction func closeTapped(_ sender: Any) {
@@ -56,10 +60,6 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
                     self.gotoWelcomeViewController()
                 }
             }
-            //}
-            
-            
-            
         }))
 
         refreshAlert.addAction(UIAlertAction(title: "No".localized, style: .cancel, handler: { (action: UIAlertAction!) in
@@ -74,14 +74,14 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items[section].count
+        return items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "settingCell", for: indexPath) as! SettingCell
         cell.selectionStyle = .none
-        cell.title.text = items[indexPath.section][indexPath.row]
-        cell.profile.image = icons[indexPath.section][indexPath.row]
+        cell.title.text = items[indexPath.row]
+        cell.profile.image = icons[indexPath.row]
         return cell
     }
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -104,7 +104,7 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
                 navigationController?.pushViewController(viewController, animated: true)
             }
         }
-        if indexPath.row == 1 {
+        else if indexPath.row == 1 {
             let predicate = NSPredicate(format: "userId == %@ AND status == %@", AuthUser.userId(), ZEDPAY_STATUS.SUCCESS)
             stripeCustomers = realm.objects(StripeCustomer.self).filter(predicate)
             let stripeCustomer = stripeCustomers.first
@@ -118,9 +118,14 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
                 vc.modalPresentationStyle = .fullScreen
                 self.present(vc, animated: true)
             }
+        }else if indexPath.row == 2{
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "PrivacyEulaVC") as! PrivacyEulaVC
+            vc.privacy = true
+            navigationController?.pushViewController(vc, animated: true)
+        }else{
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "PrivacyEulaVC") as! PrivacyEulaVC
+            vc.privacy = false
+            navigationController?.pushViewController(vc, animated: true)
         }
-       
-        
     }
-
 }

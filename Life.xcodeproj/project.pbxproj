@@ -53,6 +53,9 @@
 		05BA7EE826B7A59B0049393B /* AgoraRtcCryptoLoader.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 05BA7EC826B7A37C0049393B /* AgoraRtcCryptoLoader.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		05BA7EEA26B7A59C0049393B /* AgoraRtcKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05BA7EC726B7A37C0049393B /* AgoraRtcKit.framework */; };
 		05BA7EEB26B7A59C0049393B /* AgoraRtcKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 05BA7EC726B7A37C0049393B /* AgoraRtcKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		05E8DFBC26B92ED500F72128 /* PrivacyEulaVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E8DFBB26B92ED500F72128 /* PrivacyEulaVC.swift */; };
+		05E8DFC226B92EF500F72128 /* EULA.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 05E8DFC026B92EF500F72128 /* EULA.pdf */; };
+		05E8DFC326B92EF500F72128 /* Privacy.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 05E8DFC126B92EF500F72128 /* Privacy.pdf */; };
 		817604C864DF746D26361B72 /* Pods_Life_LifeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4882E1B6E6C326533A5E1BDF /* Pods_Life_LifeUITests.framework */; };
 		A60845B124A2FEC1005F23A9 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A60845AF24A2FEC1005F23A9 /* Login.storyboard */; };
 		A60845B924A302BA005F23A9 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60845B824A302BA005F23A9 /* WelcomeViewController.swift */; };
@@ -362,6 +365,9 @@
 		05BA7EDB26B7A3FF0049393B /* CallVideoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallVideoView.swift; sourceTree = "<group>"; };
 		05BA7EDC26B7A3FF0049393B /* CallVideoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CallVideoView.xib; sourceTree = "<group>"; };
 		05BA7EE226B7A47A0049393B /* FirebaseAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseAPI.swift; sourceTree = "<group>"; };
+		05E8DFBB26B92ED500F72128 /* PrivacyEulaVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivacyEulaVC.swift; sourceTree = "<group>"; };
+		05E8DFC026B92EF500F72128 /* EULA.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = EULA.pdf; sourceTree = "<group>"; };
+		05E8DFC126B92EF500F72128 /* Privacy.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Privacy.pdf; sourceTree = "<group>"; };
 		13FCD29106C16A3D2D2FC3B7 /* Pods_LifeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LifeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F299E90E5B6BB50A7323655 /* Pods-Life-LifeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Life-LifeUITests.release.xcconfig"; path = "Target Support Files/Pods-Life-LifeUITests/Pods-Life-LifeUITests.release.xcconfig"; sourceTree = "<group>"; };
 		2DA0512779D2347E705F5CEF /* Pods-LifeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LifeTests.release.xcconfig"; path = "Target Support Files/Pods-LifeTests/Pods-LifeTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -665,6 +671,15 @@
 				05BA7EC726B7A37C0049393B /* AgoraRtcKit.framework */,
 			);
 			path = Libs;
+			sourceTree = "<group>";
+		};
+		05E8DFBF26B92EF500F72128 /* Privacy and EULA */ = {
+			isa = PBXGroup;
+			children = (
+				05E8DFC026B92EF500F72128 /* EULA.pdf */,
+				05E8DFC126B92EF500F72128 /* Privacy.pdf */,
+			);
+			path = "Privacy and EULA";
 			sourceTree = "<group>";
 		};
 		3BC3C3CE23618C232BF0BFDD /* Pods */ = {
@@ -1220,6 +1235,7 @@
 		A6E73B3E24A4F17F0008CBFE /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				05E8DFBF26B92EF500F72128 /* Privacy and EULA */,
 				A6C36B6424B57BC900583CAA /* Images */,
 				A6E73B3F24A4F1860008CBFE /* Font */,
 				A6C36B8824B5AE1D00583CAA /* Sounds */,
@@ -1400,6 +1416,7 @@
 				04180C7D2688ADEE00BBF636 /* CreateCustomerViewController.swift */,
 				049F975126897D66008E4789 /* AddPaymentMethodViewController.swift */,
 				049F97532689A9FD008E4789 /* RemovePaymentViewController.swift */,
+				05E8DFBB26B92ED500F72128 /* PrivacyEulaVC.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -1599,6 +1616,7 @@
 				A6188EBE24BCD76900587710 /* callvideo_video1@2x.png in Resources */,
 				A675882824B80F3100724B08 /* callaudio_mute1@3x.png in Resources */,
 				A6188EDF24BCDC3300587710 /* callaudio_speaker3@3x.png in Resources */,
+				05E8DFC226B92EF500F72128 /* EULA.pdf in Resources */,
 				A6C9824C24AE6DC7002280B6 /* ChatHistoryCell.xib in Resources */,
 				A6F564C724A8D73D0061007E /* rcmessages_audiopause@2x.png in Resources */,
 				A6F564C124A8D73D0061007E /* rcmessage_attach@2x.png in Resources */,
@@ -1634,6 +1652,7 @@
 				A675884624B810A900724B08 /* callaudio_video1@2x.png in Resources */,
 				04975C1426859AB300A10CC1 /* MoneyTableViewCell.xib in Resources */,
 				A67A49C024BA338F0016DD41 /* Group.storyboard in Resources */,
+				05E8DFC326B92EF500F72128 /* Privacy.pdf in Resources */,
 				A675882924B80F3100724B08 /* callaudio_mute1@2x.png in Resources */,
 				A663A6C724BA4EAE0090A13D /* SettingCellHeader.xib in Resources */,
 				A6BD967B24B4D76900E1B873 /* SelectUsersCell.xib in Resources */,
@@ -1815,6 +1834,7 @@
 				A6DEA87524A8483600868625 /* NSError+Extension.swift in Sources */,
 				04180C7426887E3D00BBF636 /* UpdateEmailViewController.swift in Sources */,
 				AB5457A924B5D9FC008C7FB8 /* AddedMemberCell.swift in Sources */,
+				05E8DFBC26B92ED500F72128 /* PrivacyEulaVC.swift in Sources */,
 				0485B9E2266DCD510014A0A4 /* AddFriendPendingCell.swift in Sources */,
 				A682AA2124BC51F600003BD7 /* DottedProgressBar.swift in Sources */,
 				A6DEA85C24A83FDA00868625 /* Friend.swift in Sources */,

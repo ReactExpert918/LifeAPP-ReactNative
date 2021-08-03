@@ -9,6 +9,8 @@
 import UIKit
 import JGProgressHUD
 import RealmSwift
+import IQKeyboardManagerSwift
+
 class AddMoneyViewController: UIViewController {
 
    
@@ -26,6 +28,7 @@ class AddMoneyViewController: UIViewController {
     let hud = JGProgressHUD(style: .light)
     private var tokenZEDPay: NotificationToken? = nil
     private var zedPays = realm.objects(ZEDPay.self).filter(falsepredicate)
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -51,11 +54,9 @@ class AddMoneyViewController: UIViewController {
         cardNumber.text = "**** **** **** " + paymentMethod!.cardNumber
         carExp.text = paymentMethod!.expMonth+"/"+paymentMethod!.expYear
         cardCVC.text = paymentMethod?.cvc
-        
         addAmount.becomeFirstResponder()
     }
     
-
     @IBAction func actionTapClosed(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }

@@ -168,6 +168,14 @@ class ChatViewController: UIViewController {
         }
 
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        IQKeyboardManager.shared.enableAutoToolbar = true
+        IQKeyboardManager.shared.enable = true
+        IQKeyboardManager.shared.shouldResignOnTouchOutside = true
+    }
+    
     func loadMembers() {
 
         let predicate = NSPredicate(format: "chatId == %@ AND isActive == YES", self.chatId)
