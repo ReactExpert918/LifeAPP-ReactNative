@@ -29,6 +29,8 @@ class AddMoneyViewController: UIViewController {
     private var tokenZEDPay: NotificationToken? = nil
     private var zedPays = realm.objects(ZEDPay.self).filter(falsepredicate)
 
+    var paymentIndex: Int?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -55,13 +57,101 @@ class AddMoneyViewController: UIViewController {
         carExp.text = paymentMethod!.expMonth+"/"+paymentMethod!.expYear
         cardCVC.text = paymentMethod?.cvc
         addAmount.becomeFirstResponder()
+        
+        initPurchase()
+    }
+    
+    //MARK: in-app purchase
+    func initPurchase() {
+        IAPHandler.shared.fetchAvailableProducts()
+        IAPHandler.shared.purchaseStatusBlock = {[weak self] (type) in
+            //self?.hideLoadingView()
+            guard let strongSelf = self else{ return }
+            if type == .purchased {
+                let alertView = UIAlertController(title: "Life", message: type.message(), preferredStyle: .alert)
+                let action = UIAlertAction(title: "Okay", style: .default, handler: { (alert) in
+                    // TODO: payment process
+                    if let index = self?.paymentIndex{
+                        self!.hud.show(in: self!.view, animated: true)
+                        var amount: Float = 0
+                        switch index {
+                        case 0:
+                            amount = 500
+                        case 1:
+                            amount = 1000
+                        case 2:
+                            amount = 5000
+                        case 3:
+                            amount = 10000
+                        default:
+                            amount = 500
+                        }
+                        let zedPayId = ZEDPays.createAdd(userId: AuthUser.userId(), customerId: self!.paymentMethod!.customerId, cardId: self!.paymentMethod!.cardId, quantity: amount)
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1){
+                            let predicate = NSPredicate(format: "objectId == %@", zedPayId)
+                            self!.zedPays = realm.objects(ZEDPay.self).filter(predicate)
+                            self!.tokenZEDPay?.invalidate()
+                            self!.zedPays.safeObserve({ changes in
+                                self!.callBack()
+                            }, completion: { token in
+                                self!.tokenZEDPay = token
+                            })
+                        }
+                    }
+                })
+                alertView.addAction(action)
+                strongSelf.present(alertView, animated: true, completion: nil)
+            
+            } else if type == .restored {
+                let alertView = UIAlertController(title: "Life", message: type.message(), preferredStyle: .alert)
+                let action = UIAlertAction(title: "Okay", style: .default, handler: { (alert) in
+                    //TODO: success restored
+                    print("restore succeed")
+                })
+                alertView.addAction(action)
+                strongSelf.present(alertView, animated: true, completion: nil)
+            } else {
+                print(type.message())
+                if let message = type.message(){
+                    
+                }
+            }
+        }
+    }
+    
+    public func presentAlert(from sourceView: UIView, index: Int) {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        if let action = self.action(title: "ApplePayで支払う", index: index) {
+            alertController.addAction(action)
+        }
+        alertController.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+        self.present(alertController, animated: true)
+    }
+    
+    private func action(title: String, index: Int) -> UIAlertAction? {
+        return UIAlertAction(title: title, style: .default) { [unowned self] _ in
+            // set index
+            self.paymentIndex = index
+            if index == 0{
+                IAPHandler.shared.purchaseMyProduct(strProductID: LifeProducts.LifeBuy5Points)
+            }else if index == 1{
+                IAPHandler.shared.purchaseMyProduct(strProductID: LifeProducts.LifeBuy10Points)
+            }else if index == 2{
+                IAPHandler.shared.purchaseMyProduct(strProductID: LifeProducts.LifeBuy50Points)
+            }else{
+                IAPHandler.shared.purchaseMyProduct(strProductID: LifeProducts.LifeBuy100Points)
+            }
+        }
     }
     
     @IBAction func actionTapClosed(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
+    
     @IBAction func actionTapRemove(_ sender: Any) {
-        guard let quantityString = addAmount.text as NSString? else {
+        self.presentAlert(from: self.view, index: 0)
+        /*guard let quantityString = addAmount.text as NSString? else {
             return
         }
         
@@ -84,8 +174,7 @@ class AddMoneyViewController: UIViewController {
                     self.tokenZEDPay = token
                 })
             }
-        }
-        
+        }*/
     }
     
     func callBack(){

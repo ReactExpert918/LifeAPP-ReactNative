@@ -56,6 +56,7 @@
 		05E8DFBC26B92ED500F72128 /* PrivacyEulaVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E8DFBB26B92ED500F72128 /* PrivacyEulaVC.swift */; };
 		05E8DFC226B92EF500F72128 /* EULA.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 05E8DFC026B92EF500F72128 /* EULA.pdf */; };
 		05E8DFC326B92EF500F72128 /* Privacy.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 05E8DFC126B92EF500F72128 /* Privacy.pdf */; };
+		05E8E0A426BA3AC500F72128 /* IAPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E8E0A326BA3AC500F72128 /* IAPHelper.swift */; };
 		817604C864DF746D26361B72 /* Pods_Life_LifeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4882E1B6E6C326533A5E1BDF /* Pods_Life_LifeUITests.framework */; };
 		A60845B124A2FEC1005F23A9 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A60845AF24A2FEC1005F23A9 /* Login.storyboard */; };
 		A60845B924A302BA005F23A9 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60845B824A302BA005F23A9 /* WelcomeViewController.swift */; };
@@ -368,6 +369,7 @@
 		05E8DFBB26B92ED500F72128 /* PrivacyEulaVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivacyEulaVC.swift; sourceTree = "<group>"; };
 		05E8DFC026B92EF500F72128 /* EULA.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = EULA.pdf; sourceTree = "<group>"; };
 		05E8DFC126B92EF500F72128 /* Privacy.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Privacy.pdf; sourceTree = "<group>"; };
+		05E8E0A326BA3AC500F72128 /* IAPHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPHelper.swift; sourceTree = "<group>"; };
 		13FCD29106C16A3D2D2FC3B7 /* Pods_LifeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LifeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F299E90E5B6BB50A7323655 /* Pods-Life-LifeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Life-LifeUITests.release.xcconfig"; path = "Target Support Files/Pods-Life-LifeUITests/Pods-Life-LifeUITests.release.xcconfig"; sourceTree = "<group>"; };
 		2DA0512779D2347E705F5CEF /* Pods-LifeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LifeTests.release.xcconfig"; path = "Target Support Files/Pods-LifeTests/Pods-LifeTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -682,6 +684,14 @@
 			path = "Privacy and EULA";
 			sourceTree = "<group>";
 		};
+		05E8E0A226BA3AA300F72128 /* in-appPurchase */ = {
+			isa = PBXGroup;
+			children = (
+				05E8E0A326BA3AC500F72128 /* IAPHelper.swift */,
+			);
+			path = "in-appPurchase";
+			sourceTree = "<group>";
+		};
 		3BC3C3CE23618C232BF0BFDD /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -805,6 +815,7 @@
 		A69019E924A3338900ED737F /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				05E8E0A226BA3AA300F72128 /* in-appPurchase */,
 				A6DEA85124A839C700868625 /* general */,
 				A6DEA83B24A8354600868625 /* extensions */,
 				A6DEA85624A83B1900868625 /* manager */,
@@ -1836,6 +1847,7 @@
 				AB5457A924B5D9FC008C7FB8 /* AddedMemberCell.swift in Sources */,
 				05E8DFBC26B92ED500F72128 /* PrivacyEulaVC.swift in Sources */,
 				0485B9E2266DCD510014A0A4 /* AddFriendPendingCell.swift in Sources */,
+				05E8E0A426BA3AC500F72128 /* IAPHelper.swift in Sources */,
 				A682AA2124BC51F600003BD7 /* DottedProgressBar.swift in Sources */,
 				A6DEA85C24A83FDA00868625 /* Friend.swift in Sources */,
 				A6DEA84924A8365900868625 /* FireFetcher.swift in Sources */,
