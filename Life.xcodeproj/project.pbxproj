@@ -44,6 +44,8 @@
 		04F4E3DF267CC0BB00CD94FD /* ZedPay.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04F4E3E1267CC0BB00CD94FD /* ZedPay.storyboard */; };
 		04F4E3E6267CCE6F00CD94FD /* TransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4E3E4267CCE6F00CD94FD /* TransactionCell.swift */; };
 		04F4E3E7267CCE6F00CD94FD /* TransactionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04F4E3E5267CCE6F00CD94FD /* TransactionCell.xib */; };
+		058A770826BBD243006563B8 /* call_ringback.wav in Resources */ = {isa = PBXBuildFile; fileRef = 058A770726BBD243006563B8 /* call_ringback.wav */; };
+		058A773F26BC9993006563B8 /* AcceptDeclineVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 058A773E26BC9993006563B8 /* AcceptDeclineVC.swift */; };
 		05BA7ED326B7A3E00049393B /* CallAudioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BA7ED126B7A3E00049393B /* CallAudioView.swift */; };
 		05BA7ED426B7A3E00049393B /* CallAudioView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05BA7ED226B7A3E00049393B /* CallAudioView.xib */; };
 		05BA7EDD26B7A3FF0049393B /* CallVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BA7EDB26B7A3FF0049393B /* CallVideoView.swift */; };
@@ -149,7 +151,6 @@
 		A6C36B8224B57BD200583CAA /* callvideo_switch2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A6C36B7224B57BD200583CAA /* callvideo_switch2@2x.png */; };
 		A6C36B8324B57BD200583CAA /* callvideo_answer@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A6C36B7324B57BD200583CAA /* callvideo_answer@2x.png */; };
 		A6C36B8424B57BD200583CAA /* callvideo_blank@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A6C36B7424B57BD200583CAA /* callvideo_blank@2x.png */; };
-		A6C36B8B24B5AE1D00583CAA /* call_ringback.wav in Resources */ = {isa = PBXBuildFile; fileRef = A6C36B8A24B5AE1D00583CAA /* call_ringback.wav */; };
 		A6C9824824AE6B8C002280B6 /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C9824724AE6B8C002280B6 /* Chat.swift */; };
 		A6C9824B24AE6DC7002280B6 /* ChatHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C9824924AE6DC7002280B6 /* ChatHistoryCell.swift */; };
 		A6C9824C24AE6DC7002280B6 /* ChatHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A6C9824A24AE6DC7002280B6 /* ChatHistoryCell.xib */; };
@@ -359,6 +360,8 @@
 		04F4E3E3267CC0D300CD94FD /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/ZedPay.strings; sourceTree = "<group>"; };
 		04F4E3E4267CCE6F00CD94FD /* TransactionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCell.swift; sourceTree = "<group>"; };
 		04F4E3E5267CCE6F00CD94FD /* TransactionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionCell.xib; sourceTree = "<group>"; };
+		058A770726BBD243006563B8 /* call_ringback.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = call_ringback.wav; sourceTree = "<group>"; };
+		058A773E26BC9993006563B8 /* AcceptDeclineVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcceptDeclineVC.swift; sourceTree = "<group>"; };
 		05BA7EC726B7A37C0049393B /* AgoraRtcKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AgoraRtcKit.framework; sourceTree = "<group>"; };
 		05BA7EC826B7A37C0049393B /* AgoraRtcCryptoLoader.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AgoraRtcCryptoLoader.framework; sourceTree = "<group>"; };
 		05BA7ED126B7A3E00049393B /* CallAudioView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallAudioView.swift; sourceTree = "<group>"; };
@@ -476,7 +479,6 @@
 		A6C36B7224B57BD200583CAA /* callvideo_switch2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "callvideo_switch2@2x.png"; sourceTree = "<group>"; };
 		A6C36B7324B57BD200583CAA /* callvideo_answer@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "callvideo_answer@2x.png"; sourceTree = "<group>"; };
 		A6C36B7424B57BD200583CAA /* callvideo_blank@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "callvideo_blank@2x.png"; sourceTree = "<group>"; };
-		A6C36B8A24B5AE1D00583CAA /* call_ringback.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = call_ringback.wav; sourceTree = "<group>"; };
 		A6C9824724AE6B8C002280B6 /* Chat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		A6C9824924AE6DC7002280B6 /* ChatHistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHistoryCell.swift; sourceTree = "<group>"; };
 		A6C9824A24AE6DC7002280B6 /* ChatHistoryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatHistoryCell.xib; sourceTree = "<group>"; };
@@ -993,7 +995,7 @@
 		A6C36B8924B5AE1D00583CAA /* call */ = {
 			isa = PBXGroup;
 			children = (
-				A6C36B8A24B5AE1D00583CAA /* call_ringback.wav */,
+				058A770726BBD243006563B8 /* call_ringback.wav */,
 			);
 			path = call;
 			sourceTree = "<group>";
@@ -1449,6 +1451,7 @@
 				AB30FAFE24AFB2D20037BF25 /* AddFriendSection.swift */,
 				ABAF39D224BF04F600FB1078 /* AddFriendConfirmCell.swift */,
 				E183B1A92518EC2F00B6A0FC /* FetchedContact.swift */,
+				058A773E26BC9993006563B8 /* AcceptDeclineVC.swift */,
 			);
 			path = Friends;
 			sourceTree = "<group>";
@@ -1588,6 +1591,7 @@
 				A6C36B7C24B57BD200583CAA /* callaudio_blank@2x.png in Resources */,
 				A6188ED924BCDC1700587710 /* callaudio_mute3@2x.png in Resources */,
 				A6EDA03C24ACE5B100CA3A5F /* Montserrat-Medium.ttf in Resources */,
+				058A770826BBD243006563B8 /* call_ringback.wav in Resources */,
 				A67587F224B7B1BF00724B08 /* sent@3x.png in Resources */,
 				04F4E3E7267CCE6F00CD94FD /* TransactionCell.xib in Resources */,
 				A6BD966A24B4D56900E1B873 /* StickersCell.xib in Resources */,
@@ -1636,7 +1640,6 @@
 				A6BD966224B4D54800E1B873 /* AudioView.xib in Resources */,
 				A675882724B80F3100724B08 /* callaudio_mute1.png in Resources */,
 				A6E7001924B6DBEB004586E0 /* MapView.xib in Resources */,
-				A6C36B8B24B5AE1D00583CAA /* call_ringback.wav in Resources */,
 				A60845B124A2FEC1005F23A9 /* Login.storyboard in Resources */,
 				A67A49B724BA33080016DD41 /* Setting.storyboard in Resources */,
 				A6BD966924B4D56900E1B873 /* StickersView.xib in Resources */,
@@ -1930,6 +1933,7 @@
 				043B8AFA26836B51004BF845 /* PayResultViewController.swift in Sources */,
 				A6DEA83224A82F7100868625 /* AppConstant.swift in Sources */,
 				E15A398D2515221700536871 /* ForgotPasswordViewController.swift in Sources */,
+				058A773F26BC9993006563B8 /* AcceptDeclineVC.swift in Sources */,
 				04180C7A2688AA5F00BBF636 /* ZEDPaySettingsViewController.swift in Sources */,
 				04F4E3E6267CCE6F00CD94FD /* TransactionCell.swift in Sources */,
 				A6DEA86E24A8405300868625 /* Singles.swift in Sources */,

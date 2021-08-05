@@ -70,7 +70,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         homeTableView.dataSource = self
         homeTableView.delegate = self
         
-        
+        updateFcmToken()
         
         // Do any additional setup after loading the view.
     }
@@ -91,6 +91,12 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             //let _ = Friends.friendAcceptedIds()
             loadFriends()
         }
+    }
+    
+    // MARK: - upload fcm token
+    fileprivate func updateFcmToken() {
+        let token = PrefsManager.getFCMToken()
+        Persons.update(oneSignalId: token)
     }
     
     

@@ -13,8 +13,6 @@ import IQKeyboardManagerSwift
 
 class AddMoneyViewController: UIViewController {
 
-   
-
     @IBOutlet weak var imageCard: UIImageView!
     var paymentMethod: PaymentMethod?
     var delegate: UpdatePayDelegateProtocol?

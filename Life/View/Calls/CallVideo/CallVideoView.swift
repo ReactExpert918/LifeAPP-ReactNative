@@ -1,5 +1,5 @@
 
-
+import Sinch
 import SwiftyAvatar
 import UIKit
 import AgoraRtcKit
@@ -37,8 +37,8 @@ class CallVideoView: UIViewController {
     @IBOutlet weak var localContainer: UIView!
     @IBOutlet weak var remoteContainer: UIView!
     
-    @IBOutlet weak var remoteVideoMutedIndicator: UIImageView!
-    @IBOutlet weak var localVideoMutedIndicator: UIView!
+    //@IBOutlet weak var remoteVideoMutedIndicator: UIImageView!
+    //@IBOutlet weak var localVideoMutedIndicator: UIView!
     
     @IBOutlet weak var micButton: UIButton!
     @IBOutlet weak var cameraButton: UIButton!
@@ -55,10 +55,10 @@ class CallVideoView: UIViewController {
         didSet {
             if let it = localVideo, let view = it.view {
                 if view.superview == localContainer {
-                    remoteVideoMutedIndicator.isHidden = isRemoteVideoRender
+                    //remoteVideoMutedIndicator.isHidden = isRemoteVideoRender
                     remoteContainer.isHidden = !isRemoteVideoRender
                 } else if view.superview == remoteContainer {
-                    localVideoMutedIndicator.isHidden = isRemoteVideoRender
+                    //localVideoMutedIndicator.isHidden = isRemoteVideoRender
                 }
             }
         }
@@ -68,9 +68,9 @@ class CallVideoView: UIViewController {
         didSet {
             if let it = localVideo, let view = it.view {
                 if view.superview == localContainer {
-                    localVideoMutedIndicator.isHidden = isLocalVideoRender
+                    //localVideoMutedIndicator.isHidden = isLocalVideoRender
                 } else if view.superview == remoteContainer {
-                    remoteVideoMutedIndicator.isHidden = isLocalVideoRender
+                    //remoteVideoMutedIndicator.isHidden = isLocalVideoRender
                 }
             }
         }
@@ -86,13 +86,16 @@ class CallVideoView: UIViewController {
         }
     }
     
+    private var audioController: SINAudioController?
+    
 	init(userId: String) {
 		super.init(nibName: nil, bundle: nil)
         let recipentUser = realm.object(ofType: Person.self, forPrimaryKey: userId)
         callString = recipentUser!.fullname
 		self.isModalInPresentation = true
 		self.modalPresentationStyle = .fullScreen
-        _ = UIApplication.shared.delegate as? AppDelegate
+        let app = UIApplication.shared.delegate as? AppDelegate
+        audioController = app?.client?.audioController()
         outgoing = true
 	}
     
@@ -209,6 +212,7 @@ class CallVideoView: UIViewController {
     }
     
     func joinChannel() {
+        audioController?.stopPlayingSoundFile()
         if let agoraKit = self.agoraKit{
             agoraKit.setDefaultAudioRouteToSpeakerphone(true)
             agoraKit.joinChannel(byToken: "", channelId: self.roomID, info: nil, uid: 0) { [unowned self] (channel, uid, elapsed) -> Void in
@@ -237,6 +241,7 @@ class CallVideoView: UIViewController {
     }
     
     @IBAction func actionRequestHangup(_ sender: Any) {
+        audioController?.stopPlayingSoundFile()
         ref.child("video_call").child(self.roomID).removeValue()
         self.dismiss(animated: true, completion: nil)
     }
@@ -393,6 +398,10 @@ class CallVideoView: UIViewController {
         status["status"]   = Status.outgoing.rawValue
         FirebaseAPI.sendVideoCallStatus(status, self.roomID) { (isSuccess, data) in
         }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.audioController?.enableSpeaker()
+            self.audioController?.startPlayingSoundFile(Dir.application("call_ringback.wav"), loop: true)
+        }
 	}
 
 	
@@ -405,6 +414,10 @@ class CallVideoView: UIViewController {
 		uiv_muteswitch.isHidden = true // mute, switch
         uiv_power.isHidden = true //one call hangout
         uiv_request.isHidden = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.audioController?.enableSpeaker()
+            self.audioController?.startPlayingSoundFile(Dir.application("call_ringback.wav"), loop: true)
+        }
 	}
 
     
@@ -417,8 +430,8 @@ class CallVideoView: UIViewController {
         self.uiv_power.isHidden = false
         self.uiv_request.isHidden = true
         self.remoteContainer.isHidden = true
-        self.remoteVideoMutedIndicator.isHidden = true
-        self.localVideoMutedIndicator.isHidden = true
+        //self.remoteVideoMutedIndicator.isHidden = true
+        //self.localVideoMutedIndicator.isHidden = true
         self.localContainer.isHidden = true
     }
 }

@@ -12,6 +12,7 @@ import Firebase
 import RealmSwift
 import OneSignal
 import Sinch
+import FittedSheets
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 var realm = try! Realm()
@@ -24,6 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var client: SINClient?
     var push: SINManagedPush?
     var callKitProvider: CallKitProvider?
+    let gcmMessageIDKey = "gcm.message_id"
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         
@@ -99,6 +101,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(sinchLogInUser), name: NSNotification.Name(rawValue: NotificationStatus.NOTIFICATION_USER_LOGGED_IN), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(sinchLogOutUser), name: NSNotification.Name(rawValue: NotificationStatus.NOTIFICATION_USER_LOGGED_OUT), object: nil)
         
+        // [START set_messaging_delegate]
+        Messaging.messaging().delegate = self
+        // [END set_messaging_delegate]
+        // Register for remote notifications. This shows a permission dialog on first run, to
+        // show the dialog at a more appropriate time move this registration accordingly.
+        // [START register_for_notifications]
+        if #available(iOS 10.0, *) {
+            // For iOS 10 display notification (sent via APNS)
+            UNUserNotificationCenter.current().delegate = self
+            
+            let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+            UNUserNotificationCenter.current().requestAuthorization(
+                options: authOptions,
+                completionHandler: {_, _ in })
+        } else {
+            let settings: UIUserNotificationSettings =
+                UIUserNotificationSettings(types: [.alert, .sound], categories: nil)
+            application.registerUserNotificationSettings(settings)
+        }
+        
+        application.registerForRemoteNotifications()
+        
+        // [END register_for_notifications]
         
         return true
     }
@@ -235,6 +260,122 @@ extension String {
     }
     
 
+}
+
+// [START ios_10_message_handling]
+@available(iOS 10, *)
+extension AppDelegate : UNUserNotificationCenterDelegate {
+
+    // Receive displayed notifications for iOS 10 devices.
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                willPresent notification: UNNotification,
+                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        
+        let userInfo = notification.request.content.userInfo
+
+        // With swizzling disabled you must let Messaging know about the message, for Analytics
+        // Messaging.messaging().appDidReceiveMessage(userInfo)
+        // [START_EXCLUDE]
+        // Print message ID.
+        if let messageID = userInfo[gcmMessageIDKey] {
+          print("Message ID: \(messageID)")
+        }
+        // [END_EXCLUDE]
+        // Print full message.
+        print(userInfo)
+
+        let aps = userInfo["aps"] as? [AnyHashable : Any]
+        let alertMessage = aps!["alert"] as? [AnyHashable : Any]
+        _  = alertMessage!["body"] as! String
+        
+        let userId = userInfo["userId"] as? String
+        
+        // display alert for notification
+        let vc = AppBoards.friend.viewController(withIdentifier: "AcceptDeclineViewController") as! AcceptDeclineViewController
+        vc.userId = userId ?? ""
+        let sheetController = SheetViewController(controller: vc, sizes: [.fixed(360)])
+        UIApplication.shared.windows.first?.rootViewController?.present(sheetController, animated: true, completion: nil)
+        
+        if #available(iOS 14.0, *) {
+            completionHandler([[.banner, .badge, .sound]])
+        } else {
+            // Fallback on earlier versions
+            completionHandler([[.badge, .sound]])
+        }
+    }
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                didReceive response: UNNotificationResponse,
+                                withCompletionHandler completionHandler: @escaping () -> Void) {
+        let userInfo = response.notification.request.content.userInfo
+
+        // [START_EXCLUDE]
+        // Print message ID.
+        if let messageID = userInfo[gcmMessageIDKey] {
+          print("Message ID: \(messageID)")
+        }
+        // [END_EXCLUDE]
+        // With swizzling disabled you must let Messaging know about the message, for Analytics
+        // Messaging.messaging().appDidReceiveMessage(userInfo)
+        // Print full message.
+        print(userInfo)
+        
+        // push to AddFriendsVC page as soon as opened by clicking the notification
+        let home = AppBoards.main.initialViewController
+        let vc = AppBoards.friend.viewController(withIdentifier: "AcceptDeclineViewController") as! AcceptDeclineViewController
+        vc.modalPresentationStyle = .fullScreen
+        let window = UIApplication.shared.keyWindow
+        window?.rootViewController = home
+        window?.makeKeyAndVisible()
+        home.present(vc, animated: false, completion: nil)
+        
+        completionHandler()
+    }
+}
+// [END ios_10_message_handling]
+
+extension AppDelegate : MessagingDelegate {
+    // [START refresh_token]
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+    
+        print("Firebase registration token: \(String(describing: fcmToken))")
+
+        let dataDict:[String: String] = ["token": fcmToken ?? ""]
+
+        NotificationCenter.default.post(name: .gotNewFCMToken, object: nil, userInfo: dataDict)
+        
+        Persons.update(oneSignalId: fcmToken ?? "")
+        
+        PrefsManager.setFCMToken(val: fcmToken ?? "")
+    }
+    
+    func messaging(messaging: Messaging, didRefreshRegistrationToken fcmToken: String) {
+        print("TOKEN: ", fcmToken)
+    }
+    // [END refresh_token]
+}
+
+enum AppBoards: String {
+    
+    case login   = "Login"
+    case main    = "Main"
+    case group   = "Group"
+    case friend  = "Friend"
+    case setting = "Setting"
+    case zedpay  = "ZedPay"
+    
+    
+    var instance: UIStoryboard {
+        return UIStoryboard(name: self.rawValue, bundle: nil)
+    }
+    
+    var initialViewController: UIViewController {
+        return self.instance.instantiateInitialViewController()!
+    }
+
+    func viewController(withIdentifier identifier: String) -> UIViewController {
+        return instance.instantiateViewController(withIdentifier: identifier)
+    }
 }
 
 

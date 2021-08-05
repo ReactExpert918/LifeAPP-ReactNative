@@ -130,7 +130,7 @@
                                                         <action selector="actionSpeaker:" destination="-1" eventType="touchUpInside" id="Ixl-gT-Xwa"/>
                                                     </connections>
                                                 </button>
-                                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hXh-kj-cUR">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hXh-kj-cUR">
                                                     <rect key="frame" x="124" y="0.0" width="72" height="72"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
@@ -140,9 +140,6 @@
                                                     <state key="normal" image="callaudio_video1.png">
                                                         <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     </state>
-                                                    <connections>
-                                                        <action selector="actionVideo:" destination="-1" eventType="touchUpInside" id="ZQx-Xw-d5c"/>
-                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>

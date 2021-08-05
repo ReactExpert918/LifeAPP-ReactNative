@@ -9,13 +9,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-//import Sinch
+import Sinch
 import MediaPlayer
 import SwiftyAvatar
 import UIKit
 import AgoraRtcKit
 import FirebaseDatabase
 import FirebaseFirestore
+
 
 //----
 class CallAudioView: UIViewController {
@@ -57,6 +58,8 @@ class CallAudioView: UIViewController {
     var voiceStatusHandle: UInt?
     var voiceStatusRemoveHandle: UInt?
     
+    private var audioController: SINAudioController?
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         if let voiceStatusHandle = voiceStatusHandle{
@@ -72,10 +75,11 @@ class CallAudioView: UIViewController {
         super.init(nibName: nil, bundle: nil)
         let recipentUser = realm.object(ofType: Person.self, forPrimaryKey: userId)
         callString = recipentUser!.fullname
+        let app = UIApplication.shared.delegate as? AppDelegate
+        audioController = app?.client?.audioController()
+        
         self.isModalInPresentation = true
         self.modalPresentationStyle = .fullScreen
-
-        _ = UIApplication.shared.delegate as? AppDelegate
     }
     
     init(group: Group, persons: [String]) {
@@ -96,6 +100,27 @@ class CallAudioView: UIViewController {
         super.init(coder: aDecoder)
     }
 
+    // MARK: - Timer methods
+    
+    func timerStart(_ now: Date) {
+        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { _ in
+            self.updateStatus(now)
+        }
+    }
+
+    
+    func timerStop() {
+        timer?.invalidate()
+        timer = nil
+    }
+
+    func updateStatus(_ now: Date) {
+        
+        let interval = Date().timeIntervalSince(now)
+        let seconds = Int(interval) % 60
+        let minutes = Int(interval) / 60
+        labelStatus.text = String(format: "%02d:%02d", minutes, seconds)
+    }
     
     override func viewDidLoad() {
 
@@ -108,7 +133,6 @@ class CallAudioView: UIViewController {
 
         buttonVideo.setImage(UIImage(named: "callaudio_video1"), for: .normal)
         buttonVideo.setImage(UIImage(named: "callaudio_video1"), for: .highlighted)
-
         
         if (incoming) { setIncomingUI() }
         if (outgoing) { setOutgoingUI() }
@@ -143,9 +167,11 @@ class CallAudioView: UIViewController {
         
         self.voiceStatusRemoveHandle = FirebaseAPI.setVoiceCallRemoveListener(roomId){ [self] (receiverid) in
             if receiverid == AuthUser.userId(){
+                timerStop()
                 self.leaveChannel()
                 self.dismiss(animated: true, completion: nil)
             }else{
+                self.audioController?.stopPlayingSoundFile()
                 if outgoing{
                     self.labelStatus.text = "Declined"
                     self.labelStatus.textColor = .red
@@ -231,11 +257,6 @@ class CallAudioView: UIViewController {
         }
     }
     
-    func timerStop() {
-        timer?.invalidate()
-        timer = nil
-    }
-    
     // MARK: - User actions
     
     @IBAction func actionMute(_ sender: Any) {
@@ -285,6 +306,7 @@ class CallAudioView: UIViewController {
     }
     
     @IBAction func actionRequestHangup(_ sender: Any) {
+        audioController?.stopPlayingSoundFile()
         ref.child("voice_call").child(self.roomID).removeValue()
         self.dismiss(animated: true, completion: nil)
     }
@@ -319,6 +341,10 @@ class CallAudioView: UIViewController {
         status["status"]   = Status.outgoing.rawValue
         FirebaseAPI.sendVoiceCallStatus(status, self.roomID) { (isSuccess, data) in
         }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.audioController?.enableSpeaker()
+            self.audioController?.startPlayingSoundFile(Dir.application("call_ringback.wav"), loop: true)
+        }
     }
     
     func setIncomingUI() {
@@ -328,11 +354,17 @@ class CallAudioView: UIViewController {
         uiv_answerdecline.isHidden = false
         uiv_power.isHidden = true
         uiv_requst.isHidden = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.audioController?.enableSpeaker()
+            self.audioController?.startPlayingSoundFile(Dir.application("call_ringback.wav"), loop: true)
+        }
     }
     
     func setConnectedUI() {
-        labelStatus.text = "Connected"
-        labelStatus.textColor = .green
+        audioController?.stopPlayingSoundFile()
+        timerStart(Date())
+        //labelStatus.text = "Connected"
+        //labelStatus.textColor = .green
         uiv_mutespeaker.isHidden = false
         uiv_answerdecline.isHidden = true
         uiv_power.isHidden = false
@@ -365,3 +397,4 @@ extension CallAudioView: AgoraRtcEngineDelegate{
         setEndUI()
     }
 }
+

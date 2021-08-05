@@ -9,6 +9,8 @@
 import UIKit
 import BEMCheckBox
 import Contacts
+import RealmSwift
+
 class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UISearchResultsUpdating,UISearchControllerDelegate {
 
     var radioGroup : BEMCheckBoxGroup!
@@ -35,6 +37,8 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
     @IBOutlet weak var resultViewBottomConstraint: NSLayoutConstraint!
     
     private var persons = realm.objects(Person.self).filter(falsepredicate)
+    private var person: Person!
+    private var tokenPerson: NotificationToken? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,6 +68,20 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
         definesPresentationContext = false
         
         subscribeToShowKeyboardNotifications()
+        loadPerson()
+    }
+    
+    func loadPerson() {
+        let predicate = NSPredicate(format: "objectId == %@", AuthUser.userId())
+        let persons = realm.objects(Person.self).filter(predicate)
+        
+        
+        tokenPerson?.invalidate()
+        persons.safeObserve({ changes in
+            self.person = persons.first!
+        }, completion: { token in
+            self.tokenPerson = token
+        })
         
     }
     
@@ -206,8 +224,8 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
             self.loadImage(person: person){
                 self.popupView.isHidden = false
             }
-            
-            
+            print("Selcted Person TOKEN: ", person.oneSignalId)
+            PushNotification.send(token: person.oneSignalId, title: "Friend Request", body:self.person.fullname + " "  +  "sent friend request to you." )
             if (Friends.isFriend(person.objectId)) {
                 self.popupStatusLabel.text = "Already existing in your friend list.".localized
             } else {

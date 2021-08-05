@@ -215,6 +215,6 @@ class Messages: NSObject {
 		Details.updateAll(chatId: message.chatId, isDeleted: false)
 		Details.updateAll(chatId: message.chatId, isArchived: false)
 
-		PushNotification.send(message: message, recipientId: recipientId)
+		//PushNotification.send(message: message, recipientId: recipientId)
 	}
 }

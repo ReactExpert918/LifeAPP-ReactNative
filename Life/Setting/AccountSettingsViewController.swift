@@ -262,6 +262,7 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
         })
         
     }
+    
     func refreshAccountInfo(){
         MediaDownload.startUser(person.objectId, pictureAt: person.pictureAt) { image, error in
             if (error == nil) {

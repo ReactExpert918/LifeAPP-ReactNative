@@ -43,6 +43,8 @@ class FireObservers: NSObject {
         NotificationCenter.default.addObserver(self, selector: #selector(initObservers), name: NSNotification.Name(rawValue: NotificationStatus.NOTIFICATION_APP_STARTED), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(initObservers), name: NSNotification.Name(rawValue: NotificationStatus.NOTIFICATION_USER_LOGGED_IN), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(stopObservers), name: NSNotification.Name(rawValue: NotificationStatus.NOTIFICATION_USER_LOGGED_OUT), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(updateFcmToken), name: .gotNewFCMToken, object: nil)
 	}
 
 	// MARK: -
@@ -86,6 +88,12 @@ class FireObservers: NSObject {
 		observerDetails.removeAll()
 		observerMessages.removeAll()
 	}
+    
+    // MARK: - upload fcm token
+    @objc fileprivate func updateFcmToken() {
+        let token = PrefsManager.getFCMToken()
+        Persons.update(oneSignalId: token)
+    }
 
 	// MARK: -
 	//---------------------------------------------------------------------------------------------------------------------------------------------
@@ -218,4 +226,8 @@ class FireObservers: NSObject {
             .whereField("userId", isEqualTo: AuthUser.userId())
         observerPaymentMethods = FireObserver(query, to: PaymentMethod.self)
     }
+}
+
+extension Notification.Name {
+    static let gotNewFCMToken = Notification.Name("gotNewFCMToken")
 }

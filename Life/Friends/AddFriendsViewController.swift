@@ -238,10 +238,9 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
             let person = self.pendingFriends[index]
             self.selectedPerson = person
             // Display info on popupview
+            print("Selcted Person TOKEN: ", person.oneSignalId)
             self.confirmPopupLabel.text = "Do you want to add".localized + " \(person.fullname)" + "your friend list?".localized
             self.loadRequestedFriendImage(person: person)
-
-            
         }
         return cell
         

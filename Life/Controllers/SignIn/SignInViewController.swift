@@ -85,7 +85,7 @@ class SignInViewController: UIViewController, UITextViewDelegate, UITextFieldDel
             self?.loadPerson()
             //DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 Persons.update(lastActive: Date().timestamp())
-                Persons.update(oneSignalId: PushNotification.oneSignalId())
+                Persons.update(oneSignalId: PrefsManager.getFCMToken())
                         
             //}
         }
