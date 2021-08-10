@@ -210,11 +210,30 @@ class Messages: NSObject {
 			realm.add(message, update: .modified)
 		}
 
+        let recipient = realm.object(ofType: Person.self, forPrimaryKey: recipientId)
+        
 		Audio.playMessageOutgoing()
         //Audio.playMessageIncoming()
 		Details.updateAll(chatId: message.chatId, isDeleted: false)
 		Details.updateAll(chatId: message.chatId, isArchived: false)
-
+        switch message.type {
+        case MESSAGE_TYPE.MESSAGE_TEXT:
+            PushNotification.send(token: recipient?.oneSignalId ?? "", title: "New Text Message", body: Persons.fullname() + " " + "sent new text message", type: .sendText, chatId: message.chatId)
+        case MESSAGE_TYPE.MESSAGE_EMOJI:
+            PushNotification.send(token: recipient?.oneSignalId ?? "", title: "New Emoji", body: Persons.fullname() + " " + "sent new emoji", type: .sendText, chatId: message.chatId)
+        case MESSAGE_TYPE.MESSAGE_PHOTO:
+            PushNotification.send(token: recipient?.oneSignalId ?? "", title: "New Photo", body: Persons.fullname() + " " + "sent new photo", type: .sendText, chatId: message.chatId)
+        case MESSAGE_TYPE.MESSAGE_VIDEO:
+            PushNotification.send(token: recipient?.oneSignalId ?? "", title: "New Video", body: Persons.fullname() + " " + "sent new video", type: .sendText, chatId: message.chatId)
+        case MESSAGE_TYPE.MESSAGE_AUDIO:
+            PushNotification.send(token: recipient?.oneSignalId ?? "", title: "New Audio", body: Persons.fullname() + " " + "sent new audio", type: .sendText, chatId: message.chatId)
+        case MESSAGE_TYPE.MESSAGE_LOCATION:
+            PushNotification.send(token: recipient?.oneSignalId ?? "", title: "Location Received", body: Persons.fullname() + " " + "sent location", type: .sendText, chatId: message.chatId)
+        case MESSAGE_TYPE.MESSAGE_MONEY:
+            PushNotification.send(token: recipient?.oneSignalId ?? "", title: "Money Received", body: Persons.fullname() + " " + "sent new money", type: .sendText, chatId: message.chatId)
+        default:
+            print("default")
+        }
 		//PushNotification.send(message: message, recipientId: recipientId)
 	}
 }

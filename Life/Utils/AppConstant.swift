@@ -7,10 +7,14 @@
 //
 
 import Foundation
+import UIKit
 
 class AppConstant {
     static let VIDEO_LENGTH = 30
     static let agoraAppID = "7385eb633290453aaee4530d4c05f109"
+    static let SCREEN_HEIGHT       = UIScreen.main.bounds.height
+    static let SCREEN_WIDTH        = UIScreen.main.bounds.width
+    static let PRIMARY_COLOR        = UIColor.init(named: "PrimaryColor")
 }
 
 struct ONESIGNAL {

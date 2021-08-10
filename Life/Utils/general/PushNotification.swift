@@ -13,7 +13,7 @@ import Foundation
 //----
 class PushNotification: NSObject {
     
-    class func send(token: String, title: String, body: String) {
+    class func send(token: String, title: String, body: String, type: NotiType, chatId: String?) {
         let urlString = "https://fcm.googleapis.com/fcm/send"
         let url = NSURL(string: urlString)!
         let serverKey = "AAAAa2uhe4c:APA91bEnMUCK-H2Bf3gM3o4Zo8TbDi_5oK41qzWcpOdf4JE4xHVOkwVrjrhBIJDd2JqTWTwo34LZBCmz2NARPLxOOLbxpAwloXAd5RLfQYPSQSenTf7Lz8kDXnWzNZB0IvhsQ8PH8Uwr"
@@ -27,7 +27,9 @@ class PushNotification: NSObject {
                     "body" : body,
                     "sound": "default"
                 ],
-            "data" : ["userId" : userId]
+            "data" : ["userId" : userId,
+                      "chatId" : chatId ?? "",
+                      "noti_type": type.rawValue]
         ]
         let request = NSMutableURLRequest(url: url as URL)
         request.httpMethod = "POST"

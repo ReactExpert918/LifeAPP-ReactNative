@@ -35,5 +35,4 @@ class PaymentMethod: SyncObject {
             updatedAt = Date().timestamp()
         }
     }
-    
 }

@@ -241,7 +241,10 @@ class CallVideoView: UIViewController {
     }
     
     @IBAction func actionRequestHangup(_ sender: Any) {
-        audioController?.stopPlayingSoundFile()
+        DispatchQueue.main.async {
+            self.audioController?.stopPlayingSoundFile()
+        }
+        
         ref.child("video_call").child(self.roomID).removeValue()
         self.dismiss(animated: true, completion: nil)
     }

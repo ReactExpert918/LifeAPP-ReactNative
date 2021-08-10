@@ -289,18 +289,42 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         _  = alertMessage!["body"] as! String
         
         let userId = userInfo["userId"] as? String
+        let chatId = userInfo["chatId"] as? String
+        if let noti_type = userInfo["noti_type"] as? String{
+            switch noti_type {
+            case "0":
+                // display alert for notification
+                let vc = AppBoards.friend.viewController(withIdentifier: "AcceptDeclineViewController") as! AcceptDeclineViewController
+                vc.userId = userId ?? ""
         
-        // display alert for notification
-        let vc = AppBoards.friend.viewController(withIdentifier: "AcceptDeclineViewController") as! AcceptDeclineViewController
-        vc.userId = userId ?? ""
-        let sheetController = SheetViewController(controller: vc, sizes: [.fixed(360)])
-        UIApplication.shared.windows.first?.rootViewController?.present(sheetController, animated: true, completion: nil)
-        
-        if #available(iOS 14.0, *) {
-            completionHandler([[.banner, .badge, .sound]])
-        } else {
-            // Fallback on earlier versions
-            completionHandler([[.badge, .sound]])
+                let sheetController = SheetViewController(controller: vc, sizes: [.fixed(360)])
+                UIApplication.shared.windows.first?.rootViewController?.present(sheetController, animated: true, completion: nil)
+                
+                if #available(iOS 14.0, *) {
+                    completionHandler([[.banner, .badge, .sound]])
+                } else {
+                    // Fallback on earlier versions
+                    completionHandler([[.badge, .sound]])
+                }
+            
+            default:
+//                let home = AppBoards.main.initialViewController
+//                let vc = AppBoards.main.viewController(withIdentifier: "chatViewController") as! ChatViewController
+//                vc.recipientId = userId ?? ""
+//                vc.chatId = chatId ?? ""
+//                vc.fromNoti = true
+//                vc.modalPresentationStyle = .fullScreen
+//                let window = UIApplication.shared.keyWindow
+//                window?.rootViewController = home
+//                window?.makeKeyAndVisible()
+//                home.present(vc, animated: false, completion: nil)
+                if #available(iOS 14.0, *) {
+                    completionHandler([[.banner, .badge, .sound]])
+                } else {
+                    // Fallback on earlier versions
+                    completionHandler([[.badge, .sound]])
+                }
+            }
         }
     }
 
@@ -320,14 +344,41 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         // Print full message.
         print(userInfo)
         
-        // push to AddFriendsVC page as soon as opened by clicking the notification
-        let home = AppBoards.main.initialViewController
-        let vc = AppBoards.friend.viewController(withIdentifier: "AcceptDeclineViewController") as! AcceptDeclineViewController
-        vc.modalPresentationStyle = .fullScreen
-        let window = UIApplication.shared.keyWindow
-        window?.rootViewController = home
-        window?.makeKeyAndVisible()
-        home.present(vc, animated: false, completion: nil)
+        let aps = userInfo["aps"] as? [AnyHashable : Any]
+        let alertMessage = aps!["alert"] as? [AnyHashable : Any]
+        _  = alertMessage!["body"] as! String
+        
+        let userId = userInfo["userId"] as? String
+        let chatId = userInfo["chatId"] as? String
+        if let noti_type = userInfo["noti_type"] as? String{
+            switch noti_type {
+            case "0":
+                // display alert for notification
+                let home = AppBoards.main.initialViewController
+                let vc = AppBoards.friend.viewController(withIdentifier: "AcceptDeclineViewController") as! AcceptDeclineViewController
+                vc.userId = userId ?? ""
+        
+                vc.modalPresentationStyle = .fullScreen
+                let window = UIApplication.shared.keyWindow
+                window?.rootViewController = home
+                window?.makeKeyAndVisible()
+                home.present(vc, animated: false, completion: nil)
+            
+            default:
+                let home = AppBoards.main.initialViewController
+                let vc = AppBoards.main.viewController(withIdentifier: "chatViewController") as! ChatViewController
+                vc.recipientId = userId ?? ""
+                vc.chatId = chatId ?? ""
+                vc.fromNoti = true
+                vc.modalPresentationStyle = .fullScreen
+                let window = UIApplication.shared.keyWindow
+                window?.rootViewController = home
+                window?.makeKeyAndVisible()
+                home.present(vc, animated: false, completion: nil)
+            }
+        }
+        
+        
         
         completionHandler()
     }
@@ -376,6 +427,16 @@ enum AppBoards: String {
     func viewController(withIdentifier identifier: String) -> UIViewController {
         return instance.instantiateViewController(withIdentifier: identifier)
     }
+}
+
+enum NotiType: Int {
+    case friendRequest = 0
+    case sendText = 1
+    case sendImage = 2
+    case sendPhoto = 3
+    case sendMoney = 4
+    case sendVideoCalling = 5
+    case sendVoiceCalling = 6
 }
 
 

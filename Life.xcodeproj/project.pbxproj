@@ -44,6 +44,7 @@
 		04F4E3DF267CC0BB00CD94FD /* ZedPay.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04F4E3E1267CC0BB00CD94FD /* ZedPay.storyboard */; };
 		04F4E3E6267CCE6F00CD94FD /* TransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4E3E4267CCE6F00CD94FD /* TransactionCell.swift */; };
 		04F4E3E7267CCE6F00CD94FD /* TransactionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04F4E3E5267CCE6F00CD94FD /* TransactionCell.xib */; };
+		0513BA3026C10BB700423A25 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0513BA2F26C10BB700423A25 /* UIView+Extension.swift */; };
 		058A770826BBD243006563B8 /* call_ringback.wav in Resources */ = {isa = PBXBuildFile; fileRef = 058A770726BBD243006563B8 /* call_ringback.wav */; };
 		058A773F26BC9993006563B8 /* AcceptDeclineVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 058A773E26BC9993006563B8 /* AcceptDeclineVC.swift */; };
 		05BA7ED326B7A3E00049393B /* CallAudioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BA7ED126B7A3E00049393B /* CallAudioView.swift */; };
@@ -360,6 +361,7 @@
 		04F4E3E3267CC0D300CD94FD /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/ZedPay.strings; sourceTree = "<group>"; };
 		04F4E3E4267CCE6F00CD94FD /* TransactionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCell.swift; sourceTree = "<group>"; };
 		04F4E3E5267CCE6F00CD94FD /* TransactionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionCell.xib; sourceTree = "<group>"; };
+		0513BA2F26C10BB700423A25 /* UIView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		058A770726BBD243006563B8 /* call_ringback.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = call_ringback.wav; sourceTree = "<group>"; };
 		058A773E26BC9993006563B8 /* AcceptDeclineVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcceptDeclineVC.swift; sourceTree = "<group>"; };
 		05BA7EC726B7A37C0049393B /* AgoraRtcKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AgoraRtcKit.framework; sourceTree = "<group>"; };
@@ -1113,6 +1115,7 @@
 				A6F2534E24ABA19500A31599 /* UIImageView+RoundedBorder.swift */,
 				04F4E3D1267CBC7A00CD94FD /* String+Extension.swift */,
 				04F4E3D3267CBCF800CD94FD /* Float+Extension.swift */,
+				0513BA2F26C10BB700423A25 /* UIView+Extension.swift */,
 				04C2C86A267F4C4E0035B825 /* Data+Extension.swift */,
 			);
 			path = extensions;
@@ -1956,6 +1959,7 @@
 				AB30FAFF24AFB2D20037BF25 /* AddFriendSection.swift in Sources */,
 				A6C9824E24AE72E2002280B6 /* ChatManager.swift in Sources */,
 				049F975226897D66008E4789 /* AddPaymentMethodViewController.swift in Sources */,
+				0513BA3026C10BB700423A25 /* UIView+Extension.swift in Sources */,
 				A6DEA88424A84EC600868625 /* Cryptor.swift in Sources */,
 				AB5457AD24B623C4008C7FB8 /* AddParticipantCell.swift in Sources */,
 				A6DEA82C24A82AB000868625 /* RCMessage.swift in Sources */,
@@ -2215,7 +2219,7 @@
 				CODE_SIGN_ENTITLEMENTS = Life/Life.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_TEAM = 2AV3B2BH2Y;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2243,7 +2247,7 @@
 				CODE_SIGN_ENTITLEMENTS = Life/Life.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_TEAM = 2AV3B2BH2Y;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

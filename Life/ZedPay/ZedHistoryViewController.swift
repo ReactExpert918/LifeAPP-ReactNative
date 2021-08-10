@@ -9,6 +9,7 @@
 import UIKit
 import CryptoSwift
 import RealmSwift
+import FittedSheets
 
 class ZedHistoryViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -104,17 +105,32 @@ class ZedHistoryViewController: UIViewController, UITableViewDataSource, UITable
     // MARK: - Add money tap
     @IBAction func actionTapAddMoney(_ sender: Any) {
         /// just for test
-        let predicate = NSPredicate(format: "userId == %@ AND status == %@ AND isDeleted == NO", AuthUser.userId(), ZEDPAY_STATUS.SUCCESS)
+        let predicate = NSPredicate(format: "userId == %@ AND isDeleted == NO", AuthUser.userId(), ZEDPAY_STATUS.SUCCESS)
         let paymentMethods = realm.objects(PaymentMethod.self).filter(predicate)
         
         if let paymentMethod = paymentMethods.first {
             weak var pvc = self.presentingViewController
-            self.dismiss(animated: false){
-                let vc = self.storyboard!.instantiateViewController(withIdentifier: "addMoneyVC") as! AddMoneyViewController
+            //self.dismiss(animated: false){
+//                let configuration = NBBottomSheetConfiguration(animationDuration: 0.4, sheetSize: .fixed(AppConstant.SCREEN_HEIGHT))
+//                let bottomSheetController = NBBottomSheetController(configuration: configuration)
+//                let storyboad = UIStoryboard(name: "ZedPay", bundle: nil)
+//                let targetVC = storyboad.instantiateViewController(withIdentifier: "addMoneyVC") as! AddMoneyViewController
+//                targetVC.paymentMethod = paymentMethod
+//                //targetVC.delegate = self
+//                bottomSheetController.present(targetVC, on: self)
+                
+                
+                
+                /*let vc = self.storyboard!.instantiateViewController(withIdentifier: "addMoneyVC") as! AddMoneyViewController
                 vc.modalPresentationStyle = .fullScreen
                 vc.paymentMethod = paymentMethod
-                pvc?.present(vc, animated: true, completion: nil)
-            }
+                pvc?.present(vc, animated: true, completion: nil)*/
+            //}
+            let mainstoryboard = UIStoryboard.init(name: "ZedPay", bundle: nil)
+            let vc = mainstoryboard.instantiateViewController(withIdentifier: "addMoneyVC") as! AddMoneyViewController
+            vc.paymentMethod = paymentMethod
+            let sheetController = SheetViewController(controller: vc, sizes: [.fixed(400), .fixed(400)])
+            self.present(sheetController, animated: true, completion: nil)
         }else{
             weak var pvc = self.presentingViewController
             let alert = UIAlertController(title: "", message: "Please complete ZED pay settings".localized, preferredStyle: .alert)

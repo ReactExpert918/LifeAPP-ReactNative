@@ -26,7 +26,9 @@ class CreateCustomerViewController: UIViewController, UITextFieldDelegate {
     var confirmpassword_eye_off = true
     private var tokenStripeCustomer: NotificationToken? = nil
     private var stripeCustomers = realm.objects(StripeCustomer.self).filter(falsepredicate)
-    
+    private var tokenPaymentmethod: NotificationToken? = nil
+    private var paymentMethods = realm.objects(PaymentMethod.self).filter(falsepredicate)
+    var delegate: UpdatePayDelegateProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -144,15 +146,36 @@ class CreateCustomerViewController: UIViewController, UITextFieldDelegate {
             })
         }
         if stripeCustomer.status == ZEDPAY_STATUS.SUCCESS {
-            weak var pvc = self.presentingViewController
-            self.dismiss(animated: false, completion: {
-                let vc = self.storyboard?.instantiateViewController(withIdentifier: "zedPaySettingsVC") as! ZEDPaySettingsViewController
-                vc.modalPresentationStyle = .fullScreen
-                pvc?.present(vc, animated: true)
-            })
-            
+            self.hud.show(in: self.view, animated: true)
+            let predicate = NSPredicate(format: "userId == %@ AND status == %@", AuthUser.userId(), ZEDPAY_STATUS.SUCCESS)
+            if let customer = realm.objects(StripeCustomer.self).filter(predicate).first {
+                let cardNumber = "4242424242424242"
+                let cvc = "123"
+                
+                let cardExpMonth = "12"
+                let cardExpYear = "25"
+                self.hud.show(in: self.view, animated: true)
+                PaymentMethods.create(userId: AuthUser.userId(), customerId: customer.customerId, cardNumber: cardNumber, expMonth: cardExpMonth, expYear:cardExpYear, cvc: cvc)
+                
+                let predicate = NSPredicate(format: "userId == %@ AND status == %@ AND isDeleted == NO", AuthUser.userId(), ZEDPAY_STATUS.SUCCESS)
+                paymentMethods = realm.objects(PaymentMethod.self).filter(predicate)
+                
+                tokenPaymentmethod?.invalidate()
+                paymentMethods.safeObserve({ changes in
+                    self.dismiss(animated: true){
+                        self.delegate?.updateCard(result: false)
+                    }
+                }, completion: { token in
+                    self.tokenPaymentmethod = token
+                })
+                
+                
+            }else{
+                self.hud.dismiss()
+                self.dismiss(animated: true){
+                    self.delegate?.updateCard(result: false)
+                }
+            }
         }
-        
     }
-    
 }

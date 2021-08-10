@@ -225,7 +225,7 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
                 self.popupView.isHidden = false
             }
             print("Selcted Person TOKEN: ", person.oneSignalId)
-            PushNotification.send(token: person.oneSignalId, title: "Friend Request", body:self.person.fullname + " "  +  "sent friend request to you." )
+            PushNotification.send(token: person.oneSignalId, title: "Friend Request", body:self.person.fullname + " "  +  "sent friend request to you.", type: .friendRequest, chatId: nil )
             if (Friends.isFriend(person.objectId)) {
                 self.popupStatusLabel.text = "Already existing in your friend list.".localized
             } else {

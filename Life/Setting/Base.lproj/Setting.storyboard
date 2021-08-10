@@ -228,7 +228,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Account Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XRp-yO-n2Q">
-                                        <rect key="frame" x="142" y="22" width="130.5" height="20"/>
+                                        <rect key="frame" x="131.5" y="21.5" width="151" height="21"/>
                                         <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -269,7 +269,7 @@
                                 <rect key="frame" x="0.0" y="108" width="414" height="48"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Account Setting" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ew7-Lw-t1g">
-                                        <rect key="frame" x="16" y="15.5" width="108" height="17.5"/>
+                                        <rect key="frame" x="16" y="15" width="122" height="18.5"/>
                                         <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -363,7 +363,7 @@
                                 <rect key="frame" x="0.0" y="338" width="414" height="48"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N9N-8i-2PO">
-                                        <rect key="frame" x="16" y="15.5" width="40" height="17.5"/>
+                                        <rect key="frame" x="16" y="15" width="46.5" height="18.5"/>
                                         <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -384,7 +384,7 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shane Watson" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lTY-wD-cIU">
-                                        <rect key="frame" x="272.5" y="15.5" width="97.5" height="17.5"/>
+                                        <rect key="frame" x="260.5" y="15" width="109.5" height="18.5"/>
                                         <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.69877860915492962" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -418,7 +418,7 @@
                                 <rect key="frame" x="0.0" y="386" width="414" height="48"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nYa-Op-htE">
-                                        <rect key="frame" x="16" y="15.5" width="66.5" height="17.5"/>
+                                        <rect key="frame" x="16" y="15" width="72.5" height="18.5"/>
                                         <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -445,7 +445,7 @@
                                         </connections>
                                     </button>
                                     <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Shane Watson" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Re3-mQ-gkn">
-                                        <rect key="frame" x="132.5" y="15" width="237.5" height="18"/>
+                                        <rect key="frame" x="138.5" y="14.5" width="231.5" height="19"/>
                                         <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                     </textField>
@@ -473,7 +473,7 @@
                                 <rect key="frame" x="0.0" y="434" width="414" height="48"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Phone Number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bfQ-mc-5in">
-                                        <rect key="frame" x="16" y="15.5" width="101.5" height="17.5"/>
+                                        <rect key="frame" x="16" y="15" width="117" height="18.5"/>
                                         <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -494,7 +494,7 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shane Watson" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FI0-Jn-VA4">
-                                        <rect key="frame" x="272.5" y="15.5" width="97.5" height="17.5"/>
+                                        <rect key="frame" x="260.5" y="15" width="109.5" height="18.5"/>
                                         <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.69877860920000001" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -528,7 +528,7 @@
                                 <rect key="frame" x="0.0" y="482" width="414" height="48"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lTD-Vm-Ipx">
-                                        <rect key="frame" x="16" y="15.5" width="96.5" height="17.5"/>
+                                        <rect key="frame" x="16" y="15" width="107.5" height="18.5"/>
                                         <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -549,7 +549,7 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shane Watson" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wE7-1H-zKP">
-                                        <rect key="frame" x="272.5" y="15.5" width="97.5" height="17.5"/>
+                                        <rect key="frame" x="260.5" y="15" width="109.5" height="18.5"/>
                                         <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.69877860920000001" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -583,7 +583,7 @@
                                 <rect key="frame" x="0.0" y="530" width="414" height="48"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Delete Account" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XpV-uq-Skn">
-                                        <rect key="frame" x="16" y="15.5" width="103" height="17.5"/>
+                                        <rect key="frame" x="16" y="15" width="116.5" height="18.5"/>
                                         <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
                                         <color key="textColor" red="0.92156862745098034" green="0.28235294117647058" blue="0.31764705882352939" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -644,7 +644,7 @@
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Success" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vJY-z4-8X3">
-                                                <rect key="frame" x="108.5" y="112" width="57.5" height="17.5"/>
+                                                <rect key="frame" x="107" y="112" width="60" height="18.5"/>
                                                 <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -1410,7 +1410,7 @@ received in your device</string>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ZED Pay Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5AI-pm-7BL">
-                                        <rect key="frame" x="140.5" y="22" width="133.5" height="20"/>
+                                        <rect key="frame" x="131.5" y="21.5" width="151" height="21"/>
                                         <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -1451,7 +1451,7 @@ received in your device</string>
                                 <rect key="frame" x="0.0" y="108" width="414" height="48"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ZED Pay Setting" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wzT-xN-Ehs">
-                                        <rect key="frame" x="16" y="15.5" width="388" height="17.5"/>
+                                        <rect key="frame" x="16" y="15" width="388" height="18.5"/>
                                         <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -1478,6 +1478,7 @@ received in your device</string>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_zed_pay" translatesAutoresizingMaskIntoConstraints="NO" id="xZo-fg-Wvm" customClass="U">
                                 <rect key="frame" x="157" y="188" width="100" height="100"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="I96-fW-YUE"/>
                                     <constraint firstAttribute="height" constant="100" id="Icx-bm-C0b"/>
@@ -1494,11 +1495,11 @@ received in your device</string>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4I0-uR-qu0">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4I0-uR-qu0">
                                 <rect key="frame" x="0.0" y="338" width="414" height="48"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Credit Card" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0qX-MD-c8P">
-                                        <rect key="frame" x="16" y="15.5" width="109" height="17.5"/>
+                                        <rect key="frame" x="16" y="15" width="120.5" height="18.5"/>
                                         <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -1542,10 +1543,10 @@ received in your device</string>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lpZ-bq-Hgv">
-                                <rect key="frame" x="0.0" y="386" width="414" height="48"/>
+                                <rect key="frame" x="0.0" y="338" width="414" height="48"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Passcode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nil-dl-A7A">
-                                        <rect key="frame" x="16" y="15.5" width="66.5" height="17.5"/>
+                                        <rect key="frame" x="16" y="15" width="71.5" height="18.5"/>
                                         <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -1606,7 +1607,7 @@ received in your device</string>
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Success" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="szQ-85-2hN">
-                                                <rect key="frame" x="108.5" y="112" width="57.5" height="17.5"/>
+                                                <rect key="frame" x="107" y="112" width="60" height="18.5"/>
                                                 <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -1651,7 +1652,7 @@ received in your device</string>
                             <constraint firstItem="mZr-YU-C4R" firstAttribute="top" secondItem="QHB-3H-n1s" secondAttribute="bottom" id="O2m-rD-K11"/>
                             <constraint firstItem="lpZ-bq-Hgv" firstAttribute="trailing" secondItem="2PY-8c-q9n" secondAttribute="trailing" id="OGx-uJ-mAF"/>
                             <constraint firstItem="mZr-YU-C4R" firstAttribute="top" secondItem="2PY-8c-q9n" secondAttribute="top" id="WyV-y6-kyG"/>
-                            <constraint firstItem="lpZ-bq-Hgv" firstAttribute="top" secondItem="4I0-uR-qu0" secondAttribute="bottom" id="XUd-yB-DgX"/>
+                            <constraint firstItem="lpZ-bq-Hgv" firstAttribute="top" secondItem="4I0-uR-qu0" secondAttribute="bottom" constant="-48" id="XUd-yB-DgX"/>
                             <constraint firstItem="4I0-uR-qu0" firstAttribute="leading" secondItem="2PY-8c-q9n" secondAttribute="leading" id="ZAE-oX-QBx"/>
                             <constraint firstItem="QHB-3H-n1s" firstAttribute="leading" secondItem="yQe-iv-7dk" secondAttribute="leading" id="aUm-or-bQo"/>
                             <constraint firstItem="4I0-uR-qu0" firstAttribute="trailing" secondItem="2PY-8c-q9n" secondAttribute="trailing" id="bXY-rV-qsd"/>
@@ -2706,7 +2707,7 @@ received in your device</string>
         <image name="ic_card_error" width="128" height="104"/>
         <image name="ic_cards" width="245" height="226.5"/>
         <image name="ic_signout" width="51.5" height="51.5"/>
-        <image name="ic_zed_pay" width="67" height="64"/>
+        <image name="ic_zed_pay" width="512" height="577"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="profile" width="75" height="75"/>
         <systemColor name="darkTextColor">

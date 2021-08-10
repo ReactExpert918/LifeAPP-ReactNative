@@ -12,17 +12,14 @@ import RealmSwift
 import IQKeyboardManagerSwift
 
 class AddMoneyViewController: UIViewController {
-
-    @IBOutlet weak var imageCard: UIImageView!
+    
+    @IBOutlet weak var col_product: UICollectionView!
+    @IBOutlet weak var btnBalance: RoundButton!
+    let prices = ["10","50","70","100","500","700","1000","5000","7000"]
+    var ds_products = [(String, Bool)]()
     var paymentMethod: PaymentMethod?
     var delegate: UpdatePayDelegateProtocol?
     
-    @IBOutlet weak var cardNumber: UILabel!
-    @IBOutlet weak var carExp: UILabel!
-    @IBOutlet weak var cardImage: UIImageView!
-    
-    @IBOutlet weak var addAmount: UITextField!
-    @IBOutlet weak var cardCVC: UILabel!
     let hud = JGProgressHUD(style: .light)
     private var tokenZEDPay: NotificationToken? = nil
     private var zedPays = realm.objects(ZEDPay.self).filter(falsepredicate)
@@ -31,32 +28,15 @@ class AddMoneyViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
-        if paymentMethod?.cardBrand == "visa" {
-            cardImage.image = UIImage(named: "ic_card_visa")
-        } else if paymentMethod?.cardBrand == "amex"{
-            cardImage.image = UIImage(named: "ic_card_amex")
-        } else if paymentMethod?.cardBrand == "mastercard"{
-            cardImage.image = UIImage(named: "ic_card_mastercard")
-        } else if paymentMethod?.cardBrand == "diners"{
-            cardImage.image = UIImage(named: "ic_card_dinersclub")
-        } else if paymentMethod?.cardBrand == "discover"{
-            cardImage.image = UIImage(named: "ic_card_discovery")
-        } else if paymentMethod?.cardBrand == "unionpay"{
-            cardImage.image = UIImage(named: "ic_card_unionpay")
-        } else if paymentMethod?.cardBrand == "jcb"{
-            cardImage.image = UIImage(named: "ic_card_jcb")
-        } else{
-            cardImage.isHidden = true
-        }
-        
-        cardNumber.text = "**** **** **** " + paymentMethod!.cardNumber
-        carExp.text = paymentMethod!.expMonth+"/"+paymentMethod!.expYear
-        cardCVC.text = paymentMethod?.cvc
-        addAmount.becomeFirstResponder()
-        
         initPurchase()
+        setDataSource()
+        updateBtn(self.ds_products)
+    }
+    
+    func setDataSource() {
+        for i in 0 ... prices.count - 1{
+            self.ds_products.append((prices[i], false))
+        }
     }
     
     //MARK: in-app purchase
@@ -74,15 +54,15 @@ class AddMoneyViewController: UIViewController {
                         var amount: Float = 0
                         switch index {
                         case 0:
-                            amount = 500
+                            amount = 610
                         case 1:
-                            amount = 1000
+                            amount = 1220
                         case 2:
-                            amount = 5000
+                            amount = 6100
                         case 3:
-                            amount = 10000
+                            amount = 12000
                         default:
-                            amount = 500
+                            amount = 610
                         }
                         let zedPayId = ZEDPays.createAdd(userId: AuthUser.userId(), customerId: self!.paymentMethod!.customerId, cardId: self!.paymentMethod!.cardId, quantity: amount)
                         
@@ -147,32 +127,12 @@ class AddMoneyViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func actionTapRemove(_ sender: Any) {
-        self.presentAlert(from: self.view, index: 0)
-        /*guard let quantityString = addAmount.text as NSString? else {
-            return
-        }
-        
-        if(quantityString.floatValue <= 0.5){
-            let alert = UIAlertController(title: "Error!".localized, message: "The amount must be greater than 0.5".localized, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler:nil))
-            self.present(alert, animated: true, completion: nil)
-        }else{
-            self.hud.show(in: self.view, animated: true)
-        
-            let zedPayId = ZEDPays.createAdd(userId: AuthUser.userId(), customerId: paymentMethod!.customerId, cardId: paymentMethod!.cardId, quantity: quantityString.floatValue)
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1){
-                let predicate = NSPredicate(format: "objectId == %@", zedPayId)
-                self.zedPays = realm.objects(ZEDPay.self).filter(predicate)
-                self.tokenZEDPay?.invalidate()
-                self.zedPays.safeObserve({ changes in
-                    self.callBack()
-                }, completion: { token in
-                    self.tokenZEDPay = token
-                })
+    @IBAction func actionTapAdd(_ sender: Any) {
+        for i in 0 ... self.ds_products.count - 1{
+            if self.ds_products[i].1{
+                self.presentAlert(from: self.view, index: i % 3)
             }
-        }*/
+        }
     }
     
     func callBack(){
@@ -198,4 +158,70 @@ class AddMoneyViewController: UIViewController {
             self.present(alert, animated: true, completion: nil)
         }
     }
+    
+    func updateBtn(_ source: [(String, Bool)])  {
+        var isSelected: Bool = false
+        var num = 0
+        for one in source{
+            num += 1
+            if one.1{
+                isSelected = true
+            }
+            if num == source.count{
+                if isSelected{
+                    self.btnBalance.isEnabled = true
+                    self.btnBalance.backgroundColor = AppConstant.PRIMARY_COLOR
+                }else{
+                    self.btnBalance.backgroundColor = .lightGray
+                    self.btnBalance.isEnabled = false
+                }
+            }
+        }
+    }
 }
+
+extension AddMoneyViewController : UICollectionViewDelegate, UICollectionViewDataSource{
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.ds_products.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductCell", for: indexPath) as! ProductCell
+        cell.setDataSource(entity: self.ds_products[indexPath.row])
+        //cell.setDummy()
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        for i in 0 ... self.ds_products.count - 1{
+            self.ds_products[i].1 = false
+        }
+        self.ds_products[indexPath.row].1 = true
+        updateBtn(self.ds_products)
+        self.col_product.reloadData()
+    }
+}
+
+extension AddMoneyViewController: UICollectionViewDelegateFlowLayout{
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let w = collectionView.frame.size.width / 3.0
+        let h: CGFloat = 100
+        return CGSize(width: w, height: h)
+    }
+}
+
+class ProductCell: UICollectionViewCell {
+    
+    @IBOutlet weak var lbl_price: UILabel!
+    @IBOutlet weak var uiv_total: UIView!
+    
+    func setDataSource(entity: (String, Bool)) {
+        self.lbl_price.text = entity.0
+        if entity.1{
+            self.uiv_total.backgroundColor = AppConstant.PRIMARY_COLOR
+        }else{
+            self.uiv_total.backgroundColor = .lightGray
+        }
+    }
+}
+

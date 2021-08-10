@@ -27,6 +27,7 @@ class ChatViewController: UIViewController {
 
     var chatId = ""
     var recipientId = ""
+    var fromNoti = false
     
     private var detail: Detail?
     private var details = realm.objects(Detail.self).filter(falsepredicate)
@@ -346,14 +347,15 @@ class ChatViewController: UIViewController {
     @IBAction func actionAudioCall(_ sender: Any) {
         showCallToolbar(value: false)
         if(recipientId != ""){
-//            let callAudioView = CallAudioView(userId: self.recipientId)
-//            present(callAudioView, animated: true)
             let callAdudioView = CallAudioView(userId: self.recipientId)
             callAdudioView.roomID = self.chatId
             callAdudioView.receiver = recipientId
             callAdudioView.outgoing = true
             callAdudioView.incoming = false
             present(callAdudioView, animated: true)
+            let realm = try! Realm()
+            let recipient = realm.object(ofType: Person.self, forPrimaryKey: recipientId)
+            PushNotification.send(token: recipient?.oneSignalId ?? "", title: "New Audio Call", body: Persons.fullname() + " " + "is sending new audio call request...", type: .sendVoiceCalling, chatId: chatId)
         }else{
             var personsId: [String] = []
             for person in persons{
@@ -376,6 +378,9 @@ class ChatViewController: UIViewController {
             callVideoView.outgoing = true
             callVideoView.incoming = false
             present(callVideoView, animated: true)
+            let realm = try! Realm()
+            let recipient = realm.object(ofType: Person.self, forPrimaryKey: recipientId)
+            PushNotification.send(token: recipient?.oneSignalId ?? "", title: "New Video Call", body: Persons.fullname() + " " + "is sending new video call request...", type: .sendVideoCalling, chatId: chatId)
             
         } else {
             var personsId: [String] = []
@@ -1055,9 +1060,18 @@ class ChatViewController: UIViewController {
         
     }
     @IBAction func onBackPressed(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
+        if fromNoti{
+            let home = AppBoards.main.initialViewController
+            let vc = AppBoards.main.viewController(withIdentifier: "mainTabViewController") as! MainTabViewController
+            vc.modalPresentationStyle = .fullScreen
+            let window = UIApplication.shared.keyWindow
+            window?.rootViewController = home
+            window?.makeKeyAndVisible()
+            home.present(vc, animated: false, completion: nil)
+        }else{
+            self.navigationController?.popViewController(animated: true)
+        }
     }
-    
 }
 // MARK: - UITableViewDataSource
 //-------------------------------------------------------------------------------------------------------------------------------------------------

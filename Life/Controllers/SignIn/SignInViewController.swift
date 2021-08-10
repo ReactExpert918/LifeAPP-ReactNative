@@ -39,8 +39,8 @@ class SignInViewController: UIViewController, UITextViewDelegate, UITextFieldDel
             bottomText.isHidden = false
             jaBottomText.isHidden = true
         }
-        userName.text = "topdevme@gmail.com"
-        password.text = "Password123!@#"
+//        userName.text = "topdev@gmail.com"
+//        password.text = "123456"
     }
     
     @IBAction func onBackPressed(_ sender: Any) {
