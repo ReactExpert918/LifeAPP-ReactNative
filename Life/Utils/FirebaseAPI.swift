@@ -10,6 +10,7 @@ class FirebaseAPI {
     
     static let VIDEO_CALL = "video_call"
     static let VOICE_CALL = "voice_call"
+    static let USERNAME = "username"
     
     
      //MARK: - Set Add, Change, Remove for Video call branch
@@ -40,6 +41,33 @@ class FirebaseAPI {
                 handler(childref)
             }
         }
+    }
+    
+    //MARK: - Set username branch
+    static func setUsername(_ username:String,completion: @escaping (_ status: Bool, _ message: String) -> ()) {
+        ref.child(USERNAME).child(AuthUser.userId()).setValue(username) { (error, dataRef) in
+            if let error = error {
+                completion(false, error.localizedDescription)
+            } else {
+                print(dataRef)
+                let totalPath: String = "\(dataRef)"
+                completion(true, totalPath)
+            }
+        }
+    }
+    
+   static func setUsernameListener( handler:@escaping (_ msg: [Any]?)->()) -> UInt {
+    return ref.child(USERNAME).observe(.value) { (snapshot, error) in
+           let childref = snapshot.value as? NSDictionary
+           //print(childref)
+           if let childref = childref {
+                handler(childref.allValues)
+           }
+       }
+   }
+    
+    static func removeUsername() {
+        ref.child(USERNAME).child(AuthUser.userId()).removeValue()
     }
     
     //MARK: - Set Add, Change, Remove for Voice call branch
@@ -85,6 +113,10 @@ class FirebaseAPI {
     
     static func removeVoiceCallRemoveListnerObserver(_ roomId: String, _ handle : UInt) {
         ref.child(VOICE_CALL).child(roomId).removeObserver(withHandle: handle)
+    }
+    
+    static func removeUsernameListnerObserver(_ handle : UInt) {
+        ref.child(USERNAME).removeObserver(withHandle: handle)
     }
     
     // MARK: - send Statusmodel

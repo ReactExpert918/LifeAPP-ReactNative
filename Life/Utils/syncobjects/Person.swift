@@ -16,7 +16,7 @@ class Person: SyncObject {
 
 	@objc dynamic var email = ""
 	@objc dynamic var phone = ""
-
+    @objc dynamic var username = ""
 	@objc dynamic var firstname = ""
 	@objc dynamic var lastname = ""
 	@objc dynamic var fullname = ""
@@ -105,6 +105,19 @@ class Person: SyncObject {
             updatedAt = Date().timestamp()
         }
     }
+    
+    func update(username value: String) {
+
+        if (username == value) { return }
+
+        let realm = try! Realm()
+        try! realm.safeWrite {
+            username = value
+            syncRequired = true
+            updatedAt = Date().timestamp()
+        }
+    }
+    
 	// MARK: -
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	func update(pictureAt value: Int64) {

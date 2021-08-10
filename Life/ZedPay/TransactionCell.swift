@@ -49,7 +49,7 @@ class TransactionCell: UITableViewCell {
             let person = Persons.getById(transaction.fromUserId)
             imageType.image = UIImage(named: "ic_pay_charge")
             labelType.text = "Add Money".localized
-            labelQuantity.text = "+" + String(format: "%.2f",Double(transaction.amount)/100.0)+"¥"
+            labelQuantity.text = String(format: "%.0f",Double(transaction.amount)/100.0) + "+"
             labelName.text = person?.fullname
             downloadImage(person: person!, tableView: tableView, indexPath: indexPath)
         }else if(transaction.fromUserId == AuthUser.userId()){
@@ -57,7 +57,7 @@ class TransactionCell: UITableViewCell {
             let person = Persons.getById(transaction.toUserId)
             imageType.image = UIImage(named: "ic_pay_sent")
             labelType.text = "Money Sent".localized
-            labelQuantity.text = "-" + String(format: "%.2f",transaction.getQuantity())+"¥"
+            labelQuantity.text = String(format: "%.0f",transaction.getQuantity()) + "-"
             labelName.text = person?.fullname
             downloadImage(person: person!, tableView: tableView, indexPath: indexPath)
             
@@ -65,8 +65,8 @@ class TransactionCell: UITableViewCell {
             //received
             let person = Persons.getById(transaction.fromUserId)
             imageType.image = UIImage(named: "ic_pay_received")
-            labelType.text = "Money Received".localized
-            labelQuantity.text = "+" + String(format: "%.2f",transaction.getQuantity())+"¥"
+            labelType.text = "Balance Received".localized
+            labelQuantity.text = String(format: "%.0f",transaction.getQuantity()) + "+"
             labelName.text = person?.fullname
             downloadImage(person: person!, tableView: tableView, indexPath: indexPath)
         }

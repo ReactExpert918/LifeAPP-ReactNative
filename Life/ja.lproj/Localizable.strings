@@ -12,7 +12,7 @@
 "Account Settings" = "アカウント設定";
 "Privacy Policy" = "個人情報保護方針";
 "About Us" = "私たちに関しては";
-"Are you sure to sign out?" = "サインアウトしますか?";
+"Are you sure you want to sign out?" = "サインアウトしてもよろしいですか？";
 "Yes" = "確認";
 "No" = "キャンセル";
 "Enter your mobile number" = "携帯電話の番号を入力してください";
@@ -20,10 +20,13 @@
 "Please enter a valid phone number." = "有効な電話番号を入力して下さい。";
 "This phone number is already used." = "この電話番号はすでに使用されています。";
 "Send" = "送信";
+"Sign Out" = "サインアウト";
 "Cancel" = "キャンセル";
 "Sending..." = "送信中";
 "Attention" = "注意";
 "Please enter email first." = "まずはメールアドレスを入力してください。";
+"Please enter username first." = "まずはユーザー名を入力してください。";
+"This username has been used already. Please use another username." = "このユーザー名はすでに使用されています。 別のユーザー名を使用してください。";
 "Please enter password first." = "最初にパスワードを入力してください。";
 "Please enter confirm password first." = "最初に確認用パスワードを入力してください。";
 "Confirm password should be matched with password." = "パスワードが一致する必要があることを確認します。";
@@ -51,7 +54,7 @@
 "New Friend Pendings" = "新しい友達保留中";
 "Friend Recommendations" = "友達のおすすめ";
 "Already existing in your friend list." = "友達リストにすでに存在しています。";
-"Successfully added to your friend list." = "友達リストに正常に追加されました。";
+"Add request successfully sent, we will let you know when the user accepts your request." = "追加リクエストが正常に送信されました。ユーザーがリクエストを受け入れると通知されます。";
 "Error" = "エラー";
 "Setting" = "設定";
 "This app is not authorized to use Back Camera." = "このアプリはバックカメラの使用を許可されていません。";
@@ -86,7 +89,7 @@
 "Delete Account Error" = "アカウントの削除エラー";
 "Successfully deleted your account." = "アカウントが正常に削除されました。";
 "Money Sent" = "送金";
-"Money Received" = "入金";
+"Balance Received" = "入金";
 "No Records" = "記録なし";
 "Money Sent To" = "送金先";
 "Money Received From" = "送金元";

@@ -234,6 +234,5 @@ class Messages: NSObject {
         default:
             print("default")
         }
-		//PushNotification.send(message: message, recipientId: recipientId)
 	}
 }

@@ -27,7 +27,7 @@ class PayResultViewController: UIViewController {
         super.viewDidLoad()
 
         labelTransactionId.text = transaction.transId
-        labelAmount.text = String(format: "%.2f", transaction.getQuantity())+"¥"
+        labelAmount.text = String(format: "%.0f", transaction.getQuantity())
         if(transaction.status == TRANSACTION_STATUS.SUCCESS){
             labelPaymenResult.text = "Payment Successful".localized
             imagePayResult.image = UIImage(named: "ic_pay_success")

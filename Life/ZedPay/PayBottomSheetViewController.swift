@@ -43,10 +43,10 @@ class PayBottomSheetViewController: UIViewController {
             guard let currentPerson = Persons.currentPerson() else{
                 return
             }
-            labelBalance.text = String(format: "%.2f", currentPerson.getBalance())+"¥"
+            labelBalance.text = String(format: "%.0f", currentPerson.getBalance())
             
             if(quantity != nil){
-                inputAmount.text = String(format: "%.2f", quantity!)
+                inputAmount.text = String(format: "%.0f", quantity!)
             }
             MediaDownload.startUser(person.objectId, pictureAt: person.pictureAt) { image, error in
                 if (error == nil) {

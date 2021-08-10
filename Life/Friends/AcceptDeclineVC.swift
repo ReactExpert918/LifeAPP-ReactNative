@@ -32,7 +32,7 @@ class AcceptDeclineViewController: UIViewController {
         loadProfileImage()
         lblName.text = invitor.fullname
         lblPhoneNum.text = invitor.phone
-        lblMessage.text = "Do you want to add " + invitor.fullname + " to your friend list?"
+        lblMessage.text = "You received a message request from" + " " + invitor.fullname + ". Do you want to accept the add request?"
     }
     
     @IBAction func onAcceptTapped(_ sender: Any) {

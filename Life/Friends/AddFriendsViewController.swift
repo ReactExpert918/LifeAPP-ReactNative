@@ -275,7 +275,7 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
                 self.popupStatusLabel.text = "Already existing in your friend list.".localized
             } else {
                 Friends.create(person.objectId)
-                self.popupStatusLabel.text = "Successfully added to your friend list.".localized
+                self.popupStatusLabel.text = "Add request successfully sent, we will let you know when the user accepts your request.".localized
                 self.refreshView()
             }
         }

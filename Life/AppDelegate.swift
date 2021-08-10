@@ -297,7 +297,7 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
                 let vc = AppBoards.friend.viewController(withIdentifier: "AcceptDeclineViewController") as! AcceptDeclineViewController
                 vc.userId = userId ?? ""
         
-                let sheetController = SheetViewController(controller: vc, sizes: [.fixed(360)])
+                let sheetController = SheetViewController(controller: vc, sizes: [.fixed(360), .fixed(360)])
                 UIApplication.shared.windows.first?.rootViewController?.present(sheetController, animated: true, completion: nil)
                 
                 if #available(iOS 14.0, *) {
@@ -308,16 +308,6 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
                 }
             
             default:
-//                let home = AppBoards.main.initialViewController
-//                let vc = AppBoards.main.viewController(withIdentifier: "chatViewController") as! ChatViewController
-//                vc.recipientId = userId ?? ""
-//                vc.chatId = chatId ?? ""
-//                vc.fromNoti = true
-//                vc.modalPresentationStyle = .fullScreen
-//                let window = UIApplication.shared.keyWindow
-//                window?.rootViewController = home
-//                window?.makeKeyAndVisible()
-//                home.present(vc, animated: false, completion: nil)
                 if #available(iOS 14.0, *) {
                     completionHandler([[.banner, .badge, .sound]])
                 } else {

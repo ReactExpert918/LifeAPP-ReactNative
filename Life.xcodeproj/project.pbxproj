@@ -833,6 +833,7 @@
 				AB82ACDF24A5472800D83E47 /* Util.swift */,
 				A6BD965D24B4D2FC00E1B873 /* ImagePicker.swift */,
 				A6DEA83124A82F7100868625 /* AppConstant.swift */,
+				05BA7EE226B7A47A0049393B /* FirebaseAPI.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -892,7 +893,6 @@
 		A6C36B5924B577B000583CAA /* Calls */ = {
 			isa = PBXGroup;
 			children = (
-				05BA7EE226B7A47A0049393B /* FirebaseAPI.swift */,
 				A6C36B5A24B577B000583CAA /* CallAudio */,
 				A6C36B5D24B577B000583CAA /* CallVideo */,
 			);
@@ -2219,7 +2219,7 @@
 				CODE_SIGN_ENTITLEMENTS = Life/Life.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_TEAM = 2AV3B2BH2Y;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2247,7 +2247,7 @@
 				CODE_SIGN_ENTITLEMENTS = Life/Life.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_TEAM = 2AV3B2BH2Y;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

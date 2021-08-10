@@ -17,7 +17,7 @@ import FirebaseFirestore
 import OneSignal
 
 protocol UpdateDataDelegateProtocol {
-    func updateUserName(name: String)
+    func updateUserName(name: String, fromUsername: Bool)
     func updatePassword(password: String)
     func deleteAccount()
     func updateEmail(email: String)
@@ -28,6 +28,7 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
     private var person: Person! 
     private var tokenPerson: NotificationToken? = nil
     @IBOutlet weak var name: UILabel!
+    @IBOutlet weak var username: UILabel!
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var phoneNumber: UILabel!
     @IBOutlet weak var emailAddress: UILabel!
@@ -43,8 +44,10 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
     @IBOutlet weak var popUpView: UIView!
     @IBOutlet weak var imgPopup: UIImageView!
     @IBOutlet weak var labelPopup: UILabel!
-    
+    var oldusername: String!
     let hud = JGProgressHUD(style: .light)
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         phoneNumberButton.isHidden = true
@@ -65,10 +68,14 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
         navigationController?.popViewController(animated: true)
     }
     
-    func updateUserName(name: String) {
-        self.person.update(fullname: name)
-        loadPerson()
+    func updateUserName(name: String, fromUsername: Bool) {
+        if fromUsername{
+            self.person.update(username: name)
+        }else{
+            self.person.update(fullname: name)
+        }
         
+        loadPerson()
         
         imgPopup.image = UIImage(named: "ic_checkmark_success")
         labelPopup.text = "Successfully updated the name.".localized
@@ -134,10 +141,10 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
         AuthUser.deleteAccount { (error) in
             self.hud.dismiss()
             if let _ = error {
-                
                 self.imgPopup.image = UIImage(named: "ic_pay_fail")
                 self.labelPopup.text = "Delete Account Error".localized
             }else{
+                FirebaseAPI.removeUsername()
                 self.person.update(isDeleted: true)
                 self.imgPopup.image = UIImage(named: "ic_checkmark_delete")
                 self.labelPopup.text = "Successfully deleted your account.".localized
@@ -149,14 +156,13 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
                 PrefsManager.setEmail(val: "")
                 self.gotoWelcomeViewController()
             }
-            
-            
         }
     }
     
     @IBAction func onNameChangeTapped(_ sender: Any) {
         let vc =  self.storyboard?.instantiateViewController(identifier: "updateNameVC") as! UpdateNameViewController
         vc.setName(withName: person.fullname)
+        vc.fromUsername = false
         vc.delegate = self
 
         let sheetController = SheetViewController(controller: vc, sizes: [.fixed(290)])
@@ -171,6 +177,26 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
         // It is important to set animated to false or it behaves weird currently
         self.present(sheetController, animated: false, completion: nil)
     }
+    @IBAction func onUserNameChangeTapped(_ sender: Any) {
+        let vc =  self.storyboard?.instantiateViewController(identifier: "updateNameVC") as! UpdateNameViewController
+        vc.setName(withName: person.username)
+        vc.fromUsername = true
+        vc.oldusername = self.oldusername
+        vc.delegate = self
+
+        let sheetController = SheetViewController(controller: vc, sizes: [.fixed(290)])
+        
+        //sheetController.blurBottomSafeArea = false
+        //sheetController.adjustForBottomSafeArea = false
+
+        // Make corners more round
+        //sheetController.topCornersRadius = 15
+        
+
+        // It is important to set animated to false or it behaves weird currently
+        self.present(sheetController, animated: false, completion: nil)
+    }
+    
     @IBAction func onPasswordChangeTapped(_ sender: Any) {
         self.hud.textLabel.text = ""
         self.hud.show(in: self.view, animated: true)
@@ -192,6 +218,7 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
     }
     @IBAction func onPhoneNumberChangeTapped(_ sender: Any) {
     }
+    
     @IBAction func onEmailChangeTapped(_ sender: Any) {
         self.hud.textLabel.text = ""
         self.hud.show(in: self.view, animated: true)
@@ -207,10 +234,10 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
             vc.delegate = self
             vc.updateType = UPDATE_ACCOUNT.EMAIL
             let sheetController = SheetViewController(controller: vc, sizes: [.fixed(300)])
-            
             self.present(sheetController, animated: false, completion: nil)
         }
     }
+    
     @IBAction func onDeleteAccountTapped(_ sender: Any) {
         let refreshAlert = UIAlertController(title: "Are you sure to delete your account?".localized, message: "", preferredStyle: .alert)
 
@@ -273,6 +300,8 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
             }
         }
         name.text = person.fullname
+        username.text = person.username
+        oldusername = person.username
         password.text = person.fullname
         phoneNumber.text = person.phone
         emailAddress.text = person.email
@@ -348,5 +377,4 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
     override func viewWillDisappear(_ animated: Bool) {
         
     }
-    
 }

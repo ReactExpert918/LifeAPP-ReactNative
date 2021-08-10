@@ -45,7 +45,7 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     @IBAction func onSignoutTapped(_ sender: Any) {
-        let refreshAlert = UIAlertController(title: "Are you sure to sign out?".localized, message: "", preferredStyle: .alert)
+        let refreshAlert = UIAlertController(title: "Sign Out".localized, message: "Are you sure you want to sign out?".localized, preferredStyle: .alert)
 
         refreshAlert.addAction(UIAlertAction(title: "Yes".localized, style: .default, handler: { (action: UIAlertAction!) in
             

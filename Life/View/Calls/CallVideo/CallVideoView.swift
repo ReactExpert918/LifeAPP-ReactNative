@@ -250,6 +250,9 @@ class CallVideoView: UIViewController {
     }
     
     @IBAction func decline(_ sender: Any) {
+        DispatchQueue.main.async {
+            self.audioController?.stopPlayingSoundFile()
+        }
         ref.child("video_call").child(self.roomID).removeValue()
         self.dismiss(animated: true, completion: nil)
     }

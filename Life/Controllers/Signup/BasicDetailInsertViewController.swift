@@ -20,26 +20,53 @@ class BasicDetailInsertViewController: UIViewController, UITextFieldDelegate{
 
     @IBOutlet weak var userName: UITextField!
     @IBOutlet weak var password: UITextField!
+    @IBOutlet weak var edtUsername: UITextField!
     @IBOutlet weak var confirmPassword: UITextField!
     @IBOutlet weak var passwordEye: UIButton!
     @IBOutlet weak var confirmPasswordEye: UIButton!
-    
+    var usernames = [String]()
     private var person: Person!
     var phoneNumber:String = ""
+    var usernameHandle: UInt?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         userName.delegate = self
+        edtUsername.delegate = self
         password.delegate = self
         confirmPassword.delegate = self
         // load Person
-        
-
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.usernames.removeAll()
+        self.usernameHandle = FirebaseAPI.setUsernameListener{ [self] (username) in
+            if let username = username{
+                for one in username{
+                    if let one =  one as? String{
+                        self.usernames.append(one)
+                    }
+                }
+            }
+        }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        if let usernameHandle = usernameHandle{
+            FirebaseAPI.removeUsernameListnerObserver(usernameHandle)
+        }
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    
     func createPerson() {
         let userId = AuthUser.userId()
         Persons.create(userId, phone: self.phoneNumber)
     }
+    
     func setPhoneNumber(withPhoneNumber phoneNumber: String){
         self.phoneNumber = phoneNumber
         
@@ -47,9 +74,28 @@ class BasicDetailInsertViewController: UIViewController, UITextFieldDelegate{
     @IBAction func backTapped(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
+    
+    func checkUsername(_ username: String) -> Bool {
+        var isvalid: Bool = true
+        for one in self.usernames{
+            if one == username{
+                isvalid = false
+                break
+            }
+        }
+        return isvalid
+    }
+    
     @IBAction func submitTapped(_ sender: Any) {
         if userName.text == ""{
             Util.showAlert(vc: self, "Attention".localized , "Please enter email first.".localized)
+            return
+        }else if edtUsername.text == ""{
+            Util.showAlert(vc: self, "Attention".localized , "Please enter username first.".localized)
+            return
+        }
+        else if !self.checkUsername(edtUsername.text ?? ""){
+            Util.showAlert(vc: self, "Attention".localized , "This username has been used already. Please use another username.".localized)
             return
         }else if password.text == ""{
             Util.showAlert(vc: self, "Attention".localized , "Please enter password first.".localized)
@@ -65,7 +111,11 @@ class BasicDetailInsertViewController: UIViewController, UITextFieldDelegate{
         self.createPerson()
         person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
         
-        Firestore.firestore().collection("Person").document(person.objectId).setData(["about": person.about, "country": person.country, "createdAt": person.createdAt, "email": person.email, "firstName": person.firstname, "fullName": person.fullname, "isDeleted": person.isDeleted, "keepMedia": person.keepMedia, "lastActive": person.lastActive, "lastTerminate": person.lastTerminate, "lastname": person.lastname, "location": person.location, "loginMethod": person.loginMethod, "networkAudio": person.networkAudio, "networkPhoto": person.networkPhoto, "networkVideo": person.networkVideo, "objectId": person.objectId, "oneSignalId": person.oneSignalId, "phone": person.phone, "pictureAt": person.pictureAt, "status" : person.status, "updatedAt": person.updatedAt, "wallpaper": person.wallpaper]) { err in
+        // MARK: check username repeat
+        FirebaseAPI.setUsername(self.edtUsername.text!) { (isSuccess, data) in
+        }
+        
+        Firestore.firestore().collection("Person").document(person.objectId).setData(["about": person.about, "country": person.country, "createdAt": person.createdAt, "email": person.email,"username": person.username, "firstName": person.firstname, "fullName": person.fullname, "isDeleted": person.isDeleted, "keepMedia": person.keepMedia, "lastActive": person.lastActive, "lastTerminate": person.lastTerminate, "lastname": person.lastname, "location": person.location, "loginMethod": person.loginMethod, "networkAudio": person.networkAudio, "networkPhoto": person.networkPhoto, "networkVideo": person.networkVideo, "objectId": person.objectId, "oneSignalId": person.oneSignalId, "phone": person.phone, "pictureAt": person.pictureAt, "status" : person.status, "updatedAt": person.updatedAt, "wallpaper": person.wallpaper]) { err in
             if let err = err {
                 // print("Error writing document: \(err)")
             } else {
@@ -93,6 +143,7 @@ class BasicDetailInsertViewController: UIViewController, UITextFieldDelegate{
                 let realm = try! Realm()
                 try! realm.safeWrite {
                     self.person.email = self.userName.text!
+                    self.person.username = self.edtUsername.text!
                     self.person.syncRequired = true
                     self.person.updatedAt = Date().timestamp()
                 }

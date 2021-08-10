@@ -15,7 +15,7 @@ class AddMoneyViewController: UIViewController {
     
     @IBOutlet weak var col_product: UICollectionView!
     @IBOutlet weak var btnBalance: RoundButton!
-    let prices = ["10","50","70","100","500","700","1000","5000","7000"]
+    let prices = ["610","1220","1840","2440","6100","12000"]
     var ds_products = [(String, Bool)]()
     var paymentMethod: PaymentMethod?
     var delegate: UpdatePayDelegateProtocol?
@@ -25,6 +25,7 @@ class AddMoneyViewController: UIViewController {
     private var zedPays = realm.objects(ZEDPay.self).filter(falsepredicate)
 
     var paymentIndex: Int?
+    var updatedelegate: UpdateBalance?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,42 +47,38 @@ class AddMoneyViewController: UIViewController {
             //self?.hideLoadingView()
             guard let strongSelf = self else{ return }
             if type == .purchased {
-                let alertView = UIAlertController(title: "Life", message: type.message(), preferredStyle: .alert)
-                let action = UIAlertAction(title: "Okay", style: .default, handler: { (alert) in
-                    // TODO: payment process
-                    if let index = self?.paymentIndex{
-                        self!.hud.show(in: self!.view, animated: true)
-                        var amount: Float = 0
-                        switch index {
-                        case 0:
-                            amount = 610
-                        case 1:
-                            amount = 1220
-                        case 2:
-                            amount = 6100
-                        case 3:
-                            amount = 12000
-                        default:
-                            amount = 610
-                        }
-                        let zedPayId = ZEDPays.createAdd(userId: AuthUser.userId(), customerId: self!.paymentMethod!.customerId, cardId: self!.paymentMethod!.cardId, quantity: amount)
-                        
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1){
-                            let predicate = NSPredicate(format: "objectId == %@", zedPayId)
-                            self!.zedPays = realm.objects(ZEDPay.self).filter(predicate)
-                            self!.tokenZEDPay?.invalidate()
-                            self!.zedPays.safeObserve({ changes in
-                                self!.callBack()
-                            }, completion: { token in
-                                self!.tokenZEDPay = token
-                            })
-                        }
+                if let index = self?.paymentIndex{
+                    self!.hud.show(in: self!.view, animated: true)
+                    var amount: Float = 0
+                    switch index {
+                    case 0:
+                        amount = 610
+                    case 1:
+                        amount = 1220
+                    case 2:
+                        amount = 1840
+                    case 3:
+                        amount = 2440
+                    case 4:
+                        amount = 6100
+                    case 5:
+                        amount = 12000
+                    default:
+                        amount = 610
                     }
-                })
-                alertView.addAction(action)
-                strongSelf.present(alertView, animated: true, completion: nil)
-            
-            } else if type == .restored {
+                    let zedPayId = ZEDPays.createAdd(userId: AuthUser.userId(), customerId: self!.paymentMethod!.customerId, cardId: self!.paymentMethod!.cardId, quantity: amount)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1){
+                        let predicate = NSPredicate(format: "objectId == %@", zedPayId)
+                        self!.zedPays = realm.objects(ZEDPay.self).filter(predicate)
+                        self!.tokenZEDPay?.invalidate()
+                        self!.zedPays.safeObserve({ changes in
+                            self!.callBack()
+                        }, completion: { token in
+                            self!.tokenZEDPay = token
+                        })
+                    }
+                }
+            }else if type == .restored {
                 let alertView = UIAlertController(title: "Life", message: type.message(), preferredStyle: .alert)
                 let action = UIAlertAction(title: "Okay", style: .default, handler: { (alert) in
                     //TODO: success restored
@@ -116,6 +113,10 @@ class AddMoneyViewController: UIViewController {
             }else if index == 1{
                 IAPHandler.shared.purchaseMyProduct(strProductID: LifeProducts.LifeBuy10Points)
             }else if index == 2{
+                IAPHandler.shared.purchaseMyProduct(strProductID: LifeProducts.LifeBuy15Points)
+            }else if index == 3{
+                IAPHandler.shared.purchaseMyProduct(strProductID: LifeProducts.LifeBuy20Points)
+            }else if index == 4{
                 IAPHandler.shared.purchaseMyProduct(strProductID: LifeProducts.LifeBuy50Points)
             }else{
                 IAPHandler.shared.purchaseMyProduct(strProductID: LifeProducts.LifeBuy100Points)
@@ -130,7 +131,7 @@ class AddMoneyViewController: UIViewController {
     @IBAction func actionTapAdd(_ sender: Any) {
         for i in 0 ... self.ds_products.count - 1{
             if self.ds_products[i].1{
-                self.presentAlert(from: self.view, index: i % 3)
+                self.presentAlert(from: self.view, index: i)
             }
         }
     }
@@ -153,9 +154,13 @@ class AddMoneyViewController: UIViewController {
         }
         if zedPay.status == TRANSACTION_STATUS.SUCCESS {
             self.hud.dismiss()
-            let alert = UIAlertController(title: "Success!".localized, message: "".localized, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-            self.present(alert, animated: true, completion: nil)
+            
+            let alertView = UIAlertController(title: "Success!".localized, message: "", preferredStyle: .alert)
+            let action = UIAlertAction(title: "OK", style: .default, handler: { (alert) in
+                self.updatedelegate?.updateVal()
+            })
+            alertView.addAction(action)
+            self.present(alertView, animated: true, completion: nil)
         }
     }
     

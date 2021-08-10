@@ -165,8 +165,8 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
             return
         }
         let predicate1 = NSPredicate(format: "objectId != %@ AND isDeleted == NO", AuthUser.userId())
-        let predicate2 = (text != "") ? NSPredicate(format: "fullname == %@", text) : NSPredicate(value: true)
-        persons = realm.objects(Person.self).filter(predicate1).filter(predicate2).sorted(byKeyPath: "fullname")
+        let predicate2 = (text != "") ? NSPredicate(format: "username == %@", text) : NSPredicate(value: true)
+        persons = realm.objects(Person.self).filter(predicate1).filter(predicate2).sorted(byKeyPath: "username")
         
         if persons.count > 0 {
             tableView.isHidden = false
@@ -230,7 +230,7 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
                 self.popupStatusLabel.text = "Already existing in your friend list.".localized
             } else {
                 Friends.create(person.objectId)
-                self.popupStatusLabel.text = "Successfully added to your friend list.".localized
+                self.popupStatusLabel.text = "Add request successfully sent, we will let you know when the user accepts your request.".localized
             }
         }
         return cell

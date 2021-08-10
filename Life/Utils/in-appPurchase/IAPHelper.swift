@@ -75,7 +75,7 @@ class IAPHandler: NSObject {
     // MARK: - FETCH AVAILABLE IAP PRODUCTS
     func fetchAvailableProducts(){
         // Put here your IAP Products ID's
-        let productIdentifiers = NSSet(objects: LifeProducts.LifeBuy5Points,LifeProducts.LifeBuy10Points,LifeProducts.LifeBuy50Points,LifeProducts.LifeBuy100Points)
+        let productIdentifiers = NSSet(objects: LifeProducts.LifeBuy5Points,LifeProducts.LifeBuy10Points,LifeProducts.LifeBuy15Points,LifeProducts.LifeBuy20Points,LifeProducts.LifeBuy50Points,LifeProducts.LifeBuy100Points)
         productsRequest = SKProductsRequest(productIdentifiers: productIdentifiers as! Set<String>)
         productsRequest.delegate = self
         productsRequest.start()
@@ -143,6 +143,8 @@ extension IAPHandler: SKProductsRequestDelegate, SKPaymentTransactionObserver {
 public struct LifeProducts {
     public static let LifeBuy5Points   = "com.life.iap.buy5points"
     public static let LifeBuy10Points  = "com.life.iap.buy10points"
+    public static let LifeBuy15Points  = "com.life.iap.buy15points"
+    public static let LifeBuy20Points  = "com.life.iap.buy20points"
     public static let LifeBuy50Points  = "com.life.iap.buy50points"
     public static let LifeBuy100Points = "com.life.iap.buy100points"
 }

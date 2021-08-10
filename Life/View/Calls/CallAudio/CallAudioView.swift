@@ -314,6 +314,9 @@ class CallAudioView: UIViewController {
     }
     
     @IBAction func actionDecline(_ sender: Any) {
+        DispatchQueue.main.async {
+            self.audioController?.stopPlayingSoundFile()
+        }
         ref.child("voice_call").child(self.roomID).removeValue()
         self.dismiss(animated: true, completion: nil)
     }
