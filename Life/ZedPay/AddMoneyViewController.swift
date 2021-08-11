@@ -157,7 +157,9 @@ class AddMoneyViewController: UIViewController {
             
             let alertView = UIAlertController(title: "Success!".localized, message: "", preferredStyle: .alert)
             let action = UIAlertAction(title: "OK", style: .default, handler: { (alert) in
-                self.updatedelegate?.updateVal()
+                self.dismiss(animated: true) {
+                    self.updatedelegate?.updateVal()
+                }
             })
             alertView.addAction(action)
             self.present(alertView, animated: true, completion: nil)

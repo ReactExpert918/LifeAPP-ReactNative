@@ -92,7 +92,7 @@ class PassPayViewController: UIViewController {
             self.hud.textLabel.text = "Sending Money...".localized
             self.hud.show(in: self.view, animated: true)
             self.updating = true
-`            self.transactionObjectId = ZEDPays.create(fromUserId: (Persons.currentPerson()?.objectId)!, toUserId: toUserId, quantity: quantity * 0.975)
+            self.transactionObjectId = ZEDPays.create(fromUserId: (Persons.currentPerson()?.objectId)!, toUserId: toUserId, quantity: quantity * 0.975)
             DispatchQueue.main.asyncAfter(deadline: .now() + 1){
                 let predicate = NSPredicate(format: "objectId == %@", self.transactionObjectId )
                 self.transactions = realm.objects(ZEDPay.self).filter(predicate)

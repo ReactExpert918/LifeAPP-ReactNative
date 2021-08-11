@@ -34,8 +34,16 @@ class ChatHistoryCell: UITableViewCell {
             userNameLabel.text = chat.details
 
         }
-        lastMessageLabel.text = chat.typing ? "Typing..." : chat.lastMessageText
-
+        if chat.lastMessageText.contains("$"){
+            let messages = chat.lastMessageText.split(separator: "$")
+            if let id = messages.last, id == AuthUser.userId(){
+                lastMessageLabel.text = chat.typing ? "Typing..." : "Payment sent"
+            }else{
+                lastMessageLabel.text = chat.typing ? "Typing..." : "Payment received"
+            }
+        }else{
+            lastMessageLabel.text = chat.typing ? "Typing..." : chat.lastMessageText
+        }
         lastUpdatedTimeLabel.text = Convert.timestampToCustom(chat.lastMessageAt)
 
         //imageMuted.isHidden = (chat.mutedUntil < Date().timestamp())

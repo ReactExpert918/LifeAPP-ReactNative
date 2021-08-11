@@ -60,7 +60,7 @@ class FireZEDPayUpdaters: NSObject {
             
             let toUserBalance = toUser.getBalance()
             let quantity = object.getQuantity()
-            fromUser.update(balance: fromUserBalance - quantity)
+            fromUser.update(balance: fromUserBalance - quantity * 100 / 97.5)
            
             let fromUserValues = populateObject(fromUser)
             toUser.update(balance: toUserBalance + quantity)

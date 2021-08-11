@@ -108,7 +108,7 @@ class FriendCell: UITableViewCell {
         // Initialization code
         
         removeGestureRecognizer()
-        cellGestureRecognizer()
+        //cellGestureRecognizer()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

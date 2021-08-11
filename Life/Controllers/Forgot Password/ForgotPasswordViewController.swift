@@ -45,7 +45,7 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate {
                 
                 if error != nil {
                     title = "Error!".localized
-                    message = "Password reset email sent has failed.".localized
+                    message = "This Email can't be found, please try with another email.".localized
                 } else {
                     title = "Success!".localized
                     message = "Password reset email sent.".localized

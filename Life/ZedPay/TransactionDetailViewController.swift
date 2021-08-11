@@ -26,6 +26,14 @@ class TransactionDetailViewController: UIViewController {
     
     @IBOutlet weak var labelTransactionType: UILabel!
     
+    @IBOutlet weak var uiv_topfee: UIView!
+    @IBOutlet weak var lbltopfeeamount: UILabel!
+    @IBOutlet weak var uivPaidWith: UIView!
+    @IBOutlet weak var lblReceive: UILabel!
+    
+    @IBOutlet weak var uivStackfee: UIView!
+    @IBOutlet weak var lblStackfee: UILabel!
+    
     var transaction: ZEDPay!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +41,9 @@ class TransactionDetailViewController: UIViewController {
         // Do any additional setup after loading the view.
         var person:Person?
         if(transaction.toUserId == transaction.fromUserId){
+            self.uivStackfee.isHidden = true
+            self.uivPaidWith.isHidden = true
+            self.uiv_topfee.isHidden = true
             person = Persons.getById(transaction.fromUserId)
             imageType.image = UIImage(named: "ic_pay_charge")
             labelPaidAt.text = "Added At".localized + " " + Convert.timestampPaid(transaction.updatedAt)
@@ -45,6 +56,9 @@ class TransactionDetailViewController: UIViewController {
             
         }else if(transaction.fromUserId == AuthUser.userId()){
             //sent
+            self.uivStackfee.isHidden = true
+            self.uivPaidWith.isHidden = true
+            self.uiv_topfee.isHidden = true
             person = Persons.getById(transaction.toUserId)
             imageType.image = UIImage(named: "ic_sendmoney")
             labelPaidAt.text = "Paid at".localized + " " + Convert.timestampPaid(transaction.updatedAt)
@@ -56,12 +70,21 @@ class TransactionDetailViewController: UIViewController {
             
         }else if(transaction.toUserId == AuthUser.userId()){
             //received
+            self.uivStackfee.isHidden = false
+            self.uivPaidWith.isHidden = false
+            self.uiv_topfee.isHidden = false
+            let feeamount = transaction.getQuantity() * 2.5 / 97.5
+            self.lbltopfeeamount.text = String(format: "%.2f",feeamount)
+            
+            self.lblStackfee.text = String(format: "%.2f",feeamount)
+            
             person = Persons.getById(transaction.fromUserId)
             imageType.image = UIImage(named: "ic_receive")
             labelPaidAt.text = "Received at".localized + " " + Convert.timestampPaid(transaction.updatedAt)
             lblSigned.text = "+"
-            labelAmout.text = String(format: "%.2f",transaction.getQuantity())
-            labelUserType.text = "Money Received From".localized
+            labelAmout.text = String(format: "%.2f",transaction.getQuantity() * 100 / 97.5)
+            self.lblReceive.text = String(format: "%.2f",transaction.getQuantity() * 100 / 97.5)
+            labelUserType.text = "Balance Received From".localized
             labelTransactionType.text = "Received with ZED Pay".localized
             labelTotal.text = String(format: "%.2f",transaction.getQuantity())
         }

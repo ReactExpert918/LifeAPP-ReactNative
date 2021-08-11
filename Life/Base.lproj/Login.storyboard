@@ -1907,7 +1907,7 @@ to complete registration</string>
                                                     <constraint firstAttribute="height" constant="45" id="crb-1z-o8J"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="16"/>
-                                                <state key="normal" title="SEND PASSWORD RESET">
+                                                <state key="normal" title="RESET MY PASSWORD">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <userDefinedRuntimeAttributes>
@@ -2030,7 +2030,7 @@ to complete registration</string>
             <size key="intrinsicContentSize" width="41" height="31"/>
         </designable>
         <designable name="spi-yy-ddB">
-            <size key="intrinsicContentSize" width="192" height="31"/>
+            <size key="intrinsicContentSize" width="173" height="31"/>
         </designable>
     </designables>
     <resources>

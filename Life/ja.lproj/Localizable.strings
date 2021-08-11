@@ -99,6 +99,10 @@
 "Received with ZED Pay" = "ZED Payで受け取りました";
 "Calling..." = "コール。。。";
 "Ended" = "終了しました";
+"Balance received successfully" = "残高が正常に受信されました";
+"Balance Received from" = "から受け取った残高";
+"This Email can't be found, please try with another email." = "このメールが見つかりません。別のメールで試してください。";
+"Money sent successfully" = "送金に成功";
 "The amount must be greater than 0." = "金額は0より大きくなければなりません。";
 "The amount must be greater than 0.5" = "金額は0より大きくなければなりません。";
 "The amount must be smaller than available." = "金額は利用可能な金額より少なくする必要があります。";
@@ -109,8 +113,8 @@
 "Payment Successful" = "支払い完了";
 "Payment Failed" = "支払いに失敗";
 "The password must be 6 characters long or more." = "パスワードは6文字以上である必要があります.";
-"Do you want to add" = "追加しますか";
-"your friend list?" = "あなたの友達リスト？";
+"Do you want to accept" = "追加しますか";
+"to your friend list?" = "あなたの友達リスト？";
 "sent you money." = "あなたに送金";
 "ZED Settings" = "ZED 設定";
 "TRY AGAIN" = "再試行";

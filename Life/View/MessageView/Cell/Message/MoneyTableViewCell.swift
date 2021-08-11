@@ -37,22 +37,26 @@ class MoneyTableViewCell: UITableViewCell {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(actionContentView))
         contentView.addGestureRecognizer(tapGesture)
         self.messageView = messageView
-        
-        
-        let predicate = NSPredicate(format: "transId == %@ ", message.text)
-        zedPay = realm.objects(ZEDPay.self).filter(predicate).first
-        
-        if(zedPay?.fromUserId == AuthUser.userId()){
-            sendDirection.image = UIImage(named: "ic_pay_sent")
-        }else{
-            sendDirection.image = UIImage(named: "ic_pay_received")
+        if let trans_id = message.text.split(separator: "$").first{
+            let predicate = NSPredicate(format: "transId == %@ ", String(trans_id))
+            zedPay = realm.objects(ZEDPay.self).filter(predicate).first
+            
+            if(zedPay?.fromUserId == AuthUser.userId()){ // sent
+                sendDirection.image = UIImage(named: "ic_pay_sent")
+                moneyQuantity.text = ((zedPay?.getQuantity() ?? 0) * 100 / 97.5).moneyString()
+                labelPayResult.text = "Money sent successfully".localized
+            }else{ // received
+                sendDirection.image = UIImage(named: "ic_pay_received")
+                moneyQuantity.text = zedPay?.getQuantity().moneyString()
+                labelPayResult.text = "Balance received successfully".localized
+            }
+            //labelPayResult.text = message.isMediaFailed ? "Payment Failed".localized : "Payment Successful".localized
+            if zedPay?.status == TRANSACTION_STATUS.FAILED{
+                labelPayResult.text = "Payment Failed".localized
+            }
+            imagePayResult.image = message.isMediaFailed ? UIImage(named: "ic_pay_fail") : UIImage(named: "ic_pay_success")
+            sendDate.text = Convert.timestampToDayTime(message.createdAt)
         }
-        labelPayResult.text = message.isMediaFailed ? "Payment Failed".localized : "Payment Successful".localized
-        imagePayResult.image = message.isMediaFailed ? UIImage(named: "ic_pay_fail") : UIImage(named: "ic_pay_success")
-        
-        moneyQuantity.text = zedPay?.getQuantity().moneyString()
-        sendDate.text = Convert.timestampToDayTime(message.createdAt)
-        
     }
     
     class func GetCellReuseIdentifier() -> String {

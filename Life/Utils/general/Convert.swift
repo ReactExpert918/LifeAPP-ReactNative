@@ -54,8 +54,9 @@ class Convert: NSObject {
         let date = Date.date(timestamp: timestamp)
 
         let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm"
-
+        formatter.dateFormat = "HH:mm a"
+        formatter.amSymbol = "AM"
+        formatter.pmSymbol = "PM"
         return formatter.string(from: date)
     }
     

@@ -161,6 +161,7 @@ class CreateCustomerViewController: UIViewController, UITextFieldDelegate {
                 paymentMethods = realm.objects(PaymentMethod.self).filter(predicate)
                 
                 tokenPaymentmethod?.invalidate()
+                self.hud.dismiss()
                 paymentMethods.safeObserve({ changes in
                     self.dismiss(animated: true){
                         self.delegate?.updateCard(result: false)

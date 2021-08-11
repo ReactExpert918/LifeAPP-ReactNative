@@ -267,7 +267,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
     }
     
-    /*
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 1 {
             if indexPath.row == 0 {
@@ -276,17 +276,18 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 vc.delegate = self
                 vc.modalPresentationStyle = .fullScreen
                 self.present(vc, animated: true, completion: nil)
-            }/*else{
+            }else{
                 let chatId = groups[indexPath.row-1].chatId
                 openPrivateChat(chatId: chatId, recipientId: "")
-            }*/
-        }/*
+            }
+        }
         else if indexPath.section == 2 {
             let friend = persons[indexPath.row]
             let chatId = Singles.create(friend.objectId)
             openPrivateChat(chatId: chatId, recipientId: friend.objectId)
-        }*/
-    }*/
+        }
+    }
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: ExpandableHeaderCell.GetReuseIdentifier()) as! ExpandableHeaderCell
         header.titleLabel.text = headerSections[section].name

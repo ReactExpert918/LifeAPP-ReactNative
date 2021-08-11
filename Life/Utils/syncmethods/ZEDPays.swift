@@ -25,7 +25,6 @@ class ZEDPays: NSObject {
             realm.add(zedPay, update: .modified)
         }
         return zedPay.objectId
-        
     }
     
     class func createAdd(userId: String, customerId: String, cardId: String, quantity: Float) -> String {

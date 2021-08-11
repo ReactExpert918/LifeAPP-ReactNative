@@ -155,27 +155,31 @@
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Lj-w4-Vs5" userLabel="answerdecline">
                                             <rect key="frame" x="35" y="372.33333333333331" width="250" height="75"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9yx-dT-igx">
-                                                    <rect key="frame" x="0.0" y="0.0" width="75" height="75"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <state key="normal" image="callaudio_answer.png"/>
-                                                    <connections>
-                                                        <action selector="actionAnswer:" destination="-1" eventType="touchUpInside" id="Ywa-Uo-lAA"/>
-                                                    </connections>
-                                                </button>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XUk-UF-UQ8">
-                                                    <rect key="frame" x="175" y="0.0" width="75" height="75"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XUk-UF-UQ8">
+                                                    <rect key="frame" x="0.0" y="0.0" width="70" height="75"/>
                                                     <state key="normal" image="callaudio_hangup.png"/>
                                                     <connections>
                                                         <action selector="actionDecline:" destination="-1" eventType="touchUpInside" id="qin-q6-D2R"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9yx-dT-igx">
+                                                    <rect key="frame" x="175" y="0.0" width="75" height="75"/>
+                                                    <state key="normal" image="callaudio_answer.png"/>
+                                                    <connections>
+                                                        <action selector="actionAnswer:" destination="-1" eventType="touchUpInside" id="Ywa-Uo-lAA"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="250" id="4h3-92-Uh7"/>
+                                                <constraint firstItem="XUk-UF-UQ8" firstAttribute="leading" secondItem="8Lj-w4-Vs5" secondAttribute="leading" id="8Zq-sO-L9h"/>
                                                 <constraint firstAttribute="height" constant="75" id="8eP-Y7-wiD"/>
+                                                <constraint firstItem="XUk-UF-UQ8" firstAttribute="centerY" secondItem="8Lj-w4-Vs5" secondAttribute="centerY" id="CMA-yY-hDB"/>
+                                                <constraint firstItem="9yx-dT-igx" firstAttribute="top" secondItem="8Lj-w4-Vs5" secondAttribute="top" id="EYT-hZ-z0v"/>
+                                                <constraint firstItem="XUk-UF-UQ8" firstAttribute="top" secondItem="8Lj-w4-Vs5" secondAttribute="top" id="b6m-jF-xAh"/>
+                                                <constraint firstItem="9yx-dT-igx" firstAttribute="centerY" secondItem="8Lj-w4-Vs5" secondAttribute="centerY" id="bmo-vl-d9S"/>
+                                                <constraint firstAttribute="trailing" secondItem="9yx-dT-igx" secondAttribute="trailing" id="fjr-cb-M0N"/>
                                             </constraints>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IqG-vv-JKg" userLabel="reqeuest">
