@@ -16,6 +16,7 @@ class TransactionDetailViewController: UIViewController {
     
     @IBOutlet weak var imageAvatar: SwiftyAvatar!
     
+    @IBOutlet weak var lblSigned: UILabel!
     @IBOutlet weak var labelName: UILabel!
     @IBOutlet weak var labelPhone: UILabel!
     
@@ -35,35 +36,35 @@ class TransactionDetailViewController: UIViewController {
             person = Persons.getById(transaction.fromUserId)
             imageType.image = UIImage(named: "ic_pay_charge")
             labelPaidAt.text = "Added At".localized + " " + Convert.timestampPaid(transaction.updatedAt)
-            
-            labelAmout.text = "+" + String(format: "%.0f",Double(transaction.amount)/100.0)
+            lblSigned.text = "+"
+            labelAmout.text = String(format: "%.2f",Double(transaction.amount)/100.0)
             labelUserType.text = "Money Received From".localized
             labelTransactionType.text = "Added with ZED Pay".localized
-            labelTotal.text = String(format: "%.0f",Double(transaction.amount)/100.0)
+            labelTotal.text = String(format: "%.2f",Double(transaction.amount)/100.0)
             
             
         }else if(transaction.fromUserId == AuthUser.userId()){
             //sent
             person = Persons.getById(transaction.toUserId)
-            imageType.image = UIImage(named: "ic_pay_send_large")
+            imageType.image = UIImage(named: "ic_sendmoney")
             labelPaidAt.text = "Paid at".localized + " " + Convert.timestampPaid(transaction.updatedAt)
-            labelAmout.text = "-" + String(format: "%.0f",transaction.getQuantity())
+            lblSigned.text = "-"
+            labelAmout.text = String(format: "%.2f",transaction.getQuantity() * 100 / 97.5)
             labelUserType.text = "Money Sent To".localized
             labelTransactionType.text = "Paid with ZED Pay".localized
-            labelTotal.text = String(format: "%.0f",transaction.getQuantity())
+            labelTotal.text = String(format: "%.2f",transaction.getQuantity() * 100 / 97.5)
             
         }else if(transaction.toUserId == AuthUser.userId()){
             //received
             person = Persons.getById(transaction.fromUserId)
-            imageType.image = UIImage(named: "ic_pay_receive_large")
+            imageType.image = UIImage(named: "ic_receive")
             labelPaidAt.text = "Received at".localized + " " + Convert.timestampPaid(transaction.updatedAt)
-            
-            labelAmout.text = "+" + String(format: "%.0f",transaction.getQuantity())
+            lblSigned.text = "+"
+            labelAmout.text = String(format: "%.2f",transaction.getQuantity())
             labelUserType.text = "Money Received From".localized
             labelTransactionType.text = "Received with ZED Pay".localized
-            labelTotal.text = String(format: "%.0f",transaction.getQuantity())
+            labelTotal.text = String(format: "%.2f",transaction.getQuantity())
         }
-        
         
         labelId.text = transaction.transId
         labelName.text = person?.fullname

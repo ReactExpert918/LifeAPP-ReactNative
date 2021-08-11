@@ -368,7 +368,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let vc = mainstoryboard.instantiateViewController(withIdentifier: "zedHistoryVC") as! ZedHistoryViewController
         vc.person = self.person
         
-        let sheetController = SheetViewController(controller: vc, sizes: [.fixed(400), .fullscreen])
+        let sheetController = SheetViewController(controller: vc, sizes: [.fixed(430), .fullscreen])
         self.present(sheetController, animated: true, completion: nil)
         
         //self.present(vc, animated: true, completion: nil)

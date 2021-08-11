@@ -15,7 +15,7 @@ class AddMoneyViewController: UIViewController {
     
     @IBOutlet weak var col_product: UICollectionView!
     @IBOutlet weak var btnBalance: RoundButton!
-    let prices = ["610","1220","1840","2440","6100","12000"]
+    let prices = ["5","10","15","20","50","100"]
     var ds_products = [(String, Bool)]()
     var paymentMethod: PaymentMethod?
     var delegate: UpdatePayDelegateProtocol?
@@ -52,19 +52,19 @@ class AddMoneyViewController: UIViewController {
                     var amount: Float = 0
                     switch index {
                     case 0:
-                        amount = 610
+                        amount = 5
                     case 1:
-                        amount = 1220
+                        amount = 10
                     case 2:
-                        amount = 1840
+                        amount = 15
                     case 3:
-                        amount = 2440
+                        amount = 20
                     case 4:
-                        amount = 6100
+                        amount = 50
                     case 5:
-                        amount = 12000
+                        amount = 100
                     default:
-                        amount = 610
+                        amount = 5
                     }
                     let zedPayId = ZEDPays.createAdd(userId: AuthUser.userId(), customerId: self!.paymentMethod!.customerId, cardId: self!.paymentMethod!.cardId, quantity: amount)
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1){
