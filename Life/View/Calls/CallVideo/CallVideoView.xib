@@ -326,7 +326,7 @@
         </designable>
     </designables>
     <resources>
-        <image name="app_logo" width="525" height="524"/>
+        <image name="app_logo" width="6142" height="6142"/>
         <image name="callvideo_answer.png" width="72" height="72"/>
         <image name="callvideo_blank.png" width="70" height="70"/>
         <image name="callvideo_hangup.png" width="62" height="62"/>

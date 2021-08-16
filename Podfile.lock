@@ -393,6 +393,7 @@ PODS:
   - InputBarAccessoryView/Core (5.3.1)
   - IQKeyboardManagerSwift (6.5.6)
   - JGProgressHUD (2.2)
+  - KAPinField (5.0.1)
   - Kingfisher (6.3.0)
   - leveldb-library (1.22.1)
   - MessageKit (3.6.1):
@@ -458,6 +459,7 @@ DEPENDENCIES:
   - FormTextField
   - IQKeyboardManagerSwift
   - JGProgressHUD
+  - KAPinField
   - Kingfisher
   - MessageKit
   - NYTPhotoViewer
@@ -503,6 +505,7 @@ SPEC REPOS:
     - InputBarAccessoryView
     - IQKeyboardManagerSwift
     - JGProgressHUD
+    - KAPinField
     - Kingfisher
     - leveldb-library
     - MessageKit
@@ -554,6 +557,7 @@ SPEC CHECKSUMS:
   InputBarAccessoryView: 1f75d8c9f75e5e57f3ffac36ed58635a8005e0bc
   IQKeyboardManagerSwift: c7df9d2deb356c04522f5c4b7b6e4ce4d8ed94fe
   JGProgressHUD: d83d7a981b85d11205e19ff8ad5bb9c40571c847
+  KAPinField: 24d85205115c1bb6aef8ff809944f41ac8c2785f
   Kingfisher: 6c3df386db71d82c0817a429d2c9421a77396529
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
   MessageKit: d153fbbbcb12f3f4045a1ba8874298924dacfb62
@@ -575,6 +579,6 @@ SPEC CHECKSUMS:
   SkyFloatingLabelTextField: 5a338412114808e961fe2d14ea2c5452c8b6e4aa
   SwiftyAvatar: 33aecda825c91851cac2aabd06b33f3698b2414c
 
-PODFILE CHECKSUM: d54b69d745eb1d0e2f15b591bdb63110337f2b92
+PODFILE CHECKSUM: 426a3a3d2b494e105e662c8bf35eb78e5ef38004
 
 COCOAPODS: 1.10.1

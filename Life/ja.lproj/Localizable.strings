@@ -139,3 +139,13 @@
 "Added At" = "で追加";
 "Added with ZED Pay" = "ZED Payで追加";
 "Objectionable" = "反対すべき";
+
+"Pay 4.99$ via Apple in-app purchase" = "Appleのアプリ内購入で4.99ドルを支払う";
+"Pay 9.99$ via Apple in-app purchase" = "Appleのアプリ内購入で9.99ドルを支払う";
+"Pay 14.99$ via Apple in-app purchase" = "Appleのアプリ内購入で14.99ドルを支払う";
+"Pay 19.99$ via Apple in-app purchase" = "Appleのアプリ内購入で19.99ドルを支払う";
+"Pay 49.99$ via Apple in-app purchase" = "Appleのアプリ内購入で49.99ドルを支払う";
+"Pay 99.99$ via Apple in-app purchase" = "Appleのアプリ内購入で99.99ドルを支払う";
+
+"Okay" = "オーケー";
+"Add Balance" = "バランスを追加";

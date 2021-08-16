@@ -940,9 +940,127 @@
             </objects>
             <point key="canvasLocation" x="917.60000000000002" y="727.83251231527095"/>
         </scene>
+        <!--Group Video Call View Controller-->
+        <scene sceneID="x8F-kg-a3l">
+            <objects>
+                <viewController storyboardIdentifier="GroupVideoCallViewController" id="SxF-w2-C4d" customClass="GroupVideoCallViewController" customModule="Life" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3DQ-7Y-cgz">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ql4-SJ-43s" customClass="AGEVideoContainer" customModule="Life" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FZ6-3H-JPM" userLabel="muteswitch">
+                                <rect key="frame" x="0.0" y="774" width="414" height="88"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G4z-zI-tiO">
+                                        <rect key="frame" x="326" y="0.0" width="72" height="72"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="72" id="amP-Mt-636"/>
+                                            <constraint firstAttribute="height" constant="72" id="fWp-WY-M5o"/>
+                                        </constraints>
+                                        <state key="normal" image="callvideo_mute1.png">
+                                            <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="doMuteAudioPressed:" destination="SxF-w2-C4d" eventType="touchUpInside" id="jii-xu-X0L"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fZu-5X-xHL">
+                                        <rect key="frame" x="171" y="0.0" width="72" height="72"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="72" id="6Xc-eI-yET"/>
+                                            <constraint firstAttribute="width" constant="72" id="skG-Xn-53q"/>
+                                        </constraints>
+                                        <state key="normal" image="callvideo_video1.png"/>
+                                        <connections>
+                                            <action selector="doMuteVideoPressed:" destination="SxF-w2-C4d" eventType="touchUpInside" id="mbK-ch-Fq6"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yvh-Ry-evu">
+                                        <rect key="frame" x="16" y="0.0" width="72" height="72"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="72" id="ARA-bB-6db"/>
+                                            <constraint firstAttribute="height" constant="72" id="S6M-vF-bBb"/>
+                                        </constraints>
+                                        <state key="normal" image="callvideo_switch1.png"/>
+                                        <connections>
+                                            <action selector="doCameraPressed:" destination="SxF-w2-C4d" eventType="touchUpInside" id="Jwh-dt-IaY"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="88" id="8fT-1q-Ruq"/>
+                                    <constraint firstItem="fZu-5X-xHL" firstAttribute="centerX" secondItem="FZ6-3H-JPM" secondAttribute="centerX" id="Js5-Hw-cdh"/>
+                                    <constraint firstItem="Yvh-Ry-evu" firstAttribute="leading" secondItem="FZ6-3H-JPM" secondAttribute="leading" constant="16" id="QQF-R0-6gx"/>
+                                    <constraint firstAttribute="trailing" secondItem="G4z-zI-tiO" secondAttribute="trailing" constant="16" id="YkT-nZ-qFU"/>
+                                    <constraint firstItem="Yvh-Ry-evu" firstAttribute="top" secondItem="FZ6-3H-JPM" secondAttribute="top" id="gnf-5r-1sT"/>
+                                    <constraint firstItem="fZu-5X-xHL" firstAttribute="top" secondItem="FZ6-3H-JPM" secondAttribute="top" id="idZ-0N-eJm"/>
+                                    <constraint firstItem="G4z-zI-tiO" firstAttribute="top" secondItem="FZ6-3H-JPM" secondAttribute="top" id="rn3-5j-zVw"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dcd-7z-nws" userLabel="power">
+                                <rect key="frame" x="0.0" y="686" width="414" height="88"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XUO-Cn-oci">
+                                        <rect key="frame" x="171" y="0.0" width="72" height="72"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="72" id="N8b-09-iX4"/>
+                                            <constraint firstAttribute="height" constant="72" id="joP-Zk-eh2"/>
+                                        </constraints>
+                                        <state key="normal" image="callvideo_hangup.png"/>
+                                        <connections>
+                                            <action selector="powerBtnClicked:" destination="SxF-w2-C4d" eventType="touchUpInside" id="Y8p-kM-6Fo"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="XUO-Cn-oci" firstAttribute="top" secondItem="Dcd-7z-nws" secondAttribute="top" id="Rob-o3-ESN"/>
+                                    <constraint firstItem="XUO-Cn-oci" firstAttribute="centerX" secondItem="Dcd-7z-nws" secondAttribute="centerX" id="WVu-kM-Fq6"/>
+                                    <constraint firstAttribute="height" constant="88" id="hMM-lr-kL7"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="PYF-6r-YHG"/>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="Dcd-7z-nws" firstAttribute="leading" secondItem="PYF-6r-YHG" secondAttribute="leading" id="5dM-fF-5za"/>
+                            <constraint firstAttribute="bottom" secondItem="ql4-SJ-43s" secondAttribute="bottom" id="7uh-pL-ET6"/>
+                            <constraint firstItem="FZ6-3H-JPM" firstAttribute="top" secondItem="Dcd-7z-nws" secondAttribute="bottom" id="A0x-8A-Ltb"/>
+                            <constraint firstItem="FZ6-3H-JPM" firstAttribute="leading" secondItem="PYF-6r-YHG" secondAttribute="leading" id="CfV-MN-meF"/>
+                            <constraint firstItem="ql4-SJ-43s" firstAttribute="top" secondItem="3DQ-7Y-cgz" secondAttribute="top" id="ITM-od-sCE"/>
+                            <constraint firstItem="ql4-SJ-43s" firstAttribute="leading" secondItem="3DQ-7Y-cgz" secondAttribute="leading" id="XXv-TI-oFb"/>
+                            <constraint firstItem="FZ6-3H-JPM" firstAttribute="bottom" secondItem="PYF-6r-YHG" secondAttribute="bottom" id="XY8-Ea-9Cx"/>
+                            <constraint firstItem="Dcd-7z-nws" firstAttribute="trailing" secondItem="PYF-6r-YHG" secondAttribute="trailing" id="cCi-Du-cSO"/>
+                            <constraint firstItem="FZ6-3H-JPM" firstAttribute="trailing" secondItem="PYF-6r-YHG" secondAttribute="trailing" id="qFC-jy-fdD"/>
+                            <constraint firstAttribute="trailing" secondItem="ql4-SJ-43s" secondAttribute="trailing" id="u53-cX-Uhe"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="yHG-aT-69Q">
+                        <barButtonItem key="rightBarButtonItem" image="btn-option" id="Wg6-Qd-ZAb"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="containerView" destination="ql4-SJ-43s" id="LA5-vJ-pNb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uz2-NU-jqy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2814" y="1404"/>
+        </scene>
     </scenes>
     <resources>
         <image name="add_friend" width="60" height="60"/>
+        <image name="btn-option" width="40" height="40"/>
+        <image name="callvideo_hangup.png" width="62" height="62"/>
+        <image name="callvideo_mute1.png" width="37.5" height="30"/>
+        <image name="callvideo_switch1.png" width="30" height="30"/>
+        <image name="callvideo_video1.png" width="37.5" height="30"/>
         <image name="cancel" width="55" height="55.5"/>
         <image name="create_group" width="150" height="150"/>
         <image name="house.fill" catalog="system" width="128" height="106"/>

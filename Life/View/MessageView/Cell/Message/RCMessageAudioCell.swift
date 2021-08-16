@@ -18,7 +18,7 @@ class RCMessageAudioCell: RCMessageCell {
 	private var labelDuration: UILabel!
 	private var imageViewManual: UIImageView!
 	private var activityIndicator: UIActivityIndicatorView!
-
+    
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	override func bindData(_ messagesView: ChatViewController, at indexPath: IndexPath) {
 
@@ -100,7 +100,7 @@ class RCMessageAudioCell: RCMessageCell {
 		let widthPlay = imageViewPlay.image?.size.width ?? 0
 		let heightPlay = imageViewPlay.image?.size.height ?? 0
 		let yPlay = (size.height - heightPlay) / 2
-		imageViewPlay.frame = CGRect(x: 10, y: yPlay, width: widthPlay, height: heightPlay)
+		imageViewPlay.frame = CGRect(x: 10, y: 4, width: widthPlay, height: heightPlay)
 
 		labelDuration.frame = CGRect(x: size.width - 100, y: 0, width: 90, height: size.height)
 
@@ -130,4 +130,22 @@ class RCMessageAudioCell: RCMessageCell {
 
 		return CGSize(width: RCDefaults.audioBubbleWidht, height: RCDefaults.audioBubbleHeight)
 	}
+    
+    //-------------------------------------------------------------------------------------------------------------------------------------------
+    func updateDuration(_ rcmessage: RCMessage) {
+
+        if (rcmessage.audioStatus == AudioStatus.AUDIOSTATUS_STOPPED)    { updateDuration(rcmessage.audioDuration)        }
+        if (rcmessage.audioStatus == AudioStatus.AUDIOSTATUS_PLAYING)    { updateDuration(rcmessage.audioDuration)    }
+        if (rcmessage.audioStatus == AudioStatus.AUDIOSTATUS_STOPPED)    { updateDuration(rcmessage.audioDuration)    }
+    }
+    
+    private func updateDuration(_ duration: Int) {
+
+        if (duration < 60) {
+            labelDuration.text = String(format: "0:%02ld", duration)
+        } else {
+            labelDuration.text = String(format: "%ld:%02ld", duration / 60, duration % 60)
+        }
+    }
+
 }

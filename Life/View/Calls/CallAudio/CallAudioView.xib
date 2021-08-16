@@ -31,7 +31,7 @@
                 <outlet property="labelName" destination="Q92-lO-lJ2" id="9dD-vl-0LD"/>
                 <outlet property="labelStatus" destination="lal-1K-R9p" id="biB-9w-yfr"/>
                 <outlet property="uiv_answerdecline" destination="8Lj-w4-Vs5" id="pBO-sS-BeG"/>
-                <outlet property="uiv_mutespeaker" destination="Fyx-mg-p9e" id="ogl-oi-B6K"/>
+                <outlet property="uiv_mutespeaker" destination="Fyx-mg-p9e" id="9i3-UK-90Z"/>
                 <outlet property="uiv_power" destination="dyo-hq-D6y" id="Few-2L-5EK"/>
                 <outlet property="uiv_requst" destination="IqG-vv-JKg" id="rbb-sm-afx"/>
                 <outlet property="view" destination="wES-DP-Ocd" id="QwI-qG-8Ii"/>

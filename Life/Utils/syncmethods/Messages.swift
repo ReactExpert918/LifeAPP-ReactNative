@@ -29,6 +29,7 @@ class Messages: NSObject {
         message.isMediaFailed = failed
         createMessage(message: message, recipientId: recipientId)
     }
+    
     class func send(chatId: String, recipientId:String, text: String?, photo: UIImage?, video: URL?, audio: String?) {
 
 		let message = Message()

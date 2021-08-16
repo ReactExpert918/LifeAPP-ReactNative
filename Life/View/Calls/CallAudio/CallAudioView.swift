@@ -88,7 +88,7 @@ class CallAudioView: UIViewController {
         type = 1
         self.group = group
         callString = group.name
-        outgoing = true
+        
         self.isModalInPresentation = true
         self.modalPresentationStyle = .fullScreen
 
@@ -155,6 +155,9 @@ class CallAudioView: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(self.volumeDidChange(notification:)), name: NSNotification.Name(rawValue: "AVSystemController_SystemVolumeDidChangeNotification"), object: nil)
         let progress = audioSession.outputVolume / 1.0 * 6
         dottedProgressBar?.setProgress(value: Int(progress))
+        if type == 1{
+            self.joinAction()
+        }
     }
     
     // ------ call accept status listener

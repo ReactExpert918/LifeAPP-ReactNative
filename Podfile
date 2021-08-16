@@ -36,6 +36,8 @@ target 'Life' do
   pod 'SCLAlertView'
   pod 'FormTextField'
   pod 'CreditCardValidator'
+  pod 'KAPinField'
+  
   target 'LifeTests' do
     inherit! :search_paths
     # Pods for testing

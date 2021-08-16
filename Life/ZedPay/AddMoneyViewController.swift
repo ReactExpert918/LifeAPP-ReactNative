@@ -20,6 +20,8 @@ class AddMoneyViewController: UIViewController {
     var paymentMethod: PaymentMethod?
     var delegate: UpdatePayDelegateProtocol?
     
+    @IBOutlet weak var lbl_caption: UILabel!
+    @IBOutlet weak var btn_add: RoundButton!
     let hud = JGProgressHUD(style: .light)
     private var tokenZEDPay: NotificationToken? = nil
     private var zedPays = realm.objects(ZEDPay.self).filter(falsepredicate)
@@ -32,6 +34,8 @@ class AddMoneyViewController: UIViewController {
         initPurchase()
         setDataSource()
         updateBtn(self.ds_products)
+        lbl_caption.text = "Add Balance".localized
+        btnBalance.setTitle("Add Balance".localized, for: .normal)
     }
     
     func setDataSource() {
@@ -79,8 +83,8 @@ class AddMoneyViewController: UIViewController {
                     }
                 }
             }else if type == .restored {
-                let alertView = UIAlertController(title: "Life", message: type.message(), preferredStyle: .alert)
-                let action = UIAlertAction(title: "Okay", style: .default, handler: { (alert) in
+                let alertView = UIAlertController(title: "Life-App", message: type.message(), preferredStyle: .alert)
+                let action = UIAlertAction(title: "Okay".localized, style: .default, handler: { (alert) in
                     //TODO: success restored
                     print("restore succeed")
                 })
@@ -97,10 +101,25 @@ class AddMoneyViewController: UIViewController {
     
     public func presentAlert(from sourceView: UIView, index: Int) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        if let action = self.action(title: "ApplePayで支払う", index: index) {
+        var caption: String = ""
+        if index == 0{
+            caption = "Pay 4.99$ via Apple in-app purchase".localized
+        }else if index == 1{
+            caption = "Pay 9.99$ via Apple in-app purchase".localized
+        }else if index == 2{
+            caption = "Pay 14.99$ via Apple in-app purchase".localized
+        }else if index == 3{
+            caption = "Pay 19.99$ via Apple in-app purchase".localized
+        }else if index == 4{
+            caption = "Pay 49.99$ via Apple in-app purchase".localized
+        }else{
+            caption = "Pay 99.99$ via Apple in-app purchase".localized
+        }
+        
+        if let action = self.action(title: caption, index: index) {
             alertController.addAction(action)
         }
-        alertController.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+        alertController.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil))
         self.present(alertController, animated: true)
     }
     

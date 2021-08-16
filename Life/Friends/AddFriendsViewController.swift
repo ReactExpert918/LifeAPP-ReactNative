@@ -325,7 +325,8 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
             }
         }
         else{
-            return personList.count
+            //return personList.count
+            return 0
         }
     }
   

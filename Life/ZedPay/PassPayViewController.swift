@@ -10,12 +10,15 @@ import UIKit
 import DPOTPView
 import JGProgressHUD
 import RealmSwift
+import KAPinField
+
 class PassPayViewController: UIViewController {
     weak var pvc : UIViewController?
     @IBOutlet weak var nextButton: RoundButton!
     @IBOutlet weak var nextBottomContraint: NSLayoutConstraint!
     @IBOutlet weak var imageNext: UIImageView!
-    @IBOutlet weak var dpPassCode: DPOTPView!
+    @IBOutlet weak var otpCodeView: KAPinField!
+    
     
     private var tokenTransactions: NotificationToken? = nil
     private var transactions = realm.objects(ZEDPay.self).filter(falsepredicate)
@@ -31,27 +34,67 @@ class PassPayViewController: UIViewController {
     var recipientId: String?
     override func viewDidLoad() {
         super.viewDidLoad()
+        setStyle()
         
-        // Do any additional setup after loading the view.
-        dpPassCode.dpOTPViewDelegate = self
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    func setStyle() {
+        otpCodeView.properties.delegate = self
+        otpCodeView.properties.animateFocus = true
+        otpCodeView.text = ""
+        otpCodeView.keyboardType = .numberPad
+        otpCodeView.properties.numberOfCharacters = 4
+        otpCodeView.appearance.tokenColor = UIColor.black.withAlphaComponent(0.2)
+        otpCodeView.appearance.tokenFocusColor = UIColor.black.withAlphaComponent(0.2)
+        otpCodeView.appearance.textColor = UIColor.black
+        otpCodeView.appearance.font = .menlo(40)
         
-        checkValidation(text: dpPassCode.text ?? "")
+        otpCodeView.appearance.kerning = 40
+        otpCodeView.appearance.backOffset = 5
+        otpCodeView.appearance.backColor = UIColor.clear
+        otpCodeView.appearance.backBorderWidth = 1
+        otpCodeView.appearance.backBorderColor = UIColor.black.withAlphaComponent(0.2)
+        otpCodeView.appearance.backCornerRadius = 4
+        otpCodeView.appearance.backFocusColor = UIColor.clear
+        otpCodeView.appearance.backBorderFocusColor = UIColor.black.withAlphaComponent(0.8)
+        otpCodeView.appearance.backActiveColor = UIColor.clear
+        otpCodeView.appearance.backBorderActiveColor = UIColor.black
+        otpCodeView.appearance.backRounded = false
+        otpCodeView.becomeFirstResponder()
     }
     
     //MARK:- check validation
     func checkValidation(text: String){
-       if(text.count == 4){
-           nextButton.backgroundColor = UIColor(hexString: "#16406F")
-           imageNext.tintColor = .white
-        nextButton.isUserInteractionEnabled = true
-       }
-       else{
-        nextButton.isUserInteractionEnabled = false
-           nextButton.backgroundColor = UIColor(white: 0, alpha: 0.17)
-           imageNext.tintColor = UIColor(white: 0, alpha: 0.31)
-       }
+        if(text.count == 4){
+            let predicate = NSPredicate(format: "userId == %@ AND status == %@ ", AuthUser.userId(), ZEDPAY_STATUS.SUCCESS)
+            let customers = realm.objects(StripeCustomer.self).filter(predicate)
+            guard let customer = customers.first else{
+                return
+            }
+            if(text != customer.passcode.decryptedString()){
+                let confirmationAlert = UIAlertController(title: "", message: "PassCode incorrect".localized, preferredStyle: .alert)
+                confirmationAlert.addAction(UIAlertAction(title: "OK".localized, style: .cancel, handler: { (action: UIAlertAction!) in
+                }))
+                present(confirmationAlert, animated: true, completion: nil)
+            }else{
+                self.hud.textLabel.text = "Sending Money...".localized
+                self.hud.show(in: self.view, animated: true)
+                self.updating = true
+                self.transactionObjectId = ZEDPays.create(fromUserId: (Persons.currentPerson()?.objectId)!, toUserId: toUserId, quantity: quantity * 0.975)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1){
+                let predicate = NSPredicate(format: "objectId == %@", self.transactionObjectId )
+                self.transactions = realm.objects(ZEDPay.self).filter(predicate)
+                self.tokenTransactions?.invalidate()
+                self.transactions.safeObserve({ changes in
+                self.callBack()
+                }, completion: { token in
+                self.tokenTransactions = token
+                })
+                }
+            }
+        }
    }
     
     // MARK: - keyboard layout
@@ -75,7 +118,7 @@ class PassPayViewController: UIViewController {
         }
     }
     // MARK: - next tap
-    @IBAction func actionTapNext(_ sender: Any) {
+    /*@IBAction func actionTapNext(_ sender: Any) {
         let passCode = dpPassCode.text ?? ""
         
         let predicate = NSPredicate(format: "userId == %@ AND status == %@ ", AuthUser.userId(), ZEDPAY_STATUS.SUCCESS)
@@ -103,9 +146,8 @@ class PassPayViewController: UIViewController {
                     self.tokenTransactions = token
                 })
             }
-            
         }
-    }
+    }*/
     
     //MARK: - Transcation callback
     func callBack(){
@@ -130,28 +172,15 @@ class PassPayViewController: UIViewController {
             vc.modalPresentationStyle = .fullScreen
             pvc?.present(vc, animated: true)
         })
-        
     }
-
 }
-extension PassPayViewController : DPOTPViewDelegate {
-   func dpOTPViewAddText(_ text: String, at position: Int) {
-        //// print("addText:- " + text + " at:- \(position)" )
-        self.checkValidation(text: text)
-    }
-    
-    func dpOTPViewRemoveText(_ text: String, at position: Int) {
-        //// print("removeText:- " + text + " at:- \(position)" )
-        self.checkValidation(text: text)
-    }
-    
-    func dpOTPViewChangePositionAt(_ position: Int) {
-        // print("at:-\(position)")
-    }
-    func dpOTPViewBecomeFirstResponder() {
+
+extension PassPayViewController : KAPinFieldDelegate {
+    func pinField(_ field: KAPinField, didChangeTo string: String, isValid: Bool) {
         
     }
-    func dpOTPViewResignFirstResponder() {
-        
+    
+    func pinField(_ field: KAPinField, didFinishWith code: String) {
+        checkValidation(text: code)
     }
 }

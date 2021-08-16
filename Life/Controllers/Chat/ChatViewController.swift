@@ -102,6 +102,8 @@ class ChatViewController: UIViewController {
     var videoStatusHandle: UInt?
     var audioStatusHandle: UInt?
     
+    private var audioController: RCAudioController?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -164,10 +166,12 @@ class ChatViewController: UIViewController {
         ///zed pay button
         if(recipientId == ""){
             zedPayButton.isUserInteractionEnabled = false
+            zedPayButton.isHidden = true
         }else{
             zedPayButton.isUserInteractionEnabled = true
+            zedPayButton.isHidden = false
         }
-
+        audioController = RCAudioController(self)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -315,6 +319,18 @@ class ChatViewController: UIViewController {
             plusButton.setImage(UIImage(named: "ic_plus"), for: .normal)
         }
     }
+    
+    // MARK: - Audio view controller
+    func actionAudio() {
+
+        let audioView = AudioView()
+        audioView.delegate = self
+        let navController = NavigationController(rootViewController: audioView)
+        navController.isModalInPresentation = true
+        navController.modalPresentationStyle = .fullScreen
+        present(navController, animated: true)
+    }
+    
     @IBAction func actionPlusButton(_ sender: Any) {
         
         isShowingToolbar = !isShowingToolbar
@@ -355,7 +371,7 @@ class ChatViewController: UIViewController {
             present(callAdudioView, animated: true)
             let realm = try! Realm()
             let recipient = realm.object(ofType: Person.self, forPrimaryKey: recipientId)
-            PushNotification.send(token: recipient?.oneSignalId ?? "", title: "New Audio Call", body: Persons.fullname() + " " + "is sending new audio call request...", type: .sendVoiceCalling, chatId: chatId)
+            PushNotification.send(token: recipient?.oneSignalId ?? "", title: Persons.fullname() + " " + "is Audio calling you", body: Persons.fullname() + " " + "is Audio calling you", type: .sendVoiceCalling, chatId: chatId)
         }else{
             var personsId: [String] = []
             for person in persons{
@@ -363,6 +379,7 @@ class ChatViewController: UIViewController {
             }
             if let group=realm.object(ofType: Group.self, forPrimaryKey: chatId){
                 let callAudioView = CallAudioView(group: group, persons: personsId)
+                callAudioView.roomID = self.chatId
                 present(callAudioView, animated: true)
             }
         }
@@ -380,7 +397,7 @@ class ChatViewController: UIViewController {
             present(callVideoView, animated: true)
             let realm = try! Realm()
             let recipient = realm.object(ofType: Person.self, forPrimaryKey: recipientId)
-            PushNotification.send(token: recipient?.oneSignalId ?? "", title: "New Video Call", body: Persons.fullname() + " " + "is sending new video call request...", type: .sendVideoCalling, chatId: chatId)
+            PushNotification.send(token: recipient?.oneSignalId ?? "", title: Persons.fullname() + " " + "is Video calling you", body: Persons.fullname() + " " + "is Video calling you", type: .sendVideoCalling, chatId: chatId)
             
         } else {
             var personsId: [String] = []
@@ -389,7 +406,11 @@ class ChatViewController: UIViewController {
             }
             
             if let group = realm.object(ofType: Group.self, forPrimaryKey: chatId){
-                let callVideoView = CallVideoView(group: group, persons: personsId)
+                //let callVideoView = CallVideoView(group: group, persons: personsId)
+                //callVideoView.roomID = self.chatId
+                let callVideoView = self.storyboard?.instantiateViewController(withIdentifier: "GroupVideoCallViewController") as! GroupVideoCallViewController
+                callVideoView.modalPresentationStyle = .fullScreen
+                callVideoView.roomName = self.chatId
                 present(callVideoView, animated: true)
             }
         }
@@ -583,6 +604,17 @@ class ChatViewController: UIViewController {
         loadMedia(rcmessage)
         return rcmessage
     }
+    
+    func indexPathBy(_ rcmessage: RCMessage) -> IndexPath? {
+
+        for (index, dbmessage) in rcmessages.enumerated() {
+            if (dbmessage.value.messageId == rcmessage.messageId) {
+                let offset = messageTotalCount() - messageLoadedCount()
+                return IndexPath(row: 2, section: index - offset)
+            }
+        }
+        return nil
+    }
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func loadMedia(_ rcmessage: RCMessage) {
 
@@ -747,30 +779,15 @@ class ChatViewController: UIViewController {
                 let videoView = VideoView(url: url)
                 present(videoView, animated: true)
             }
-            /*
-            if (rcmessage.type == MediaStatus.MESSAGE_AUDIO) {
-                if (rcmessage.audioStatus == AUDIOSTATUS_STOPPED) {
-                    if let sound = Sound(contentsOfFile: rcmessage.audioPath) {
-                        sound.completionHandler = { didFinish in
-                            rcmessage.audioStatus = AUDIOSTATUS_STOPPED
-                            self.refreshTableView()
-                        }
-                        SoundManager.shared().playSound(sound)
-                        rcmessage.audioStatus = AUDIOSTATUS_PLAYING
-                        refreshTableView()
-                    }
-                } else if (rcmessage.audioStatus == AUDIOSTATUS_PLAYING) {
-                    SoundManager.shared().stopAllSounds(false)
-                    rcmessage.audioStatus = AUDIOSTATUS_STOPPED
-                    refreshTableView()
-                }
+            
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_AUDIO) {
+                audioController?.toggleAudio(indexPath)
             }
-            if (rcmessage.type == MediaStatus.MESSAGE_LOCATION) {
+            /*if (rcmessage.type == MediaStatus.MESSAGE_LOCATION) {
                 let mapView = MapView(latitude: rcmessage.latitude, longitude: rcmessage.longitude)
                 let navController = NavigationController(rootViewController: mapView)
                 present(navController, animated: true)
-            }
- */
+            }*/
         }
     }
     
@@ -1029,7 +1046,16 @@ class ChatViewController: UIViewController {
             self.actionOpenGallery()
         }
         
-        messageInputBar.setStackViewItems([cameraButton, galleryButton], forStack: .left, animated: false)
+        let audioButton = InputBarButtonItem()
+        audioButton.image = UIImage(named: "ic_record")
+        audioButton.setSize(CGSize(width: 25, height: 40), animated: false)
+        
+        audioButton.onTouchUpInside { item in
+            self.actionAudio()
+        }
+        
+        
+        messageInputBar.setStackViewItems([cameraButton, galleryButton, audioButton], forStack: .left, animated: false)
         messageInputBar.leftStackView.isLayoutMarginsRelativeArrangement = false
         messageInputBar.leftStackView.spacing = 8
         
@@ -1037,7 +1063,7 @@ class ChatViewController: UIViewController {
         messageInputBar.sendButton.image = UIImage(named: "ic_send")
         messageInputBar.sendButton.setSize(CGSize(width: 27, height: 40), animated: false)
         
-        messageInputBar.setLeftStackViewWidthConstant(to: 62, animated: false)
+        messageInputBar.setLeftStackViewWidthConstant(to: 93, animated: false)
         messageInputBar.setRightStackViewWidthConstant(to: 28, animated: false)
         
         messageInputBar.middleContentViewPadding = UIEdgeInsets(top: 1, left: 8, bottom: 1, right: 5)
@@ -1442,6 +1468,27 @@ extension ChatViewController: AutocompleteManagerDelegate, AutocompleteManagerDa
             topStackView.layoutIfNeeded()
         }
         self.messageInputBar.invalidateIntrinsicContentSize()
+    }
+}
+
+
+class NavigationController: UINavigationController {
+
+    //-------------------------------------------------------------------------------------------------------------------------------------------
+    override func viewDidLoad() {
+
+        super.viewDidLoad()
+
+        navigationBar.isTranslucent = false
+        navigationBar.barTintColor = UIColor(red:0.00, green:0.20, blue:0.40, alpha:1.0)
+        navigationBar.tintColor = UIColor.white
+        navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+    }
+
+    //-------------------------------------------------------------------------------------------------------------------------------------------
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+
+        return .lightContent
     }
 }
 
