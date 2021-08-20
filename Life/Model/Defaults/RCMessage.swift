@@ -51,6 +51,8 @@ class RCMessage: NSObject {
     var isObjectionalbe: Bool = false
     var audioStatus = AudioStatus.AUDIOSTATUS_STOPPED
     var mediaStatus = MediaStatus.MEDIASTATUS_UNKNOWN
+    
+    var callStatus: CallStatus = .MISSED_CALL
 
 	// MARK: - Initialization methods
 	//---------------------------------------------------------------------------------------------------------------------------------------------

@@ -174,14 +174,14 @@ extension RCAudioController {
 		guard let rcmessage = rcmessage else { return }
 		guard let audioPlayer = audioPlayer else { return }
 
-        rcmessage.audioDuration = Int(audioPlayer.currentTime)
+        //rcmessage.audioDuration = Int(audioPlayer.currentTime)
 
 		if let indexPath = messagesView.indexPathBy(rcmessage) {
 			if let visibleRows = messagesView.tableView.indexPathsForVisibleRows {
 				if (visibleRows.contains(indexPath)) {
 					if let cell = messagesView.tableView.cellForRow(at: indexPath) as? RCMessageAudioCell {
 						//cell.updateProgress(rcmessage)
-						cell.updateDuration(rcmessage)
+						//cell.updateDuration(rcmessage)
 
 					}
 				}

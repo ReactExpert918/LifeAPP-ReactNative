@@ -25,7 +25,5 @@ class ViewController: UIViewController {
 //        addFriendsViewController.modalPresentationStyle = .fullScreen
 //        self.present(addFriendsViewController, animated: true, completion: nil)
     }
-    
-
 }
 

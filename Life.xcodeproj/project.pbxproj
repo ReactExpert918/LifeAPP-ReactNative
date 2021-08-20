@@ -45,6 +45,7 @@
 		04F4E3E6267CCE6F00CD94FD /* TransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4E3E4267CCE6F00CD94FD /* TransactionCell.swift */; };
 		04F4E3E7267CCE6F00CD94FD /* TransactionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04F4E3E5267CCE6F00CD94FD /* TransactionCell.xib */; };
 		0513BA3026C10BB700423A25 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0513BA2F26C10BB700423A25 /* UIView+Extension.swift */; };
+		051FC1EA26CBAC0800F89FF1 /* RCMMessageCallCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051FC1E926CBAC0800F89FF1 /* RCMMessageCallCell.swift */; };
 		058A770826BBD243006563B8 /* call_ringback.wav in Resources */ = {isa = PBXBuildFile; fileRef = 058A770726BBD243006563B8 /* call_ringback.wav */; };
 		058A773F26BC9993006563B8 /* AcceptDeclineVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 058A773E26BC9993006563B8 /* AcceptDeclineVC.swift */; };
 		05BA7ED326B7A3E00049393B /* CallAudioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BA7ED126B7A3E00049393B /* CallAudioView.swift */; };
@@ -392,6 +393,7 @@
 		04F4E3E4267CCE6F00CD94FD /* TransactionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCell.swift; sourceTree = "<group>"; };
 		04F4E3E5267CCE6F00CD94FD /* TransactionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionCell.xib; sourceTree = "<group>"; };
 		0513BA2F26C10BB700423A25 /* UIView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		051FC1E926CBAC0800F89FF1 /* RCMMessageCallCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RCMMessageCallCell.swift; sourceTree = "<group>"; };
 		058A770726BBD243006563B8 /* call_ringback.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = call_ringback.wav; sourceTree = "<group>"; };
 		058A773E26BC9993006563B8 /* AcceptDeclineVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcceptDeclineVC.swift; sourceTree = "<group>"; };
 		05BA7EC726B7A37C0049393B /* AgoraRtcKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AgoraRtcKit.framework; sourceTree = "<group>"; };
@@ -1167,6 +1169,7 @@
 				A6DEA82124A82A7100868625 /* RCMessageCell.swift */,
 				04975C1126859AB300A10CC1 /* MoneyTableViewCell.swift */,
 				04975C1226859AB300A10CC1 /* MoneyTableViewCell.xib */,
+				051FC1E926CBAC0800F89FF1 /* RCMMessageCallCell.swift */,
 			);
 			path = Message;
 			sourceTree = "<group>";
@@ -1931,6 +1934,7 @@
 				A6BD966B24B4D56900E1B873 /* StickersCell.swift in Sources */,
 				AB3A81BB24A9B4920089127E /* BasicDetailInsertViewController.swift in Sources */,
 				04F4E3D4267CBCF800CD94FD /* Float+Extension.swift in Sources */,
+				051FC1EA26CBAC0800F89FF1 /* RCMMessageCallCell.swift in Sources */,
 				05C2547526C5C5DE00D56684 /* AGEVideoLayout.swift in Sources */,
 				A6E73B4F24A598CD0008CBFE /* HomeViewController.swift in Sources */,
 				05C2547426C5C5DE00D56684 /* AGEVideoContainer.swift in Sources */,
@@ -2339,7 +2343,7 @@
 				CODE_SIGN_ENTITLEMENTS = Life/Life.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = 2AV3B2BH2Y;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2367,7 +2371,7 @@
 				CODE_SIGN_ENTITLEMENTS = Life/Life.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = 2AV3B2BH2Y;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

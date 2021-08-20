@@ -132,6 +132,7 @@ class ChatViewController: UIViewController {
         tableView.register(RCMessagePhotoCell.self, forCellReuseIdentifier: "RCMessagePhotoCell")
         tableView.register(RCMessageVideoCell.self, forCellReuseIdentifier: "RCMessageVideoCell")
         tableView.register(RCMessageAudioCell.self, forCellReuseIdentifier: "RCMessageAudioCell")
+        tableView.register(RCMMessageCallCell.self, forCellReuseIdentifier: "RCMMessageCallCell")
         tableView.register(RCMessageLocationCell.self, forCellReuseIdentifier: "RCMessageLocationCell")
         
         tableView.register(RCFooterUpperCell.self, forCellReuseIdentifier: "RCFooterUpperCell")
@@ -331,6 +332,10 @@ class ChatViewController: UIViewController {
         present(navController, animated: true)
     }
     
+    func actionVideo() {
+        ImagePicker.videoLibrary(target: self, edit: true)
+    }
+    
     @IBAction func actionPlusButton(_ sender: Any) {
         
         isShowingToolbar = !isShowingToolbar
@@ -372,6 +377,7 @@ class ChatViewController: UIViewController {
             let realm = try! Realm()
             let recipient = realm.object(ofType: Person.self, forPrimaryKey: recipientId)
             PushNotification.send(token: recipient?.oneSignalId ?? "", title: Persons.fullname() + " " + "is Audio calling you", body: Persons.fullname() + " " + "is Audio calling you", type: .sendVoiceCalling, chatId: chatId)
+            //Messages.sendCalling(chatId: chatId, recipientId: recipientId, type: .MISSED_CALL)
         }else{
             var personsId: [String] = []
             for person in persons{
@@ -1054,8 +1060,17 @@ class ChatViewController: UIViewController {
             self.actionAudio()
         }
         
+        let videoButton = InputBarButtonItem()
+        videoButton.image = UIImage(named: "ic_video_clip")
+        videoButton.tintColor = UIColor.init(named: "PrimaryColor")
+        videoButton.setSize(CGSize(width: 25, height: 40), animated: false)
         
-        messageInputBar.setStackViewItems([cameraButton, galleryButton, audioButton], forStack: .left, animated: false)
+        videoButton.onTouchUpInside { item in
+            self.actionVideo()
+        }
+        
+        
+        messageInputBar.setStackViewItems([cameraButton, galleryButton, audioButton, videoButton], forStack: .left, animated: false)
         messageInputBar.leftStackView.isLayoutMarginsRelativeArrangement = false
         messageInputBar.leftStackView.spacing = 8
         
@@ -1063,7 +1078,7 @@ class ChatViewController: UIViewController {
         messageInputBar.sendButton.image = UIImage(named: "ic_send")
         messageInputBar.sendButton.setSize(CGSize(width: 27, height: 40), animated: false)
         
-        messageInputBar.setLeftStackViewWidthConstant(to: 93, animated: false)
+        messageInputBar.setLeftStackViewWidthConstant(to: 124, animated: false)
         messageInputBar.setRightStackViewWidthConstant(to: 28, animated: false)
         
         messageInputBar.middleContentViewPadding = UIEdgeInsets(top: 1, left: 8, bottom: 1, right: 5)
@@ -1086,6 +1101,9 @@ class ChatViewController: UIViewController {
         
     }
     @IBAction func onBackPressed(_ sender: Any) {
+        if let audiocontroller = audioController{
+            audiocontroller.stopAudio()
+        }
         if fromNoti{
             let home = AppBoards.main.initialViewController
             let vc = AppBoards.main.viewController(withIdentifier: "mainTabViewController") as! MainTabViewController
@@ -1125,6 +1143,7 @@ extension ChatViewController: UITableViewDataSource {
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_PHOTO)    { return cellForMessagePhoto(tableView, at: indexPath)        }
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_VIDEO)    { return cellForMessageVideo(tableView, at: indexPath)        }
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_AUDIO)    { return cellForMessageAudio(tableView, at: indexPath)        }
+            if (rcmessage.type == MESSAGE_TYPE.MISSED_CALL || rcmessage.type == MESSAGE_TYPE.CANCELLED_CALL)    { return cellForMessageCall(tableView, at: indexPath)   }
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_LOCATION)    { return cellForMessageLocation(tableView, at: indexPath)    }
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_MONEY)    { return cellForMessageMoney(tableView, at: indexPath)    }
         }
@@ -1201,6 +1220,13 @@ extension ChatViewController: UITableViewDataSource {
         cell.bindData(self, at: indexPath)
         return cell
     }
+    
+    func cellForMessageCall(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
+
+        let cell = tableView.dequeueReusableCell(withIdentifier: "RCMMessageCallCell", for: indexPath) as! RCMMessageCallCell
+        cell.bindData(self, at: indexPath)
+        return cell
+    }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func cellForMessageLocation(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
@@ -1254,6 +1280,8 @@ extension ChatViewController: UITableViewDelegate {
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_PHOTO)    { return RCMessagePhotoCell.height(self, at: indexPath)     }
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_VIDEO)    { return RCMessageVideoCell.height(self, at: indexPath)      }
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_AUDIO)    { return RCMessageAudioCell.height(self, at: indexPath)         }
+            if (rcmessage.type == MESSAGE_TYPE.MISSED_CALL || rcmessage.type == MESSAGE_TYPE.CANCELLED_CALL)    { return RCMMessageCallCell.height(self, at: indexPath)  }
+            //if (rcmessage.type == MESSAGE_TYPE.MISSED_CALL || rcmessage.type == MESSAGE_TYPE.CANCELLED_CALL)    { return 60 }
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_LOCATION)    { return RCMessageLocationCell.height(self, at: indexPath)   }
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_MONEY)    { return 143   }
         }
@@ -1280,6 +1308,10 @@ extension ChatViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
 
         return RCDefaults.sectionFooterMargin
+    }
+    
+    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.reloadInputViews()
     }
 }
 extension ChatViewController: InputBarAccessoryViewDelegate {

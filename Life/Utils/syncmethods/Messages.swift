@@ -30,6 +30,26 @@ class Messages: NSObject {
         createMessage(message: message, recipientId: recipientId)
     }
     
+    class func sendCalling(chatId: String, recipientId:String, type: CallStatus){
+        let message = Message()
+
+        message.chatId = chatId
+
+        message.userId = AuthUser.userId()
+        message.userFullname = Persons.fullname()
+        message.userInitials = Persons.initials()
+        message.userPictureAt = Persons.pictureAt()
+        if type == .MISSED_CALL{
+            message.text = "Missed call".localized
+            message.type = MESSAGE_TYPE.MISSED_CALL
+        }else{
+            message.text = "Cancelled call".localized
+            message.type = MESSAGE_TYPE.CANCELLED_CALL
+        }
+        
+        createMessage(message: message, recipientId: recipientId)
+    }
+    
     class func send(chatId: String, recipientId:String, text: String?, photo: UIImage?, video: URL?, audio: String?) {
 
 		let message = Message()

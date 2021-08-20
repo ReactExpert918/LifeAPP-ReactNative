@@ -135,15 +135,21 @@ enum RCDefaults {
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	static let audioBubbleWidht				= CGFloat(150)
 	static let audioBubbleHeight			= CGFloat(40)
+    
+    static let callBubbleWidht              = CGFloat(150)
+    static let callBubbleHeight             = CGFloat(40)
 
-	static let audioBubbleColorOutgoing		= UIColor(red: 0/255, green: 122/255, blue: 255/255, alpha: 1.0)
-	static let audioBubbleColorIncoming		= UIColor(red: 230/255, green: 229/255, blue: 234/255, alpha: 1.0)
+	static let audioBubbleColorOutgoing		= COLORS.PRIMARY
+    static let audioBubbleColorIncoming		= UIColor.lightGray
 	static let audioTextColorOutgoing		= UIColor.white
 	static let audioTextColorIncoming		= UIColor.black
 
 	static let audioImagePlay				= UIImage(named: "rcmessages_audioplay")!
 	static let audioImagePause				= UIImage(named: "rcmessages_audiopause")!
 	static let audioImageManual				= UIImage(named: "rcmessages_manual")!
+    
+    static let callMissed                = UIImage(named: "ic_missedcall")!
+    static let callCancelled                = UIImage(named: "ic_cancel")!
 
 	static let audioFont					= UIFont.systemFont(ofSize: 16)
 

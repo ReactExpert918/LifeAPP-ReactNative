@@ -9,10 +9,11 @@
 import UIKit
 import CryptoSwift
 import RealmSwift
-import FittedSheets
 
-class ZedHistoryViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
+class ZedHistoryViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
+    
+
     var person:Person?
     private var tokenTransactions: NotificationToken? = nil
     private var transactions = realm.objects(ZEDPay.self).filter(falsepredicate)
@@ -103,19 +104,17 @@ class ZedHistoryViewController: UIViewController, UITableViewDataSource, UITable
     // MARK: - Add money tap
     @IBAction func actionTapAddMoney(_ sender: Any) {
         /// just for test
-        let predicate = NSPredicate(format: "userId == %@ AND isDeleted == NO", AuthUser.userId(), ZEDPAY_STATUS.SUCCESS)
+        let predicate = NSPredicate(format: "userId == %@ AND status == %@ AND isDeleted == NO", AuthUser.userId(), ZEDPAY_STATUS.SUCCESS)
         let paymentMethods = realm.objects(PaymentMethod.self).filter(predicate)
         
         if let paymentMethod = paymentMethods.first {
             weak var pvc = self.presentingViewController
-            let mainstoryboard = UIStoryboard.init(name: "ZedPay", bundle: nil)
-            let vc = mainstoryboard.instantiateViewController(withIdentifier: "addMoneyVC") as! AddMoneyViewController
-            vc.paymentMethod = paymentMethod
-            vc.updatedelegate = self
-            let sheetController = SheetViewController(controller: vc, sizes: [.fixed(400), .fixed(400)])
-            sheetController.dismissOnPull = false
-            sheetController.dismissOnOverlayTap = false
-            self.present(sheetController, animated: true, completion: nil)
+            self.dismiss(animated: false){
+                let vc = self.storyboard!.instantiateViewController(withIdentifier: "addMoneyVC") as! AddMoneyViewController
+                vc.modalPresentationStyle = .fullScreen
+                vc.paymentMethod = paymentMethod
+                pvc?.present(vc, animated: true, completion: nil)
+            }
         }else{
             weak var pvc = self.presentingViewController
             let alert = UIAlertController(title: "", message: "Please complete ZED pay settings".localized, preferredStyle: .alert)
@@ -135,23 +134,15 @@ class ZedHistoryViewController: UIViewController, UITableViewDataSource, UITable
     
     
     @IBAction func actionTapSendMoney(_ sender: Any) {
+        
         weak var pvc = self.presentingViewController
         self.dismiss(animated: false){
             let vc = self.storyboard!.instantiateViewController(withIdentifier: "payQrcodeVC") as! PayQRCodeViewController
             vc.modalPresentationStyle = .fullScreen
             pvc?.present(vc, animated: true, completion: nil)
         }
+        
     }
-}
-
-extension ZedHistoryViewController: UpdateBalance {
-    func updateVal() {
-        DispatchQueue.main.async {
-            self.labelBalance.text = self.person?.getBalance().moneyString()
-        }
-    }
-}
-
-protocol UpdateBalance: class {
-    func updateVal()
+    
+    
 }

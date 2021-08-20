@@ -1007,9 +1007,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <action selector="onAcceptTapped:" destination="LxM-be-Wx5" eventType="touchUpInside" id="S33-z4-zRP"/>
                                                     <action selector="onStartChatPressed:" destination="h6y-pS-cI4" eventType="touchUpInside" id="0Hg-lJ-Oql"/>
-                                                    <action selector="onStartChatTapped:" destination="LxM-be-Wx5" eventType="touchUpInside" id="URK-a7-8nI"/>
                                                 </connections>
                                             </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PLh-29-Ibb">

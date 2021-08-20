@@ -32,6 +32,13 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
     private var pendingFriends = realm.objects(Person.self).filter(falsepredicate)
     private var tokenRequestFriends: NotificationToken? = nil
     private var requestFriends = realm.objects(Person.self).filter(falsepredicate)
+    
+    private var friends = realm.objects(Friend.self).filter(falsepredicate)
+    private var friendpersons = realm.objects(Person.self).filter(falsepredicate)
+    private var tokenFriends: NotificationToken? = nil
+    private var tokenFriendsPersons: NotificationToken? = nil
+    
+    
     var personList = [Person]()
     
     var contacts = [FetchedContact]()
@@ -49,6 +56,8 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
         //refreshView()
         // Do any additional setup after loading the view.
     }
+    
+    
     
     func refreshView(){
         loadFriendsRecommend()
@@ -147,13 +156,9 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
                                     if let _person = self.searchPersonsByPhoneNumber(text:trim){
                                         self.personList.append(_person)
                                     }
-                                    
-                                    
                                 }
                             }
                         }
-                        
-                         
                     })
                 } catch {
                     //print(error)
@@ -167,6 +172,44 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
         
         // print("recommend")
         //print(personList.count)
+    }
+    
+    // load friends and persons
+    @objc func loadFriends() {
+
+        let predicate = NSPredicate(format: "userId == %@ AND isDeleted == NO  AND isAccepted == YES", AuthUser.userId())
+        //// print("Auth UserId: \(predicate)")
+        friends = realm.objects(Friend.self).filter(predicate)
+
+        tokenFriends?.invalidate()
+        friends.safeObserve({ changes in
+            // load friend list
+            self.loadPersons()
+            //self.refreshTableView()
+            
+        }, completion: { token in
+            self.tokenFriends = token
+        })
+    }
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func loadPersons(text: String = "") {
+
+        let predicate1 = NSPredicate(format: "objectId IN %@ AND NOT objectId IN %@ AND isDeleted == NO", Friends.friendAcceptedIds(), Blockeds.blockerIds())
+        let predicate2 = (text != "") ? NSPredicate(format: "fullname CONTAINS[c] %@", text) : NSPredicate(value: true)
+
+        friendpersons = realm.objects(Person.self).filter(predicate1).filter(predicate2).sorted(byKeyPath: "fullname")
+
+        tokenFriendsPersons?.invalidate()
+        friendpersons.safeObserve({ changes in
+            // check recommend is repeated and already friend
+            self.personList = self.personList.filter{ person in
+                !(self.friendpersons.contains{ friend in
+                    person.objectId == friend.objectId
+                })
+            }
+        }, completion: { token in
+            self.tokenFriendsPersons = token
+        })
     }
     
     func searchPersonsByPhoneNumber(text: String = "") -> Person?{
@@ -193,6 +236,7 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
         })
         // print(pendingFriends.count)
     }
+    
     func loadRequestFriends(){
         // print("request")
         // print(Friends.friendRequestIds())
@@ -325,8 +369,8 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
             }
         }
         else{
-            //return personList.count
-            return 0
+            return personList.count
+            //return 0
         }
     }
   
@@ -365,7 +409,7 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 48
     }
-    
+     
     func numberOfSections(in tableView: UITableView) -> Int {
         return sectionCount
     }
@@ -418,6 +462,7 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
     
     override func viewWillAppear(_ animated: Bool) {
         refreshView()
+        loadFriends()
     }
     
 

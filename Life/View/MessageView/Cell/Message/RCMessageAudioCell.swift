@@ -102,7 +102,7 @@ class RCMessageAudioCell: RCMessageCell {
 		let yPlay = (size.height - heightPlay) / 2
 		imageViewPlay.frame = CGRect(x: 10, y: 4, width: widthPlay, height: heightPlay)
 
-		labelDuration.frame = CGRect(x: size.width - 100, y: 0, width: 90, height: size.height)
+		labelDuration.frame = CGRect(x: size.width - 110, y: 0, width: 90, height: size.height)
 
 		let widthActivity = activityIndicator.frame.size.width
 		let heightActivity = activityIndicator.frame.size.height

@@ -130,7 +130,7 @@ class AddPictureViewController: UIViewController, UINavigationControllerDelegate
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func uploadPicture(image: UIImage) {
         let temp = image.square(to: 300)
-        if let data = temp.jpegData(compressionQuality: 0.6) {
+        if let data = temp.jpegData(compressionQuality: 0.3) {
             MediaUpload.user(AuthUser.userId(), data: data, completion: { error in
                 if (error == nil) {
                     MediaDownload.saveUser(AuthUser.userId(), data: data)

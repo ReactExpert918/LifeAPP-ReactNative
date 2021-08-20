@@ -17,6 +17,10 @@ class AppConstant {
     static let PRIMARY_COLOR        = UIColor.init(named: "PrimaryColor")
 }
 
+struct COLORS {
+    static let PRIMARY = UIColor.init(named: "PrimaryColor")
+}
+
 struct ONESIGNAL {
     static let ONESIGNAL_APPID = "30b077a4-a8c5-4ee9-8119-e5189c1da75a"
 }
@@ -30,6 +34,12 @@ struct AudioStatus{
     static let AUDIOSTATUS_STOPPED = 1
     static let AUDIOSTATUS_PLAYING = 2
 }
+
+enum CallStatus: Int {
+    case MISSED_CALL = 1
+    case CANCELLED_CALL = 2
+}
+
 struct MediaStatus {
     static let MEDIASTATUS_UNKNOWN = 0
     static let MEDIASTATUS_LOADING = 1
@@ -68,6 +78,8 @@ struct MESSAGE_TYPE {
     static let MESSAGE_AUDIO = "audio"
     static let MESSAGE_LOCATION = "location"
     static let MESSAGE_MONEY = "pay"
+    static let MISSED_CALL = "\(CallStatus.MISSED_CALL.rawValue)"
+    static let CANCELLED_CALL = "\(CallStatus.CANCELLED_CALL.rawValue)"
 }
 
 struct TRANSACTION_STATUS {
