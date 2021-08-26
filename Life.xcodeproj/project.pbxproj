@@ -87,6 +87,12 @@
 		05E8DFC326B92EF500F72128 /* Privacy.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 05E8DFC126B92EF500F72128 /* Privacy.pdf */; };
 		05E8E0A426BA3AC500F72128 /* IAPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E8E0A326BA3AC500F72128 /* IAPHelper.swift */; };
 		05F2B11226CA5EE000620E87 /* RCAudioController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F2B11126CA5EE000620E87 /* RCAudioController.swift */; };
+		34B9276B26D7882000020CD2 /* AgoraCore.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C2540B26C543B100D56684 /* AgoraCore.xcframework */; };
+		34B9276C26D7882000020CD2 /* Agorafdkaac.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C2540F26C543C000D56684 /* Agorafdkaac.xcframework */; };
+		34B9276D26D7882000020CD2 /* Agoraffmpeg.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C2541326C543CE00D56684 /* Agoraffmpeg.xcframework */; };
+		34B9276E26D7882000020CD2 /* AgoraSoundTouch.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C2541726C543E500D56684 /* AgoraSoundTouch.xcframework */; };
+		34B9277126D7892300020CD2 /* AgoraRtcKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34B9276F26D7892300020CD2 /* AgoraRtcKit.framework */; };
+		34B9277226D7892300020CD2 /* AgoraRtcCryptoLoader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34B9277026D7892300020CD2 /* AgoraRtcCryptoLoader.framework */; };
 		817604C864DF746D26361B72 /* Pods_Life_LifeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4882E1B6E6C326533A5E1BDF /* Pods_Life_LifeUITests.framework */; };
 		A60845B124A2FEC1005F23A9 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A60845AF24A2FEC1005F23A9 /* Login.storyboard */; };
 		A60845B924A302BA005F23A9 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60845B824A302BA005F23A9 /* WelcomeViewController.swift */; };
@@ -432,6 +438,8 @@
 		13FCD29106C16A3D2D2FC3B7 /* Pods_LifeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LifeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F299E90E5B6BB50A7323655 /* Pods-Life-LifeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Life-LifeUITests.release.xcconfig"; path = "Target Support Files/Pods-Life-LifeUITests/Pods-Life-LifeUITests.release.xcconfig"; sourceTree = "<group>"; };
 		2DA0512779D2347E705F5CEF /* Pods-LifeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LifeTests.release.xcconfig"; path = "Target Support Files/Pods-LifeTests/Pods-LifeTests.release.xcconfig"; sourceTree = "<group>"; };
+		34B9276F26D7892300020CD2 /* AgoraRtcKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AgoraRtcKit.framework; sourceTree = "<group>"; };
+		34B9277026D7892300020CD2 /* AgoraRtcCryptoLoader.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AgoraRtcCryptoLoader.framework; sourceTree = "<group>"; };
 		379D4812E01E4A695D0CED53 /* Pods-Life.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Life.debug.xcconfig"; path = "Target Support Files/Pods-Life/Pods-Life.debug.xcconfig"; sourceTree = "<group>"; };
 		38331365FE453AF276FB4BD0 /* Pods_Life.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Life.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4882E1B6E6C326533A5E1BDF /* Pods_Life_LifeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Life_LifeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -680,13 +688,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34B9277126D7892300020CD2 /* AgoraRtcKit.framework in Frameworks */,
 				05C2542926C5442400D56684 /* AgoraSoundTouch.xcframework in Frameworks */,
 				05BA7EEA26B7A59C0049393B /* AgoraRtcKit.framework in Frameworks */,
+				34B9277226D7892300020CD2 /* AgoraRtcCryptoLoader.framework in Frameworks */,
 				05C2542126C5441F00D56684 /* Agorafdkaac.xcframework in Frameworks */,
 				05BA7EE726B7A59B0049393B /* AgoraRtcCryptoLoader.framework in Frameworks */,
 				05C2542326C5442100D56684 /* Agoraffmpeg.xcframework in Frameworks */,
+				34B9276E26D7882000020CD2 /* AgoraSoundTouch.xcframework in Frameworks */,
+				34B9276C26D7882000020CD2 /* Agorafdkaac.xcframework in Frameworks */,
 				E87CD6D6D8F4EEBDA7AF3284 /* Pods_Life.framework in Frameworks */,
+				34B9276D26D7882000020CD2 /* Agoraffmpeg.xcframework in Frameworks */,
 				05C2541F26C5441D00D56684 /* AgoraCore.xcframework in Frameworks */,
+				34B9276B26D7882000020CD2 /* AgoraCore.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1567,6 +1581,8 @@
 		E01C3F04B71ECC3608E50572 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				34B9277026D7892300020CD2 /* AgoraRtcCryptoLoader.framework */,
+				34B9276F26D7892300020CD2 /* AgoraRtcKit.framework */,
 				38331365FE453AF276FB4BD0 /* Pods_Life.framework */,
 				4882E1B6E6C326533A5E1BDF /* Pods_Life_LifeUITests.framework */,
 				13FCD29106C16A3D2D2FC3B7 /* Pods_LifeTests.framework */,
@@ -2344,10 +2360,13 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 6;
-				DEVELOPMENT_TEAM = 2AV3B2BH2Y;
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = 34W5S52327;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Life/Libs",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Life",
 				);
 				INFOPLIST_FILE = Life/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2355,7 +2374,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.2;
-				PRODUCT_BUNDLE_IDENTIFIER = com.zed.life;
+				PRODUCT_BUNDLE_IDENTIFIER = co.kavinskyi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -2372,10 +2391,13 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 6;
-				DEVELOPMENT_TEAM = 2AV3B2BH2Y;
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = 34W5S52327;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Life/Libs",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Life",
 				);
 				INFOPLIST_FILE = Life/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2383,7 +2405,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.2;
-				PRODUCT_BUNDLE_IDENTIFIER = com.zed.life;
+				PRODUCT_BUNDLE_IDENTIFIER = co.kavinskyi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

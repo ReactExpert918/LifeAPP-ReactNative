@@ -23,6 +23,8 @@ class User {
     
 }
 
+enum ButtonType { case audio, video}
+
 class ChatViewController: UIViewController {
 
     var chatId = ""
@@ -90,7 +92,6 @@ class ChatViewController: UIViewController {
     
     @IBOutlet weak var zedPayButton: UIView!
     
-    
     lazy var autocompleteManager: AutocompleteManager = { [unowned self] in
         let manager = AutocompleteManager(for: self.messageInputBar.inputTextView)
         manager.delegate = self
@@ -101,6 +102,9 @@ class ChatViewController: UIViewController {
     
     var videoStatusHandle: UInt?
     var audioStatusHandle: UInt?
+    
+    private var currentButton: ButtonType = .audio
+    private var hybridButton: InputBarButtonItem!
     
     private var audioController: RCAudioController?
     
@@ -1026,6 +1030,20 @@ class ChatViewController: UIViewController {
             messageInputBar.inputTextView.resignFirstResponder()
         }
     }
+    
+    func changeButton() {
+        currentButton = currentButton == .audio ? .video : .audio
+
+        UIView.transition(with: self.hybridButton, duration: 0.07, options: .transitionCrossDissolve, animations: {
+            self.hybridButton.transform = CGAffineTransform(scaleX: 0.5, y: 0.5);
+            self.hybridButton.image = UIImage(named: self.currentButton == .audio ? "ic_record" : "ic_video_clip")
+        }) { _ in
+            UIView.animate(withDuration: 0.07, delay: 0, options: .transitionCrossDissolve) {
+                self.hybridButton.transform = CGAffineTransform(scaleX: 1, y: 1)
+            }
+          }
+    }
+    
     func configureMessageInputBar() {
 
         view.addSubview(messageInputBar)
@@ -1035,42 +1053,51 @@ class ChatViewController: UIViewController {
         //keyboardManager.bind(to: tableView)
 
         messageInputBar.delegate = self
+        
+        hybridButton = InputBarButtonItem()
+        hybridButton.image = UIImage(named: "ic_record")
+        hybridButton.tintColor = UIColor(named: "PrimaryColor")
+        hybridButton.setSize(CGSize(width: 30, height: 30), animated: false)
+        hybridButton.contentMode = .scaleAspectFit
+        hybridButton.onTouchUpInside { item in
+            self.changeButton()
+        }
 
         let cameraButton = InputBarButtonItem()
         cameraButton.image = UIImage(named: "ic_camera")
         cameraButton.setSize(CGSize(width: 30, height: 40), animated: false)
-        
+        cameraButton.contentMode = .scaleAspectFit
         cameraButton.onTouchUpInside { item in
             self.actionOpenCamera()
         }
 
         let galleryButton = InputBarButtonItem()
         galleryButton.image = UIImage(named: "ic_gallery")
-        galleryButton.setSize(CGSize(width: 25, height: 40), animated: false)
-        
+        galleryButton.setSize(CGSize(width: 32, height: 40), animated: false)
+        galleryButton.contentMode = .scaleAspectFit
         galleryButton.onTouchUpInside { item in
             self.actionOpenGallery()
         }
         
-        let audioButton = InputBarButtonItem()
-        audioButton.image = UIImage(named: "ic_record")
-        audioButton.setSize(CGSize(width: 25, height: 40), animated: false)
+//        let audioButton = InputBarButtonItem()
+//        audioButton.image = UIImage(named: "ic_record")
+//        audioButton.setSize(CGSize(width: 25, height: 40), animated: false)
+//
+//        audioButton.onTouchUpInside { item in
+//            self.actionAudio()
+//        }
         
-        audioButton.onTouchUpInside { item in
-            self.actionAudio()
-        }
-        
-        let videoButton = InputBarButtonItem()
-        videoButton.image = UIImage(named: "ic_video_clip")
-        videoButton.tintColor = UIColor.init(named: "PrimaryColor")
-        videoButton.setSize(CGSize(width: 25, height: 40), animated: false)
-        
-        videoButton.onTouchUpInside { item in
-            self.actionVideo()
-        }
+//        let videoButton = InputBarButtonItem()
+//        videoButton.image = UIImage(named: "ic_video_clip")
+//        videoButton.tintColor = UIColor.init(named: "PrimaryColor")
+//        videoButton.setSize(CGSize(width: 25, height: 40), animated: false)
+//
+//        videoButton.onTouchUpInside { item in
+//            self.actionVideo()
+//        }
         
         
-        messageInputBar.setStackViewItems([cameraButton, galleryButton, audioButton, videoButton], forStack: .left, animated: false)
+        messageInputBar.setStackViewItems([cameraButton, galleryButton], forStack: .left, animated: false)
         messageInputBar.leftStackView.isLayoutMarginsRelativeArrangement = false
         messageInputBar.leftStackView.spacing = 8
         
@@ -1078,7 +1105,7 @@ class ChatViewController: UIViewController {
         messageInputBar.sendButton.image = UIImage(named: "ic_send")
         messageInputBar.sendButton.setSize(CGSize(width: 27, height: 40), animated: false)
         
-        messageInputBar.setLeftStackViewWidthConstant(to: 124, animated: false)
+        messageInputBar.setLeftStackViewWidthConstant(to: 62, animated: false)
         messageInputBar.setRightStackViewWidthConstant(to: 28, animated: false)
         
         messageInputBar.middleContentViewPadding = UIEdgeInsets(top: 1, left: 8, bottom: 1, right: 5)
@@ -1090,11 +1117,22 @@ class ChatViewController: UIViewController {
         messageInputBar.inputTextView.placeholderLabelInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 36)
         messageInputBar.inputTextView.layer.borderColor = UIColor(red: 200/255, green: 200/255, blue: 200/255, alpha: 1).cgColor
         messageInputBar.inputTextView.layer.borderWidth = 1.0
-        messageInputBar.inputTextView.layer.cornerRadius = 11.0
+        messageInputBar.inputTextView.layer.cornerRadius = 16.0
         messageInputBar.inputTextView.layer.masksToBounds = true
         messageInputBar.inputTextView.scrollIndicatorInsets = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
         messageInputBar.inputTextView.isImagePasteEnabled = false
         messageInputBar.inputTextView.keyboardType = .twitter
+        
+        messageInputBar.inputTextView.addSubview(hybridButton)
+        hybridButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            hybridButton.centerYAnchor.constraint(equalTo:  messageInputBar.inputTextView.centerYAnchor),
+            hybridButton.trailingAnchor.constraint(equalTo:  messageInputBar.rightStackView.leadingAnchor, constant: -15),
+            hybridButton.widthAnchor.constraint(equalToConstant: 30),
+            hybridButton.heightAnchor.constraint(equalToConstant: 30)
+        ])
+        
         if(recipientId == ""){
             autocompleteManager.register(prefix: "@", with: [.font: UIFont.preferredFont(forTextStyle: .body),.foregroundColor: UIColor.systemBlue,.backgroundColor: UIColor.systemBlue.withAlphaComponent(0.1)])
         }
