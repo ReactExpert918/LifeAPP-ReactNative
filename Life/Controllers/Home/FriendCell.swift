@@ -8,7 +8,9 @@
 
 import UIKit
 import SwiftyAvatar
-class FriendCell: UITableViewCell {
+import SwipeCellKit
+
+class FriendCell: SwipeTableViewCell {
     
     var homeViewController: ChatViewControllerProtocol!
     var indexPath: IndexPath!
@@ -29,6 +31,7 @@ class FriendCell: UITableViewCell {
         //homeViewController.singleChatView(indexPath)
         //removeGestureRecognizer()
         //cellGestureRecognizer()
+        self.removeFriend.isHidden = true
         
     }
 
@@ -42,7 +45,7 @@ class FriendCell: UITableViewCell {
         //homeViewController.groupChatView(indexPath)
         //removeGestureRecognizer()
         //cellGestureRecognizer()
-        
+        self.removeFriend.isHidden = false
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------

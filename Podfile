@@ -37,6 +37,7 @@ target 'Life' do
   pod 'FormTextField'
   pod 'CreditCardValidator'
   pod 'KAPinField'
+  pod 'SwipeCellKit'
   
   target 'LifeTests' do
     inherit! :search_paths

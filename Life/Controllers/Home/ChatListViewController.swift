@@ -150,6 +150,7 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
 
         present(alert, animated: true)
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let chat = chats[indexPath.row]

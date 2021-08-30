@@ -14,15 +14,15 @@
 //
 //extension UIView {
 //    
-//    @IBInspectable var cornerRadius: CGFloat {
-//        get {
-//            return layer.cornerRadius
-//        }
-//        set {
-//            layer.cornerRadius = newValue
-//            layer.masksToBounds = newValue > 0
-//        }
-//    }
+////    @IBInspectable var cornerRadius: CGFloat {
+////        get {
+////            return layer.cornerRadius
+////        }
+////        set {
+////            layer.cornerRadius = newValue
+////            layer.masksToBounds = newValue > 0
+////        }
+////    }
 //    
 //    @IBInspectable var borderWidth: CGFloat {
 //        get {
@@ -225,26 +225,26 @@
 //        })
 //    }
 //    
-//    @IBInspectable var shadowColor: UIColor?{
-//        set {
-//            guard let uiColor = newValue else { return }
-//            layer.shadowColor = uiColor.cgColor
-//        }
-//        get{
-//            guard let color = layer.shadowColor else { return nil }
-//            return UIColor(cgColor: color)
-//        }
-//    }
+////    @IBInspectable var shadowColor: UIColor?{
+////        set {
+////            guard let uiColor = newValue else { return }
+////            layer.shadowColor = uiColor.cgColor
+////        }
+////        get{
+////            guard let color = layer.shadowColor else { return nil }
+////            return UIColor(cgColor: color)
+////        }
+////    }
 //    
 //    @IBInspectable var shadowOpacity: Float{
 //        set { layer.shadowOpacity = newValue }
 //        get{ return layer.shadowOpacity }
 //    }
 //    
-//    @IBInspectable var shadowOffset: CGSize{
-//        set { layer.shadowOffset = newValue }
-//        get { return layer.shadowOffset }
-//    }
+////    @IBInspectable var shadowOffset: CGSize{
+////        set { layer.shadowOffset = newValue }
+////        get { return layer.shadowOffset }
+////    }
 //    
 //    @IBInspectable var shadowRadius: CGFloat{
 //        set { layer.shadowRadius = newValue }
@@ -384,7 +384,7 @@
 //class dropShadowView: UIView {
 //    override func didMoveToWindow() {
 //        
-//        self.layer.cornerRadius = 10
+//        self.layer.cornerRadius = 8
 //        
 //        self.layer.shadowColor = UIColor.lightGray.cgColor
 //        self.layer.shadowOpacity = 1.0
@@ -430,7 +430,7 @@
 //class roundView: UIView {
 //    override func didMoveToWindow() {
 //        
-//        self.layer.cornerRadius = (self.frame.size.height - 5) / 2
+//        self.layer.cornerRadius = self.frame.size.height / 2
 //        self.layer.masksToBounds = true
 //    }
 //}
@@ -842,14 +842,4 @@
 //    }
 //}
 //
-//extension UIView {
-//    
-//    func superview<T>(of type: T.Type) -> T? {
-//        return superview as? T ?? superview.map { $0.superview(of: type)! }
-//    }
-//    
-//    func subview<T>(of type: T.Type) -> T? {
-//        return subviews.compactMap { $0 as? T ?? $0.subview(of: type) }.first
-//    }
-//}
 //

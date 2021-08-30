@@ -44,10 +44,14 @@
 		04F4E3DF267CC0BB00CD94FD /* ZedPay.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04F4E3E1267CC0BB00CD94FD /* ZedPay.storyboard */; };
 		04F4E3E6267CCE6F00CD94FD /* TransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F4E3E4267CCE6F00CD94FD /* TransactionCell.swift */; };
 		04F4E3E7267CCE6F00CD94FD /* TransactionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04F4E3E5267CCE6F00CD94FD /* TransactionCell.xib */; };
+		050DE52826DC962F008F2A3F /* MessageTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050DE52726DC962F008F2A3F /* MessageTextCell.swift */; };
+		050DE56D26DCC479008F2A3F /* MessageAudioCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050DE56C26DCC479008F2A3F /* MessageAudioCell.swift */; };
 		0513BA3026C10BB700423A25 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0513BA2F26C10BB700423A25 /* UIView+Extension.swift */; };
 		051FC1EA26CBAC0800F89FF1 /* RCMMessageCallCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051FC1E926CBAC0800F89FF1 /* RCMMessageCallCell.swift */; };
+		057A49D126DCDD4C008ECBDA /* MessageVideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057A49D026DCDD4C008ECBDA /* MessageVideoCell.swift */; };
 		058A770826BBD243006563B8 /* call_ringback.wav in Resources */ = {isa = PBXBuildFile; fileRef = 058A770726BBD243006563B8 /* call_ringback.wav */; };
 		058A773F26BC9993006563B8 /* AcceptDeclineVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 058A773E26BC9993006563B8 /* AcceptDeclineVC.swift */; };
+		058EDC0226DC1C8400BFA26A /* SKRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 058EDC0126DC1C8400BFA26A /* SKRecordView.swift */; };
 		05BA7ED326B7A3E00049393B /* CallAudioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BA7ED126B7A3E00049393B /* CallAudioView.swift */; };
 		05BA7ED426B7A3E00049393B /* CallAudioView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05BA7ED226B7A3E00049393B /* CallAudioView.xib */; };
 		05BA7EDD26B7A3FF0049393B /* CallVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BA7EDB26B7A3FF0049393B /* CallVideoView.swift */; };
@@ -87,12 +91,6 @@
 		05E8DFC326B92EF500F72128 /* Privacy.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 05E8DFC126B92EF500F72128 /* Privacy.pdf */; };
 		05E8E0A426BA3AC500F72128 /* IAPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E8E0A326BA3AC500F72128 /* IAPHelper.swift */; };
 		05F2B11226CA5EE000620E87 /* RCAudioController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F2B11126CA5EE000620E87 /* RCAudioController.swift */; };
-		34B9276B26D7882000020CD2 /* AgoraCore.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C2540B26C543B100D56684 /* AgoraCore.xcframework */; };
-		34B9276C26D7882000020CD2 /* Agorafdkaac.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C2540F26C543C000D56684 /* Agorafdkaac.xcframework */; };
-		34B9276D26D7882000020CD2 /* Agoraffmpeg.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C2541326C543CE00D56684 /* Agoraffmpeg.xcframework */; };
-		34B9276E26D7882000020CD2 /* AgoraSoundTouch.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C2541726C543E500D56684 /* AgoraSoundTouch.xcframework */; };
-		34B9277126D7892300020CD2 /* AgoraRtcKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34B9276F26D7892300020CD2 /* AgoraRtcKit.framework */; };
-		34B9277226D7892300020CD2 /* AgoraRtcCryptoLoader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34B9277026D7892300020CD2 /* AgoraRtcCryptoLoader.framework */; };
 		817604C864DF746D26361B72 /* Pods_Life_LifeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4882E1B6E6C326533A5E1BDF /* Pods_Life_LifeUITests.framework */; };
 		A60845B124A2FEC1005F23A9 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A60845AF24A2FEC1005F23A9 /* Login.storyboard */; };
 		A60845B924A302BA005F23A9 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60845B824A302BA005F23A9 /* WelcomeViewController.swift */; };
@@ -398,10 +396,14 @@
 		04F4E3E3267CC0D300CD94FD /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/ZedPay.strings; sourceTree = "<group>"; };
 		04F4E3E4267CCE6F00CD94FD /* TransactionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCell.swift; sourceTree = "<group>"; };
 		04F4E3E5267CCE6F00CD94FD /* TransactionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionCell.xib; sourceTree = "<group>"; };
+		050DE52726DC962F008F2A3F /* MessageTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTextCell.swift; sourceTree = "<group>"; };
+		050DE56C26DCC479008F2A3F /* MessageAudioCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageAudioCell.swift; sourceTree = "<group>"; };
 		0513BA2F26C10BB700423A25 /* UIView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		051FC1E926CBAC0800F89FF1 /* RCMMessageCallCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RCMMessageCallCell.swift; sourceTree = "<group>"; };
+		057A49D026DCDD4C008ECBDA /* MessageVideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageVideoCell.swift; sourceTree = "<group>"; };
 		058A770726BBD243006563B8 /* call_ringback.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = call_ringback.wav; sourceTree = "<group>"; };
 		058A773E26BC9993006563B8 /* AcceptDeclineVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcceptDeclineVC.swift; sourceTree = "<group>"; };
+		058EDC0126DC1C8400BFA26A /* SKRecordView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKRecordView.swift; sourceTree = "<group>"; };
 		05BA7EC726B7A37C0049393B /* AgoraRtcKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AgoraRtcKit.framework; sourceTree = "<group>"; };
 		05BA7EC826B7A37C0049393B /* AgoraRtcCryptoLoader.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AgoraRtcCryptoLoader.framework; sourceTree = "<group>"; };
 		05BA7ED126B7A3E00049393B /* CallAudioView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallAudioView.swift; sourceTree = "<group>"; };
@@ -438,8 +440,6 @@
 		13FCD29106C16A3D2D2FC3B7 /* Pods_LifeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LifeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F299E90E5B6BB50A7323655 /* Pods-Life-LifeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Life-LifeUITests.release.xcconfig"; path = "Target Support Files/Pods-Life-LifeUITests/Pods-Life-LifeUITests.release.xcconfig"; sourceTree = "<group>"; };
 		2DA0512779D2347E705F5CEF /* Pods-LifeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LifeTests.release.xcconfig"; path = "Target Support Files/Pods-LifeTests/Pods-LifeTests.release.xcconfig"; sourceTree = "<group>"; };
-		34B9276F26D7892300020CD2 /* AgoraRtcKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AgoraRtcKit.framework; sourceTree = "<group>"; };
-		34B9277026D7892300020CD2 /* AgoraRtcCryptoLoader.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AgoraRtcCryptoLoader.framework; sourceTree = "<group>"; };
 		379D4812E01E4A695D0CED53 /* Pods-Life.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Life.debug.xcconfig"; path = "Target Support Files/Pods-Life/Pods-Life.debug.xcconfig"; sourceTree = "<group>"; };
 		38331365FE453AF276FB4BD0 /* Pods_Life.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Life.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4882E1B6E6C326533A5E1BDF /* Pods_Life_LifeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Life_LifeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -688,19 +688,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				34B9277126D7892300020CD2 /* AgoraRtcKit.framework in Frameworks */,
 				05C2542926C5442400D56684 /* AgoraSoundTouch.xcframework in Frameworks */,
 				05BA7EEA26B7A59C0049393B /* AgoraRtcKit.framework in Frameworks */,
-				34B9277226D7892300020CD2 /* AgoraRtcCryptoLoader.framework in Frameworks */,
 				05C2542126C5441F00D56684 /* Agorafdkaac.xcframework in Frameworks */,
 				05BA7EE726B7A59B0049393B /* AgoraRtcCryptoLoader.framework in Frameworks */,
 				05C2542326C5442100D56684 /* Agoraffmpeg.xcframework in Frameworks */,
-				34B9276E26D7882000020CD2 /* AgoraSoundTouch.xcframework in Frameworks */,
-				34B9276C26D7882000020CD2 /* Agorafdkaac.xcframework in Frameworks */,
 				E87CD6D6D8F4EEBDA7AF3284 /* Pods_Life.framework in Frameworks */,
-				34B9276D26D7882000020CD2 /* Agoraffmpeg.xcframework in Frameworks */,
 				05C2541F26C5441D00D56684 /* AgoraCore.xcframework in Frameworks */,
-				34B9276B26D7882000020CD2 /* AgoraCore.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -740,6 +734,14 @@
 				048DFD88268ABF5700796D3D /* AddMoneyViewController.swift */,
 			);
 			path = ZedPay;
+			sourceTree = "<group>";
+		};
+		058EDC0026DC1C6700BFA26A /* SKRecordView */ = {
+			isa = PBXGroup;
+			children = (
+				058EDC0126DC1C8400BFA26A /* SKRecordView.swift */,
+			);
+			path = SKRecordView;
 			sourceTree = "<group>";
 		};
 		05BA7EC626B7A3430049393B /* Libs */ = {
@@ -932,6 +934,7 @@
 		A69019E924A3338900ED737F /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				058EDC0026DC1C6700BFA26A /* SKRecordView */,
 				05E8E0A226BA3AA300F72128 /* in-appPurchase */,
 				A6DEA85124A839C700868625 /* general */,
 				A6DEA83B24A8354600868625 /* extensions */,
@@ -1184,6 +1187,9 @@
 				04975C1126859AB300A10CC1 /* MoneyTableViewCell.swift */,
 				04975C1226859AB300A10CC1 /* MoneyTableViewCell.xib */,
 				051FC1E926CBAC0800F89FF1 /* RCMMessageCallCell.swift */,
+				050DE52726DC962F008F2A3F /* MessageTextCell.swift */,
+				050DE56C26DCC479008F2A3F /* MessageAudioCell.swift */,
+				057A49D026DCDD4C008ECBDA /* MessageVideoCell.swift */,
 			);
 			path = Message;
 			sourceTree = "<group>";
@@ -1581,8 +1587,6 @@
 		E01C3F04B71ECC3608E50572 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				34B9277026D7892300020CD2 /* AgoraRtcCryptoLoader.framework */,
-				34B9276F26D7892300020CD2 /* AgoraRtcKit.framework */,
 				38331365FE453AF276FB4BD0 /* Pods_Life.framework */,
 				4882E1B6E6C326533A5E1BDF /* Pods_Life_LifeUITests.framework */,
 				13FCD29106C16A3D2D2FC3B7 /* Pods_LifeTests.framework */,
@@ -2026,6 +2030,7 @@
 				A6BD966C24B4D56900E1B873 /* StickersView.swift in Sources */,
 				A6DEA89224A8557000868625 /* Convert.swift in Sources */,
 				A6DEA88C24A8536900868625 /* Video.swift in Sources */,
+				050DE52826DC962F008F2A3F /* MessageTextCell.swift in Sources */,
 				A6BD965E24B4D2FC00E1B873 /* ImagePicker.swift in Sources */,
 				05F2B11226CA5EE000620E87 /* RCAudioController.swift in Sources */,
 				A6E73B4324A4F3140008CBFE /* RoundButton.swift in Sources */,
@@ -2062,9 +2067,12 @@
 				05C2556C26C5CB7400D56684 /* AgoraVideoView.swift in Sources */,
 				A6DEA88024A84E9600868625 /* MediaDownload.swift in Sources */,
 				AB26B2B824AE7CED0045981F /* AccountSettingsViewController.swift in Sources */,
+				057A49D126DCDD4C008ECBDA /* MessageVideoCell.swift in Sources */,
 				A6DEA85324A839D400868625 /* Dir.swift in Sources */,
+				058EDC0226DC1C8400BFA26A /* SKRecordView.swift in Sources */,
 				A6E73B5124A5A6190008CBFE /* ChatListViewController.swift in Sources */,
 				A6E73B4C24A532880008CBFE /* UIColor+Hex.swift in Sources */,
+				050DE56D26DCC479008F2A3F /* MessageAudioCell.swift in Sources */,
 				05C2551A26C5C8DB00D56684 /* AgoraExtension.swift in Sources */,
 				04C2C871267F861E0035B825 /* PayQRCodeViewController.swift in Sources */,
 				04C2C873267F874C0035B825 /* PayMyQrGenerateViewController.swift in Sources */,
@@ -2360,13 +2368,10 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 6;
-				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = 34W5S52327;
+				DEVELOPMENT_TEAM = 2AV3B2BH2Y;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Life/Libs",
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Life",
 				);
 				INFOPLIST_FILE = Life/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2374,7 +2379,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.2;
-				PRODUCT_BUNDLE_IDENTIFIER = co.kavinskyi;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zed.life;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -2391,13 +2396,10 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 6;
-				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = 34W5S52327;
+				DEVELOPMENT_TEAM = 2AV3B2BH2Y;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Life/Libs",
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Life",
 				);
 				INFOPLIST_FILE = Life/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2405,7 +2407,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.2;
-				PRODUCT_BUNDLE_IDENTIFIER = co.kavinskyi;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zed.life;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

@@ -19,6 +19,9 @@ class AppConstant {
 
 struct COLORS {
     static let PRIMARY = UIColor.init(named: "PrimaryColor")
+    static let MSG_OUTGOING = UIColor.init(named: "messageOutgoingColor")
+    static let MSG_INCOMING = UIColor.init(named: "messageIncomingColor")
+    static let MSG_INCOMING_BORDER = UIColor.init(named: "messageIncomingBorderColor")
 }
 
 struct ONESIGNAL {
@@ -33,6 +36,7 @@ struct SINCHINFO{
 struct AudioStatus{
     static let AUDIOSTATUS_STOPPED = 1
     static let AUDIOSTATUS_PLAYING = 2
+    static let AUDIOSTATUS_PAUSED = 3
 }
 
 enum CallStatus: Int {

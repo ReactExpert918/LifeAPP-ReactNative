@@ -26,7 +26,8 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var confirmPopupProfileImage: UIImageView!
     @IBOutlet weak var confirmPopupLabel: UILabel!
     
-    let sections = ["New Friend Requests".localized, "New Friend Pendings".localized, "Friend Recommendations".localized]
+    //let sections = ["New Friend Requests".localized, "New Friend Pendings".localized, "Friend Recommendations".localized]
+    let sections = ["Pendding New Friend Requests".localized, "Friend Recommendations".localized]
     private var persons = realm.objects(Person.self).filter(falsepredicate)
     private var tokenPendingFriends: NotificationToken? = nil
     private var pendingFriends = realm.objects(Person.self).filter(falsepredicate)
@@ -40,7 +41,7 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
     
     
     var personList = [Person]()
-    
+    var contactPhoneNumber: [String] = [String]()
     var contacts = [FetchedContact]()
     var contactImageAvailability: Bool?
     
@@ -62,7 +63,7 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
     func refreshView(){
         loadFriendsRecommend()
         loadPendingFriends()
-        loadRequestFriends()
+        //loadRequestFriends()
         //refreshTableView()
     }
     
@@ -107,76 +108,71 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 
     func loadFriendsRecommend(){
-        CNContactStore().requestAccess(for: .contacts) { (granted, error) in
-            if let error = error {
-                // print("failed to request access", error)
-                return
-            }
-            if granted {
-                
-            }
-            
-        }
+        personList.removeAll()
+        contactPhoneNumber.removeAll()
         let store = CNContactStore()
-        store.requestAccess(for: .contacts) { (granted, error) in
-            if let error = error {
-                // print("failed to request access", error)
+        store.requestAccess(for: .contacts, completionHandler: {
+            granted, error in
+            guard granted else {
                 return
             }
-            if granted {
-                self.personList.removeAll()
-                let keys = [CNContactFamilyNameKey, CNContactGivenNameKey,  CNContactPhoneNumbersKey, CNContactImageDataKey, CNContactPostalAddressesKey]
-                let request = CNContactFetchRequest(keysToFetch: keys as [CNKeyDescriptor])
-                
-                var countryCode = NSLocale.current.regionCode
-                if countryCode == nil{
-                    countryCode = ""
+            let keysToFetch = [CNContactFamilyNameKey, CNContactGivenNameKey,  CNContactPhoneNumbersKey, CNContactImageDataKey, CNContactPostalAddressesKey]
+            let request = CNContactFetchRequest(keysToFetch: keysToFetch as [CNKeyDescriptor])
+            var cnContacts = [CNContact]()
+            var countryCode = NSLocale.current.regionCode
+            if countryCode == nil{
+                countryCode = ""
+            }
+            let phoneCode = Util.getCountryPhonceCode(countryCode: countryCode!)
+            do {
+                try store.enumerateContacts(with: request, usingBlock: {
+                    (contact : CNContact, stop : UnsafeMutablePointer<ObjCBool>) -> Void in
+                    cnContacts.append(contact)
+                })
+            } catch let error {
+                NSLog("Fetch contact error: \(error)")
+            }
+            var num = 0
+            for contact in cnContacts {
+                num += 1
+                for phone in contact.phoneNumbers{
+                    var label = "unknown"
+                    if phone.label != nil {
+                        label = CNLabeledValue<NSString>.localizedString(forLabel:
+                            phone.label!)
+                        if(label == "mobile"){
+                            let phoneStr = phone.value.stringValue
+                            var trim = phoneStr.replacingOccurrences(of: " ", with: "").replacingOccurrences(of: "(", with: "").replacingOccurrences(of: ")", with: "").replacingOccurrences(of: "-", with: "")
+                            if(trim.prefix(1) != "+"){
+                                trim = phoneCode+trim
+                            }
+                            self.contactPhoneNumber.append(trim)
+                        }
+                    }
                 }
-                let phoneCode = Util.getCountryPhonceCode(countryCode: countryCode!)
-                
-                do {
-                    try store.enumerateContacts(with: request, usingBlock: {
-                        (contact : CNContact, stop : UnsafeMutablePointer<ObjCBool>) -> Void in
-                        
-                        
-                        for phone in contact.phoneNumbers {
-                            
-                            var label = "unknown"
-                            if phone.label != nil {
-                                label = CNLabeledValue<NSString>.localizedString(forLabel:
-                                    phone.label!)
-                                
-                                if(label == "mobile"){
-                                    let phoneStr = phone.value.stringValue
-                                    var trim = phoneStr.replacingOccurrences(of: " ", with: "").replacingOccurrences(of: "(", with: "").replacingOccurrences(of: ")", with: "").replacingOccurrences(of: "-", with: "")
-                                    if(trim.prefix(1) != "+"){
-                                        trim = phoneCode+trim
-                                    }
-                                    
-                                    if let _person = self.searchPersonsByPhoneNumber(text:trim){
-                                        self.personList.append(_person)
-                                    }
-                                }
+                if num == cnContacts.count{
+                    print("this is phone numbers==>", self.contactPhoneNumber)
+                    DispatchQueue.main.async {
+                        var numm = 0
+                        for one in self.contactPhoneNumber{
+                            numm += 1
+                            if let _person = self.searchPersonsByPhoneNumber(text:one){
+                                self.personList.append(_person)
+                            }
+                            if numm == self.contactPhoneNumber.count{
+                                // TODO: check friend sending or already friend
+                                //self.refreshTableView()
+                                self.loadFriends()
                             }
                         }
-                    })
-                } catch {
-                    //print(error)
+                    }
                 }
-                
-
-            } else {
-                // print("access denied")
             }
-        }
-        
-        // print("recommend")
-        //print(personList.count)
+        })
     }
     
     // load friends and persons
     @objc func loadFriends() {
-
         let predicate = NSPredicate(format: "userId == %@ AND isDeleted == NO  AND isAccepted == YES", AuthUser.userId())
         //// print("Auth UserId: \(predicate)")
         friends = realm.objects(Friend.self).filter(predicate)
@@ -207,6 +203,7 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
                     person.objectId == friend.objectId
                 })
             }
+            self.refreshTableView()
         }, completion: { token in
             self.tokenFriendsPersons = token
         })
@@ -227,7 +224,6 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
         // print(Friends.friendPendingIds())
         let predicate1 = NSPredicate(format: "objectId IN %@ AND NOT objectId IN %@ AND isDeleted == NO", Friends.friendPendingIds(), Blockeds.blockerIds())
         pendingFriends = realm.objects(Person.self).filter(predicate1).sorted(byKeyPath: "fullname")
-        
         tokenPendingFriends?.invalidate()
         pendingFriends.safeObserve({ changes in
             self.refreshTableView()
@@ -255,15 +251,12 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
         if pendingFriends.count > 0 {
             sectionCount += 1
         }
-        if requestFriends.count > 0{
-            sectionCount += 1
-        }
-        
+//        if requestFriends.count > 0{
+//            sectionCount += 1
+//        }
         if personList.count > 0 {
             sectionCount += 1
         }
-        
-       
         tableView.reloadData()
     }
     
@@ -324,85 +317,120 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
             }
         }
         return cell
-        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0{
             if pendingFriends.count > 0{
                 return addPendingCell(tableView, cellForRowAt: indexPath)
-            }else if requestFriends.count > 0{
+            }/*else if requestFriends.count > 0{
                 return addRequestCell(tableView, cellForRowAt: indexPath)
-            }
+            }*/
             else{
-                return addPersonCell(tableView, cellForRowAt: indexPath)
+                if personList.count > 0{
+                    return addPersonCell(tableView, cellForRowAt: indexPath)
+                }else{
+                    return UITableViewCell()
+                }
             }
         }
-        else if indexPath.section == 1{
-            if pendingFriends.count > 0 && requestFriends.count > 0{
-                return addRequestCell(tableView, cellForRowAt: indexPath)
-            }else{
-                return addPersonCell(tableView, cellForRowAt: indexPath)
-            }
-        }
+//        else if indexPath.section == 1{
+//            if pendingFriends.count > 0 && requestFriends.count > 0{
+//                return addRequestCell(tableView, cellForRowAt: indexPath)
+//            }else{
+//                return addPersonCell(tableView, cellForRowAt: indexPath)
+//            }
+//        }
         else{
-            return addPersonCell(tableView, cellForRowAt: indexPath)
+            if personList.count > 0{
+                return addPersonCell(tableView, cellForRowAt: indexPath)
+            }else{
+                return UITableViewCell()
+            }
         }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0{
+//            if pendingFriends.count > 0{
+//                return pendingFriends.count
+//            }else if requestFriends.count > 0{
+//                return requestFriends.count
+//            }
+//            else{
+//                return personList.count
+//            }
             if pendingFriends.count > 0{
                 return pendingFriends.count
-            }else if requestFriends.count > 0{
-                return requestFriends.count
-            }
-            else{
-                return personList.count
-            }
-        }
-        else if section == 1{
-            if pendingFriends.count > 0 && requestFriends.count > 0{
-                return requestFriends.count
             }else{
-                return personList.count
+                if personList.count > 0{
+                    return personList.count
+                }else{
+                    return 0
+                }
             }
         }
+//        else if section == 1{
+//            if pendingFriends.count > 0 && requestFriends.count > 0{
+//                return requestFriends.count
+//            }else{
+//                return personList.count
+//            }
+//        }
         else{
-            return personList.count
+            if personList.count > 0{
+                return personList.count
+            }else{
+                return 0
+            }
             //return 0
         }
     }
   
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        // section: 2 friend recommendations
         if section == 0{
             let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "AddFriendSection") as! AddFriendSection
+//            if pendingFriends.count > 0{
+//                headerView.headerTitle.text = sections[section] + " " + String(pendingFriends.count)
+//            }else if requestFriends.count > 0{
+//                headerView.headerTitle.text = sections[1] + " " + String(requestFriends.count)
+//            }
+//            else{
+//                headerView.headerTitle.text = sections[2] + " " + String(personList.count)
+//            }
+//            return headerView
             if pendingFriends.count > 0{
                 headerView.headerTitle.text = sections[section] + " " + String(pendingFriends.count)
-            }else if requestFriends.count > 0{
-                headerView.headerTitle.text = sections[1] + " " + String(requestFriends.count)
-            }
-            else{
-                headerView.headerTitle.text = sections[2] + " " + String(personList.count)
-            }
-            return headerView
-        }
-        else if section == 1{
-            let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "AddFriendSection") as! AddFriendSection
-            if pendingFriends.count>0 && requestFriends.count > 0{
-                headerView.headerTitle.text = sections[1] + " " + String(requestFriends.count)
-            }
-            else{
-                headerView.headerTitle.text = sections[2] + " " + String(personList.count)
+            }else{
+                if personList.count > 0{
+                    headerView.headerTitle.text = sections[1] + " " + String(personList.count)
+                }else{
+                    headerView.headerTitle.text = nil
+                }
             }
             return headerView
         }
+//        else if section == 1{
+//            let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "AddFriendSection") as! AddFriendSection
+//            if pendingFriends.count>0 && requestFriends.count > 0{
+//                headerView.headerTitle.text = sections[1] + " " + String(requestFriends.count)
+//            }
+//            else{
+//                headerView.headerTitle.text = sections[2] + " " + String(personList.count)
+//            }
+//            return headerView
+//        }
         else{
             let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "AddFriendSection") as! AddFriendSection
-            
-            
-            headerView.headerTitle.text = sections[section] + " " + String(personList.count)
-            return headerView
+            if personList.count > 0{
+                headerView.headerTitle.text = sections[1] + " " + String(personList.count)
+                return headerView
+            }else{
+                headerView.headerTitle.text = nil
+                return headerView
+            }
         }
     }
     
@@ -462,8 +490,6 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
     
     override func viewWillAppear(_ animated: Bool) {
         refreshView()
-        loadFriends()
+        //loadFriends()
     }
-    
-
 }

@@ -10,6 +10,8 @@ import UIKit
 import RealmSwift
 import JGProgressHUD
 import FittedSheets
+import SwipeCellKit
+
 protocol CreateGroupDelegate {
     func onGroupCreated(group: Group)
 }
@@ -32,6 +34,9 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     @IBOutlet weak var imageReceivedUnRead: UIImageView!
     @IBOutlet weak var addFriendView: UIView!
+    
+    var buttonStyle: ButtonStyle = .backgroundColor
+    var buttonDisplayMode: ButtonDisplayMode = .titleAndImage
     
     
     let hud = JGProgressHUD(style: .light)
@@ -258,6 +263,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         present(confirmationAlert, animated: true, completion: nil)
        
     }
+    
     func groupInfo(_ group: Group){
         let mainstoryboard = UIStoryboard.init(name: "Group", bundle: nil)
         let vc = mainstoryboard.instantiateViewController(withIdentifier: "configGroupVC") as! ConfigGroupViewController
@@ -340,6 +346,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 cell.homeViewController = self
                 cell.bindGroupData(group: group, indexPath: indexPath)
                 cell.loadGroupImage(group: group, tableView: tableView, indexPath: indexPath)
+                //cell.delegate = self
                 return cell
             }
         }
@@ -352,6 +359,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             cell.bindData(person: person, indexPath: indexPath)
             cell.loadImage(person: person, tableView: tableView, indexPath: indexPath)
         }
+        cell.delegate = self
         return cell
     }
     
@@ -375,10 +383,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         //self.present(vc, animated: true, completion: nil)
         
     }
-    
-    
-    
-    
 }
 
 // MARK: - UISearchBarDelegate
@@ -444,6 +448,182 @@ struct HeaderSection {
     self.collapsed = collapsed
   }
 }
+
+extension HomeViewController: SwipeTableViewCellDelegate {
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
+        guard orientation == .right else {
+            return nil
+        }
+       
+        let block = SwipeAction(style: .default, title: nil, handler: nil)
+        block.hidesWhenSelected = true
+        configure(action: block, with: .block)
+        
+        let delete = SwipeAction(style: .destructive, title: nil) { action, indexPath in
+            self.removeFriend(indexPath)
+            self.homeTableView.reloadData()
+        }
+        configure(action: delete, with: .delete)
+        
+//        let cell = tableView.cellForRow(at: indexPath) as! MailCell
+//        let closure: (UIAlertAction) -> Void = { _ in cell.hideSwipe(animated: true) }
+        let mute = SwipeAction(style: .default, title: nil) { action, indexPath in
+//            let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+//            controller.addAction(UIAlertAction(title: "Reply", style: .default, handler: closure))
+//            controller.addAction(UIAlertAction(title: "Forward", style: .default, handler: closure))
+//            controller.addAction(UIAlertAction(title: "Mark...", style: .default, handler: closure))
+//            controller.addAction(UIAlertAction(title: "Notify Me...", style: .default, handler: closure))
+//            controller.addAction(UIAlertAction(title: "Move Message...", style: .default, handler: closure))
+//            controller.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: closure))
+//            self.present(controller, animated: true, completion: nil)
+        }
+        configure(action: mute, with: .mute)
+        return [delete, block, mute]
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeOptions {
+        var options = SwipeOptions()
+        options.expansionStyle = .selection
+        options.transitionStyle = .border
+        
+        switch buttonStyle {
+        case .backgroundColor:
+            options.buttonSpacing = 4
+        case .circular:
+            options.buttonSpacing = 4
+        #if canImport(Combine)
+            if #available(iOS 13.0, *) {
+                options.backgroundColor = UIColor.systemGray6
+            } else {
+                options.backgroundColor = #colorLiteral(red: 0.9467939734, green: 0.9468161464, blue: 0.9468042254, alpha: 1)
+            }
+        #else
+            options.backgroundColor = #colorLiteral(red: 0.9467939734, green: 0.9468161464, blue: 0.9468042254, alpha: 1)
+        #endif
+        }
+        
+        return options
+    }
+    
+    func configure(action: SwipeAction, with descriptor: ActionDescriptor) {
+        action.title = descriptor.title(forDisplayMode: buttonDisplayMode)
+        action.image = descriptor.image(forStyle: buttonStyle, displayMode: buttonDisplayMode)
+        
+        switch buttonStyle {
+        case .backgroundColor:
+            action.backgroundColor = descriptor.color(forStyle: buttonStyle)
+        case .circular:
+            action.backgroundColor = .clear
+            action.textColor = descriptor.color(forStyle: buttonStyle)
+            action.font = .systemFont(ofSize: 13)
+            action.transitionDelegate = ScaleTransition.default
+        }
+    }
+}
+
+enum ButtonStyle {
+    case backgroundColor, circular
+}
+
+enum ActionDescriptor {
+    case mute, block, delete
+    
+    func title(forDisplayMode displayMode: ButtonDisplayMode) -> String? {
+        guard displayMode != .imageOnly else { return nil }
+        
+        switch self {
+        case .mute: return "Mute".localized
+        case .block: return "Block".localized
+        case .delete: return "Delete".localized
+        }
+    }
+    
+    func image(forStyle style: ButtonStyle, displayMode: ButtonDisplayMode) -> UIImage? {
+        guard displayMode != .titleOnly else { return nil }
+        
+        let name: String
+        switch self {
+        case .mute: name = "Read"
+        case .block: name = "Unread"
+        case .delete: name = "Trash"
+        }
+        
+    #if canImport(Combine)
+        if #available(iOS 13.0, *) {
+            let name: String
+            switch self {
+            case .mute: name = "bell.slash.fill"
+            case .block: name = "xmark.octagon.fill"
+            case .delete: name = "trash.fill"
+            }
+            
+            if style == .backgroundColor {
+                let config = UIImage.SymbolConfiguration(pointSize: 23.0, weight: .regular)
+                return UIImage(systemName: name, withConfiguration: config)
+            } else {
+                let config = UIImage.SymbolConfiguration(pointSize: 22.0, weight: .regular)
+                let image = UIImage(systemName: name, withConfiguration: config)?.withTintColor(.white, renderingMode: .alwaysTemplate)
+                return circularIcon(with: color(forStyle: style), size: CGSize(width: 50, height: 50), icon: image)
+            }
+        } else {
+            return UIImage(named: style == .backgroundColor ? name : name + "-circle")
+        }
+    #else
+        return UIImage(named: style == .backgroundColor ? name : name + "-circle")
+    #endif
+    }
+    
+    func color(forStyle style: ButtonStyle) -> UIColor {
+    #if canImport(Combine)
+        switch self {
+        case .mute:
+            if #available(iOS 13.0, *) {
+                if UITraitCollection.current.userInterfaceStyle == .dark {
+                    return UIColor.systemGray
+                }
+                return style == .backgroundColor ? UIColor.systemGray3 : UIColor.systemGray2
+            } else {
+                return #colorLiteral(red: 0.7803494334, green: 0.7761332393, blue: 0.7967314124, alpha: 1)
+            }
+        case .block: return UIColor.systemOrange
+        case .delete: return UIColor.systemRed
+        }
+    #else
+        switch self {
+        case .mute: return #colorLiteral(red: 0.7803494334, green: 0.7761332393, blue: 0.7967314124, alpha: 1)
+        case .block: return #colorLiteral(red: 1, green: 0.5803921569, blue: 0, alpha: 1)
+        case .delete: return #colorLiteral(red: 1, green: 0.2352941176, blue: 0.1882352941, alpha: 1)
+        }
+    #endif
+    }
+    
+    func circularIcon(with color: UIColor, size: CGSize, icon: UIImage? = nil) -> UIImage? {
+        let rect = CGRect(origin: .zero, size: size)
+        UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
+
+        UIBezierPath(ovalIn: rect).addClip()
+
+        color.setFill()
+        UIRectFill(rect)
+
+        if let icon = icon {
+            let iconRect = CGRect(x: (rect.size.width - icon.size.width) / 2,
+                                  y: (rect.size.height - icon.size.height) / 2,
+                                  width: icon.size.width,
+                                  height: icon.size.height)
+            icon.draw(in: iconRect, blendMode: .normal, alpha: 1.0)
+        }
+
+        defer { UIGraphicsEndImageContext() }
+
+        return UIGraphicsGetImageFromCurrentImageContext()
+    }
+}
+
+enum ButtonDisplayMode {
+    case titleAndImage, titleOnly, imageOnly
+}
+
     
 
 

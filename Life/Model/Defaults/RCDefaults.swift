@@ -97,7 +97,7 @@ enum RCDefaults {
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	static let emojiBubbleWidthMin			= CGFloat(45)
 	static let emojiBubbleHeightMin			= CGFloat(30)
-    static let privacyColor        = UIColor(red: 0/255, green: 63/255, blue: 113/255, alpha: 1.0)
+    static let privacyColor                 = UIColor(red: 0/255, green: 63/255, blue: 113/255, alpha: 1.0)
 	static let emojiBubbleColorOutgoing		= UIColor(red: 0/255, green: 122/255, blue: 255/255, alpha: 1.0)
 	static let emojiBubbleColorIncoming		= UIColor(red: 230/255, green: 229/255, blue: 234/255, alpha: 1.0)
 
@@ -115,8 +115,8 @@ enum RCDefaults {
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	static let photoBubbleWidth				= CGFloat(200)
 
-	static let photoBubbleColorOutgoing		= UIColor(red: 0/255, green: 122/255, blue: 255/255, alpha: 1.0)
-	static let photoBubbleColorIncoming		= UIColor(red: 230/255, green: 229/255, blue: 234/255, alpha: 1.0)
+	static let photoBubbleColorOutgoing		= UIColor(red: 79/255, green: 132/255, blue: 179/255, alpha: 1.0)
+	static let photoBubbleColorIncoming		= UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0)
 
 	static let photoImageManual				= UIImage(named: "rcmessages_manual")!
 
@@ -125,8 +125,8 @@ enum RCDefaults {
 	static let videoBubbleWidth				= CGFloat(200)
 	static let videoBubbleHeight			= CGFloat(200)
 
-	static let videoBubbleColorOutgoing		= UIColor.lightGray
-	static let videoBubbleColorIncoming		= UIColor.lightGray
+	static let videoBubbleColorOutgoing		= UIColor(red: 0/255, green: 122/255, blue: 255/255, alpha: 1.0)
+	static let videoBubbleColorIncoming		= UIColor(red: 230/255, green: 229/255, blue: 234/255, alpha: 1.0)
 
 	static let videoImagePlay				= UIImage(named: "rcmessages_videoplay")!
 	static let videoImageManual				= UIImage(named: "rcmessages_manual")!
@@ -139,13 +139,13 @@ enum RCDefaults {
     static let callBubbleWidht              = CGFloat(150)
     static let callBubbleHeight             = CGFloat(40)
 
-	static let audioBubbleColorOutgoing		= COLORS.PRIMARY
-    static let audioBubbleColorIncoming		= UIColor.lightGray
+	static let audioBubbleColorOutgoing		= UIColor(red: 79/255, green: 132/255, blue: 179/255, alpha: 1.0)
+    static let audioBubbleColorIncoming		= UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0)
 	static let audioTextColorOutgoing		= UIColor.white
 	static let audioTextColorIncoming		= UIColor.black
 
-	static let audioImagePlay				= UIImage(named: "rcmessages_audioplay")!
-	static let audioImagePause				= UIImage(named: "rcmessages_audiopause")!
+    static let audioImagePlay				= UIImage.init(systemName: "play.fill")
+	static let audioImagePause				= UIImage.init(systemName: "pause.fill")
 	static let audioImageManual				= UIImage(named: "rcmessages_manual")!
     
     static let callMissed                = UIImage(named: "ic_missedcall")!

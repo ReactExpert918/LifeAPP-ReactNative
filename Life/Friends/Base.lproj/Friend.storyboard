@@ -469,7 +469,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Gv-LG-luX" customClass="ExtensionView" customModule="Life" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="449.66666666666674" width="375" height="328.33333333333326"/>
+                                        <rect key="frame" x="0.0" y="428" width="375" height="350"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aM0-7J-LAh">
                                                 <rect key="frame" x="327" y="16" width="40" height="40"/>
@@ -503,19 +503,19 @@
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="James Watson" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5fl-g9-pl6">
-                                                <rect key="frame" x="134.66666666666666" y="111.99999999999994" width="105.66666666666666" height="18.666666666666657"/>
+                                                <rect key="frame" x="134.66666666666666" y="112" width="105.66666666666666" height="18.666666666666657"/>
                                                 <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="16"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9876543210" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Axd-cM-fWp">
-                                                <rect key="frame" x="145.66666666666666" y="137.99999999999994" width="83.666666666666657" height="17.666666666666657"/>
+                                                <rect key="frame" x="145.66666666666666" y="138" width="83.666666666666657" height="17.666666666666657"/>
                                                 <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
                                                 <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Successfully Pending your friend request. " textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="43v-g1-5Uv">
-                                                <rect key="frame" x="20" y="163.33333333333331" width="335" height="17.666666666666657"/>
+                                                <rect key="frame" x="20" y="163.33333333333337" width="335" height="17.666666666666657"/>
                                                 <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="15"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -544,7 +544,7 @@
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Ch-nU-gTd" customClass="RoundButton" customModule="Life" customModuleProvider="target">
-                                                <rect key="frame" x="112.66666666666669" y="198.66666666666669" width="150" height="50"/>
+                                                <rect key="frame" x="112.66666666666669" y="198.66666666666663" width="150" height="50"/>
                                                 <color key="backgroundColor" red="0.086274509799999996" green="0.25098039220000001" blue="0.43529411759999997" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="150" id="5v4-Mt-2t1"/>
@@ -560,7 +560,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <action selector="onAcceptTapped:" destination="LxM-be-Wx5" eventType="touchUpInside" id="k87-N1-dUu"/>
+                                                    <action selector="onStartChatTapped:" destination="LxM-be-Wx5" eventType="touchUpInside" id="Bpf-i7-hFK"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -576,6 +576,7 @@
                                             <constraint firstAttribute="trailing" secondItem="aM0-7J-LAh" secondAttribute="trailing" constant="8" id="FTT-V3-EnJ"/>
                                             <constraint firstItem="4Ch-nU-gTd" firstAttribute="top" secondItem="43v-g1-5Uv" secondAttribute="bottom" constant="17.670000000000002" id="ImW-3i-toy"/>
                                             <constraint firstItem="Axd-cM-fWp" firstAttribute="top" secondItem="5fl-g9-pl6" secondAttribute="bottom" constant="7.3300000000000001" id="Wfw-39-hXf"/>
+                                            <constraint firstAttribute="height" constant="350" id="X0z-aO-TVf"/>
                                             <constraint firstItem="qo4-x0-FpT" firstAttribute="top" secondItem="0Gv-LG-luX" secondAttribute="top" constant="16" id="qXJ-Xf-hlf"/>
                                             <constraint firstItem="5fl-g9-pl6" firstAttribute="top" secondItem="0Gv-LG-luX" secondAttribute="top" constant="112" id="qph-Im-pWg"/>
                                             <constraint firstItem="aM0-7J-LAh" firstAttribute="top" secondItem="0Gv-LG-luX" secondAttribute="top" constant="16" id="yO6-5J-pKn"/>
@@ -591,7 +592,6 @@
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="rcM-vv-NmZ" secondAttribute="bottom" id="36m-fg-TcS"/>
                                     <constraint firstAttribute="bottom" secondItem="0Gv-LG-luX" secondAttribute="bottom" id="6Mj-U9-B2U"/>
-                                    <constraint firstItem="0Gv-LG-luX" firstAttribute="top" secondItem="Gj3-5j-kph" secondAttribute="top" constant="449.66666666666674" id="8oY-Yr-AmG" userLabel="Extension View.top = top + 435"/>
                                     <constraint firstAttribute="trailing" secondItem="0Gv-LG-luX" secondAttribute="trailing" id="IAw-7B-bmO"/>
                                     <constraint firstItem="0Gv-LG-luX" firstAttribute="leading" secondItem="Gj3-5j-kph" secondAttribute="leading" id="M1f-VK-4mi"/>
                                     <constraint firstItem="rcM-vv-NmZ" firstAttribute="top" secondItem="Gj3-5j-kph" secondAttribute="top" id="VUe-4v-XZa"/>
