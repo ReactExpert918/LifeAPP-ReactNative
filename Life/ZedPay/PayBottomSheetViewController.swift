@@ -166,7 +166,7 @@ class PayBottomSheetViewController: UIViewController {
         super.viewDidLoad()
         
             // Do any additional setup after loading the view.
-            name.text = person.fullname
+            name.text = person.getFullName()
             
             phoneNumber.text = person.phone
         

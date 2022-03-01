@@ -276,7 +276,7 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
             self.selectedPerson = person
             // Display info on popupview
             print("Selcted Person TOKEN: ", person.oneSignalId)
-            self.confirmPopupLabel.text = "Do you want to accept".localized + " \(person.fullname)" + "to your friend list?".localized
+            self.confirmPopupLabel.text = "Do you want to accept".localized + " \(person.getFullName())" + "to your friend list?".localized
             self.loadRequestedFriendImage(person: person)
         }
         return cell
@@ -303,7 +303,7 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
         cell.callbackAddFriend = { (index) in
             let person = self.personList[index]
             // Display info on popupview
-            self.popupNameLabel.text = person.fullname
+            self.popupNameLabel.text = person.getFullName()
             self.popupPhoneNumberLabel.text = person.phone
             self.loadImage(person: person)
             

@@ -17,7 +17,8 @@ class StripeCustomer: SyncObject {
     @objc dynamic var name = ""
     @objc dynamic var customerId = ""
     @objc dynamic var setupSecret = ""
-    @objc dynamic var status = ZEDPAY_STATUS.PENDING
+    //@objc dynamic var status = ZEDPAY_STATUS.PENDING
+    @objc dynamic var status = ZEDPAY_STATUS.SUCCESS
     @objc dynamic var passcode = ""
     @objc dynamic var error = ""
     

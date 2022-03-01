@@ -122,7 +122,7 @@ class NewConversationViewController: UIViewController, UITableViewDataSource, UI
     }
     func removeFriend(_ indexPath: IndexPath) {
         let friend = persons[indexPath.row]
-        let confirmationAlert = UIAlertController(title: "Remove Friend".localized, message: "Are you sure remove ".localized + friend.fullname, preferredStyle: .alert)
+        let confirmationAlert = UIAlertController(title: "Remove Friend".localized, message: "Are you sure remove ".localized + friend.getFullName(), preferredStyle: .alert)
 
         confirmationAlert.addAction(UIAlertAction(title: "Yes".localized, style: .default, handler: {
                 (action: UIAlertAction!) in

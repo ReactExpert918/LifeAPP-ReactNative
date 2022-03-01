@@ -219,13 +219,13 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
             self.searchController.searchBar.resignFirstResponder()
             let person = self.persons[index]
             // Display info on popupview
-            self.popupNameLabel.text = person.fullname
+            self.popupNameLabel.text = person.getFullName()
             self.popupPhoneNumberLabel.text = person.phone
             self.loadImage(person: person){
                 self.popupView.isHidden = false
             }
             print("Selcted Person TOKEN: ", person.oneSignalId)
-            PushNotification.send(token: person.oneSignalId, title: "Friend Request", body:self.person.fullname + " "  +  "sent friend request to you.", type: .friendRequest, chatId: nil )
+            PushNotification.send(token: person.oneSignalId, title: "Friend Request", body:self.person.getFullName() + " "  +  "sent friend request to you.", type: .friendRequest, chatId: nil )
             if (Friends.isFriend(person.objectId)) {
                 self.popupStatusLabel.text = "Already existing in your friend list.".localized
             } else {

@@ -36,7 +36,7 @@ class Singles: NSObject {
 			single.pictureAt1	= Persons.pictureAt()
 
 			single.userId2		= userId
-			single.fullname2	= person.fullname
+			single.fullname2	= person.getFullName()
 			single.initials2	= person.initials()
 			single.pictureAt2	= person.pictureAt
 

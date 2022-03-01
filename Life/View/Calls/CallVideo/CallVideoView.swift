@@ -91,7 +91,7 @@ class CallVideoView: UIViewController {
 	init(userId: String) {
 		super.init(nibName: nil, bundle: nil)
         let recipentUser = realm.object(ofType: Person.self, forPrimaryKey: userId)
-        callString = recipentUser!.fullname
+        callString = recipentUser!.getFullName()
 		self.isModalInPresentation = true
 		self.modalPresentationStyle = .fullScreen
         let app = UIApplication.shared.delegate as? AppDelegate
@@ -192,10 +192,10 @@ class CallVideoView: UIViewController {
         if let agoraKit = self.agoraKit{
             agoraKit.enableVideo()
             // Set video configuration
-            agoraKit.setVideoEncoderConfiguration(AgoraVideoEncoderConfiguration(size: AgoraVideoDimension640x360,
-                                                                                 frameRate: .fps15,
-                                                                                 bitrate: AgoraVideoBitrateStandard,
-                                                                                 orientationMode: .adaptative))
+//            agoraKit.setVideoEncoderConfiguration(AgoraVideoEncoderConfiguration(size: AgoraVideoDimension640x360,
+//                                                                                 frameRate: .fps15,
+//                                                                                 bitrate: AgoraVideoBitrateStandard,
+//                                                                                 orientationMode: .adaptative))
         }
     }
     
@@ -243,6 +243,11 @@ class CallVideoView: UIViewController {
     @IBAction func actionRequestHangup(_ sender: Any) {
         DispatchQueue.main.async {
             self.audioController?.stopPlayingSoundFile()
+        }
+        if self.labelStatus.text != "Declined" {
+            Messages.sendCalling(chatId: self.roomID, recipientId: self.receiver, type: .CANCELLED_CALL)
+        } else {
+            Messages.sendCalling(chatId: self.roomID, recipientId: self.receiver, type: .MISSED_CALL)
         }
         
         ref.child("video_call").child(self.roomID).removeValue()

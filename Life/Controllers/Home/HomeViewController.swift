@@ -77,6 +77,10 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         updateFcmToken()
         
+        
+        self.showChatView()
+        
+        
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) { // As soon as vc appears
@@ -95,6 +99,17 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             loadMembers()
             //let _ = Friends.friendAcceptedIds()
             loadFriends()
+        }
+    }
+    
+    func showChatView() {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        if appDelegate.pendingChatID != ""  {
+            self.navigationController?.popToRootViewController(animated: false)
+            self.openPrivateChat(chatId: appDelegate.pendingChatID, recipientId: appDelegate.pendingUserID)
+            appDelegate.pendingUserID = ""
+            appDelegate.pendingChatID = ""
         }
     }
     
@@ -245,7 +260,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func removeFriend(_ indexPath: IndexPath) {
         let friend = persons[indexPath.row]
-        let confirmationAlert = UIAlertController(title: "Remove Friend".localized, message: "Are you sure remove ".localized + friend.fullname, preferredStyle: .alert)
+        let confirmationAlert = UIAlertController(title: "Remove Friend".localized, message: "Are you sure remove ".localized + friend.getFullName(), preferredStyle: .alert)
 
         confirmationAlert.addAction(UIAlertAction(title: "Yes".localized, style: .default, handler: {
                 (action: UIAlertAction!) in

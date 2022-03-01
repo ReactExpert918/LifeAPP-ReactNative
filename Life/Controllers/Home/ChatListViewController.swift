@@ -47,8 +47,17 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
         NotificationCenter.default.addObserver(self, selector: #selector(loadMembers), name: NSNotification.Name(rawValue: NotificationStatus.NOTIFICATION_USER_LOGGED_IN), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(actionCleanup), name: NSNotification.Name(rawValue: NotificationStatus.NOTIFICATION_USER_LOGGED_OUT), object: nil)
         
+        //NotificationCenter.default.addObserver(self, selector: #selector(showChatView(notification:)), name: Notification.Name(rawValue: NotificationStatus.NOTIFICATION_RECEIVE_CHAT), object: nil)
+        
         if (AuthUser.userId() != "") {
             loadMembers()
+        }
+    }
+    
+    @objc func showChatView(notification: Notification) {
+        print("SnapShot", notification)
+        if let userId = notification.userInfo?["userId"] as? String, let chatId = notification.userInfo?["chatId"] as? String {
+            self.newConversationStart(chatId: chatId, recipientId: userId)
         }
     }
     

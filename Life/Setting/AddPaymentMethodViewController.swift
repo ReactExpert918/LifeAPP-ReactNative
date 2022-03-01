@@ -66,7 +66,7 @@ class AddPaymentMethodViewController: UIViewController {
             let cardExpYear = cardExpDates?[1]
             self.hud.show(in: self.view, animated: true)
             PaymentMethods.create(userId: AuthUser.userId(), customerId: customer.customerId, cardNumber: cardNumber!, expMonth: cardExpMonth!, expYear:cardExpYear!, cvc: cvc)
-            let predicate = NSPredicate(format: "userId == %@ AND status == %@ AND isDeleted == NO", AuthUser.userId(), ZEDPAY_STATUS.SUCCESS)
+            let predicate = NSPredicate(format: "userId == %@ AND isDeleted == NO", AuthUser.userId())
             paymentMethods = realm.objects(PaymentMethod.self).filter(predicate)
             
             tokenPaymentmethod?.invalidate()
@@ -87,10 +87,12 @@ class AddPaymentMethodViewController: UIViewController {
     
     func addPaymentMethod(){
         guard let paymentMethod = paymentMethods.first else{
+            self.hud.dismiss()
             return
         }
         
         if paymentMethod.status == ZEDPAY_STATUS.PENDING {
+            self.hud.dismiss()
             return
         }
         

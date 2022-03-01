@@ -66,6 +66,8 @@ class RCMessagePhotoCell: RCMessageCell {
 			activityIndicator.stopAnimating()
 			imageViewManual.isHidden = false
 		}
+        
+        //imageViewManual.isHidden = true
 	}
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------

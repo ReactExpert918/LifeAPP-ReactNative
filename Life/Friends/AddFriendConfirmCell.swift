@@ -48,7 +48,7 @@ class AddFriendConfirmCell : UITableViewCell{
     }
     
     func bindData(person: Person) {
-        name.text = person.fullname
+        name.text = person.getFullName()
     }
     
     @IBAction func addFriendConfirmTapped(_ sender: Any) {

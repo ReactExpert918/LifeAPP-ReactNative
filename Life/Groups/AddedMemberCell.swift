@@ -49,7 +49,7 @@ class AddedMemberCell : UICollectionViewCell{
     }
     
     func bindData(person: Person) {
-        name.text = person.fullname
+        name.text = person.getFullName()
     }
     @IBAction func onCancelTapped(_ sender: Any) {
         callbackCancelTapped?(index)

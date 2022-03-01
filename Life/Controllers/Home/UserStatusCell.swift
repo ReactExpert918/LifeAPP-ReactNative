@@ -39,7 +39,7 @@ class UserStatusCell: UITableViewCell {
                 self.profileImageView.image = UIImage(named: "ic_default_profile")
             }
         }
-        userNameLabel.text = person.fullname
+        userNameLabel.text = person.getFullName()
         aboutUserLabel.text = person.about
     }
     

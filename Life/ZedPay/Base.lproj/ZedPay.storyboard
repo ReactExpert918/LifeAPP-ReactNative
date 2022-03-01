@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y6W-OH-hqX">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y6W-OH-hqX">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -188,7 +188,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="noRecord" id="b79-vy-L6q" customClass="NoRecordCell" customModule="Life" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="374" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="44.5" width="374" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="b79-vy-L6q" id="Wg3-rF-jhc">
                                             <rect key="frame" x="0.0" y="0.0" width="374" height="43.5"/>
@@ -1719,10 +1719,10 @@
             </objects>
             <point key="canvasLocation" x="2598.5507246376815" y="9.375"/>
         </scene>
-        <!--View Controller-->
+        <!--Add Money View Controller-->
         <scene sceneID="COQ-Tv-dTO">
             <objects>
-                <viewController id="Jze-G4-vq5" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="addMoneyVC" id="Jze-G4-vq5" customClass="AddMoneyViewController" customModule="Life" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zpJ-97-9Wt">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="400"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1952,10 +1952,10 @@
             </objects>
             <point key="canvasLocation" x="3372" y="552"/>
         </scene>
-        <!--Add Money View Controller-->
+        <!--View Controller-->
         <scene sceneID="cGy-dd-cGK">
             <objects>
-                <viewController storyboardIdentifier="addMoneyVC" id="CDj-bM-f6a" customClass="AddMoneyViewController" customModule="Life" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="CDj-bM-f6a" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vAg-5V-xJC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2277,9 +2277,6 @@
         </designable>
         <designable name="S6M-Lu-cOs">
             <size key="intrinsicContentSize" width="49" height="33"/>
-        </designable>
-        <designable name="ff0-v9-jxh">
-            <size key="intrinsicContentSize" width="100" height="100"/>
         </designable>
         <designable name="isW-OK-8BI">
             <size key="intrinsicContentSize" width="48" height="32"/>

@@ -13,6 +13,8 @@ import RealmSwift
 import OneSignal
 import Sinch
 import FittedSheets
+//import PushKit
+//import CryptoSwift
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 var realm = try! Realm()
@@ -26,11 +28,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var push: SINManagedPush?
     var callKitProvider: CallKitProvider?
     let gcmMessageIDKey = "gcm.message_id"
+    var pendingChatID = ""
+    var pendingUserID = ""
+    //var voipRegistry: PKPushRegistry?
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         
         // Override point for customization after application launch.
         IQKeyboardManager.shared.enable = true
+        
+//        let value: Float = 5000.0
+//
+//        print("TestMoney:", value.encryptedString())
        
         
         let configuration = Realm.Configuration(
@@ -125,6 +134,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // [END register_for_notifications]
         
+//        self.voipRegistry = PKPushRegistry(queue: nil)
+//        self.voipRegistry?.delegate = self
+//        self.voipRegistry?.desiredPushTypes = [.voIP]
+        
         return true
     }
     
@@ -189,6 +202,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         client?.startListeningOnActiveConnection()
     }
 
+    func topMostViewController() -> UIViewController? {
+        return UIApplication.shared.windows.filter{ $0.isKeyWindow }.first?.rootViewController
+    }
     //---------------------------------------------------------------------------------------------------------------------------------------------
     @objc func sinchLogOutUser() {
 
@@ -203,12 +219,12 @@ extension AppDelegate: SINClientDelegate {
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func clientDidStart(_ client: SINClient!) {
-        // print("Sinch client started successfully \(client.userId)")
+        print("Sinch client started successfully \(client.userId)")
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func clientDidFail(_ client: SINClient!, error: Error!) {
-        // print("Sinch client error: \(error.localizedDescription)")
+        print("Sinch client error: \(error.localizedDescription)")
     }
 }
 
@@ -231,20 +247,33 @@ extension AppDelegate: SINCallClientDelegate {
     }
 }
 
+
+
 // MARK: - SINManagedPushDelegate
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 extension AppDelegate: SINManagedPushDelegate {
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func managedPush(_ managedPush: SINManagedPush!, didReceiveIncomingPushWithPayload payload: [AnyHashable: Any]!, forType pushType: String!) {
+        //let apn = payload["aps"] as? [String: Any]
+        
+        let UserDefault = UserDefaults.standard
+        
+        var original = UserDefault.integer(forKey: "received")
+        
+        original += 1
+        
+        UserDefault.set(original, forKey: "received")
+        
+        //sendNotification()
 
-        callKitProvider?.didReceivePush(withPayload: payload)
-
-        DispatchQueue.main.async {
-            self.sinchLogInUser()
-            self.client?.relayRemotePushNotification(payload)
-            self.push?.didCompleteProcessingPushPayload(payload)
-        }
+//        callKitProvider?.didReceivePush(withPayload: payload)
+//
+//        DispatchQueue.main.async {
+//            self.sinchLogInUser()
+//            self.client?.relayRemotePushNotification(payload)
+//            self.push?.didCompleteProcessingPushPayload(payload)
+//        }
     }
 }
 
@@ -285,6 +314,15 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         print(userInfo)
 
         let aps = userInfo["aps"] as? [AnyHashable : Any]
+        if aps == nil {
+            if #available(iOS 14.0, *) {
+                completionHandler([[.banner, .badge, .sound]])
+            } else {
+                // Fallback on earlier versions
+                completionHandler([[.badge, .sound]])
+            }
+            return
+        }
         let alertMessage = aps!["alert"] as? [AnyHashable : Any]
         _  = alertMessage!["body"] as! String
         
@@ -307,7 +345,7 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
                     completionHandler([[.badge, .sound]])
                 }
             
-            default:
+            default:                
                 if #available(iOS 14.0, *) {
                     completionHandler([[.banner, .badge, .sound]])
                 } else {
@@ -335,6 +373,10 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         print(userInfo)
         
         let aps = userInfo["aps"] as? [AnyHashable : Any]
+        if aps == nil {
+            completionHandler()
+            return
+        }
         let alertMessage = aps!["alert"] as? [AnyHashable : Any]
         _  = alertMessage!["body"] as! String
         
@@ -344,27 +386,50 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
             switch noti_type {
             case "0":
                 // display alert for notification
-                let home = AppBoards.main.initialViewController
-                let vc = AppBoards.friend.viewController(withIdentifier: "AcceptDeclineViewController") as! AcceptDeclineViewController
-                vc.userId = userId ?? ""
-        
-                vc.modalPresentationStyle = .fullScreen
-                let window = UIApplication.shared.keyWindow
-                window?.rootViewController = home
-                window?.makeKeyAndVisible()
-                home.present(vc, animated: false, completion: nil)
+                if let viewController = topMostViewController() as? MainTabViewController {
+                    if let navigationController = viewController.selectedViewController as? UINavigationController {
+                        navigationController.popToRootViewController(animated: false)
+                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                        let vc =  storyboard.instantiateViewController(identifier: "chatViewController") as! ChatViewController
+                        vc.setParticipant(chatId: chatId ?? "", recipientId: userId ?? "")
+                        vc.modalPresentationStyle = .fullScreen
+                        vc.hidesBottomBarWhenPushed = true
+                        //self.present(vc, animated: true, completion: nil)
+                        navigationController.pushViewController(vc, animated: true)
+                    }
+                } else {
+                    self.pendingChatID = chatId ?? ""
+                    self.pendingUserID = userId ?? ""
+                }
             
             default:
-                let home = AppBoards.main.initialViewController
-                let vc = AppBoards.main.viewController(withIdentifier: "chatViewController") as! ChatViewController
-                vc.recipientId = userId ?? ""
-                vc.chatId = chatId ?? ""
-                vc.fromNoti = true
-                vc.modalPresentationStyle = .fullScreen
-                let window = UIApplication.shared.keyWindow
-                window?.rootViewController = home
-                window?.makeKeyAndVisible()
-                home.present(vc, animated: false, completion: nil)
+                
+                if let viewController = topMostViewController() as? MainTabViewController {
+                    if let navigationController = viewController.selectedViewController as? UINavigationController {
+                        navigationController.popToRootViewController(animated: false)
+                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                        let vc =  storyboard.instantiateViewController(identifier: "chatViewController") as! ChatViewController
+                        vc.setParticipant(chatId: chatId ?? "", recipientId: userId ?? "")
+                        vc.modalPresentationStyle = .fullScreen
+                        vc.hidesBottomBarWhenPushed = true
+                        //self.present(vc, animated: true, completion: nil)
+                        navigationController.pushViewController(vc, animated: true)
+                    }
+                } else {
+                    self.pendingChatID = chatId ?? ""
+                    self.pendingUserID = userId ?? ""
+                }
+                
+//                let home = AppBoards.main.initialViewController
+//                let vc = AppBoards.main.viewController(withIdentifier: "chatViewController") as! ChatViewController
+//                vc.recipientId = userId ?? ""
+//                vc.chatId = chatId ?? ""
+//                vc.fromNoti = true
+//                vc.modalPresentationStyle = .fullScreen
+//                let window = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
+//                window?.rootViewController = home
+//                window?.makeKeyAndVisible()
+//                home.present(vc, animated: false, completion: nil)
             }
         }
         
@@ -428,5 +493,3 @@ enum NotiType: Int {
     case sendVideoCalling = 5
     case sendVoiceCalling = 6
 }
-
-

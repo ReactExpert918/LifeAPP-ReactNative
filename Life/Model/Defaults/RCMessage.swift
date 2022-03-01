@@ -90,6 +90,7 @@ class RCMessage: NSObject {
 		self.isMediaFailed = message.isMediaFailed
 
 		self.createdAt = message.createdAt
+        self.callStatus = message.type == MESSAGE_TYPE.MISSED_CALL ? .MISSED_CALL : .CANCELLED_CALL
 
 		let currentId = AuthUser.userId()
 		self.incoming = (message.userId != currentId)

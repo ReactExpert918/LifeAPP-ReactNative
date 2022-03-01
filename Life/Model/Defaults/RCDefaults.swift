@@ -16,8 +16,8 @@ enum RCDefaults {
 
 	// Section
 	//---------------------------------------------------------------------------------------------------------------------------------------------
-	static let sectionHeaderMargin			= CGFloat(15)
-	static let sectionFooterMargin			= CGFloat(5)
+	static let sectionHeaderMargin			= CGFloat(1)
+	static let sectionFooterMargin			= CGFloat(1)
 
 	// Header upper
 	//---------------------------------------------------------------------------------------------------------------------------------------------
@@ -64,8 +64,8 @@ enum RCDefaults {
 	// Avatar
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	static let avatarDiameter				= CGFloat(30)
-	static let avatarMarginLeft				= CGFloat(5)
-	static let avatarMarginRight			= CGFloat(5)
+	static let avatarMarginLeft				= CGFloat(12)
+	static let avatarMarginRight			= CGFloat(12)
 
 	static let avatarBackColor				= UIColor.systemGray4
 	static let avatarTextColor				= UIColor.white
@@ -78,7 +78,7 @@ enum RCDefaults {
 	static let textBubbleHeightMin			= CGFloat(35)
 
 	static let textBubbleColorOutgoing		= UIColor(red: 79/255, green: 132/255, blue: 179/255, alpha: 1.0)
-	static let textBubbleColorIncoming		= UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0)
+	static let textBubbleColorIncoming		= UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1.0)
 	static let textTextColorOutgoing		= UIColor.white
 	static let textTextColorIncoming		= UIColor.black
 

@@ -90,7 +90,7 @@ class TransactionDetailViewController: UIViewController {
         }
         
         labelId.text = transaction.transId
-        labelName.text = person?.fullname
+        labelName.text = person?.getFullName()
         labelPhone.text = person?.phone
         downloadImage(person: person!)
     }

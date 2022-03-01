@@ -52,7 +52,7 @@ class TransactionCell: UITableViewCell {
             labelType.text = "Add Money".localized
             labelQuantity.text = String(format: "%.2f",Double(transaction.amount)/100.0)
             lblSign.text = "+"
-            labelName.text = person?.fullname
+            labelName.text = person?.getFullName()
             downloadImage(person: person!, tableView: tableView, indexPath: indexPath)
         }else if(transaction.fromUserId == AuthUser.userId()){
             //sent
@@ -61,7 +61,7 @@ class TransactionCell: UITableViewCell {
             labelType.text = "Money Sent".localized
             labelQuantity.text = String(format: "%.2f",transaction.getQuantity() * 100 / 97.5)
             lblSign.text = "-"
-            labelName.text = person?.fullname
+            labelName.text = person?.getFullName()
             downloadImage(person: person!, tableView: tableView, indexPath: indexPath)
             
         }else if(transaction.toUserId == AuthUser.userId()){
@@ -71,7 +71,7 @@ class TransactionCell: UITableViewCell {
             labelType.text = "Balance Received".localized
             labelQuantity.text = String(format: "%.2f",transaction.getQuantity())
             lblSign.text = "+"
-            labelName.text = person?.fullname
+            labelName.text = person?.getFullName()
             downloadImage(person: person!, tableView: tableView, indexPath: indexPath)
         }
         

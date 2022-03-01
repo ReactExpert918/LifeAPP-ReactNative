@@ -45,7 +45,7 @@ class Persons: NSObject {
 	class func fullname() -> String {
 
 		let person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
-		return person?.fullname ?? ""
+		return person?.fullname ?? "unknown"
 	}
     
     class func getById(_ objectId:String) -> Person?{

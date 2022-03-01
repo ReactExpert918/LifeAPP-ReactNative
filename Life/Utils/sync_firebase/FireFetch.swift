@@ -10,7 +10,7 @@
 // THE SOFTWARE.
 
 import FirebaseFirestore
-import RealmSwift
+import struct RealmSwift.Realm
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 class FireFetch: NSObject {

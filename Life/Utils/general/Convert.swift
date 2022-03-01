@@ -33,6 +33,7 @@ class Convert: NSObject {
 		let date = Date.date(timestamp: timestamp)
 
 		let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US")
 		formatter.dateFormat = "MMMM dd, YYYY"
 
 		return formatter.string(from: date)
@@ -44,6 +45,7 @@ class Convert: NSObject {
         let date = Date.date(timestamp: timestamp)
 
         let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US")
         formatter.dateFormat = "dd MMMM, HH:mm"
 
         return formatter.string(from: date)
@@ -54,6 +56,7 @@ class Convert: NSObject {
         let date = Date.date(timestamp: timestamp)
 
         let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US")
         formatter.dateFormat = "HH:mm a"
         formatter.amSymbol = "AM"
         formatter.pmSymbol = "PM"
@@ -65,6 +68,7 @@ class Convert: NSObject {
         let date = Date.date(timestamp: timestamp)
 
         let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US")
         formatter.dateFormat = "MM/dd/yyyy, HH:mm"
 
         return formatter.string(from: date)
@@ -109,6 +113,7 @@ class Convert: NSObject {
 		let seconds = Date().timeIntervalSince(date)
 
 		let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US")
 		if (seconds < 24 * 60 * 60) {
 			formatter.dateFormat = "HH:mm"
 		} else if (seconds < 7 * 24 * 60 * 60) {

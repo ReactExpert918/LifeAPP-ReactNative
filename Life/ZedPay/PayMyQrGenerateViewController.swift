@@ -55,7 +55,7 @@ class PayMyQrGenerateViewController: UIViewController {
     func loadPerson() {
         person = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
         if let person = person{
-            name.text = person.fullname
+            name.text = person.getFullName()
             phoneNumber.text = person.phone
         }
     }

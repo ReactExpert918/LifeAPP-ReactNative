@@ -64,6 +64,16 @@ class Person: SyncObject {
 
 		return "\(initial1)\(initial2)"
 	}
+    
+    func getFullName() -> String {
+        if self.fullname != "" {
+            return self.fullname
+        } else if self.username != "" {
+            return self.username
+        } else {
+            return self.phone
+        }
+    }
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	func lastActiveText() -> String {

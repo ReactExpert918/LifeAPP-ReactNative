@@ -49,7 +49,7 @@ class AddFriendCell : UITableViewCell{
     
     func bindData(person: Person) {
 
-        name.text = person.fullname
+        name.text = person.getFullName()
     }
     
     @IBAction func addFriendTapped(_ sender: Any) {

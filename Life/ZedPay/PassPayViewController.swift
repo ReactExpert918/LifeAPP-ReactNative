@@ -73,6 +73,7 @@ class PassPayViewController: UIViewController {
             guard let customer = customers.first else{
                 return
             }
+            print(customer.passcode.decryptedString())
             if(text != customer.passcode.decryptedString()){
                 let confirmationAlert = UIAlertController(title: "", message: "PassCode incorrect".localized, preferredStyle: .alert)
                 confirmationAlert.addAction(UIAlertAction(title: "OK".localized, style: .cancel, handler: { (action: UIAlertAction!) in
@@ -84,14 +85,14 @@ class PassPayViewController: UIViewController {
                 self.updating = true
                 self.transactionObjectId = ZEDPays.create(fromUserId: (Persons.currentPerson()?.objectId)!, toUserId: toUserId, quantity: quantity * 0.975)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1){
-                let predicate = NSPredicate(format: "objectId == %@", self.transactionObjectId )
-                self.transactions = realm.objects(ZEDPay.self).filter(predicate)
-                self.tokenTransactions?.invalidate()
-                self.transactions.safeObserve({ changes in
-                self.callBack()
-                }, completion: { token in
-                self.tokenTransactions = token
-                })
+                    let predicate = NSPredicate(format: "objectId == %@", self.transactionObjectId )
+                    self.transactions = realm.objects(ZEDPay.self).filter(predicate)
+                    self.tokenTransactions?.invalidate()
+                    self.transactions.safeObserve({ changes in
+                        self.callBack()
+                    }, completion: { token in
+                        self.tokenTransactions = token
+                    })
                 }
             }
         }

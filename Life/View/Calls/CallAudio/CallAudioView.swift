@@ -74,7 +74,7 @@ class CallAudioView: UIViewController {
     init(userId: String) {
         super.init(nibName: nil, bundle: nil)
         let recipentUser = realm.object(ofType: Person.self, forPrimaryKey: userId)
-        callString = recipentUser!.fullname
+        callString = recipentUser!.getFullName()
         let app = UIApplication.shared.delegate as? AppDelegate
         audioController = app?.client?.audioController()
         
@@ -152,7 +152,14 @@ class CallAudioView: UIViewController {
         volumeView.alpha = 0.01
         view.addSubview(volumeView)
         /// Notification Observer
-        NotificationCenter.default.addObserver(self, selector: #selector(self.volumeDidChange(notification:)), name: NSNotification.Name(rawValue: "AVSystemController_SystemVolumeDidChangeNotification"), object: nil)
+        if #available(iOS 15.0, *) {
+            NotificationCenter.default.addObserver(self, selector: #selector(self.volumeDidChange(notification:)), name: NSNotification.Name(rawValue: "SystemVolumeDidChange"), object: nil)
+        } else {
+            NotificationCenter.default.addObserver(self, selector: #selector(self.volumeDidChange(notification:)), name: NSNotification.Name(rawValue: "AVSystemController_AudioVolumeNotificationParameter"), object: nil)
+        }
+        
+        
+        
         let progress = audioSession.outputVolume / 1.0 * 6
         dottedProgressBar?.setProgress(value: Int(progress))
         if type == 1{
@@ -201,8 +208,10 @@ class CallAudioView: UIViewController {
     }
     
     @objc func volumeDidChange(notification: NSNotification) {
-        let volume = notification.userInfo!["AVSystemController_AudioVolumeNotificationParameter"] as! Float
-        let progress = volume / 1.0 * 6
+        print("detect volume change")
+        let audioSession = AVAudioSession.sharedInstance()
+        
+        let progress = audioSession.outputVolume / 1.0 * 6
         dottedProgressBar?.setProgress(value: Int(progress))
     }
     
@@ -303,12 +312,19 @@ class CallAudioView: UIViewController {
     
     
     @IBAction func actionHangup(_ sender: Any) {
+        Messages.sendCalling(chatId: self.roomID, recipientId: self.receiver, type: .CANCELLED_CALL)
         self.leaveChannel()
         ref.child("voice_call").child(self.roomID).removeValue()
         self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func actionRequestHangup(_ sender: Any) {
+        if self.labelStatus.text != "Declined" {
+            Messages.sendCalling(chatId: self.roomID, recipientId: self.receiver, type: .CANCELLED_CALL)
+        } else {
+            Messages.sendCalling(chatId: self.roomID, recipientId: self.receiver, type: .MISSED_CALL)
+        }
+        
         DispatchQueue.main.async {
             self.audioController?.stopPlayingSoundFile()
         }

@@ -24,7 +24,7 @@ class FriendCell: SwipeTableViewCell {
     
     func bindData(person: Person, indexPath: IndexPath) {
 
-        userNameLabel.text = person.fullname
+        userNameLabel.text = person.getFullName()
         cellType = 0
         removeFriend.image = UIImage(named: "remove_friend")
         self.indexPath = indexPath

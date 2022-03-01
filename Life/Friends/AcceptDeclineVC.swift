@@ -25,14 +25,14 @@ class AcceptDeclineViewController: UIViewController {
     }
     
     fileprivate func initUI() {
-        let predicate = NSPredicate(format: "objectId != %@", userId)
+        let predicate = NSPredicate(format: "objectId == %@", userId)
         let persons = realm.objects(Person.self).filter(predicate)
         invitor = persons[0]
         
         loadProfileImage()
-        lblName.text = invitor.fullname
+        lblName.text = invitor.getFullName()
         lblPhoneNum.text = invitor.phone
-        lblMessage.text = "You received a message request from" + " " + invitor.fullname + ". Do you want to accept the add request?"
+        lblMessage.text = "You received a message request from" + " " + invitor.getFullName() + ". Do you want to accept the add request?"
     }
     
     @IBAction func onAcceptTapped(_ sender: Any) {

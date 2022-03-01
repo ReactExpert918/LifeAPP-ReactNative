@@ -239,19 +239,19 @@ class Messages: NSObject {
 		Details.updateAll(chatId: message.chatId, isArchived: false)
         switch message.type {
         case MESSAGE_TYPE.MESSAGE_TEXT:
-            PushNotification.send(token: recipient?.oneSignalId ?? "", title: "New message", body: Persons.fullname() + " " + "sent you a new message", type: .sendText, chatId: message.chatId)
+            PushNotification.send(token: recipient?.oneSignalId ?? "", title: "Life-App", body: Persons.fullname() + " " + "sent you a new message", type: .sendText, chatId: message.chatId)
         case MESSAGE_TYPE.MESSAGE_EMOJI:
-            PushNotification.send(token: recipient?.oneSignalId ?? "", title: "New emoji", body: Persons.fullname() + " " + "sent new emoji", type: .sendText, chatId: message.chatId)
+            PushNotification.send(token: recipient?.oneSignalId ?? "", title: "Life-App", body: Persons.fullname() + " " + "sent new emoji", type: .sendText, chatId: message.chatId)
         case MESSAGE_TYPE.MESSAGE_PHOTO:
-            PushNotification.send(token: recipient?.oneSignalId ?? "", title: "New photo", body: Persons.fullname() + " " + "sent new photo", type: .sendText, chatId: message.chatId)
+            PushNotification.send(token: recipient?.oneSignalId ?? "", title: "Life-App", body: Persons.fullname() + " " + "sent new photo", type: .sendText, chatId: message.chatId)
         case MESSAGE_TYPE.MESSAGE_VIDEO:
-            PushNotification.send(token: recipient?.oneSignalId ?? "", title: "New video", body: Persons.fullname() + " " + "sent new video", type: .sendText, chatId: message.chatId)
+            PushNotification.send(token: recipient?.oneSignalId ?? "", title: "Life-App", body: Persons.fullname() + " " + "sent new video", type: .sendText, chatId: message.chatId)
         case MESSAGE_TYPE.MESSAGE_AUDIO:
-            PushNotification.send(token: recipient?.oneSignalId ?? "", title: "New audio", body: Persons.fullname() + " " + "sent new audio", type: .sendText, chatId: message.chatId)
+            PushNotification.send(token: recipient?.oneSignalId ?? "", title: "Life-App", body: Persons.fullname() + " " + "sent new audio", type: .sendText, chatId: message.chatId)
         case MESSAGE_TYPE.MESSAGE_LOCATION:
-            PushNotification.send(token: recipient?.oneSignalId ?? "", title: "Location received", body: Persons.fullname() + " " + "sent location", type: .sendText, chatId: message.chatId)
+            PushNotification.send(token: recipient?.oneSignalId ?? "", title: "Life-App", body: Persons.fullname() + " " + "sent location", type: .sendText, chatId: message.chatId)
         case MESSAGE_TYPE.MESSAGE_MONEY:
-            PushNotification.send(token: recipient?.oneSignalId ?? "", title: "Balance received", body: "You have received Balance from" + " " + Persons.fullname(), type: .sendText, chatId: message.chatId)
+            PushNotification.send(token: recipient?.oneSignalId ?? "", title: "Life-App", body: "You have received Balance from" + " " + Persons.fullname(), type: .sendText, chatId: message.chatId)
         default:
             print("default")
         }

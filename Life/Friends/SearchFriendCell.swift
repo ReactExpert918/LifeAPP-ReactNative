@@ -24,7 +24,7 @@ class SearchFriendCell : UITableViewCell{
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func bindData(person: Person) {
 
-        userNameLabel.text = person.fullname
+        userNameLabel.text = person.getFullName()
         phoneNumberLabel.text = person.phone
         
         if(Friends.isFriend(person.objectId)){

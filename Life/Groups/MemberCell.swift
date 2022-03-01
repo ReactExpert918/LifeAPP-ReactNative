@@ -27,7 +27,7 @@ class MemberCell: UITableViewCell {
     }
     
     func bindData(person: Person) {
-        laberPersonName.text = person.fullname
+        laberPersonName.text = person.getFullName()
         labelPhone.text = person.phone
         
     }

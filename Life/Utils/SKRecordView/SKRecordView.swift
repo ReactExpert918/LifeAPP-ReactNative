@@ -89,7 +89,7 @@ class SKRecordView: UIView, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
         
         recordButton.setImage(image, for: UIControl.State())
         
-        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(SKRecordView.userDidTapRecord(_:)))
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(SKRecordView.actionLongPress(_:)))
         longPress.cancelsTouchesInView = false
         longPress.allowableMovement = 10
         longPress.minimumPressDuration = 0.3
@@ -217,7 +217,7 @@ class SKRecordView: UIView, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
         }
     }
     
-    @objc func userDidTapRecord(_ gesture: UIGestureRecognizer) {
+    @objc func actionLongPress(_ gesture: UIGestureRecognizer) {
         let button = gesture.view as! UIButton
         let location = gesture.location(in: button)
         var startLocation = CGPoint.zero
@@ -226,7 +226,6 @@ class SKRecordView: UIView, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
             startLocation = location
             userDidBeginRecord(button)
         case .changed:
-            
             let translate = CGPoint(x: location.x - startLocation.x, y: location.y - startLocation.y)
             if !button.bounds.contains(translate) {
                 if state == .recording {
@@ -235,13 +234,24 @@ class SKRecordView: UIView, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
             }
         case .ended:
             if state == .none { return }
-            let translate = CGPoint(x: location.x - startLocation.x, y: location.y - startLocation.y)
-            if !button.frame.contains(translate) {
+//            let translate = CGPoint(x: location.x - startLocation.x, y: location.y - startLocation.y)
+//            print("Tested:", translate, button.frame)
+//            if !button.frame.contains(translate) {
+//                userDidStopRecording(button)
+//            }
+            
+            if state == .recording {
                 userDidStopRecording(button)
             }
             
         case .failed, .possible ,.cancelled : if state == .recording { userDidStopRecording(button) } else { userDidTapRecordThenSwipe(button)}
+        @unknown default:
+            if state == .recording { userDidStopRecording(button) } else { userDidTapRecordThenSwipe(button)}
         }
+    }
+    
+    @objc func actionCancel() {
+        
     }
     
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {

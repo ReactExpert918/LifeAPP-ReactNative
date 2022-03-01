@@ -161,7 +161,7 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
     
     @IBAction func onNameChangeTapped(_ sender: Any) {
         let vc =  self.storyboard?.instantiateViewController(identifier: "updateNameVC") as! UpdateNameViewController
-        vc.setName(withName: person.fullname)
+        vc.setName(withName: person.getFullName())
         vc.fromUsername = false
         vc.delegate = self
 
@@ -299,10 +299,10 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
                 self.profileImageView.image = UIImage(named: "ic_default_profile")
             }
         }
-        name.text = person.fullname
+        name.text = person.getFullName()
         username.text = person.username
         oldusername = person.username
-        password.text = person.fullname
+        password.text = person.getFullName()
         phoneNumber.text = person.phone
         emailAddress.text = person.email
     }

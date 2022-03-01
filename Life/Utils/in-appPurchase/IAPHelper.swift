@@ -141,10 +141,10 @@ extension IAPHandler: SKProductsRequestDelegate, SKPaymentTransactionObserver {
 }
 
 public struct LifeProducts {
-    public static let LifeBuy5Points   = "com.life.iap.buy5points"
-    public static let LifeBuy10Points  = "com.life.iap.buy10points"
-    public static let LifeBuy15Points  = "com.life.iap.buy15points"
-    public static let LifeBuy20Points  = "com.life.iap.buy20points"
-    public static let LifeBuy50Points  = "com.life.iap.buy50points"
-    public static let LifeBuy100Points = "com.life.iap.buy100points"
+    public static let LifeBuy5Points   = "com.zed.life.buy5points"
+    public static let LifeBuy10Points  = "com.zed.life.buy10points"
+    public static let LifeBuy15Points  = "com.zed.life.buy15points"
+    public static let LifeBuy20Points  = "com.zed.life.buy20points"
+    public static let LifeBuy50Points  = "com.zed.life.buy50points"
+    public static let LifeBuy100Points = "com.zed.life.buy100points"
 }

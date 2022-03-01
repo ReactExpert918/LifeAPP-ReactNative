@@ -32,12 +32,15 @@ class RCMMessageCallCell: RCMessageCell {
             labelContent.textAlignment = .right
             viewBubble.addSubview(labelContent)
         }
+        
+        print("Call statues", rcmessage.callStatus)
 
         if (rcmessage.callStatus == .MISSED_CALL) { imvCall.image = RCDefaults.callMissed        }
         if (rcmessage.callStatus == .CANCELLED_CALL) { imvCall.image = RCDefaults.callCancelled    }
 
         labelContent.textColor = rcmessage.incoming ? RCDefaults.audioTextColorIncoming : RCDefaults.audioTextColorOutgoing
-        labelContent.text = rcmessage.incoming ? "Cancelled call".localized : "Missed call".localized
+//        labelContent.text = rcmessage.incoming ? "Cancelled call".localized : "Missed call".localized
+        labelContent.text = rcmessage.text
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------

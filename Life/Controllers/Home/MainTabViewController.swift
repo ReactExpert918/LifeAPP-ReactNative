@@ -18,8 +18,12 @@ class MainTabViewController: UITabBarController {
         super.viewDidLoad()
 
         loadChats()
+        
+        
         // Do any additional setup after loading the view.
     }
+    
+    
     
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func loadChats(text: String = "") {

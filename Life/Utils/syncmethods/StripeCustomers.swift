@@ -20,7 +20,7 @@ class StripeCustomers: NSObject {
         }
         stripeCustomer.userId = person.objectId
         stripeCustomer.email = person.email
-        stripeCustomer.name = person.fullname
+        stripeCustomer.name = person.getFullName()
         stripeCustomer.phone = person.phone
         stripeCustomer.passcode = passcode.encryptedString()
         let realm = try! Realm()

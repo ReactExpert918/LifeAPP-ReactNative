@@ -21,7 +21,7 @@ class ZEDPays: NSObject {
         zedPay.status = TRANSACTION_STATUS.PENDING
         //transaction.callBack = callBack
         let realm = try! Realm()
-        try! realm.safeWrite {
+        try! realm.write {
             realm.add(zedPay, update: .modified)
         }
         return zedPay.objectId
@@ -36,15 +36,15 @@ class ZEDPays: NSObject {
         zedPay.fromUserId = userId
         zedPay.toUserId = userId
         //usd dollar smallest unit 0.5
-        zedPay.amount = Int(floor(quantity * 100))
+        zedPay.amount = Int(quantity)
         
-        zedPay.quantity = ((Persons.currentPerson()?.getBalance())! + quantity).encryptedString()
+        zedPay.quantity = quantity.encryptedString()
         zedPay.customerId = customerId
         zedPay.status = TRANSACTION_STATUS.PENDING
         zedPay.cardId = cardId
         //transaction.callBack = callBack
         let realm = try! Realm()
-        try! realm.safeWrite {
+        try! realm.write {
             realm.add(zedPay, update: .modified)
         }
         return zedPay.objectId

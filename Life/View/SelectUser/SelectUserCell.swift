@@ -22,7 +22,7 @@ class SelectUserCell: UITableViewCell {
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	func bindData(person: Person) {
 
-		labelName.text = person.fullname
+		labelName.text = person.getFullName()
 		labelStatus.text = person.status
 	}
 

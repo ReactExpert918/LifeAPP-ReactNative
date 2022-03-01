@@ -11,7 +11,7 @@ import UIKit
 
 class AppConstant {
     static let VIDEO_LENGTH = 30
-    static let agoraAppID = "7385eb633290453aaee4530d4c05f109"
+    static let agoraAppID = "b4a232ac6c1e4becb4e4f3440bb93d34"
     static let SCREEN_HEIGHT       = UIScreen.main.bounds.height
     static let SCREEN_WIDTH        = UIScreen.main.bounds.width
     static let PRIMARY_COLOR        = UIColor.init(named: "PrimaryColor")
@@ -55,6 +55,7 @@ struct NotificationStatus {
     static let NOTIFICATION_APP_STARTED = "NotificationAppStarted"
     static let NOTIFICATION_USER_LOGGED_IN = "NotificationUserLoggedIn"
     static let NOTIFICATION_USER_LOGGED_OUT = "NotificationUserLoggedOut"
+    static let NOTIFICATION_RECEIVE_CHAT = "NotificationReceiveChat"
 }
 
 struct LoginInfo {
@@ -82,6 +83,7 @@ struct MESSAGE_TYPE {
     static let MESSAGE_AUDIO = "audio"
     static let MESSAGE_LOCATION = "location"
     static let MESSAGE_MONEY = "pay"
+    static let MESSAGE_ISTYPING = "istyping"
     static let MISSED_CALL = "\(CallStatus.MISSED_CALL.rawValue)"
     static let CANCELLED_CALL = "\(CallStatus.CANCELLED_CALL.rawValue)"
 }

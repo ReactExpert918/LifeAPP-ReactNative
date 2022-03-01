@@ -125,6 +125,7 @@ class MessageVideoCell: UITableViewCell {
                 imageViewMeThumb.image = nil
             }
         }
+    }
 
     // MARK: - User actions
     //---------------------------------------------------------------------------------------------------------------------------------------------

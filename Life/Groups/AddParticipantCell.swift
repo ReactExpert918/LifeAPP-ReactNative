@@ -48,7 +48,7 @@ class AddParticipantCell : UITableViewCell, BEMCheckBoxDelegate{
     
     func bindData(person: Person) {
         phoneNumber.text = person.phone
-        name.text = person.fullname
+        name.text = person.getFullName()
         let selected : Bool = checkSelected(person: person)
         checkBox.setOn(selected, animated: false)
         

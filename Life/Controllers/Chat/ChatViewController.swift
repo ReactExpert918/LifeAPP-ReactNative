@@ -12,6 +12,7 @@ import ProgressHUD
 import InputBarAccessoryView
 import IQKeyboardManagerSwift
 import FittedSheets
+import FirebaseDatabase
 class User {
     
     let name: String
@@ -30,6 +31,8 @@ class ChatViewController: UIViewController {
     var chatId = ""
     var recipientId = ""
     var fromNoti = false
+    
+    var ref = Database.database().reference()
     
     private var detail: Detail?
     private var details = realm.objects(Detail.self).filter(falsepredicate)
@@ -127,6 +130,7 @@ class ChatViewController: UIViewController {
         //searchView.isHidden = true
         MoneyTableViewCell.Register(withTableView: self.tableView)
         tableView.register(RCHeaderUpperCell.self, forCellReuseIdentifier: "RCHeaderUpperCell")
+        tableView.register(RCMessageTypingCell.self, forCellReuseIdentifier: "RCMessageTypingCell")
         tableView.register(RCHeaderLowerCell.self, forCellReuseIdentifier: "RCHeaderLowerCell")
 
         tableView.register(RCMessageEmojiCell.self, forCellReuseIdentifier: "RCMessageEmojiCell")
@@ -139,14 +143,14 @@ class ChatViewController: UIViewController {
 
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1.0)
+        //tableView.contentInsetAdjustmentBehavior = .never
+        tableView.backgroundColor = UIColor.white
         //tableView.tableHeaderView = viewLoadEarlier
         
         refreshControl.addTarget(self, action: #selector(actionLoadEarlier), for: UIControl.Event.valueChanged)
         tableView.addSubview(refreshControl)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
         
         //tableView.keyboardDismissMode = .onDrag
         // Do any additional setup after loading the view.
@@ -157,10 +161,6 @@ class ChatViewController: UIViewController {
         loadDetails()
         loadMessages()
         
-        IQKeyboardManager.shared.enableAutoToolbar = false
-        IQKeyboardManager.shared.enable = false
-        IQKeyboardManager.shared.shouldResignOnTouchOutside = false
-        
         ///zed pay button
         if(recipientId == ""){
             zedPayButton.isUserInteractionEnabled = false
@@ -170,10 +170,18 @@ class ChatViewController: UIViewController {
             zedPayButton.isHidden = false
         }
         audioController = RCAudioController(self)
+        
+        self.ref.child("Typing").child(self.chatId).observe(.childChanged) { snapshot in
+            if snapshot.key == self.recipientId {
+                self.isTyping = snapshot.value as? Bool ?? false
+                self.refreshTableView()
+                self.scrollToBottom()
+            }
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        super.viewWillDisappear(animated)
         IQKeyboardManager.shared.enableAutoToolbar = true
         IQKeyboardManager.shared.enable = true
         IQKeyboardManager.shared.shouldResignOnTouchOutside = true
@@ -217,9 +225,9 @@ class ChatViewController: UIViewController {
             }
             MediaDownload.startUser(person.objectId, pictureAt: person.pictureAt) { image, error in
                 if (error == nil && image != nil) {
-                    self.users.append(User(name:person.fullname, image: image!))
+                    self.users.append(User(name:person.getFullName(), image: image!))
                 } else{
-                    self.users.append(User(name:person.fullname, image: UIImage(named: "ic_default_profile")!))
+                    self.users.append(User(name:person.getFullName(), image: UIImage(named: "ic_default_profile")!))
                 }
             }
         }
@@ -229,6 +237,13 @@ class ChatViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
 
         super.viewWillAppear(animated)
+        
+        IQKeyboardManager.shared.enableAutoToolbar = false
+        IQKeyboardManager.shared.enable = false
+        IQKeyboardManager.shared.shouldResignOnTouchOutside = false
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         updateTitleDetails()
         showCallToolbar(value: false)
@@ -372,7 +387,7 @@ class ChatViewController: UIViewController {
             present(callAdudioView, animated: true)
             let realm = try! Realm()
             let recipient = realm.object(ofType: Person.self, forPrimaryKey: recipientId)
-            PushNotification.send(token: recipient?.oneSignalId ?? "", title: Persons.fullname() + " " + "is Audio calling you", body: Persons.fullname() + " " + "is Audio calling you", type: .sendVoiceCalling, chatId: chatId)
+            PushNotification.send(token: recipient?.oneSignalId ?? "", title: "Life-App", body: Persons.fullname() + " " + "is Audio calling you", type: .sendVoiceCalling, chatId: chatId)
             //Messages.sendCalling(chatId: chatId, recipientId: recipientId, type: .MISSED_CALL)
         }else{
             var personsId: [String] = []
@@ -399,7 +414,7 @@ class ChatViewController: UIViewController {
             present(callVideoView, animated: true)
             let realm = try! Realm()
             let recipient = realm.object(ofType: Person.self, forPrimaryKey: recipientId)
-            PushNotification.send(token: recipient?.oneSignalId ?? "", title: Persons.fullname() + " " + "is Video calling you", body: Persons.fullname() + " " + "is Video calling you", type: .sendVideoCalling, chatId: chatId)
+            PushNotification.send(token: recipient?.oneSignalId ?? "", title: "Life-App", body: Persons.fullname() + " " + "is Video calling you", type: .sendVideoCalling, chatId: chatId)
             
         } else {
             var personsId: [String] = []
@@ -423,7 +438,7 @@ class ChatViewController: UIViewController {
     func updateTitleDetails() {
 
         if let person = realm.object(ofType: Person.self, forPrimaryKey: recipientId) {
-            participantNameLabel.text = person.fullname
+            participantNameLabel.text = person.getFullName()
 //            labelTitle2.text = person.lastActiveText()
         }else if let group=realm.object(ofType: Group.self, forPrimaryKey: chatId) {
             participantNameLabel.text = group.name
@@ -594,17 +609,31 @@ class ChatViewController: UIViewController {
     // MARK: - Message methods
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func rcmessageAt(_ indexPath: IndexPath) -> RCMessage {
-        let message = messageAt(indexPath)
-        if let rcmessage = rcmessages[message.objectId] {
-            rcmessage.update(message)
+        
+        if (indexPath.section < messageLoadedCount()) {
+            let message = messageAt(indexPath)
+            if let rcmessage = rcmessages[message.objectId] {
+                rcmessage.update(message)
+                loadMedia(rcmessage)
+                return rcmessage
+            }
+
+            let rcmessage = RCMessage(message: message)
+            rcmessages[message.objectId] = rcmessage
             loadMedia(rcmessage)
             return rcmessage
+        } else {
+            let message = Message()
+            
+            message.chatId = chatId
+            message.userId = recipientId
+            
+            let rcmessage = RCMessage(message: message)
+            rcmessage.type = MESSAGE_TYPE.MESSAGE_ISTYPING
+            rcmessages[message.objectId] = rcmessage
+            //loadMedia(rcmessage)
+            return rcmessage
         }
-
-        let rcmessage = RCMessage(message: message)
-        rcmessages[message.objectId] = rcmessage
-        loadMedia(rcmessage)
-        return rcmessage
     }
     
     func indexPathBy(_ rcmessage: RCMessage) -> IndexPath? {
@@ -641,7 +670,7 @@ class ChatViewController: UIViewController {
     func avatarImage(_ indexPath: IndexPath) -> UIImage? {
 
         let rcmessage = rcmessageAt(indexPath)
-        let imageAvatar = avatarImages[rcmessage.userId]
+        var imageAvatar = avatarImages[rcmessage.userId]
         // print(rcmessage.userId)
         //print(rcmessage.userPictureAt)
 /*
@@ -664,6 +693,7 @@ class ChatViewController: UIViewController {
                     self.avatarImages[rcmessage.userId] = UIImage(named: "ic_default_profile")
                 }
             }
+            imageAvatar = UIImage(named: "ic_default_profile")
         }
 
         return imageAvatar
@@ -806,7 +836,7 @@ class ChatViewController: UIViewController {
             return
         }
         
-        self.popupUserName.text = person.fullname
+        self.popupUserName.text = person.getFullName()
         self.popupPhoneNumber.text = person.phone
         self.popupCheckmark.isHidden = true
         if let path = MediaDownload.pathUser(person.objectId) {
@@ -928,8 +958,10 @@ class ChatViewController: UIViewController {
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func layoutTableView() {
         // print("layoutTableView")
-        let heightInput = messageInputBar.bounds.height
-        let edgeInset = UIEdgeInsets(top: 0, left: 0, bottom: heightInput + heightKeyboard, right: 0)
+        print("SnapShot", heightKeyboard)
+        let heightInput = messageInputBar.bounds.height - self.view.safeAreaInsets.bottom
+        
+        let edgeInset = UIEdgeInsets(top: 10, left: 0, bottom: heightInput + heightKeyboard + 10, right: 0)
         tableView.contentInset = edgeInset
         tableView.scrollIndicatorInsets = edgeInset
     }
@@ -951,7 +983,7 @@ class ChatViewController: UIViewController {
         if (typing == false) && (isTyping == true) {
 //            typingLabel?.text = textTitle
         }
-        isTyping = typing
+        //isTyping = typing
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
@@ -980,6 +1012,7 @@ class ChatViewController: UIViewController {
         if (heightKeyboard != 0) { return }
         // print("keyboardwillshow")
         keyboardWillShow = true
+        self.ref.child("Typing").child(self.chatId).child(AuthUser.userId()).setValue(true)
         if let info = notification.userInfo {
             if let duration = info[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double {
                 if let keyboard = info[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
@@ -1002,6 +1035,7 @@ class ChatViewController: UIViewController {
         heightKeyboard = 0
         keyboardWillShow = false
         layoutTableView()
+        self.ref.child("Typing").child(self.chatId).child(AuthUser.userId()).setValue(false)
         if messageInputBar.inputTextView.text.isEmpty{
             self.hybridButton.isHidden = false
         }else{
@@ -1131,7 +1165,7 @@ extension ChatViewController: UITableViewDataSource {
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func numberOfSections(in tableView: UITableView) -> Int {
-        return messageLoadedCount()
+        return messageLoadedCount() + (self.isTyping ? 1 : 0)
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
@@ -1146,6 +1180,7 @@ extension ChatViewController: UITableViewDataSource {
             if (rcmessage.type == MESSAGE_TYPE.MISSED_CALL || rcmessage.type == MESSAGE_TYPE.CANCELLED_CALL)    { return cellForMessageCall(tableView, at: indexPath)}
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_LOCATION) { return cellForMessageLocation(tableView, at: indexPath)}
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_MONEY)    { return cellForMessageMoney(tableView, at: indexPath)}
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_ISTYPING)    { return cellForTyping(tableView, at: indexPath)}
         }
         return UITableViewCell()
     }
@@ -1157,6 +1192,11 @@ extension ChatViewController: UITableViewDataSource {
         return cell
     }
 
+    func cellForTyping(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "RCMessageTypingCell", for: indexPath) as! RCMessageTypingCell
+        cell.bindData(self, at: indexPath)
+        return cell
+    }
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func cellForHeaderLower(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RCHeaderLowerCell", for: indexPath) as! RCHeaderLowerCell
@@ -1248,11 +1288,15 @@ extension ChatViewController: UITableViewDelegate {
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         view.tintColor = UIColor.clear
+        view.backgroundColor = UIColor.clear
+        view.isHidden = true
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
         view.tintColor = UIColor.clear
+        view.backgroundColor = UIColor.clear
+        view.isHidden = true
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
@@ -1270,24 +1314,26 @@ extension ChatViewController: UITableViewDelegate {
             if (rcmessage.type == MESSAGE_TYPE.MISSED_CALL || rcmessage.type == MESSAGE_TYPE.CANCELLED_CALL)    { return RCMMessageCallCell.height(self, at: indexPath)  }
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_LOCATION)    { return RCMessageLocationCell.height(self, at: indexPath)   }
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_MONEY)    { return 143   }
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_ISTYPING) { return 46 }
         }
         return 0
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        let offset = messageTotalCount() - messageLoadedCount()
-        let message = messages[section + offset]
-        var prevUserId = ""
-        if(section > 0){
-            prevUserId = messages[section + offset - 1].userId
-        }
-        var offsetHeight = CGFloat(3)
-        if (prevUserId != message.userId){
-            offsetHeight = RCDefaults.sectionHeaderMargin
-            prevUserId = message.userId
-        }
-        return offsetHeight
+//        let offset = messageTotalCount() - messageLoadedCount()
+//        let message = messages[section + offset]
+//        var prevUserId = ""
+//        if(section > 0){
+//            prevUserId = messages[section + offset - 1].userId
+//        }
+//        var offsetHeight = CGFloat(3)
+//        if (prevUserId != message.userId){
+//            offsetHeight = RCDefaults.sectionHeaderMargin
+//            prevUserId = message.userId
+//        }
+//        return offsetHeight
+        return RCDefaults.sectionFooterMargin
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------

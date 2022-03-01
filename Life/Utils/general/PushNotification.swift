@@ -25,7 +25,7 @@ class PushNotification: NSObject {
                 [
                     "title" : title,
                     "body" : body,
-                    "sound": "default"
+                    "sound": "default",
                 ],
             "data" : ["userId" : userId,
                       "chatId" : chatId ?? "",
