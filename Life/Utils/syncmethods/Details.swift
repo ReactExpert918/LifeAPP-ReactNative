@@ -64,6 +64,15 @@ class Details: NSObject {
 			detail.update(isDeleted: isDeleted)
 		}
 	}
+    
+    class func update(chatId: String, user_id: String, isDeleted: Bool) {
+
+        let predicate = NSPredicate(format: "chatId == %@ AND userId == %@", chatId, user_id)
+        
+        if let detail = realm.objects(Detail.self).filter(predicate).first {
+            detail.update(isDeleted: isDeleted)
+        }
+    }
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	class func update(chatId: String, isArchived: Bool) {

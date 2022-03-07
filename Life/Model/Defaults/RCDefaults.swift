@@ -141,6 +141,10 @@ enum RCDefaults {
 
 	static let audioBubbleColorOutgoing		= UIColor(red: 79/255, green: 132/255, blue: 179/255, alpha: 1.0)
     static let audioBubbleColorIncoming		= UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0)
+    
+    static let callBubbleColorOutgoing        = UIColor(red: 79/255, green: 132/255, blue: 179/255, alpha: 1.0)
+    static let callBubbleColorIncoming        = UIColor(named: "messageIncomingColor")
+    
 	static let audioTextColorOutgoing		= UIColor.white
 	static let audioTextColorIncoming		= UIColor.black
 

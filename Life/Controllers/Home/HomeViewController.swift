@@ -131,6 +131,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         tokenFriends?.invalidate()
         friends.safeObserve({ changes in
             // load friend list
+            print(changes)
             self.loadPersons()
             //self.refreshTableView()
             

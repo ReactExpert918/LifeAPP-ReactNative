@@ -137,5 +137,7 @@ class Friends: NSObject {
             return
         }
         friend.update(isDeleted: true, completion: completion)
+        Details.update(chatId: Singles.chatId(userId), isDeleted: true)
+        Details.update(chatId: Singles.chatId(userId), user_id: userId, isDeleted: true)
     }
 }

@@ -108,7 +108,7 @@
                             <rect key="frame" x="0.0" y="730" width="414" height="88"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nPO-so-kJh">
-                                    <rect key="frame" x="16" y="0.0" width="72" height="72"/>
+                                    <rect key="frame" x="326" y="0.0" width="72" height="72"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="72" id="IQy-Bj-TcH"/>
                                         <constraint firstAttribute="width" constant="72" id="nic-rC-sGy"/>
@@ -119,7 +119,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CeO-Yx-oBe">
-                                    <rect key="frame" x="326" y="0.0" width="72" height="72"/>
+                                    <rect key="frame" x="16" y="0.0" width="72" height="72"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="72" id="vkU-26-7Qh"/>
                                         <constraint firstAttribute="width" constant="72" id="vr9-I6-QAT"/>
@@ -133,10 +133,10 @@
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstItem="CeO-Yx-oBe" firstAttribute="top" secondItem="bsc-ZX-ncE" secondAttribute="top" id="0Or-AM-XJh"/>
-                                <constraint firstItem="nPO-so-kJh" firstAttribute="leading" secondItem="bsc-ZX-ncE" secondAttribute="leading" constant="16" id="LLT-fm-RdP"/>
-                                <constraint firstAttribute="trailing" secondItem="CeO-Yx-oBe" secondAttribute="trailing" constant="16" id="YKA-gI-azl"/>
+                                <constraint firstItem="CeO-Yx-oBe" firstAttribute="leading" secondItem="bsc-ZX-ncE" secondAttribute="leading" constant="16" id="1aQ-BM-vek"/>
                                 <constraint firstItem="nPO-so-kJh" firstAttribute="top" secondItem="bsc-ZX-ncE" secondAttribute="top" id="c5S-gZ-ebY"/>
                                 <constraint firstAttribute="height" constant="88" id="csy-cz-caV"/>
+                                <constraint firstAttribute="trailing" secondItem="nPO-so-kJh" secondAttribute="trailing" constant="16" id="nMh-Ii-28b"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gaf-ab-Y7P" userLabel="muteswitch">

@@ -10,6 +10,8 @@ import UIKit
 import FirebaseAuth
 import FlagPhoneNumber
 import JGProgressHUD
+import CoreLocation
+
 class SignupViewController: UIViewController {
 
     @IBOutlet weak var phoneNumberTextField: FPNTextField!
@@ -20,6 +22,8 @@ class SignupViewController: UIViewController {
     var phoneNumber = ""
     var isValidPhoneNumber = false
     let hud = JGProgressHUD(style: .light)
+    
+    private let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +38,37 @@ class SignupViewController: UIViewController {
         subscribeToShowKeyboardNotifications()
         //
         checkPhoneNumberValidation()
+        
+        self.setCountryCode()
     }
+    
+    func setCountryCode() {
+        if CLLocationManager.locationServicesEnabled() {
+            switch CLLocationManager.authorizationStatus() {
+            case .notDetermined, .restricted, .denied:
+                self.setCountryCodeWithLocale()
+                break
+            case .authorizedAlways, .authorizedWhenInUse:
+                self.locationManager.delegate = self
+                self.locationManager.startMonitoringSignificantLocationChanges()
+                break
+            @unknown default:
+                self.setCountryCodeWithLocale()
+                break
+            }
+        } else {
+            self.setCountryCodeWithLocale()
+        }
+    }
+    
+    func setCountryCodeWithLocale() {
+        if let regionCode = Locale.current.regionCode, let countryCode = FPNCountryCode(rawValue: regionCode) {
+            self.phoneNumberTextField.setFlag(countryCode: countryCode)
+        } else {
+            self.phoneNumberTextField.setFlag(countryCode: FPNCountryCode.JP)
+        }
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         phoneNumberTextField.becomeFirstResponder()
     }
@@ -134,7 +168,7 @@ extension SignupViewController: FPNTextFieldDelegate {
     }
     
     func fpnDidValidatePhoneNumber(textField: FPNTextField, isValid: Bool) {
-        let phoneNumber = textField.getFormattedPhoneNumber(format: .E164)!
+        //let phoneNumber = textField.getFormattedPhoneNumber(format: .E164)!
         checkPhoneNumberValidation()
         if isValid {
             isValidPhoneNumber = true
@@ -142,5 +176,27 @@ extension SignupViewController: FPNTextFieldDelegate {
             isValidPhoneNumber = false
         }
 
+    }
+}
+
+extension SignupViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let currentLocation = locations.first else {
+            self.setCountryCodeWithLocale()
+            return
+        }
+        
+        let geoCoder = CLGeocoder()
+        geoCoder.reverseGeocodeLocation(currentLocation) { placeMarks, error in
+            guard let currentPlacemark = placeMarks?.first else {
+                self.setCountryCodeWithLocale()
+                return
+            }
+            if let regionCode = currentPlacemark.isoCountryCode, let countryCode = FPNCountryCode(rawValue: regionCode) {
+                self.phoneNumberTextField.setFlag(countryCode: countryCode)
+            } else {
+                self.phoneNumberTextField.setFlag(countryCode: FPNCountryCode.JP)
+            }
+        }
     }
 }

@@ -1230,7 +1230,6 @@
 				A6DEA81C24A82A7100868625 /* RCMessagePhotoCell.swift */,
 				A6DEA81D24A82A7100868625 /* RCMessageTextCell.swift */,
 				A6DEA81E24A82A7100868625 /* RCMessageEmojiCell.swift */,
-				57FF98E227C5E08A00BE8F14 /* RCMessageTypingCell.swift */,
 				57FF98E427C6057B00BE8F14 /* ic_istyping.gif */,
 				A6DEA81F24A82A7100868625 /* RCMessageAudioCell.swift */,
 				A6DEA82024A82A7100868625 /* RCMessageLocationCell.swift */,
@@ -1238,6 +1237,7 @@
 				04975C1126859AB300A10CC1 /* MoneyTableViewCell.swift */,
 				04975C1226859AB300A10CC1 /* MoneyTableViewCell.xib */,
 				051FC1E926CBAC0800F89FF1 /* RCMMessageCallCell.swift */,
+				57FF98E227C5E08A00BE8F14 /* RCMessageTypingCell.swift */,
 				050DE52726DC962F008F2A3F /* MessageTextCell.swift */,
 				050DE56C26DCC479008F2A3F /* MessageAudioCell.swift */,
 				057A49D026DCDD4C008ECBDA /* MessageVideoCell.swift */,
@@ -2433,7 +2433,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.2;
+				MARKETING_VERSION = 1.4.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zed.life;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2462,7 +2462,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.2;
+				MARKETING_VERSION = 1.4.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zed.life;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

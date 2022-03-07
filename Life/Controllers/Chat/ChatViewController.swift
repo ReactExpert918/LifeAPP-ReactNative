@@ -74,7 +74,7 @@ class ChatViewController: UIViewController {
     
     private var messageToDisplay: Int = 12
 
-    private var typingCounter: Int = 0
+    private var typingCounter: Timer = Timer()
     private var lastRead: Int64 = 0
 
     private var indexForward: IndexPath?
@@ -988,20 +988,18 @@ class ChatViewController: UIViewController {
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func typingIndicatorUpdate() {
-        typingCounter += 1
-        detail?.update(typing: true)
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-            self.typingIndicatorStop()
-        }
+        self.typingCounter.invalidate()
+        
+        self.ref.child("Typing").child(self.chatId).child(AuthUser.userId()).setValue(true)
+        
+        self.typingCounter = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(typingIndicatorStop), userInfo: nil, repeats: false)
+        
     }
     //---------------------------------------------------------------------------------------------------------------------------------------------
-    func typingIndicatorStop() {
-        typingCounter -= 1
-        if (typingCounter == 0) {
-            detail?.update(typing: false)
-            self.hybridButton.isHidden = false
-        }
+    @objc func typingIndicatorStop() {
+        self.ref.child("Typing").child(self.chatId).child(AuthUser.userId()).setValue(false)
+        detail?.update(typing: false)
+        self.hybridButton.isHidden = false
     }
     
     // MARK: - Keyboard methods
@@ -1012,7 +1010,7 @@ class ChatViewController: UIViewController {
         if (heightKeyboard != 0) { return }
         // print("keyboardwillshow")
         keyboardWillShow = true
-        self.ref.child("Typing").child(self.chatId).child(AuthUser.userId()).setValue(true)
+        //self.ref.child("Typing").child(self.chatId).child(AuthUser.userId()).setValue(true)
         if let info = notification.userInfo {
             if let duration = info[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double {
                 if let keyboard = info[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
@@ -1035,7 +1033,7 @@ class ChatViewController: UIViewController {
         heightKeyboard = 0
         keyboardWillShow = false
         layoutTableView()
-        self.ref.child("Typing").child(self.chatId).child(AuthUser.userId()).setValue(false)
+        //self.ref.child("Typing").child(self.chatId).child(AuthUser.userId()).setValue(false)
         if messageInputBar.inputTextView.text.isEmpty{
             self.hybridButton.isHidden = false
         }else{
@@ -1310,8 +1308,8 @@ extension ChatViewController: UITableViewDelegate {
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_EMOJI)    { return RCMessageEmojiCell.height(self, at: indexPath)         }
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_PHOTO)    { return RCMessagePhotoCell.height(self, at: indexPath)     }
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_VIDEO)    { return 160 }
-            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_AUDIO)    { return 46}
-            if (rcmessage.type == MESSAGE_TYPE.MISSED_CALL || rcmessage.type == MESSAGE_TYPE.CANCELLED_CALL)    { return RCMMessageCallCell.height(self, at: indexPath)  }
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_AUDIO)    { return 46 }
+            if (rcmessage.type == MESSAGE_TYPE.MISSED_CALL || rcmessage.type == MESSAGE_TYPE.CANCELLED_CALL)    { return 60 }
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_LOCATION)    { return RCMessageLocationCell.height(self, at: indexPath)   }
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_MONEY)    { return 143   }
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_ISTYPING) { return 46 }

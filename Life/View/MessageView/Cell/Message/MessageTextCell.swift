@@ -128,7 +128,7 @@ class MessageTextCell: UITableViewCell {
         do{
             let regex = try NSRegularExpression(pattern: searchString, options: .caseInsensitive)
             attributed.addAttribute(.font, value: RCDefaults.textFont, range:NSRange(location: 0, length: baseString.utf16.count))
-            attributed.addAttribute(.backgroundColor, value: rcmessage.incoming ? uivYou.backgroundColor : uivMe.backgroundColor as Any, range:NSRange(location: 0, length: baseString.utf16.count))
+            attributed.addAttribute(.backgroundColor, value: rcmessage.incoming ? uivYou.backgroundColor as Any : uivMe.backgroundColor as Any, range:NSRange(location: 0, length: baseString.utf16.count))
             for match in regex.matches(in: baseString, options: [], range: NSRange(location: 0, length: baseString.utf16.count)) as [NSTextCheckingResult] {
                 attributed.addAttribute(.backgroundColor, value: UIColor.yellow, range: match.range)
                 attributed.addAttribute(.foregroundColor, value: UIColor.black, range: match.range)
