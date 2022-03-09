@@ -36,7 +36,7 @@ class ZEDPays: NSObject {
         zedPay.fromUserId = userId
         zedPay.toUserId = userId
         //usd dollar smallest unit 0.5
-        zedPay.amount = Int(quantity)
+        zedPay.amount = Int(quantity) * 100
         
         zedPay.quantity = quantity.encryptedString()
         zedPay.customerId = customerId

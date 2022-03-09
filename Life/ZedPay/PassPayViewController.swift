@@ -46,6 +46,7 @@ class PassPayViewController: UIViewController {
         otpCodeView.text = ""
         otpCodeView.keyboardType = .numberPad
         otpCodeView.properties.numberOfCharacters = 4
+        otpCodeView.properties.isSecure = true
         otpCodeView.appearance.tokenColor = UIColor.black.withAlphaComponent(0.2)
         otpCodeView.appearance.tokenFocusColor = UIColor.black.withAlphaComponent(0.2)
         otpCodeView.appearance.textColor = UIColor.black

@@ -11,11 +11,15 @@ import RealmSwift
 import JGProgressHUD
 class UpdatePasscodeViewController: UIViewController, UITextFieldDelegate {
     
+    @IBOutlet weak var oldPasswordTextField: UITextField!
+    
     @IBOutlet weak var newPasswordTextField: UITextField!
     
     @IBOutlet weak var confirmPasswordTextField: UITextField!
     
     @IBOutlet weak var informLabel: UILabel!
+    
+    @IBOutlet weak var oldPasswordEye: UIButton!
     
     @IBOutlet weak var newPasswordEye: UIButton!
     
@@ -23,14 +27,17 @@ class UpdatePasscodeViewController: UIViewController, UITextFieldDelegate {
     
     var delegate: UpdatePayDelegateProtocol? = nil
     
+    var oldpassword_eye_off = true
     var newpassword_eye_off = true
     var confirmpassword_eye_off = true
+    
     private var tokenStripeCustomer: NotificationToken? = nil
     private var stripeCustomers = realm.objects(StripeCustomer.self).filter(falsepredicate)
     let hud = JGProgressHUD(style: .light)
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        oldPasswordTextField.delegate = self
         newPasswordTextField.delegate = self
         confirmPasswordTextField.delegate = self
         
@@ -39,18 +46,30 @@ class UpdatePasscodeViewController: UIViewController, UITextFieldDelegate {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        newPasswordTextField.becomeFirstResponder()
+        oldPasswordTextField.becomeFirstResponder()
     }
     
     @IBAction func onCloseTapped(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func onOldPasswordEyeTapped(_ sender: Any) {
+        if oldpassword_eye_off {
+            oldPasswordTextField.isSecureTextEntry = false
+            oldPasswordEye.setImage(UIImage(named: "eye_on"), for: .normal)
+        } else {
+            oldPasswordTextField.isSecureTextEntry = true
+            oldPasswordEye.setImage(UIImage(named: "eye_off"), for: .normal)
+        }
+        oldpassword_eye_off = !oldpassword_eye_off
+    }
+    
+    
     @IBAction func onNewPasswordEyeTapped(_ sender: Any) {
-        if newpassword_eye_off{
+        if newpassword_eye_off {
             newPasswordTextField.isSecureTextEntry = false
             newPasswordEye.setImage(UIImage(named: "eye_on"), for: .normal)
-        }else {
+        } else {
             newPasswordTextField.isSecureTextEntry = true
             newPasswordEye.setImage(UIImage(named: "eye_off"), for: .normal)
         }
@@ -58,31 +77,47 @@ class UpdatePasscodeViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func onConfirmPasswordEyeTapped(_ sender: Any) {
-        if confirmpassword_eye_off{
+        if confirmpassword_eye_off {
             confirmPasswordTextField.isSecureTextEntry = false
             confirmPasswordEye.setImage(UIImage(named: "eye_on"), for: .normal)
-        }else {
+        } else {
             confirmPasswordTextField.isSecureTextEntry = true
             confirmPasswordEye.setImage(UIImage(named: "eye_off"), for: .normal)
         }
         confirmpassword_eye_off = !confirmpassword_eye_off
     }
     
-    func showInformText(withOption option: Bool)
+    func showInformText(message: String)
     {
-        informLabel.isHidden = option
+        informLabel.text = message
+        informLabel.isHidden = false
         
     }
     @IBAction func onSubmitTapped(_ sender: Any) {
+        let oldPassword = self.oldPasswordTextField.text
+        
+        if oldPassword?.isEmpty == true {
+            self.showInformText(message: "Please enter passcode.")
+            return
+        }
+        
         let newPassword = self.newPasswordTextField.text
+        
         if newPassword?.isEmpty == true {
+            self.showInformText(message: "New Passcode Can't empty.")
             return
         }
         if newPasswordTextField.text == confirmPasswordTextField.text {
-            showInformText(withOption: true)
+            self.informLabel.isHidden = true
+            
             let predicate = NSPredicate(format: "userId == %@", AuthUser.userId())
             stripeCustomers = realm.objects(StripeCustomer.self).filter(predicate)
             guard let stripeCustomer = stripeCustomers.first else{
+                return
+            }
+            
+            if !stripeCustomer.checkPasscode(passcode: oldPassword ?? "") {
+                self.showInformText(message: "Please input correct passcode.")
                 return
             }
             //print(stripeCustomer.passcode.decryptedString())
@@ -98,7 +133,7 @@ class UpdatePasscodeViewController: UIViewController, UITextFieldDelegate {
             
         }
         else{
-            showInformText(withOption: false)
+            showInformText(message: "Passcode not match")
         }
     }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

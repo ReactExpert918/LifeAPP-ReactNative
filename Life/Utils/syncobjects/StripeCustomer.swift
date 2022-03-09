@@ -34,4 +34,8 @@ class StripeCustomer: SyncObject {
             updatedAt = Date().timestamp()
         }
     }
+    
+    func checkPasscode(passcode value: String) -> Bool {
+        return self.passcode == value.encryptedString()
+    }
 }

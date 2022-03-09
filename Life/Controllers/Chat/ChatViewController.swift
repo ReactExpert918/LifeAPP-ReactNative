@@ -114,6 +114,8 @@ class ChatViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = nil
+        
         self.popupView.isHidden = true
         
         searchBar.backgroundImage = UIImage()
@@ -422,7 +424,7 @@ class ChatViewController: UIViewController {
                 personsId.append(person.objectId)
             }
             
-            if let group = realm.object(ofType: Group.self, forPrimaryKey: chatId){
+            if let _ = realm.object(ofType: Group.self, forPrimaryKey: chatId){
                 //let callVideoView = CallVideoView(group: group, persons: personsId)
                 //callVideoView.roomID = self.chatId
                 let callVideoView = self.storyboard?.instantiateViewController(withIdentifier: "GroupVideoCallViewController") as! GroupVideoCallViewController
@@ -1382,8 +1384,20 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         let video = info[.mediaURL] as? URL
         let photo = info[.originalImage] as? UIImage
-        messageSend(text: nil, photo: photo, video: video, audio: nil)
-        picker.dismiss(animated: true)
+        
+        let confirmationAlert = UIAlertController(title: "Do you want to use this Image?".localized, message: "", preferredStyle: .alert)
+
+        confirmationAlert.addAction(UIAlertAction(title: "OK".localized, style: .default, handler: { [self] (action: UIAlertAction!) in
+            confirmationAlert.dismiss(animated: true, completion: nil)
+            self.messageSend(text: nil, photo: photo, video: video, audio: nil)
+            picker.dismiss(animated: true)
+        }))
+
+        confirmationAlert.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: { (action: UIAlertAction!) in
+        }))
+        picker.present(confirmationAlert, animated: true, completion: nil)
+        //messageSend(text: nil, photo: photo, video: video, audio: nil)
+        //picker.dismiss(animated: true)
     }
 }
 

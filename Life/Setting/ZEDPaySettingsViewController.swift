@@ -63,7 +63,7 @@ class ZEDPaySettingsViewController: UIViewController {
     @IBAction func actionTapPasscode(_ sender: Any) {
         let vc =  self.storyboard?.instantiateViewController(identifier: "updatePasscodeVC") as! UpdatePasscodeViewController
         vc.delegate = self
-        let sheetController = SheetViewController(controller: vc, sizes: [.fixed(360)])
+        let sheetController = SheetViewController(controller: vc, sizes: [.fixed(464)])
         self.present(sheetController, animated: false, completion: nil)
     }
     
