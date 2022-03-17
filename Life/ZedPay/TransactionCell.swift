@@ -49,7 +49,7 @@ class TransactionCell: UITableViewCell {
         if(transaction.toUserId == transaction.fromUserId){
             let person = Persons.getById(transaction.fromUserId)
             imageType.image = UIImage(named: "ic_pay_charge")
-            labelType.text = "Add Money".localized
+            labelType.text = "Add Balance".localized
             labelQuantity.text = String(format: "%.2f",Double(transaction.amount)/100.0)
             lblSign.text = "+"
             labelName.text = person?.getFullName()
@@ -58,7 +58,7 @@ class TransactionCell: UITableViewCell {
             //sent
             let person = Persons.getById(transaction.toUserId)
             imageType.image = UIImage(named: "ic_pay_sent")
-            labelType.text = "Money Sent".localized
+            labelType.text = "Balance Sent".localized
             labelQuantity.text = String(format: "%.2f",transaction.getQuantity() * 100 / 97.5)
             lblSign.text = "-"
             labelName.text = person?.getFullName()

@@ -96,19 +96,24 @@ class AddPaymentMethodViewController: UIViewController {
             return
         }
         
-        if paymentMethod.status == ZEDPAY_STATUS.FAILED {
-            self.hud.dismiss()
-            self.dismiss(animated: true){
-                self.delegate?.updateCard(result: false)
-            }
+        self.hud.dismiss()
+        self.dismiss(animated: true){
+            self.delegate?.updateCard(result: true)
         }
-        if paymentMethod.status == ZEDPAY_STATUS.SUCCESS {
-            self.hud.dismiss()
-            self.dismiss(animated: true){
-                self.delegate?.updateCard(result: true)
-            }
-            
-        }
+        
+//        if paymentMethod.status == ZEDPAY_STATUS.FAILED {
+//            self.hud.dismiss()
+//            self.dismiss(animated: true){
+//                self.delegate?.updateCard(result: false)
+//            }
+//        }
+//        if paymentMethod.status == ZEDPAY_STATUS.SUCCESS {
+//            self.hud.dismiss()
+//            self.dismiss(animated: true){
+//                self.delegate?.updateCard(result: true)
+//            }
+//
+//        }
     }
     
 }

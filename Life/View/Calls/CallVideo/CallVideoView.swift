@@ -18,6 +18,7 @@ class CallVideoView: UIViewController {
 	@IBOutlet var uiv_muteswitch: UIView!
     @IBOutlet var uiv_power: UIView!
     @IBOutlet weak var uiv_request: UIView!
+    var isVideoEnabled = true
     
     let ref = Database.database().reference()
     
@@ -42,6 +43,7 @@ class CallVideoView: UIViewController {
     
     @IBOutlet weak var micButton: UIButton!
     @IBOutlet weak var cameraButton: UIButton!
+    @IBOutlet weak var videoButton: UIButton!
     
     var videoStatusHandle: UInt?
     var videoStatusRemoveHandle: UInt?
@@ -116,11 +118,14 @@ class CallVideoView: UIViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		micButton.setImage(UIImage(named: "callvideo_mute1"), for: .normal)
-        micButton.setImage(UIImage(named: "callvideo_mute1"), for: .highlighted)
+		micButton.setImage(UIImage(named: "ic_voice_off"), for: .normal)
+        micButton.setImage(UIImage(named: "ic_voice_off"), for: .highlighted)
+        
+        videoButton.setImage(UIImage(named: "ic_video_off"), for: .normal)
+        videoButton.setImage(UIImage(named: "ic_video_off"), for: .highlighted)
 
-		cameraButton.setImage(UIImage(named: "callvideo_switch1"), for: .normal)
-        cameraButton.setImage(UIImage(named: "callvideo_switch1"), for: .highlighted)
+		cameraButton.setImage(UIImage(named: "ic_camera_front"), for: .normal)
+        cameraButton.setImage(UIImage(named: "ic_camera_front"), for: .highlighted)
 
         if (incoming) { setIncomingUI() }
         if (outgoing) { setOutGoingUI() }
@@ -270,14 +275,31 @@ class CallVideoView: UIViewController {
         }
         if (muted) {
             muted = false
-            micButton.setImage(UIImage(named: "callvideo_mute1"), for: .normal)
-            micButton.setImage(UIImage(named: "callvideo_mute1"), for: .highlighted)
+            micButton.setImage(UIImage(named: "ic_voice_off"), for: .normal)
+            micButton.setImage(UIImage(named: "ic_voice_off"), for: .highlighted)
         } else {
             muted = true
-            micButton.setImage(UIImage(named: "callvideo_mute2"), for: .normal)
-            micButton.setImage(UIImage(named: "callvideo_mute2"), for: .highlighted)
+            micButton.setImage(UIImage(named: "ic_voice_on"), for: .normal)
+            micButton.setImage(UIImage(named: "ic_voice_on"), for: .highlighted)
         }
     }
+    
+    @IBAction func actionVideoSetting(_ sender: Any) {
+        if let agoraKit = agoraKit {
+            if self.isVideoEnabled {
+                agoraKit.disableVideo()
+                self.isVideoEnabled = false
+                videoButton.setImage(UIImage(named: "ic_video_on"), for: .normal)
+                videoButton.setImage(UIImage(named: "ic_video_on"), for: .highlighted)
+            } else {
+                agoraKit.enableVideo()
+                self.isVideoEnabled = true
+                videoButton.setImage(UIImage(named: "ic_video_off"), for: .normal)
+                videoButton.setImage(UIImage(named: "ic_video_off"), for: .highlighted)
+            }
+        }
+    }
+    
     
     @IBAction func actionSwitch(_ sender: Any) {
         let sender = sender as! UIButton
@@ -287,12 +309,12 @@ class CallVideoView: UIViewController {
         }
         if (switched) {
             switched = false
-            cameraButton.setImage(UIImage(named: "callvideo_switch1"), for: .normal)
-            cameraButton.setImage(UIImage(named: "callvideo_switch1"), for: .highlighted)
+            cameraButton.setImage(UIImage(named: "ic_camera_front"), for: .normal)
+            cameraButton.setImage(UIImage(named: "ic_camera_front"), for: .highlighted)
         } else {
             switched = true
-            cameraButton.setImage(UIImage(named: "callvideo_switch1"), for: .normal)
-            cameraButton.setImage(UIImage(named: "callvideo_switch1"), for: .highlighted)
+            cameraButton.setImage(UIImage(named: "ic_camera_back"), for: .normal)
+            cameraButton.setImage(UIImage(named: "ic_camera_back"), for: .highlighted)
         }
     }
     
@@ -467,7 +489,9 @@ extension CallVideoView: AgoraRtcEngineDelegate {
         parent.addSubview(remoteVideo!.view!)
         if let agoraKit = self.agoraKit{
             agoraKit.setupRemoteVideo(remoteVideo!)
+            agoraKit.disableVideo()
         }
+        
         
     }
     

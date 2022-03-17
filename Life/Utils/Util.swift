@@ -49,3 +49,17 @@ class Util{
         return "+" + countryDialingCode
     }
 }
+
+extension UIView {
+    func flipX() {
+        transform = CGAffineTransform(scaleX: -transform.a, y: transform.d)
+    }
+    func flipY() {
+        transform = CGAffineTransform(scaleX: transform.a, y: -transform.d)
+    }
+    func removeAllSubViews() {
+        for view in self.subviews {
+            view.removeFromSuperview()
+        }
+    }
+}

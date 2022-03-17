@@ -38,6 +38,7 @@ target 'Life' do
   pod 'CreditCardValidator'
   pod 'KAPinField'
   pod 'SwipeCellKit'
+  pod 'RSKImageCropper'
   
   target 'LifeTests' do
     inherit! :search_paths

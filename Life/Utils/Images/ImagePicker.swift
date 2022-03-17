@@ -11,7 +11,8 @@
 
 import UIKit
 import MobileCoreServices
-
+import FittedSheets
+import Photos
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 class ImagePicker: NSObject {
 
@@ -38,7 +39,8 @@ class ImagePicker: NSObject {
 					imagePicker.allowsEditing = edit
 					imagePicker.showsCameraControls = true
 					imagePicker.delegate = viewController as? (UIImagePickerControllerDelegate & UINavigationControllerDelegate)
-					viewController.present(imagePicker, animated: true)
+                    let sheetImage = SheetViewController(controller: imagePicker, sizes: [.fixed(180)])
+					viewController.present(sheetImage, animated: true)
 				}
 			}
 		}
@@ -109,6 +111,25 @@ class ImagePicker: NSObject {
 	class func photoLibrary(target: Any, edit: Bool) {
 
 		let type = kUTTypeImage as String
+        
+//        var allPhotos = PHFetchResult<PHAsset>()
+//
+//        let options = PHFetchOptions()
+//        options.sortDescriptors = [
+//            NSSortDescriptor(key: "creationDate", ascending: false)
+//        ]
+//
+//        allPhotos = PHAsset.fetchAssets(with: options)
+//
+//        print(allPhotos.count)
+//
+//        if let asset = allPhotos.firstObject {
+//            let imageManager = PHImageManager()
+//
+//            imageManager.requestImage(for: asset, targetSize: CGSize(width: 100, height: 100), contentMode: .aspectFill, options: nil) { image, _ in
+//                print("Test")
+//            }
+//        }
 
 		if (UIImagePickerController.isSourceTypeAvailable(.photoLibrary)) {
 			if let availableMediaTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary) {
@@ -119,9 +140,10 @@ class ImagePicker: NSObject {
 					imagePicker.mediaTypes = [type]
 
 					let viewController = target as! UIViewController
+                    imagePicker.view.frame = CGRect(x: 0, y: 0, width: viewController.view.frame.width, height: 200)
 					imagePicker.allowsEditing = edit
 					imagePicker.delegate = viewController as? (UIImagePickerControllerDelegate & UINavigationControllerDelegate)
-					viewController.present(imagePicker, animated: true)
+                    viewController.present(imagePicker, animated: true)
 				}
 			}
 		}
@@ -132,11 +154,16 @@ class ImagePicker: NSObject {
 					let imagePicker = UIImagePickerController()
 					imagePicker.sourceType = .savedPhotosAlbum
 					imagePicker.mediaTypes = [type]
+                    
 
 					let viewController = target as! UIViewController
+                    
+                    imagePicker.view.frame = CGRect(x: 0, y: 0, width: viewController.view.frame.width, height: 200)
+                    
 					imagePicker.allowsEditing = edit
 					imagePicker.delegate = viewController as? (UIImagePickerControllerDelegate & UINavigationControllerDelegate)
-					viewController.present(imagePicker, animated: true)
+                    //let sheetImage = SheetViewController(controller: imagePicker, sizes: [.fixed(180)])
+                    viewController.present(imagePicker, animated: true)
 				}
 			}
 		}

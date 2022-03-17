@@ -36,15 +36,15 @@ class ZEDPays: NSObject {
         zedPay.fromUserId = userId
         zedPay.toUserId = userId
         //usd dollar smallest unit 0.5
-        zedPay.amount = Int(quantity) * 100
+        zedPay.amount = Int(floor(quantity * 100))
         
-        zedPay.quantity = quantity.encryptedString()
+        zedPay.quantity = ((Persons.currentPerson()?.getBalance())! + quantity).encryptedString()
         zedPay.customerId = customerId
         zedPay.status = TRANSACTION_STATUS.PENDING
         zedPay.cardId = cardId
         //transaction.callBack = callBack
         let realm = try! Realm()
-        try! realm.write {
+        try! realm.safeWrite {
             realm.add(zedPay, update: .modified)
         }
         return zedPay.objectId

@@ -136,14 +136,19 @@ enum RCDefaults {
 	static let audioBubbleWidht				= CGFloat(150)
 	static let audioBubbleHeight			= CGFloat(40)
     
-    static let callBubbleWidht              = CGFloat(150)
+    static let callBubbleWidht              = CGFloat(200)
     static let callBubbleHeight             = CGFloat(40)
+    static let callBubbleMarginTop          = CGFloat(3)
+    static let callBubbleImageWidth         = CGFloat(28)
+    static let callBubbleImageHeight         = CGFloat(26)
 
 	static let audioBubbleColorOutgoing		= UIColor(red: 79/255, green: 132/255, blue: 179/255, alpha: 1.0)
     static let audioBubbleColorIncoming		= UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0)
     
     static let callBubbleColorOutgoing        = UIColor(red: 79/255, green: 132/255, blue: 179/255, alpha: 1.0)
     static let callBubbleColorIncoming        = UIColor(named: "messageIncomingColor")
+    
+    static let callIncomingMissed           = UIColor(red: 255/255, green: 57/255, blue: 57/255, alpha: 1.0)
     
 	static let audioTextColorOutgoing		= UIColor.white
 	static let audioTextColorIncoming		= UIColor.black
@@ -152,10 +157,10 @@ enum RCDefaults {
 	static let audioImagePause				= UIImage.init(systemName: "pause.fill")
 	static let audioImageManual				= UIImage(named: "rcmessages_manual")!
     
-    static let callMissed                = UIImage(named: "ic_missedcall")!
-    static let callCancelled                = UIImage(named: "ic_cancel")!
+    static let callMissed                = UIImage(named: "ic_call_missed")!
+    static let callCancelled                = UIImage(named: "ic_call_missed")!
 
-	static let audioFont					= UIFont.systemFont(ofSize: 16)
+	static let audioFont					= UIFont.systemFont(ofSize: 14)
 
 	// Location cell
 	//---------------------------------------------------------------------------------------------------------------------------------------------

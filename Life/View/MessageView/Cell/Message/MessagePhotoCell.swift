@@ -1,19 +1,23 @@
 //
-//  RCMMessageCallCell.swift
-//  Life
+// Copyright (c) 2020 Related Code 
 //
-//  Created by top Dev on 17.08.2021.
-//  Copyright © 2021 Zed. All rights reserved.
-//
-
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
 
 import UIKit
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
-class RCMMessageCallCell: UITableViewCell {
+class MessagePhotoCell: UITableViewCell {
 
-    private var imvCall: UIImageView!
-    private var labelContent: UILabel!
+	private var imageViewPhoto: UIImageView!
+	private var imageViewManual: UIImageView!
+	private var activityIndicator: UIActivityIndicatorView!
+    
     var indexPath: IndexPath!
     var messagesView: ChatViewController!
 
@@ -22,21 +26,22 @@ class RCMMessageCallCell: UITableViewCell {
     private var imageAvatar: UIImageView!
     private var labelTimeText: UILabel!
     private var viewStatus: UIView!
-    //---------------------------------------------------------------------------------------------------------------------------------------------
-    func bindData(_ messagesView: ChatViewController, at indexPath: IndexPath) {
+
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+	func bindData(_ messagesView: ChatViewController, at indexPath: IndexPath) {
         
         self.indexPath = indexPath
         self.messagesView = messagesView
         let rcmessage = messagesView.rcmessageAt(indexPath)
         backgroundColor = UIColor.clear
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(actionContentView))
-        contentView.addGestureRecognizer(tapGesture)
-        
-        
+
         if (viewBubble == nil) {
             viewBubble = UIView()
-            //viewBubble.layer.cornerRadius = RCDefaults.bubbleRadius
+            viewBubble.layer.cornerRadius = RCDefaults.bubbleRadius
+            viewBubble.layer.shadowColor = UIColor.black.cgColor
+            viewBubble.layer.shadowOffset = CGSize(width: 0, height: 1)
+            viewBubble.layer.shadowOpacity = 0.5
+            viewBubble.layer.shadowRadius = 4.0
             contentView.addSubview(viewBubble)
             bubbleGestureRecognizer()
         }
@@ -74,47 +79,76 @@ class RCMMessageCallCell: UITableViewCell {
         labelTimeText.textAlignment = rcmessage.incoming ? .left : .right
         labelTimeText.text = messagesView.textHeaderLower(indexPath)
         
-        if (imvCall == nil) {
-            imvCall = UIImageView()
-            viewBubble.addSubview(imvCall)
-        }
+		if (imageViewPhoto == nil) {
+			imageViewPhoto = UIImageView()
+            
+            imageViewPhoto.layer.masksToBounds = true
+            imageViewPhoto.layer.cornerRadius = RCDefaults.bubbleRadius
+			
+			viewBubble.addSubview(imageViewPhoto)
+		}
 
-        if (labelContent == nil) {
-            labelContent = UILabel()
-            labelContent.font = RCDefaults.audioFont
-            labelContent.textAlignment = .right
-            viewBubble.addSubview(labelContent)
-        }
+		if (activityIndicator == nil) {
+			activityIndicator = UIActivityIndicatorView(style: .large)
+			viewBubble.addSubview(activityIndicator)
+		}
+
+		if (imageViewManual == nil) {
+			imageViewManual = UIImageView(image: RCDefaults.photoImageManual)
+			viewBubble.addSubview(imageViewManual)
+		}
+
+        if (rcmessage.mediaStatus == MediaStatus.MEDIASTATUS_UNKNOWN) {
+			imageViewPhoto.image = nil
+			activityIndicator.stopAnimating()
+			imageViewManual.isHidden = true
+		}
+
+        if (rcmessage.mediaStatus == MediaStatus.MEDIASTATUS_LOADING) {
+			imageViewPhoto.image = nil
+			activityIndicator.startAnimating()
+			imageViewManual.isHidden = true
+		}
+
+        if (rcmessage.mediaStatus == MediaStatus.MEDIASTATUS_SUCCEED) {
+			imageViewPhoto.image = rcmessage.photoImage
+			activityIndicator.stopAnimating()
+			imageViewManual.isHidden = true
+		}
+
+		if (rcmessage.mediaStatus == MediaStatus.MEDIASTATUS_MANUAL) {
+			imageViewPhoto.image = nil
+			activityIndicator.stopAnimating()
+			imageViewManual.isHidden = false
+		}
         
-        print("Call statues", rcmessage.callStatus)
+        //imageViewManual.isHidden = true
+	}
 
-        if (rcmessage.callStatus == .MISSED_CALL) { imvCall.image = RCDefaults.callMissed        }
-        if (rcmessage.callStatus == .CANCELLED_CALL) { imvCall.image = RCDefaults.callCancelled    }
-
-        labelContent.textColor = rcmessage.incoming ? RCDefaults.audioTextColorIncoming : RCDefaults.audioTextColorOutgoing
-//        labelContent.text = rcmessage.incoming ? "Cancelled call".localized : "Missed call".localized
-        labelContent.text = rcmessage.text
-    }
-
-    //---------------------------------------------------------------------------------------------------------------------------------------------
-    override func layoutSubviews() {
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+	override func layoutSubviews() {
+        
         super.layoutSubviews()
+
+		let size = MessagePhotoCell.size(messagesView, at: indexPath)
         
         let rcmessage = messagesView.rcmessageAt(indexPath)
         let widthTable = messagesView.tableView.frame.size.width
         
         let diameter: CGFloat = 46
         
-        let xBubble = rcmessage.incoming ? diameter + 20 : (widthTable - diameter - 20 - RCDefaults.callBubbleWidht)
+        let xBubble = rcmessage.incoming ? diameter + 20 : (widthTable - diameter - 20 - size.width)
         
         
         
-        viewBubble.frame = CGRect(x: xBubble, y: RCDefaults.viewBubbleMarginTop, width: RCDefaults.callBubbleWidht, height: RCDefaults.callBubbleHeight-RCDefaults.viewBubbleMarginTop)
-        let xMark = rcmessage.incoming ? RCDefaults.bubbleMarginLeft + RCDefaults.callBubbleWidht + 10 : (widthTable - RCDefaults.bubbleMarginRight - RCDefaults.callBubbleWidht - 20 - 10)
-        if(objectionableMark != nil){
-            print("display mark")
-            objectionableMark.frame = CGRect(x: xMark, y:RCDefaults.viewBubbleMarginTop + 5, width: 18, height: 18 )
-        }
+        viewBubble.frame = CGRect(x: xBubble, y: 0, width: size.width, height:size.height)
+        
+        
+        labelTimeText.sizeToFit()
+        
+        let xTime = rcmessage.incoming ? xBubble + size.width + 8 : xBubble - labelTimeText.frame.width - 8
+        
+        labelTimeText.frame.origin = CGPoint(x: xTime, y: size.height - labelTimeText.frame.height)
         
         
         
@@ -122,24 +156,43 @@ class RCMMessageCallCell: UITableViewCell {
         
         imageAvatar.frame = CGRect(x: xAvatar, y: 0, width: diameter, height: diameter)
         viewStatus.frame = CGRect(x: xAvatar + 33, y: 0, width: 12, height: 12)
+
+		imageViewPhoto.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+
+		let widthActivity = activityIndicator.frame.size.width
+		let heightActivity = activityIndicator.frame.size.height
+		let xActivity = (size.width - widthActivity) / 2
+		let yActivity = (size.height - heightActivity) / 2
+		activityIndicator.frame = CGRect(x: xActivity, y: yActivity, width: widthActivity, height: heightActivity)
+
+		let widthManual = imageViewManual.image?.size.width ?? 0
+		let heightManual = imageViewManual.image?.size.height ?? 0
+		let xManual = (size.width - widthManual) / 2
+		let yManual = (size.height - heightManual) / 2
+		imageViewManual.frame = CGRect(x: xManual, y: yManual, width: widthManual, height: heightManual)
+	}
+
+	// MARK: - Size methods
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+	class func height(_ messagesView: ChatViewController, at indexPath: IndexPath) -> CGFloat {
+
+		let size = self.size(messagesView, at: indexPath)
+		return size.height
+	}
+
+	//---------------------------------------------------------------------------------------------------------------------------------------------
+	class func size(_ messagesView: ChatViewController, at indexPath: IndexPath) -> CGSize {
+
+		let rcmessage = messagesView.rcmessageAt(indexPath)
+
+		let photoWidth = CGFloat(rcmessage.photoWidth)
+		let photoHeight = CGFloat(rcmessage.photoHeight)
         
-        imvCall.frame = CGRect(x: 10, y: 5, width: 20, height: 20)
-        labelContent.frame = CGRect(x: 40, y: 5, width: 90, height: 20)
+
+		let width = CGFloat.minimum(RCDefaults.photoBubbleWidth, photoWidth)
         
-        let time_width = CGFloat(60)
-        let time_height = (labelTimeText.text != nil) ? RCDefaults.headerLowerHeight : 0
-        let xTime = rcmessage.incoming ? xBubble + RCDefaults.callBubbleWidht + 10 : xBubble - time_width-10
-        
-        labelTimeText.frame = CGRect(x: xTime, y: RCDefaults.callBubbleHeight - time_height , width: time_width, height: time_height)
-        
-        let imageName = rcmessage.incoming ? "chat_incoming_mask" : "chat_outgoing_mask"
-        guard let image = UIImage(named: imageName) else { return }
-        let maskView = UIImageView()
-        maskView.image = image.resizableImage(withCapInsets:UIEdgeInsets(top: 17, left: 21, bottom: 17, right: 21),resizingMode: .stretch)
-        maskView.frame = CGRect(x: 0, y: 0, width: viewBubble.frame.size.width, height: viewBubble.frame.size.height)
-        //contentView.addSubview(maskView)
-        viewBubble.mask = maskView
-    }
+		return CGSize(width: width, height: photoHeight * width / photoWidth)
+	}
     
     // MARK: - Gesture recognizer methods
     //---------------------------------------------------------------------------------------------------------------------------------------------
@@ -216,4 +269,3 @@ class RCMMessageCallCell: UITableViewCell {
         }
     }
 }
-

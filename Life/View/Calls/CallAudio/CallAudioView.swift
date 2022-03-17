@@ -125,14 +125,14 @@ class CallAudioView: UIViewController {
     override func viewDidLoad() {
 
         super.viewDidLoad()
-        buttonMute.setImage(UIImage(named: "callaudio_mute2"), for: .normal)
-        buttonMute.setImage(UIImage(named: "callaudio_mute2"), for: .highlighted)
+        buttonMute.setImage(UIImage(named: "ic_audio_off"), for: .normal)
+        buttonMute.setImage(UIImage(named: "ic_audio_off"), for: .highlighted)
 
-        buttonSpeaker.setImage(UIImage(named: "callaudio_speaker2"), for: .normal)
-        buttonSpeaker.setImage(UIImage(named: "callaudio_speaker2"), for: .highlighted)
+        buttonSpeaker.setImage(UIImage(named: "ic_voice_off"), for: .normal)
+        buttonSpeaker.setImage(UIImage(named: "ic_voice_off"), for: .highlighted)
 
-        buttonVideo.setImage(UIImage(named: "callaudio_video1"), for: .normal)
-        buttonVideo.setImage(UIImage(named: "callaudio_video1"), for: .highlighted)
+        buttonVideo.setImage(UIImage(named: "ic_video_off"), for: .normal)
+        buttonVideo.setImage(UIImage(named: "ic_video_off"), for: .highlighted)
         
         if (incoming) { setIncomingUI() }
         if (outgoing) { setOutgoingUI() }
@@ -274,12 +274,12 @@ class CallAudioView: UIViewController {
     @IBAction func actionMute(_ sender: Any) {
         if (muted) {
             muted = false
-            buttonMute.setImage(UIImage(named: "callaudio_mute2"), for: .normal)
-            buttonMute.setImage(UIImage(named: "callaudio_mute2"), for: .highlighted)
+            buttonMute.setImage(UIImage(named: "ic_audio_off"), for: .normal)
+            buttonMute.setImage(UIImage(named: "ic_audio_off"), for: .highlighted)
         } else {
             muted = true
-            buttonMute.setImage(UIImage(named: "callaudio_mute3"), for: .normal)
-            buttonMute.setImage(UIImage(named: "callaudio_mute3"), for: .highlighted)
+            buttonMute.setImage(UIImage(named: "ic_audio_on"), for: .normal)
+            buttonMute.setImage(UIImage(named: "ic_audio_on"), for: .highlighted)
         }
         if let agoraKit = self.agoraKit{
             agoraKit.muteLocalAudioStream(muted)
@@ -290,12 +290,12 @@ class CallAudioView: UIViewController {
     @IBAction func actionSpeaker(_ sender: Any) {
         if (speaker) {
             speaker = false
-            buttonSpeaker.setImage(UIImage(named: "callaudio_speaker2"), for: .normal)
-            buttonSpeaker.setImage(UIImage(named: "callaudio_speaker2"), for: .highlighted)
+            buttonSpeaker.setImage(UIImage(named: "ic_voice_off"), for: .normal)
+            buttonSpeaker.setImage(UIImage(named: "ic_voice_off"), for: .highlighted)
         } else {
             speaker = true
-            buttonSpeaker.setImage(UIImage(named: "callaudio_speaker3"), for: .normal)
-            buttonSpeaker.setImage(UIImage(named: "callaudio_speaker3"), for: .highlighted)
+            buttonSpeaker.setImage(UIImage(named: "ic_voice_on"), for: .normal)
+            buttonSpeaker.setImage(UIImage(named: "ic_voice_on"), for: .highlighted)
         }
         if let agoraKit = self.agoraKit{
             agoraKit.setEnableSpeakerphone(speaker)

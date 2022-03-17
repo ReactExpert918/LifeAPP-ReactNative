@@ -16,9 +16,18 @@ class MoneyTableViewCell: UITableViewCell {
     @IBOutlet weak var labelPayResult: UILabel!
     @IBOutlet weak var imagePayResult: UIImageView!
     
+    @IBOutlet weak var imgAvatarMe: UIImageView!
+    @IBOutlet weak var imgAvatarYou: UIImageView!
+    
+    @IBOutlet weak var viewStateMe: UIView!
+    @IBOutlet weak var viewStateYou: UIView!
+    
+    @IBOutlet weak var viewContainer: ExtensionView!
+    
     var zedPay: ZEDPay?
     var message: Message?
     var messageView: ChatViewController?
+    var fliped = false
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -33,22 +42,44 @@ class MoneyTableViewCell: UITableViewCell {
         messageView?.goPayDetail(zedPay!)
     }
     
-    func bindData(_ message: Message, messageView: ChatViewController) {
+    func bindData(_ message: Message, messageView: ChatViewController, indexPath: IndexPath) {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(actionContentView))
         contentView.addGestureRecognizer(tapGesture)
         self.messageView = messageView
+        imgAvatarMe.image = messageView.avatarImage(indexPath)
+        imgAvatarYou.image = messageView.avatarImage(indexPath)
+        
+        viewStateYou.layer.cornerRadius = 6
+        viewStateYou.layer.borderWidth = 2
+        viewStateYou.layer.borderColor = UIColor.white.cgColor
+        
+        viewStateMe.layer.cornerRadius = 6
+        viewStateMe.layer.borderWidth = 2
+        viewStateMe.layer.borderColor = UIColor.white.cgColor
+        
         if let trans_id = message.text.split(separator: "$").first{
             let predicate = NSPredicate(format: "transId == %@ ", String(trans_id))
             zedPay = realm.objects(ZEDPay.self).filter(predicate).first
             
             if(zedPay?.fromUserId == AuthUser.userId()){ // sent
-                sendDirection.image = UIImage(named: "ic_pay_sent")
+                sendDirection.image = UIImage(named: "ic_balance_sent")
                 moneyQuantity.text = ((zedPay?.getQuantity() ?? 0) * 100 / 97.5).moneyString()
-                labelPayResult.text = "Money sent successfully".localized
+                labelPayResult.text = "Balance sent successfully".localized
+                imgAvatarMe.isHidden = false
+                viewStateMe.isHidden = false
+                
+                imgAvatarYou.isHidden = true
+                viewStateYou.isHidden = true
+                self.flipContainer()
             }else{ // received
-                sendDirection.image = UIImage(named: "ic_pay_received")
+                sendDirection.image = UIImage(named: "ic_balance_receive")
                 moneyQuantity.text = zedPay?.getQuantity().moneyString()
                 labelPayResult.text = "Balance received successfully".localized
+                imgAvatarMe.isHidden = true
+                viewStateMe.isHidden = true
+                
+                imgAvatarYou.isHidden = false
+                viewStateYou.isHidden = false
             }
             //labelPayResult.text = message.isMediaFailed ? "Payment Failed".localized : "Payment Successful".localized
             if zedPay?.status == TRANSACTION_STATUS.FAILED{
@@ -56,6 +87,19 @@ class MoneyTableViewCell: UITableViewCell {
             }
             imagePayResult.image = message.isMediaFailed ? UIImage(named: "ic_pay_fail") : UIImage(named: "ic_pay_success")
             sendDate.text = Convert.timestampToDayTime(message.createdAt)
+        }
+    }
+    
+    func flipContainer() {
+        if self.fliped {
+            return
+        }
+        self.fliped = true
+        self.viewContainer.flipX()
+        for v in self.viewContainer.subviews {
+            if v.tag != 0 {
+                v.flipX()
+            }
         }
     }
     

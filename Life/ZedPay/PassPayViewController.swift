@@ -81,7 +81,7 @@ class PassPayViewController: UIViewController {
                 }))
                 present(confirmationAlert, animated: true, completion: nil)
             }else{
-                self.hud.textLabel.text = "Sending Money...".localized
+                self.hud.textLabel.text = "Sending Balance...".localized
                 self.hud.show(in: self.view, animated: true)
                 self.updating = true
                 self.transactionObjectId = ZEDPays.create(fromUserId: (Persons.currentPerson()?.objectId)!, toUserId: toUserId, quantity: quantity * 0.975)

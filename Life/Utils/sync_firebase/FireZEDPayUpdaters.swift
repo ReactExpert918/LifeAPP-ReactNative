@@ -94,63 +94,63 @@ class FireZEDPayUpdaters: NSObject {
                  self.updating = false
             }
         } else {
-//            let transValues = populateObject(object)
-//            if (object.neverSynced) {
-//                Firestore.firestore().collection("ZEDPay").document(object.objectId).setData(transValues) { error in
-//                    if (error == nil) {
-//                        object.updateSynced()
-//                    }
-//                    self.updating = false
-//                }
-//            } else {
-//                Firestore.firestore().collection("ZEDPay").document(object.objectId).updateData(transValues) { error in
-//                    if (error == nil) {
-//                        object.updateSynced()
-//                    }
-//                    self.updating = false
-//                }
-//            }
-            object.update(status: TRANSACTION_STATUS.SUCCESS)
             let transValues = populateObject(object)
-            let db = Firestore.firestore()
-            let batch = db.batch()
-            let _fromUser = realm.object(ofType: Person.self, forPrimaryKey: object.fromUserId)
-            
-            guard let fromUser = _fromUser else {
-                return
-            }
-            let fromUserBalance = fromUser.getBalance()
-            
-            let quantity = object.getQuantity()
-            fromUser.update(balance: fromUserBalance + quantity)
-           
-            let fromUserValues = populateObject(fromUser)
-           
-            let fromUserRef = db.collection("Person").document(fromUser.objectId)
-            batch.updateData(fromUserValues, forDocument: fromUserRef)
-            
-            let transactionRef = db.collection("ZEDPay").document(object.objectId)
-            
             if (object.neverSynced) {
-                 batch.setData(transValues, forDocument: transactionRef)
+                Firestore.firestore().collection("ZEDPay").document(object.objectId).setData(transValues) { error in
+                    if (error == nil) {
+                        object.updateSynced()
+                    }
+                    self.updating = false
+                }
             } else {
-                 batch.updateData(transValues, forDocument: transactionRef)
+                Firestore.firestore().collection("ZEDPay").document(object.objectId).updateData(transValues) { error in
+                    if (error == nil) {
+                        object.updateSynced()
+                    }
+                    self.updating = false
+                }
             }
-            batch.commit() { err in
-                 if err==nil {
-                 
-                     object.update(status: TRANSACTION_STATUS.SUCCESS)
-                     object.updateSynced()
-                 }else{
-                 
-                     object.update(status: TRANSACTION_STATUS.FAILED)
-                     if(object.toUserId != object.fromUserId){
-                         fromUser.update(balance: fromUserBalance)
-                     }
-                 }
-                 
-                 self.updating = false
-            }
+//            object.update(status: TRANSACTION_STATUS.SUCCESS)
+//            let transValues = populateObject(object)
+//            let db = Firestore.firestore()
+//            let batch = db.batch()
+//            let _fromUser = realm.object(ofType: Person.self, forPrimaryKey: object.fromUserId)
+//
+//            guard let fromUser = _fromUser else {
+//                return
+//            }
+//            let fromUserBalance = fromUser.getBalance()
+//
+//            let quantity = object.getQuantity()
+//            fromUser.update(balance: fromUserBalance + quantity)
+//
+//            let fromUserValues = populateObject(fromUser)
+//
+//            let fromUserRef = db.collection("Person").document(fromUser.objectId)
+//            batch.updateData(fromUserValues, forDocument: fromUserRef)
+//
+//            let transactionRef = db.collection("ZEDPay").document(object.objectId)
+//
+//            if (object.neverSynced) {
+//                 batch.setData(transValues, forDocument: transactionRef)
+//            } else {
+//                 batch.updateData(transValues, forDocument: transactionRef)
+//            }
+//            batch.commit() { err in
+//                 if err==nil {
+//
+//                     object.update(status: TRANSACTION_STATUS.SUCCESS)
+//                     object.updateSynced()
+//                 }else{
+//
+//                     object.update(status: TRANSACTION_STATUS.FAILED)
+//                     if(object.toUserId != object.fromUserId){
+//                         fromUser.update(balance: fromUserBalance)
+//                     }
+//                 }
+//
+//                 self.updating = false
+//            }
         }
         
    }

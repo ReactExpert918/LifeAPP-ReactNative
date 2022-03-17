@@ -12,11 +12,10 @@ import AVFoundation
 import InputBarAccessoryView
 import MobileCoreServices
 
-protocol SKRecordViewDelegate: class {
+protocol SKRecordViewDelegate {
     func SKRecordViewDidSelectRecord(_ sender : SKRecordView, button: UIView)
     func SKRecordViewDidStopRecord(_ sender : SKRecordView, button: UIView)
     func SKRecordViewDidCancelRecord(_ sender : SKRecordView, button: UIView)
-    
 }
 
 class SKRecordView: UIView, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
@@ -49,7 +48,7 @@ class SKRecordView: UIView, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
         }
     }
     var viewcontroller: UIViewController!
-    var recordButton : UIButton = UIButton(type: .custom)
+    var recordButton : InputBarButtonItem = InputBarButtonItem()
     let slideToCancel : UILabel = UILabel(frame: CGRect.zero)
     let countDownLabel : UILabel = UILabel(frame: CGRect.zero)
     var timer:Timer!
@@ -63,29 +62,31 @@ class SKRecordView: UIView, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
     var recordingAnimationDuration = 0.5
     var recordingLabelText = "<< Slide to cancel"
     
-    weak var delegate : SKRecordViewDelegate?
+    var delegate : SKRecordViewDelegate?
     
-    init(frame: CGRect, recordBtn: InputBarButtonItem, vc: UIViewController) {
-        super.init(frame: frame)
+    init(recordBtn: InputBarButtonItem, vc: UIViewController) {
+        super.init(frame: CGRect.zero)
+        self.backgroundColor = UIColor.clear
         self.translatesAutoresizingMaskIntoConstraints = false
+        
         self.viewcontroller = vc
         setupRecordButton(normalImage, recordBtn: recordBtn)
         setupLabel()
         setupCountDownLabel()
-        setupRecorder()
+        //setupRecorder()
     }
     
     func setupRecordButton(_ image:UIImage, recordBtn: InputBarButtonItem) {
         recordButton = recordBtn
         recordButton.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(recordButton)
+        //addSubview(recordButton)
         
-        print(recordButton.frame.origin)
-        let vConsts = NSLayoutConstraint(item: recordButton, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: -14)
-        let hConsts = NSLayoutConstraint(item: recordButton, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1.0, constant: 0)
-
-        self.addConstraints([vConsts])
-        self.addConstraints([hConsts])
+//        print(recordBtn.frame.origin)
+//        let vConsts = NSLayoutConstraint(item: recordButton, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: -14)
+//        let hConsts = NSLayoutConstraint(item: recordButton, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1.0, constant: 0)
+//
+//        self.addConstraints([vConsts])
+//        self.addConstraints([hConsts])
         
         recordButton.setImage(image, for: UIControl.State())
         
@@ -104,18 +105,24 @@ class SKRecordView: UIView, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
         slideToCancel.textAlignment = .center
         slideToCancel.font = UIFont.init(name: "system", size: 9.0)
         addSubview(slideToCancel)
-        backgroundColor = UIColor.clear
-        let vConsts = NSLayoutConstraint(item: slideToCancel, attribute: .bottom, relatedBy: .equal, toItem: recordButton, attribute: .bottom, multiplier: 1.0, constant: -10)
-        let hConsts = NSLayoutConstraint(item: slideToCancel, attribute: .trailing, relatedBy: .equal, toItem: recordButton, attribute: .leading, multiplier: 1.0, constant: -4)
+        //backgroundColor = UIColor.clear
+//        let vConsts = NSLayoutConstraint(item: slideToCancel, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: 10)
+//        let hConsts = NSLayoutConstraint(item: slideToCancel, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 1.0, constant: 4)
+//
+//
+//        self.addConstraints([vConsts])
+//        self.addConstraints([hConsts])
         
+        NSLayoutConstraint.activate([
+            slideToCancel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            slideToCancel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -70)
+        ])
         
-        self.addConstraints([vConsts])
-        self.addConstraints([hConsts])
-        
-        slideToCancel.alpha = 0.0
+        //slideToCancel.alpha = 0.0
         slideToCancel.font = UIFont.boldSystemFont(ofSize: 14)
         slideToCancel.textAlignment = .center
         slideToCancel.textColor = UIColor.black
+        slideToCancel.text = recordingLabelText
     }
     
     
@@ -123,18 +130,24 @@ class SKRecordView: UIView, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
         countDownLabel.translatesAutoresizingMaskIntoConstraints = false
         countDownLabel.textAlignment = .center
         addSubview(countDownLabel)
-        backgroundColor = UIColor.clear
-        let vConsts = NSLayoutConstraint(item: countDownLabel, attribute: .bottom, relatedBy: .equal, toItem: slideToCancel, attribute: .bottom, multiplier: 1.0, constant: 0)
-        let hConsts = NSLayoutConstraint(item: countDownLabel, attribute: .trailing, relatedBy: .equal, toItem: slideToCancel, attribute: .leading, multiplier: 1.0, constant: -5)
+        //backgroundColor = UIColor.clear
+//        let vConsts = NSLayoutConstraint(item: countDownLabel, attribute: .bottom, relatedBy: .equal, toItem: slideToCancel, attribute: .bottom, multiplier: 1.0, constant: 0)
+//        let hConsts = NSLayoutConstraint(item: countDownLabel, attribute: .trailing, relatedBy: .equal, toItem: slideToCancel, attribute: .leading, multiplier: 1.0, constant: 5)
         
         
-        self.addConstraints([vConsts])
-        self.addConstraints([hConsts])
+        NSLayoutConstraint.activate([
+            countDownLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            countDownLabel.trailingAnchor.constraint(equalTo: self.slideToCancel.leadingAnchor, constant: -8)
+        ])
         
-        countDownLabel.alpha = 0.0
+//        self.addConstraints([vConsts])
+//        self.addConstraints([hConsts])
+        
+        //countDownLabel.alpha = 0.0
         countDownLabel.font = UIFont.systemFont(ofSize: 15)
         countDownLabel.textAlignment = .center
         countDownLabel.textColor = UIColor.red
+        countDownLabel.text = "0.00"
     }
     
     func setupRecorder(){

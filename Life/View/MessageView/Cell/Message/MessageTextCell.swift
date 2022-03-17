@@ -44,7 +44,7 @@ class MessageTextCell: UITableViewCell {
         self.uivMeTxt.layer.borderWidth = 1
         self.uivMeTxt.layer.borderColor = COLORS.MSG_OUTGOING?.cgColor
         if #available(iOS 11.0, *) {
-            self.uivMeTxt.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner]
+            self.uivMeTxt.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner]
         } else {
             // Fallback on earlier versions
         }
@@ -56,7 +56,7 @@ class MessageTextCell: UITableViewCell {
         self.uivYouTxt.layer.borderWidth = 1
         self.uivYouTxt.layer.borderColor = COLORS.MSG_INCOMING_BORDER?.cgColor
         if #available(iOS 11.0, *) {
-            self.uivYouTxt.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner, .layerMinXMaxYCorner]
+            self.uivYouTxt.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner, .layerMinXMinYCorner]
         } else {
             // Fallback on earlier versions
         }

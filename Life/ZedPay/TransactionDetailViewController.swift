@@ -49,7 +49,7 @@ class TransactionDetailViewController: UIViewController {
             labelPaidAt.text = "Added At".localized + " " + Convert.timestampPaid(transaction.updatedAt)
             lblSigned.text = "+"
             labelAmout.text = String(format: "%.2f",Double(transaction.amount)/100.0)
-            labelUserType.text = "Money Received From".localized
+            labelUserType.text = "Balance Received From".localized
             labelTransactionType.text = "Added with ZED Pay".localized
             labelTotal.text = String(format: "%.2f",Double(transaction.amount)/100.0)
             
@@ -64,7 +64,7 @@ class TransactionDetailViewController: UIViewController {
             labelPaidAt.text = "Paid at".localized + " " + Convert.timestampPaid(transaction.updatedAt)
             lblSigned.text = "-"
             labelAmout.text = String(format: "%.2f",transaction.getQuantity() * 100 / 97.5)
-            labelUserType.text = "Money Sent To".localized
+            labelUserType.text = "Balance Sent To".localized
             labelTransactionType.text = "Paid with ZED Pay".localized
             labelTotal.text = String(format: "%.2f",transaction.getQuantity() * 100 / 97.5)
             

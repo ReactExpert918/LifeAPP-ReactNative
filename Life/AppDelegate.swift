@@ -219,12 +219,12 @@ extension AppDelegate: SINClientDelegate {
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func clientDidStart(_ client: SINClient!) {
-        print("Sinch client started successfully \(client.userId)")
+        //print("Sinch client started successfully \(client.userId)")
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func clientDidFail(_ client: SINClient!, error: Error!) {
-        print("Sinch client error: \(error.localizedDescription)")
+        //print("Sinch client error: \(error.localizedDescription)")
     }
 }
 

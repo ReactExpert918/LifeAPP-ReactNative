@@ -13,6 +13,8 @@ import InputBarAccessoryView
 import IQKeyboardManagerSwift
 import FittedSheets
 import FirebaseDatabase
+import Photos
+
 class User {
     
     let name: String
@@ -136,8 +138,8 @@ class ChatViewController: UIViewController {
         tableView.register(RCHeaderLowerCell.self, forCellReuseIdentifier: "RCHeaderLowerCell")
 
         tableView.register(RCMessageEmojiCell.self, forCellReuseIdentifier: "RCMessageEmojiCell")
-        tableView.register(RCMessagePhotoCell.self, forCellReuseIdentifier: "RCMessagePhotoCell")
-        tableView.register(RCMMessageCallCell.self, forCellReuseIdentifier: "RCMMessageCallCell")
+        tableView.register(MessagePhotoCell.self, forCellReuseIdentifier: "MessagePhotoCell")
+        tableView.register(MessageCallCell.self, forCellReuseIdentifier: "MessageCallCell")
         tableView.register(RCMessageLocationCell.self, forCellReuseIdentifier: "RCMessageLocationCell")
         
         tableView.register(RCFooterUpperCell.self, forCellReuseIdentifier: "RCFooterUpperCell")
@@ -389,7 +391,7 @@ class ChatViewController: UIViewController {
             present(callAdudioView, animated: true)
             let realm = try! Realm()
             let recipient = realm.object(ofType: Person.self, forPrimaryKey: recipientId)
-            PushNotification.send(token: recipient?.oneSignalId ?? "", title: "Life-App", body: Persons.fullname() + " " + "is Audio calling you", type: .sendVoiceCalling, chatId: chatId)
+            PushNotification.send(token: recipient?.oneSignalId ?? "", title: "Life-App", body: Persons.fullname() + " " + "is Audio calling you", type: .sendVoiceCalling, chatId: chatId, soundName: "Radiate.caf")
             //Messages.sendCalling(chatId: chatId, recipientId: recipientId, type: .MISSED_CALL)
         }else{
             var personsId: [String] = []
@@ -416,7 +418,7 @@ class ChatViewController: UIViewController {
             present(callVideoView, animated: true)
             let realm = try! Realm()
             let recipient = realm.object(ofType: Person.self, forPrimaryKey: recipientId)
-            PushNotification.send(token: recipient?.oneSignalId ?? "", title: "Life-App", body: Persons.fullname() + " " + "is Video calling you", type: .sendVideoCalling, chatId: chatId)
+            PushNotification.send(token: recipient?.oneSignalId ?? "", title: "Life-App", body: Persons.fullname() + " " + "is Video calling you", type: .sendVideoCalling, chatId: chatId, soundName: "Radiate.caf")
             
         } else {
             var personsId: [String] = []
@@ -950,7 +952,14 @@ class ChatViewController: UIViewController {
     }
     
     func actionOpenGallery() {
-        ImagePicker.photoLibrary(target: self, edit: false)
+        //ImagePicker.photoLibrary(target: self, edit: false)
+        let imagePickerSheet =  self.storyboard?.instantiateViewController(identifier: "ImagePickerSheet") as! ImagePickerSheetViewController
+        
+        imagePickerSheet.delegate = self
+        
+        //present(photoConfirView, animated: true)
+        imagePickerSheet.modalPresentationStyle = .overCurrentContext
+        self.present(imagePickerSheet, animated: true, completion: nil)
     }
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func actionSendMessage(_ text: String) {
@@ -1001,7 +1010,7 @@ class ChatViewController: UIViewController {
     @objc func typingIndicatorStop() {
         self.ref.child("Typing").child(self.chatId).child(AuthUser.userId()).setValue(false)
         detail?.update(typing: false)
-        self.hybridButton.isHidden = false
+        //self.hybridButton.isHidden = false
     }
     
     // MARK: - Keyboard methods
@@ -1021,7 +1030,7 @@ class ChatViewController: UIViewController {
                             self.heightKeyboard = keyboard.size.height
                             self.layoutTableView()
                             self.scrollToBottom()
-                            self.hybridButton.isHidden = true
+                            //self.hybridButton.isHidden = true
                         }
                     }
                 }
@@ -1036,11 +1045,11 @@ class ChatViewController: UIViewController {
         keyboardWillShow = false
         layoutTableView()
         //self.ref.child("Typing").child(self.chatId).child(AuthUser.userId()).setValue(false)
-        if messageInputBar.inputTextView.text.isEmpty{
-            self.hybridButton.isHidden = false
-        }else{
-            self.hybridButton.isHidden = true
-        }
+//        if messageInputBar.inputTextView.text.isEmpty{
+//            self.hybridButton.isHidden = false
+//        }else{
+//            self.hybridButton.isHidden = true
+//        }
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
@@ -1072,14 +1081,14 @@ class ChatViewController: UIViewController {
             self.actionOpenCamera()
         }
         let galleryButton = InputBarButtonItem()
-        galleryButton.image = UIImage(named: "ic_gallery")
+        galleryButton.image = UIImage(named: "ic_attach")
         galleryButton.setSize(CGSize(width: 32, height: 40), animated: false)
         galleryButton.contentMode = .scaleAspectFit
         galleryButton.onTouchUpInside { item in
             self.actionOpenGallery()
         }
         
-        messageInputBar.setStackViewItems([galleryButton, cameraButton], forStack: .left, animated: false)
+        messageInputBar.setStackViewItems([galleryButton], forStack: .left, animated: false)
         messageInputBar.leftStackView.isLayoutMarginsRelativeArrangement = false
         messageInputBar.leftStackView.spacing = 6
         
@@ -1087,7 +1096,7 @@ class ChatViewController: UIViewController {
         messageInputBar.sendButton.image = UIImage(named: "ic_send")
         messageInputBar.sendButton.setSize(CGSize(width: 42, height: 42), animated: false)
         
-        messageInputBar.setLeftStackViewWidthConstant(to: 70, animated: false)
+        messageInputBar.setLeftStackViewWidthConstant(to: 40, animated: false)
         messageInputBar.setRightStackViewWidthConstant(to: 40, animated: false)
         
         messageInputBar.middleContentViewPadding = UIEdgeInsets(top: 1, left: 8, bottom: 1, right: 5)
@@ -1105,30 +1114,42 @@ class ChatViewController: UIViewController {
         messageInputBar.inputTextView.isImagePasteEnabled = false
         messageInputBar.inputTextView.keyboardType = .twitter
         
-        messageInputBar.inputTextView.addSubview(hybridButton)
-        hybridButton.translatesAutoresizingMaskIntoConstraints = false
+//        messageInputBar.inputTextView.addSubview(hybridButton)
+//        hybridButton.translatesAutoresizingMaskIntoConstraints = false
+//
+//        NSLayoutConstraint.activate([
+//            hybridButton.centerYAnchor.constraint(equalTo:  messageInputBar.inputTextView.centerYAnchor),
+//            hybridButton.widthAnchor.constraint(equalToConstant: 30),
+//            hybridButton.heightAnchor.constraint(equalToConstant: 30)
+//        ])
+//
         
-        NSLayoutConstraint.activate([
-            hybridButton.centerYAnchor.constraint(equalTo:  messageInputBar.inputTextView.centerYAnchor),
-            hybridButton.trailingAnchor.constraint(equalTo:  messageInputBar.rightStackView.leadingAnchor, constant: -15),
-            hybridButton.widthAnchor.constraint(equalToConstant: 30),
-            hybridButton.heightAnchor.constraint(equalToConstant: 30)
-        ])
-        
-        
-        recordingView = SKRecordView(frame: messageInputBar.frame, recordBtn: hybridButton, vc: self)
+        recordingView = SKRecordView(recordBtn: hybridButton, vc: self)
         recordingView.delegate = self
         recordingView.recordingImages = [UIImage(named: "rec-1.png")!,UIImage(named: "rec-2.png")!,UIImage(named: "rec-3.png")!,UIImage(named: "rec-4.png")!,UIImage(named: "rec-5.png")!,UIImage(named: "rec-6.png")!]
         recordingView.normalImage = UIImage(named: "ic_record.png")!
         
-        messageInputBar.inputTextView.addSubview(recordingView)
+        self.view.addSubview(recordingView)
         
         NSLayoutConstraint.activate([
-            recordingView.centerYAnchor.constraint(equalTo:  messageInputBar.inputTextView.centerYAnchor, constant: 14),
-            recordingView.trailingAnchor.constraint(equalTo:  messageInputBar.rightStackView.leadingAnchor, constant: -10),
-            recordingView.widthAnchor.constraint(equalToConstant: 30),
-            recordingView.heightAnchor.constraint(equalToConstant: 30)
+            recordingView.widthAnchor.constraint(equalToConstant: messageInputBar.frame.width),
+            recordingView.heightAnchor.constraint(equalToConstant: messageInputBar.frame.height),
+            recordingView.leadingAnchor.constraint(equalTo: self.view.layoutMarginsGuide.leadingAnchor),
+            recordingView.bottomAnchor.constraint(equalTo: self.view.layoutMarginsGuide.bottomAnchor)
         ])
+        
+        recordingView.isHidden = true
+        
+        messageInputBar.setStackViewItems([recordingView.recordButton], forStack: .right, animated: false)
+        
+        //messageInputBar.inputTextView.addSubview(recordingView)
+        
+//        NSLayoutConstraint.activate([
+//            recordingView.centerYAnchor.constraint(equalTo:  messageInputBar.inputTextView.centerYAnchor, constant: 14),
+//            recordingView.trailingAnchor.constraint(equalTo:  messageInputBar.rightStackView.leadingAnchor, constant: -10),
+//            recordingView.widthAnchor.constraint(equalToConstant: 30),
+//            recordingView.heightAnchor.constraint(equalToConstant: 30)
+//        ])
         
         recordingView.setupRecorder()
         
@@ -1221,7 +1242,7 @@ extension ChatViewController: UITableViewDataSource {
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func cellForMessagePhoto(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "RCMessagePhotoCell", for: indexPath) as! RCMessagePhotoCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MessagePhotoCell", for: indexPath) as! MessagePhotoCell
         cell.bindData(self, at: indexPath)
         return cell
     }
@@ -1229,7 +1250,7 @@ extension ChatViewController: UITableViewDataSource {
     
     func cellForMessageMoney(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MoneyTableViewCell.GetCellReuseIdentifier(), for: indexPath) as! MoneyTableViewCell
-        cell.bindData(messageAt(indexPath), messageView: self)
+        cell.bindData(messageAt(indexPath), messageView: self, indexPath: indexPath)
         return cell
     }
 
@@ -1255,7 +1276,7 @@ extension ChatViewController: UITableViewDataSource {
     
     func cellForMessageCall(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
 
-        let cell = tableView.dequeueReusableCell(withIdentifier: "RCMMessageCallCell", for: indexPath) as! RCMMessageCallCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCallCell", for: indexPath) as! MessageCallCell
         cell.bindData(self, at: indexPath)
         return cell
     }
@@ -1308,9 +1329,9 @@ extension ChatViewController: UITableViewDelegate {
             
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_TEXT)        { return UITableView.automaticDimension}
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_EMOJI)    { return RCMessageEmojiCell.height(self, at: indexPath)         }
-            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_PHOTO)    { return RCMessagePhotoCell.height(self, at: indexPath)     }
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_PHOTO)    { return MessagePhotoCell.height(self, at: indexPath)     }
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_VIDEO)    { return 160 }
-            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_AUDIO)    { return 46 }
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_AUDIO)    { return 54 }
             if (rcmessage.type == MESSAGE_TYPE.MISSED_CALL || rcmessage.type == MESSAGE_TYPE.CANCELLED_CALL)    { return 60 }
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_LOCATION)    { return RCMessageLocationCell.height(self, at: indexPath)   }
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_MONEY)    { return 143   }
@@ -1349,8 +1370,13 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func inputBar(_ inputBar: InputBarAccessoryView, textViewTextDidChangeTo text: String) {
         if (text != "") {
+            messageInputBar.setStackViewItems([messageInputBar.sendButton], forStack: .right, animated: false)
+            //self.messageInputBar.rightStackView.isHidden = true
+            //self.messageInputBar.sendButton.isHidden = false
             typingIndicatorUpdate()
-            self.hybridButton.isHidden = true
+        } else {
+            //self.messageInputBar.sendButton.isHidden = true
+            messageInputBar.setStackViewItems([recordingView.recordButton], forStack: .right, animated: false)
         }
     }
 
@@ -1373,7 +1399,7 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
         }
         messageInputBar.inputTextView.text = ""
         messageInputBar.invalidatePlugins()
-        self.hybridButton.isHidden = false
+        //self.hybridButton.isHidden = false
     }
 }
 
@@ -1382,22 +1408,53 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
 extension ChatViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-        let video = info[.mediaURL] as? URL
-        let photo = info[.originalImage] as? UIImage
-        
-        let confirmationAlert = UIAlertController(title: "Do you want to use this Image?".localized, message: "", preferredStyle: .alert)
-
-        confirmationAlert.addAction(UIAlertAction(title: "OK".localized, style: .default, handler: { [self] (action: UIAlertAction!) in
-            confirmationAlert.dismiss(animated: true, completion: nil)
-            self.messageSend(text: nil, photo: photo, video: video, audio: nil)
+        //let video = info[.mediaURL] as? URL
+        if let photo = info[.originalImage] as? UIImage {
             picker.dismiss(animated: true)
-        }))
+            let photoConfirView =  self.storyboard?.instantiateViewController(identifier: "PhotoSelectionView") as! PhotoSelectionView
+            
+            photoConfirView.image = photo
+            photoConfirView.delegate = self
+            
+            //present(photoConfirView, animated: true)
+            self.navigationController?.pushViewController(photoConfirView, animated: false)
+            
+            return
+        }
+        
+        let video = info[.mediaURL] as? URL
+        
+        messageSend(text: nil, photo: nil, video: video, audio: nil)
+        picker.dismiss(animated: true)
+    }
+}
 
-        confirmationAlert.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: { (action: UIAlertAction!) in
-        }))
-        picker.present(confirmationAlert, animated: true, completion: nil)
-        //messageSend(text: nil, photo: photo, video: video, audio: nil)
-        //picker.dismiss(animated: true)
+extension ChatViewController: ImagePickerSheetViewControllerDelegate {
+    
+    func selectImage(image: UIImage?) {
+        if let image = image {
+            let photoConfirView =  self.storyboard?.instantiateViewController(identifier: "PhotoSelectionView") as! PhotoSelectionView
+            
+            photoConfirView.image = image
+            photoConfirView.delegate = self
+            
+            //present(photoConfirView, animated: true)
+            self.navigationController?.pushViewController(photoConfirView, animated: false)
+        }
+    }
+    
+    func showAlbum() {
+        ImagePicker.photoLibrary(target: self, edit: false)
+    }
+    
+    func showCamera() {
+        ImagePicker.cameraMulti(target: self, edit: false)
+    }
+}
+
+extension ChatViewController: PhotoSelectionViewDelegate {
+    func didSelectPhoto(image: UIImage?) {
+        messageSend(text: nil, photo: image, video: nil, audio: nil)
     }
 }
 
@@ -1556,6 +1613,9 @@ extension ChatViewController : SKRecordViewDelegate {
         recordingView.audioRecorder?.stop()
         recordingView.recordButton.imageView?.stopAnimating()
         messageInputBar.inputTextView.placeholder = "Enter a message".localized
+        //messageInputBar.isHidden = false
+        recordingView.isHidden = true
+        //recordingView.setupRecorder()
         print("Cancelled")
     }
     
@@ -1565,6 +1625,8 @@ extension ChatViewController : SKRecordViewDelegate {
         sender.setupRecordButton(UIImage(named: "rec-1.png")!, recordBtn: hybridButton)
         sender.audioRecorder?.record()
         recordingView.recordButton.imageView?.startAnimating()
+        //messageInputBar.isHidden = true
+        recordingView.isHidden = false
         messageInputBar.inputTextView.placeholder = nil
         print("Began " + NSUUID().uuidString)
     }
@@ -1577,5 +1639,8 @@ extension ChatViewController : SKRecordViewDelegate {
         messageSend(text: nil, photo: nil, video: nil, audio: recordingView.getFileURL().path)
         print("audio url==>",recordingView.getFileURL().path)
         messageInputBar.inputTextView.placeholder = "Enter a message".localized
+        //messageInputBar.isHidden = false
+        recordingView.setupRecorder()
+        recordingView.isHidden = true
     }
 }

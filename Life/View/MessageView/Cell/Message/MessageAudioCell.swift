@@ -34,8 +34,6 @@ class MessageAudioCell: UITableViewCell {
     @IBOutlet weak var imvMePlay: UIImageView!
     @IBOutlet weak var imvYouPlay: UIImageView!
     
-    @IBOutlet weak var viewMeProgress: UIProgressView!
-    @IBOutlet weak var viewYouProgress: UIProgressView!
     @IBOutlet weak var labelMeDuration: UILabel!
     @IBOutlet weak var labelYouDuration: UILabel!
     var indexPath: IndexPath!
@@ -135,11 +133,10 @@ class MessageAudioCell: UITableViewCell {
         if (rcmessage.mediaStatus == MediaStatus.MEDIASTATUS_UNKNOWN) {
             if rcmessage.incoming{
                 imvYouPlay.isHidden = true
-                viewYouProgress.isHidden = true
                 labelYouDuration.isHidden = true
             }else{
                 imvMePlay.isHidden = true
-                viewMeProgress.isHidden = true
+                //viewMeProgress.isHidden = true
                 labelMeDuration.isHidden = true
             }
         }
@@ -147,11 +144,10 @@ class MessageAudioCell: UITableViewCell {
         if (rcmessage.mediaStatus == MediaStatus.MEDIASTATUS_LOADING) {
             if rcmessage.incoming{
                 imvYouPlay.isHidden = true
-                viewYouProgress.isHidden = true
                 labelYouDuration.isHidden = true
             }else{
                 imvMePlay.isHidden = true
-                viewMeProgress.isHidden = true
+                //viewMeProgress.isHidden = true
                 labelMeDuration.isHidden = true
             }
         }
@@ -159,11 +155,10 @@ class MessageAudioCell: UITableViewCell {
         if (rcmessage.mediaStatus == MediaStatus.MEDIASTATUS_SUCCEED) {
             if rcmessage.incoming{
                 imvYouPlay.isHidden = false
-                viewYouProgress.isHidden = false
                 labelYouDuration.isHidden = false
             }else{
                 imvMePlay.isHidden = false
-                viewMeProgress.isHidden = false
+                //viewMeProgress.isHidden = false
                 labelMeDuration.isHidden = false
             }
         }
@@ -171,11 +166,10 @@ class MessageAudioCell: UITableViewCell {
         if (rcmessage.mediaStatus == MediaStatus.MEDIASTATUS_MANUAL) {
             if rcmessage.incoming{
                 imvYouPlay.isHidden = true
-                viewYouProgress.isHidden = true
                 labelYouDuration.isHidden = true
             }else{
                 imvMePlay.isHidden = true
-                viewMeProgress.isHidden = true
+                //viewMeProgress.isHidden = true
                 labelMeDuration.isHidden = true
             }
         }
@@ -183,8 +177,8 @@ class MessageAudioCell: UITableViewCell {
     
     func updateProgress(_ rcmessage: RCMessage) {
 
-        let progress = Float(rcmessage.audioCurrent) / Float(rcmessage.audioDuration)
-        rcmessage.incoming ? (viewYouProgress.progress = (progress > 0.05) ? progress : 0) : (viewMeProgress.progress = (progress > 0.05) ? progress : 0)
+        //let progress = Float(rcmessage.audioCurrent) / Float(rcmessage.audioDuration)
+        //rcmessage.incoming ? (viewMeProgress.progress = (progress > 0.05) ? progress : 0) : (viewMeProgress.progress = (progress > 0.05) ? progress : 0)
         
     }
     
