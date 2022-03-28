@@ -37,7 +37,7 @@ open class DottedProgressBar: UIView {
 
     fileprivate var numberOfDots: Int = 0
     fileprivate var previousProgress: Int = 0
-    fileprivate var currentProgress: Int = 0
+    var currentProgress: Int = 0
 
     fileprivate var isAnimatingCurrently: Bool = false
     fileprivate lazy var walkingDot = UIView()
@@ -46,6 +46,8 @@ open class DottedProgressBar: UIView {
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    var isChanging = false
 
     override public init(frame: CGRect) {
         progressAppearance = DottedProgressAppearance()
@@ -80,16 +82,28 @@ open class DottedProgressBar: UIView {
         self.timer?.invalidate()
     }
     open func setProgress(value: Int){
+        if (self.isChanging) {
+            return
+        }
+        
+        self.isChanging = true
+        
+        print("Volume Change Start")
         for i in 0..<numberOfDots {
-            let dot = self.subviews[i]
-            dot.backgroundColor = progressAppearance.dotsColor
+            if let dot = self.viewWithTag(i + 100) {
+                dot.backgroundColor = progressAppearance.dotsColor
+            }
         }
         currentProgress = value
+        
         for i in 0..<currentProgress {
-            let dot = self.subviews[i]
-            dot.backgroundColor = progressAppearance.dotsProgressColor
+            if let dot = self.viewWithTag(i + 100) {
+                dot.backgroundColor = progressAppearance.dotsProgressColor
+            }
         }
 
+        self.isChanging = false
+        print("Volume Change End")
     }
     @objc func update(){
         
@@ -117,6 +131,7 @@ private extension DottedProgressBar {
 
     func setup() {
         backgroundColor = progressAppearance.backColor
+        self.removeAllSubViews()
 
         for i in 0..<numberOfDots {
             let dot = UIView()
@@ -124,14 +139,17 @@ private extension DottedProgressBar {
                 progressAppearance.dotsColor
             dot.layer.cornerRadius = progressAppearance.dotRadius
             dot.frame = dotFrame(forIndex: i)
+            dot.tag = i + 100
             addSubview(dot)
         }
     }
 
     func layout() {
-        for (index, dot) in subviews.enumerated() where dot != walkingDot {
-            dot.layer.cornerRadius = progressAppearance.dotRadius
-            dot.frame = dotFrame(forIndex: index)
+        for i in 0..<numberOfDots {
+            if let dot = self.viewWithTag(i + 100) {
+                dot.layer.cornerRadius = progressAppearance.dotRadius
+                dot.frame = dotFrame(forIndex: i)
+            }
         }
     }
 

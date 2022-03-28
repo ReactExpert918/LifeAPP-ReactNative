@@ -23,7 +23,7 @@ target 'Life' do
   pod 'CryptoSwift'
   pod 'MessageKit'
   pod 'OneSignal'
-  pod 'RealmSwift', '10.22.0'
+  pod 'RealmSwift'
   pod 'SinchRTC', '~> 4.0'
   pod 'NYTPhotoViewer'
   pod 'Reachability'

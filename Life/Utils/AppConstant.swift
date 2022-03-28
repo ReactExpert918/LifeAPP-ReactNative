@@ -42,6 +42,7 @@ struct AudioStatus{
 enum CallStatus: Int {
     case MISSED_CALL = 1
     case CANCELLED_CALL = 2
+    case OUTGOING_CALL = 3
 }
 
 struct MediaStatus {
@@ -86,6 +87,7 @@ struct MESSAGE_TYPE {
     static let MESSAGE_ISTYPING = "istyping"
     static let MISSED_CALL = "\(CallStatus.MISSED_CALL.rawValue)"
     static let CANCELLED_CALL = "\(CallStatus.CANCELLED_CALL.rawValue)"
+    static let OUTGOING_CALL = "\(CallStatus.OUTGOING_CALL.rawValue)"
 }
 
 struct TRANSACTION_STATUS {

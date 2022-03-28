@@ -28,8 +28,9 @@ class CallVideoView: UIViewController {
 	 var outgoing = false
 	private var muted = false
 	private var switched = false
+    private var callingStart: Date?
     
-    private var personsFullName:String?
+    private var personsFullName: String?
     private var callString = ""
     private var type = 0
     private var group: Group?
@@ -44,6 +45,8 @@ class CallVideoView: UIViewController {
     @IBOutlet weak var micButton: UIButton!
     @IBOutlet weak var cameraButton: UIButton!
     @IBOutlet weak var videoButton: UIButton!
+    
+    @IBOutlet weak var buttonBack: UIButton!
     
     var videoStatusHandle: UInt?
     var videoStatusRemoveHandle: UInt?
@@ -89,6 +92,7 @@ class CallVideoView: UIViewController {
     }
     
     private var audioController: SINAudioController?
+    private var stopSelf = false
     
 	init(userId: String) {
 		super.init(nibName: nil, bundle: nil)
@@ -126,6 +130,9 @@ class CallVideoView: UIViewController {
 
 		cameraButton.setImage(UIImage(named: "ic_camera_front"), for: .normal)
         cameraButton.setImage(UIImage(named: "ic_camera_front"), for: .highlighted)
+        
+        self.buttonBack.setTitle("", for: .normal)
+        self.buttonBack.setImage(UIImage(named: "ic_arrow_back")?.resize(width: 17, height: 30).withRenderingMode(.alwaysTemplate), for: .normal)
 
         if (incoming) { setIncomingUI() }
         if (outgoing) { setOutGoingUI() }
@@ -163,11 +170,24 @@ class CallVideoView: UIViewController {
             if receiverid == AuthUser.userId(){
                 self.leaveChannel()
                 self.dismiss(animated: true, completion: nil)
-            }else{
-                if outgoing{
+                if !incoming {
+                    var interval = 0
+                    if let callingStart = callingStart {
+                        interval = Int(Date().timeIntervalSince(callingStart))
+                    }
+                    
+                    Messages.sendCalling(chatId: self.roomID, recipientId: self.receiver, duration: "\(interval)")
+                }
+            } else {
+                if outgoing {
+                    if self.stopSelf {
+                        Messages.sendCalling(chatId: self.roomID, recipientId: self.receiver, type: .CANCELLED_CALL)
+                    } else {
+                        Messages.sendCalling(chatId: self.roomID, recipientId: self.receiver, type: .MISSED_CALL)
+                    }
                     self.labelStatus.text = "Declined"
                     self.labelStatus.textColor = .red
-                }else{
+                } else {
                     self.leaveChannel()
                     self.dismiss(animated: true, completion: nil)
                 }
@@ -219,6 +239,8 @@ class CallVideoView: UIViewController {
     func joinChannel() {
         audioController?.stopPlayingSoundFile()
         if let agoraKit = self.agoraKit{
+            self.callingStart = Date()
+            
             agoraKit.setDefaultAudioRouteToSpeakerphone(true)
             agoraKit.joinChannel(byToken: "", channelId: self.roomID, info: nil, uid: 0) { [unowned self] (channel, uid, elapsed) -> Void in
                 self.isLocalVideoRender = true
@@ -249,11 +271,9 @@ class CallVideoView: UIViewController {
         DispatchQueue.main.async {
             self.audioController?.stopPlayingSoundFile()
         }
-        if self.labelStatus.text != "Declined" {
-            Messages.sendCalling(chatId: self.roomID, recipientId: self.receiver, type: .CANCELLED_CALL)
-        } else {
-            Messages.sendCalling(chatId: self.roomID, recipientId: self.receiver, type: .MISSED_CALL)
-        }
+        
+        self.stopSelf = true
+        
         
         ref.child("video_call").child(self.roomID).removeValue()
         self.dismiss(animated: true, completion: nil)
@@ -489,7 +509,6 @@ extension CallVideoView: AgoraRtcEngineDelegate {
         parent.addSubview(remoteVideo!.view!)
         if let agoraKit = self.agoraKit{
             agoraKit.setupRemoteVideo(remoteVideo!)
-            agoraKit.disableVideo()
         }
         
         

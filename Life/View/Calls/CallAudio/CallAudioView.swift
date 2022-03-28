@@ -26,9 +26,14 @@ class CallAudioView: UIViewController {
     @IBOutlet var labelName: UILabel!
     @IBOutlet var labelStatus: UILabel!
     @IBOutlet var uiv_mutespeaker: UIView!
+    
     @IBOutlet var buttonMute: UIButton!
-    @IBOutlet var buttonSpeaker: UIButton!
     @IBOutlet var buttonVideo: UIButton!
+    @IBOutlet weak var buttonSpeaker: UIImageView!
+    
+    @IBOutlet weak var buttonBack: UIButton!
+    
+    
     @IBOutlet var uiv_answerdecline: UIView!
     @IBOutlet var uiv_power: UIView!
     
@@ -59,6 +64,9 @@ class CallAudioView: UIViewController {
     var voiceStatusRemoveHandle: UInt?
     
     private var audioController: SINAudioController?
+    private var stopSelf = false
+    private var joined = false
+    private var callingStart: Date?
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
@@ -75,6 +83,7 @@ class CallAudioView: UIViewController {
         super.init(nibName: nil, bundle: nil)
         let recipentUser = realm.object(ofType: Person.self, forPrimaryKey: userId)
         callString = recipentUser!.getFullName()
+        self.outgoing = true
         let app = UIApplication.shared.delegate as? AppDelegate
         audioController = app?.client?.audioController()
         
@@ -125,23 +134,27 @@ class CallAudioView: UIViewController {
     override func viewDidLoad() {
 
         super.viewDidLoad()
-        buttonMute.setImage(UIImage(named: "ic_audio_off"), for: .normal)
-        buttonMute.setImage(UIImage(named: "ic_audio_off"), for: .highlighted)
+        buttonMute.setImage(UIImage(named: "ic_voice_off"), for: .normal)
+        buttonMute.setImage(UIImage(named: "ic_voice_off"), for: .highlighted)
 
-        buttonSpeaker.setImage(UIImage(named: "ic_voice_off"), for: .normal)
-        buttonSpeaker.setImage(UIImage(named: "ic_voice_off"), for: .highlighted)
+        buttonSpeaker.image = UIImage(named: "ic_audio_off")
 
         buttonVideo.setImage(UIImage(named: "ic_video_off"), for: .normal)
         buttonVideo.setImage(UIImage(named: "ic_video_off"), for: .highlighted)
+        
+        
+        self.buttonBack.setTitle("", for: .normal)
+        self.buttonBack.setImage(UIImage(named: "ic_arrow_back")?.resize(width: 17, height: 30).withRenderingMode(.alwaysTemplate), for: .normal)
         
         if (incoming) { setIncomingUI() }
         if (outgoing) { setOutgoingUI() }
         // dotted progressview
         dottedProgressBar = DottedProgressBar()
         dottedProgressBar?.progressAppearance = DottedProgressBar.DottedProgressAppearance(dotRadius: 6.0, dotsColor: UIColor(hexString: "#33000000")!, dotsProgressColor: UIColor(hexString: "#00406E")!, backColor: UIColor.clear)
-        dottedProgressBar?.frame = CGRect(x: 0, y: 0, width: 100, height: 24)
+        dottedProgressBar?.frame = CGRect(x: 0, y: 0, width: dottedProgressView.frame.width, height: dottedProgressView.frame.height)
         dottedProgressView.addSubview(dottedProgressBar!)
         dottedProgressBar?.setNumberOfDots(6)
+        dottedProgressBar?.stopAnimate()
         
         // get audio volume
         let audioSession = AVAudioSession.sharedInstance()
@@ -160,8 +173,8 @@ class CallAudioView: UIViewController {
         
         
         
-        let progress = audioSession.outputVolume / 1.0 * 6
-        dottedProgressBar?.setProgress(value: Int(progress))
+        let progress = Int(audioSession.outputVolume / 1.0 * 6)
+        dottedProgressBar?.setProgress(value: progress)
         if type == 1{
             self.joinAction()
         }
@@ -178,13 +191,26 @@ class CallAudioView: UIViewController {
         self.voiceStatusRemoveHandle = FirebaseAPI.setVoiceCallRemoveListener(roomId){ [self] (receiverid) in
             if receiverid == AuthUser.userId(){
                 timerStop()
+                if !incoming {
+                    var interval = 0
+                    if let callingStart = callingStart {
+                        interval = Int(Date().timeIntervalSince(callingStart))
+                    }
+                    
+                    Messages.sendCalling(chatId: self.roomID, recipientId: self.receiver, duration: "\(interval)")
+                }
                 self.leaveChannel()
                 self.dismiss(animated: true, completion: nil)
             }else{
                 self.audioController?.stopPlayingSoundFile()
-                if outgoing{
+                if outgoing {
                     self.labelStatus.text = "Declined"
                     self.labelStatus.textColor = .red
+                    if self.stopSelf {
+                        Messages.sendCalling(chatId: self.roomID, recipientId: self.receiver, type: .CANCELLED_CALL)
+                    } else {
+                        Messages.sendCalling(chatId: self.roomID, recipientId: self.receiver, type: .MISSED_CALL)
+                    }
                 }else{
                     self.leaveChannel()
                     self.dismiss(animated: true, completion: nil)
@@ -196,9 +222,10 @@ class CallAudioView: UIViewController {
     func joinAction() {
         //------ agora setup and join action
         agoraKit = AgoraRtcEngineKit.sharedEngine(withAppId: AppConstant.agoraAppID, delegate: self)
+        self.joined = true
         // Allows a user to join a channel.
         if let agoraKit = self.agoraKit{
-            agoraKit.joinChannel(byToken: "", channelId: roomID, info:nil, uid:0) {[unowned self] (sid, uid, elapsed) -> Void in
+            agoraKit.joinChannel(byToken: "", channelId: roomID, info:nil, uid:0) {(sid, uid, elapsed) -> Void in
                 // Joined channel "demoChannel"
                 agoraKit.setEnableSpeakerphone(false)
                 UIApplication.shared.isIdleTimerDisabled = true
@@ -208,11 +235,17 @@ class CallAudioView: UIViewController {
     }
     
     @objc func volumeDidChange(notification: NSNotification) {
-        print("detect volume change")
         let audioSession = AVAudioSession.sharedInstance()
         
-        let progress = audioSession.outputVolume / 1.0 * 6
-        dottedProgressBar?.setProgress(value: Int(progress))
+        let progress = Int(audioSession.outputVolume / 1.0 * 6)
+        
+        if let currentVolume = self.dottedProgressBar?.currentProgress {
+            if currentVolume != progress {
+                DispatchQueue.main.async { [self] in
+                    dottedProgressBar?.setProgress(value: progress)
+                }
+            }            
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -274,12 +307,12 @@ class CallAudioView: UIViewController {
     @IBAction func actionMute(_ sender: Any) {
         if (muted) {
             muted = false
-            buttonMute.setImage(UIImage(named: "ic_audio_off"), for: .normal)
-            buttonMute.setImage(UIImage(named: "ic_audio_off"), for: .highlighted)
+            buttonMute.setImage(UIImage(named: "ic_voice_off"), for: .normal)
+            buttonMute.setImage(UIImage(named: "ic_voice_off"), for: .highlighted)
         } else {
             muted = true
-            buttonMute.setImage(UIImage(named: "ic_audio_on"), for: .normal)
-            buttonMute.setImage(UIImage(named: "ic_audio_on"), for: .highlighted)
+            buttonMute.setImage(UIImage(named: "ic_voice_on"), for: .normal)
+            buttonMute.setImage(UIImage(named: "ic_voice_on"), for: .highlighted)
         }
         if let agoraKit = self.agoraKit{
             agoraKit.muteLocalAudioStream(muted)
@@ -290,12 +323,10 @@ class CallAudioView: UIViewController {
     @IBAction func actionSpeaker(_ sender: Any) {
         if (speaker) {
             speaker = false
-            buttonSpeaker.setImage(UIImage(named: "ic_voice_off"), for: .normal)
-            buttonSpeaker.setImage(UIImage(named: "ic_voice_off"), for: .highlighted)
+            buttonSpeaker.image = UIImage(named: "ic_audio_off")
         } else {
             speaker = true
-            buttonSpeaker.setImage(UIImage(named: "ic_voice_on"), for: .normal)
-            buttonSpeaker.setImage(UIImage(named: "ic_voice_on"), for: .highlighted)
+            buttonSpeaker.image = UIImage(named: "ic_audio_on")
         }
         if let agoraKit = self.agoraKit{
             agoraKit.setEnableSpeakerphone(speaker)
@@ -312,18 +343,16 @@ class CallAudioView: UIViewController {
     
     
     @IBAction func actionHangup(_ sender: Any) {
-        Messages.sendCalling(chatId: self.roomID, recipientId: self.receiver, type: .CANCELLED_CALL)
         self.leaveChannel()
         ref.child("voice_call").child(self.roomID).removeValue()
         self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func actionRequestHangup(_ sender: Any) {
-        if self.labelStatus.text != "Declined" {
-            Messages.sendCalling(chatId: self.roomID, recipientId: self.receiver, type: .CANCELLED_CALL)
-        } else {
-            Messages.sendCalling(chatId: self.roomID, recipientId: self.receiver, type: .MISSED_CALL)
+        if let button = sender as? UIButton, button == self.buttonBack, self.joined {
+            return
         }
+        self.stopSelf = true
         
         DispatchQueue.main.async {
             self.audioController?.stopPlayingSoundFile()
@@ -386,6 +415,7 @@ class CallAudioView: UIViewController {
     
     func setConnectedUI() {
         audioController?.stopPlayingSoundFile()
+        self.callingStart = Date()
         timerStart(Date())
         //labelStatus.text = "Connected"
         //labelStatus.textColor = .green

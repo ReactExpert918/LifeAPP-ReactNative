@@ -77,7 +77,22 @@ class MessageCallCell: UITableViewCell {
         }
 
         labelTimeText.textAlignment = rcmessage.incoming ? .left : .right
-        labelTimeText.text = messagesView.textHeaderLower(indexPath)
+        if rcmessage.callStatus == .OUTGOING_CALL {
+            var durationMessage = ""
+            if let duration = Int(rcmessage.text) {
+                let mins = duration / 60
+                let seconds = duration % 60
+                if mins > 0 {
+                    durationMessage = "\(mins) min"
+                } else {
+                    durationMessage = "\(seconds) sec"
+                }
+            }
+            labelTimeText.text = (messagesView.textHeaderLower(indexPath) ?? "") + ", " + durationMessage
+        } else {
+            labelTimeText.text = messagesView.textHeaderLower(indexPath)
+        }
+        
         
         if (imvCall == nil) {
             imvCall = UIImageView()
@@ -91,14 +106,21 @@ class MessageCallCell: UITableViewCell {
             viewBubble.addSubview(labelContent)
         }
         
-        print("Call statues", rcmessage.callStatus)
+        if (rcmessage.callStatus == .MISSED_CALL || rcmessage.callStatus == .CANCELLED_CALL) {
+            imvCall.image = RCDefaults.callMissed
+            labelContent.textColor = RCDefaults.callIncomingMissed
+            labelContent.text = rcmessage.text
+        } else {
+            imvCall.image = RCDefaults.callOutGoing
+            labelContent.text = rcmessage.incoming ? "Incoming Call" : "Outgoing Call"
+            labelContent.textColor = RCDefaults.callOutGoingNormal
+        }
 
-        if (rcmessage.callStatus == .MISSED_CALL) { imvCall.image = RCDefaults.callMissed        }
-        if (rcmessage.callStatus == .CANCELLED_CALL) { imvCall.image = RCDefaults.callCancelled    }
 
-        labelContent.textColor = RCDefaults.callIncomingMissed
+//        labelContent.textColor = RCDefaults.callIncomingMissed
 //        labelContent.text = rcmessage.incoming ? "Cancelled call".localized : "Missed call".localized
-        labelContent.text = rcmessage.incoming ? "Cancelled call".localized : "Missed call".localized
+//        labelContent.text = rcmessage.incoming ? "Cancelled call".localized : "Missed call".localized
+//        labelContent.text = rcmessage.text
         labelContent.textAlignment = rcmessage.incoming ? .left : .right
     }
 
@@ -131,9 +153,9 @@ class MessageCallCell: UITableViewCell {
         
         labelContent.frame = CGRect(x: xLabel, y: 5, width: 90, height: 20)
         
-        let time_width = CGFloat(60)
+        let time_width = CGFloat(120)
         let time_height = (labelTimeText.text != nil) ? RCDefaults.headerLowerHeight : 0
-        let xTime = rcmessage.outgoing ? RCDefaults.callBubbleWidht - 100: 40
+        let xTime = rcmessage.outgoing ? RCDefaults.callBubbleWidht - 160: 40
         
         labelTimeText.frame = CGRect(x: xTime, y: RCDefaults.callBubbleHeight - time_height , width: time_width, height: time_height)
     }

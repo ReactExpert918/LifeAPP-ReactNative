@@ -363,20 +363,42 @@ class ChatViewController: UIViewController {
         //showCallToolbar(value: false)
         if(recipientId == ""){
             return
-        }else{
+        } else {
             isShowingToolbar = false
             
             showCallToolbar(value: isShowingToolbar)
             
-            let recipient = realm.object(ofType: Person.self, forPrimaryKey: recipientId)
-            let zedStoryboard = UIStoryboard.init(name: "ZedPay", bundle: nil)
-            let vc =  zedStoryboard.instantiateViewController(identifier: "payBottomSheetVC") as! PayBottomSheetViewController
-            vc.person = recipient
-            vc.chatId = self.chatId
-            vc.recipientId = self.recipientId
-            let sheetController = SheetViewController(controller: vc, sizes: [.fixed(470)])
-            self.present(sheetController, animated: true, completion: nil)
+            let alertController = UIAlertController(title: "", message: "This feature is not opened yet, only admin can access now.", preferredStyle: .alert)
+            
+            alertController.addTextField { (textField: UITextField) in
+                textField.keyboardType = .numberPad
+                textField.placeholder = "Please insert Pincode."
+            }
+            
+            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+                if let textField = alertController.textFields?[0] {
+                    if textField.text == "0722" {
+                        self.showZedPay()
+                    }
+                }
+                alertController.dismiss(animated: false)
+            }))
+            
+            alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            
+            self.present(alertController, animated: true, completion: nil)
         }
+    }
+    
+    func showZedPay() {
+        let recipient = realm.object(ofType: Person.self, forPrimaryKey: recipientId)
+        let zedStoryboard = UIStoryboard.init(name: "ZedPay", bundle: nil)
+        let vc =  zedStoryboard.instantiateViewController(identifier: "payBottomSheetVC") as! PayBottomSheetViewController
+        vc.person = recipient
+        vc.chatId = self.chatId
+        vc.recipientId = self.recipientId
+        let sheetController = SheetViewController(controller: vc, sizes: [.fixed(470)])
+        self.present(sheetController, animated: true, completion: nil)
     }
     
     // MARK: - Audio and video call
@@ -1131,11 +1153,13 @@ class ChatViewController: UIViewController {
         
         self.view.addSubview(recordingView)
         
+        self.messageInputBar.addSubview(recordingView)
+        
         NSLayoutConstraint.activate([
             recordingView.widthAnchor.constraint(equalToConstant: messageInputBar.frame.width),
             recordingView.heightAnchor.constraint(equalToConstant: messageInputBar.frame.height),
-            recordingView.leadingAnchor.constraint(equalTo: self.view.layoutMarginsGuide.leadingAnchor),
-            recordingView.bottomAnchor.constraint(equalTo: self.view.layoutMarginsGuide.bottomAnchor)
+            recordingView.leadingAnchor.constraint(equalTo: self.messageInputBar.leadingAnchor),
+            recordingView.bottomAnchor.constraint(equalTo: self.messageInputBar.bottomAnchor)
         ])
         
         recordingView.isHidden = true
@@ -1198,7 +1222,7 @@ extension ChatViewController: UITableViewDataSource {
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_PHOTO)    { return cellForMessagePhoto(tableView, at: indexPath)}
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_VIDEO)    { return cellForMessageVideo(tableView, at: indexPath)}
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_AUDIO)    { return cellForMessageAudio(tableView, at: indexPath)}
-            if (rcmessage.type == MESSAGE_TYPE.MISSED_CALL || rcmessage.type == MESSAGE_TYPE.CANCELLED_CALL)    { return cellForMessageCall(tableView, at: indexPath)}
+            if (rcmessage.type == MESSAGE_TYPE.MISSED_CALL || rcmessage.type == MESSAGE_TYPE.CANCELLED_CALL || rcmessage.type == MESSAGE_TYPE.OUTGOING_CALL)    { return cellForMessageCall(tableView, at: indexPath)}
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_LOCATION) { return cellForMessageLocation(tableView, at: indexPath)}
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_MONEY)    { return cellForMessageMoney(tableView, at: indexPath)}
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_ISTYPING)    { return cellForTyping(tableView, at: indexPath)}
@@ -1332,7 +1356,7 @@ extension ChatViewController: UITableViewDelegate {
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_PHOTO)    { return MessagePhotoCell.height(self, at: indexPath)     }
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_VIDEO)    { return 160 }
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_AUDIO)    { return 54 }
-            if (rcmessage.type == MESSAGE_TYPE.MISSED_CALL || rcmessage.type == MESSAGE_TYPE.CANCELLED_CALL)    { return 60 }
+            if (rcmessage.type == MESSAGE_TYPE.MISSED_CALL || rcmessage.type == MESSAGE_TYPE.CANCELLED_CALL || rcmessage.type == MESSAGE_TYPE.OUTGOING_CALL)     { return 60 }
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_LOCATION)    { return RCMessageLocationCell.height(self, at: indexPath)   }
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_MONEY)    { return 143   }
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_ISTYPING) { return 46 }
@@ -1610,12 +1634,11 @@ extension ChatViewController : SKRecordViewDelegate {
     func SKRecordViewDidCancelRecord(_ sender: SKRecordView, button: UIView) {
         sender.state = .none
         sender.setupRecordButton(UIImage(named: "ic_record.png")!, recordBtn: hybridButton)
-        recordingView.audioRecorder?.stop()
+        //recordingView.audioRecorder?.stop()
         recordingView.recordButton.imageView?.stopAnimating()
         messageInputBar.inputTextView.placeholder = "Enter a message".localized
         //messageInputBar.isHidden = false
         recordingView.isHidden = true
-        //recordingView.setupRecorder()
         print("Cancelled")
     }
     
@@ -1623,7 +1646,7 @@ extension ChatViewController : SKRecordViewDelegate {
         
         sender.state = .recording
         sender.setupRecordButton(UIImage(named: "rec-1.png")!, recordBtn: hybridButton)
-        sender.audioRecorder?.record()
+        //sender.audioRecorder?.record()
         recordingView.recordButton.imageView?.startAnimating()
         //messageInputBar.isHidden = true
         recordingView.isHidden = false
@@ -1632,7 +1655,7 @@ extension ChatViewController : SKRecordViewDelegate {
     }
     
     func SKRecordViewDidStopRecord(_ sender : SKRecordView, button: UIView) {
-        recordingView.audioRecorder?.stop()
+        //recordingView.audioRecorder?.stop()
         sender.state = .none
         sender.setupRecordButton(UIImage(named: "ic_record.png")!, recordBtn: hybridButton)
         recordingView.recordButton.imageView?.stopAnimating()
@@ -1640,7 +1663,6 @@ extension ChatViewController : SKRecordViewDelegate {
         print("audio url==>",recordingView.getFileURL().path)
         messageInputBar.inputTextView.placeholder = "Enter a message".localized
         //messageInputBar.isHidden = false
-        recordingView.setupRecorder()
         recordingView.isHidden = true
     }
 }

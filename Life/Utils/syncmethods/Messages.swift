@@ -50,6 +50,21 @@ class Messages: NSObject {
         createMessage(message: message, recipientId: recipientId)
     }
     
+    class func sendCalling(chatId: String, recipientId:String, duration: String){
+        let message = Message()
+
+        message.chatId = chatId
+
+        message.userId = AuthUser.userId()
+        message.userFullname = Persons.fullname()
+        message.userInitials = Persons.initials()
+        message.userPictureAt = Persons.pictureAt()
+        message.text = duration
+        message.type = MESSAGE_TYPE.OUTGOING_CALL
+        
+        createMessage(message: message, recipientId: recipientId)
+    }
+    
     class func send(chatId: String, recipientId:String, text: String?, photo: UIImage?, video: URL?, audio: String?) {
 
 		let message = Message()

@@ -386,7 +386,29 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     // MARK: - ZedPayView
     
     @IBOutlet weak var labelBalance: UILabel!
-    @IBAction func onZedPay(_ sender: Any) {
+    @IBAction func onZedPay(_ sender: Any) {        
+        let alertController = UIAlertController(title: "", message: "This feature is not opened yet, only admin can access now.", preferredStyle: .alert)
+        
+        alertController.addTextField { (textField: UITextField) in
+            textField.keyboardType = .numberPad
+            textField.placeholder = "Please insert Pincode."
+        }
+        
+        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+            if let textField = alertController.textFields?[0] {
+                if textField.text == "0722" {
+                    self.showZedPay()
+                }
+            }
+            alertController.dismiss(animated: false)
+        }))
+        
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func showZedPay() {
         //labelBalance.text = "¥ " + String(format: "%.2f", person.getBalance())
         //balanceView.isHidden = false
         let mainstoryboard = UIStoryboard.init(name: "ZedPay", bundle: nil)
@@ -397,7 +419,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         self.present(sheetController, animated: true, completion: nil)
         
         //self.present(vc, animated: true, completion: nil)
-        
     }
 }
 

@@ -149,6 +149,7 @@ enum RCDefaults {
     static let callBubbleColorIncoming        = UIColor(named: "messageIncomingColor")
     
     static let callIncomingMissed           = UIColor(red: 255/255, green: 57/255, blue: 57/255, alpha: 1.0)
+    static let callOutGoingNormal           = UIColor(red: 20/255, green: 197/255, blue: 47/255, alpha: 1.0)
     
 	static let audioTextColorOutgoing		= UIColor.white
 	static let audioTextColorIncoming		= UIColor.black
@@ -158,7 +159,7 @@ enum RCDefaults {
 	static let audioImageManual				= UIImage(named: "rcmessages_manual")!
     
     static let callMissed                = UIImage(named: "ic_call_missed")!
-    static let callCancelled                = UIImage(named: "ic_call_missed")!
+    static let callOutGoing                = UIImage(named: "ic_call_outgoing")!
 
 	static let audioFont					= UIFont.systemFont(ofSize: 14)
 

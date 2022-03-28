@@ -58,11 +58,11 @@ class SKRecordView: UIView, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
     
     var normalImage = UIImage(named: "ic_record.png")!
     var recordingImages = [UIImage(named: "rec-1.png")!,UIImage(named: "rec-2.png")!,UIImage(named: "rec-3.png")!,UIImage(named: "rec-4.png")!,UIImage(named: "rec-5.png")!,UIImage(named: "rec-6.png")!]
-    var fileName = "audioFile.m4a"
     var recordingAnimationDuration = 0.5
     var recordingLabelText = "<< Slide to cancel"
     
     var delegate : SKRecordViewDelegate?
+    var fileName = Date().timeIntervalSince1970
     
     init(recordBtn: InputBarButtonItem, vc: UIViewController) {
         super.init(frame: CGRect.zero)
@@ -73,20 +73,11 @@ class SKRecordView: UIView, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
         setupRecordButton(normalImage, recordBtn: recordBtn)
         setupLabel()
         setupCountDownLabel()
-        //setupRecorder()
     }
     
     func setupRecordButton(_ image:UIImage, recordBtn: InputBarButtonItem) {
         recordButton = recordBtn
         recordButton.translatesAutoresizingMaskIntoConstraints = false
-        //addSubview(recordButton)
-        
-//        print(recordBtn.frame.origin)
-//        let vConsts = NSLayoutConstraint(item: recordButton, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: -14)
-//        let hConsts = NSLayoutConstraint(item: recordButton, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1.0, constant: 0)
-//
-//        self.addConstraints([vConsts])
-//        self.addConstraints([hConsts])
         
         recordButton.setImage(image, for: UIControl.State())
         
@@ -105,20 +96,12 @@ class SKRecordView: UIView, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
         slideToCancel.textAlignment = .center
         slideToCancel.font = UIFont.init(name: "system", size: 9.0)
         addSubview(slideToCancel)
-        //backgroundColor = UIColor.clear
-//        let vConsts = NSLayoutConstraint(item: slideToCancel, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: 10)
-//        let hConsts = NSLayoutConstraint(item: slideToCancel, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 1.0, constant: 4)
-//
-//
-//        self.addConstraints([vConsts])
-//        self.addConstraints([hConsts])
         
         NSLayoutConstraint.activate([
             slideToCancel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             slideToCancel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -70)
         ])
         
-        //slideToCancel.alpha = 0.0
         slideToCancel.font = UIFont.boldSystemFont(ofSize: 14)
         slideToCancel.textAlignment = .center
         slideToCancel.textColor = UIColor.black
@@ -130,20 +113,12 @@ class SKRecordView: UIView, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
         countDownLabel.translatesAutoresizingMaskIntoConstraints = false
         countDownLabel.textAlignment = .center
         addSubview(countDownLabel)
-        //backgroundColor = UIColor.clear
-//        let vConsts = NSLayoutConstraint(item: countDownLabel, attribute: .bottom, relatedBy: .equal, toItem: slideToCancel, attribute: .bottom, multiplier: 1.0, constant: 0)
-//        let hConsts = NSLayoutConstraint(item: countDownLabel, attribute: .trailing, relatedBy: .equal, toItem: slideToCancel, attribute: .leading, multiplier: 1.0, constant: 5)
-        
         
         NSLayoutConstraint.activate([
             countDownLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             countDownLabel.trailingAnchor.constraint(equalTo: self.slideToCancel.leadingAnchor, constant: -8)
         ])
         
-//        self.addConstraints([vConsts])
-//        self.addConstraints([hConsts])
-        
-        //countDownLabel.alpha = 0.0
         countDownLabel.font = UIFont.systemFont(ofSize: 15)
         countDownLabel.textAlignment = .center
         countDownLabel.textColor = UIColor.red
@@ -151,11 +126,18 @@ class SKRecordView: UIView, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
     }
     
     func setupRecorder(){
-        try? AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .default, policy: .default, options: .defaultToSpeaker)
-
-        let settings = [AVFormatIDKey: kAudioFormatMPEG4AAC, AVSampleRateKey: 44100, AVNumberOfChannelsKey: 2]
-        audioRecorder = try? AVAudioRecorder(url: getFileURL(), settings: settings)
-        audioRecorder?.prepareToRecord()
+        let recordingSession = AVAudioSession.sharedInstance()
+        
+        do {
+            try recordingSession.setCategory(.record, mode: .default)
+            try recordingSession.setActive(true)
+            
+            recordingSession.requestRecordPermission { _ in
+                
+            }
+        } catch (let error) {
+            print("Audio Recorder", error)
+        }
     }
     
     func getCacheDirectory() -> String {
@@ -170,7 +152,7 @@ class SKRecordView: UIView, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
         
         let dirPaths = fileMgr.urls(for: .documentDirectory,
                                     in: .userDomainMask)
-        let soundFileURL = dirPaths[0].appendingPathComponent("sound.m4a")
+        let soundFileURL = dirPaths[0].appendingPathComponent("\(fileName)-sound.m4a")
         return soundFileURL
     }
     
@@ -185,20 +167,45 @@ class SKRecordView: UIView, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
         }
     }
     
-    func userDidTapRecordThenSwipe(_ sender: UIButton) {
+    func ClearView() {
         slideToCancel.text = nil
         countDownLabel.text = nil
         timer.invalidate()
+    }
+    
+    func recordAudio() {
+        self.fileName = Date().timeIntervalSince1970
+        self.setupRecorder()
+        
+        let settings = [AVFormatIDKey: kAudioFormatMPEG4AAC, AVSampleRateKey: 12000, AVNumberOfChannelsKey: 1]
+        
+        do {
+            self.audioRecorder = try AVAudioRecorder(url: self.getFileURL(), settings: settings)
+            self.audioRecorder?.delegate = self
+            
+            audioRecorder?.record()
+        } catch (let error) {
+            print("Audio Recorder", error)
+            finishRecording()
+        }
+    }
+    
+    func finishRecording() {
         audioRecorder?.stop()
-
+        audioRecorder = nil
+    }
+    
+    func userDidTapRecordThenSwipe(_ sender: UIButton) {
+        self.ClearView()
+        self.finishRecording()
+        
         delegate?.SKRecordViewDidCancelRecord(self, button: sender)
     }
     
     func userDidStopRecording(_ sender: UIButton) {
-        slideToCancel.text = nil
-        countDownLabel.text = nil
-        timer.invalidate()
-        audioRecorder?.stop()
+        self.ClearView()
+        self.finishRecording()
+        
         delegate?.SKRecordViewDidStopRecord(self, button: sender)
     }
     
@@ -208,7 +215,9 @@ class SKRecordView: UIView, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
         recordSeconds = 0
         countdown()
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(SKRecordView.countdown) , userInfo: nil, repeats: true)
-        self.audioRecorder?.record()
+        
+        
+        self.recordAudio()
         delegate?.SKRecordViewDidSelectRecord(self, button: sender)
     }
     
@@ -267,11 +276,14 @@ class SKRecordView: UIView, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
         
     }
     
+    func audioRecorderEncodeErrorDidOccur(_ recorder: AVAudioRecorder, error: Error?) {
+        print("Audio Recorder", error)
+    }
+    
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
-        slideToCancel.text = nil
-        countDownLabel.text = nil
-        timer.invalidate()
-        audioRecorder?.stop()
+        print("Audio Recorder", flag)
+        self.ClearView()
+        self.finishRecording()
     }
     
     required init?(coder aDecoder: NSCoder) {

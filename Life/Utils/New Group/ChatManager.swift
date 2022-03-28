@@ -286,7 +286,14 @@ class ChatManager: NSObject {
 		temp["objectId"] = chatId
 
 		temp["lastMessageId"]	= message.objectId
-		temp["lastMessageText"]	= message.text
+        
+        if message.type == MESSAGE_TYPE.OUTGOING_CALL {
+            temp["lastMessageText"]    = message.userId == AuthUser.userId() ? "OutGoing Call" : "Incoming Call"
+        } else {
+            temp["lastMessageText"]    = message.text
+        }
+        
+		
 		temp["lastMessageAt"]	= message.createdAt
 
 		if let unread = unread {
