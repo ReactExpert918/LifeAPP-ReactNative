@@ -1,11 +1,10 @@
 import React, { useContext } from "react";
 import { SafeArea } from "../../components/utils/safe-area.component";
-import { HomeHeaderComponent } from "./components/header.component";
+import { ChatListHeaderComponent } from "./components/header.component";
 import styled from "styled-components/native";
 import { SearchbarComponent } from "./components/search-bar.component";
 import { PersonComponent } from "./components/person.component";
 import { HomeContext } from "../../services/app/app.context";
-import { HomeSectionScreen } from "./home-section.screen";
 
 const StatusBar = styled.View`
   background-color: ${(props) => props.theme.colors.ui.primary};
@@ -26,33 +25,22 @@ const ScrollContainer = styled.ScrollView`
   margin-horizontal: 10px;
 `;
 
-export const HomeScreen = ({ navigation }) => {
-  const { userInfo, groups, friends } = useContext(HomeContext);
-
-  const onClickSettings = () => {
-    navigation.navigate("Settings");
-  };
-
-  const onClickFriends = () => {};
-
+export const ChatListScreen = () => {
+  const { chats } = useContext(HomeContext);
   return (
     <>
       <StatusBar />
       <SafeArea>
-        <HomeHeaderComponent
-          onClickSettings={onClickSettings}
-          onClickFriends={onClickFriends}
-        />
+        <ChatListHeaderComponent />
         <SearchbarComponent />
         <MainContainer>
           <ScrollContainer>
-            {userInfo && <PersonComponent CELLInfo={userInfo} />}
-            {groups.length > 0 && (
-              <HomeSectionScreen title="Groups" items={groups} />
-            )}
-            {friends.length > 0 && (
-              <HomeSectionScreen title="Friends" items={friends} />
-            )}
+            {chats.length > 0 &&
+              chats.map((chat, index) => {
+                return (
+                  <PersonComponent CELLInfo={chat} key={`data-${index}`} />
+                );
+              })}
           </ScrollContainer>
         </MainContainer>
       </SafeArea>

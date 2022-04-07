@@ -2,6 +2,7 @@ export const colors = {
   ui: {
     primary: "#2B5174",
     secondary: "#165C90",
+    error: "#BC3434",
     gray: "gray",
     white: "white",
   },

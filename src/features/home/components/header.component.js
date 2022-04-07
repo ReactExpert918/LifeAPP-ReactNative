@@ -24,14 +24,34 @@ const IconFriends = styled(SimpleLineIcons).attrs({
   right: ${(props) => props.theme.spaces[2]};
 `;
 
-export const HomeHeaderComponent = () => {
+const IconCreate = styled(Ionicons).attrs({
+  color: colors.ui.white,
+  size: 24,
+  name: "md-create-outline",
+})`
+  position: absolute;
+  right: ${(props) => props.theme.spaces[2]};
+`;
+
+export const HomeHeaderComponent = ({ onClickSettings, onClickFriends }) => {
   return (
     <HeaderComponent color={colors.ui.primary}>
-      <IconSettings onPress={() => null} />
+      <IconSettings onPress={onClickSettings} />
       <Text variant="title" color={colors.text.white}>
         Home
       </Text>
-      <IconFriends onPress={() => null} />
+      <IconFriends onPress={onClickFriends} />
+    </HeaderComponent>
+  );
+};
+
+export const ChatListHeaderComponent = () => {
+  return (
+    <HeaderComponent color={colors.ui.primary}>
+      <Text variant="title" color={colors.text.white}>
+        Chats
+      </Text>
+      <IconCreate onPress={() => null} />
     </HeaderComponent>
   );
 };

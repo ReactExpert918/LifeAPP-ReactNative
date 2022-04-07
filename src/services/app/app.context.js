@@ -1,8 +1,7 @@
 import React, { useState, createContext, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { PERSONCELLTYPE } from "../../features/home/components/person.component";
 import { firebaseSDK } from "../../libs/firebase";
-import RNFS from "react-native-fs";
-import { MEDIA_FOLDER } from "../../libs/firebase/storage";
 
 export const HomeContext = createContext();
 
@@ -13,61 +12,96 @@ export const HomeContextProvider = ({ children }) => {
   const [groups, setGroups] = useState([]);
   const [friends, setFriends] = useState([]);
 
-  const createUser = (filePath) => {
-    const title = user.fullname ?? user.username ?? user.email ?? user.phone;
-    const message = user.about ?? "";
-    const image_uri = `file://${filePath}`;
+  const [chats, setChats] = useState([]);
 
+  const createUser = () => {
     setUserInfo({
-      image_uri,
-      title,
-      message,
+      ...user,
+      type: PERSONCELLTYPE.user,
     });
   };
 
-  const createGroups = (datas) => {
+  const createGroups = async (datas) => {
     let tempGroups = [];
 
     tempGroups.push({
       title: "Create Group",
       message: "Create a group for you and your friends.",
-      isGroup: true,
+      type: PERSONCELLTYPE.group_header,
     });
 
-    datas.forEach((data) => {
-      tempGroups.push({ name: data.name });
+    datas.forEach(async (data) => {
+      tempGroups.push({ ...data, type: PERSONCELLTYPE.group });
     });
 
     setGroups(tempGroups);
+    addChats(datas);
   };
 
-  const createFriend = async (user_id) => {
+  const createFriends = async (members) => {
+    const friendIds = members.map((data) => {
+      if (!data.isDeleted) {
+        return data.friendId == user.id ? data.userId : data.friendId;
+      }
+    });
+
+    const users = await firebaseSDK.getUsers(friendIds);
+    let tempFriends = [];
+
+    users.forEach(async (data) => {
+      const person = {
+        ...data,
+        type: PERSONCELLTYPE.friend,
+      };
+
+      tempFriends.push(person);
+    });
+
+    setFriends(tempFriends);
+  };
+
+  const addChats = async (datas) => {
+    let newChat = chats;
+
+    datas.forEach(async (data) => {
+      const chat_id = data.chatId ?? data.objectId;
+
+      console.log(data);
+
+      const message = await getLastMessasge(chat_id);
+
+      newChat.push({
+        ...message,
+        type: PERSONCELLTYPE.chats,
+        user_id:
+          data.userId1 == user.id
+            ? data.userId2
+            : data.userId1 ?? data.objectId,
+        isGroup: data.userId1 == null,
+      });
+    });
+
+    newChat.sort((a, b) => a.createdAt > b.createdAt);
+    setChats(newChat);
+  };
+
+  const getLastMessasge = async (chat_id) => {
+    const message = await firebaseSDK.getLastMessasge(chat_id);
+    return message;
+  };
+
+  const getFriends = async (user_id) => {
     const results = await firebaseSDK.getFriends(user_id);
-    console.log(results);
+
+    createFriends(results);
   };
 
-  const downloadImage = async (fileName) => {
-    const filePath = `${RNFS.DocumentDirectoryPath}/${fileName}`;
-    const exists = await RNFS.exists(filePath);
-    if (exists) {
-      createUser(filePath);
-    } else {
-      const url = await firebaseSDK.getDownloadURL(
-        `${MEDIA_FOLDER.USER}/${fileName}`
-      );
-      RNFS.downloadFile({ fromUrl: url, toFile: filePath })
-        .promise.then((r) => {
-          console.log(r);
-          createUser(filePath);
-        })
-        .catch((error) => {
-          console.log(error);
-          createUser(null);
-        });
-    }
+  const getSingles = async (user_id) => {
+    const singles = await firebaseSDK.getSingles(user_id);
+    addChats(singles);
   };
 
-  const setGroupsInformation = async (user_id) => {
+  const getGroups = async (user_id) => {
     firebaseSDK
       .getMembers(user_id)
       .then((results) => {
@@ -90,14 +124,16 @@ export const HomeContextProvider = ({ children }) => {
 
   useEffect(() => {
     if (user && user != {}) {
-      downloadImage(`${user.id}.jpg`);
-      setGroupsInformation(user.id);
-      createFriend(user.id);
+      setChats([]);
+      createUser(user.id);
+      getGroups(user.id);
+      getFriends(user.id);
+      getSingles(user.id);
     }
   }, [user]);
 
   return (
-    <HomeContext.Provider value={{ userInfo, groups, friends }}>
+    <HomeContext.Provider value={{ userInfo, groups, friends, chats }}>
       {children}
     </HomeContext.Provider>
   );

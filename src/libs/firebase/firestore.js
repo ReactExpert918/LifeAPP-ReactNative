@@ -71,6 +71,23 @@ export const getUser = (user_id) => {
   });
 };
 
+export const getUsers = (userIds) => {
+  return new Promise((resolve, reject) => {
+    firestore()
+      .collection(FIRESTORE_TABLES.USER)
+      .where("objectId", "in", userIds)
+      .get()
+      .then((snapshot) => {
+        let results = [];
+        snapshot.forEach((data) => {
+          results.push(data.data());
+        });
+        resolve(results);
+      })
+      .catch((error) => reject(error));
+  });
+};
+
 export const setUser = (userInfo) => {
   return new Promise((resolve, reject) => {
     firestore()
@@ -114,7 +131,6 @@ export const getFriends = async (user_id) => {
     .collection(FIRESTORE_TABLES.Friend)
     .where("userId", "==", user_id)
     .where("isAccepted", "==", true)
-    .where("isDeleted", "==", false)
     .get();
 
   query1.forEach((docSnap) => {
@@ -125,7 +141,30 @@ export const getFriends = async (user_id) => {
     .collection(FIRESTORE_TABLES.Friend)
     .where("friendId", "==", user_id)
     .where("isAccepted", "==", true)
-    .where("isDeleted", "==", false)
+    .get();
+
+  query2.forEach((docSnap) => {
+    results.push(docSnap.data());
+  });
+
+  return results;
+};
+
+export const getSingles = async (user_id) => {
+  let results = [];
+
+  const query1 = await firestore()
+    .collection(FIRESTORE_TABLES.Single)
+    .where("userId1", "==", user_id)
+    .get();
+
+  query1.forEach((docSnap) => {
+    results.push(docSnap.data());
+  });
+
+  const query2 = await firestore()
+    .collection(FIRESTORE_TABLES.Single)
+    .where("userId2", "==", user_id)
     .get();
 
   query2.forEach((docSnap) => {
@@ -148,6 +187,53 @@ export const getGroups = (chatIDs) => {
         });
 
         resolve(result);
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error);
+      });
+  });
+};
+
+export const getGroup = (group_id) => {
+  console.log(group_id);
+  return new Promise((resolve, reject) => {
+    firestore()
+      .collection(FIRESTORE_TABLES.Group)
+      .doc(group_id)
+      .get()
+      .then((snapshot) => {
+        if (snapshot.exists) {
+          const group = {
+            id: group_id,
+            ...snapshot.data(),
+          };
+          resolve(group);
+        }
+        reject("No exists");
+      })
+      .catch((error) => reject(error));
+  });
+};
+
+export const getLastMessasge = (chatId) => {
+  return new Promise((resolve, reject) => {
+    firestore()
+      .collection(FIRESTORE_TABLES.Message)
+      .where("chatId", "==", chatId)
+      .orderBy("updatedAt", "desc")
+      .limit(1)
+      .get()
+      .then((querySnapshot) => {
+        let result;
+        querySnapshot.forEach((documentSnapshot) => {
+          result = documentSnapshot.data();
+        });
+        if (result) {
+          resolve(result);
+        } else {
+          reject("No message");
+        }
       })
       .catch((error) => {
         console.log(error);

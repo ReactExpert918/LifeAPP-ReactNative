@@ -17,9 +17,13 @@ import {
   getUser,
   deleteUser,
   setUser,
+  getUsers,
   getMembers,
   getGroups,
+  getGroup,
   getFriends,
+  getSingles,
+  getLastMessasge,
 } from "./firestore";
 
 export const firebaseSDK = {
@@ -40,9 +44,13 @@ export const firebaseSDK = {
   getDownloadURL,
 
   getUser,
+  getUsers,
   deleteUser,
   setUser,
   getMembers,
   getGroups,
+  getGroup,
   getFriends,
+  getLastMessasge,
+  getSingles,
 };
