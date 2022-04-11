@@ -1,16 +1,30 @@
-import { savePerson, getPerson, getPersonName } from "./persons";
+import { savePersons, getPerson, getPersonName, addPerson } from "./persons";
 import { saveUserToDatabase, getUserFromDatabase } from "./user";
-import { saveGroup, getGroup, getGroupName } from "./groups";
+import { saveGroups, getGroup, getGroupName } from "./groups";
+import { saveMembers, getMember } from "./members";
+import { saveFriends, getFriend } from "./friends";
+import { saveSingles, getSingle, addSingle } from "./singles";
 
 export const DB_INTERNAL = {
   saveUserToDatabase,
   getUserFromDatabase,
 
-  savePerson,
+  savePersons,
   getPerson,
   getPersonName,
+  addPerson,
 
-  saveGroup,
+  saveGroups,
   getGroup,
   getGroupName,
+
+  saveMembers,
+  getMember,
+
+  saveFriends,
+  getFriend,
+
+  saveSingles,
+  getSingle,
+  addSingle,
 };

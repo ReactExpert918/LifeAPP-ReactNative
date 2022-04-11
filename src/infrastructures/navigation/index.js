@@ -8,6 +8,7 @@ import { firebaseSDK } from "../../libs/firebase";
 import { AuthNavigator } from "./auth.navigator";
 import { AppNavigator } from "./app.navigator";
 import { APP_STATE_ACTION } from "../../constants/redux";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 export const Navigator = () => {
   const dispatch = useDispatch();
@@ -36,14 +37,16 @@ export const Navigator = () => {
   };
 
   return (
-    <NavigationContainer>
-      {auth_state == AUTH_STATE.UNCHECK ? (
-        <Splash />
-      ) : auth_state == AUTH_STATE.NOAUTH ? (
-        <AuthNavigator />
-      ) : (
-        <AppNavigator />
-      )}
-    </NavigationContainer>
+    <SafeAreaProvider>
+      <NavigationContainer>
+        {auth_state == AUTH_STATE.UNCHECK ? (
+          <Splash />
+        ) : auth_state == AUTH_STATE.NOAUTH ? (
+          <AuthNavigator />
+        ) : (
+          <AppNavigator />
+        )}
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 };

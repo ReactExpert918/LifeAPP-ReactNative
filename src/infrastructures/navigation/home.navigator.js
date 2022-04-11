@@ -5,6 +5,7 @@ import { colors } from "../theme/colors";
 import { HomeScreen } from "../../features/home/home.screen";
 import { HomeContextProvider } from "../../services/app/app.context";
 import { ChatListScreen } from "../../features/home/chat-list.screen";
+import { ChatContextProvider } from "../../services/chat/chat.context";
 
 const Tab = createBottomTabNavigator();
 

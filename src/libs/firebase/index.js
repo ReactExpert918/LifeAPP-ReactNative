@@ -23,7 +23,9 @@ import {
   getGroup,
   getFriends,
   getSingles,
+  getPerson,
   getLastMessasge,
+  getSingle,
 } from "./firestore";
 
 export const firebaseSDK = {
@@ -53,4 +55,6 @@ export const firebaseSDK = {
   getFriends,
   getLastMessasge,
   getSingles,
+  getPerson,
+  getSingle,
 };

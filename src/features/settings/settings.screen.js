@@ -7,7 +7,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import { colors } from "../../infrastructures/theme/colors";
 import { Text } from "../../components/typography/text.component";
 import { useDispatch } from "react-redux";
-import { LOGIN_ACTION } from "../../constants/redux";
+import { DB_INTERNAL } from "../../libs/database";
 
 const StatusBar = styled.View`
   background-color: ${(props) => props.theme.colors.ui.primary};
@@ -21,6 +21,10 @@ const StatusBar = styled.View`
 const MainContainer = styled.View`
   flex: 1;
   background-color: ${(props) => props.theme.colors.bg.primary};
+`;
+
+const SettingsContainer = styled.View`
+  flex: 1;
 `;
 
 const SignOutButton = styled.TouchableOpacity`
@@ -45,7 +49,6 @@ const TextContainer = styled.View`
   align-items: flex-start;
   justify-content: center;
   margin-left: ${(props) => props.theme.spaces[2]};
-  margin-top: 3px;
 `;
 
 const TITLES = [
@@ -70,8 +73,10 @@ export const SettingsScreen = ({ navigation }) => {
     navigation.goBack();
   };
 
-  const onSignOut = () => {
-    dispatch({ type: LOGIN_ACTION.LOGOUT });
+  const onSignOut = async () => {
+    //dispatch({ type: LOGIN_ACTION.LOGOUT });
+
+    const friends = DB_INTERNAL.getSingle();
   };
 
   return (
@@ -79,26 +84,29 @@ export const SettingsScreen = ({ navigation }) => {
       <StatusBar />
       <SafeArea>
         <SettingHeaderComponent onClickClose={onClickClose} />
+
         <MainContainer>
-          {TITLES.map((title, index) => {
-            return (
-              <SettingComponent
-                title={title}
-                frontIcon={ICONS[index]}
-                backIcon={ICONS[index] != null}
-                key={`data-${index}`}
-              />
-            );
-          })}
+          <SettingsContainer>
+            {TITLES.map((title, index) => {
+              return (
+                <SettingComponent
+                  title={title}
+                  frontIcon={ICONS[index]}
+                  backIcon={ICONS[index] != null}
+                  key={`data-${index}`}
+                />
+              );
+            })}
+          </SettingsContainer>
+          <SignOutButton onPress={onSignOut}>
+            <IconSignout />
+            <TextContainer>
+              <Text variant="hint" color={colors.ui.error}>
+                Sign out
+              </Text>
+            </TextContainer>
+          </SignOutButton>
         </MainContainer>
-        <SignOutButton onPress={onSignOut}>
-          <IconSignout />
-          <TextContainer>
-            <Text variant="hint" color={colors.ui.error}>
-              Sign out
-            </Text>
-          </TextContainer>
-        </SignOutButton>
       </SafeArea>
     </>
   );

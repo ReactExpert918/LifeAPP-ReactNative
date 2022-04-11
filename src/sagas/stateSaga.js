@@ -3,7 +3,8 @@ import { AUTH_STATE, APP_STATE_ACTION } from "../constants/redux";
 import { firebaseSDK } from "../libs/firebase";
 import { setAuthState } from "../stores/appSlice";
 import { setUser } from "../stores/loginSlice";
-import { saveUserToDatabase } from "../libs/database/user";
+import { getUserFromDatabase, saveUserToDatabase } from "../libs/database/user";
+import { yellow100 } from "react-native-paper/lib/typescript/styles/colors";
 
 const appStateBecomeForground = function* appStateBecomeForground() {
   const auth_state = yield select((state) => state.auth_state);
@@ -13,6 +14,8 @@ const appStateBecomeForground = function* appStateBecomeForground() {
 
     if (user) {
       console.log(user);
+      const user_inside = yield getUserFromDatabase();
+      console.log("Current User", user_inside);
 
       try {
         const userInfo = yield firebaseSDK.getUser(user.uid);

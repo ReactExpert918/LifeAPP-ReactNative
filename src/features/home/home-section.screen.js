@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { PersonComponent } from "./components/person.component";
 import { SectionComponent } from "./components/section.component";
 
-export const HomeSectionScreen = ({ title, items }) => {
+export const HomeSectionScreen = ({ title, items, onNavigate }) => {
   const [showContent, setShowContent] = useState(true);
 
   const onClick = () => {
@@ -21,7 +21,13 @@ export const HomeSectionScreen = ({ title, items }) => {
       />
       {showContent &&
         items.map((data, index) => {
-          return <PersonComponent CELLInfo={data} key={`data-${index}`} />;
+          return (
+            <PersonComponent
+              CELLInfo={data}
+              key={`data-${index}`}
+              onNavigate={onNavigate}
+            />
+          );
         })}
     </>
   );

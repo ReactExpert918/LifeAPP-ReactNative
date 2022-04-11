@@ -25,8 +25,16 @@ const ScrollContainer = styled.ScrollView`
   margin-horizontal: 10px;
 `;
 
-export const ChatListScreen = () => {
+export const ChatListScreen = ({ navigation }) => {
   const { chats } = useContext(HomeContext);
+
+  const onNavigate = (chatId, accepterId) => {
+    navigation.navigate("ChatDetail", {
+      chatId,
+      accepterId,
+    });
+  };
+
   return (
     <>
       <StatusBar />
@@ -38,7 +46,11 @@ export const ChatListScreen = () => {
             {chats.length > 0 &&
               chats.map((chat, index) => {
                 return (
-                  <PersonComponent CELLInfo={chat} key={`data-${index}`} />
+                  <PersonComponent
+                    CELLInfo={chat}
+                    key={`data-${index}`}
+                    onNavigate={onNavigate}
+                  />
                 );
               })}
           </ScrollContainer>

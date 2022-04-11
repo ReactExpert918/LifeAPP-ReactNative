@@ -35,6 +35,13 @@ export const HomeScreen = ({ navigation }) => {
 
   const onClickFriends = () => {};
 
+  const onNavigate = (chatId, accepterId) => {
+    navigation.navigate("ChatDetail", {
+      chatId,
+      accepterId,
+    });
+  };
+
   return (
     <>
       <StatusBar />
@@ -48,10 +55,18 @@ export const HomeScreen = ({ navigation }) => {
           <ScrollContainer>
             {userInfo && <PersonComponent CELLInfo={userInfo} />}
             {groups.length > 0 && (
-              <HomeSectionScreen title="Groups" items={groups} />
+              <HomeSectionScreen
+                title="Groups"
+                items={groups}
+                onNavigate={onNavigate}
+              />
             )}
             {friends.length > 0 && (
-              <HomeSectionScreen title="Friends" items={friends} />
+              <HomeSectionScreen
+                title="Friends"
+                items={friends}
+                onNavigate={onNavigate}
+              />
             )}
           </ScrollContainer>
         </MainContainer>

@@ -6,8 +6,18 @@ import {
 } from "@react-navigation/stack";
 import { HomeNavigator } from "./home.navigator";
 import { SettingsScreen } from "../../features/settings/settings.screen";
+import { ChatScreen } from "../../features/chats/chat.screen";
+import { ChatContextProvider } from "../../services/chat/chat.context";
 
 const Stack = createStackNavigator();
+
+const getChatScreen = (route, navigation) => {
+  return (
+    <ChatContextProvider route={route}>
+      <ChatScreen navigation={navigation} />
+    </ChatContextProvider>
+  );
+};
 
 export const AppNavigator = () => {
   return (
@@ -22,6 +32,12 @@ export const AppNavigator = () => {
         >
           <Stack.Screen name="Home" component={HomeNavigator} />
           <Stack.Screen name="Settings" component={SettingsScreen} />
+          <Stack.Screen
+            name="ChatDetail"
+            component={({ route, navigation }) =>
+              getChatScreen(route, navigation)
+            }
+          />
         </Stack.Navigator>
       </HomeContextProvider>
     </>

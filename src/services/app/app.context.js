@@ -17,7 +17,7 @@ export const HomeContextProvider = ({ children }) => {
   const createUser = () => {
     setUserInfo({
       ...user,
-      type: PERSONCELLTYPE.user,
+      cell_type: PERSONCELLTYPE.user,
     });
   };
 
@@ -27,61 +27,66 @@ export const HomeContextProvider = ({ children }) => {
     tempGroups.push({
       title: "Create Group",
       message: "Create a group for you and your friends.",
-      type: PERSONCELLTYPE.group_header,
+      cell_type: PERSONCELLTYPE.group_header,
     });
 
     datas.forEach(async (data) => {
-      tempGroups.push({ ...data, type: PERSONCELLTYPE.group });
+      tempGroups.push({ ...data, cell_type: PERSONCELLTYPE.group });
     });
 
     setGroups(tempGroups);
-    addChats(datas);
+    createChats(datas);
   };
 
-  const createFriends = async (members) => {
-    const friendIds = members.map((data) => {
+  const createFriends = async (friends) => {
+    const friendIds = friends.map((data) => {
       if (!data.isDeleted) {
         return data.friendId == user.id ? data.userId : data.friendId;
       }
     });
 
-    const users = await firebaseSDK.getUsers(friendIds);
     let tempFriends = [];
 
-    users.forEach(async (data) => {
-      const person = {
-        ...data,
-        type: PERSONCELLTYPE.friend,
-      };
+    if (friendIds.length > 0) {
+      const users = await firebaseSDK.getUsers(friendIds);
 
-      tempFriends.push(person);
-    });
+      users.forEach(async (data) => {
+        const person = {
+          ...data,
+          cell_type: PERSONCELLTYPE.friend,
+        };
 
+        tempFriends.push(person);
+      });
+    }
     setFriends(tempFriends);
   };
 
-  const addChats = async (datas) => {
+  const createChats = async (datas) => {
+    datas.forEach((data) => {
+      addChat(data);
+    });
+  };
+
+  const addChat = async (data) => {
     let newChat = chats;
 
-    datas.forEach(async (data) => {
-      const chat_id = data.chatId ?? data.objectId;
+    const chat_id = data.chatId ?? data.objectId;
 
-      console.log(data);
+    const message = await getLastMessasge(chat_id);
 
-      const message = await getLastMessasge(chat_id);
-
-      newChat.push({
-        ...message,
-        type: PERSONCELLTYPE.chats,
-        user_id:
-          data.userId1 == user.id
-            ? data.userId2
-            : data.userId1 ?? data.objectId,
-        isGroup: data.userId1 == null,
-      });
+    newChat.push({
+      ...message,
+      cell_type: PERSONCELLTYPE.chats,
+      user_id:
+        data.userId1 == user.id ? data.userId2 : data.userId1 ?? data.objectId,
+      isGroup: data.userId1 == null,
     });
 
-    newChat.sort((a, b) => a.createdAt > b.createdAt);
+    newChat = newChat.sort(function (a, b) {
+      return b.createdAt - a.createdAt;
+    });
+
     setChats(newChat);
   };
 
@@ -98,7 +103,7 @@ export const HomeContextProvider = ({ children }) => {
 
   const getSingles = async (user_id) => {
     const singles = await firebaseSDK.getSingles(user_id);
-    addChats(singles);
+    createChats(singles);
   };
 
   const getGroups = async (user_id) => {
@@ -106,18 +111,20 @@ export const HomeContextProvider = ({ children }) => {
       .getMembers(user_id)
       .then((results) => {
         const chatIds = results.map((data) => data.chatId);
-        firebaseSDK
-          .getGroups(chatIds)
-          .then((results) => {
-            createGroups(results);
-          })
-          .catch(() => {
-            console.log("Failed");
-            createGroups([]);
-          });
+        if (chatIds.length > 0) {
+          firebaseSDK
+            .getGroups(chatIds)
+            .then((results) => {
+              createGroups(results);
+            })
+            .catch(() => {
+              createGroups([]);
+            });
+        } else {
+          createGroups([]);
+        }
       })
       .catch((error) => {
-        console.log("Error");
         createGroups([]);
       });
   };
