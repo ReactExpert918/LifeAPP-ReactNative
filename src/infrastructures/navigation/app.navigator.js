@@ -7,13 +7,14 @@ import {
 import { HomeNavigator } from "./home.navigator";
 import { SettingsScreen } from "../../features/settings/settings.screen";
 import { ChatScreen } from "../../features/chats/chat.screen";
+import { VideoCallScreen } from "../../features/calls/call-video.screen";
 import { ChatContextProvider } from "../../services/chat/chat.context";
 
 const Stack = createStackNavigator();
 
 const getChatScreen = (route, navigation) => {
   return (
-    <ChatContextProvider route={route}>
+    <ChatContextProvider route={route} navigation={navigation}>
       <ChatScreen navigation={navigation} />
     </ChatContextProvider>
   );
@@ -38,6 +39,7 @@ export const AppNavigator = () => {
               getChatScreen(route, navigation)
             }
           />
+          <Stack.Screen name="VideoCall" component={VideoCallScreen} />
         </Stack.Navigator>
       </HomeContextProvider>
     </>

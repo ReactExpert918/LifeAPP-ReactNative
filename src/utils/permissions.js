@@ -67,6 +67,26 @@ const fetchCameraPermission = () => {
   });
 };
 
+const fetchMicPermission = () => {
+  return new Promise((resolve, reject) => {
+    request(
+      Platform.select({
+        ios: PERMISSIONS.IOS.MICROPHONE,
+        android: PERMISSIONS.ANDROID.CALL_PHONE,
+      })
+    )
+      .then((result) => {
+        console.log("permission", result);
+        if (result === RESULTS.GRANTED || result === RESULTS.LIMITED)
+          resolve(true);
+        else resolve(false);
+      })
+      .catch((error) => {
+        resolve(false);
+      });
+  });
+};
+
 const fetchPhotosPermission = () => {
   return new Promise((resolve, reject) => {
     request(
@@ -109,6 +129,25 @@ export const checkCameraPermission = async () => {
 export const checkPhotosPermission = async () => {
   if (!(await fetchPhotosPermission())) {
     Alert.alert("Visit settings and allow photos permission", "", [
+      {
+        text: "OK",
+        onPress: () => {
+          openSettings();
+        },
+      },
+      {
+        text: "CANCEL",
+        onPress: () => {},
+      },
+    ]);
+    return false;
+  }
+  return true;
+};
+
+export const checkMicPermission = async () => {
+  if (!(await fetchMicPermission())) {
+    Alert.alert("Visit settings and allow Mic permission", "", [
       {
         text: "OK",
         onPress: () => {

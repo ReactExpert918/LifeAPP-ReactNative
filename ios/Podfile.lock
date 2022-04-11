@@ -338,6 +338,7 @@ PODS:
     - abseil/base/base_internal
     - abseil/base/config
     - abseil/meta/type_traits
+  - AgoraRtcEngine_iOS (3.5.2)
   - boost (1.76.0)
   - BoringSSL-GRPC (0.0.7):
     - BoringSSL-GRPC/Implementation (= 0.0.7)
@@ -521,6 +522,8 @@ PODS:
   - Permission-LocationAlways (3.3.1):
     - RNPermissions
   - Permission-LocationWhenInUse (3.3.1):
+    - RNPermissions
+  - Permission-Microphone (3.3.1):
     - RNPermissions
   - Permission-Notifications (3.3.1):
     - RNPermissions
@@ -725,6 +728,9 @@ PODS:
   - React-jsinspector (0.67.3)
   - React-logger (0.67.3):
     - glog
+  - react-native-agora (3.5.3):
+    - AgoraRtcEngine_iOS (= 3.5.2)
+    - React
   - react-native-camera (4.2.1):
     - React-Core
     - react-native-camera/RCT (= 4.2.1)
@@ -916,6 +922,7 @@ DEPENDENCIES:
   - Permission-Camera (from `../node_modules/react-native-permissions/ios/Camera`)
   - Permission-LocationAlways (from `../node_modules/react-native-permissions/ios/LocationAlways`)
   - Permission-LocationWhenInUse (from `../node_modules/react-native-permissions/ios/LocationWhenInUse`)
+  - Permission-Microphone (from `../node_modules/react-native-permissions/ios/Microphone`)
   - Permission-Notifications (from `../node_modules/react-native-permissions/ios/Notifications`)
   - Permission-PhotoLibrary (from `../node_modules/react-native-permissions/ios/PhotoLibrary`)
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
@@ -932,6 +939,7 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
+  - react-native-agora (from `../node_modules/react-native-agora`)
   - react-native-camera (from `../node_modules/react-native-camera`)
   - react-native-geolocation-service (from `../node_modules/react-native-geolocation-service`)
   - react-native-image-resizer (from `../node_modules/react-native-image-resizer`)
@@ -968,6 +976,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - abseil
+    - AgoraRtcEngine_iOS
     - BoringSSL-GRPC
     - CocoaAsyncSocket
     - Firebase
@@ -1017,6 +1026,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-permissions/ios/LocationAlways"
   Permission-LocationWhenInUse:
     :path: "../node_modules/react-native-permissions/ios/LocationWhenInUse"
+  Permission-Microphone:
+    :path: "../node_modules/react-native-permissions/ios/Microphone"
   Permission-Notifications:
     :path: "../node_modules/react-native-permissions/ios/Notifications"
   Permission-PhotoLibrary:
@@ -1045,6 +1056,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
   React-logger:
     :path: "../node_modules/react-native/ReactCommon/logger"
+  react-native-agora:
+    :path: "../node_modules/react-native-agora"
   react-native-camera:
     :path: "../node_modules/react-native-camera"
   react-native-geolocation-service:
@@ -1112,6 +1125,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
+  AgoraRtcEngine_iOS: 3d13806d67e401298558c9a6fb09340a4299afa2
   boost: a7c83b31436843459a1961bfd74b96033dc77234
   BoringSSL-GRPC: 8edf627ee524575e2f8d19d56f068b448eea3879
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
@@ -1148,6 +1162,7 @@ SPEC CHECKSUMS:
   Permission-Camera: bae27a8503530770c35aadfecbb97ec71823382a
   Permission-LocationAlways: fbf36cbdcabc3101f1168ad1ec45cfc5a6448cc4
   Permission-LocationWhenInUse: 006c85c8de0c05b5d8be8e8029e4f6b813270293
+  Permission-Microphone: 13922195a81b9d46d2df8050c225006eae126d49
   Permission-Notifications: 4b21cfdd5e8aab2cbb1f117aaa17b44e1f5736c4
   Permission-PhotoLibrary: ddb5a158725b29cb12e9e477e8a5f5151c66cc3c
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
@@ -1163,6 +1178,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 15ea57ead631a11fad57634ff69f78e797113a39
   React-jsinspector: 1e1e03345cf6d47779e2061d679d0a87d9ae73d8
   React-logger: 1e10789cb84f99288479ba5f20822ce43ced6ffe
+  react-native-agora: 35578ecf3a97bc500b0be25da8743dd93599b1e3
   react-native-camera: 3eae183c1d111103963f3dd913b65d01aef8110f
   react-native-geolocation-service: c0efb872258ed9240f1003a70fca9e9757e5c785
   react-native-image-resizer: d9fb629a867335bdc13230ac2a58702bb8c8828f
@@ -1198,6 +1214,6 @@ SPEC CHECKSUMS:
   Yoga: 90dcd029e45d8a7c1ff059e8b3c6612ff409061a
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 1dec70dff24522bcfeca5c5c03db89f693e18ac0
+PODFILE CHECKSUM: 6bdb230ee27fa0b2a04061b0b3941142a1ec93cf
 
 COCOAPODS: 1.11.2

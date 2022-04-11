@@ -26,6 +26,7 @@ import {
   getPerson,
   getLastMessasge,
   getSingle,
+  getZedPay,
 } from "./firestore";
 
 export const firebaseSDK = {
@@ -57,4 +58,5 @@ export const firebaseSDK = {
   getSingles,
   getPerson,
   getSingle,
+  getZedPay,
 };

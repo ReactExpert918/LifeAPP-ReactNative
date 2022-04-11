@@ -18,7 +18,7 @@ const FIRESTORE_TABLES = {
   Payment_Method: "PaymentMethod",
   Single: "Single",
   Stripe_Customer: "StripeCustomer",
-  ZEDPay: "ZedPay",
+  ZEDPay: "ZEDPay",
 };
 
 export const createUser = (user) => {
@@ -303,6 +303,31 @@ export const getLastMessasge = (chatId) => {
       .collection(FIRESTORE_TABLES.Message)
       .where("chatId", "==", chatId)
       .orderBy("updatedAt", "desc")
+      .limit(1)
+      .get()
+      .then((querySnapshot) => {
+        let result;
+        querySnapshot.forEach((documentSnapshot) => {
+          result = documentSnapshot.data();
+        });
+        if (result) {
+          resolve(result);
+        } else {
+          reject("No message");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error);
+      });
+  });
+};
+
+export const getZedPay = (payId) => {
+  return new Promise((resolve, reject) => {
+    firestore()
+      .collection(FIRESTORE_TABLES.ZEDPay)
+      .where("transId", "==", payId)
       .limit(1)
       .get()
       .then((querySnapshot) => {

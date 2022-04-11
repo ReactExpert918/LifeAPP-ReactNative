@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components/native";
 import { Spacer } from "../../../../components/spacer/spacer.component";
 import { Text } from "../../../../components/typography/text.component";
 import { colors } from "../../../../infrastructures/theme/colors";
+import { firebaseSDK } from "../../../../libs/firebase";
+import { decrypt, encrypt } from "../../../../utils/cryptor";
 import { DateTimeComponent } from "../datetime.component";
+import RNFS from "react-native-fs";
 
 const Container = styled.View`
   padding: ${(props) => props.theme.spaces[3]};
@@ -14,6 +17,8 @@ const Container = styled.View`
 `;
 
 export const MessagePayComponent = ({ message, isOwner, width }) => {
+  // Decrypt
+
   return (
     <Container isOwner={isOwner} width={width}>
       <Text

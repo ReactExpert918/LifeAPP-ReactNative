@@ -30,7 +30,6 @@ const Input = styled.TextInput`
   margin-top: 6px;
   margin-bottom: 6px;
   margin-right: 4px;
-  backgroud-color: ${(props) => props.theme.colors.bg.lightgray};
   font-size: ${(props) => props.theme.fontSizes.caption};
 `;
 

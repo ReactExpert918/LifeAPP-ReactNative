@@ -11,6 +11,7 @@ target 'LifeApp' do
   pod 'Permission-LocationWhenInUse', :path => "#{permissions_path}/LocationWhenInUse"
   pod 'Permission-Notifications', :path => "#{permissions_path}/Notifications"
   pod 'Permission-PhotoLibrary', :path => "#{permissions_path}/PhotoLibrary"
+  pod 'Permission-Microphone', :path => "#{permissions_path}/Microphone"
   
   config = use_native_modules!
 

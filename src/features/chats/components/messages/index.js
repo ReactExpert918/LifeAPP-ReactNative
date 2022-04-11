@@ -6,6 +6,10 @@ import { images } from "../../../../images";
 import { firebaseSDK } from "../../../../libs/firebase";
 import { MessageTextComponent } from "./message-text.component";
 import { Dimensions } from "react-native";
+import { MessagePayComponent } from "./message-pay.component";
+import { MessagePhotoComponent } from "./message-photo.component";
+import { MEDIA_FOLDER } from "../../../../libs/firebase/storage";
+import { getImagePath } from "../../../../utils/media";
 
 const Container = styled.TouchableOpacity`
   width: 100%;
@@ -26,6 +30,25 @@ const HeaderImage = styled.Image`
 const messageContent = (message, isOwner, maxWidth) => {
   const { type } = message;
 
+  if (type == "pay") {
+    return (
+      <MessagePayComponent
+        message={message}
+        isOwner={isOwner}
+        width={maxWidth}
+      />
+    );
+  }
+
+  if (type == "photo") {
+    return (
+      <MessagePhotoComponent
+        message={message}
+        isOwner={isOwner}
+        maxWidth={maxWidth}
+      />
+    );
+  }
   return (
     <MessageTextComponent
       message={message}
@@ -39,36 +62,22 @@ export const MessageComponent = ({ message }) => {
   const { user } = useSelector((state) => state.login_state);
 
   const maxWidth = Dimensions.get("window").width - 128;
-  console.log(maxWidth);
 
   const [avatar, setAvatar] = useState(null);
   const [isOwner, setIsOwner] = useState(false);
 
   useEffect(() => {
     if (message && message != {}) {
-      console.log(message);
-      downloadImage(`${message.item.userId}.jpg`);
+      setAvataImage(`${message.item.userId}.jpg`);
       setIsOwner(message.item.userId == user.id);
     }
   }, [message]);
 
-  const downloadImage = async (fileName) => {
-    const filePath = `${RNFS.DocumentDirectoryPath}/${fileName}`;
-    const exists = await RNFS.exists(filePath);
-    if (exists) {
-      setAvatar(filePath);
-    } else {
-      const url = await firebaseSDK.getDownloadURL(
-        `${MEDIA_FOLDER.USER}/${fileName}`
-      );
-      RNFS.downloadFile({ fromUrl: url, toFile: filePath })
-        .promise.then((r) => {
-          console.log(r);
-          setAvatar(filePath);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+  const setAvataImage = async (fileName) => {
+    const path = await getImagePath(fileName, MEDIA_FOLDER.USER);
+
+    if (path) {
+      setAvatar(path);
     }
   };
 

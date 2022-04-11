@@ -1,10 +1,11 @@
 import React, { useState, createContext, useEffect } from "react";
 import { DB_INTERNAL } from "../../libs/database";
 import firestore from "@react-native-firebase/firestore";
+import database from "@react-native-firebase/database";
 
 export const ChatContext = createContext();
 
-export const ChatContextProvider = ({ route, children }) => {
+export const ChatContextProvider = ({ route, children, navigation }) => {
   const { chatId, accepterId } = route.params;
 
   const [title, setTitle] = useState("");
@@ -27,12 +28,31 @@ export const ChatContextProvider = ({ route, children }) => {
           querySnapshot.forEach((documentSnapshot) => {
             msgs.push(documentSnapshot.data());
           });
-          console.log(msgs);
           setMessages(msgs);
         });
 
       // Stop listening for updates when no longer required
       return () => subscriber();
+    }
+  }, [chatId]);
+
+  useEffect(() => {
+    if (chatId) {
+      const onChildAdded = database()
+        .ref(`/video_call/${chatId}`)
+        .on("child_added", (snapshot) => {
+          navigation.push("VideoCall", {
+            chatId,
+            receptId: "",
+            outGoing: false,
+          });
+        });
+
+      // Stop listening for updates when no longer required
+      return () =>
+        database()
+          .ref(`/video_call/${chatId}`)
+          .off("child_added", onChildAdded);
     }
   }, [chatId]);
 

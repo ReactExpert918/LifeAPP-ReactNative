@@ -3,11 +3,11 @@ import styled from "styled-components/native";
 import { Text } from "../../../components/typography/text.component";
 import { images } from "../../../images";
 import { colors } from "../../../infrastructures/theme/colors";
-import RNFS from "react-native-fs";
 import { MEDIA_FOLDER } from "../../../libs/firebase/storage";
 import { firebaseSDK } from "../../../libs/firebase";
 import { DB_INTERNAL } from "../../../libs/database";
 import { dateStringFromNow } from "../../../utils/datetime";
+import { getImagePath } from "../../../utils/media";
 
 const Container = styled.TouchableOpacity`
   height: 80px;
@@ -62,13 +62,13 @@ export const PersonComponent = ({ CELLInfo, onNavigate }) => {
         setTitle(titleNew);
         const messageNew = CELLInfo.about;
         setMessage(messageNew);
-        downloadImage(`${CELLInfo.id}.jpg`);
+        setImage(`${CELLInfo.id}.jpg`);
       } else if (cell_type == PERSONCELLTYPE.group_header) {
         setTitle(CELLInfo.title);
         setMessage(CELLInfo.message);
       } else if (cell_type == PERSONCELLTYPE.group) {
         setName(CELLInfo.name);
-        downloadImage(`${CELLInfo.objectId}.jpg`);
+        setImage(`${CELLInfo.objectId}.jpg`);
       } else if (cell_type == PERSONCELLTYPE.friend) {
         const nameNew =
           CELLInfo.fullname ??
@@ -77,10 +77,10 @@ export const PersonComponent = ({ CELLInfo, onNavigate }) => {
           CELLInfo.phone;
 
         setName(nameNew);
-        downloadImage(`${CELLInfo.objectId}.jpg`);
+        setImage(`${CELLInfo.objectId}.jpg`);
       } else if (cell_type == PERSONCELLTYPE.chats) {
         setChatsContent();
-        downloadImage(`${CELLInfo.user_id}.jpg`);
+        setImage(`${CELLInfo.user_id}.jpg`);
       }
     }
   }, [CELLInfo]);
@@ -137,23 +137,11 @@ export const PersonComponent = ({ CELLInfo, onNavigate }) => {
     }
   };
 
-  const downloadImage = async (fileName) => {
-    const filePath = `${RNFS.DocumentDirectoryPath}/${fileName}`;
-    const exists = await RNFS.exists(filePath);
-    if (exists) {
-      setImage_url(filePath);
-    } else {
-      const url = await firebaseSDK.getDownloadURL(
-        `${MEDIA_FOLDER.USER}/${fileName}`
-      );
-      RNFS.downloadFile({ fromUrl: url, toFile: filePath })
-        .promise.then((r) => {
-          console.log(r);
-          setImage_url(filePath);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+  const setImage = async (fileName) => {
+    const path = await getImagePath(fileName, MEDIA_FOLDER.USER);
+
+    if (path) {
+      setImage_url(path);
     }
   };
 
