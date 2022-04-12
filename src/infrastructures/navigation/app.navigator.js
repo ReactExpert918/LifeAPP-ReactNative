@@ -8,6 +8,7 @@ import { HomeNavigator } from "./home.navigator";
 import { SettingsScreen } from "../../features/settings/settings.screen";
 import { ChatScreen } from "../../features/chats/chat.screen";
 import { VideoCallScreen } from "../../features/calls/call-video.screen";
+import { VoiceCallScreen } from "../../features/calls/call-audio.screen";
 import { ChatContextProvider } from "../../services/chat/chat.context";
 
 const Stack = createStackNavigator();
@@ -15,7 +16,7 @@ const Stack = createStackNavigator();
 const getChatScreen = (route, navigation) => {
   return (
     <ChatContextProvider route={route} navigation={navigation}>
-      <ChatScreen navigation={navigation} />
+      <ChatScreen navigation={navigation} route={route} />
     </ChatContextProvider>
   );
 };
@@ -40,6 +41,7 @@ export const AppNavigator = () => {
             }
           />
           <Stack.Screen name="VideoCall" component={VideoCallScreen} />
+          <Stack.Screen name="VoiceCall" component={VoiceCallScreen} />
         </Stack.Navigator>
       </HomeContextProvider>
     </>

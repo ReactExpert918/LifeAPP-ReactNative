@@ -5,13 +5,7 @@ import { SearchbarComponent } from "./components/search-bar.component";
 import { ChatContext } from "../../services/chat/chat.context";
 import { CallControlComponent } from "./components/call-control.component";
 import { KeyboardAccessoryView } from "react-native-ui-lib/keyboard";
-import { KeyboardView } from "../../components/utils/keyboardview.component";
-import {
-  NativeModules,
-  TextInput,
-  SafeAreaView as RNSafeAreaView,
-  View,
-} from "react-native";
+import { NativeModules, SafeAreaView as RNSafeAreaView } from "react-native";
 import { ChatInputComponent } from "./components/chat-input.component";
 import { KeyboardAwareFlatList } from "react-native-keyboard-aware-scroll-view";
 import { MessageComponent } from "./components/messages";
@@ -30,7 +24,8 @@ const MainContainer = styled.View`
   background-color: ${(props) => props.theme.colors.bg.primary};
 `;
 
-export const ChatScreen = ({ navigation }) => {
+export const ChatScreen = ({ navigation, route }) => {
+  const { chatId, accepterId } = route.params;
   const [showControl, setShowControl] = useState(false);
   const [message, setMessage] = useState("");
 
@@ -49,6 +44,24 @@ export const ChatScreen = ({ navigation }) => {
 
   const onChangeChat = (text) => {
     setMessage(text);
+  };
+
+  const onVideoCall = () => {
+    navigation.push("VideoCall", {
+      chatId,
+      receptId: accepterId,
+      outGoing: true,
+    });
+    setShowControl(false);
+  };
+
+  const onVoiceCall = () => {
+    navigation.push("VoiceCall", {
+      chatId,
+      receptId: accepterId,
+      outGoing: true,
+    });
+    setShowControl(false);
   };
 
   return (
@@ -87,7 +100,12 @@ export const ChatScreen = ({ navigation }) => {
               ?.keyboardTrackingScrollBehaviorFixedOffset
           }
         />
-        {showControl && <CallControlComponent />}
+        {showControl && (
+          <CallControlComponent
+            onVideoCall={onVideoCall}
+            onVoiceCall={onVoiceCall}
+          />
+        )}
       </MainContainer>
     </>
   );

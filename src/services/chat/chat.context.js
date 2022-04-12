@@ -2,11 +2,16 @@ import React, { useState, createContext, useEffect } from "react";
 import { DB_INTERNAL } from "../../libs/database";
 import firestore from "@react-native-firebase/firestore";
 import database from "@react-native-firebase/database";
+import { useSelector } from "react-redux";
 
 export const ChatContext = createContext();
 
 export const ChatContextProvider = ({ route, children, navigation }) => {
   const { chatId, accepterId } = route.params;
+
+  const { user } = useSelector((state) => state.login_state);
+
+  const [isCalling, setIsCalling] = useState(false);
 
   const [title, setTitle] = useState("");
 
@@ -41,17 +46,41 @@ export const ChatContextProvider = ({ route, children, navigation }) => {
       const onChildAdded = database()
         .ref(`/video_call/${chatId}`)
         .on("child_added", (snapshot) => {
-          navigation.push("VideoCall", {
-            chatId,
-            receptId: "",
-            outGoing: false,
-          });
+          if (snapshot.val() == user.id) {
+            navigation.push("VideoCall", {
+              chatId,
+              receptId: accepterId,
+              outGoing: false,
+            });
+          }
         });
 
       // Stop listening for updates when no longer required
       return () =>
         database()
           .ref(`/video_call/${chatId}`)
+          .off("child_added", onChildAdded);
+    }
+  }, [chatId]);
+
+  useEffect(() => {
+    if (chatId) {
+      const onChildAdded = database()
+        .ref(`/voice_call/${chatId}`)
+        .on("child_added", (snapshot) => {
+          if (snapshot.val() == user.id) {
+            navigation.push("VoiceCall", {
+              chatId,
+              receptId: accepterId,
+              outGoing: false,
+            });
+          }
+        });
+
+      // Stop listening for updates when no longer required
+      return () =>
+        database()
+          .ref(`/voice_call/${chatId}`)
           .off("child_added", onChildAdded);
     }
   }, [chatId]);

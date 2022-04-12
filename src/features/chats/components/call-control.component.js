@@ -31,7 +31,7 @@ const Image = styled.Image`
   height: 32px;
 `;
 
-export const CallControlComponent = ({}) => {
+export const CallControlComponent = ({ onVideoCall, onVoiceCall }) => {
   return (
     <Background>
       <CallControlContainer>
@@ -41,12 +41,12 @@ export const CallControlComponent = ({}) => {
           </TouchableOpacity>
         </Container>
         <Container>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={onVideoCall}>
             <Image source={images.ic_chat_video_call} />
           </TouchableOpacity>
         </Container>
         <Container>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={onVoiceCall}>
             <Image source={images.ic_chat_voice_call} />
           </TouchableOpacity>
         </Container>
