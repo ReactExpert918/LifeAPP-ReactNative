@@ -166,6 +166,8 @@ export const PersonComponent = ({ CELLInfo, onNavigate }) => {
         onNavigate(CELLInfo.chatId, CELLInfo.user_id);
       }
       //console.log(dateStringFromNow(CELLInfo.createdAt));
+    } else if (cell_type == PERSONCELLTYPE.group_header) {
+      onNavigate("", "");
     }
   };
 

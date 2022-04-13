@@ -6,6 +6,7 @@ import { SearchbarComponent } from "./components/search-bar.component";
 import { PersonComponent } from "./components/person.component";
 import { HomeContext } from "../../services/app/app.context";
 import { HomeSectionScreen } from "./home-section.screen";
+import { APP_NAVIGATION } from "../../constants/app";
 
 const StatusBar = styled.View`
   background-color: ${(props) => props.theme.colors.ui.primary};
@@ -30,16 +31,22 @@ export const HomeScreen = ({ navigation }) => {
   const { userInfo, groups, friends } = useContext(HomeContext);
 
   const onClickSettings = () => {
-    navigation.navigate("Settings");
+    navigation.navigate(APP_NAVIGATION.setting);
   };
 
-  const onClickFriends = () => {};
+  const onClickFriends = () => {
+    navigation.navigate(APP_NAVIGATION.friend_add);
+  };
 
   const onNavigate = (chatId, accepterId) => {
-    navigation.navigate("ChatDetail", {
-      chatId,
-      accepterId,
-    });
+    if (chatId && chatId != "") {
+      navigation.navigate(APP_NAVIGATION.chat, {
+        chatId,
+        accepterId,
+      });
+    } else {
+      navigation.navigate(APP_NAVIGATION.group);
+    }
   };
 
   return (

@@ -14,7 +14,7 @@ const IconClose = styled(Ionicons).attrs({
   left: ${(props) => props.theme.spaces[2]};
 `;
 
-const IconCheck = styled(SimpleLineIcons).attrs({
+const IconCheck = styled(Ionicons).attrs({
   color: colors.ui.white,
   size: 24,
   name: "md-checkmark",

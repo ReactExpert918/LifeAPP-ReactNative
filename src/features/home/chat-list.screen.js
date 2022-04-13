@@ -5,6 +5,7 @@ import styled from "styled-components/native";
 import { SearchbarComponent } from "./components/search-bar.component";
 import { PersonComponent } from "./components/person.component";
 import { HomeContext } from "../../services/app/app.context";
+import { APP_NAVIGATION } from "../../constants/app";
 
 const StatusBar = styled.View`
   background-color: ${(props) => props.theme.colors.ui.primary};
@@ -29,7 +30,7 @@ export const ChatListScreen = ({ navigation }) => {
   const { chats } = useContext(HomeContext);
 
   const onNavigate = (chatId, accepterId) => {
-    navigation.navigate("ChatDetail", {
+    navigation.navigate(APP_NAVIGATION.chat, {
       chatId,
       accepterId,
     });

@@ -3,6 +3,7 @@ import { DB_INTERNAL } from "../../libs/database";
 import firestore from "@react-native-firebase/firestore";
 import database from "@react-native-firebase/database";
 import { useSelector } from "react-redux";
+import { APP_NAVIGATION } from "../../constants/app";
 
 export const ChatContext = createContext();
 
@@ -47,7 +48,7 @@ export const ChatContextProvider = ({ route, children, navigation }) => {
         .ref(`/video_call/${chatId}`)
         .on("child_added", (snapshot) => {
           if (snapshot.val() == user.id) {
-            navigation.push("VideoCall", {
+            navigation.push(APP_NAVIGATION.video, {
               chatId,
               receptId: accepterId,
               outGoing: false,
@@ -69,7 +70,7 @@ export const ChatContextProvider = ({ route, children, navigation }) => {
         .ref(`/voice_call/${chatId}`)
         .on("child_added", (snapshot) => {
           if (snapshot.val() == user.id) {
-            navigation.push("VoiceCall", {
+            navigation.push(APP_NAVIGATION.audio, {
               chatId,
               receptId: accepterId,
               outGoing: false,

@@ -21,4 +21,13 @@ export const images = {
   ic_call_video_on: require("./assets/ic_call_video_on.png"),
   ic_call_voice_off: require("./assets/ic_call_voice_off.png"),
   ic_call_voice_on: require("./assets/ic_call_voice_on.png"),
+
+  ic_search: require("./assets/ic_search.png"),
+  ic_qrcode: require("./assets/ic_qrcode.png"),
+  ic_add_friend: require("./assets/ic_add_friend.png"),
+
+  ic_qr_reload: require("./assets/ic_qr_reload.png"),
+  ic_qr_download: require("./assets/ic_qr_download.png"),
+
+  img_search_bg: require("./assets/img_search_bg.png"),
 };

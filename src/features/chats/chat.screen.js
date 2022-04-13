@@ -9,6 +9,7 @@ import { NativeModules, SafeAreaView as RNSafeAreaView } from "react-native";
 import { ChatInputComponent } from "./components/chat-input.component";
 import { KeyboardAwareFlatList } from "react-native-keyboard-aware-scroll-view";
 import { MessageComponent } from "./components/messages";
+import { APP_NAVIGATION } from "../../constants/app";
 
 const StatusBar = styled.View`
   background-color: ${(props) => props.theme.colors.ui.primary};
@@ -47,7 +48,7 @@ export const ChatScreen = ({ navigation, route }) => {
   };
 
   const onVideoCall = () => {
-    navigation.push("VideoCall", {
+    navigation.push(APP_NAVIGATION.video, {
       chatId,
       receptId: accepterId,
       outGoing: true,
@@ -56,7 +57,7 @@ export const ChatScreen = ({ navigation, route }) => {
   };
 
   const onVoiceCall = () => {
-    navigation.push("VoiceCall", {
+    navigation.push(APP_NAVIGATION.audio, {
       chatId,
       receptId: accepterId,
       outGoing: true,

@@ -112,6 +112,50 @@ export const getUsers = (userIds) => {
   });
 };
 
+export const getUserWithName = (userId, username) => {
+  return new Promise((resolve, reject) => {
+    firestore()
+      .collection(FIRESTORE_TABLES.USER)
+      .where("objectId", "!=", userId)
+      .where("username", "==", username)
+      .limit(1)
+      .get()
+      .then(async (snapshot) => {
+        let result;
+        snapshot.forEach((data) => {
+          result = data.data();
+        });
+
+        await DB_INTERNAL.addPerson(result);
+
+        resolve(result);
+      })
+      .catch((error) => reject(error));
+  });
+};
+
+export const getUserWithPhonenumber = (userId, phone) => {
+  return new Promise((resolve, reject) => {
+    firestore()
+      .collection(FIRESTORE_TABLES.USER)
+      .where("objectId", "!=", userId)
+      .where("phone", "==", phone)
+      .limit(1)
+      .get()
+      .then(async (snapshot) => {
+        let result;
+        snapshot.forEach((data) => {
+          result = data.data();
+        });
+
+        await DB_INTERNAL.addPerson(result);
+
+        resolve(result);
+      })
+      .catch((error) => reject(error));
+  });
+};
+
 export const setUser = (userInfo) => {
   return new Promise((resolve, reject) => {
     firestore()
@@ -175,6 +219,76 @@ export const getFriends = async (user_id) => {
   await DB_INTERNAL.saveFriends(results);
 
   return results;
+};
+
+export const checkFriend = async (user_id, friend_id) => {
+  let results = false;
+
+  const query1 = await firestore()
+    .collection(FIRESTORE_TABLES.Friend)
+    .where("userId", "==", user_id)
+    .where("friendId", "==", friend_id)
+    .get();
+
+  console.log(query1);
+
+  results = query1.docs.length > 0;
+
+  if (results) {
+    return results;
+  }
+
+  const query2 = await firestore()
+    .collection(FIRESTORE_TABLES.Friend)
+    .where("userId", "==", friend_id)
+    .where("friendId", "==", user_id)
+    .get();
+  console.log(query2);
+
+  results = query2.docs.length > 0;
+
+  return results;
+};
+
+export const creatFriend = async (user_id, friend_id, doc_id) => {
+  return new Promise((resolve, reject) => {
+    firestore()
+      .collection(FIRESTORE_TABLES.Friend)
+      .doc(doc_id)
+      .set({
+        createdAt: new Date().getTime(),
+        friendId: friend_id,
+        isAccepted: false,
+        isDeleted: false,
+        objectId: doc_id,
+        pending: true,
+        updatedAt: new Date().getTime(),
+        userId: user_id,
+      })
+      .then(() => {
+        resolve(true);
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error);
+      });
+  });
+};
+
+export const deleteFriend = async (doc_id) => {
+  return new Promise((resolve, reject) => {
+    firestore()
+      .collection(FIRESTORE_TABLES.Friend)
+      .doc(doc_id)
+      .delete()
+      .then(() => {
+        resolve(true);
+      })
+      .catch((error) => {
+        console.log(error);
+        reject(error);
+      });
+  });
 };
 
 export const getSingles = async (user_id) => {

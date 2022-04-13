@@ -18,3 +18,7 @@ export const decrypt = (value) => {
 
   return dec.toString(CryptoJS.enc.Utf8);
 };
+
+export const getmd5 = (data) => {
+  return CryptoJS.MD5(data).toString();
+};

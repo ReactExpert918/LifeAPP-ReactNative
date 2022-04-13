@@ -5,7 +5,7 @@ import { HeaderComponent } from "../../../../components/header/header.component"
 import { images } from "../../../../images";
 import { colors } from "../../../../infrastructures/theme/colors";
 
-const BackButton = styled(Ionicons).attrs({
+const IconBack = styled(Ionicons).attrs({
   color: colors.ui.primary,
   size: 32,
   name: "chevron-back-sharp",
@@ -28,7 +28,7 @@ const Circle = styled.View`
 export const SignUpHeaderComponent = ({ onBack, pageIndex }) => {
   return (
     <HeaderComponent>
-      <BackButton icon={images.ic_back} onPress={onBack} />
+      <IconBack icon={images.ic_back} onPress={onBack} />
       <Circle selected={pageIndex == 0} />
       <Circle selected={pageIndex == 1} />
       <Circle selected={pageIndex == 2} />
