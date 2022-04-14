@@ -8,7 +8,7 @@ export const FIRESTORE_ACTION = {
   UDT: "Udt",
 };
 
-const FIRESTORE_TABLES = {
+export const FIRESTORE_TABLES = {
   USER: "Person",
   Friend: "Friend",
   Group: "Group",
@@ -67,6 +67,21 @@ export const getUser = (user_id) => {
           resolve(user);
         }
         reject("No exists");
+      })
+      .catch((error) => reject(error));
+  });
+};
+
+export const updateToken = (user_id, token) => {
+  return new Promise((resolve, reject) => {
+    firestore()
+      .collection(FIRESTORE_TABLES.USER)
+      .doc(user_id)
+      .update({
+        oneSignalId: token,
+      })
+      .then(() => {
+        resolve(true);
       })
       .catch((error) => reject(error));
   });

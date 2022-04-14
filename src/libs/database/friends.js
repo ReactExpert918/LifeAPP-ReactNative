@@ -14,3 +14,19 @@ export const getFriend = async (frined_id) => {
 
   return friendsList;
 };
+
+export const getFriends = async () => {
+  const friends = await AsyncStorage.getItem(KEY_APP_DATA.FRIEND);
+
+  const friendsList = JSON.parse(friends);
+
+  let results = [];
+
+  friendsList.forEach((friend) => {
+    if (!friend.isDeleted) {
+      results.push(friend);
+    }
+  });
+
+  return results;
+};

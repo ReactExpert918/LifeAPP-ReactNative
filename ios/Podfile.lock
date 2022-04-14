@@ -338,7 +338,29 @@ PODS:
     - abseil/base/base_internal
     - abseil/base/config
     - abseil/meta/type_traits
-  - AgoraRtcEngine_iOS (3.5.2)
+  - AgoraRtcEngine_Special_iOS (3.6.2.70):
+    - AgoraRtcEngine_Special_iOS/AINS (= 3.6.2.70)
+    - AgoraRtcEngine_Special_iOS/AV1Dec (= 3.6.2.70)
+    - AgoraRtcEngine_Special_iOS/ContentInspect (= 3.6.2.70)
+    - AgoraRtcEngine_Special_iOS/FullAudioFormat (= 3.6.2.70)
+    - AgoraRtcEngine_Special_iOS/JND (= 3.6.2.70)
+    - AgoraRtcEngine_Special_iOS/ReplayKit (= 3.6.2.70)
+    - AgoraRtcEngine_Special_iOS/ROIEnc (= 3.6.2.70)
+    - AgoraRtcEngine_Special_iOS/RtcBasic (= 3.6.2.70)
+    - AgoraRtcEngine_Special_iOS/SuperResolution (= 3.6.2.70)
+    - AgoraRtcEngine_Special_iOS/VideoPreprocess (= 3.6.2.70)
+    - AgoraRtcEngine_Special_iOS/VirtualBackground (= 3.6.2.70)
+  - AgoraRtcEngine_Special_iOS/AINS (3.6.2.70)
+  - AgoraRtcEngine_Special_iOS/AV1Dec (3.6.2.70)
+  - AgoraRtcEngine_Special_iOS/ContentInspect (3.6.2.70)
+  - AgoraRtcEngine_Special_iOS/FullAudioFormat (3.6.2.70)
+  - AgoraRtcEngine_Special_iOS/JND (3.6.2.70)
+  - AgoraRtcEngine_Special_iOS/ReplayKit (3.6.2.70)
+  - AgoraRtcEngine_Special_iOS/ROIEnc (3.6.2.70)
+  - AgoraRtcEngine_Special_iOS/RtcBasic (3.6.2.70)
+  - AgoraRtcEngine_Special_iOS/SuperResolution (3.6.2.70)
+  - AgoraRtcEngine_Special_iOS/VideoPreprocess (3.6.2.70)
+  - AgoraRtcEngine_Special_iOS/VirtualBackground (3.6.2.70)
   - boost (1.76.0)
   - BoringSSL-GRPC (0.0.7):
     - BoringSSL-GRPC/Implementation (= 0.0.7)
@@ -367,6 +389,9 @@ PODS:
   - Firebase/Firestore (8.14.0):
     - Firebase/CoreOnly
     - FirebaseFirestore (~> 8.14.0)
+  - Firebase/Messaging (8.14.0):
+    - Firebase/CoreOnly
+    - FirebaseMessaging (~> 8.14.0)
   - Firebase/Storage (8.14.0):
     - Firebase/CoreOnly
     - FirebaseStorage (~> 8.14.0)
@@ -399,6 +424,20 @@ PODS:
     - FirebaseCore (~> 8.0)
     - "gRPC-C++ (~> 1.28.0)"
     - leveldb-library (~> 1.22)
+    - nanopb (~> 2.30908.0)
+  - FirebaseInstallations (8.14.0):
+    - FirebaseCore (~> 8.0)
+    - GoogleUtilities/Environment (~> 7.7)
+    - GoogleUtilities/UserDefaults (~> 7.7)
+    - PromisesObjC (< 3.0, >= 1.2)
+  - FirebaseMessaging (8.14.0):
+    - FirebaseCore (~> 8.0)
+    - FirebaseInstallations (~> 8.0)
+    - GoogleDataTransport (~> 9.1)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.7)
+    - GoogleUtilities/Environment (~> 7.7)
+    - GoogleUtilities/Reachability (~> 7.7)
+    - GoogleUtilities/UserDefaults (~> 7.7)
     - nanopb (~> 2.30908.0)
   - FirebaseStorage (8.14.0):
     - FirebaseCore (~> 8.0)
@@ -483,6 +522,8 @@ PODS:
     - GoogleUtilities/Reachability
   - "GoogleUtilities/NSData+zlib (7.7.0)"
   - GoogleUtilities/Reachability (7.7.0):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/UserDefaults (7.7.0):
     - GoogleUtilities/Logger
   - "gRPC-C++ (1.28.2)":
     - "gRPC-C++/Implementation (= 1.28.2)"
@@ -728,9 +769,9 @@ PODS:
   - React-jsinspector (0.67.3)
   - React-logger (0.67.3):
     - glog
-  - react-native-agora (3.5.3):
-    - AgoraRtcEngine_iOS (= 3.5.2)
-    - React
+  - react-native-agora (3.6.2):
+    - AgoraRtcEngine_Special_iOS (= 3.6.2.70)
+    - React-Core
   - react-native-camera (4.2.1):
     - React-Core
     - react-native-camera/RCT (= 4.2.1)
@@ -833,6 +874,10 @@ PODS:
     - RNFBApp
   - RNFBFirestore (14.7.0):
     - Firebase/Firestore (= 8.14.0)
+    - React-Core
+    - RNFBApp
+  - RNFBMessaging (14.7.0):
+    - Firebase/Messaging (= 8.14.0)
     - React-Core
     - RNFBApp
   - RNFBStorage (14.7.0):
@@ -965,6 +1010,7 @@ DEPENDENCIES:
   - "RNFBAuth (from `../node_modules/@react-native-firebase/auth`)"
   - "RNFBDatabase (from `../node_modules/@react-native-firebase/database`)"
   - "RNFBFirestore (from `../node_modules/@react-native-firebase/firestore`)"
+  - "RNFBMessaging (from `../node_modules/@react-native-firebase/messaging`)"
   - "RNFBStorage (from `../node_modules/@react-native-firebase/storage`)"
   - RNFS (from `../node_modules/react-native-fs`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
@@ -979,7 +1025,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - abseil
-    - AgoraRtcEngine_iOS
+    - AgoraRtcEngine_Special_iOS
     - BoringSSL-GRPC
     - CocoaAsyncSocket
     - Firebase
@@ -988,6 +1034,8 @@ SPEC REPOS:
     - FirebaseCoreDiagnostics
     - FirebaseDatabase
     - FirebaseFirestore
+    - FirebaseInstallations
+    - FirebaseMessaging
     - FirebaseStorage
     - Flipper
     - Flipper-Boost-iOSX
@@ -1107,6 +1155,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-firebase/database"
   RNFBFirestore:
     :path: "../node_modules/@react-native-firebase/firestore"
+  RNFBMessaging:
+    :path: "../node_modules/@react-native-firebase/messaging"
   RNFBStorage:
     :path: "../node_modules/@react-native-firebase/storage"
   RNFS:
@@ -1130,7 +1180,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
-  AgoraRtcEngine_iOS: 3d13806d67e401298558c9a6fb09340a4299afa2
+  AgoraRtcEngine_Special_iOS: 929a1cacc8e396fb7f4e7d329c7c38f56465b8c4
   boost: a7c83b31436843459a1961bfd74b96033dc77234
   BoringSSL-GRPC: 8edf627ee524575e2f8d19d56f068b448eea3879
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
@@ -1143,6 +1193,8 @@ SPEC CHECKSUMS:
   FirebaseCoreDiagnostics: fd0c8490f34287229c1d6c103d3a55f81ec85712
   FirebaseDatabase: 8bfbe7bb8d355f9727507bcf4a2116cb3aabdc5e
   FirebaseFirestore: fff37682b934e3e94d83e5c24936721890a2edf0
+  FirebaseInstallations: 7d1d967a307c12f1aadd76844fc321cef699b1ce
+  FirebaseMessaging: 5ebc42d281567658a2cb72b9ef3506e4a1a1a6e4
   FirebaseStorage: 32ab036ce11eb7e94c279a238a65efa24f81593d
   Flipper: 30e8eeeed6abdc98edaf32af0cda2f198be4b733
   Flipper-Boost-iOSX: fd1e2b8cbef7e662a122412d7ac5f5bea715403c
@@ -1183,7 +1235,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 15ea57ead631a11fad57634ff69f78e797113a39
   React-jsinspector: 1e1e03345cf6d47779e2061d679d0a87d9ae73d8
   React-logger: 1e10789cb84f99288479ba5f20822ce43ced6ffe
-  react-native-agora: 35578ecf3a97bc500b0be25da8743dd93599b1e3
+  react-native-agora: c6db7769dbdc62fed8412435808e25ce6230f355
   react-native-camera: 3eae183c1d111103963f3dd913b65d01aef8110f
   react-native-geolocation-service: c0efb872258ed9240f1003a70fca9e9757e5c785
   react-native-image-resizer: d9fb629a867335bdc13230ac2a58702bb8c8828f
@@ -1207,6 +1259,7 @@ SPEC CHECKSUMS:
   RNFBAuth: 85b7ad91e3783dfde011702b2b747b1fd7be7234
   RNFBDatabase: 86f670036d217c59a65dbb12f1157ee9612ccdc6
   RNFBFirestore: 06d06485901708c3b2c8f569433058911a82c121
+  RNFBMessaging: 06a7a73883f3f43da61507dbfcf4db2245c22869
   RNFBStorage: c5e7b02c06014908fa70261836a05fa0ef476d45
   RNFS: fc610f78fdf8bfc89a9e5cc2f898519f4dba1002
   RNGestureHandler: 6e757e487a4834e7280e98e9bac66d2d9c575e9c

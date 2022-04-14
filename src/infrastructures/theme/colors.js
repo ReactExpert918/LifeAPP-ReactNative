@@ -5,8 +5,11 @@ export const colors = {
     error: "#BC3434",
     gray: "gray",
     white: "white",
+    green: "#3AAB73",
     divider: "#00355C",
     border: "#00406E",
+    callmissed: "#ff3939",
+    callnormal: "#14c52f",
   },
   bg: {
     primary: "#fff",

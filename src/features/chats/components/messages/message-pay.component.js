@@ -21,11 +21,7 @@ export const MessagePayComponent = ({ message, isOwner, width }) => {
 
   return (
     <Container isOwner={isOwner} width={width}>
-      <Text
-        style={{ minWidth: 50 }}
-        variant="label"
-        color={isOwner ? colors.text.white : colors.text.black}
-      >
+      <Text style={{ minWidth: 50 }} variant="label" color={colors.text.black}>
         {message.text}
       </Text>
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState, useMemo, useEffect } from "react";
 import { SafeArea } from "../../components/utils/safe-area.component";
 import styled from "styled-components/native";
 import { GroupHeaderComponent } from "./components/header.component";
@@ -8,6 +8,13 @@ import { Text } from "../../components/typography/text.component";
 import { colors } from "../../infrastructures/theme/colors";
 import { TextInput } from "react-native-paper";
 import { Spacer } from "../../components/spacer/spacer.component";
+import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
+import { GroupMemberScreen } from "./group-sheet.screen";
+import {
+  GroupCellComponent,
+  GROUP_CELL_TYPE,
+} from "./components/group-cell.component";
+import { KeyboardAwareFlatList } from "react-native-keyboard-aware-scroll-view";
 
 const StatusBar = styled.View`
   background-color: ${(props) => props.theme.colors.ui.primary};
@@ -78,14 +85,36 @@ const MemberIndicatorContainer = styled.View`
   justify-content: center;
 `;
 
+const addItem = { type: GROUP_CELL_TYPE.add, friend_id: "" };
+
 export const GroupScreen = ({ navigation }) => {
+  useEffect(() => {
+    setMembers([addItem]);
+  }, []);
+
   const [image_path, setImage_path] = useState(null);
   const [groupName, setGroupName] = useState(null);
+  const [members, setMembers] = useState([]);
+
+  const sheetRef = useRef(null);
+
+  const snapPoints = useMemo(() => ["1%", `95%`], []);
+
   const onClickClose = () => {
     navigation.goBack();
   };
 
-  const onClickDone = () => {};
+  const onClickDone = () => {
+    sheetRef.current.expand();
+  };
+
+  const closeSheet = () => {
+    sheetRef.current.collapse();
+  };
+
+  const selectMember = async () => {
+    sheetRef.current.collapse();
+  };
 
   return (
     <>
@@ -126,8 +155,26 @@ export const GroupScreen = ({ navigation }) => {
           </MemberIndicatorContainer>
           <Divider />
           <Spacer size="large" />
+          <KeyboardAwareFlatList
+            style={{ width: "100%" }}
+            data={members}
+            renderItem={({ item }) => {
+              return <GroupCellComponent item={item} />;
+            }}
+            numColumns={4}
+            keyExtractor={(item, index) => index.toString()}
+          />
         </MainContainer>
       </SafeArea>
+      <BottomSheet ref={sheetRef} snapPoints={snapPoints}>
+        <BottomSheetView>
+          <GroupMemberScreen
+            closeSheet={closeSheet}
+            selectMember={selectMember}
+            members={members}
+          />
+        </BottomSheetView>
+      </BottomSheet>
     </>
   );
 };

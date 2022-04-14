@@ -14,10 +14,10 @@ const login = function* login(action) {
 
   const user = yield firebaseSDK.signInEmailPassword(email, password);
 
-  console.log(user);
-
   if (user) {
     const userInfo = yield firebaseSDK.getUser(user.user.uid);
+
+    const updateToken = yield firebaseSDK.setFcmToken(user.user.uid);
 
     console.log(userInfo);
 

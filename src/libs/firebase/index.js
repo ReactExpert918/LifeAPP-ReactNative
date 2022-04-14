@@ -16,6 +16,7 @@ import { uploadMedia, uploadAvata, getDownloadURL } from "./storage";
 import {
   getUser,
   deleteUser,
+  updateToken,
   setUser,
   getUsers,
   getUserWithName,
@@ -33,6 +34,8 @@ import {
   getSingle,
   getZedPay,
 } from "./firestore";
+
+import { setFcmToken } from "./message";
 
 export const firebaseSDK = {
   checkAuthedUser,
@@ -69,4 +72,6 @@ export const firebaseSDK = {
   getPerson,
   getSingle,
   getZedPay,
+
+  setFcmToken,
 };

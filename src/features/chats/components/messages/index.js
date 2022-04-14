@@ -10,6 +10,7 @@ import { MessagePayComponent } from "./message-pay.component";
 import { MessagePhotoComponent } from "./message-photo.component";
 import { MEDIA_FOLDER } from "../../../../libs/firebase/storage";
 import { getImagePath } from "../../../../utils/media";
+import { MessageCallComponent } from "./message-call.component";
 
 const Container = styled.TouchableOpacity`
   width: 100%;
@@ -30,6 +31,8 @@ const HeaderImage = styled.Image`
 const messageContent = (message, isOwner, maxWidth) => {
   const { type } = message;
 
+  console.log(type);
+
   if (type == "pay") {
     return (
       <MessagePayComponent
@@ -49,6 +52,17 @@ const messageContent = (message, isOwner, maxWidth) => {
       />
     );
   }
+
+  if (type == 1 || type == 2 || type == 3) {
+    return (
+      <MessageCallComponent
+        message={message}
+        isOwner={isOwner}
+        width={maxWidth}
+      />
+    );
+  }
+
   return (
     <MessageTextComponent
       message={message}
