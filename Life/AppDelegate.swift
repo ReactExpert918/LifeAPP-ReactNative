@@ -37,6 +37,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         IQKeyboardManager.shared.enable = true
         
+        let floatTest: Float = 50
+        
+        print("crypto-js", floatTest.encryptedString())
+        
 //        let value: Float = 5000.0
 //
 //        print("TestMoney:", value.encryptedString())

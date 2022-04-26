@@ -31,6 +31,7 @@ extension String {
         guard let bytes = _bytes else {
             return 0
         }
+        
         if let aes = try? AES(key: LIFE_CRYPT.key, iv: LIFE_CRYPT.iv),
            let aesD = try? aes.decrypt(bytes) {
             

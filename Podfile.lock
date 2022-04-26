@@ -558,11 +558,11 @@ PODS:
   - PromisesObjC (2.0.0)
   - QRCodeReader.swift (10.1.0)
   - Reachability (3.2)
-  - Realm (10.24.2):
-    - Realm/Headers (= 10.24.2)
-  - Realm/Headers (10.24.2)
-  - RealmSwift (10.24.2):
-    - Realm (= 10.24.2)
+  - Realm (10.25.0):
+    - Realm/Headers (= 10.25.0)
+  - Realm/Headers (10.25.0)
+  - RealmSwift (10.25.0):
+    - Realm (= 10.25.0)
   - RNCryptor-objc (3.0.6)
   - RSKImageCropper (3.0.2)
   - SCLAlertView (0.8)
@@ -704,8 +704,8 @@ SPEC CHECKSUMS:
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
   QRCodeReader.swift: 373a389fe9a22d513c879a32a6f647c58f4ef572
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
-  Realm: c8421eee9ff92b16b4f91a313b5cc695c37c1921
-  RealmSwift: 10ed6fa09c36aaaff55e12afdc71802ec3ddb1c0
+  Realm: 22a82aaa0e73f3483e3a6df32549c4c5cd34aa63
+  RealmSwift: c2a635212400923edd3f828b8a37d55d3eb31863
   RNCryptor-objc: d1b228f9c02e2173df063f0617684c134aed890e
   RSKImageCropper: 1ac71e9a82e3f41eea3eedfff8eacb0d3821c9ec
   SCLAlertView: 6a77bb2edfc65e04dbe57725546cb4107a506b85

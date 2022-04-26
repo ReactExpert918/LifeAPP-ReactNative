@@ -14,6 +14,9 @@ extension Float{
     func encryptedString() -> String {
         
         let s = String(format: "%.2f", self)
+        
+        print("crypto-js", s)
+        
         let bytes:[UInt8] = Array(s.utf8)
         
         if let aes = try? AES(key: LIFE_CRYPT.key, iv: LIFE_CRYPT.iv),

@@ -29,6 +29,7 @@ class Cryptor: NSObject {
 	class func decrypt(text: String, chatId: String) -> String? {
 
 		if let dataEncrypted = Data(base64Encoded: text, options: []) {
+            print("crypto-js", dataEncrypted)
 			if let dataDecrypted = decrypt(data: dataEncrypted, chatId: chatId) {
 				return String(data: dataDecrypted, encoding: .utf8)
 			}

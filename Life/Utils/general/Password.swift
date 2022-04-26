@@ -17,6 +17,8 @@ class Password: NSObject {
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	class func get(chatId: String) -> String {
 
+        print("SHA1", chatId, chatId.sha1())
+        
 		return chatId.sha1()
 	}
 }

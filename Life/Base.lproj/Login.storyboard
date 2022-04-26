@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="R9N-Yx-9Qd">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="R9N-Yx-9Qd">
     <device id="retina6_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -57,7 +57,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LZB-wb-9Om">
-                                <rect key="frame" x="0.0" y="690" width="428" height="122"/>
+                                <rect key="frame" x="0.0" y="689" width="428" height="122"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BHc-cY-WO8" customClass="RoundButton" customModule="Life" customModuleProvider="target">
                                         <rect key="frame" x="20" y="8" width="388" height="45"/>
@@ -122,25 +122,25 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="“END-TO-END ENCRYPTED”" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wgH-hK-7ox">
-                                <rect key="frame" x="101.66666666666667" y="832" width="224.66666666666663" height="20"/>
+                                <rect key="frame" x="94.333333333333329" y="831" width="239.33333333333337" height="21"/>
                                 <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="17"/>
                                 <color key="textColor" red="0.16992738839999999" green="0.31759342550000003" blue="0.45621019600000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Easy, safe and SECURE" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QwE-bI-IPH">
-                                <rect key="frame" x="122.66666666666667" y="453" width="182.66666666666663" height="20"/>
+                                <rect key="frame" x="113" y="452.66666666666669" width="202" height="21"/>
                                 <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="17"/>
                                 <color key="textColor" red="0.16992738839999999" green="0.31759342550000003" blue="0.45621019600000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Get started with LIFE app" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1T7-3d-PnD">
-                                <rect key="frame" x="117.00000000000001" y="473" width="194.33333333333337" height="20"/>
+                                <rect key="frame" x="105.33333333333333" y="473.66666666666669" width="217.33333333333337" height="21"/>
                                 <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="17"/>
-                                <color key="textColor" red="0.16992738839999999" green="0.31759342550000003" blue="0.45621019600000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" red="0.16862745098039217" green="0.31764705882352939" blue="0.45490196078431372" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_logo" translatesAutoresizingMaskIntoConstraints="NO" id="7ET-BB-v8O">
-                                <rect key="frame" x="94" y="183" width="240" height="240"/>
+                                <rect key="frame" x="94" y="182.66666666666663" width="240" height="240"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="240" id="WVM-YX-CNv"/>
                                     <constraint firstAttribute="width" constant="240" id="cKv-mo-9Hb"/>
@@ -321,19 +321,19 @@
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login to your account" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B8C-n3-HNx">
-                                                <rect key="frame" x="40" y="228" width="348" height="23.333333333333343"/>
+                                                <rect key="frame" x="40" y="228" width="348" height="24.666666666666657"/>
                                                 <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="20"/>
                                                 <color key="textColor" red="0.12941176470588234" green="0.12941176470588234" blue="0.12941176470588234" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E1S-Sw-cIH">
-                                                <rect key="frame" x="16.000000000000004" y="259.33333333333331" width="39.333333333333343" height="18.666666666666686"/>
+                                                <rect key="frame" x="16" y="260.66666666666669" width="46" height="18.666666666666686"/>
                                                 <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="16"/>
                                                 <color key="textColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="0.55395252949999996" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nov-UU-9za" customClass="ExtensionView" customModule="Life" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="286" width="396" height="45"/>
+                                                <rect key="frame" x="16" y="287.33333333333331" width="396" height="45"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Eg. john@gmail.com" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fcb-tW-ahb">
                                                         <rect key="frame" x="16" y="0.0" width="364" height="45"/>
@@ -357,13 +357,13 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zr3-I3-Cba">
-                                                <rect key="frame" x="16" y="347" width="71" height="18.666666666666686"/>
+                                                <rect key="frame" x="16" y="348.33333333333331" width="77.333333333333329" height="18.666666666666686"/>
                                                 <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="16"/>
                                                 <color key="textColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="0.55395252949999996" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tVY-nj-E2G" customClass="ExtensionView" customModule="Life" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="373.66666666666669" width="396" height="45"/>
+                                                <rect key="frame" x="16" y="375" width="396" height="45"/>
                                                 <subviews>
                                                     <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WzH-08-Ezs">
                                                         <rect key="frame" x="16" y="0.0" width="364" height="45"/>
@@ -372,7 +372,7 @@
                                                         <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES"/>
                                                     </textField>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l9g-01-xbW">
-                                                        <rect key="frame" x="358" y="10.666666666666629" width="30" height="24"/>
+                                                        <rect key="frame" x="358" y="10.666666666666686" width="30" height="24"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="30" id="NHE-F8-vcl"/>
                                                             <constraint firstAttribute="height" constant="24" id="OT9-ux-fnU"/>
@@ -401,7 +401,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="igv-TM-WRc" customClass="RoundButton" customModule="Life" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="438.66666666666669" width="396" height="45"/>
+                                                <rect key="frame" x="16" y="440" width="396" height="45"/>
                                                 <color key="backgroundColor" red="0.0" green="0.25098039220000001" blue="0.43137254899999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="45" id="vJ4-mk-K5M"/>
@@ -426,7 +426,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mMc-WR-Sj9">
-                                                <rect key="frame" x="150.66666666666666" y="503.66666666666674" width="126.99999999999997" height="30"/>
+                                                <rect key="frame" x="142" y="505" width="144" height="31"/>
                                                 <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="15"/>
                                                 <state key="normal" title="Forgot Password ?">
                                                     <color key="titleColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -1211,7 +1211,7 @@ rates may apply.</string>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y9F-CJ-pla">
-                                <rect key="frame" x="97.333333333333329" y="100" width="233.66666666666669" height="51.333333333333343"/>
+                                <rect key="frame" x="74" y="100" width="280.33333333333331" height="53.666666666666657"/>
                                 <string key="text">Please fill basic details
 to complete registration</string>
                                 <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="22"/>
@@ -1219,13 +1219,13 @@ to complete registration</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="naq-Tp-eL7">
-                                <rect key="frame" x="16.000000000000004" y="171.33333333333334" width="39.333333333333343" height="19.666666666666657"/>
+                                <rect key="frame" x="16" y="173.66666666666666" width="46" height="19.666666666666657"/>
                                 <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="16"/>
                                 <color key="textColor" red="0.12941176470588234" green="0.12941176470588234" blue="0.12941176470588234" alpha="0.55395252951532725" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cyc-iJ-10X" customClass="ExtensionView" customModule="Life" customModuleProvider="target">
-                                <rect key="frame" x="16" y="199" width="396" height="45"/>
+                                <rect key="frame" x="16" y="201.33333333333334" width="396" height="45"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Eg. john@gmail.com" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="93D-XB-FuQ">
                                         <rect key="frame" x="16" y="0.0" width="364" height="45"/>
@@ -1249,13 +1249,13 @@ to complete registration</string>
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="31W-if-AvY">
-                                <rect key="frame" x="16" y="255.99999999999997" width="73.666666666666671" height="18.666666666666657"/>
+                                <rect key="frame" x="16" y="258.33333333333331" width="83.666666666666671" height="19.666666666666686"/>
                                 <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="16"/>
                                 <color key="textColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="0.55395252949999996" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cPo-qx-ujL" customClass="ExtensionView" customModule="Life" customModuleProvider="target">
-                                <rect key="frame" x="16" y="282.66666666666669" width="396" height="45"/>
+                                <rect key="frame" x="16" y="286" width="396" height="45"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Cge-zi-hUm">
                                         <rect key="frame" x="16" y="0.0" width="364" height="45"/>
@@ -1279,13 +1279,13 @@ to complete registration</string>
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G9R-qO-cR8">
-                                <rect key="frame" x="16" y="339.66666666666669" width="71" height="18.666666666666686"/>
+                                <rect key="frame" x="16" y="343" width="77.333333333333329" height="18.666666666666686"/>
                                 <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="16"/>
                                 <color key="textColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="0.55395252949999996" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y7Z-xX-oAD" customClass="ExtensionView" customModule="Life" customModuleProvider="target">
-                                <rect key="frame" x="16" y="366.33333333333331" width="396" height="45"/>
+                                <rect key="frame" x="16" y="369.66666666666669" width="396" height="45"/>
                                 <subviews>
                                     <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9hj-E6-YXw">
                                         <rect key="frame" x="16" y="0.0" width="364" height="45"/>
@@ -1294,7 +1294,7 @@ to complete registration</string>
                                         <textInputTraits key="textInputTraits" returnKeyType="next" secureTextEntry="YES"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nki-s4-cjt">
-                                        <rect key="frame" x="358" y="10.666666666666686" width="30" height="24"/>
+                                        <rect key="frame" x="358" y="10.666666666666629" width="30" height="24"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="24" id="47U-31-D9I"/>
                                             <constraint firstAttribute="width" constant="30" id="cFI-ei-yQF"/>
@@ -1323,13 +1323,13 @@ to complete registration</string>
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confirm Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xIp-cY-lDn">
-                                <rect key="frame" x="16" y="423.33333333333331" width="132.33333333333334" height="18.666666666666686"/>
+                                <rect key="frame" x="16" y="426.66666666666669" width="147.66666666666666" height="18.666666666666686"/>
                                 <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="16"/>
                                 <color key="textColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="0.55395252949999996" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EFK-AB-gVU" customClass="ExtensionView" customModule="Life" customModuleProvider="target">
-                                <rect key="frame" x="16" y="450" width="396" height="45"/>
+                                <rect key="frame" x="16" y="453.33333333333331" width="396" height="45"/>
                                 <subviews>
                                     <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aBt-wQ-MV3">
                                         <rect key="frame" x="16" y="0.0" width="364" height="45"/>
@@ -1367,7 +1367,7 @@ to complete registration</string>
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ogy-KO-8bl" customClass="RoundButton" customModule="Life" customModuleProvider="target">
-                                <rect key="frame" x="16" y="515" width="396" height="45"/>
+                                <rect key="frame" x="16" y="518.33333333333337" width="396" height="45"/>
                                 <color key="backgroundColor" red="0.0" green="0.25098039220000001" blue="0.43137254899999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="Cai-c5-gbB"/>
@@ -1763,19 +1763,19 @@ to complete registration</string>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Registration Successful" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eaj-ep-6Qv">
-                                <rect key="frame" x="98" y="354" width="232" height="25.666666666666686"/>
+                                <rect key="frame" x="78.666666666666657" y="354" width="270.66666666666674" height="27"/>
                                 <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="22"/>
                                 <color key="textColor" systemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fast, Safe and secure messaging app between your hand" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oed-J0-Wl8">
-                                <rect key="frame" x="20" y="395.66666666666669" width="388" height="16.333333333333314"/>
+                                <rect key="frame" x="20" y="397" width="388" height="34.333333333333314"/>
                                 <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="14"/>
                                 <color key="textColor" red="0.46666666666666667" green="0.46666666666666667" blue="0.46666666666666667" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8wq-eJ-6gi" customClass="RoundButton" customModule="Life" customModuleProvider="target">
-                                <rect key="frame" x="80" y="442" width="268" height="45"/>
+                                <rect key="frame" x="80" y="461.33333333333331" width="268" height="45"/>
                                 <color key="backgroundColor" red="0.0" green="0.25098039220000001" blue="0.43137254899999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="Lvp-1p-TsP"/>
@@ -1871,7 +1871,7 @@ to complete registration</string>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OKA-YG-E78">
-                                                <rect key="frame" x="16.000000000000004" y="260.66666666666669" width="39.333333333333343" height="18.666666666666686"/>
+                                                <rect key="frame" x="16" y="260.66666666666669" width="46" height="18.666666666666686"/>
                                                 <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="16"/>
                                                 <color key="textColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="0.55395252949999996" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -2003,34 +2003,34 @@ to complete registration</string>
             <size key="intrinsicContentSize" width="30" height="30"/>
         </designable>
         <designable name="8wq-eJ-6gi">
-            <size key="intrinsicContentSize" width="92" height="31"/>
+            <size key="intrinsicContentSize" width="101" height="32"/>
         </designable>
         <designable name="9im-2e-65O">
-            <size key="intrinsicContentSize" width="52" height="30"/>
+            <size key="intrinsicContentSize" width="60" height="31"/>
         </designable>
         <designable name="Aer-CS-QRP">
             <size key="intrinsicContentSize" width="65" height="32"/>
         </designable>
         <designable name="BHc-cY-WO8">
-            <size key="intrinsicContentSize" width="42" height="30"/>
+            <size key="intrinsicContentSize" width="49" height="31"/>
         </designable>
         <designable name="FmW-QF-FnA">
-            <size key="intrinsicContentSize" width="67" height="32"/>
+            <size key="intrinsicContentSize" width="71" height="33"/>
         </designable>
         <designable name="UDT-A2-uce">
             <size key="intrinsicContentSize" width="30" height="30"/>
         </designable>
         <designable name="fNR-QM-lAH">
-            <size key="intrinsicContentSize" width="124" height="32"/>
+            <size key="intrinsicContentSize" width="132" height="33"/>
         </designable>
         <designable name="igv-TM-WRc">
-            <size key="intrinsicContentSize" width="49" height="31"/>
+            <size key="intrinsicContentSize" width="54" height="32"/>
         </designable>
         <designable name="ogy-KO-8bl">
-            <size key="intrinsicContentSize" width="41" height="31"/>
+            <size key="intrinsicContentSize" width="44" height="32"/>
         </designable>
         <designable name="spi-yy-ddB">
-            <size key="intrinsicContentSize" width="173" height="31"/>
+            <size key="intrinsicContentSize" width="187" height="32"/>
         </designable>
     </designables>
     <resources>

@@ -102,6 +102,8 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
 
         let predicate = NSCompoundPredicate(type: .and, subpredicates: [predicate1, predicate2, predicate3])
         chats = realm.objects(Chat.self).filter(predicate).sorted(byKeyPath: "lastMessageAt", ascending: false)
+        
+        print("Chats ids", chats);
 
         tokenChats?.invalidate()
         chats.safeObserve({ changes in
