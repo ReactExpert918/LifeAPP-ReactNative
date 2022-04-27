@@ -77,10 +77,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         updateFcmToken()
         
-        
-        self.showChatView()
-        
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveCalls), name: NSNotification.Name(rawValue: NotificationStatus.NOTIFICATION_RECEIVE_CALL), object: nil)
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) { // As soon as vc appears
@@ -100,6 +97,14 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             //let _ = Friends.friendAcceptedIds()
             loadFriends()
         }
+        
+        self.showChatView()
+        
+        
+    }
+    
+    @objc func receiveCalls() {
+        showChatView()
     }
     
     func showChatView() {
@@ -107,6 +112,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         if appDelegate.pendingChatID != ""  {
             self.navigationController?.popToRootViewController(animated: false)
+            self.dismiss(animated: true, completion: nil)
             self.openPrivateChat(chatId: appDelegate.pendingChatID, recipientId: appDelegate.pendingUserID)
             appDelegate.pendingUserID = ""
             appDelegate.pendingChatID = ""

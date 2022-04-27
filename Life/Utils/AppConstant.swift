@@ -57,6 +57,7 @@ struct NotificationStatus {
     static let NOTIFICATION_USER_LOGGED_IN = "NotificationUserLoggedIn"
     static let NOTIFICATION_USER_LOGGED_OUT = "NotificationUserLoggedOut"
     static let NOTIFICATION_RECEIVE_CHAT = "NotificationReceiveChat"
+    static let NOTIFICATION_RECEIVE_CALL = "NotificationReceiveCall"
 }
 
 struct LoginInfo {

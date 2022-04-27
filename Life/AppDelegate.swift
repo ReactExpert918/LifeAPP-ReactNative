@@ -13,7 +13,8 @@ import RealmSwift
 import OneSignal
 import Sinch
 import FittedSheets
-//import PushKit
+import PushKit
+import CallKit
 //import CryptoSwift
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -37,9 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         IQKeyboardManager.shared.enable = true
         
-        let floatTest: Float = 50
         
-        print("crypto-js", floatTest.encryptedString())
         
 //        let value: Float = 5000.0
 //
@@ -58,6 +57,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Realm.Configuration.defaultConfiguration = configuration
         realm = try! Realm()
          
+        
+        initPushKit()
     //-----------------------------------------------------------------------------------------------------------------------------------------
         // SyncEngine initialization
         //-----------------------------------------------------------------------------------------------------------------------------------------
@@ -82,9 +83,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //-----------------------------------------------------------------------------------------------------------------------------------------
         /*OneSignal.initWithLaunchOptions(launchOptions, appId: ONESIGNAL.ONESIGNAL_APPID, handleNotificationReceived: nil,
                                         handleNotificationAction: nil, settings: [kOSSettingsKeyAutoPrompt: false])*/
-        OneSignal.initWithLaunchOptions(launchOptions)
-        OneSignal.setAppId(ONESIGNAL.ONESIGNAL_APPID)
-        OneSignal.setLogLevel(ONE_S_LOG_LEVEL.LL_NONE, visualLevel: ONE_S_LOG_LEVEL.LL_NONE)
+//        OneSignal.initWithLaunchOptions(launchOptions)
+//        OneSignal.setAppId(ONESIGNAL.ONESIGNAL_APPID)
+//        OneSignal.setLogLevel(ONE_S_LOG_LEVEL.LL_NONE, visualLevel: ONE_S_LOG_LEVEL.LL_NONE)
         
         
         
@@ -104,9 +105,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //-----------------------------------------------------------------------------------------------------------------------------------------
         // Sinch initialization
         //-----------------------------------------------------------------------------------------------------------------------------------------
-        push = Sinch.managedPush(with: .development)
-        push?.delegate = self
-        push?.setDesiredPushType(SINPushTypeVoIP)
+//        push = Sinch.managedPush(with: .development)
+//        push?.delegate = self
+//        push?.setDesiredPushType(SINPushTypeVoIP)
 
         callKitProvider = CallKitProvider()
         
@@ -251,6 +252,54 @@ extension AppDelegate: SINCallClientDelegate {
     }
 }
 
+// MARK: PUSHKIT
+
+extension AppDelegate: PKPushRegistryDelegate, CXProviderDelegate {
+    func initPushKit() {
+        let registry = PKPushRegistry(queue: nil)
+        registry.delegate = self
+        registry.desiredPushTypes = [PKPushType.voIP]
+    }
+    
+    func providerDidReset(_ provider: CXProvider) {
+    }
+
+    func provider(_ provider: CXProvider, perform action: CXAnswerCallAction) {
+        action.fulfill()
+        self.pendingChatID = "c76ad156294a496ff44b9a8579978248"
+        self.pendingUserID = "rJOJ0wXBORhSj2M81KcuZHT5rwv1"
+        
+        NotificationCenter.default.post(name: NSNotification.Name(NotificationStatus.NOTIFICATION_RECEIVE_CALL), object: nil)
+    }
+
+    func provider(_ provider: CXProvider, perform action: CXEndCallAction) {
+        action.fulfill()
+    }
+
+    func pushRegistry(_ registry: PKPushRegistry, didUpdate pushCredentials: PKPushCredentials, for type: PKPushType) {
+        print(pushCredentials.token.map { String(format: "%02.2hhx", $0) }.joined())
+    }
+
+    func pushRegistry(_ registry: PKPushRegistry, didReceiveIncomingPushWith payload: PKPushPayload, for type: PKPushType, completion: @escaping () -> Void) {
+        print(payload)
+        if #available(iOS 14.0, *) {
+            let config = CXProviderConfiguration()
+            config.iconTemplateImageData = UIImage(named: "app_logo")!.pngData()
+            config.ringtoneSound = "Radiate.caf"
+            config.includesCallsInRecents = false;
+            config.supportsVideo = true;
+            let provider = CXProvider(configuration: config)
+            provider.setDelegate(self, queue: nil)
+            let update = CXCallUpdate()
+            update.remoteHandle = CXHandle(type: .generic, value: "Pete Za")
+            update.hasVideo = true
+            provider.reportNewIncomingCall(with: UUID(), update: update, completion: { error in })
+        } else {
+            // Fallback on earlier versions
+        }
+        
+    }
+}
 
 
 // MARK: - SINManagedPushDelegate

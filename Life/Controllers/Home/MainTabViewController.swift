@@ -19,10 +19,22 @@ class MainTabViewController: UITabBarController {
 
         loadChats()
         
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveCalls), name: NSNotification.Name(rawValue: NotificationStatus.NOTIFICATION_RECEIVE_CALL), object: nil)
         // Do any additional setup after loading the view.
     }
     
+    @objc func receiveCalls() {
+        showChatView()
+    }
+    
+    func showChatView() {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        if appDelegate.pendingChatID != ""  {
+            self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+            self.selectedIndex = 0
+        }
+    }
     
     
     //---------------------------------------------------------------------------------------------------------------------------------------------
