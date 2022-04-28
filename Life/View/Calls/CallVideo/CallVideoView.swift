@@ -1,5 +1,4 @@
 
-import Sinch
 import SwiftyAvatar
 import UIKit
 import AgoraRtcKit
@@ -90,9 +89,8 @@ class CallVideoView: UIViewController {
             cameraButton.isHidden = !isStartCalling
         }
     }
-    
-    private var audioController: SINAudioController?
     private var stopSelf = false
+    let app = UIApplication.shared.delegate as? AppDelegate
     
 	init(userId: String) {
 		super.init(nibName: nil, bundle: nil)
@@ -100,8 +98,7 @@ class CallVideoView: UIViewController {
         callString = recipentUser!.getFullName()
 		self.isModalInPresentation = true
 		self.modalPresentationStyle = .fullScreen
-        let app = UIApplication.shared.delegate as? AppDelegate
-        audioController = app?.client?.audioController()
+        
         outgoing = true
 	}
     
@@ -150,6 +147,10 @@ class CallVideoView: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        if let callKit = self.app?.callKitProvider {
+            callKit.removeStateListner()
+            callKit.removeCall()
+        }
         if let videoStatusHandle = videoStatusHandle{
             FirebaseAPI.removeVideoCallListnerObserver(self.roomID, videoStatusHandle)
         }
@@ -237,7 +238,7 @@ class CallVideoView: UIViewController {
     }
     
     func joinChannel() {
-        audioController?.stopPlayingSoundFile()
+        self.app?.stopAudio()
         if let agoraKit = self.agoraKit{
             self.callingStart = Date()
             
@@ -269,7 +270,7 @@ class CallVideoView: UIViewController {
     
     @IBAction func actionRequestHangup(_ sender: Any) {
         DispatchQueue.main.async {
-            self.audioController?.stopPlayingSoundFile()
+            self.app?.stopAudio()
         }
         
         self.stopSelf = true
@@ -281,7 +282,7 @@ class CallVideoView: UIViewController {
     
     @IBAction func decline(_ sender: Any) {
         DispatchQueue.main.async {
-            self.audioController?.stopPlayingSoundFile()
+            self.app?.stopAudio()
         }
         ref.child("video_call").child(self.roomID).removeValue()
         self.dismiss(animated: true, completion: nil)
@@ -452,8 +453,7 @@ class CallVideoView: UIViewController {
         FirebaseAPI.sendVideoCallStatus(status, self.roomID) { (isSuccess, data) in
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.audioController?.enableSpeaker()
-            self.audioController?.startPlayingSoundFile(Dir.application("call_ringback.wav"), loop: true)
+            self.app?.playAudio()
         }
 	}
 
@@ -467,10 +467,11 @@ class CallVideoView: UIViewController {
 		uiv_muteswitch.isHidden = true // mute, switch
         uiv_power.isHidden = true //one call hangout
         uiv_request.isHidden = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.audioController?.enableSpeaker()
-            self.audioController?.startPlayingSoundFile(Dir.application("call_ringback.wav"), loop: true)
-        }
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//            self.audioController?.enableSpeaker()
+//            self.audioController?.startPlayingSoundFile(Dir.application("call_ringback.wav"), loop: true)
+//        }
+        joinAction()
 	}
 
     

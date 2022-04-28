@@ -22,7 +22,6 @@ target 'Life' do
   pod 'BEMCheckBox'
   pod 'CryptoSwift'
   pod 'MessageKit'
-  pod 'OneSignal'
   pod 'RealmSwift'
   pod 'SinchRTC', '~> 4.0'
   pod 'NYTPhotoViewer'

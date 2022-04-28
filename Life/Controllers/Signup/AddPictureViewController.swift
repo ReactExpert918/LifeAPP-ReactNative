@@ -12,7 +12,6 @@ import FirebaseStorage
 import JGProgressHUD
 import RealmSwift
 import FirebaseFirestore
-import OneSignal
 
 class AddPictureViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 

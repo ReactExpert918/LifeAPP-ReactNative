@@ -117,6 +117,11 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             appDelegate.pendingUserID = ""
             appDelegate.pendingChatID = ""
         }
+        
+        if appDelegate.pendingVideoCall {
+            appDelegate.callKitProvider?.openCallView(topController: self)
+            appDelegate.pendingVideoCall = false
+        }
     }
     
     // MARK: - upload fcm token

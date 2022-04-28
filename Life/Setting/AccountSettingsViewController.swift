@@ -14,7 +14,6 @@ import FirebaseAuth
 import FirebaseStorage
 import RealmSwift
 import FirebaseFirestore
-import OneSignal
 
 protocol UpdateDataDelegateProtocol {
     func updateUserName(name: String, fromUsername: Bool)

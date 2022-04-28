@@ -9,7 +9,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Sinch
 import MediaPlayer
 import SwiftyAvatar
 import UIKit
@@ -63,13 +62,17 @@ class CallAudioView: UIViewController {
     var voiceStatusHandle: UInt?
     var voiceStatusRemoveHandle: UInt?
     
-    private var audioController: SINAudioController?
     private var stopSelf = false
     private var joined = false
     private var callingStart: Date?
+    let app = UIApplication.shared.delegate as? AppDelegate
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        if let callKit = self.app?.callKitProvider {
+            callKit.removeStateListner()
+            callKit.removeCall()
+        }
         if let voiceStatusHandle = voiceStatusHandle{
             FirebaseAPI.removeVoiceCallListnerObserver(self.roomID, voiceStatusHandle)
         }
@@ -84,8 +87,7 @@ class CallAudioView: UIViewController {
         let recipentUser = realm.object(ofType: Person.self, forPrimaryKey: userId)
         callString = recipentUser!.getFullName()
         self.outgoing = true
-        let app = UIApplication.shared.delegate as? AppDelegate
-        audioController = app?.client?.audioController()
+        
         
         self.isModalInPresentation = true
         self.modalPresentationStyle = .fullScreen
@@ -202,7 +204,7 @@ class CallAudioView: UIViewController {
                 self.leaveChannel()
                 self.dismiss(animated: true, completion: nil)
             }else{
-                self.audioController?.stopPlayingSoundFile()
+                self.app?.stopAudio()
                 if outgoing {
                     self.labelStatus.text = "Declined"
                     self.labelStatus.textColor = .red
@@ -355,7 +357,7 @@ class CallAudioView: UIViewController {
         self.stopSelf = true
         
         DispatchQueue.main.async {
-            self.audioController?.stopPlayingSoundFile()
+            self.app?.stopAudio()
         }
         ref.child("voice_call").child(self.roomID).removeValue()
         self.dismiss(animated: true, completion: nil)
@@ -363,7 +365,7 @@ class CallAudioView: UIViewController {
     
     @IBAction func actionDecline(_ sender: Any) {
         DispatchQueue.main.async {
-            self.audioController?.stopPlayingSoundFile()
+            self.app?.stopAudio()
         }
         ref.child("voice_call").child(self.roomID).removeValue()
         self.dismiss(animated: true, completion: nil)
@@ -395,8 +397,7 @@ class CallAudioView: UIViewController {
         FirebaseAPI.sendVoiceCallStatus(status, self.roomID) { (isSuccess, data) in
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.audioController?.enableSpeaker()
-            self.audioController?.startPlayingSoundFile(Dir.application("call_ringback.wav"), loop: true)
+            self.app?.playAudio()
         }
     }
     
@@ -407,14 +408,15 @@ class CallAudioView: UIViewController {
         uiv_answerdecline.isHidden = false
         uiv_power.isHidden = true
         uiv_requst.isHidden = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.audioController?.enableSpeaker()
-            self.audioController?.startPlayingSoundFile(Dir.application("call_ringback.wav"), loop: true)
-        }
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//            self.audioController?.enableSpeaker()
+//            self.audioController?.startPlayingSoundFile(Dir.application("call_ringback.wav"), loop: true)
+//        }
+        joinAction()
     }
     
     func setConnectedUI() {
-        audioController?.stopPlayingSoundFile()
+        self.app?.stopAudio()
         self.callingStart = Date()
         timerStart(Date())
         //labelStatus.text = "Connected"

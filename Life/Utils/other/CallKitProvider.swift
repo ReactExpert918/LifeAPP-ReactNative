@@ -9,20 +9,17 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Sinch
 import CallKit
-
+import UIKit
+import FirebaseDatabase
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 class CallKitProvider: NSObject {
-
-	private var client: SINClient!
-	private var cxprovider: CXProvider!
-	private var callController = CXCallController()
     
-	private var name = ""
-	private var calls: [UUID: SINCall] = [:]
-    private var type = false
-    private var initCall:SINCall?
+	private var cxprovider: CXProvider!
+    private var call: Call?
+    
+    var videoStatusRemoveHandle: UInt?
+    var voiceStatusRemoveHandle: UInt?
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	override init() {
 
@@ -36,184 +33,69 @@ class CallKitProvider: NSObject {
         configuration.supportedHandleTypes = [.generic]
 		cxprovider = CXProvider(configuration: configuration)
 		cxprovider.setDelegate(self, queue: nil)
-
-		let nameDidProgress		= NSNotification.Name.SINCallDidProgress
-		let nameDidEstablish	= NSNotification.Name.SINCallDidEstablish
-		let nameDidEnd			= NSNotification.Name.SINCallDidEnd
-
-		NotificationCenter.default.addObserver(self, selector: #selector(callDidEnd(notification:)), name: nameDidEnd, object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(callDidProgress(notification:)), name: nameDidProgress, object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(callDidEstablish(notification:)), name: nameDidEstablish, object: nil)
-	}
-    func setGroupCall(_ type: Bool){
-        self.type = type
-    }
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	func setClient(_ client: SINClient?) {
-
-		self.client = client
 	}
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	func didReceivePush(withPayload payload: [AnyHashable: Any]?) {
-
-		if let notificationResult = SINPushHelper.queryPushNotificationPayload(payload) {
-			if notificationResult.isCall() {
-				if let callResult = notificationResult.call() {
-					if let name = callResult.headers["name"] as? String {
-						self.name = name
-					}
-					DispatchQueue.main.sync {
-						if (UIApplication.shared.applicationState != .active) {
-							reportNewIncomingCall(callResult)
-						}
-					}
-				}
-			}
-		}
-	}
-
-	// MARK: -
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	func reportNewIncomingCall(call: SINCall) {
-
-        
-		guard let callUUID = UUID(uuidString: call.callId) else { return }
-
-		let update = CXCallUpdate()
-		update.remoteHandle = CXHandle(type: .generic, value: name)
-		update.hasVideo = call.details.isVideoOffered
-
-		cxprovider.reportNewIncomingCall(with: callUUID, update: update) { error in
-			if let error = error {
-				print(error.localizedDescription)
-			}
-		}
-	}
-
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	private func reportNewIncomingCall(_ result: SINCallNotificationResult) {
-
-		guard let callUUID = UUID(uuidString: result.callId) else { return }
-
-		let update = CXCallUpdate()
-		update.remoteHandle = CXHandle(type: .generic, value: name)
-		update.hasVideo = result.isVideoOffered
-
-		cxprovider.reportNewIncomingCall(with: callUUID, update: update) { error in
-			if let error = error {
-				print(error.localizedDescription)
-			}
-		}
-	}
-
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	private func reportCallProgress(call: SINCall) {
-        if(type == false || self.initCall == nil){
-            guard let callUUID = UUID(uuidString: call.callId) else { return }
-            guard let name = call.headers["name"] as? String else { return }
-            self.initCall = call
-            let handle = CXHandle(type: .generic, value: name)
-            let startCallAction = CXStartCallAction(call: callUUID, handle: handle)
-
-            if let details = call.details {
-                startCallAction.isVideo = details.isVideoOffered
-            }
-
-            let transaction = CXTransaction(action: startCallAction)
-            callController.request(transaction) { error in
-                if let error = error {
-                    print(error.localizedDescription)
-                }
-            }
+        guard let payload = payload else {
+            return
         }
-        if(type == true && self.initCall != nil){
-            guard let callUUID = UUID(uuidString: call.callId) else { return }
-            //guard let name = call.headers["name"] as? String else { return }
-
-            //let handle = CXHandle(type: .generic, value: name)
-            let startCallAction = CXSetGroupCallAction(call: UUID(uuidString: (self.initCall?.callId)!)!, callUUIDToGroupWith: callUUID)
-            /*
-            if let details = call.details {
-                startCallAction.isVideo = details.isVideoOffered
-            }*/
-
-            let transaction = CXTransaction(action: startCallAction)
-            callController.request(transaction) { error in
-                if let error = error {
-                    print(error.localizedDescription)
+        if let data = payload["custom"] as? [String: Any], let values = data["a"] as? [String: Any]  {
+            guard let chatId = values["chatId"] as? String else {
+                return
+            }
+            
+            
+            
+            let name = values["name"] as? String
+            let recipientId = values["recipientId"] as? String
+            let hasVideo = values["hasVideo"] as? Int
+            let uuid = UUID()
+            
+            if (self.call != nil) {
+                Database.database().reference().child(hasVideo == 1 ? "video_call" : "voice_call").child(chatId).removeValue()
+                return
+            }
+            
+            self.call = Call(name: name ?? "Life App", chatId: chatId, recipientId: recipientId ?? "", isVideo: hasVideo == 1, uuID: uuid)
+            
+            let update = CXCallUpdate()
+            update.remoteHandle = CXHandle(type: .generic, value: name ?? "Life App")
+            update.hasVideo = true
+            self.cxprovider.reportNewIncomingCall(with: uuid, update: update, completion: { error in })
+            
+            if (hasVideo == 0) {
+                self.voiceStatusRemoveHandle = FirebaseAPI.setVoiceCallRemoveListener(chatId){ [self] (receiverid) in
+                    self.removeStateListner()
+                    self.removeCall()
+                }
+            } else {
+                self.videoStatusRemoveHandle = FirebaseAPI.setVideoCallRemoveListener(chatId){ [self] (receiverid) in
+                    self.removeStateListner()
+                    self.removeCall()
                 }
             }
         }
 	}
-
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	private func reportCallEstablish(call: SINCall) {
-
-		guard let callUUID = UUID(uuidString: call.callId) else { return }
-
-		cxprovider.reportOutgoingCall(with: callUUID, connectedAt: Date())
-	}
-
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	private func reportCallEnded(call: SINCall) {
-
-		guard let callUUID = UUID(uuidString: call.callId) else { return }
-
-		var reason = CXCallEndedReason.unanswered
-
-		switch call.details.endCause {
-			case SINCallEndCause.error:	 reason = .failed
-			case SINCallEndCause.denied: reason = .remoteEnded
-			case SINCallEndCause.hungUp: reason = .remoteEnded
-			default: break
-		}
-
-		cxprovider.reportCall(with: callUUID, endedAt: call.details.endedTime, reason: reason)
-	}
-
-	// MARK: -
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	func insertCall(call: SINCall) {
-
-		if let callUUID = UUID(uuidString: call.callId) {
-			calls[callUUID] = call
-		}
-	}
-
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	private func deleteCall(call: SINCall) {
-
-		if let callUUID = UUID(uuidString: call.callId) {
-			calls.removeValue(forKey: callUUID)
-		}
-	}
-
-	// MARK: - SINCall notifications
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	@objc private func callDidProgress(notification: Notification) {
-
-		if let call = notification.userInfo?[SINCallKey] as? SINCall {
-			reportCallProgress(call: call)
-		}
-	}
-
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	@objc private func callDidEstablish(notification: Notification) {
-
-		if let call = notification.userInfo?[SINCallKey] as? SINCall {
-			reportCallEstablish(call: call)
-		}
-	}
-
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	@objc private func callDidEnd(notification: Notification) {
-
-		if let call = notification.userInfo?[SINCallKey] as? SINCall {
-			reportCallEnded(call: call)
-			deleteCall(call: call)
-		}
-	}
+    
+    func removeCall() {
+        if let call = self.call {
+            self.cxprovider.reportCall(with: call.uuID, endedAt: Date(), reason: .answeredElsewhere)
+        }
+        self.call = nil
+    }
+    
+    func removeStateListner() {
+        if let voiceStatusRemoveHandle = voiceStatusRemoveHandle, let call = self.call {
+            FirebaseAPI.removeVoiceCallRemoveListnerObserver(call.chatId, voiceStatusRemoveHandle)
+            self.voiceStatusRemoveHandle = nil
+        }
+        if let videoStatusRemoveHandle = videoStatusRemoveHandle, let call = self.call {
+            FirebaseAPI.removeVoiceCallRemoveListnerObserver(call.chatId, videoStatusRemoveHandle)
+            self.videoStatusRemoveHandle = nil
+        }
+    }
+    
 
 	// MARK: - Helper methods
 	//---------------------------------------------------------------------------------------------------------------------------------------------
@@ -242,61 +124,83 @@ extension CallKitProvider: CXProviderDelegate {
 
 	}
 
-	// MARK: -
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	func provider(_ provider: CXProvider, didActivate audioSession: AVAudioSession) {
-
-		client.call().provider(provider, didActivate: audioSession)
-	}
-
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	func provider(_ provider: CXProvider, didDeactivate audioSession: AVAudioSession) {
-
-		client.call().provider(provider, didDeactivate: audioSession)
-	}
 
 	// MARK: -
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	func provider(_ provider: CXProvider, perform action: CXStartCallAction) {
-
-		guard let callUUID = UUID(uuidString: action.callUUID.uuidString) else { return }
-
-		client.audioController().configureAudioSessionForCallKitCall()
-
-		provider.reportOutgoingCall(with: callUUID, connectedAt: Date())
+        
 	}
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	func provider(_ provider: CXProvider, perform action: CXAnswerCallAction) {
-
-		guard let call = calls[action.callUUID] else { return }
-
-		call.answer()
-
-		client.audioController().configureAudioSessionForCallKitCall()
-
-		if (call.details.isVideoOffered) {
-			if let topViewController = topViewController() {
-                let callVideoView = CallVideoView(userId: call as! String)
-				topViewController.present(callVideoView, animated: false)
-			}
-		} else {
-			if let topViewController = topViewController() {
-                let callAudioView = CallAudioView(userId: call as! String)
-				topViewController.present(callAudioView, animated: false)
-			}
-		}
-
-		action.fulfill()
+        let state = UIApplication.shared.applicationState
+        
+        if state == .inactive {
+            let app = UIApplication.shared.delegate as? AppDelegate
+            app?.pendingVideoCall = true
+            return
+        }
+        
+        //provider.reportCall(with: action.callUUID, endedAt: Date(), reason: .answeredElsewhere)
+        
+        guard let topViewController = topViewController() else {
+            let app = UIApplication.shared.delegate as? AppDelegate
+            app?.pendingVideoCall = true
+            return
+        }
+        
+        self.openCallView(topController: topViewController)
+		
 	}
+    
+    func openCallView(topController: UIViewController) {
+        guard let call = self.call else { return }
+        
+        if (call.isVideo) {
+            let callVideoView = CallVideoView(userId: call.recipientId)
+            callVideoView.roomID = call.chatId
+            callVideoView.receiver = call.recipientId
+            callVideoView.outgoing = false
+            callVideoView.incoming = true
+            topController.present(callVideoView, animated: true)
+            var status = [String: Any]()
+            status["receiver"]   = call.recipientId
+            status["status"]   = Status.accept.rawValue
+            
+            FirebaseAPI.sendVideoCallStatus(status, call.chatId) { (isSuccess, data) in
+                
+            }
+        } else {
+            let callAudioView = CallAudioView(userId: call.recipientId)
+            callAudioView.roomID = call.chatId
+            callAudioView.receiver = call.recipientId
+            callAudioView.outgoing = false
+            callAudioView.incoming = true
+            topController.present(callAudioView, animated: false)
+            
+            var status = [String: Any]()
+            status["receiver"]   = call.recipientId
+            status["status"]   = Status.accept.rawValue
+            
+            FirebaseAPI.sendVoiceCallStatus(status, call.chatId) { (isSuccess, data) in
+                
+            }
+        }
+    }
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	func provider(_ provider: CXProvider, perform action: CXEndCallAction) {
-
-		guard let call = calls[action.callUUID] else { return }
-
-		call.hangup()
-
 		action.fulfill()
+        if let call = self.call {
+            Database.database().reference().child(call.isVideo ? "video_call" : "voice_call").child(call.chatId).removeValue()
+        }        
 	}
+}
+
+struct Call {
+    let name: String
+    let chatId: String
+    let recipientId: String
+    let isVideo: Bool
+    let uuID: UUID
 }

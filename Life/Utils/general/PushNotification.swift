@@ -49,4 +49,78 @@ class PushNotification: NSObject {
         }
         task.resume()
     }
+    
+    class func sendCall(name: String, chatId: String, recipientId: String, hasVideo: Int) {
+        let urlString = "https://onesignal.com/api/v1/notifications"
+        let url = NSURL(string: urlString)!
+        
+        let paramString: [String : Any] = [
+            "app_id": "370c64b9-c575-4b29-bc5a-5940efcbd0c9",
+            "apns_push_type_override": "voip",
+            "contents": [
+                "en": "Life App Calling"
+            ],
+            "data": [
+                "name": name,
+                "chatId": chatId,
+                "recipientId": recipientId,
+                "hasVideo": hasVideo
+            ],
+            "priority": 5,
+            "ttl": 30 ,
+            "include_external_user_ids": [
+                recipientId
+            ]
+        ]
+        
+        let request = NSMutableURLRequest(url: url as URL)
+        request.httpMethod = "POST"
+        request.httpBody = try? JSONSerialization.data(withJSONObject:paramString, options: [.prettyPrinted])
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Basic NzU1MDhiYjEtNmQxZi00MTY5LWJjNzEtMDBiZGM3NzAyMDZm", forHTTPHeaderField: "Authorization")
+        let task =  URLSession.shared.dataTask(with: request as URLRequest)  { (data, response, error) in
+            do {
+                if let jsonData = data {
+                    if let jsonDataDict  = try JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions.allowFragments) as? [String: AnyObject] {
+                        NSLog("Received data:\n\(jsonDataDict))")
+                    }
+                }
+            } catch let err as NSError {
+                print(err.debugDescription)
+            }
+        }
+        task.resume()
+    }
+    
+    class func registerDeviceId(deviceId: String) {
+        let urlString = "https://onesignal.com/api/v1/players"
+        let url = NSURL(string: urlString)!
+        
+        let userId = AuthUser.userId()
+        let paramString: [String : Any] = [
+            "app_id": "370c64b9-c575-4b29-bc5a-5940efcbd0c9",
+            "identifier": deviceId,
+            "device_type": 0,
+            "external_id": userId,
+            "test_type": 1
+        ]
+        let request = NSMutableURLRequest(url: url as URL)
+        
+        request.httpMethod = "POST"
+        request.httpBody = try? JSONSerialization.data(withJSONObject:paramString, options: [.prettyPrinted])
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let task =  URLSession.shared.dataTask(with: request as URLRequest)  { (data, response, error) in
+            do {
+                if let jsonData = data {
+                    if let jsonDataDict  = try JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions.allowFragments) as? [String: AnyObject] {
+                        NSLog("Received data:\n\(jsonDataDict))")
+                    }
+                }
+            } catch let err as NSError {
+                print(err.debugDescription)
+            }
+        }
+        task.resume()
+    }
 }

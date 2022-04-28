@@ -538,7 +538,6 @@ PODS:
     - PINRemoteImage/iOS (~> 3.0.1)
     - PINRemoteImage/PINCache
   - NYTPhotoViewer/Core (5.0.5)
-  - OneSignal (3.10.2)
   - PINCache (3.0.3):
     - PINCache/Arc-exception-safe (= 3.0.3)
     - PINCache/Core (= 3.0.3)
@@ -592,7 +591,6 @@ DEPENDENCIES:
   - Kingfisher
   - MessageKit
   - NYTPhotoViewer
-  - OneSignal
   - ProgressHUD
   - QRCodeReader.swift (~> 10.1.0)
   - Reachability
@@ -642,7 +640,6 @@ SPEC REPOS:
     - MessageKit
     - nanopb
     - NYTPhotoViewer
-    - OneSignal
     - PINCache
     - PINOperation
     - PINRemoteImage
@@ -696,7 +693,6 @@ SPEC CHECKSUMS:
   MessageKit: 8e76dd8d65ad44b49e1651c673497146416461e9
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   NYTPhotoViewer: 6f50ea92f265d54a350b39a7ab7a1b91ca487ff6
-  OneSignal: 29b555f5991109dc717f75d4440c565cab92511c
   PINCache: 7a8fc1a691173d21dbddbf86cd515de6efa55086
   PINOperation: 00c935935f1e8cf0d1e2d6b542e75b88fc3e5e20
   PINRemoteImage: f1295b29f8c5e640e25335a1b2bd9d805171bd01
@@ -714,6 +710,6 @@ SPEC CHECKSUMS:
   SwiftyAvatar: 33aecda825c91851cac2aabd06b33f3698b2414c
   SwipeCellKit: 3972254a826da74609926daf59b08d6c72e619ea
 
-PODFILE CHECKSUM: 5edb3782568620c794e8a5743fe396114951c382
+PODFILE CHECKSUM: be16fac415a8eaaa70d1de56e7ed34e605ff385c
 
 COCOAPODS: 1.11.2

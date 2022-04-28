@@ -10,12 +10,9 @@ import UIKit
 import IQKeyboardManagerSwift
 import Firebase
 import RealmSwift
-import OneSignal
-import Sinch
 import FittedSheets
 import PushKit
-import CallKit
-//import CryptoSwift
+import AVFoundation
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 var realm = try! Realm()
@@ -24,13 +21,14 @@ let falsepredicate = NSPredicate(value: false)
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-    var client: SINClient?
-    var push: SINManagedPush?
+    
     var callKitProvider: CallKitProvider?
     let gcmMessageIDKey = "gcm.message_id"
     var pendingChatID = ""
     var pendingUserID = ""
+    var pendingVideoCall = false
+    
+    var audioPlayer = AVAudioPlayer()
     //var voipRegistry: PKPushRegistry?
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
@@ -78,49 +76,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             }
         })
-        //-----------------------------------------------------------------------------------------------------------------------------------------
-        // OneSignal initialization
-        //-----------------------------------------------------------------------------------------------------------------------------------------
-        /*OneSignal.initWithLaunchOptions(launchOptions, appId: ONESIGNAL.ONESIGNAL_APPID, handleNotificationReceived: nil,
-                                        handleNotificationAction: nil, settings: [kOSSettingsKeyAutoPrompt: false])*/
-//        OneSignal.initWithLaunchOptions(launchOptions)
-//        OneSignal.setAppId(ONESIGNAL.ONESIGNAL_APPID)
-//        OneSignal.setLogLevel(ONE_S_LOG_LEVEL.LL_NONE, visualLevel: ONE_S_LOG_LEVEL.LL_NONE)
-        
-        
-        
-       // OneSignal.inFocusDisplayType = OSNotificationDisplayType.none
-        //-----------------------------------------------------------------------------------------------------------------------------------------
-        // Manager initialization
-        //-----------------------------------------------------------------------------------------------------------------------------------------
         _ = ChatManager.shared
         _ = Connectivity.shared
         _ = LocationManager.shared
-        
-        //-----------------------------------------------------------------------------------------------------------------------------------------
-        // MediaUploader initialization
-        //-----------------------------------------------------------------------------------------------------------------------------------------
         _ = MediaUploader.shared
-        
-        //-----------------------------------------------------------------------------------------------------------------------------------------
-        // Sinch initialization
-        //-----------------------------------------------------------------------------------------------------------------------------------------
-//        push = Sinch.managedPush(with: .development)
-//        push?.delegate = self
-//        push?.setDesiredPushType(SINPushTypeVoIP)
-
         callKitProvider = CallKitProvider()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(sinchLogInUser), name: NSNotification.Name(rawValue: NotificationStatus.NOTIFICATION_APP_STARTED), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(sinchLogInUser), name: NSNotification.Name(rawValue: NotificationStatus.NOTIFICATION_USER_LOGGED_IN), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(sinchLogOutUser), name: NSNotification.Name(rawValue: NotificationStatus.NOTIFICATION_USER_LOGGED_OUT), object: nil)
-        
-        // [START set_messaging_delegate]
         Messaging.messaging().delegate = self
-        // [END set_messaging_delegate]
-        // Register for remote notifications. This shows a permission dialog on first run, to
-        // show the dialog at a more appropriate time move this registration accordingly.
-        // [START register_for_notifications]
         if #available(iOS 10.0, *) {
             // For iOS 10 display notification (sent via APNS)
             UNUserNotificationCenter.current().delegate = self
@@ -137,24 +98,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         application.registerForRemoteNotifications()
         
-        // [END register_for_notifications]
-        
-//        self.voipRegistry = PKPushRegistry(queue: nil)
-//        self.voipRegistry?.delegate = self
-//        self.voipRegistry?.desiredPushTypes = [.voIP]
-        
         return true
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        //let firebaseAuth = Auth.auth()
-        // print("device token: \(deviceToken.toHexString())")
-        //firebaseAuth.setAPNSToken(deviceToken, type: .sandbox)
-        //firebaseAuth.setAPNSToken(deviceToken, type: .prod)
-        //firebaseAuth.setAPNSToken(deviceToken, type: .unknown)
-        /*DispatchQueue.main.async {
-            UIApplication.shared.applicationIconBadgeNumber = UIApplication.shared.applicationIconBadgeNumber + 1
-        }*/
     }
 
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
@@ -163,15 +110,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print(userInfo)
             return
         }
-        //print("did not")
         completionHandler(.newData)
-        //let state = UIApplication.shared.applicationState
-        //if(state == .background){
-            
-        //}else if(state == .inactive){
-        //    completionHandler(.newData)
-        //}
-        
     }
  
     // MARK: UISceneSession Lifecycle
@@ -183,152 +122,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
-        // Called when the user discards a scene session.
-        // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
-        // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
 
-    // MARK: - Sinch user methods
-    //---------------------------------------------------------------------------------------------------------------------------------------------
-    @objc func sinchLogInUser() {
-
-        let userId = AuthUser.userId()
-
-        if (userId == "")    { return }
-        if (client != nil)    { return }
-
-        client = Sinch.client(withApplicationKey: SINCHINFO.SINCH_KEY, applicationSecret: SINCHINFO.SINCH_SECRET, environmentHost: SINCHINFO.SINCH_HOST, userId: userId)
-        client?.delegate = self
-        client?.call().delegate = self
-        client?.setSupportCalling(true)
-        client?.enableManagedPushNotifications()
-        callKitProvider?.setClient(client)
-        client?.start()
-        client?.startListeningOnActiveConnection()
-    }
 
     func topMostViewController() -> UIViewController? {
         return UIApplication.shared.windows.filter{ $0.isKeyWindow }.first?.rootViewController
     }
-    //---------------------------------------------------------------------------------------------------------------------------------------------
-    @objc func sinchLogOutUser() {
 
-        client?.terminateGracefully()
-        client = nil
-    }
-
-}
-// MARK: - SINClientDelegate
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-extension AppDelegate: SINClientDelegate {
-
-    //---------------------------------------------------------------------------------------------------------------------------------------------
-    func clientDidStart(_ client: SINClient!) {
-        //print("Sinch client started successfully \(client.userId)")
-    }
-
-    //---------------------------------------------------------------------------------------------------------------------------------------------
-    func clientDidFail(_ client: SINClient!, error: Error!) {
-        //print("Sinch client error: \(error.localizedDescription)")
-    }
-}
-
-// MARK: - SINCallClientDelegate
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-extension AppDelegate: SINCallClientDelegate {
-
-    //---------------------------------------------------------------------------------------------------------------------------------------------
-    func client(_ client: SINCallClient!, willReceiveIncomingCall call: SINCall!) {
-        // print("Sinch client willReceiveIncomingCall \(call.callId)")
-        callKitProvider?.insertCall(call: call)
-    }
-
-    //---------------------------------------------------------------------------------------------------------------------------------------------
-    func client(_ client: SINCallClient!, didReceiveIncomingCall call: SINCall!) {
-        // print("Sinch client didReceiveIncomingCall \(call.callId)")
-        callKitProvider?.insertCall(call: call)
-
-        callKitProvider?.reportNewIncomingCall(call: call)
-    }
 }
 
 // MARK: PUSHKIT
 
-extension AppDelegate: PKPushRegistryDelegate, CXProviderDelegate {
+extension AppDelegate: PKPushRegistryDelegate {
     func initPushKit() {
         let registry = PKPushRegistry(queue: nil)
         registry.delegate = self
         registry.desiredPushTypes = [PKPushType.voIP]
     }
-    
-    func providerDidReset(_ provider: CXProvider) {
-    }
-
-    func provider(_ provider: CXProvider, perform action: CXAnswerCallAction) {
-        action.fulfill()
-        self.pendingChatID = "c76ad156294a496ff44b9a8579978248"
-        self.pendingUserID = "rJOJ0wXBORhSj2M81KcuZHT5rwv1"
-        
-        NotificationCenter.default.post(name: NSNotification.Name(NotificationStatus.NOTIFICATION_RECEIVE_CALL), object: nil)
-    }
-
-    func provider(_ provider: CXProvider, perform action: CXEndCallAction) {
-        action.fulfill()
-    }
 
     func pushRegistry(_ registry: PKPushRegistry, didUpdate pushCredentials: PKPushCredentials, for type: PKPushType) {
-        print(pushCredentials.token.map { String(format: "%02.2hhx", $0) }.joined())
+        let deviceId = pushCredentials.token.map { String(format: "%02.2hhx", $0) }.joined()
+        print(deviceId)
+        PushNotification.registerDeviceId(deviceId: deviceId)
     }
 
     func pushRegistry(_ registry: PKPushRegistry, didReceiveIncomingPushWith payload: PKPushPayload, for type: PKPushType, completion: @escaping () -> Void) {
-        print(payload)
-        if #available(iOS 14.0, *) {
-            let config = CXProviderConfiguration()
-            config.iconTemplateImageData = UIImage(named: "app_logo")!.pngData()
-            config.ringtoneSound = "Radiate.caf"
-            config.includesCallsInRecents = false;
-            config.supportsVideo = true;
-            let provider = CXProvider(configuration: config)
-            provider.setDelegate(self, queue: nil)
-            let update = CXCallUpdate()
-            update.remoteHandle = CXHandle(type: .generic, value: "Pete Za")
-            update.hasVideo = true
-            provider.reportNewIncomingCall(with: UUID(), update: update, completion: { error in })
-        } else {
-            // Fallback on earlier versions
+        if let provider = self.callKitProvider {
+            provider.didReceivePush(withPayload: payload.dictionaryPayload)
         }
-        
     }
 }
 
-
-// MARK: - SINManagedPushDelegate
-//-------------------------------------------------------------------------------------------------------------------------------------------------
-extension AppDelegate: SINManagedPushDelegate {
-
-    //---------------------------------------------------------------------------------------------------------------------------------------------
-    func managedPush(_ managedPush: SINManagedPush!, didReceiveIncomingPushWithPayload payload: [AnyHashable: Any]!, forType pushType: String!) {
-        //let apn = payload["aps"] as? [String: Any]
-        
-        let UserDefault = UserDefaults.standard
-        
-        var original = UserDefault.integer(forKey: "received")
-        
-        original += 1
-        
-        UserDefault.set(original, forKey: "received")
-        
-        //sendNotification()
-
-//        callKitProvider?.didReceivePush(withPayload: payload)
-//
-//        DispatchQueue.main.async {
-//            self.sinchLogInUser()
-//            self.client?.relayRemotePushNotification(payload)
-//            self.push?.didCompleteProcessingPushPayload(payload)
-//        }
-    }
-}
 
 extension String {
     var localized: String {
@@ -380,7 +204,6 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         _  = alertMessage!["body"] as! String
         
         let userId = userInfo["userId"] as? String
-        let chatId = userInfo["chatId"] as? String
         if let noti_type = userInfo["noti_type"] as? String{
             switch noti_type {
             case "0":
@@ -413,16 +236,9 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
                                 didReceive response: UNNotificationResponse,
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
         let userInfo = response.notification.request.content.userInfo
-
-        // [START_EXCLUDE]
-        // Print message ID.
         if let messageID = userInfo[gcmMessageIDKey] {
           print("Message ID: \(messageID)")
         }
-        // [END_EXCLUDE]
-        // With swizzling disabled you must let Messaging know about the message, for Analytics
-        // Messaging.messaging().appDidReceiveMessage(userInfo)
-        // Print full message.
         print(userInfo)
         
         let aps = userInfo["aps"] as? [AnyHashable : Any]
@@ -472,17 +288,6 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
                     self.pendingChatID = chatId ?? ""
                     self.pendingUserID = userId ?? ""
                 }
-                
-//                let home = AppBoards.main.initialViewController
-//                let vc = AppBoards.main.viewController(withIdentifier: "chatViewController") as! ChatViewController
-//                vc.recipientId = userId ?? ""
-//                vc.chatId = chatId ?? ""
-//                vc.fromNoti = true
-//                vc.modalPresentationStyle = .fullScreen
-//                let window = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
-//                window?.rootViewController = home
-//                window?.makeKeyAndVisible()
-//                home.present(vc, animated: false, completion: nil)
             }
         }
         
@@ -512,6 +317,25 @@ extension AppDelegate : MessagingDelegate {
         print("TOKEN: ", fcmToken)
     }
     // [END refresh_token]
+}
+
+extension AppDelegate {
+    func playAudio() {
+        guard let sound = Bundle.main.path(forResource: "call_ringback", ofType: "wav") else {
+            print("Error getting the mp3 file from the main bundle.")
+            return
+        }
+        do {
+            try AVAudioSession.sharedInstance().overrideOutputAudioPort(.speaker)
+            audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: sound))
+        } catch {
+            print("Audio file error.")
+        }
+        audioPlayer.play()
+    }
+    func stopAudio() {
+        audioPlayer.stop()
+    }
 }
 
 enum AppBoards: String {

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import OneSignal
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
@@ -39,36 +38,36 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             Persons.update(lastActive: Date().timestamp())
             Persons.update(oneSignalId: PrefsManager.getFCMToken())
         }
-        
-        let osNotificationOpenedBlock: OSNotificationOpenedBlock = { result in
-            if let additionalData = result.notification.additionalData {
-                print("additionalData: ", additionalData)
-                //print(additionalData["postId"] as! String)
-                guard let chatId = additionalData["chatId"] as? String else{
-                    return
-                }
-                guard let recipientId = additionalData["recipientId"] as? String else{
-                    return
-                }
-                
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                
-                let vc =  storyboard.instantiateViewController(identifier: "chatViewController") as! ChatViewController
-                vc.setParticipant(chatId: chatId, recipientId: recipientId)
-                vc.modalPresentationStyle = .fullScreen
-                vc.hidesBottomBarWhenPushed = true
-                guard let tabBarController = self.window?.rootViewController as? UITabBarController else{
-                    return
-                }
-                guard let navController = tabBarController.selectedViewController as? UINavigationController else {
-                    return
-                    
-                }
-                navController.pushViewController(vc, animated: true)
-                
-            }
-        }
-        OneSignal.setNotificationOpenedHandler(osNotificationOpenedBlock)
+//        
+//        let osNotificationOpenedBlock: OSNotificationOpenedBlock = { result in
+//            if let additionalData = result.notification.additionalData {
+//                print("additionalData: ", additionalData)
+//                //print(additionalData["postId"] as! String)
+//                guard let chatId = additionalData["chatId"] as? String else{
+//                    return
+//                }
+//                guard let recipientId = additionalData["recipientId"] as? String else{
+//                    return
+//                }
+//                
+//                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//                
+//                let vc =  storyboard.instantiateViewController(identifier: "chatViewController") as! ChatViewController
+//                vc.setParticipant(chatId: chatId, recipientId: recipientId)
+//                vc.modalPresentationStyle = .fullScreen
+//                vc.hidesBottomBarWhenPushed = true
+//                guard let tabBarController = self.window?.rootViewController as? UITabBarController else{
+//                    return
+//                }
+//                guard let navController = tabBarController.selectedViewController as? UINavigationController else {
+//                    return
+//                    
+//                }
+//                navController.pushViewController(vc, animated: true)
+//                
+//            }
+//        }
+        //OneSignal.setNotificationOpenedHandler(osNotificationOpenedBlock)
 
         
     }

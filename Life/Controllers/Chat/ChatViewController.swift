@@ -105,8 +105,8 @@ class ChatViewController: UIViewController {
         return manager
     }()
     
-    var videoStatusHandle: UInt?
-    var audioStatusHandle: UInt?
+    //var videoStatusHandle: UInt?
+    //var audioStatusHandle: UInt?
     
     private var currentButton: ButtonType = .audio
     private var hybridButton: InputBarButtonItem!
@@ -254,7 +254,7 @@ class ChatViewController: UIViewController {
         if(recipientId == ""){
             loadMembers()
         }
-        self.videoAudioCallStatusListner(self.chatId)
+        //self.videoAudioCallStatusListner(self.chatId)
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
@@ -269,12 +269,13 @@ class ChatViewController: UIViewController {
             actionCleanup()
         }
         
-        if let videoStatusHandle = videoStatusHandle{
-            FirebaseAPI.removeVideoCallListnerObserver(self.chatId, videoStatusHandle)
-        }
-        if let audioStatusHandle = audioStatusHandle{
-            FirebaseAPI.removeVoiceCallListnerObserver(self.chatId, audioStatusHandle)
-        }
+//        if let videoStatusHandle = videoStatusHandle{
+//            FirebaseAPI.removeVideoCallListnerObserver(self.chatId, videoStatusHandle)
+//        }
+//        if let audioStatusHandle = audioStatusHandle{
+//            FirebaseAPI.removeVoiceCallListnerObserver(self.chatId, audioStatusHandle)
+//        }
+        
         NotificationCenter.default.removeObserver(self)
     }
     override func viewDidLayoutSubviews() {
@@ -284,37 +285,37 @@ class ChatViewController: UIViewController {
 
     }
     
-    func videoAudioCallStatusListner(_ roomId : String)  {
-        self.videoStatusHandle = FirebaseAPI.setVideoCallAddListener(roomId){ [self] (receiverid) in
-            if !receiverid.isEmpty{
-                print("this is receiverid==>",receiverid)
-                print("this is userid==>",AuthUser.userId())
-                if receiverid == AuthUser.userId(){
-                    let callVideoView = CallVideoView(userId: self.recipientId)
-                    callVideoView.roomID = self.chatId
-                    callVideoView.receiver = recipientId
-                    callVideoView.outgoing = false
-                    callVideoView.incoming = true
-                    present(callVideoView, animated: true)
-                }
-            }
-        }
-        self.audioStatusHandle = FirebaseAPI.setVoiceCallListener(roomId){ [self] (receiverid) in
-            print(receiverid)
-            if !receiverid.isEmpty{
-                print("this is receiverid==>",receiverid)
-                print("this is userid==>",AuthUser.userId())
-                if receiverid == AuthUser.userId(){
-                    let callAudioView = CallAudioView(userId: self.recipientId)
-                    callAudioView.roomID = self.chatId
-                    callAudioView.receiver = recipientId
-                    callAudioView.outgoing = false
-                    callAudioView.incoming = true
-                    present(callAudioView, animated: true)
-                }
-            }
-        }
-    }
+//    func videoAudioCallStatusListner(_ roomId : String)  {
+//        self.videoStatusHandle = FirebaseAPI.setVideoCallAddListener(roomId){ [self] (receiverid) in
+//            if !receiverid.isEmpty{
+//                print("this is receiverid==>",receiverid)
+//                print("this is userid==>",AuthUser.userId())
+//                if receiverid == AuthUser.userId(){
+//                    let callVideoView = CallVideoView(userId: self.recipientId)
+//                    callVideoView.roomID = self.chatId
+//                    callVideoView.receiver = recipientId
+//                    callVideoView.outgoing = false
+//                    callVideoView.incoming = true
+//                    present(callVideoView, animated: true)
+//                }
+//            }
+//        }
+//        self.audioStatusHandle = FirebaseAPI.setVoiceCallListener(roomId){ [self] (receiverid) in
+//            print(receiverid)
+//            if !receiverid.isEmpty{
+//                print("this is receiverid==>",receiverid)
+//                print("this is userid==>",AuthUser.userId())
+//                if receiverid == AuthUser.userId(){
+//                    let callAudioView = CallAudioView(userId: self.recipientId)
+//                    callAudioView.roomID = self.chatId
+//                    callAudioView.receiver = recipientId
+//                    callAudioView.outgoing = false
+//                    callAudioView.incoming = true
+//                    present(callAudioView, animated: true)
+//                }
+//            }
+//        }
+//    }
     
     // MARK: - User actions (load earlier)
     //---------------------------------------------------------------------------------------------------------------------------------------------
@@ -415,7 +416,7 @@ class ChatViewController: UIViewController {
             present(callAdudioView, animated: true)
             let realm = try! Realm()
             let recipient = realm.object(ofType: Person.self, forPrimaryKey: recipientId)
-            PushNotification.send(token: recipient?.oneSignalId ?? "", title: "Life-App", body: Persons.fullname() + " " + "is Audio calling you", type: .sendVoiceCalling, chatId: chatId, soundName: "Radiate.caf")
+            PushNotification.sendCall(name: recipient?.getFullName() ?? "", chatId: self.chatId, recipientId: self.recipientId, hasVideo: 0)
             //Messages.sendCalling(chatId: chatId, recipientId: recipientId, type: .MISSED_CALL)
         }else{
             var personsId: [String] = []
@@ -442,7 +443,7 @@ class ChatViewController: UIViewController {
             present(callVideoView, animated: true)
             let realm = try! Realm()
             let recipient = realm.object(ofType: Person.self, forPrimaryKey: recipientId)
-            PushNotification.send(token: recipient?.oneSignalId ?? "", title: "Life-App", body: Persons.fullname() + " " + "is Video calling you", type: .sendVideoCalling, chatId: chatId, soundName: "Radiate.caf")
+            PushNotification.sendCall(name: recipient?.getFullName() ?? "", chatId: self.chatId, recipientId: self.recipientId, hasVideo: 1)
             
         } else {
             var personsId: [String] = []
