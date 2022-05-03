@@ -57,6 +57,7 @@ class CallKitProvider: NSObject {
                 return
             }
             
+            
             self.call = Call(name: name ?? "Life App", chatId: chatId, recipientId: recipientId ?? "", isVideo: hasVideo == 1, uuID: uuid)
             
             let update = CXCallUpdate()
@@ -144,8 +145,16 @@ extension CallKitProvider: CXProviderDelegate {
         //provider.reportCall(with: action.callUUID, endedAt: Date(), reason: .answeredElsewhere)
         
         guard let topViewController = topViewController() else {
+
             let app = UIApplication.shared.delegate as? AppDelegate
             app?.pendingVideoCall = true
+            return
+        }
+        
+        if topViewController.nibName != "life app" {
+            let app = UIApplication.shared.delegate as? AppDelegate
+            app?.pendingVideoCall = true
+            NotificationCenter.default.post(name: NSNotification.Name(NotificationStatus.NOTIFICATION_RECEIVE_CALL), object: nil)
             return
         }
         
@@ -160,6 +169,7 @@ extension CallKitProvider: CXProviderDelegate {
             let callVideoView = CallVideoView(userId: call.recipientId)
             callVideoView.roomID = call.chatId
             callVideoView.receiver = call.recipientId
+            callVideoView.name = topController.description
             callVideoView.outgoing = false
             callVideoView.incoming = true
             topController.present(callVideoView, animated: true)

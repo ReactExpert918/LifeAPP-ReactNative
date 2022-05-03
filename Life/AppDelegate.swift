@@ -13,6 +13,7 @@ import RealmSwift
 import FittedSheets
 import PushKit
 import AVFoundation
+import Sinch
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 var realm = try! Realm()
@@ -27,8 +28,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var pendingChatID = ""
     var pendingUserID = ""
     var pendingVideoCall = false
+    var client: SINClient?
     
-    var audioPlayer = AVAudioPlayer()
     //var voipRegistry: PKPushRegistry?
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
@@ -81,6 +82,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ = LocationManager.shared
         _ = MediaUploader.shared
         callKitProvider = CallKitProvider()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(sinchLogInUser), name: NSNotification.Name(rawValue: NotificationStatus.NOTIFICATION_APP_STARTED), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(sinchLogInUser), name: NSNotification.Name(rawValue: NotificationStatus.NOTIFICATION_USER_LOGGED_IN), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(sinchLogOutUser), name: NSNotification.Name(rawValue: NotificationStatus.NOTIFICATION_USER_LOGGED_OUT), object: nil)
+        
+        
         Messaging.messaging().delegate = self
         if #available(iOS 10.0, *) {
             // For iOS 10 display notification (sent via APNS)
@@ -125,8 +132,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 
+    // MARK: - Sinch user methods
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    @objc func sinchLogInUser() {
+
+        let userId = AuthUser.userId()
+
+        if (userId == "")    { return }
+        if (client != nil)    { return }
+
+        client = Sinch.client(withApplicationKey: SINCHINFO.SINCH_KEY, applicationSecret: SINCHINFO.SINCH_SECRET, environmentHost: SINCHINFO.SINCH_HOST, userId: userId)
+        client?.start()
+    }
+
     func topMostViewController() -> UIViewController? {
         return UIApplication.shared.windows.filter{ $0.isKeyWindow }.first?.rootViewController
+    }
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    @objc func sinchLogOutUser() {
+
+        client?.terminateGracefully()
+        client = nil
     }
 
 }
@@ -317,25 +343,6 @@ extension AppDelegate : MessagingDelegate {
         print("TOKEN: ", fcmToken)
     }
     // [END refresh_token]
-}
-
-extension AppDelegate {
-    func playAudio() {
-        guard let sound = Bundle.main.path(forResource: "call_ringback", ofType: "wav") else {
-            print("Error getting the mp3 file from the main bundle.")
-            return
-        }
-        do {
-            try AVAudioSession.sharedInstance().overrideOutputAudioPort(.speaker)
-            audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: sound))
-        } catch {
-            print("Audio file error.")
-        }
-        audioPlayer.play()
-    }
-    func stopAudio() {
-        audioPlayer.stop()
-    }
 }
 
 enum AppBoards: String {

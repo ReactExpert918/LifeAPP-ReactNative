@@ -15,7 +15,7 @@ import UIKit
 import AgoraRtcKit
 import FirebaseDatabase
 import FirebaseFirestore
-
+import Sinch
 
 //----
 class CallAudioView: UIViewController {
@@ -62,14 +62,16 @@ class CallAudioView: UIViewController {
     var voiceStatusHandle: UInt?
     var voiceStatusRemoveHandle: UInt?
     
+    private var audioController: SINAudioController?
+    
     private var stopSelf = false
     private var joined = false
     private var callingStart: Date?
-    let app = UIApplication.shared.delegate as? AppDelegate
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        if let callKit = self.app?.callKitProvider {
+        let app = UIApplication.shared.delegate as? AppDelegate
+        if let callKit = app?.callKitProvider {
             callKit.removeStateListner()
             callKit.removeCall()
         }
@@ -88,6 +90,8 @@ class CallAudioView: UIViewController {
         callString = recipentUser!.getFullName()
         self.outgoing = true
         
+        let app = UIApplication.shared.delegate as? AppDelegate
+        audioController = app?.client?.audioController()
         
         self.isModalInPresentation = true
         self.modalPresentationStyle = .fullScreen
@@ -204,7 +208,7 @@ class CallAudioView: UIViewController {
                 self.leaveChannel()
                 self.dismiss(animated: true, completion: nil)
             }else{
-                self.app?.stopAudio()
+                self.audioController?.stopPlayingSoundFile()
                 if outgoing {
                     self.labelStatus.text = "Declined"
                     self.labelStatus.textColor = .red
@@ -357,7 +361,7 @@ class CallAudioView: UIViewController {
         self.stopSelf = true
         
         DispatchQueue.main.async {
-            self.app?.stopAudio()
+            self.audioController?.stopPlayingSoundFile()
         }
         ref.child("voice_call").child(self.roomID).removeValue()
         self.dismiss(animated: true, completion: nil)
@@ -365,7 +369,7 @@ class CallAudioView: UIViewController {
     
     @IBAction func actionDecline(_ sender: Any) {
         DispatchQueue.main.async {
-            self.app?.stopAudio()
+            self.audioController?.stopPlayingSoundFile()
         }
         ref.child("voice_call").child(self.roomID).removeValue()
         self.dismiss(animated: true, completion: nil)
@@ -397,7 +401,8 @@ class CallAudioView: UIViewController {
         FirebaseAPI.sendVoiceCallStatus(status, self.roomID) { (isSuccess, data) in
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.app?.playAudio()
+            self.audioController?.enableSpeaker()
+            self.audioController?.startPlayingSoundFile(Dir.application("call_ringback.wav"), loop: true)
         }
     }
     
@@ -416,7 +421,10 @@ class CallAudioView: UIViewController {
     }
     
     func setConnectedUI() {
-        self.app?.stopAudio()
+        DispatchQueue.main.async {
+            self.audioController?.stopPlayingSoundFile()
+        }
+        
         self.callingStart = Date()
         timerStart(Date())
         //labelStatus.text = "Connected"

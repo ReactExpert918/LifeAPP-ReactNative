@@ -26,6 +26,7 @@ struct COLORS {
 
 struct ONESIGNAL {
     static let ONESIGNAL_APPID = "30b077a4-a8c5-4ee9-8119-e5189c1da75a"
+    static let DEVICE_TOKEN = "device_token"
 }
 struct SINCHINFO{
     static let SINCH_HOST = "clientapi.sinch.com"

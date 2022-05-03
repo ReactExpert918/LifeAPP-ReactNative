@@ -91,6 +91,9 @@ class SignInViewController: UIViewController, UITextViewDelegate, UITextFieldDel
     func loadPerson() {
 
         let userId = AuthUser.userId()
+        
+        PushNotification.registerDeviceId(deviceId: UserDefaults.standard.string(forKey: ONESIGNAL.DEVICE_TOKEN)!)
+        
         FireFetcher.fetchPerson(userId) { error in
             self.hud.dismiss()
             if (error == nil) {

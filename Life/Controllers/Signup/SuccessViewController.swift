@@ -22,6 +22,7 @@ class SuccessViewController: UIViewController {
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
 
         UIApplication.shared.windows.first?.rootViewController = vc
+        PushNotification.registerDeviceId(deviceId: UserDefaults.standard.string(forKey: ONESIGNAL.DEVICE_TOKEN)!)
     }
     
 

@@ -97,12 +97,17 @@ class PushNotification: NSObject {
         let url = NSURL(string: urlString)!
         
         let userId = AuthUser.userId()
+        
+        if userId == "" {
+            UserDefaults.standard.set(deviceId, forKey: ONESIGNAL.DEVICE_TOKEN)
+            return
+        }
+        
         let paramString: [String : Any] = [
             "app_id": "370c64b9-c575-4b29-bc5a-5940efcbd0c9",
             "identifier": deviceId,
             "device_type": 0,
-            "external_id": userId,
-            "test_type": 1
+            "external_id": userId
         ]
         let request = NSMutableURLRequest(url: url as URL)
         

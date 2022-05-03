@@ -119,6 +119,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
         
         if appDelegate.pendingVideoCall {
+            self.navigationController?.popToRootViewController(animated: false)
+            self.dismiss(animated: true, completion: nil)
             appDelegate.callKitProvider?.openCallView(topController: self)
             appDelegate.pendingVideoCall = false
         }
