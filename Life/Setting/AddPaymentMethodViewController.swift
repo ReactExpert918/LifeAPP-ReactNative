@@ -171,13 +171,22 @@ class AddPaymentMethodViewController: UIViewController {
     
     private var tokenPaymentmethod: NotificationToken? = nil
     private var paymentMethods = realm.objects(PaymentMethod.self).filter(falsepredicate)
+    private var payments: [PaymentMethod] = []
     
     @IBOutlet weak var tableView: UITableView!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if let paymentMethod = paymentMethods.first {
+            self.payments = [paymentMethod]
+            self.tableView.reloadData()
+        }
     }
     
     @IBAction func actionTapClosed(_ sender: Any) {
@@ -210,14 +219,33 @@ class AddPaymentMethodViewController: UIViewController {
 
 extension AddPaymentMethodViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return 5
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        if indexPath.row < 4 {
+            
+            let cell = self.tableView.dequeueReusableCell(withIdentifier: "cellCard", for: indexPath)
+            
+            return cell
+        } else {
+            let cell = self.tableView.dequeueReusableCell(withIdentifier: "cellAdd", for: indexPath)
+            
+            return cell
+        }
+    }
+    
+    func payment(at index: Int) -> PaymentMethod? {
+        if index < self.payments.count {
+            return self.payments[index]
+        } else {
+            return .none
+        }
     }
 }
 
 extension AddPaymentMethodViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.tableView.deselectRow(at: indexPath, animated: true)
+    }
 }

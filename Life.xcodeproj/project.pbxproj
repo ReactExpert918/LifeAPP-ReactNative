@@ -105,6 +105,8 @@
 		57523ED527B233DF0063EC0F /* AgoraVideoProcessExtension.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 57523EAE27B2338E0063EC0F /* AgoraVideoProcessExtension.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		57523ED627B233E10063EC0F /* AgoraVideoSegmentationExtension.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57523EA627B233870063EC0F /* AgoraVideoSegmentationExtension.xcframework */; };
 		57523ED727B233E10063EC0F /* AgoraVideoSegmentationExtension.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 57523EA627B233870063EC0F /* AgoraVideoSegmentationExtension.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		57580AB6282AC1DC009146F4 /* PaymentMethodTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57580AB5282AC1DC009146F4 /* PaymentMethodTableViewCell.swift */; };
+		57580AB8282AE1D4009146F4 /* AddCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57580AB7282AE1D4009146F4 /* AddCardViewController.swift */; };
 		57A116D827DBA3B70071FBDF /* PhotoSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A116D727DBA3B70071FBDF /* PhotoSelectionView.swift */; };
 		57EEAAEC27DF8F3B0057B189 /* Radiate.caf in Resources */ = {isa = PBXBuildFile; fileRef = 57EEAAEB27DF8F3B0057B189 /* Radiate.caf */; };
 		57EEAAEE27DF908F0057B189 /* Circles.caf in Resources */ = {isa = PBXBuildFile; fileRef = 57EEAAED27DF908F0057B189 /* Circles.caf */; };
@@ -478,6 +480,8 @@
 		57523EAE27B2338E0063EC0F /* AgoraVideoProcessExtension.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AgoraVideoProcessExtension.xcframework; sourceTree = "<group>"; };
 		57523EAF27B2338E0063EC0F /* AgoraAIDenoiseExtension.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AgoraAIDenoiseExtension.xcframework; sourceTree = "<group>"; };
 		57523EB027B2338E0063EC0F /* AgoraCore.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AgoraCore.xcframework; sourceTree = "<group>"; };
+		57580AB5282AC1DC009146F4 /* PaymentMethodTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodTableViewCell.swift; sourceTree = "<group>"; };
+		57580AB7282AE1D4009146F4 /* AddCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCardViewController.swift; sourceTree = "<group>"; };
 		57A116D727DBA3B70071FBDF /* PhotoSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSelectionView.swift; sourceTree = "<group>"; };
 		57EEAAEB27DF8F3B0057B189 /* Radiate.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Radiate.caf; sourceTree = "<group>"; };
 		57EEAAED27DF908F0057B189 /* Circles.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Circles.caf; sourceTree = "<group>"; };
@@ -1626,6 +1630,8 @@
 				049F975126897D66008E4789 /* AddPaymentMethodViewController.swift */,
 				049F97532689A9FD008E4789 /* RemovePaymentViewController.swift */,
 				05E8DFBB26B92ED500F72128 /* PrivacyEulaVC.swift */,
+				57580AB5282AC1DC009146F4 /* PaymentMethodTableViewCell.swift */,
+				57580AB7282AE1D4009146F4 /* AddCardViewController.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -2035,6 +2041,7 @@
 				A6DEA83D24A8355100868625 /* Date+Extension.swift in Sources */,
 				04D68F642678E6FB003DCF12 /* ConfigGroupViewController.swift in Sources */,
 				A6DEA84C24A8365900868625 /* FireObserver.swift in Sources */,
+				57580AB6282AC1DC009146F4 /* PaymentMethodTableViewCell.swift in Sources */,
 				AB30FAFB24AFAE490037BF25 /* AddFriendHeaderCell.swift in Sources */,
 				A6DEA84B24A8365900868625 /* FireFetch.swift in Sources */,
 				A6DEA88124A84E9600868625 /* MediaUpload.swift in Sources */,
@@ -2202,6 +2209,7 @@
 				048DFD89268ABF5700796D3D /* AddMoneyViewController.swift in Sources */,
 				AB82ACDC24A5453100D83E47 /* QrCodeViewController.swift in Sources */,
 				A6302BB424B9A34B00345FC9 /* NewConversationViewController.swift in Sources */,
+				57580AB8282AE1D4009146F4 /* AddCardViewController.swift in Sources */,
 				A6DEA84A24A8365900868625 /* FireObservers.swift in Sources */,
 				AB82ACD924A5453100D83E47 /* AddFriendCell.swift in Sources */,
 				ABDAC93024A67D8C00E73667 /* SearchFriendCell.swift in Sources */,
