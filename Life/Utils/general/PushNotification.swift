@@ -50,7 +50,7 @@ class PushNotification: NSObject {
         task.resume()
     }
     
-    class func sendCall(name: String, chatId: String, recipientId: String, hasVideo: Int) {
+    class func sendCall(name: String, chatId: String, recipientId: String, senderId: String, hasVideo: Int) {
         let urlString = "https://onesignal.com/api/v1/notifications"
         let url = NSURL(string: urlString)!
         
@@ -64,7 +64,9 @@ class PushNotification: NSObject {
                 "name": name,
                 "chatId": chatId,
                 "recipientId": recipientId,
-                "hasVideo": hasVideo
+                "senderId": senderId,
+                "hasVideo": hasVideo,
+                "test_type": 1
             ],
             "priority": 5,
             "ttl": 30 ,

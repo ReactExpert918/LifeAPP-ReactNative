@@ -93,6 +93,7 @@ class CallVideoView: UIViewController {
     }
     private var stopSelf = false
     private var audioController: SINAudioController?
+    let app = UIApplication.shared.delegate as? AppDelegate
     
 	init(userId: String) {
 		super.init(nibName: nil, bundle: nil)
@@ -142,6 +143,10 @@ class CallVideoView: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.videoCallStatusListner(self.roomID)
+        if let callKit = app?.callKitProvider {
+            callKit.removeStateListner()
+            callKit.removeReport()
+        }
         if(type == 0){
             loadPerson()
         }else{
@@ -151,7 +156,7 @@ class CallVideoView: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        let app = UIApplication.shared.delegate as? AppDelegate
+        
         if let callKit = app?.callKitProvider {
             callKit.removeStateListner()
             callKit.removeCall()
@@ -173,30 +178,26 @@ class CallVideoView: UIViewController {
         }
         
         self.videoStatusRemoveHandle = FirebaseAPI.setVideoCallRemoveListener(roomId){ [self] (receiverid) in
-            if receiverid == AuthUser.userId(){
-                self.leaveChannel()
-                self.dismiss(animated: true, completion: nil)
-                if !incoming {
+            if outgoing {
+                if let callingStart = callingStart {
                     var interval = 0
-                    if let callingStart = callingStart {
-                        interval = Int(Date().timeIntervalSince(callingStart))
-                    }
-                    
+                    interval = Int(Date().timeIntervalSince(callingStart))
                     Messages.sendCalling(chatId: self.roomID, recipientId: self.receiver, duration: "\(interval)")
-                }
-            } else {
-                if outgoing {
-                    if self.stopSelf {
-                        Messages.sendCalling(chatId: self.roomID, recipientId: self.receiver, type: .CANCELLED_CALL)
-                    } else {
-                        Messages.sendCalling(chatId: self.roomID, recipientId: self.receiver, type: .MISSED_CALL)
-                    }
-                    self.labelStatus.text = "Declined"
-                    self.labelStatus.textColor = .red
-                } else {
                     self.leaveChannel()
                     self.dismiss(animated: true, completion: nil)
+                    
+                    return
                 }
+                if self.stopSelf {
+                    Messages.sendCalling(chatId: self.roomID, recipientId: self.receiver, type: .CANCELLED_CALL)
+                } else {
+                    Messages.sendCalling(chatId: self.roomID, recipientId: self.receiver, type: .MISSED_CALL)
+                }
+                self.labelStatus.text = "Declined"
+                self.labelStatus.textColor = .red
+            } else {
+                self.leaveChannel()
+                self.dismiss(animated: true, completion: nil)
             }
         }
     }
@@ -476,7 +477,14 @@ class CallVideoView: UIViewController {
 //            self.audioController?.enableSpeaker()
 //            self.audioController?.startPlayingSoundFile(Dir.application("call_ringback.wav"), loop: true)
 //        }
-        joinAction()
+        self.joinAction()
+        var status = [String: Any]()
+        status["receiver"]   = self.receiver
+        status["status"]   = Status.accept.rawValue
+        
+        FirebaseAPI.sendVideoCallStatus(status, self.roomID) { (isSuccess, data) in
+            
+        }
 	}
 
     

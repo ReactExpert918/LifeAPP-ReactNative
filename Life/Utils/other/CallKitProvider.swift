@@ -62,7 +62,7 @@ class CallKitProvider: NSObject {
             
             let update = CXCallUpdate()
             update.remoteHandle = CXHandle(type: .generic, value: name ?? "Life App")
-            update.hasVideo = true
+            update.hasVideo = hasVideo == 1
             self.cxprovider.reportNewIncomingCall(with: uuid, update: update, completion: { error in })
             
             if (hasVideo == 0) {
@@ -80,10 +80,13 @@ class CallKitProvider: NSObject {
 	}
     
     func removeCall() {
+        self.call = nil
+    }
+    
+    func removeReport() {
         if let call = self.call {
             self.cxprovider.reportCall(with: call.uuID, endedAt: Date(), reason: .answeredElsewhere)
         }
-        self.call = nil
     }
     
     func removeStateListner() {
@@ -134,13 +137,7 @@ extension CallKitProvider: CXProviderDelegate {
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	func provider(_ provider: CXProvider, perform action: CXAnswerCallAction) {
-        let state = UIApplication.shared.applicationState
-        
-        if state == .inactive {
-            let app = UIApplication.shared.delegate as? AppDelegate
-            app?.pendingVideoCall = true
-            return
-        }
+        action.fulfill()
         
         //provider.reportCall(with: action.callUUID, endedAt: Date(), reason: .answeredElsewhere)
         

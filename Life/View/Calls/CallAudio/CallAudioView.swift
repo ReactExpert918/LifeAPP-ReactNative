@@ -63,6 +63,7 @@ class CallAudioView: UIViewController {
     var voiceStatusRemoveHandle: UInt?
     
     private var audioController: SINAudioController?
+    let app = UIApplication.shared.delegate as? AppDelegate
     
     private var stopSelf = false
     private var joined = false
@@ -70,7 +71,7 @@ class CallAudioView: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        let app = UIApplication.shared.delegate as? AppDelegate
+        
         if let callKit = app?.callKitProvider {
             callKit.removeStateListner()
             callKit.removeCall()
@@ -195,32 +196,29 @@ class CallAudioView: UIViewController {
         }
         
         self.voiceStatusRemoveHandle = FirebaseAPI.setVoiceCallRemoveListener(roomId){ [self] (receiverid) in
-            if receiverid == AuthUser.userId(){
-                timerStop()
-                if !incoming {
+            self.audioController?.stopPlayingSoundFile()
+            if outgoing {
+                if let callingStart = callingStart {
+                    timerStop()
                     var interval = 0
-                    if let callingStart = callingStart {
-                        interval = Int(Date().timeIntervalSince(callingStart))
-                    }
-                    
+                    interval = Int(Date().timeIntervalSince(callingStart))
                     Messages.sendCalling(chatId: self.roomID, recipientId: self.receiver, duration: "\(interval)")
-                }
-                self.leaveChannel()
-                self.dismiss(animated: true, completion: nil)
-            }else{
-                self.audioController?.stopPlayingSoundFile()
-                if outgoing {
-                    self.labelStatus.text = "Declined"
-                    self.labelStatus.textColor = .red
-                    if self.stopSelf {
-                        Messages.sendCalling(chatId: self.roomID, recipientId: self.receiver, type: .CANCELLED_CALL)
-                    } else {
-                        Messages.sendCalling(chatId: self.roomID, recipientId: self.receiver, type: .MISSED_CALL)
-                    }
-                }else{
                     self.leaveChannel()
                     self.dismiss(animated: true, completion: nil)
+                    
+                    return
                 }
+                
+                self.labelStatus.text = "Declined"
+                self.labelStatus.textColor = .red
+                if self.stopSelf {
+                    Messages.sendCalling(chatId: self.roomID, recipientId: self.receiver, type: .CANCELLED_CALL)
+                } else {
+                    Messages.sendCalling(chatId: self.roomID, recipientId: self.receiver, type: .MISSED_CALL)
+                }
+            }else{
+                self.leaveChannel()
+                self.dismiss(animated: true, completion: nil)
             }
         }
     }
@@ -257,6 +255,10 @@ class CallAudioView: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
 
         super.viewWillAppear(animated)
+        if let callKit = app?.callKitProvider {
+            callKit.removeStateListner()
+            callKit.removeReport()
+        }
         if(type==0){
             loadPerson()
         }else{
@@ -383,7 +385,7 @@ class CallAudioView: UIViewController {
         status["status"]   = Status.accept.rawValue
         FirebaseAPI.sendVoiceCallStatus(status, self.roomID) { (isSuccess, data) in
         }
-        self.joinAction()
+        //self.joinAction()
     }
 
     // MARK: - Helper methods
@@ -418,6 +420,12 @@ class CallAudioView: UIViewController {
 //            self.audioController?.startPlayingSoundFile(Dir.application("call_ringback.wav"), loop: true)
 //        }
         joinAction()
+        self.joinAction()
+        var status = [String: Any]()
+        status["receiver"]   = self.receiver
+        status["status"]   = Status.accept.rawValue
+        FirebaseAPI.sendVoiceCallStatus(status, self.roomID) { (isSuccess, data) in
+        }
     }
     
     func setConnectedUI() {

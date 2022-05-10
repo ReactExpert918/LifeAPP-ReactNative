@@ -293,6 +293,7 @@ class AccountSettingsViewController: UIViewController, UINavigationControllerDel
         MediaDownload.startUser(person.objectId, pictureAt: person.pictureAt) { image, error in
             if (error == nil) {
                 self.profileImageView.image = image
+                
             }
             else {
                 self.profileImageView.image = UIImage(named: "ic_default_profile")

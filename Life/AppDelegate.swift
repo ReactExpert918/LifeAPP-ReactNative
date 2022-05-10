@@ -142,7 +142,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if (client != nil)    { return }
 
         client = Sinch.client(withApplicationKey: SINCHINFO.SINCH_KEY, applicationSecret: SINCHINFO.SINCH_SECRET, environmentHost: SINCHINFO.SINCH_HOST, userId: userId)
+        client?.delegate = self
+        client?.call().delegate = self
+        client?.setSupportCalling(true)
         client?.start()
+        client?.startListeningOnActiveConnection()
     }
 
     func topMostViewController() -> UIViewController? {
@@ -155,6 +159,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         client = nil
     }
 
+}
+
+// MARK: - SINClientDelegate
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+extension AppDelegate: SINClientDelegate {
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func clientDidStart(_ client: SINClient!) {
+        //print("Sinch client started successfully \(client.userId)")
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func clientDidFail(_ client: SINClient!, error: Error!) {
+        //print("Sinch client error: \(error.localizedDescription)")
+    }
+}
+
+// MARK: - SINCallClientDelegate
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+extension AppDelegate: SINCallClientDelegate {
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func client(_ client: SINCallClient!, willReceiveIncomingCall call: SINCall!) {
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func client(_ client: SINCallClient!, didReceiveIncomingCall call: SINCall!) {
+    }
 }
 
 // MARK: PUSHKIT

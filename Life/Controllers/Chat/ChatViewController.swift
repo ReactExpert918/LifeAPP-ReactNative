@@ -105,8 +105,8 @@ class ChatViewController: UIViewController {
         return manager
     }()
     
-    //var videoStatusHandle: UInt?
-    //var audioStatusHandle: UInt?
+//    var videoStatusHandle: UInt?
+//    var audioStatusHandle: UInt?
     
     private var currentButton: ButtonType = .audio
     private var hybridButton: InputBarButtonItem!
@@ -415,8 +415,10 @@ class ChatViewController: UIViewController {
             callAdudioView.incoming = false
             present(callAdudioView, animated: true)
             let realm = try! Realm()
-            let recipient = realm.object(ofType: Person.self, forPrimaryKey: recipientId)
-            PushNotification.sendCall(name: recipient?.getFullName() ?? "", chatId: self.chatId, recipientId: self.recipientId, hasVideo: 0)
+            
+            let sender = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
+                        
+            PushNotification.sendCall(name: sender?.getFullName() ?? "", chatId: self.chatId, recipientId: self.recipientId, senderId: AuthUser.userId(), hasVideo: 0)
             //Messages.sendCalling(chatId: chatId, recipientId: recipientId, type: .MISSED_CALL)
         }else{
             var personsId: [String] = []
@@ -442,8 +444,10 @@ class ChatViewController: UIViewController {
             callVideoView.incoming = false
             present(callVideoView, animated: true)
             let realm = try! Realm()
-            let recipient = realm.object(ofType: Person.self, forPrimaryKey: recipientId)
-            PushNotification.sendCall(name: recipient?.getFullName() ?? "", chatId: self.chatId, recipientId: self.recipientId, hasVideo: 1)
+            
+            let sender = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
+                        
+            PushNotification.sendCall(name: sender?.getFullName() ?? "", chatId: self.chatId, recipientId: self.recipientId, senderId: AuthUser.userId(), hasVideo: 1)
             
         } else {
             var personsId: [String] = []
