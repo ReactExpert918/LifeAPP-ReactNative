@@ -164,6 +164,7 @@
 //}
 import UIKit
 import RealmSwift
+import JGProgressHUD
 
 class AddPaymentMethodViewController: UIViewController {
     
@@ -174,6 +175,7 @@ class AddPaymentMethodViewController: UIViewController {
     private var payments: [PaymentMethod] = []
     
     @IBOutlet weak var tableView: UITableView!
+    let hud = JGProgressHUD(style: .light)
     
     
     override func viewDidLoad() {
@@ -182,6 +184,9 @@ class AddPaymentMethodViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        let predicate = NSPredicate(format: "userId == %@ AND status == %@ AND isDeleted == NO", AuthUser.userId(), ZEDPAY_STATUS.SUCCESS)
+        paymentMethods = realm.objects(PaymentMethod.self).filter(predicate)
         
         if let paymentMethod = paymentMethods.first {
             self.payments = [paymentMethod]
@@ -219,17 +224,24 @@ class AddPaymentMethodViewController: UIViewController {
 
 extension AddPaymentMethodViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return self.payments.count + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row < 4 {
+        if let payment = self.payment(at: indexPath.row) {
+            let cell = self.tableView.dequeueReusableCell(withIdentifier: "cellCard", for: indexPath) as! PaymentMethodTableViewCell
             
-            let cell = self.tableView.dequeueReusableCell(withIdentifier: "cellCard", for: indexPath)
+            cell.configure(with: payment)
+            
+            cell.delegate = self
+            
+            cell.selectionStyle = .none
             
             return cell
         } else {
             let cell = self.tableView.dequeueReusableCell(withIdentifier: "cellAdd", for: indexPath)
+            
+            cell.selectionStyle = .none
             
             return cell
         }
@@ -247,5 +259,57 @@ extension AddPaymentMethodViewController: UITableViewDataSource {
 extension AddPaymentMethodViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.tableView.deselectRow(at: indexPath, animated: true)
+        
+        if (self.payments.count == 0) {
+            let vc =  self.storyboard?.instantiateViewController(identifier: "addCardVC") as! AddCardViewController
+            vc.modalPresentationStyle = .fullScreen
+            vc.delegate = self.delegate
+            
+            self.present(vc, animated: false, completion: nil)
+        }
+    }
+}
+
+extension AddPaymentMethodViewController: PaymentCellDelegate {
+    func onDeleteCard() {
+        let predicate = NSPredicate(format: "userId == %@ AND status == %@ AND isDeleted == NO", AuthUser.userId(), ZEDPAY_STATUS.SUCCESS)
+        guard let paymentMethod = realm.objects(PaymentMethod.self).filter(predicate).first else{
+            return
+        }
+        paymentMethod.update(isDeleted: true)
+        self.hud.show(in: self.view, animated: true)
+        
+        let predicate1 = NSPredicate(format: "userId == %@ AND status == %@ AND isDeleted == YES", AuthUser.userId(), ZEDPAY_STATUS.SUCCESS)
+        paymentMethods = realm.objects(PaymentMethod.self).filter(predicate1)
+        tokenPaymentmethod?.invalidate()
+        paymentMethods.safeObserve({ changes in
+            self.removePaymentMethod()
+        }, completion: { token in
+            self.tokenPaymentmethod = token
+        })
+    }
+    
+    func removePaymentMethod(){
+        guard let paymentMethod = paymentMethods.first else{
+            return
+        }
+        
+        if paymentMethod.status == ZEDPAY_STATUS.PENDING {
+            return
+        }
+        
+        if paymentMethod.status == ZEDPAY_STATUS.FAILED {
+            self.hud.dismiss()
+            self.dismiss(animated: true){
+                self.delegate?.updateCard(result: false)
+            }
+        }
+        if paymentMethod.status == ZEDPAY_STATUS.SUCCESS {
+            self.hud.dismiss()
+            self.dismiss(animated: true){
+                self.delegate?.updateCard(result: true)
+            }
+            
+        }
     }
 }

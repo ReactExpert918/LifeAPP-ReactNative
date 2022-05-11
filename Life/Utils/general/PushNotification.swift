@@ -65,8 +65,7 @@ class PushNotification: NSObject {
                 "chatId": chatId,
                 "recipientId": recipientId,
                 "senderId": senderId,
-                "hasVideo": hasVideo,
-                "test_type": 1
+                "hasVideo": hasVideo
             ],
             "priority": 5,
             "ttl": 30 ,

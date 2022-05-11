@@ -44,21 +44,25 @@ class ZEDPaySettingsViewController: UIViewController {
     }
     
     @IBAction func actionTapAddCard(_ sender: Any) {
-        if let paymentMethod = paymentMethods.first {
-            let vc =  self.storyboard?.instantiateViewController(identifier: "removePaymentVC") as! RemovePaymentViewController
-            vc.modalPresentationStyle = .fullScreen
-            vc.delegate = self
-            vc.paymentMethod = paymentMethod
-            self.present(vc, animated: false, completion: nil)
-        }else{
-            let vc =  self.storyboard?.instantiateViewController(identifier: "addPaymentVC") as! AddPaymentMethodViewController
-            vc.modalPresentationStyle = .fullScreen
-            vc.delegate = self
-            
-            self.present(vc, animated: false, completion: nil)
-        }
+//        if let paymentMethod = paymentMethods.first {
+//            let vc =  self.storyboard?.instantiateViewController(identifier: "removePaymentVC") as! RemovePaymentViewController
+//            vc.modalPresentationStyle = .fullScreen
+//            vc.delegate = self
+//            vc.paymentMethod = paymentMethod
+//            self.present(vc, animated: false, completion: nil)
+//        }else{
+//            let vc =  self.storyboard?.instantiateViewController(identifier: "addPaymentVC") as! AddPaymentMethodViewController
+//            vc.modalPresentationStyle = .fullScreen
+//            vc.delegate = self
+//
+//            self.present(vc, animated: false, completion: nil)
+//        }
         
+        let vc =  self.storyboard?.instantiateViewController(identifier: "addPaymentVC") as! AddPaymentMethodViewController
+        vc.modalPresentationStyle = .fullScreen
+        vc.delegate = self
         
+        self.present(vc, animated: false, completion: nil)
     }
     @IBAction func actionTapPasscode(_ sender: Any) {
         let vc =  self.storyboard?.instantiateViewController(identifier: "updatePasscodeVC") as! UpdatePasscodeViewController

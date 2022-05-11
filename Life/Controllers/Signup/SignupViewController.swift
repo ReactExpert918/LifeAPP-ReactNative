@@ -192,6 +192,7 @@ extension SignupViewController: CLLocationManagerDelegate {
                 self.setCountryCodeWithLocale()
                 return
             }
+            
             if let regionCode = currentPlacemark.isoCountryCode, let countryCode = FPNCountryCode(rawValue: regionCode) {
                 self.phoneNumberTextField.setFlag(countryCode: countryCode)
             } else {

@@ -22,6 +22,7 @@ class PaymentMethod: SyncObject {
     @objc dynamic var cardId = ""
     @objc dynamic var cardBrand = ""
     @objc dynamic var isDeleted = false
+    @objc dynamic var country = ""
     
     func update(isDeleted value: Bool) {
 

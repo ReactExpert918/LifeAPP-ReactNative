@@ -11,7 +11,7 @@ import RealmSwift
 class PaymentMethods: NSObject {
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
-    class func create(userId: String, customerId: String, cardNumber: String, expMonth: String, expYear: String, cvc: String) {
+    class func create(userId: String, customerId: String, cardNumber: String, expMonth: String, expYear: String, cvc: String, country: String) {
 
 
         let paymentMethod = PaymentMethod()
@@ -22,6 +22,7 @@ class PaymentMethods: NSObject {
         paymentMethod.expMonth = expMonth
         paymentMethod.expYear = expYear
         paymentMethod.cvc = cvc
+        paymentMethod.country = country
         
         let realm = try! Realm()
         try! realm.safeWrite {
