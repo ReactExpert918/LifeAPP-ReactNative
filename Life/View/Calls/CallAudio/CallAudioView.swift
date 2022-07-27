@@ -268,7 +268,6 @@ class CallAudioView: UIViewController {
         self.voiceCallStatusListner(self.roomID)
     }
 
-    
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait
     }
@@ -441,6 +440,7 @@ class CallAudioView: UIViewController {
         uiv_answerdecline.isHidden = true
         uiv_power.isHidden = false
         uiv_requst.isHidden = true
+        UIDevice.current.isProximityMonitoringEnabled = true
     }
 
     
@@ -451,6 +451,8 @@ class CallAudioView: UIViewController {
         uiv_answerdecline.isHidden = true
         uiv_power.isHidden = false
         uiv_requst.isHidden = true
+
+        UIDevice.current.isProximityMonitoringEnabled = false
     }
 }
 
