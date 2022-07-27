@@ -49,6 +49,7 @@ class CallKitProvider: NSObject {
             
             let name = values["name"] as? String
             let recipientId = values["recipientId"] as? String
+            let senderId = values["senderId"] as? String
             let hasVideo = values["hasVideo"] as? Int
             let uuid = UUID()
             
@@ -58,7 +59,7 @@ class CallKitProvider: NSObject {
             }
             
             
-            self.call = Call(name: name ?? "Life App", chatId: chatId, recipientId: recipientId ?? "", isVideo: hasVideo == 1, uuID: uuid)
+            self.call = Call(name: name ?? "Life App", chatId: chatId, recipientId: recipientId ?? "", isVideo: hasVideo == 1, uuID: uuid, senderId: senderId ?? "")
             
             let update = CXCallUpdate()
             update.remoteHandle = CXHandle(type: .generic, value: name ?? "Life App")
@@ -181,6 +182,7 @@ extension CallKitProvider: CXProviderDelegate {
             let callAudioView = CallAudioView(userId: call.recipientId)
             callAudioView.roomID = call.chatId
             callAudioView.receiver = call.recipientId
+            callAudioView.sender = call.senderId
             callAudioView.outgoing = false
             callAudioView.incoming = true
             topController.present(callAudioView, animated: false)
@@ -210,4 +212,5 @@ struct Call {
     let recipientId: String
     let isVideo: Bool
     let uuID: UUID
+    let senderId: String
 }
