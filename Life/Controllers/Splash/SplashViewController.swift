@@ -18,7 +18,12 @@ class SplashViewController: UIViewController {
             let password = PrefsManager.getPassword()
             AuthUser.signIn(email: email, password: password) { (error) in
                 if error != nil {
-                    self.gotoWelcomeViewController()
+                    NotificationCenter.default.post(name: Notification.Name(NotificationStatus.NOTIFICATION_USER_LOGGED_IN), object: nil)
+
+                    UIApplication.shared.windows.first?.rootViewController?.dismiss(animated: true, completion: nil)
+                    let vc = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
+
+                    UIApplication.shared.windows.first?.rootViewController = vc
                     return
                 }
                 let userId = AuthUser.userId()
