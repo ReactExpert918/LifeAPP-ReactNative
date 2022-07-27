@@ -345,6 +345,7 @@ class CallAudioView: UIViewController {
         if let agoraKit = self.agoraKit{
             agoraKit.leaveChannel(nil)
             UIApplication.shared.isIdleTimerDisabled = false
+            UIDevice.current.isProximityMonitoringEnabled = false
         }
     }
     
@@ -451,8 +452,6 @@ class CallAudioView: UIViewController {
         uiv_answerdecline.isHidden = true
         uiv_power.isHidden = false
         uiv_requst.isHidden = true
-
-        UIDevice.current.isProximityMonitoringEnabled = false
     }
 }
 
