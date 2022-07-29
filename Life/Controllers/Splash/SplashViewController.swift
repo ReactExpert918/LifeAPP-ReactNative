@@ -16,9 +16,11 @@ class SplashViewController: UIViewController {
         let email = PrefsManager.getEmail()
         if email != "" {
             let password = PrefsManager.getPassword()
-            AuthUser.signIn(email: email, password: password) { (error) in
+            AuthUser.signIn(email: email, password: password) {[weak self] (error) in
+                guard let self = self else { return }
                 if error != nil {
-                    self.gotoWelcomeViewController()
+                    self.postUserLogin()
+                    self.gotoMainViewController()
                     return
                 }
                 let userId = AuthUser.userId()
@@ -28,12 +30,8 @@ class SplashViewController: UIViewController {
                             self.gotoWelcomeViewController()
                         }
                         else {
-                            NotificationCenter.default.post(name: Notification.Name(NotificationStatus.NOTIFICATION_USER_LOGGED_IN), object: nil)
-                            
-                            UIApplication.shared.windows.first?.rootViewController?.dismiss(animated: true, completion: nil)
-                            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
-                    
-                            UIApplication.shared.windows.first?.rootViewController = vc
+                            self.postUserLogin()
+                            self.gotoMainViewController()
                         }
                     }
                 }
@@ -45,13 +43,18 @@ class SplashViewController: UIViewController {
             }
         }
     }
-    func gotoWelcomeViewController() {
+
+    private func postUserLogin() {
+        NotificationCenter.default.post(name: Notification.Name(NotificationStatus.NOTIFICATION_USER_LOGGED_IN), object: nil)
+    }
+
+    private func gotoWelcomeViewController() {
         let mainstoryboard = UIStoryboard.init(name: "Login", bundle: nil)
         let vc = mainstoryboard.instantiateViewController(withIdentifier: "rootNavigationViewController")
         UIApplication.shared.windows.first?.rootViewController = vc
     }
 
-    func gotoMainViewController() {
+    private func gotoMainViewController() {
         UIApplication.shared.windows.first?.rootViewController?.dismiss(animated: true, completion: nil)
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
 
