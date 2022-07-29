@@ -57,6 +57,7 @@ class CallAudioView: UIViewController {
     
     var roomID = ""
     var receiver: String = ""
+    var sender: String = ""
     var agoraKit: AgoraRtcEngineKit?
     
     var voiceStatusHandle: UInt?
@@ -89,15 +90,14 @@ class CallAudioView: UIViewController {
         super.init(nibName: nil, bundle: nil)
         let recipentUser = realm.object(ofType: Person.self, forPrimaryKey: userId)
         callString = recipentUser!.getFullName()
-        self.outgoing = true
-        
+
         let app = UIApplication.shared.delegate as? AppDelegate
         audioController = app?.client?.audioController()
         
         self.isModalInPresentation = true
         self.modalPresentationStyle = .fullScreen
     }
-    
+
     init(group: Group, persons: [String]) {
         
         super.init(nibName: nil, bundle: nil)
@@ -264,7 +264,12 @@ class CallAudioView: UIViewController {
         }else{
             loadGroup(self.group!)
         }
+
+        if  let recipentUser = realm.object(ofType: Person.self, forPrimaryKey: sender) {
+        callString = recipentUser.getFullName()
+        }
         labelName.text = callString
+
         self.voiceCallStatusListner(self.roomID)
     }
 
@@ -285,7 +290,8 @@ class CallAudioView: UIViewController {
     // MARK: - Realm methods
     
     func loadPerson() {
-        person = realm.object(ofType: Person.self, forPrimaryKey: self.receiver)
+        let primaryKey = outgoing ? receiver : sender
+        person = realm.object(ofType: Person.self, forPrimaryKey: primaryKey)
         labelInitials.text = nil
         MediaDownload.startUser(person.objectId, pictureAt: person.pictureAt) { image, error in
             if (error == nil) {

@@ -39,7 +39,6 @@ target 'Life' do
   pod 'SwipeCellKit'
   pod 'RSKImageCropper'
   pod 'AgoraRtcEngine_iOS'
-
   
   target 'LifeTests' do
     inherit! :search_paths
