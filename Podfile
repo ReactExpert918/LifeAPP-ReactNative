@@ -39,6 +39,10 @@ target 'Life' do
   pod 'SwipeCellKit'
   pod 'RSKImageCropper'
   pod 'AgoraRtcEngine_iOS'
+  pod 'Google-Mobile-Ads-SDK'
+  pod 'JamitFoundation', :git => 'https://github.com/JamitLabs/JamitFoundation.git', :tag => '1.5.2', :inhibit_warnings => true
+  pod 'SnapKit', '~> 5.6.0'
+
   
   target 'LifeTests' do
     inherit! :search_paths
