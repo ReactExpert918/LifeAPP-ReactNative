@@ -79,6 +79,8 @@
 		05E8DFC326B92EF500F72128 /* Privacy.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 05E8DFC126B92EF500F72128 /* Privacy.pdf */; };
 		05E8E0A426BA3AC500F72128 /* IAPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E8E0A326BA3AC500F72128 /* IAPHelper.swift */; };
 		05F2B11226CA5EE000620E87 /* RCAudioController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F2B11126CA5EE000620E87 /* RCAudioController.swift */; };
+		13D2F54F28A0C479002DD3FE /* AdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D2F54E28A0C479002DD3FE /* AdView.swift */; };
+		13D2F55128A0C4A1002DD3FE /* AdViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D2F55028A0C4A1002DD3FE /* AdViewModel.swift */; };
 		57580AB6282AC1DC009146F4 /* PaymentMethodTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57580AB5282AC1DC009146F4 /* PaymentMethodTableViewCell.swift */; };
 		57580AB8282AE1D4009146F4 /* AddCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57580AB7282AE1D4009146F4 /* AddCardViewController.swift */; };
 		57A116D827DBA3B70071FBDF /* PhotoSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A116D727DBA3B70071FBDF /* PhotoSelectionView.swift */; };
@@ -421,6 +423,8 @@
 		05E8DFC126B92EF500F72128 /* Privacy.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Privacy.pdf; sourceTree = "<group>"; };
 		05E8E0A326BA3AC500F72128 /* IAPHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPHelper.swift; sourceTree = "<group>"; };
 		05F2B11126CA5EE000620E87 /* RCAudioController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCAudioController.swift; sourceTree = "<group>"; };
+		13D2F54E28A0C479002DD3FE /* AdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdView.swift; sourceTree = "<group>"; };
+		13D2F55028A0C4A1002DD3FE /* AdViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdViewModel.swift; sourceTree = "<group>"; };
 		13FCD29106C16A3D2D2FC3B7 /* Pods_LifeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LifeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F299E90E5B6BB50A7323655 /* Pods-Life-LifeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Life-LifeUITests.release.xcconfig"; path = "Target Support Files/Pods-Life-LifeUITests/Pods-Life-LifeUITests.release.xcconfig"; sourceTree = "<group>"; };
 		2DA0512779D2347E705F5CEF /* Pods-LifeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LifeTests.release.xcconfig"; path = "Target Support Files/Pods-LifeTests/Pods-LifeTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -784,6 +788,15 @@
 			path = "in-appPurchase";
 			sourceTree = "<group>";
 		};
+		13D2F54D28A0C46F002DD3FE /* AdViews */ = {
+			isa = PBXGroup;
+			children = (
+				13D2F54E28A0C479002DD3FE /* AdView.swift */,
+				13D2F55028A0C4A1002DD3FE /* AdViewModel.swift */,
+			);
+			path = AdViews;
+			sourceTree = "<group>";
+		};
 		3BC3C3CE23618C232BF0BFDD /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1126,6 +1139,7 @@
 		A6DEA81724A825A700868625 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				13D2F54D28A0C46F002DD3FE /* AdViews */,
 				A6E7000D24B6DBD3004586E0 /* Details */,
 				A6C36B5924B577B000583CAA /* Calls */,
 				A6BD965F24B4D54800E1B873 /* Audio */,
@@ -1990,6 +2004,7 @@
 				05C2547626C5C5DE00D56684 /* AGEView.swift in Sources */,
 				A6DEA82624A82A7100868625 /* RCMessageAudioCell.swift in Sources */,
 				A6DEA82524A82A7100868625 /* RCMessageEmojiCell.swift in Sources */,
+				13D2F54F28A0C479002DD3FE /* AdView.swift in Sources */,
 				A6DEA85A24A83FCF00868625 /* Person.swift in Sources */,
 				A6E7001724B6DBEB004586E0 /* VideoView.swift in Sources */,
 				A60845C124A3059B005F23A9 /* OTPVerificationViewController.swift in Sources */,
@@ -2051,6 +2066,7 @@
 				A6DEA85E24A83FE500868625 /* Blocked.swift in Sources */,
 				04C2C86D267F5B050035B825 /* NoRecordCell.swift in Sources */,
 				AB82ACDA24A5453100D83E47 /* AddFriendsViewController.swift in Sources */,
+				13D2F55128A0C4A1002DD3FE /* AdViewModel.swift in Sources */,
 				A6DEA8AA24A8729100868625 /* UIImage+Extension.swift in Sources */,
 				A6E79AB224A65D07009458A1 /* FriendCell.swift in Sources */,
 				A675884924B85E9700724B08 /* UpdateNameViewController.swift in Sources */,
