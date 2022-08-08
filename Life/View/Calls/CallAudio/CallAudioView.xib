@@ -22,6 +22,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CallAudioView">
             <connections>
+                <outlet property="adViewContainer" destination="Z3z-WT-zZf" id="ygF-EE-Xzg"/>
                 <outlet property="buttonBack" destination="WGt-Ms-lWN" id="t7M-o0-ahx"/>
                 <outlet property="buttonMute" destination="AaB-en-4MX" id="XCc-pl-ss8"/>
                 <outlet property="buttonSpeaker" destination="5Da-lq-l3t" id="xeJ-0i-WzT"/>
@@ -183,10 +184,20 @@
                                         <action selector="actionRequestHangup:" destination="-1" eventType="touchUpInside" id="zU8-PJ-C42"/>
                                     </connections>
                                 </button>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z3z-WT-zZf">
+                                    <rect key="frame" x="37.666666666666657" y="289" width="300" height="250"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="300" id="QI0-4l-7xA"/>
+                                        <constraint firstAttribute="height" constant="250" id="wan-KW-M2d"/>
+                                    </constraints>
+                                </view>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
+                                <constraint firstAttribute="bottom" secondItem="Z3z-WT-zZf" secondAttribute="bottom" constant="15" id="1d9-rJ-XAt"/>
                                 <constraint firstItem="Fyx-mg-p9e" firstAttribute="top" secondItem="vTx-xM-Pvw" secondAttribute="top" constant="44" id="FVr-8m-sGq"/>
+                                <constraint firstItem="Z3z-WT-zZf" firstAttribute="centerX" secondItem="vTx-xM-Pvw" secondAttribute="centerX" id="JCp-6t-5GY"/>
                                 <constraint firstItem="WGt-Ms-lWN" firstAttribute="leading" secondItem="vTx-xM-Pvw" secondAttribute="leading" constant="8" id="LC7-Bc-XV6"/>
                                 <constraint firstItem="WGt-Ms-lWN" firstAttribute="top" secondItem="vTx-xM-Pvw" secondAttribute="top" constant="100" id="Mk7-Jl-Pkw"/>
                                 <constraint firstAttribute="trailing" secondItem="Fyx-mg-p9e" secondAttribute="trailing" constant="16" id="MvA-xR-95x"/>

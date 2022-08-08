@@ -16,7 +16,7 @@ final class AdView: StatefulView<AdViewModel> {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        bannerView = GADBannerView(adSize: GADAdSizeBanner)
+        bannerView = GADBannerView(adSize: GADAdSizeFromCGSize(model.adSize))
 
         addBannerToView()
         
@@ -24,13 +24,15 @@ final class AdView: StatefulView<AdViewModel> {
     }
 
     private func addBannerToView() {
+        bannerView.removeFromSuperview()
+        bannerView = GADBannerView(adSize: GADAdSizeFromCGSize(model.adSize))
         bannerView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(bannerView)
 
         bannerView.snp.makeConstraints { make in
             make.bottom.equalToSuperview()
-            make.height.equalTo(50)
-            make.width.equalTo(320)
+            make.height.equalTo(model.adSize.height)
+            make.width.equalTo(model.adSize.width)
             make.centerX.equalToSuperview()
         }
     }
@@ -45,6 +47,7 @@ final class AdView: StatefulView<AdViewModel> {
     override func didChangeModel() {
         super.didChangeModel()
 
+        addBannerToView()
         setupBannerView()
     }
 }
