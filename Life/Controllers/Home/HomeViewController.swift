@@ -11,6 +11,7 @@ import RealmSwift
 import JGProgressHUD
 import FittedSheets
 import SwipeCellKit
+import JamitFoundation
 
 protocol CreateGroupDelegate {
     func onGroupCreated(group: Group)
@@ -25,6 +26,11 @@ protocol ChatViewControllerProtocol {
 
 class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CreateGroupDelegate, ChatViewControllerProtocol {
 
+    private enum Constants {
+        static let adUnitId: String = "ca-app-pub-9167808110872900/4939430243"
+        static let adHeight: CGFloat = 50
+    }
+
     private var person: Person!
 
     @IBOutlet weak var searchBar: UISearchBar!
@@ -34,7 +40,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     @IBOutlet weak var imageReceivedUnRead: UIImageView!
     @IBOutlet weak var addFriendView: UIView!
-    
+
+    private lazy var adView: AdView = .instantiate()
     var buttonStyle: ButtonStyle = .backgroundColor
     var buttonDisplayMode: ButtonDisplayMode = .titleAndImage
     
@@ -50,6 +57,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     private var persons = realm.objects(Person.self).filter(falsepredicate)
     private var groups = realm.objects(Group.self).filter(falsepredicate)
     private var members = realm.objects(Group.self).filter(falsepredicate)
+
     @IBOutlet weak var textEULA: UITextView!
     
     
@@ -78,6 +86,16 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         updateFcmToken()
         
         NotificationCenter.default.addObserver(self, selector: #selector(receiveCalls), name: NSNotification.Name(rawValue: NotificationStatus.NOTIFICATION_RECEIVE_CALL), object: nil)
+
+        adView.model = AdViewModel(
+            unitId: Constants.adUnitId,
+            rootViewController: self,
+            onDidRecieveAd: { [weak self] in
+                guard let self = self else { return }
+                self.homeTableView.reloadData()
+            }
+        )
+
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) { // As soon as vc appears
@@ -324,6 +342,9 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if section == 0 {
+            return adView
+        }
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: ExpandableHeaderCell.GetReuseIdentifier()) as! ExpandableHeaderCell
         header.titleLabel.text = headerSections[section].name
         header.setCollapsed(collapsed: headerSections[section].collapsed)
@@ -334,7 +355,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 {
-            return 0
+            return Constants.adHeight
         }
         return 40.00
     }

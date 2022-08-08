@@ -16,7 +16,7 @@ final class AdView: StatefulView<AdViewModel> {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupBannerView()
+        bannerView = GADBannerView(adSize: GADAdSizeBanner)
 
         addBannerToView()
         
@@ -29,13 +29,13 @@ final class AdView: StatefulView<AdViewModel> {
 
         bannerView.snp.makeConstraints { make in
             make.bottom.equalToSuperview()
+            make.height.equalTo(50)
+            make.width.equalTo(320)
             make.centerX.equalToSuperview()
         }
     }
 
     private func setupBannerView() {
-        bannerView.alpha = 0
-
         bannerView.adUnitID = model.unitId
         bannerView.rootViewController = model.rootViewController
 

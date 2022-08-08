@@ -5,10 +5,16 @@ import AgoraRtcKit
 import FirebaseDatabase
 import FirebaseFirestore
 import Sinch
+import JamitFoundation
 
 class CallVideoView: UIViewController {
+
+    private enum Constants {
+        static let adUnitId: String = "ca-app-pub-9167808110872900/4939430243"
+    }
     
-	@IBOutlet var viewBackground: UIView!
+    @IBOutlet weak var adViewContainer: UIView!
+    @IBOutlet var viewBackground: UIView!
 	@IBOutlet var viewDetails: UIView!
 	@IBOutlet var imageUser: SwiftyAvatar!
 	@IBOutlet var labelInitials: UILabel!
@@ -23,6 +29,8 @@ class CallVideoView: UIViewController {
     let ref = Database.database().reference()
     
 	private var person: Person!
+
+    private lazy var adView: AdView = .instantiate()
 
 	 var incoming = false
 	 var outgoing = false
@@ -152,6 +160,13 @@ class CallVideoView: UIViewController {
         }else{
             loadGroup(self.group!)
         }
+
+        adView.frame = adViewContainer.bounds
+        adViewContainer.addSubview(adView)
+
+        adView.model = AdViewModel(
+            unitId: Constants.adUnitId,
+            rootViewController: self)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
