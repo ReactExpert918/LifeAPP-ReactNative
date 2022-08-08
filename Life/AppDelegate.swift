@@ -14,6 +14,7 @@ import FittedSheets
 import PushKit
 import AVFoundation
 import Sinch
+import GoogleMobileAds
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 var realm = try! Realm()
@@ -37,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         IQKeyboardManager.shared.enable = true
         
-        
+        GADMobileAds.sharedInstance().start(completionHandler: nil)
         
 //        let value: Float = 5000.0
 //

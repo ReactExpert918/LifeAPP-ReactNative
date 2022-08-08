@@ -16,9 +16,14 @@ import AgoraRtcKit
 import FirebaseDatabase
 import FirebaseFirestore
 import Sinch
+import JamitFoundation
 
 //----
 class CallAudioView: UIViewController {
+
+    private enum Constants {
+        static let adUnitId: String = "ca-app-pub-9167808110872900/4939430243"
+    }
     
     @IBOutlet var imageUser: UIImageView!
     @IBOutlet var labelInitials: UILabel!
@@ -26,6 +31,7 @@ class CallAudioView: UIViewController {
     @IBOutlet var labelStatus: UILabel!
     @IBOutlet var uiv_mutespeaker: UIView!
     
+    @IBOutlet weak var adViewContainer: UIView!
     @IBOutlet var buttonMute: UIButton!
     @IBOutlet var buttonVideo: UIButton!
     @IBOutlet weak var buttonSpeaker: UIImageView!
@@ -69,21 +75,11 @@ class CallAudioView: UIViewController {
     private var stopSelf = false
     private var joined = false
     private var callingStart: Date?
+
+    private lazy var adView: AdView = .instantiate()
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        
-        if let callKit = app?.callKitProvider {
-            callKit.removeStateListner()
-            callKit.removeCall()
-        }
-        if let voiceStatusHandle = voiceStatusHandle{
-            FirebaseAPI.removeVoiceCallListnerObserver(self.roomID, voiceStatusHandle)
-        }
-        if let voiceStatusRemoveHandle = voiceStatusRemoveHandle{
-            FirebaseAPI.removeVoiceCallRemoveListnerObserver(self.roomID, voiceStatusRemoveHandle)
-        }
-        NotificationCenter.default.removeObserver(self)
     }
     
     init(userId: String) {
@@ -271,6 +267,15 @@ class CallAudioView: UIViewController {
         labelName.text = callString
 
         self.voiceCallStatusListner(self.roomID)
+
+        adView.frame = adViewContainer.bounds
+        adViewContainer.addSubview(adView)
+
+        adView.model = AdViewModel(
+            unitId: Constants.adUnitId,
+            adSize: CGSize(width: 300, height: 250),
+            rootViewController: self
+        )
     }
 
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
@@ -359,7 +364,20 @@ class CallAudioView: UIViewController {
     @IBAction func actionHangup(_ sender: Any) {
         self.leaveChannel()
         ref.child("voice_call").child(self.roomID).removeValue()
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true) { [weak self] in
+            guard let self = self else { return }
+            if let callKit = self.app?.callKitProvider {
+                callKit.removeStateListner()
+                callKit.removeCall()
+            }
+            if let voiceStatusHandle = self.voiceStatusHandle{
+                FirebaseAPI.removeVoiceCallListnerObserver(self.roomID, voiceStatusHandle)
+            }
+            if let voiceStatusRemoveHandle = self.voiceStatusRemoveHandle{
+                FirebaseAPI.removeVoiceCallRemoveListnerObserver(self.roomID, voiceStatusRemoveHandle)
+            }
+            NotificationCenter.default.removeObserver(self)
+        }
     }
     
     @IBAction func actionRequestHangup(_ sender: Any) {
@@ -372,7 +390,20 @@ class CallAudioView: UIViewController {
             self.audioController?.stopPlayingSoundFile()
         }
         ref.child("voice_call").child(self.roomID).removeValue()
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true) { [weak self] in
+            guard let self = self else { return }
+            if let callKit = self.app?.callKitProvider {
+                callKit.removeStateListner()
+                callKit.removeCall()
+            }
+            if let voiceStatusHandle = self.voiceStatusHandle{
+                FirebaseAPI.removeVoiceCallListnerObserver(self.roomID, voiceStatusHandle)
+            }
+            if let voiceStatusRemoveHandle = self.voiceStatusRemoveHandle{
+                FirebaseAPI.removeVoiceCallRemoveListnerObserver(self.roomID, voiceStatusRemoveHandle)
+            }
+            NotificationCenter.default.removeObserver(self)
+        }
     }
     
     @IBAction func actionDecline(_ sender: Any) {
@@ -380,10 +411,26 @@ class CallAudioView: UIViewController {
             self.audioController?.stopPlayingSoundFile()
         }
         ref.child("voice_call").child(self.roomID).removeValue()
+        self.dismiss(animated: true) { [weak self] in
+            guard let self = self else { return }
+            if let callKit = self.app?.callKitProvider {
+                callKit.removeStateListner()
+                callKit.removeCall()
+            }
+            if let voiceStatusHandle = self.voiceStatusHandle{
+                FirebaseAPI.removeVoiceCallListnerObserver(self.roomID, voiceStatusHandle)
+            }
+            if let voiceStatusRemoveHandle = self.voiceStatusRemoveHandle{
+                FirebaseAPI.removeVoiceCallRemoveListnerObserver(self.roomID, voiceStatusRemoveHandle)
+            }
+            NotificationCenter.default.removeObserver(self)
+        }
+    }
+
+    @IBAction func pressedBack(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }
 
-    
     @IBAction func actionAnswer(_ sender: Any) {
         self.joinAction()
         var status = [String: Any]()

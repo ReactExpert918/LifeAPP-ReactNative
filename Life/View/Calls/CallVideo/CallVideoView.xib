@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -16,6 +17,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CallVideoView">
             <connections>
+                <outlet property="adViewContainer" destination="5YO-gX-zTn" id="NNt-a5-8fL"/>
                 <outlet property="buttonBack" destination="pzE-X3-zGP" id="s5e-yr-cW5"/>
                 <outlet property="cameraButton" destination="NQ2-UN-SbC" id="ON3-ae-Lo2"/>
                 <outlet property="imageUser" destination="3Dn-fS-ES4" id="Yh8-XH-6Tt"/>
@@ -141,8 +143,8 @@
                                 <constraint firstAttribute="trailing" secondItem="nPO-so-kJh" secondAttribute="trailing" constant="16" id="nMh-Ii-28b"/>
                             </constraints>
                         </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gaf-ab-Y7P" userLabel="muteswitch">
-                            <rect key="frame" x="326" y="10" width="72" height="228"/>
+                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gaf-ab-Y7P" userLabel="muteswitch">
+                            <rect key="frame" x="326" y="57" width="72" height="181"/>
                             <subviews>
                                 <view alpha="0.20000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vIj-fL-EG5">
                                     <rect key="frame" x="0.0" y="0.0" width="72" height="228"/>
@@ -298,14 +300,23 @@
                                 <action selector="decline:" destination="-1" eventType="touchUpInside" id="ZsC-jj-OeS"/>
                             </connections>
                         </button>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5YO-gX-zTn">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="50" id="LQz-qG-aQg"/>
+                            </constraints>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" systemColor="tableCellGroupedBackgroundColor"/>
                     <gestureRecognizers/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="IKj-6S-PfQ" secondAttribute="trailing" constant="10" id="0vV-Lt-fDT"/>
                         <constraint firstItem="mG6-kt-o9R" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="12Y-s9-5ce"/>
+                        <constraint firstAttribute="trailing" secondItem="5YO-gX-zTn" secondAttribute="trailing" id="1SE-G0-uMu"/>
                         <constraint firstAttribute="bottom" secondItem="jNm-tt-xBW" secondAttribute="bottom" id="3G2-al-cAx"/>
                         <constraint firstItem="jNm-tt-xBW" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="63g-Hq-s19"/>
+                        <constraint firstItem="5YO-gX-zTn" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="ANZ-to-Bfd"/>
                         <constraint firstItem="3Jl-NR-Oer" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Bto-hZ-9hL"/>
                         <constraint firstItem="vcG-lN-R8l" firstAttribute="top" secondItem="IKj-6S-PfQ" secondAttribute="top" id="C2m-ZG-hNF"/>
                         <constraint firstItem="IKj-6S-PfQ" firstAttribute="width" secondItem="IKj-6S-PfQ" secondAttribute="height" multiplier="3:4" id="DOL-ra-s1r"/>
@@ -320,12 +331,13 @@
                         <constraint firstAttribute="bottom" secondItem="0lJ-vh-mBF" secondAttribute="bottom" id="Unn-g0-cxj"/>
                         <constraint firstAttribute="trailing" secondItem="jNm-tt-xBW" secondAttribute="trailing" id="V8b-pz-byt"/>
                         <constraint firstItem="pzE-X3-zGP" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="Vui-Mg-6vB"/>
+                        <constraint firstItem="5YO-gX-zTn" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="WFD-gg-qUc"/>
                         <constraint firstAttribute="trailing" secondItem="3Jl-NR-Oer" secondAttribute="trailing" id="Wdy-MR-Jar"/>
                         <constraint firstItem="3Jl-NR-Oer" firstAttribute="trailing" secondItem="0lJ-vh-mBF" secondAttribute="trailing" id="Ydb-AU-cIX"/>
                         <constraint firstItem="vcG-lN-R8l" firstAttribute="leading" secondItem="IKj-6S-PfQ" secondAttribute="leading" id="bXx-Sd-glf"/>
                         <constraint firstItem="vcG-lN-R8l" firstAttribute="centerY" secondItem="IKj-6S-PfQ" secondAttribute="centerY" id="lWq-rT-ZUB"/>
                         <constraint firstItem="aty-bH-sVM" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="mCC-wq-dqC"/>
-                        <constraint firstItem="Gaf-ab-Y7P" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="10" id="mEM-Yd-Iyj"/>
+                        <constraint firstItem="Gaf-ab-Y7P" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="50" id="mEM-Yd-Iyj"/>
                         <constraint firstItem="bsc-ZX-ncE" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="n3a-kC-1sQ"/>
                         <constraint firstItem="3Jl-NR-Oer" firstAttribute="bottom" secondItem="0lJ-vh-mBF" secondAttribute="bottom" id="o79-2j-TIz"/>
                         <constraint firstItem="3Jl-NR-Oer" firstAttribute="top" secondItem="0lJ-vh-mBF" secondAttribute="top" id="p5r-VO-vwE"/>
@@ -347,7 +359,7 @@
                 <constraint firstItem="i5M-Pr-FkT" firstAttribute="leading" secondItem="Mqm-46-MqP" secondAttribute="leading" id="S0s-Kp-3G9"/>
                 <constraint firstItem="i5M-Pr-FkT" firstAttribute="top" secondItem="Mqm-46-MqP" secondAttribute="top" id="TVP-F3-VCv"/>
             </constraints>
-            <point key="canvasLocation" x="262" y="112"/>
+            <point key="canvasLocation" x="260.86956521739131" y="111.83035714285714"/>
         </view>
         <tapGestureRecognizer id="ler-xb-c1X">
             <connections>
@@ -371,6 +383,9 @@
         <namedColor name="typingIndicatorDot">
             <color red="0.68199998140335083" green="0.68199998140335083" blue="0.69800001382827759" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="tableCellGroupedBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
