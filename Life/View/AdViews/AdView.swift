@@ -17,6 +17,8 @@ final class AdView: StatefulView<AdViewModel> {
         super.viewDidLoad()
 
         setupBannerView()
+
+        addBannerToView()
         
         bannerView.delegate = self
     }
@@ -32,6 +34,8 @@ final class AdView: StatefulView<AdViewModel> {
     }
 
     private func setupBannerView() {
+        bannerView.alpha = 0
+
         bannerView.adUnitID = model.unitId
         bannerView.rootViewController = model.rootViewController
 
@@ -48,5 +52,8 @@ final class AdView: StatefulView<AdViewModel> {
 extension AdView: GADBannerViewDelegate {
     func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
         model.onDidRecieveAd?()
+        UIView.animate(withDuration: 0.3) {
+            bannerView.alpha = 1
+        }
     }
 }
