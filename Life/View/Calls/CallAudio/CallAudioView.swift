@@ -80,18 +80,6 @@ class CallAudioView: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        
-        if let callKit = app?.callKitProvider {
-            callKit.removeStateListner()
-            callKit.removeCall()
-        }
-        if let voiceStatusHandle = voiceStatusHandle{
-            FirebaseAPI.removeVoiceCallListnerObserver(self.roomID, voiceStatusHandle)
-        }
-        if let voiceStatusRemoveHandle = voiceStatusRemoveHandle{
-            FirebaseAPI.removeVoiceCallRemoveListnerObserver(self.roomID, voiceStatusRemoveHandle)
-        }
-        NotificationCenter.default.removeObserver(self)
     }
     
     init(userId: String) {
@@ -376,7 +364,20 @@ class CallAudioView: UIViewController {
     @IBAction func actionHangup(_ sender: Any) {
         self.leaveChannel()
         ref.child("voice_call").child(self.roomID).removeValue()
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true) { [weak self] in
+            guard let self = self else { return }
+            if let callKit = self.app?.callKitProvider {
+                callKit.removeStateListner()
+                callKit.removeCall()
+            }
+            if let voiceStatusHandle = self.voiceStatusHandle{
+                FirebaseAPI.removeVoiceCallListnerObserver(self.roomID, voiceStatusHandle)
+            }
+            if let voiceStatusRemoveHandle = self.voiceStatusRemoveHandle{
+                FirebaseAPI.removeVoiceCallRemoveListnerObserver(self.roomID, voiceStatusRemoveHandle)
+            }
+            NotificationCenter.default.removeObserver(self)
+        }
     }
     
     @IBAction func actionRequestHangup(_ sender: Any) {
@@ -389,7 +390,20 @@ class CallAudioView: UIViewController {
             self.audioController?.stopPlayingSoundFile()
         }
         ref.child("voice_call").child(self.roomID).removeValue()
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true) { [weak self] in
+            guard let self = self else { return }
+            if let callKit = self.app?.callKitProvider {
+                callKit.removeStateListner()
+                callKit.removeCall()
+            }
+            if let voiceStatusHandle = self.voiceStatusHandle{
+                FirebaseAPI.removeVoiceCallListnerObserver(self.roomID, voiceStatusHandle)
+            }
+            if let voiceStatusRemoveHandle = self.voiceStatusRemoveHandle{
+                FirebaseAPI.removeVoiceCallRemoveListnerObserver(self.roomID, voiceStatusRemoveHandle)
+            }
+            NotificationCenter.default.removeObserver(self)
+        }
     }
     
     @IBAction func actionDecline(_ sender: Any) {
@@ -397,10 +411,26 @@ class CallAudioView: UIViewController {
             self.audioController?.stopPlayingSoundFile()
         }
         ref.child("voice_call").child(self.roomID).removeValue()
+        self.dismiss(animated: true) { [weak self] in
+            guard let self = self else { return }
+            if let callKit = self.app?.callKitProvider {
+                callKit.removeStateListner()
+                callKit.removeCall()
+            }
+            if let voiceStatusHandle = self.voiceStatusHandle{
+                FirebaseAPI.removeVoiceCallListnerObserver(self.roomID, voiceStatusHandle)
+            }
+            if let voiceStatusRemoveHandle = self.voiceStatusRemoveHandle{
+                FirebaseAPI.removeVoiceCallRemoveListnerObserver(self.roomID, voiceStatusRemoveHandle)
+            }
+            NotificationCenter.default.removeObserver(self)
+        }
+    }
+
+    @IBAction func pressedBack(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }
 
-    
     @IBAction func actionAnswer(_ sender: Any) {
         self.joinAction()
         var status = [String: Any]()
