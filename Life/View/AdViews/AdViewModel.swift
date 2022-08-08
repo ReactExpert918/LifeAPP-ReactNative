@@ -12,19 +12,23 @@ import UIKit
 struct AdViewModel: ViewModelProtocol {
     let unitId: String
     let rootViewController: UIViewController
+    let onDidRecieveAd: VoidCallback?
 
     init(
         unitId: String = Self.default.unitId,
-        rootViewController: UIViewController = Self.default.rootViewController
+        rootViewController: UIViewController = Self.default.rootViewController,
+        onDidRecieveAd: VoidCallback? = Self.default.onDidRecieveAd
     ) {
         self.unitId = unitId
         self.rootViewController = rootViewController
+        self.onDidRecieveAd = onDidRecieveAd
     }
 }
 
 extension AdViewModel {
     static var `default`: AdViewModel = .init(
         unitId: "",
-        rootViewController: UIViewController()
+        rootViewController: UIViewController(),
+        onDidRecieveAd: nil
     )
 }
