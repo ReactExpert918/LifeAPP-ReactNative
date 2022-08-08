@@ -2,6 +2,39 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>Life-App</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>$(PRODUCT_NAME)</string>
+	<key>CFBundlePackageType</key>
+	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
+	<key>CFBundleShortVersionString</key>
+	<string>$(MARKETING_VERSION)</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.461367245703-u2ipo8nfil34sp5qe0n4974dsnpm7r5d</string>
+			</array>
+		</dict>
+	</array>
+	<key>CFBundleVersion</key>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>GADApplicationIdentifier</key>
+	<string>ca-app-pub-9167808110872900~5796504937</string>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
@@ -11,8 +44,20 @@
 		<key>NSAllowsArbitraryLoadsInWebContent</key>
 		<true/>
 	</dict>
-	<key>GADApplicationIdentifier</key>
-	<string>ca-app-pub-9167808110872900~5796504937</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Camera is required to capture avatar and scan qrcode.</string>
+	<key>NSContactsUsageDescription</key>
+	<string>App needs to access contacts to get list.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>We use your location to send location messages.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>We use your location to send location messages.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>We use your microphone to send audio messages.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>We use photo library to save picture and video messages.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>We use photo library to send picture and video messages.</string>
 	<key>SKAdNetworkItems</key>
 	<array>
 		<dict>
@@ -164,51 +209,6 @@
 			<string>3qcr597p9d.skadnetwork</string>
 		</dict>
 	</array>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>$(DEVELOPMENT_LANGUAGE)</string>
-	<key>CFBundleDisplayName</key>
-	<string>Life-App</string>
-	<key>CFBundleExecutable</key>
-	<string>$(EXECUTABLE_NAME)</string>
-	<key>CFBundleIdentifier</key>
-	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
-	<key>CFBundleName</key>
-	<string>$(PRODUCT_NAME)</string>
-	<key>CFBundlePackageType</key>
-	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
-	<key>CFBundleShortVersionString</key>
-	<string>$(MARKETING_VERSION)</string>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>com.googleusercontent.apps.461367245703-u2ipo8nfil34sp5qe0n4974dsnpm7r5d</string>
-			</array>
-		</dict>
-	</array>
-	<key>CFBundleVersion</key>
-	<string>$(CURRENT_PROJECT_VERSION)</string>
-	<key>LSRequiresIPhoneOS</key>
-	<true/>
-	<key>NSCameraUsageDescription</key>
-	<string>Camera is required to capture avatar and scan qrcode.</string>
-	<key>NSContactsUsageDescription</key>
-	<string>App needs to access contacts to get list.</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>We use your location to send location messages.</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>We use your location to send location messages.</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>We use your microphone to send audio messages.</string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>We use photo library to save picture and video messages.</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>We use photo library to send picture and video messages.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Montserrat-SemiBold.ttf</string>
