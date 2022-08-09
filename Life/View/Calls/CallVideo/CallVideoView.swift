@@ -6,6 +6,7 @@ import FirebaseDatabase
 import FirebaseFirestore
 import Sinch
 import JamitFoundation
+import CallKit
 
 class CallVideoView: UIViewController {
 
@@ -29,6 +30,8 @@ class CallVideoView: UIViewController {
     let ref = Database.database().reference()
     
 	private var person: Person!
+
+    private let callController = CXCallController()
 
     private lazy var adView: AdView = .instantiate()
 
@@ -281,10 +284,34 @@ class CallVideoView: UIViewController {
             UIApplication.shared.isIdleTimerDisabled = false
         }
     }
+
+    func end(uuid: UUID) {
+      let endCallAction = CXEndCallAction(call: uuid)
+      let transaction = CXTransaction(action: endCallAction)
+
+      requestTransaction(transaction)
+    }
+
+    private func requestTransaction(_ transaction: CXTransaction) {
+      callController.request(transaction) { error in
+        if let error = error {
+          print("Error requesting transaction: \(error)")
+        } else {
+          print("Requested transaction successfully")
+        }
+      }
+    }
     
     @IBAction func actionHangup(_ sender: Any) {
         ref.child("video_call").child(self.roomID).removeValue()
         self.leaveChannel()
+
+        if let app = app {
+            if let callKitProvider = app.callKitProvider {
+                self.end(uuid: callKitProvider.outgoingUUID)
+            }
+        }
+
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -297,6 +324,13 @@ class CallVideoView: UIViewController {
         
         
         ref.child("video_call").child(self.roomID).removeValue()
+
+        if let app = app {
+            if let callKitProvider = app.callKitProvider {
+                self.end(uuid: callKitProvider.outgoingUUID)
+            }
+        }
+
         self.dismiss(animated: true, completion: nil)
     }
     

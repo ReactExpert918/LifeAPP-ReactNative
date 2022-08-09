@@ -17,6 +17,8 @@ import FirebaseDatabase
 import FirebaseFirestore
 import Sinch
 import JamitFoundation
+import CallKit
+
 
 //----
 class CallAudioView: UIViewController {
@@ -24,6 +26,8 @@ class CallAudioView: UIViewController {
     private enum Constants {
         static let adUnitId: String = "ca-app-pub-9167808110872900/4939430243"
     }
+
+
     
     @IBOutlet var imageUser: UIImageView!
     @IBOutlet var labelInitials: UILabel!
@@ -44,6 +48,8 @@ class CallAudioView: UIViewController {
     
     @IBOutlet weak var uiv_requst: UIView!
     @IBOutlet weak var dottedProgressView: UIView!
+
+    private let callController = CXCallController()
     
     let ref = Database.database().reference()
     private var dottedProgressBar:DottedProgressBar?
@@ -89,7 +95,7 @@ class CallAudioView: UIViewController {
 
         let app = UIApplication.shared.delegate as? AppDelegate
         audioController = app?.client?.audioController()
-        
+
         self.isModalInPresentation = true
         self.modalPresentationStyle = .fullScreen
     }
@@ -377,8 +383,33 @@ class CallAudioView: UIViewController {
                 FirebaseAPI.removeVoiceCallRemoveListnerObserver(self.roomID, voiceStatusRemoveHandle)
             }
             NotificationCenter.default.removeObserver(self)
+
+            if let app = self.app {
+                if let callKitProvider = app.callKitProvider {
+                    self.end(uuid: callKitProvider.outgoingUUID)
+                }
+            }
+
         }
     }
+
+    func end(uuid: UUID) {
+      let endCallAction = CXEndCallAction(call: uuid)
+      let transaction = CXTransaction(action: endCallAction)
+
+      requestTransaction(transaction)
+    }
+
+    private func requestTransaction(_ transaction: CXTransaction) {
+      callController.request(transaction) { error in
+        if let error = error {
+          print("Error requesting transaction: \(error)")
+        } else {
+          print("Requested transaction successfully")
+        }
+      }
+    }
+
     
     @IBAction func actionRequestHangup(_ sender: Any) {
         if let button = sender as? UIButton, button == self.buttonBack, self.joined {
@@ -403,6 +434,12 @@ class CallAudioView: UIViewController {
                 FirebaseAPI.removeVoiceCallRemoveListnerObserver(self.roomID, voiceStatusRemoveHandle)
             }
             NotificationCenter.default.removeObserver(self)
+
+            if let app = self.app {
+                if let callKitProvider = app.callKitProvider {
+                    self.end(uuid: callKitProvider.outgoingUUID)
+                }
+            }
         }
     }
     
@@ -438,8 +475,10 @@ class CallAudioView: UIViewController {
         status["status"]   = Status.accept.rawValue
         FirebaseAPI.sendVoiceCallStatus(status, self.roomID) { (isSuccess, data) in
         }
+
         //self.joinAction()
     }
+
 
     // MARK: - Helper methods
     

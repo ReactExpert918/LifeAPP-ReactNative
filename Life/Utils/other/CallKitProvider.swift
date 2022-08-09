@@ -16,7 +16,9 @@ import FirebaseDatabase
 class CallKitProvider: NSObject {
     
 	private var cxprovider: CXProvider!
-    private var call: Call?
+     var call: Call?
+
+    var outgoingUUID = UUID()
     
     var videoStatusRemoveHandle: UInt?
     var voiceStatusRemoveHandle: UInt?
