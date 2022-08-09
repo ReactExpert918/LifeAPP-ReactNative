@@ -599,6 +599,14 @@
                                     <constraint firstItem="rcM-vv-NmZ" firstAttribute="leading" secondItem="Gj3-5j-kph" secondAttribute="leading" id="vys-o7-Tqh"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eTz-9d-qB3">
+                                <rect key="frame" x="37.666666666666657" y="503" width="300" height="250"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="250" id="1TC-pk-PS9"/>
+                                    <constraint firstAttribute="width" constant="300" id="mUo-QP-7ks"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="8Zh-ZX-Iov"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -608,11 +616,13 @@
                             <constraint firstAttribute="trailing" secondItem="GQP-F0-rd8" secondAttribute="trailing" id="2NN-Ju-e96"/>
                             <constraint firstItem="0o4-XZ-zQ0" firstAttribute="leading" secondItem="8Zh-ZX-Iov" secondAttribute="leading" id="3Jj-id-CMZ"/>
                             <constraint firstItem="Dgw-bT-lb7" firstAttribute="leading" secondItem="8Zh-ZX-Iov" secondAttribute="leading" id="4UO-kp-oPr"/>
+                            <constraint firstItem="eTz-9d-qB3" firstAttribute="centerX" secondItem="Cvh-1j-ORj" secondAttribute="centerX" id="8LC-XI-aQ7"/>
                             <constraint firstItem="xI5-gY-3a5" firstAttribute="top" secondItem="8Zh-ZX-Iov" secondAttribute="top" id="JlF-Ru-h5g"/>
                             <constraint firstItem="0o4-XZ-zQ0" firstAttribute="top" secondItem="Cvh-1j-ORj" secondAttribute="top" id="KNI-ds-iD2"/>
                             <constraint firstItem="GQP-F0-rd8" firstAttribute="leading" secondItem="Cvh-1j-ORj" secondAttribute="leading" id="LsO-mb-UZ7"/>
                             <constraint firstItem="Dgw-bT-lb7" firstAttribute="trailing" secondItem="8Zh-ZX-Iov" secondAttribute="trailing" id="RXr-gh-5Uy"/>
                             <constraint firstItem="Gj3-5j-kph" firstAttribute="top" secondItem="Cvh-1j-ORj" secondAttribute="top" id="VPV-oh-E56"/>
+                            <constraint firstItem="8Zh-ZX-Iov" firstAttribute="bottom" secondItem="eTz-9d-qB3" secondAttribute="bottom" constant="25" id="VeV-YF-UoD"/>
                             <constraint firstItem="xI5-gY-3a5" firstAttribute="top" secondItem="GQP-F0-rd8" secondAttribute="bottom" id="ZPL-PN-GUw"/>
                             <constraint firstAttribute="bottom" secondItem="0o4-XZ-zQ0" secondAttribute="bottom" id="aEx-jD-Pw8"/>
                             <constraint firstItem="0o4-XZ-zQ0" firstAttribute="trailing" secondItem="8Zh-ZX-Iov" secondAttribute="trailing" id="b1P-8f-mM9"/>
@@ -626,6 +636,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="ozT-PR-4gK"/>
                     <connections>
+                        <outlet property="adViewContainer" destination="eTz-9d-qB3" id="uT2-0J-9Im"/>
                         <outlet property="confirmPopupLabel" destination="gTG-sD-69E" id="Kfj-MJ-mp7"/>
                         <outlet property="confirmPopupProfileImage" destination="G3e-nL-Lu1" id="KVk-5r-bjO"/>
                         <outlet property="confirmPopupView" destination="0o4-XZ-zQ0" id="Zev-hs-Nk8"/>
@@ -1480,7 +1491,7 @@ friend scan your QR code</string>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My QR Code" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ah6-Wn-Dfi">
-                                        <rect key="frame" x="56.666666666666679" y="16.333333333333371" width="81.333333333333314" height="17.333333333333329"/>
+                                        <rect key="frame" x="51.333333333333321" y="16.333333333333371" width="86.666666666666686" height="17.333333333333329"/>
                                         <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -1533,7 +1544,7 @@ friend scan your QR code</string>
                                 <rect key="frame" x="0.0" y="684" width="375" height="128"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vro-6r-km3">
-                                        <rect key="frame" x="60" y="46.666666666666629" width="255" height="35"/>
+                                        <rect key="frame" x="48.333333333333343" y="45.666666666666629" width="278.33333333333326" height="36.666666666666657"/>
                                         <string key="text">Scan QR code to quickly add persons
 to your friend list</string>
                                         <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="15"/>
@@ -1755,8 +1766,17 @@ to your friend list</string>
         </scene>
     </scenes>
     <designables>
+        <designable name="1jx-wh-dqE">
+            <size key="intrinsicContentSize" width="100" height="100"/>
+        </designable>
+        <designable name="30M-F4-H2b">
+            <size key="intrinsicContentSize" width="100" height="100"/>
+        </designable>
         <designable name="4Ch-nU-gTd">
             <size key="intrinsicContentSize" width="54" height="33"/>
+        </designable>
+        <designable name="FGb-wg-7lO">
+            <size key="intrinsicContentSize" width="24" height="24"/>
         </designable>
         <designable name="RyD-x7-ogF">
             <size key="intrinsicContentSize" width="54" height="33"/>
@@ -1764,8 +1784,20 @@ to your friend list</string>
         <designable name="SzQ-2r-lOs">
             <size key="intrinsicContentSize" width="67" height="33"/>
         </designable>
+        <designable name="XTB-YZ-7kB">
+            <size key="intrinsicContentSize" width="100" height="100"/>
+        </designable>
+        <designable name="Xex-pG-ljO">
+            <size key="intrinsicContentSize" width="100" height="100"/>
+        </designable>
+        <designable name="eFc-sT-5XE">
+            <size key="intrinsicContentSize" width="100" height="100"/>
+        </designable>
         <designable name="gHr-GZ-2BW">
             <size key="intrinsicContentSize" width="121" height="34"/>
+        </designable>
+        <designable name="lGe-Ck-jXC">
+            <size key="intrinsicContentSize" width="24" height="24"/>
         </designable>
         <designable name="wA6-CJ-wcO">
             <size key="intrinsicContentSize" width="62" height="33"/>

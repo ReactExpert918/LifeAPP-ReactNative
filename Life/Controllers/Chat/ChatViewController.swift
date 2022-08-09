@@ -29,16 +29,10 @@ class User {
 enum ButtonType { case audio, video}
 
 class ChatViewController: UIViewController {
-    private enum Constants {
-        static let adUnitId: String = "ca-app-pub-9167808110872900/4939430243"
-        static let adHeight: CGFloat = 50
-    }
 
     var chatId = ""
     var recipientId = ""
     var fromNoti = false
-
-    private lazy var adView: AdView = .instantiate()
     
     var ref = Database.database().reference()
     
@@ -188,15 +182,6 @@ class ChatViewController: UIViewController {
                 self.scrollToBottom()
             }
         }
-
-        adView.model = AdViewModel(
-            unitId: Constants.adUnitId,
-            rootViewController: self,
-            onDidRecieveAd: { [weak self] in
-                guard let self = self else { return }
-                self.tableView.reloadData()
-            }
-        )
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -1226,14 +1211,6 @@ class ChatViewController: UIViewController {
 // MARK: - UITableViewDataSource
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 extension ChatViewController: UITableViewDataSource {
-
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return adView
-    }
-
-    func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
-        return Constants.adHeight
-    }
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
