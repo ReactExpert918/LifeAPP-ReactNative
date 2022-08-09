@@ -49,6 +49,9 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+        adView.frame = adViewContainer.bounds
+        adViewContainer.addSubview(adView)
+        
         adView.model = AdViewModel(
             unitId: Constants.adUnitId,
             adSize: CGSize(width: 300, height: 250),
