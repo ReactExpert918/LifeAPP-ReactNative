@@ -157,6 +157,14 @@
                                     <outlet property="delegate" destination="Yyh-2B-Plk" id="uo3-Vi-tQq"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nFd-pR-KT6">
+                                <rect key="frame" x="57" y="473" width="300" height="250"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="250" id="hzf-9K-uSV"/>
+                                    <constraint firstAttribute="width" constant="300" id="ikH-nC-J8U"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ry8-gu-OsW"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -164,8 +172,10 @@
                             <constraint firstItem="fYy-vM-Q2a" firstAttribute="trailing" secondItem="ry8-gu-OsW" secondAttribute="trailing" id="1iS-gn-fkz"/>
                             <constraint firstItem="UwE-V4-r5u" firstAttribute="trailing" secondItem="ry8-gu-OsW" secondAttribute="trailing" id="7P3-CY-WSL"/>
                             <constraint firstItem="UwE-V4-r5u" firstAttribute="top" secondItem="ry8-gu-OsW" secondAttribute="top" id="APC-3v-cZ9"/>
+                            <constraint firstItem="nFd-pR-KT6" firstAttribute="centerY" secondItem="KxH-qm-ieV" secondAttribute="centerY" constant="150" id="Dw2-MF-JdZ"/>
                             <constraint firstItem="fYy-vM-Q2a" firstAttribute="top" secondItem="UwE-V4-r5u" secondAttribute="bottom" id="Fkw-fW-jQ2"/>
                             <constraint firstItem="UwE-V4-r5u" firstAttribute="top" secondItem="Vaf-X9-Z4F" secondAttribute="bottom" id="La4-Mo-ozK"/>
+                            <constraint firstItem="nFd-pR-KT6" firstAttribute="centerX" secondItem="KxH-qm-ieV" secondAttribute="centerX" id="T3m-Wu-Sgm"/>
                             <constraint firstAttribute="bottom" secondItem="O4y-oi-uxY" secondAttribute="bottom" id="boq-jY-V31"/>
                             <constraint firstItem="Vaf-X9-Z4F" firstAttribute="leading" secondItem="KxH-qm-ieV" secondAttribute="leading" id="ejJ-r2-elu"/>
                             <constraint firstItem="UwE-V4-r5u" firstAttribute="leading" secondItem="ry8-gu-OsW" secondAttribute="leading" id="hr7-jk-vjn"/>
@@ -179,6 +189,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="72n-cL-4zr"/>
                     <connections>
+                        <outlet property="adViewContainer" destination="nFd-pR-KT6" id="8bm-qX-otZ"/>
                         <outlet property="tableView" destination="fYy-vM-Q2a" id="tl6-0x-D07"/>
                     </connections>
                 </viewController>

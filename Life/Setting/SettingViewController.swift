@@ -9,8 +9,16 @@
 import UIKit
 import RealmSwift
 import FittedSheets
-class SettingViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
+import JamitFoundation
 
+class SettingViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
+    private enum Constants {
+        static let adUnitId: String = "ca-app-pub-9167808110872900/4939430243"
+    }
+
+    private lazy var adView: AdView = .instantiate()
+
+    @IBOutlet weak var adViewContainer: UIView!
     @IBOutlet weak var tableView: UITableView!
     
     let sections = [NSLocalizedString("General Settings", comment: "General Settings")]
@@ -36,6 +44,19 @@ class SettingViewController: UIViewController, UITableViewDelegate, UITableViewD
         super.viewDidLoad()
         
         tableView.register(UINib(nibName: "SettingCellHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: SettingCellHeader.reuseIdentifier)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        adView.frame = adViewContainer.bounds
+        adViewContainer.addSubview(adView)
+        
+        adView.model = AdViewModel(
+            unitId: Constants.adUnitId,
+            adSize: CGSize(width: 300, height: 250),
+            rootViewController: self
+        )
     }
     
     @IBAction func closeTapped(_ sender: Any) {

@@ -14,6 +14,12 @@ protocol NewConversationDelegate {
 }
 class ChatListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NewConversationDelegate {
 
+    private enum Constants {
+        static let adUnitId: String = "ca-app-pub-9167808110872900/4939430243"
+        static let adHeight: CGFloat = 50
+    }
+
+
     @IBOutlet weak var searchBar: UISearchBar!
     
     @IBOutlet weak var chatsTableView: UITableView!
@@ -23,7 +29,9 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
 
     private var members    = realm.objects(Member.self).filter(falsepredicate)
     private var chats    = realm.objects(Chat.self).filter(falsepredicate)
-    
+
+    private lazy var adView: AdView = .instantiate()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -52,6 +60,15 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
         if (AuthUser.userId() != "") {
             loadMembers()
         }
+
+        adView.model = AdViewModel(
+            unitId: Constants.adUnitId,
+            rootViewController: self,
+            onDidRecieveAd: { [weak self] in
+                guard let self = self else { return }
+                self.chatsTableView.reloadData()
+            }
+        )
     }
     
     @objc func showChatView(notification: Notification) {
@@ -161,6 +178,10 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
 
         present(alert, animated: true)
     }
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return adView
+    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
@@ -227,6 +248,10 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 64
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return Constants.adHeight
     }
 
 }

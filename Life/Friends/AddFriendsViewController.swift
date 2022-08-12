@@ -12,8 +12,16 @@ import FirebaseFirestore
 import Contacts
 import ContactsUI
 import RealmSwift
+import JamitFoundation
+
 class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    private enum Constants {
+        static let adUnitId: String = "ca-app-pub-9167808110872900/4939430243"
+    }
+
+    private lazy var adView: AdView = .instantiate()
     
+    @IBOutlet weak var adViewContainer: UIView!
     @IBOutlet weak var tableView: UITableView!
     //Popup for sending Friend Request
     @IBOutlet weak var popupView: UIView!
@@ -57,6 +65,8 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
         //refreshView()
         // Do any additional setup after loading the view.
     }
+
+    
     
     
     
@@ -491,5 +501,14 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
     override func viewWillAppear(_ animated: Bool) {
         refreshView()
         //loadFriends()
+
+        adView.frame = adViewContainer.bounds
+        adViewContainer.addSubview(adView)
+
+        adView.model = AdViewModel(
+            unitId: Constants.adUnitId,
+            adSize: CGSize(width: 300, height: 250),
+            rootViewController: self
+        )
     }
 }
