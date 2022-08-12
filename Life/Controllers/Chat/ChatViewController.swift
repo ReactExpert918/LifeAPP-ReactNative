@@ -419,12 +419,14 @@ class ChatViewController: UIViewController {
             callAdudioView.receiver = recipientId
             callAdudioView.outgoing = true
             callAdudioView.incoming = false
+        
             present(callAdudioView, animated: true)
             let realm = try! Realm()
             
             let sender = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
                         
             PushNotification.sendCall(name: sender?.getFullName() ?? "", chatId: self.chatId, recipientId: self.recipientId, senderId: AuthUser.userId(), hasVideo: 0)
+
 
             if let sender = sender {
                 startCall(handle: sender.fullname, videoEnabled: false)
@@ -447,16 +449,23 @@ class ChatViewController: UIViewController {
     }
 
     private func startCall(handle: String, videoEnabled: Bool) {
-        let handle = CXHandle(type: .generic, value: handle)
-        let uuid = UUID()
-      let startCallAction = CXStartCallAction(call: uuid, handle: handle)
-      startCallAction.isVideo = videoEnabled
-      let transaction = CXTransaction(action: startCallAction)
-        if let app = app {
-            app.callKitProvider?.outgoingUUID = uuid
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+            guard let self = self else { return }
+            let handle = CXHandle(type: .generic, value: handle)
+            let uuid = UUID()
+          let startCallAction = CXStartCallAction(call: uuid, handle: handle)
+          startCallAction.isVideo = videoEnabled
+          let transaction = CXTransaction(action: startCallAction)
+            if let app = self.app {
+                app.callKitProvider?.outgoingUUID = uuid
+                let realm = try! Realm()
+                let sender = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
+                app.callKitProvider?.call = Call(name: sender?.getFullName() ?? "", chatId: self.chatId, recipientId: self.recipientId, isVideo: false, uuID: uuid, senderId: AuthUser.userId())
+            }
+            self.requestTransaction(transaction)
         }
-      requestTransaction(transaction)
-    }
+
+       }
 
     private func requestTransaction(_ transaction: CXTransaction) {
       callController.request(transaction) { error in

@@ -11,6 +11,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
+    let app = UIApplication.shared.delegate as? AppDelegate
+
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -80,6 +82,26 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneWillEnterForeground(_ scene: UIScene) {
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
+        if let app = app {
+            if app.callKitProvider?.call != nil || app.callKitProvider?.outgoingUUID != nil {
+                guard let topVC = topViewController() else { return }
+                app.callKitProvider?.openCallView(topController: topVC, outgoing: true, comingFromForeground: true)
+        }
+        }
+    }
+
+    private func topViewController() -> UIViewController? {
+
+        let keyWindow = UIApplication.shared.windows.first { $0.isKeyWindow }
+        var viewController = keyWindow?.rootViewController
+
+        while (viewController?.presentedViewController != nil) {
+            viewController = viewController?.presentedViewController
+        }
+        return viewController
+    }
+    
+
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
@@ -94,5 +116,4 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
 
-}
 

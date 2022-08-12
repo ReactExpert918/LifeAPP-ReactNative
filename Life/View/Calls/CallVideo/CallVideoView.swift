@@ -27,6 +27,8 @@ class CallVideoView: UIViewController {
     @IBOutlet weak var uiv_request: UIView!
     var isVideoEnabled = true
     
+    var comingFromForeground: Bool = false
+
     let ref = Database.database().reference()
     
 	private var person: Person!
@@ -145,8 +147,8 @@ class CallVideoView: UIViewController {
         self.buttonBack.setTitle("", for: .normal)
         self.buttonBack.setImage(UIImage(named: "ic_arrow_back")?.resize(width: 17, height: 30).withRenderingMode(.alwaysTemplate), for: .normal)
 
-        if (incoming) { setIncomingUI() }
-        if (outgoing) { setOutGoingUI() }
+        if (incoming && !comingFromForeground) { setIncomingUI() }
+        if (outgoing && !comingFromForeground) { setOutGoingUI() }
         
         labelName.text = name
 	}
@@ -158,10 +160,8 @@ class CallVideoView: UIViewController {
             callKit.removeStateListner()
             callKit.removeReport()
         }
-        if(type == 0){
-            loadPerson()
-        }else{
-            loadGroup(self.group!)
+        if type == 1 && !comingFromForeground{
+            self.joinAction()
         }
 
         adView.frame = adViewContainer.bounds
@@ -308,7 +308,7 @@ class CallVideoView: UIViewController {
 
         if let app = app {
             if let callKitProvider = app.callKitProvider {
-                self.end(uuid: callKitProvider.outgoingUUID)
+                self.end(uuid: callKitProvider.outgoingUUID ?? UUID())
             }
         }
 
@@ -327,7 +327,7 @@ class CallVideoView: UIViewController {
 
         if let app = app {
             if let callKitProvider = app.callKitProvider {
-                self.end(uuid: callKitProvider.outgoingUUID)
+                self.end(uuid: callKitProvider.outgoingUUID ?? UUID())
             }
         }
 

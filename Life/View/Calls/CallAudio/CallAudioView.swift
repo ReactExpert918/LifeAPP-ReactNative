@@ -66,7 +66,9 @@ class CallAudioView: UIViewController {
     private var type = 0
     private var group:Group?
     private var callString = ""
-    
+
+    var comingFromForeground: Bool = false
+
     var roomID = ""
     var receiver: String = ""
     var sender: String = ""
@@ -155,8 +157,8 @@ class CallAudioView: UIViewController {
         self.buttonBack.setTitle("", for: .normal)
         self.buttonBack.setImage(UIImage(named: "ic_arrow_back")?.resize(width: 17, height: 30).withRenderingMode(.alwaysTemplate), for: .normal)
         
-        if (incoming) { setIncomingUI() }
-        if (outgoing) { setOutgoingUI() }
+        if (incoming && !comingFromForeground) { setIncomingUI() }
+        if (outgoing && !comingFromForeground) { setOutgoingUI() }
         // dotted progressview
         dottedProgressBar = DottedProgressBar()
         dottedProgressBar?.progressAppearance = DottedProgressBar.DottedProgressAppearance(dotRadius: 6.0, dotsColor: UIColor(hexString: "#33000000")!, dotsProgressColor: UIColor(hexString: "#00406E")!, backColor: UIColor.clear)
@@ -184,8 +186,12 @@ class CallAudioView: UIViewController {
         
         let progress = Int(audioSession.outputVolume / 1.0 * 6)
         dottedProgressBar?.setProgress(value: progress)
-        if type == 1{
+        if type == 1 && !comingFromForeground{
             self.joinAction()
+        }
+
+        if comingFromForeground {
+            setConnectedUI()
         }
     }
     
@@ -257,9 +263,11 @@ class CallAudioView: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
 
         super.viewWillAppear(animated)
+        if !comingFromForeground {
         if let callKit = app?.callKitProvider {
             callKit.removeStateListner()
             callKit.removeReport()
+        }
         }
         if(type==0){
             loadPerson()
@@ -272,7 +280,9 @@ class CallAudioView: UIViewController {
         }
         labelName.text = callString
 
+        if !comingFromForeground {
         self.voiceCallStatusListner(self.roomID)
+        }
 
         adView.frame = adViewContainer.bounds
         adViewContainer.addSubview(adView)
@@ -376,17 +386,19 @@ class CallAudioView: UIViewController {
                 callKit.removeStateListner()
                 callKit.removeCall()
             }
-            if let voiceStatusHandle = self.voiceStatusHandle{
+            if let voiceStatusHandle = self.voiceStatusHandle {
                 FirebaseAPI.removeVoiceCallListnerObserver(self.roomID, voiceStatusHandle)
             }
             if let voiceStatusRemoveHandle = self.voiceStatusRemoveHandle{
                 FirebaseAPI.removeVoiceCallRemoveListnerObserver(self.roomID, voiceStatusRemoveHandle)
             }
+
+            self.app?.callKitProvider?.endReport()
             NotificationCenter.default.removeObserver(self)
 
             if let app = self.app {
                 if let callKitProvider = app.callKitProvider {
-                    self.end(uuid: callKitProvider.outgoingUUID)
+                    self.end(uuid: callKitProvider.outgoingUUID ?? UUID())
                 }
             }
 
@@ -434,10 +446,11 @@ class CallAudioView: UIViewController {
                 FirebaseAPI.removeVoiceCallRemoveListnerObserver(self.roomID, voiceStatusRemoveHandle)
             }
             NotificationCenter.default.removeObserver(self)
+            self.app?.callKitProvider?.endReport()
 
             if let app = self.app {
                 if let callKitProvider = app.callKitProvider {
-                    self.end(uuid: callKitProvider.outgoingUUID)
+                    self.end(uuid: callKitProvider.outgoingUUID ?? UUID())
                 }
             }
         }
