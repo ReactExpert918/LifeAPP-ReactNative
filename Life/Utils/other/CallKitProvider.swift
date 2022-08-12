@@ -12,6 +12,8 @@
 import CallKit
 import UIKit
 import FirebaseDatabase
+import RealmSwift
+
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 class CallKitProvider: NSObject {
     
@@ -22,6 +24,11 @@ class CallKitProvider: NSObject {
     
     var videoStatusRemoveHandle: UInt?
     var voiceStatusRemoveHandle: UInt?
+
+    private let callController = CXCallController()
+
+    private let app = UIApplication.shared.delegate as? AppDelegate
+ 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	override init() {
 
@@ -36,6 +43,35 @@ class CallKitProvider: NSObject {
 		cxprovider = CXProvider(configuration: configuration)
 		cxprovider.setDelegate(self, queue: nil)
 	}
+
+    private func startCall(handle: String, videoEnabled: Bool) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+            guard let self = self else { return }
+            guard let call = self.call else { return }
+            let handle = CXHandle(type: .generic, value: handle)
+            let uuid = UUID()
+          let startCallAction = CXStartCallAction(call: uuid, handle: handle)
+          startCallAction.isVideo = videoEnabled
+          let transaction = CXTransaction(action: startCallAction)
+            if let app = self.app {
+                let realm = try! Realm()
+                let sender = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
+                app.callKitProvider?.call = Call(name: sender?.getFullName() ?? "", chatId: call.chatId, recipientId: call.recipientId, isVideo: false, uuID: uuid, senderId: AuthUser.userId())
+            }
+            self.requestTransaction(transaction)
+        }
+
+       }
+
+    private func requestTransaction(_ transaction: CXTransaction) {
+      callController.request(transaction) { error in
+        if let error = error {
+          print("Error requesting transaction: \(error)")
+        } else {
+          print("Requested transaction successfully")
+        }
+      }
+    }
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	func didReceivePush(withPayload payload: [AnyHashable: Any]?) {
@@ -65,7 +101,12 @@ class CallKitProvider: NSObject {
             let update = CXCallUpdate()
             update.remoteHandle = CXHandle(type: .generic, value: name ?? "Life App")
             update.hasVideo = hasVideo == 1
-            self.cxprovider.reportNewIncomingCall(with: uuid, update: update, completion: { error in })
+            self.cxprovider.reportNewIncomingCall(with: uuid, update: update, completion: {[weak self] error in
+                guard let self = self else { return }
+                if error != nil {
+                self.cxprovider.reportCall(with: uuid, endedAt: nil, reason: .failed)
+                }
+            })
             
             if (hasVideo == 0) {
                 self.voiceStatusRemoveHandle = FirebaseAPI.setVoiceCallRemoveListener(chatId){ [self] (receiverid) in
@@ -188,7 +229,11 @@ extension CallKitProvider: CXProviderDelegate {
             var status = [String: Any]()
             status["receiver"]   = call.recipientId
             status["status"]   = Status.accept.rawValue
-            
+            if !comingFromForeground {
+                let realm = try! Realm()
+                let sender = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
+                startCall(handle: sender?.getFullName() ?? "", videoEnabled: false)
+            }
             FirebaseAPI.sendVideoCallStatus(status, call.chatId) { (isSuccess, data) in
                 
             }
@@ -206,10 +251,15 @@ extension CallKitProvider: CXProviderDelegate {
             status["receiver"]   = call.recipientId
             status["status"]   = Status.accept.rawValue
             if !comingFromForeground {
+                let realm = try! Realm()
+                let sender = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
+                startCall(handle: sender?.getFullName() ?? "", videoEnabled: false)
             FirebaseAPI.sendVoiceCallStatus(status, call.chatId) { (isSuccess, data) in
                 
             }
             }
+
+            
         }
     }
 
