@@ -19,6 +19,7 @@ import GoogleMobileAds
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 var realm = try! Realm()
 let falsepredicate = NSPredicate(value: false)
+let statusBarTappedNotification = Notification(name: Notification.Name(rawValue: "statusBarTappedNotification"))
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 
 @UIApplicationMain
@@ -133,6 +134,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+
+        let window = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
+        let statusBarRect = window?.windowScene?.statusBarManager?.statusBarFrame ?? CGRect()
+            guard let touchPoint = event?.allTouches?.first?.location(in: window) else { return }
+
+            if statusBarRect.contains(touchPoint) {
+                showCallView()
+            }
+    }
+
+    private func showCallView() {
+        guard let topViewController = topViewController() else {
+
+            let app = UIApplication.shared.delegate as? AppDelegate
+            app?.pendingVideoCall = true
+            return
+        }
+
+        callKitProvider?.openCallView(topController: topViewController)
+    }
+
+    private func topViewController() -> UIViewController? {
+
+        let keyWindow = UIApplication.shared.windows.first { $0.isKeyWindow }
+        var viewController = keyWindow?.rootViewController
+
+        while (viewController?.presentedViewController != nil) {
+            viewController = viewController?.presentedViewController
+        }
+        return viewController
+    }
+
+
     // MARK: - Sinch user methods
     //---------------------------------------------------------------------------------------------------------------------------------------------
     @objc func sinchLogInUser() {
@@ -159,6 +196,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         client?.terminateGracefully()
         client = nil
     }
+
+
+    func applicationWillEnterForeground(_ application: UIApplication) {
+        if callKitProvider?.call != nil || callKitProvider?.outgoingUUID != nil {
+            print("i detect a call")
+        }
+    }
+
+    
 
 }
 

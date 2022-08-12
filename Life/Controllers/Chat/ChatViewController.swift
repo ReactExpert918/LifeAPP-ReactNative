@@ -14,6 +14,7 @@ import IQKeyboardManagerSwift
 import FittedSheets
 import FirebaseDatabase
 import Photos
+import CallKit
 
 class User {
     
@@ -35,6 +36,8 @@ class ChatViewController: UIViewController {
     var fromNoti = false
     
     var ref = Database.database().reference()
+
+    private let callController = CXCallController()
     
     private var detail: Detail?
     private var details = realm.objects(Detail.self).filter(falsepredicate)
@@ -94,6 +97,9 @@ class ChatViewController: UIViewController {
     private var tokenMembers: NotificationToken? = nil
     private var members = realm.objects(Member.self).filter(falsepredicate)
     private var users:[User] = []
+
+    let app = UIApplication.shared.delegate as? AppDelegate
+
     
     @IBOutlet weak var zedPayButton: UIView!
     
@@ -413,12 +419,19 @@ class ChatViewController: UIViewController {
             callAdudioView.receiver = recipientId
             callAdudioView.outgoing = true
             callAdudioView.incoming = false
+        
             present(callAdudioView, animated: true)
             let realm = try! Realm()
             
             let sender = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
                         
             PushNotification.sendCall(name: sender?.getFullName() ?? "", chatId: self.chatId, recipientId: self.recipientId, senderId: AuthUser.userId(), hasVideo: 0)
+
+
+            if let sender = sender {
+                startCall(handle: sender.fullname, videoEnabled: false)
+            }
+
             //Messages.sendCalling(chatId: chatId, recipientId: recipientId, type: .MISSED_CALL)
         }else{
             var personsId: [String] = []
@@ -429,13 +442,44 @@ class ChatViewController: UIViewController {
                 let callAudioView = CallAudioView(group: group, persons: personsId)
                 callAudioView.roomID = self.chatId
                 present(callAudioView, animated: true)
+
+                startCall(handle: "Unknown", videoEnabled: false)
             }
         }
+    }
+
+    private func startCall(handle: String, videoEnabled: Bool) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+            guard let self = self else { return }
+            let handle = CXHandle(type: .generic, value: handle)
+            let uuid = UUID()
+          let startCallAction = CXStartCallAction(call: uuid, handle: handle)
+          startCallAction.isVideo = videoEnabled
+          let transaction = CXTransaction(action: startCallAction)
+            if let app = self.app {
+                app.callKitProvider?.outgoingUUID = uuid
+                let realm = try! Realm()
+                let sender = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
+                app.callKitProvider?.call = Call(name: sender?.getFullName() ?? "", chatId: self.chatId, recipientId: self.recipientId, isVideo: false, uuID: uuid, senderId: AuthUser.userId())
+            }
+            self.requestTransaction(transaction)
+        }
+
+       }
+
+    private func requestTransaction(_ transaction: CXTransaction) {
+      callController.request(transaction) { error in
+        if let error = error {
+          print("Error requesting transaction: \(error)")
+        } else {
+          print("Requested transaction successfully")
+        }
+      }
     }
     
     @IBAction func actionVideoCall(_ sender: Any) {
         showCallToolbar(value: false)
-        
+
         if (recipientId != "") {
             let callVideoView = CallVideoView(userId: self.recipientId)
             callVideoView.roomID = self.chatId
@@ -448,7 +492,11 @@ class ChatViewController: UIViewController {
             let sender = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
                         
             PushNotification.sendCall(name: sender?.getFullName() ?? "", chatId: self.chatId, recipientId: self.recipientId, senderId: AuthUser.userId(), hasVideo: 1)
-            
+
+            if let sender = sender {
+                startCall(handle: sender.fullname, videoEnabled: true)
+            }
+              
         } else {
             var personsId: [String] = []
             for person in persons {
@@ -461,6 +509,7 @@ class ChatViewController: UIViewController {
                 let callVideoView = self.storyboard?.instantiateViewController(withIdentifier: "GroupVideoCallViewController") as! GroupVideoCallViewController
                 callVideoView.modalPresentationStyle = .fullScreen
                 callVideoView.roomName = self.chatId
+                startCall(handle: "Unknown", videoEnabled: true)
                 present(callVideoView, animated: true)
             }
         }

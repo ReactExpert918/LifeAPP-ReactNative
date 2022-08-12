@@ -16,7 +16,9 @@ import FirebaseDatabase
 class CallKitProvider: NSObject {
     
 	private var cxprovider: CXProvider!
-    private var call: Call?
+     var call: Call?
+
+    var outgoingUUID: UUID?
     
     var videoStatusRemoveHandle: UInt?
     var voiceStatusRemoveHandle: UInt?
@@ -44,8 +46,7 @@ class CallKitProvider: NSObject {
             guard let chatId = values["chatId"] as? String else {
                 return
             }
-            
-            
+
             
             let name = values["name"] as? String
             let recipientId = values["recipientId"] as? String
@@ -87,6 +88,12 @@ class CallKitProvider: NSObject {
     func removeReport() {
         if let call = self.call {
             self.cxprovider.reportCall(with: call.uuID, endedAt: Date(), reason: .answeredElsewhere)
+        }
+    }
+
+    func endReport() {
+        if let call = self.call {
+            self.cxprovider.reportCall(with: call.uuID, endedAt: Date(), reason: .remoteEnded)
         }
     }
     
@@ -160,16 +167,23 @@ extension CallKitProvider: CXProviderDelegate {
 		
 	}
     
-    func openCallView(topController: UIViewController) {
+    func openCallView(topController: UIViewController, outgoing: Bool = false, comingFromForeground: Bool = false) {
         guard let call = self.call else { return }
-        
+        if let _ = topController as? CallAudioView {
+            return
+        }
+        if let _ = topController as? CallVideoView {
+            return
+        }
+
         if (call.isVideo) {
             let callVideoView = CallVideoView(userId: call.recipientId)
+            callVideoView.comingFromForeground = comingFromForeground
             callVideoView.roomID = call.chatId
             callVideoView.receiver = call.recipientId
             callVideoView.name = topController.description
-            callVideoView.outgoing = false
-            callVideoView.incoming = true
+            callVideoView.outgoing = outgoing
+            callVideoView.incoming = !outgoing
             topController.present(callVideoView, animated: true)
             var status = [String: Any]()
             status["receiver"]   = call.recipientId
@@ -180,19 +194,21 @@ extension CallKitProvider: CXProviderDelegate {
             }
         } else {
             let callAudioView = CallAudioView(userId: call.recipientId)
+            callAudioView.comingFromForeground = comingFromForeground
             callAudioView.roomID = call.chatId
             callAudioView.receiver = call.recipientId
             callAudioView.sender = call.senderId
-            callAudioView.outgoing = false
-            callAudioView.incoming = true
+            callAudioView.outgoing = outgoing
+            callAudioView.incoming = !outgoing
             topController.present(callAudioView, animated: false)
             
             var status = [String: Any]()
             status["receiver"]   = call.recipientId
             status["status"]   = Status.accept.rawValue
-            
+            if !comingFromForeground {
             FirebaseAPI.sendVoiceCallStatus(status, call.chatId) { (isSuccess, data) in
                 
+            }
             }
         }
     }
