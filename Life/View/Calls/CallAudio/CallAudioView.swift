@@ -311,15 +311,18 @@ class CallAudioView: UIViewController {
     // MARK: - Realm methods
     
     func loadPerson() {
-        let primaryKey = outgoing ? receiver : sender
-        person = realm.object(ofType: Person.self, forPrimaryKey: primaryKey)
-        labelInitials.text = nil
-        MediaDownload.startUser(person.objectId, pictureAt: person.pictureAt) { image, error in
-            if (error == nil) {
-                self.imageUser.image = image
-            }
-            else {
-                self.imageUser.image = UIImage(named: "ic_default_profile")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+            guard let self = self else { return }
+            let primaryKey = self.outgoing ? self.receiver : self.sender
+            self.person = realm.object(ofType: Person.self, forPrimaryKey: primaryKey)
+            self.labelInitials.text = nil
+            MediaDownload.startUser(self.person.objectId, pictureAt: self.person.pictureAt) { image, error in
+                if (error == nil) {
+                    self.imageUser.image = image
+                }
+                else {
+                    self.imageUser.image = UIImage(named: "ic_default_profile")
+                }
             }
         }
     }

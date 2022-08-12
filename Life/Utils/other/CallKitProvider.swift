@@ -55,7 +55,7 @@ class CallKitProvider: NSObject {
           let transaction = CXTransaction(action: startCallAction)
             if let app = self.app {
                 let realm = try! Realm()
-                let sender = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
+                let sender = realm.object(ofType: Person.self, forPrimaryKey: call.recipientId)
                 app.callKitProvider?.call = Call(name: sender?.getFullName() ?? "", chatId: call.chatId, recipientId: call.recipientId, isVideo: false, uuID: uuid, senderId: AuthUser.userId())
             }
             self.requestTransaction(transaction)
@@ -231,7 +231,8 @@ extension CallKitProvider: CXProviderDelegate {
             status["status"]   = Status.accept.rawValue
             if !comingFromForeground {
                 let realm = try! Realm()
-                let sender = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
+                let primaryKey = outgoing ? call.recipientId : call.senderId
+                let sender = realm.object(ofType: Person.self, forPrimaryKey: primaryKey)
                 startCall(handle: sender?.getFullName() ?? "", videoEnabled: false)
             }
             FirebaseAPI.sendVideoCallStatus(status, call.chatId) { (isSuccess, data) in
@@ -252,7 +253,8 @@ extension CallKitProvider: CXProviderDelegate {
             status["status"]   = Status.accept.rawValue
             if !comingFromForeground {
                 let realm = try! Realm()
-                let sender = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
+                let primaryKey = outgoing ? call.recipientId : call.senderId
+                let sender = realm.object(ofType: Person.self, forPrimaryKey: primaryKey)
                 startCall(handle: sender?.getFullName() ?? "", videoEnabled: false)
             FirebaseAPI.sendVoiceCallStatus(status, call.chatId) { (isSuccess, data) in
                 
