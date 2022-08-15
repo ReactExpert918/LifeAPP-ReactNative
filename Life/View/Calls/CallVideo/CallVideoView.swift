@@ -487,7 +487,6 @@ class CallVideoView: UIViewController {
         FirebaseAPI.sendVideoCallStatus(status, self.roomID) { (isSuccess, data) in
             
         }
-		//call?.answer()
 	}
 
 	// MARK: - Helper methods

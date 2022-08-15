@@ -181,9 +181,7 @@ class CallAudioView: UIViewController {
         } else {
             NotificationCenter.default.addObserver(self, selector: #selector(self.volumeDidChange(notification:)), name: NSNotification.Name(rawValue: "AVSystemController_AudioVolumeNotificationParameter"), object: nil)
         }
-        
-        
-        
+
         let progress = Int(audioSession.outputVolume / 1.0 * 6)
         dottedProgressBar?.setProgress(value: progress)
         if type == 1 && !comingFromForeground{
@@ -382,6 +380,19 @@ class CallAudioView: UIViewController {
     
     @IBAction func actionHangup(_ sender: Any) {
         self.leaveChannel()
+
+        if let app = self.app {
+            if let callKitProvider = app.callKitProvider {
+                if let outgoingUUID = callKitProvider.outgoingUUID {
+                    self.end(uuid: outgoingUUID)
+                } else {
+                    if let call = callKitProvider.call {
+                        self.end(uuid: call.uuID)
+                    }
+                }
+            }
+        }
+
         ref.child("voice_call").child(self.roomID).removeValue()
         self.dismiss(animated: true) { [weak self] in
             guard let self = self else { return }
@@ -399,13 +410,7 @@ class CallAudioView: UIViewController {
             self.app?.callKitProvider?.endReport()
             NotificationCenter.default.removeObserver(self)
 
-            if let app = self.app {
-                if let callKitProvider = app.callKitProvider {
-                    self.end(uuid: callKitProvider.outgoingUUID ?? UUID())
-                }
-            }
-
-        }
+    }
     }
 
     func end(uuid: UUID) {
@@ -431,7 +436,19 @@ class CallAudioView: UIViewController {
             return
         }
         self.stopSelf = true
-        
+
+        if let app = self.app {
+            if let callKitProvider = app.callKitProvider {
+                if let outgoingUUID = callKitProvider.outgoingUUID {
+                    self.end(uuid: outgoingUUID)
+                } else {
+                    if let call = callKitProvider.call {
+                        self.end(uuid: call.uuID)
+                    }
+                }
+            }
+        }
+
         DispatchQueue.main.async {
             self.audioController?.stopPlayingSoundFile()
         }
@@ -450,12 +467,6 @@ class CallAudioView: UIViewController {
             }
             NotificationCenter.default.removeObserver(self)
             self.app?.callKitProvider?.endReport()
-
-            if let app = self.app {
-                if let callKitProvider = app.callKitProvider {
-                    self.end(uuid: callKitProvider.outgoingUUID ?? UUID())
-                }
-            }
         }
     }
     

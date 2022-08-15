@@ -111,6 +111,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+
+    #if DEBUG
+        Messaging.messaging().setAPNSToken(deviceToken, type: .sandbox)
+    #else
+        Messaging.messaging().setAPNSToken(deviceToken, type: .prod)
+    #endif
     }
 
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
@@ -131,20 +137,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
-    }
-
-
-
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-
-        let window = UIApplication.shared.windows.filter {$0.isKeyWindow}.first
-        let statusBarRect = window?.windowScene?.statusBarManager?.statusBarFrame ?? CGRect()
-            guard let touchPoint = event?.allTouches?.first?.location(in: window) else { return }
-
-            if statusBarRect.contains(touchPoint) {
-                showCallView()
-            }
     }
 
     private func showCallView() {
@@ -433,7 +425,7 @@ enum AppBoards: String {
     case setting = "Setting"
     case zedpay  = "ZedPay"
     
-    
+
     var instance: UIStoryboard {
         return UIStoryboard(name: self.rawValue, bundle: nil)
     }

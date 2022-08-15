@@ -13,36 +13,38 @@ import CallKit
 import UIKit
 import FirebaseDatabase
 import RealmSwift
-
+import AgoraRtcKit
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 class CallKitProvider: NSObject {
     
-	private var cxprovider: CXProvider!
-     var call: Call?
+    private var cxprovider: CXProvider!
+    var call: Call?
 
     var outgoingUUID: UUID?
     
     var videoStatusRemoveHandle: UInt?
     var voiceStatusRemoveHandle: UInt?
 
+    var agoraKit: AgoraRtcEngineKit?
+
     private let callController = CXCallController()
 
     private let app = UIApplication.shared.delegate as? AppDelegate
- 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	override init() {
 
-		super.init()
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    override init() {
 
-		let configuration = CXProviderConfiguration(localizedName: "LIFE")
-		configuration.supportsVideo = true
-		configuration.maximumCallGroups = 1
-		configuration.maximumCallsPerCallGroup = 50
-		configuration.includesCallsInRecents = true
+        super.init()
+
+        let configuration = CXProviderConfiguration(localizedName: "LIFE")
+        configuration.supportsVideo = true
+        configuration.maximumCallGroups = 1
+        configuration.maximumCallsPerCallGroup = 50
+        configuration.includesCallsInRecents = true
         configuration.supportedHandleTypes = [.generic]
-		cxprovider = CXProvider(configuration: configuration)
-		cxprovider.setDelegate(self, queue: nil)
-	}
+        cxprovider = CXProvider(configuration: configuration)
+        cxprovider.setDelegate(self, queue: nil)
+    }
 
     private func startCall(handle: String, videoEnabled: Bool) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
@@ -50,9 +52,9 @@ class CallKitProvider: NSObject {
             guard let call = self.call else { return }
             let handle = CXHandle(type: .generic, value: handle)
             let uuid = UUID()
-          let startCallAction = CXStartCallAction(call: uuid, handle: handle)
-          startCallAction.isVideo = videoEnabled
-          let transaction = CXTransaction(action: startCallAction)
+            let startCallAction = CXStartCallAction(call: uuid, handle: handle)
+            startCallAction.isVideo = videoEnabled
+            let transaction = CXTransaction(action: startCallAction)
             if let app = self.app {
                 let realm = try! Realm()
                 let sender = realm.object(ofType: Person.self, forPrimaryKey: call.recipientId)
@@ -61,20 +63,20 @@ class CallKitProvider: NSObject {
             self.requestTransaction(transaction)
         }
 
-       }
-
-    private func requestTransaction(_ transaction: CXTransaction) {
-      callController.request(transaction) { error in
-        if let error = error {
-          print("Error requesting transaction: \(error)")
-        } else {
-          print("Requested transaction successfully")
-        }
-      }
     }
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	func didReceivePush(withPayload payload: [AnyHashable: Any]?) {
+    private func requestTransaction(_ transaction: CXTransaction) {
+        callController.request(transaction) { error in
+            if let error = error {
+                print("Error requesting transaction: \(error)")
+            } else {
+                print("Requested transaction successfully")
+            }
+        }
+    }
+
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func didReceivePush(withPayload payload: [AnyHashable: Any]?) {
         guard let payload = payload else {
             return
         }
@@ -104,7 +106,7 @@ class CallKitProvider: NSObject {
             self.cxprovider.reportNewIncomingCall(with: uuid, update: update, completion: {[weak self] error in
                 guard let self = self else { return }
                 if error != nil {
-                self.cxprovider.reportCall(with: uuid, endedAt: nil, reason: .failed)
+                    self.cxprovider.reportCall(with: uuid, endedAt: nil, reason: .failed)
                 }
             })
             
@@ -119,8 +121,9 @@ class CallKitProvider: NSObject {
                     self.removeCall()
                 }
             }
+
         }
-	}
+    }
     
     func removeCall() {
         self.call = nil
@@ -150,63 +153,101 @@ class CallKitProvider: NSObject {
     }
     
 
-	// MARK: - Helper methods
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	private func topViewController() -> UIViewController? {
+    // MARK: - Helper methods
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    private func topViewController() -> UIViewController? {
 
-		let keyWindow = UIApplication.shared.windows.first { $0.isKeyWindow }
-		var viewController = keyWindow?.rootViewController
+        let keyWindow = UIApplication.shared.windows.first { $0.isKeyWindow }
+        var viewController = keyWindow?.rootViewController
 
-		while (viewController?.presentedViewController != nil) {
-			viewController = viewController?.presentedViewController
-		}
-		return viewController
-	}
+        while (viewController?.presentedViewController != nil) {
+            viewController = viewController?.presentedViewController
+        }
+        return viewController
+    }
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 extension CallKitProvider: CXProviderDelegate {
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	func providerDidBegin(_ provider: CXProvider) {
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func providerDidBegin(_ provider: CXProvider) {
 
-	}
+    }
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	func providerDidReset(_ provider: CXProvider) {
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func providerDidReset(_ provider: CXProvider) {
 
-	}
+    }
 
 
-	// MARK: -
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	func provider(_ provider: CXProvider, perform action: CXStartCallAction) {
+    // MARK: -
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func provider(_ provider: CXProvider, perform action: CXStartCallAction) {
+
+
         
-	}
+    }
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	func provider(_ provider: CXProvider, perform action: CXAnswerCallAction) {
-        action.fulfill()
-        
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func provider(_ provider: CXProvider, perform action: CXAnswerCallAction) {
+
         //provider.reportCall(with: action.callUUID, endedAt: Date(), reason: .answeredElsewhere)
         
-        guard let topViewController = topViewController() else {
+        //        openCallView(topController: topViewController() ?? UIViewController())
+        let state = UIApplication.shared.applicationState
+        if state == .inactive || state == .background {
 
-            let app = UIApplication.shared.delegate as? AppDelegate
-            app?.pendingVideoCall = true
-            return
+            agoraKit = AgoraRtcEngineKit.sharedEngine(withAppId: AppConstant.agoraAppID, delegate: self)
+            // Allows a user to join a channel.
+            if let agoraKit = self.agoraKit {
+                if let call = call {
+                    var status = [String: Any]()
+                    status["receiver"]   = call.recipientId
+                    status["status"]   = Status.accept.rawValue
+                    agoraKit.joinChannel(byToken: "", channelId: call.chatId , info: nil, uid:0) {(sid, uid, elapsed) -> Void in
+                        // Joined channel "demoChannel"
+                        agoraKit.setEnableSpeakerphone(false)
+                        UIApplication.shared.isIdleTimerDisabled = true
+                        if call.isVideo {
+                            FirebaseAPI.sendVideoCallStatus(status, call.chatId) { (isSuccess, data) in
+
+                            }
+                        }
+                        FirebaseAPI.sendVoiceCallStatus(status, call.chatId) { (isSuccess, data) in
+
+                        }
+                    }
+                    action.fulfill()
+                }else{
+                    action.fail()
+                }
+            }else {
+                action.fail()
+            }
+        } else {
+            if let _ = self.call {
+                if outgoingUUID == nil {
+            openCallView(topController: topViewController() ?? UIViewController())
+                }
+            action.fulfill()
+            }else{
+                action.fail()
+            }
         }
-        
-        if topViewController.nibName != "life app" {
-            let app = UIApplication.shared.delegate as? AppDelegate
-            app?.pendingVideoCall = true
-            NotificationCenter.default.post(name: NSNotification.Name(NotificationStatus.NOTIFICATION_RECEIVE_CALL), object: nil)
-            return
+
+
+    }
+
+    func leaveChannel() {
+        if let agoraKit = self.agoraKit{
+            agoraKit.leaveChannel(nil)
+            UIApplication.shared.isIdleTimerDisabled = false
+            UIDevice.current.isProximityMonitoringEnabled = false
         }
-        
-        self.openCallView(topController: topViewController)
-		
-	}
+
+        outgoingUUID = nil 
+    }
     
     func openCallView(topController: UIViewController, outgoing: Bool = false, comingFromForeground: Bool = false) {
         guard let call = self.call else { return }
@@ -251,27 +292,26 @@ extension CallKitProvider: CXProviderDelegate {
             var status = [String: Any]()
             status["receiver"]   = call.recipientId
             status["status"]   = Status.accept.rawValue
+
             if !comingFromForeground {
                 let realm = try! Realm()
                 let primaryKey = outgoing ? call.recipientId : call.senderId
                 let sender = realm.object(ofType: Person.self, forPrimaryKey: primaryKey)
                 startCall(handle: sender?.getFullName() ?? "", videoEnabled: false)
+            }
             FirebaseAPI.sendVoiceCallStatus(status, call.chatId) { (isSuccess, data) in
-                
-            }
-            }
 
-            
+            }
         }
     }
 
-	//---------------------------------------------------------------------------------------------------------------------------------------------
-	func provider(_ provider: CXProvider, perform action: CXEndCallAction) {
-		action.fulfill()
+    //---------------------------------------------------------------------------------------------------------------------------------------------
+    func provider(_ provider: CXProvider, perform action: CXEndCallAction) {
+        action.fulfill()
         if let call = self.call {
             Database.database().reference().child(call.isVideo ? "video_call" : "voice_call").child(call.chatId).removeValue()
-        }        
-	}
+        }
+    }
 }
 
 struct Call {
@@ -281,4 +321,20 @@ struct Call {
     let isVideo: Bool
     let uuID: UUID
     let senderId: String
+}
+
+
+extension CallKitProvider: AgoraRtcEngineDelegate{
+    func rtcEngine(_ engine: AgoraRtcEngineKit, remoteAudioStateChangedOfUid uid: UInt, state: AgoraAudioRemoteState, reason: AgoraAudioRemoteStateReason, elapsed: Int) {
+        print("this is remoteaudiostatechage=====>",state.rawValue)
+
+    }
+
+    func rtcEngine(_ engine: AgoraRtcEngineKit, localAudioStateChange state: AgoraAudioLocalState, error: AgoraAudioLocalError) {
+        print("this is localaudiostatechage=====>",state.rawValue)
+    }
+
+    func rtcEngine(_ engine: AgoraRtcEngineKit, didOfflineOfUid uid: UInt, reason: AgoraUserOfflineReason) {
+        self.leaveChannel()
+    }
 }
