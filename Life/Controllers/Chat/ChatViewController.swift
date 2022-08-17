@@ -539,6 +539,7 @@ class ChatViewController: UIViewController {
 
         detail?.update(typing: false)
     }
+
     func setParticipant(chatId: String, recipientId: String) {
         self.chatId = chatId
         self.recipientId = recipientId
@@ -1168,7 +1169,7 @@ class ChatViewController: UIViewController {
             self.actionOpenGallery()
         }
         
-        messageInputBar.setStackViewItems([galleryButton], forStack: .left, animated: false)
+        messageInputBar.setStackViewItems([galleryButton, cameraButton], forStack: .left, animated: false)
         messageInputBar.leftStackView.isLayoutMarginsRelativeArrangement = false
         messageInputBar.leftStackView.spacing = 6
         
@@ -1176,7 +1177,7 @@ class ChatViewController: UIViewController {
         messageInputBar.sendButton.image = UIImage(named: "ic_send")
         messageInputBar.sendButton.setSize(CGSize(width: 42, height: 42), animated: false)
         
-        messageInputBar.setLeftStackViewWidthConstant(to: 40, animated: false)
+        messageInputBar.setLeftStackViewWidthConstant(to: 80, animated: false)
         messageInputBar.setRightStackViewWidthConstant(to: 40, animated: false)
         
         messageInputBar.middleContentViewPadding = UIEdgeInsets(top: 1, left: 8, bottom: 1, right: 5)

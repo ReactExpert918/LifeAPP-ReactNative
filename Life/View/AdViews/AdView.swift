@@ -17,10 +17,9 @@ final class AdView: StatefulView<AdViewModel> {
         super.viewDidLoad()
 
         bannerView = GADBannerView(adSize: GADAdSizeFromCGSize(model.adSize))
-
-        addBannerToView()
-        
+        bannerView.backgroundColor = .orange
         bannerView.delegate = self
+        addBannerToView()
     }
 
     private func addBannerToView() {
