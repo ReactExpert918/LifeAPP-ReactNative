@@ -79,6 +79,7 @@
 		05E8DFC326B92EF500F72128 /* Privacy.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 05E8DFC126B92EF500F72128 /* Privacy.pdf */; };
 		05E8E0A426BA3AC500F72128 /* IAPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E8E0A326BA3AC500F72128 /* IAPHelper.swift */; };
 		05F2B11226CA5EE000620E87 /* RCAudioController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F2B11126CA5EE000620E87 /* RCAudioController.swift */; };
+		13B3D77F28AC96CB00602788 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B3D77E28AC96CB00602788 /* UIViewController.swift */; };
 		13D2F54F28A0C479002DD3FE /* AdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D2F54E28A0C479002DD3FE /* AdView.swift */; };
 		13D2F55128A0C4A1002DD3FE /* AdViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D2F55028A0C4A1002DD3FE /* AdViewModel.swift */; };
 		57580AB6282AC1DC009146F4 /* PaymentMethodTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57580AB5282AC1DC009146F4 /* PaymentMethodTableViewCell.swift */; };
@@ -423,6 +424,7 @@
 		05E8DFC126B92EF500F72128 /* Privacy.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Privacy.pdf; sourceTree = "<group>"; };
 		05E8E0A326BA3AC500F72128 /* IAPHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPHelper.swift; sourceTree = "<group>"; };
 		05F2B11126CA5EE000620E87 /* RCAudioController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCAudioController.swift; sourceTree = "<group>"; };
+		13B3D77E28AC96CB00602788 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		13D2F54E28A0C479002DD3FE /* AdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdView.swift; sourceTree = "<group>"; };
 		13D2F55028A0C4A1002DD3FE /* AdViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdViewModel.swift; sourceTree = "<group>"; };
 		13FCD29106C16A3D2D2FC3B7 /* Pods_LifeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LifeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1407,6 +1409,7 @@
 				A6E73B5224A5AAFF0008CBFE /* SearchbarExtension.swift */,
 				AB277A7E24ACFC6000D6C783 /* CornerView.swift */,
 				AB277A8024AD041A00D6C783 /* RoundedCornerBorderView.swift */,
+				13B3D77E28AC96CB00602788 /* UIViewController.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -2141,6 +2144,7 @@
 				A6302BB424B9A34B00345FC9 /* NewConversationViewController.swift in Sources */,
 				57580AB8282AE1D4009146F4 /* AddCardViewController.swift in Sources */,
 				A6DEA84A24A8365900868625 /* FireObservers.swift in Sources */,
+				13B3D77F28AC96CB00602788 /* UIViewController.swift in Sources */,
 				AB82ACD924A5453100D83E47 /* AddFriendCell.swift in Sources */,
 				ABDAC93024A67D8C00E73667 /* SearchFriendCell.swift in Sources */,
 				04180C7626889D8300BBF636 /* StripeCustomer.swift in Sources */,

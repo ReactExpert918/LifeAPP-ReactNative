@@ -7,9 +7,12 @@
 //
 
 import UIKit
+import RealmSwift
 
 class SplashViewController: UIViewController {
-
+    private var friends = realm.objects(Friend.self).filter(falsepredicate)
+    private var persons = realm.objects(Person.self).filter(falsepredicate)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -35,6 +38,22 @@ class SplashViewController: UIViewController {
                         }
                     }
                 }
+
+                for each in self.friends {
+                    FireFetcher.fetchPerson(each.userId) { error in
+                        self.dismiss(animated: true) {
+                            if error != nil {
+                                self.gotoWelcomeViewController()
+                            }
+                            else {
+                                self.postUserLogin()
+                                self.gotoMainViewController()
+                            }
+                        }
+                    }
+
+                }
+
             }
         }
         else{

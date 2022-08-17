@@ -13,6 +13,10 @@ import FittedSheets
 import SwipeCellKit
 import JamitFoundation
 
+enum VersionError: Error {
+    case invalidResponse, invalidBundleInfo
+}
+
 protocol CreateGroupDelegate {
     func onGroupCreated(group: Group)
 }
@@ -63,18 +67,20 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+
         searchBar.backgroundImage = UIImage()
         searchBar.barStyle = .default
         searchBar.barTintColor = UIColor(hexString: "#16406F")
         searchBar.layer.cornerRadius = 8
         searchBar.placeholder = "Search".localized
-//        searchBar.backgroundColor = UIColor(hexString: "165c90")
+        //        searchBar.backgroundColor = UIColor(hexString: "165c90")
         searchBar.set(textColor: UIColor(hexString: "#96B4D2")!)
         searchBar.setPlaceholder(textColor: UIColor(hexString: "#96B4D2")!)
         searchBar.setSearchImage(color: UIColor(hexString: "#96B4D2")!)
-//        searchBar.setClearButton(color: UIColor(hexString: "#96B4D2")!)
+        //        searchBar.setClearButton(color: UIColor(hexString: "#96B4D2")!)
         searchBar.tintColor = UIColor(hexString: "#FFFFFF")
-        searchBar.delegate = self        
+        searchBar.delegate = self
         // Init TableView
         ExpandableHeaderCell.RegisterAsAHeader(withTableView: self.homeTableView)
         UserStatusCell.Register(withTableView: self.homeTableView)
@@ -95,6 +101,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 self.homeTableView.reloadData()
             }
         )
+
+
 
         // Do any additional setup after loading the view.
     }
@@ -118,7 +126,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         self.showChatView()
         
-        
+        self.checkVersion()
     }
     
     @objc func receiveCalls() {
@@ -185,6 +193,91 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             self.tokenPersons = token
         })
     }
+
+    private func checkVersion() {
+        try? isUpdateAvailable { isUpdateAvailable, latestVersion, error in
+            guard let info = Bundle.main.infoDictionary else { return }
+            guard let isUpdateAvailable = isUpdateAvailable else { return }
+            guard let currentVersion = info["CFBundleShortVersionString"] as? String else { return }
+            if isUpdateAvailable {
+                let seperetedLatestVersion = latestVersion.split(separator: ".")
+                let seperatedCurrentVersion = currentVersion.split(separator: ".")
+                if seperetedLatestVersion.indices.contains(1) {
+                    if seperatedCurrentVersion.indices.contains(1) {
+                        guard let seperatedLatestVersion = Int(seperetedLatestVersion[1]) else {return}
+                        guard let seperatedCurrentVersion = Int(seperatedCurrentVersion[1]) else {return}
+                        if seperatedLatestVersion > seperatedCurrentVersion {
+                            DispatchQueue.main.async {
+                                self.showAlert(title: "Major Update", subtitle: "You need to update to latest version in order to continue", shouldDismiss: false, handlerTitle: "Go to app store") { _ in
+                                    if let url = URL(string: "itms-apps://apple.com/app/id1566144201") {
+                                        UIApplication.shared.open(url)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                if seperetedLatestVersion.indices.contains(0) {
+                    if seperatedCurrentVersion.indices.contains(0) {
+                        guard let seperatedLatestVersion = Int(seperetedLatestVersion[0]) else {return}
+                        guard let seperatedCurrentVersion = Int(seperatedCurrentVersion[0]) else {return}
+                        if seperatedLatestVersion > seperatedCurrentVersion {
+                            DispatchQueue.main.async {
+                                self.showAlert(title: "Major Update", subtitle: "You need to update to latest version in order to continue", shouldDismiss: false, handlerTitle: "Go to app store") { _ in
+                                    if let url = URL(string: "itms-apps://apple.com/app/id1566144201") {
+                                        UIApplication.shared.open(url)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                if seperetedLatestVersion.indices.contains(2) {
+                    if seperatedCurrentVersion.indices.contains(2) {
+                        guard let seperatedLatestVersion = Int(seperetedLatestVersion[2]) else {return}
+                        guard let seperatedCurrentVersion = Int(seperatedCurrentVersion[2]) else {return}
+                        if seperatedLatestVersion > seperatedCurrentVersion {
+                            DispatchQueue.main.async {
+                                self.showAlert(title: "Minor Update", subtitle: "Update your app to get the latest festures", shouldDismiss: true, dismissTitle: "Remind me later", handlerTitle: "Go to app store") { _ in
+                                    if let url = URL(string: "itms-apps://apple.com/app/id1566144201") {
+                                        UIApplication.shared.open(url)
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    func isUpdateAvailable(completion: @escaping (Bool?, String, Error?) -> Void) throws -> URLSessionDataTask {
+        guard let info = Bundle.main.infoDictionary,
+              let currentVersion = info["CFBundleShortVersionString"] as? String,
+              let identifier = info["CFBundleIdentifier"] as? String,
+              let url = URL(string: "https://itunes.apple.com/lookup?bundleId=\(identifier)") else {
+            throw VersionError.invalidBundleInfo
+        }
+        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+            do {
+                if let error = error { throw error }
+                guard let data = data else { throw VersionError.invalidResponse }
+                let json = try JSONSerialization.jsonObject(with: data, options: [.allowFragments]) as? [String: Any]
+                guard let result = (json?["results"] as? [Any])?.first as? [String: Any], let version = result["version"] as? String else {
+                    throw VersionError.invalidResponse
+                }
+                completion(version != currentVersion, version, nil)
+            } catch {
+                completion(nil,"0", error)
+            }
+        }
+        task.resume()
+        return task
+    }
+
+
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func loadGroups(text: String = "") {
 
@@ -244,14 +337,14 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBAction func onSettingPressed(_ sender: Any) {
         let mainstoryboard = UIStoryboard.init(name: "Setting", bundle: nil)
         let vc = mainstoryboard.instantiateViewController(withIdentifier: "settingNav") as! UINavigationController
-//        self.navigationController?.pushViewController(vc, animated: true)
+        //        self.navigationController?.pushViewController(vc, animated: true)
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true, completion: nil)
     }
     @IBAction func onAddFriendPressed(_ sender: Any) {
         let mainstoryboard = UIStoryboard.init(name: "Friend", bundle: nil)
         let vc = mainstoryboard.instantiateViewController(withIdentifier: "addFriendRootVC")
-//        self.navigationController?.pushViewController(vc, animated: true)
+        //        self.navigationController?.pushViewController(vc, animated: true)
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true, completion: nil)
     }
@@ -295,20 +388,20 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let confirmationAlert = UIAlertController(title: "Remove Friend".localized, message: "Are you sure remove ".localized + friend.getFullName(), preferredStyle: .alert)
 
         confirmationAlert.addAction(UIAlertAction(title: "Yes".localized, style: .default, handler: {
-                (action: UIAlertAction!) in
-                confirmationAlert.dismiss(animated: true, completion: nil)
-                Friends.removeFriend(friend.objectId){
-                    self.loadFriends() 
-                }
+            (action: UIAlertAction!) in
+            confirmationAlert.dismiss(animated: true, completion: nil)
+            Friends.removeFriend(friend.objectId){
+                self.loadFriends()
+            }
             
-            })
+        })
         )
         
         
         confirmationAlert.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: { (action: UIAlertAction!) in
         }))
         present(confirmationAlert, animated: true, completion: nil)
-       
+
     }
     
     func groupInfo(_ group: Group){
@@ -400,7 +493,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 return cell
             }
         }
- 
+
         let cell = tableView.dequeueReusableCell(withIdentifier: FriendCell.GetCellReuseIdentifier(), for: indexPath) as! FriendCell
         cell.selectionStyle = .none
         if( indexPath.section == 2) {
@@ -420,26 +513,26 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     // MARK: - ZedPayView
     
     @IBOutlet weak var labelBalance: UILabel!
-    @IBAction func onZedPay(_ sender: Any) {        
-//        let alertController = UIAlertController(title: "", message: "This feature is not opened yet, only admin can access now.", preferredStyle: .alert)
-//
-//        alertController.addTextField { (textField: UITextField) in
-//            textField.keyboardType = .numberPad
-//            textField.placeholder = "Please insert Pincode."
-//        }
-//
-//        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
-//            if let textField = alertController.textFields?[0] {
-//                if textField.text == "0722" {
-//                    self.showZedPay()
-//                }
-//            }
-//            alertController.dismiss(animated: false)
-//        }))
-//
-//        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-//
-//        self.present(alertController, animated: true, completion: nil)
+    @IBAction func onZedPay(_ sender: Any) {
+        //        let alertController = UIAlertController(title: "", message: "This feature is not opened yet, only admin can access now.", preferredStyle: .alert)
+        //
+        //        alertController.addTextField { (textField: UITextField) in
+        //            textField.keyboardType = .numberPad
+        //            textField.placeholder = "Please insert Pincode."
+        //        }
+        //
+        //        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+        //            if let textField = alertController.textFields?[0] {
+        //                if textField.text == "0722" {
+        //                    self.showZedPay()
+        //                }
+        //            }
+        //            alertController.dismiss(animated: false)
+        //        }))
+        //
+        //        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        //
+        //        self.present(alertController, animated: true, completion: nil)
         self.showZedPay()
     }
     
@@ -499,26 +592,26 @@ extension HomeViewController: UISearchBarDelegate {
 }
 
 extension HomeViewController: CollapsibleTableViewHeaderDelegate {
-  func toggleSection(_ header: ExpandableHeaderCell, section: Int) {
-    let collapsed = !headerSections[section].collapsed
+    func toggleSection(_ header: ExpandableHeaderCell, section: Int) {
+        let collapsed = !headerSections[section].collapsed
         
-    // Toggle collapse
-    headerSections[section].collapsed = collapsed
-    header.setCollapsed(collapsed: collapsed)
-    
-    // Reload the whole section
-    homeTableView.reloadSections(NSIndexSet(index: section) as IndexSet, with: .automatic)
-  }
+        // Toggle collapse
+        headerSections[section].collapsed = collapsed
+        header.setCollapsed(collapsed: collapsed)
+
+        // Reload the whole section
+        homeTableView.reloadSections(NSIndexSet(index: section) as IndexSet, with: .automatic)
+    }
 }
 
 struct HeaderSection {
-  var name: String
-  var collapsed: Bool
+    var name: String
+    var collapsed: Bool
     
-  init(name: String, collapsed: Bool = false) {
-    self.name = name
-    self.collapsed = collapsed
-  }
+    init(name: String, collapsed: Bool = false) {
+        self.name = name
+        self.collapsed = collapsed
+    }
 }
 
 extension HomeViewController: SwipeTableViewCellDelegate {
@@ -526,7 +619,7 @@ extension HomeViewController: SwipeTableViewCellDelegate {
         guard orientation == .right else {
             return nil
         }
-       
+
         let block = SwipeAction(style: .default, title: nil, handler: nil)
         block.hidesWhenSelected = true
         configure(action: block, with: .block)
@@ -537,17 +630,17 @@ extension HomeViewController: SwipeTableViewCellDelegate {
         }
         configure(action: delete, with: .delete)
         
-//        let cell = tableView.cellForRow(at: indexPath) as! MailCell
-//        let closure: (UIAlertAction) -> Void = { _ in cell.hideSwipe(animated: true) }
+        //        let cell = tableView.cellForRow(at: indexPath) as! MailCell
+        //        let closure: (UIAlertAction) -> Void = { _ in cell.hideSwipe(animated: true) }
         let mute = SwipeAction(style: .default, title: nil) { action, indexPath in
-//            let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-//            controller.addAction(UIAlertAction(title: "Reply", style: .default, handler: closure))
-//            controller.addAction(UIAlertAction(title: "Forward", style: .default, handler: closure))
-//            controller.addAction(UIAlertAction(title: "Mark...", style: .default, handler: closure))
-//            controller.addAction(UIAlertAction(title: "Notify Me...", style: .default, handler: closure))
-//            controller.addAction(UIAlertAction(title: "Move Message...", style: .default, handler: closure))
-//            controller.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: closure))
-//            self.present(controller, animated: true, completion: nil)
+            //            let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+            //            controller.addAction(UIAlertAction(title: "Reply", style: .default, handler: closure))
+            //            controller.addAction(UIAlertAction(title: "Forward", style: .default, handler: closure))
+            //            controller.addAction(UIAlertAction(title: "Mark...", style: .default, handler: closure))
+            //            controller.addAction(UIAlertAction(title: "Notify Me...", style: .default, handler: closure))
+            //            controller.addAction(UIAlertAction(title: "Move Message...", style: .default, handler: closure))
+            //            controller.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: closure))
+            //            self.present(controller, animated: true, completion: nil)
         }
         configure(action: mute, with: .mute)
         return [delete, block, mute]
@@ -563,15 +656,15 @@ extension HomeViewController: SwipeTableViewCellDelegate {
             options.buttonSpacing = 4
         case .circular:
             options.buttonSpacing = 4
-        #if canImport(Combine)
+#if canImport(Combine)
             if #available(iOS 13.0, *) {
                 options.backgroundColor = UIColor.systemGray6
             } else {
                 options.backgroundColor = #colorLiteral(red: 0.9467939734, green: 0.9468161464, blue: 0.9468042254, alpha: 1)
             }
-        #else
+#else
             options.backgroundColor = #colorLiteral(red: 0.9467939734, green: 0.9468161464, blue: 0.9468042254, alpha: 1)
-        #endif
+#endif
         }
         
         return options
@@ -620,7 +713,7 @@ enum ActionDescriptor {
         case .delete: name = "Trash"
         }
         
-    #if canImport(Combine)
+#if canImport(Combine)
         if #available(iOS 13.0, *) {
             let name: String
             switch self {
@@ -640,13 +733,13 @@ enum ActionDescriptor {
         } else {
             return UIImage(named: style == .backgroundColor ? name : name + "-circle")
         }
-    #else
+#else
         return UIImage(named: style == .backgroundColor ? name : name + "-circle")
-    #endif
+#endif
     }
     
     func color(forStyle style: ButtonStyle) -> UIColor {
-    #if canImport(Combine)
+#if canImport(Combine)
         switch self {
         case .mute:
             if #available(iOS 13.0, *) {
@@ -660,13 +753,13 @@ enum ActionDescriptor {
         case .block: return UIColor.systemOrange
         case .delete: return UIColor.systemRed
         }
-    #else
+#else
         switch self {
         case .mute: return #colorLiteral(red: 0.7803494334, green: 0.7761332393, blue: 0.7967314124, alpha: 1)
         case .block: return #colorLiteral(red: 1, green: 0.5803921569, blue: 0, alpha: 1)
         case .delete: return #colorLiteral(red: 1, green: 0.2352941176, blue: 0.1882352941, alpha: 1)
         }
-    #endif
+#endif
     }
     
     func circularIcon(with color: UIColor, size: CGSize, icon: UIImage? = nil) -> UIImage? {
@@ -696,6 +789,6 @@ enum ButtonDisplayMode {
     case titleAndImage, titleOnly, imageOnly
 }
 
-    
+
 
 
