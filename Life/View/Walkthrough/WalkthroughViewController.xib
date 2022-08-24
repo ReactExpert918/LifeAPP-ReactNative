@@ -23,9 +23,9 @@
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="LiC-G9-Zhw">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="pLN-CJ-QMn">
+                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="pLN-CJ-QMn">
                             <size key="itemSize" width="128" height="128"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -52,6 +52,9 @@
                                 <integer key="value" value="15"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="nextButtonDidTap:" destination="-2" eventType="touchUpInside" id="FdJ-9B-9bD"/>
+                        </connections>
                     </button>
                 </subviews>
                 <viewLayoutGuide key="safeArea" id="Owk-Fp-Vhn"/>
@@ -60,7 +63,7 @@
                     <constraint firstItem="LiC-G9-Zhw" firstAttribute="leading" secondItem="Owk-Fp-Vhn" secondAttribute="leading" id="E2a-D9-VYy"/>
                     <constraint firstItem="LiC-G9-Zhw" firstAttribute="trailing" secondItem="Owk-Fp-Vhn" secondAttribute="trailing" id="Gc1-kE-wgE"/>
                     <constraint firstItem="Owk-Fp-Vhn" firstAttribute="bottom" secondItem="vMs-Lc-UK2" secondAttribute="bottom" constant="15" id="J0Z-P5-gig"/>
-                    <constraint firstItem="LiC-G9-Zhw" firstAttribute="top" secondItem="jWD-UJ-Rez" secondAttribute="top" id="Lco-pm-08n"/>
+                    <constraint firstItem="LiC-G9-Zhw" firstAttribute="top" secondItem="Owk-Fp-Vhn" secondAttribute="top" id="Lco-pm-08n"/>
                     <constraint firstAttribute="bottom" secondItem="LiC-G9-Zhw" secondAttribute="bottom" id="PVO-CW-OEH"/>
                     <constraint firstItem="vMs-Lc-UK2" firstAttribute="centerX" secondItem="jWD-UJ-Rez" secondAttribute="centerX" id="sVq-KD-7wn"/>
                     <constraint firstItem="vMs-Lc-UK2" firstAttribute="top" secondItem="u5K-cG-4SG" secondAttribute="bottom" constant="10" id="yBE-ZT-60A"/>
@@ -69,6 +72,8 @@
             </view>
             <connections>
                 <outlet property="collectionView" destination="LiC-G9-Zhw" id="0fT-V0-Uff"/>
+                <outlet property="nextButton" destination="vMs-Lc-UK2" id="c38-pW-qsk"/>
+                <outlet property="pageControl" destination="u5K-cG-4SG" id="n6h-em-AOH"/>
             </connections>
             <point key="canvasLocation" x="176.81159420289856" y="68.973214285714278"/>
         </viewController>
