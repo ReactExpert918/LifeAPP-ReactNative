@@ -81,6 +81,13 @@
 		05F2B11226CA5EE000620E87 /* RCAudioController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F2B11126CA5EE000620E87 /* RCAudioController.swift */; };
 		1349E69C28B66D88002F1805 /* TelegramRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1349E69B28B66D88002F1805 /* TelegramRecordView.swift */; };
 		1349E69E28B67339002F1805 /* TelegramRecordView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1349E69D28B67339002F1805 /* TelegramRecordView.xib */; };
+		13961CA528B624A600021F80 /* WalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13961CA428B624A600021F80 /* WalkthroughViewController.swift */; };
+		13961CA728B6252900021F80 /* WalkthroughViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13961CA628B6252900021F80 /* WalkthroughViewController.xib */; };
+		13961CA928B6271000021F80 /* WalkthroughViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13961CA828B6271000021F80 /* WalkthroughViewModel.swift */; };
+		13961CAC28B6275400021F80 /* WalkthroughItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13961CAB28B6275400021F80 /* WalkthroughItemViewModel.swift */; };
+		13961CAE28B62E5B00021F80 /* WalkthroughItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13961CAD28B62E5B00021F80 /* WalkthroughItemView.xib */; };
+		13961CB028B62F8800021F80 /* WalkthroughItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13961CAF28B62F8800021F80 /* WalkthroughItemView.swift */; };
+		13961CB228B633AD00021F80 /* WalkthorughItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13961CB128B633AD00021F80 /* WalkthorughItemCell.swift */; };
 		13B3D77F28AC96CB00602788 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B3D77E28AC96CB00602788 /* UIViewController.swift */; };
 		13D2F54F28A0C479002DD3FE /* AdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D2F54E28A0C479002DD3FE /* AdView.swift */; };
 		13D2F55128A0C4A1002DD3FE /* AdViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D2F55028A0C4A1002DD3FE /* AdViewModel.swift */; };
@@ -428,6 +435,14 @@
 		05F2B11126CA5EE000620E87 /* RCAudioController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCAudioController.swift; sourceTree = "<group>"; };
 		1349E69B28B66D88002F1805 /* TelegramRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelegramRecordView.swift; sourceTree = "<group>"; };
 		1349E69D28B67339002F1805 /* TelegramRecordView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TelegramRecordView.xib; sourceTree = "<group>"; };
+		1349E69F28B6ADDC002F1805 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		13961CA428B624A600021F80 /* WalkthroughViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughViewController.swift; sourceTree = "<group>"; };
+		13961CA628B6252900021F80 /* WalkthroughViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalkthroughViewController.xib; sourceTree = "<group>"; };
+		13961CA828B6271000021F80 /* WalkthroughViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughViewModel.swift; sourceTree = "<group>"; };
+		13961CAB28B6275400021F80 /* WalkthroughItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughItemViewModel.swift; sourceTree = "<group>"; };
+		13961CAD28B62E5B00021F80 /* WalkthroughItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalkthroughItemView.xib; sourceTree = "<group>"; };
+		13961CAF28B62F8800021F80 /* WalkthroughItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughItemView.swift; sourceTree = "<group>"; };
+		13961CB128B633AD00021F80 /* WalkthorughItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthorughItemCell.swift; sourceTree = "<group>"; };
 		13B3D77E28AC96CB00602788 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		13D2F54E28A0C479002DD3FE /* AdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdView.swift; sourceTree = "<group>"; };
 		13D2F55028A0C4A1002DD3FE /* AdViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdViewModel.swift; sourceTree = "<group>"; };
@@ -801,6 +816,26 @@
 				1349E69D28B67339002F1805 /* TelegramRecordView.xib */,
 			);
 			path = TelegramRecordView;
+		13961CA328B6247400021F80 /* Walkthrough */ = {
+			isa = PBXGroup;
+			children = (
+				13961CAA28B6273000021F80 /* WalkthroughItem */,
+				13961CA428B624A600021F80 /* WalkthroughViewController.swift */,
+				13961CA628B6252900021F80 /* WalkthroughViewController.xib */,
+				13961CA828B6271000021F80 /* WalkthroughViewModel.swift */,
+			);
+			path = Walkthrough;
+			sourceTree = "<group>";
+		};
+		13961CAA28B6273000021F80 /* WalkthroughItem */ = {
+			isa = PBXGroup;
+			children = (
+				13961CAB28B6275400021F80 /* WalkthroughItemViewModel.swift */,
+				13961CAD28B62E5B00021F80 /* WalkthroughItemView.xib */,
+				13961CAF28B62F8800021F80 /* WalkthroughItemView.swift */,
+				13961CB128B633AD00021F80 /* WalkthorughItemCell.swift */,
+			);
+			path = WalkthroughItem;
 			sourceTree = "<group>";
 		};
 		13D2F54D28A0C46F002DD3FE /* AdViews */ = {
@@ -1155,6 +1190,7 @@
 			isa = PBXGroup;
 			children = (
 				1349E69A28B66D77002F1805 /* TelegramRecordView */,
+				13961CA328B6247400021F80 /* Walkthrough */,
 				13D2F54D28A0C46F002DD3FE /* AdViews */,
 				A6E7000D24B6DBD3004586E0 /* Details */,
 				A6C36B5924B577B000583CAA /* Calls */,
@@ -1789,6 +1825,7 @@
 				A6BD966224B4D54800E1B873 /* AudioView.xib in Resources */,
 				A675882724B80F3100724B08 /* callaudio_mute1.png in Resources */,
 				A6E7001924B6DBEB004586E0 /* MapView.xib in Resources */,
+				13961CA728B6252900021F80 /* WalkthroughViewController.xib in Resources */,
 				A60845B124A2FEC1005F23A9 /* Login.storyboard in Resources */,
 				1349E69E28B67339002F1805 /* TelegramRecordView.xib in Resources */,
 				A67A49B724BA33080016DD41 /* Setting.storyboard in Resources */,
@@ -1808,6 +1845,7 @@
 				A663A6C524BA4E870090A13D /* AddFriendSection.xib in Resources */,
 				AB13A9E424A2EF670028731D /* Assets.xcassets in Resources */,
 				AB13A9E224A2EF610028731D /* Main.storyboard in Resources */,
+				13961CAE28B62E5B00021F80 /* WalkthroughItemView.xib in Resources */,
 				A675883B24B8102700724B08 /* callaudio_speaker1@3x.png in Resources */,
 				A6188EEC24BCDCEA00587710 /* callaudio_speaker2@2x.png in Resources */,
 				A6188EC724BCD8A300587710 /* callvideo_hangup@2x.png in Resources */,
@@ -1992,6 +2030,7 @@
 				A6DEA84B24A8365900868625 /* FireFetch.swift in Sources */,
 				A6DEA88124A84E9600868625 /* MediaUpload.swift in Sources */,
 				AB5457AF24B6385B008C7FB8 /* HorizontalAddedParticipantCell.swift in Sources */,
+				13961CA928B6271000021F80 /* WalkthroughViewModel.swift in Sources */,
 				A6DEA85824A83B2D00868625 /* Connectivity.swift in Sources */,
 				05BA7EDD26B7A3FF0049393B /* CallVideoView.swift in Sources */,
 				A6E73B5324A5AAFF0008CBFE /* SearchbarExtension.swift in Sources */,
@@ -2039,6 +2078,7 @@
 				A60845BB24A3033D005F23A9 /* SignInViewController.swift in Sources */,
 				A6BD967D24B4D76900E1B873 /* SelectUsersView.swift in Sources */,
 				04975C1326859AB300A10CC1 /* MoneyTableViewCell.swift in Sources */,
+				13961CB228B633AD00021F80 /* WalkthorughItemCell.swift in Sources */,
 				A6DEA87F24A84E9600868625 /* MediaUploader.swift in Sources */,
 				A6DEA82324A82A7100868625 /* MessagePhotoCell.swift in Sources */,
 				A6DEA87724A848DB00868625 /* Group.swift in Sources */,
@@ -2048,6 +2088,7 @@
 				57FF98E327C5E08A00BE8F14 /* RCMessageTypingCell.swift in Sources */,
 				A6DEA85024A8365900868625 /* FireUpdaters.swift in Sources */,
 				05C2547326C5C5DE00D56684 /* AGEVideoConstraints.swift in Sources */,
+				13961CA528B624A600021F80 /* WalkthroughViewController.swift in Sources */,
 				05C2552626C5C8F900D56684 /* DimensionCell.swift in Sources */,
 				A6DEA87224A8405300868625 /* Messages.swift in Sources */,
 				A6E7000B24B6C5B1004586E0 /* UserStatusCell.swift in Sources */,
@@ -2065,6 +2106,7 @@
 				A6DEA88224A84E9600868625 /* MediaManager.swift in Sources */,
 				04F4E3CE267C524D00CD94FD /* ZEDPay.swift in Sources */,
 				05BA7ED326B7A3E00049393B /* CallAudioView.swift in Sources */,
+				13961CB028B62F8800021F80 /* WalkthroughItemView.swift in Sources */,
 				A6F564CC24A9B5310061007E /* RCHeaderLowerCell.swift in Sources */,
 				04C2C86F267F67EA0035B825 /* TransactionDetailViewController.swift in Sources */,
 				A67A49B024BA100C0016DD41 /* PrefsManager.swift in Sources */,
@@ -2116,6 +2158,7 @@
 				043B8AF826834E5A004BF845 /* FireZEDPayUpdaters.swift in Sources */,
 				A6DEA88624A8521700868625 /* Password.swift in Sources */,
 				04F4E3D2267CBC7A00CD94FD /* String+Extension.swift in Sources */,
+				13961CAC28B6275400021F80 /* WalkthroughItemViewModel.swift in Sources */,
 				AB5457A724B5C4F2008C7FB8 /* AddMemberCell.swift in Sources */,
 				A6DEA83524A8303A00868625 /* Message.swift in Sources */,
 				AB82ACD124A5452700D83E47 /* SettingCellHeader.swift in Sources */,
@@ -2232,6 +2275,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				A663A6BE24BA474B0090A13D /* ja */,
+				1349E69F28B6ADDC002F1805 /* en */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -2400,7 +2444,7 @@
 				CODE_SIGN_ENTITLEMENTS = Life/Life.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 2AV3B2BH2Y;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2412,7 +2456,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.16;
+				MARKETING_VERSION = 1.4.17;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zed.life;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2430,7 +2474,7 @@
 				CODE_SIGN_ENTITLEMENTS = Life/Life.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 2AV3B2BH2Y;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2442,7 +2486,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.16;
+				MARKETING_VERSION = 1.4.17;
 				PRODUCT_BUNDLE_IDENTIFIER = com.zed.life;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

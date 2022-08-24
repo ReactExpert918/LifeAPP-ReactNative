@@ -9,7 +9,7 @@
 import Foundation
 
 class PrefsManager:NSObject{
-    
+
     class func set(key:String,value:Bool){
         UserDefaults.standard.set(value, forKey: key)
         UserDefaults.standard.synchronize()
@@ -40,7 +40,16 @@ class PrefsManager:NSObject{
         return value
     }
     
-    
+    class func setIgnoreWalkthrough(val : Bool)
+    {
+        set(key: "showWalkthrough", value: val)
+    }
+
+    class func getIgnoreWalkthrough() -> Bool
+    {
+        return get(key: "showWalkthrough")
+    }
+
     class func setFCMToken(val : String)
     {
         setString(key: "fcmToken", value: val)
