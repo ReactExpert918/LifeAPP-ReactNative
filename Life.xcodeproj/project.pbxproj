@@ -79,6 +79,8 @@
 		05E8DFC326B92EF500F72128 /* Privacy.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 05E8DFC126B92EF500F72128 /* Privacy.pdf */; };
 		05E8E0A426BA3AC500F72128 /* IAPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E8E0A326BA3AC500F72128 /* IAPHelper.swift */; };
 		05F2B11226CA5EE000620E87 /* RCAudioController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F2B11126CA5EE000620E87 /* RCAudioController.swift */; };
+		1349E69C28B66D88002F1805 /* TelegramRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1349E69B28B66D88002F1805 /* TelegramRecordView.swift */; };
+		1349E69E28B67339002F1805 /* TelegramRecordView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1349E69D28B67339002F1805 /* TelegramRecordView.xib */; };
 		13B3D77F28AC96CB00602788 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B3D77E28AC96CB00602788 /* UIViewController.swift */; };
 		13D2F54F28A0C479002DD3FE /* AdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D2F54E28A0C479002DD3FE /* AdView.swift */; };
 		13D2F55128A0C4A1002DD3FE /* AdViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D2F55028A0C4A1002DD3FE /* AdViewModel.swift */; };
@@ -424,6 +426,8 @@
 		05E8DFC126B92EF500F72128 /* Privacy.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = Privacy.pdf; sourceTree = "<group>"; };
 		05E8E0A326BA3AC500F72128 /* IAPHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPHelper.swift; sourceTree = "<group>"; };
 		05F2B11126CA5EE000620E87 /* RCAudioController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCAudioController.swift; sourceTree = "<group>"; };
+		1349E69B28B66D88002F1805 /* TelegramRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelegramRecordView.swift; sourceTree = "<group>"; };
+		1349E69D28B67339002F1805 /* TelegramRecordView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TelegramRecordView.xib; sourceTree = "<group>"; };
 		13B3D77E28AC96CB00602788 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		13D2F54E28A0C479002DD3FE /* AdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdView.swift; sourceTree = "<group>"; };
 		13D2F55028A0C4A1002DD3FE /* AdViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdViewModel.swift; sourceTree = "<group>"; };
@@ -790,6 +794,15 @@
 			path = "in-appPurchase";
 			sourceTree = "<group>";
 		};
+		1349E69A28B66D77002F1805 /* TelegramRecordView */ = {
+			isa = PBXGroup;
+			children = (
+				1349E69B28B66D88002F1805 /* TelegramRecordView.swift */,
+				1349E69D28B67339002F1805 /* TelegramRecordView.xib */,
+			);
+			path = TelegramRecordView;
+			sourceTree = "<group>";
+		};
 		13D2F54D28A0C46F002DD3FE /* AdViews */ = {
 			isa = PBXGroup;
 			children = (
@@ -1141,6 +1154,7 @@
 		A6DEA81724A825A700868625 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				1349E69A28B66D77002F1805 /* TelegramRecordView */,
 				13D2F54D28A0C46F002DD3FE /* AdViews */,
 				A6E7000D24B6DBD3004586E0 /* Details */,
 				A6C36B5924B577B000583CAA /* Calls */,
@@ -1776,6 +1790,7 @@
 				A675882724B80F3100724B08 /* callaudio_mute1.png in Resources */,
 				A6E7001924B6DBEB004586E0 /* MapView.xib in Resources */,
 				A60845B124A2FEC1005F23A9 /* Login.storyboard in Resources */,
+				1349E69E28B67339002F1805 /* TelegramRecordView.xib in Resources */,
 				A67A49B724BA33080016DD41 /* Setting.storyboard in Resources */,
 				57EEAAEE27DF908F0057B189 /* Circles.caf in Resources */,
 				A6BD966924B4D56900E1B873 /* StickersView.xib in Resources */,
@@ -2125,6 +2140,7 @@
 				A6DEA82C24A82AB000868625 /* RCMessage.swift in Sources */,
 				A60845B924A302BA005F23A9 /* WelcomeViewController.swift in Sources */,
 				A6E7001824B6DBEB004586E0 /* MapView.swift in Sources */,
+				1349E69C28B66D88002F1805 /* TelegramRecordView.swift in Sources */,
 				05C2547226C5C5DE00D56684 /* AGEEventsObserver.swift in Sources */,
 				AB277A8924AD266D00D6C783 /* MyQrGenerateViewController.swift in Sources */,
 				A6DEA83F24A835F100868625 /* Realm+Extension.swift in Sources */,

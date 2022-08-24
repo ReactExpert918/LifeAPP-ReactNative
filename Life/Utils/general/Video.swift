@@ -22,11 +22,9 @@ class Video: NSObject {
 		let generator = AVAssetImageGenerator(asset: asset)
 		generator.appliesPreferredTrackTransform = true
 
-		var time: CMTime = asset.duration
-		time.value = CMTimeValue(0)
-		var actualTime = CMTimeMake(value: 0, timescale: 0)
+        let timestamp = CMTimeMakeWithSeconds(Float64(1), preferredTimescale: 100)
 
-		if let cgImage = try? generator.copyCGImage(at: time, actualTime: &actualTime) {
+		if let cgImage = try? generator.copyCGImage(at: timestamp, actualTime: nil) {
 			return UIImage(cgImage: cgImage)
 		}
 

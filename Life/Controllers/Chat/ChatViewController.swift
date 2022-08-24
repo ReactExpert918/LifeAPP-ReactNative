@@ -15,6 +15,7 @@ import FittedSheets
 import FirebaseDatabase
 import Photos
 import CallKit
+import JamitFoundation
 
 class User {
     
@@ -45,6 +46,9 @@ class ChatViewController: UIViewController {
     
     private var tokenDetails: NotificationToken? = nil
     private var tokenMessages: NotificationToken? = nil
+
+    private  var telegramVideoView: TelegramRecordView?
+
     var recordingView: SKRecordView!
     @IBOutlet weak var videoCallView: UIView!
     
@@ -125,7 +129,9 @@ class ChatViewController: UIViewController {
         self.navigationController?.interactivePopGestureRecognizer?.delegate = nil
         
         self.popupView.isHidden = true
-        
+
+
+
         searchBar.backgroundImage = UIImage()
         searchBar.barStyle = .default
         searchBar.barTintColor = UIColor(hexString: "#16406F")
@@ -1152,7 +1158,7 @@ class ChatViewController: UIViewController {
         hybridButton.setSize(CGSize(width: 30, height: 30), animated: false)
         hybridButton.contentMode = .scaleAspectFit
         hybridButton.onTouchUpInside { item in
-            //self.changeButton()
+            self.changeButton()
         }
         let cameraButton = InputBarButtonItem()
         cameraButton.image = UIImage(named: "ic_camera")
@@ -1257,6 +1263,19 @@ class ChatViewController: UIViewController {
             self.navigationController?.popViewController(animated: true)
         }
     }
+
+    func changeButton() {
+             currentButton = currentButton == .audio ? .video : .audio
+        recordingView.isVideo = currentButton == .audio ? false : true
+             UIView.transition(with: self.hybridButton, duration: 0.07, options: .transitionCrossDissolve, animations: {
+                 self.hybridButton.transform = CGAffineTransform(scaleX: 0.5, y: 0.5);
+                 self.hybridButton.image = UIImage(named: self.currentButton == .audio ? "ic_record" : "ic_video_clip")
+             }) { _ in
+                 UIView.animate(withDuration: 0.07, delay: 0, options: .transitionCrossDissolve) {
+                     self.hybridButton.transform = CGAffineTransform(scaleX: 1, y: 1)
+                 }
+               }
+         }
 }
 // MARK: - UITableViewDataSource
 //-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1689,6 +1708,26 @@ class NavigationController: UINavigationController {
 }
 
 extension ChatViewController : SKRecordViewDelegate {
+    func userWantsToRecordVideo() {
+        let colorview = UIView()
+        colorview.tag = 42
+        colorview.backgroundColor = .black.withAlphaComponent(0.4)
+        colorview.frame = self.view.bounds
+        view.addSubview(colorview)
+
+        telegramVideoView = .instantiate()
+        guard let telegramVideo = telegramVideoView else { return }
+        view.addSubview(telegramVideo)
+
+        telegramVideo.delegate = self
+        telegramVideo.snp.makeConstraints { make in
+            make.height.width.equalTo(200)
+            make.centerX.centerY.equalToSuperview()
+        }
+
+            self.telegramVideoView?.startRecording()
+    }
+
     
     func SKRecordViewDidCancelRecord(_ sender: SKRecordView, button: UIView) {
         sender.state = .none
@@ -1715,13 +1754,37 @@ extension ChatViewController : SKRecordViewDelegate {
     
     func SKRecordViewDidStopRecord(_ sender : SKRecordView, button: UIView) {
         //recordingView.audioRecorder?.stop()
-        sender.state = .none
         sender.setupRecordButton(UIImage(named: "ic_record.png")!, recordBtn: hybridButton)
         recordingView.recordButton.imageView?.stopAnimating()
+        sender.state = .none
+
+        if sender.isVideo == false {
         messageSend(text: nil, photo: nil, video: nil, audio: recordingView.getFileURL().path)
         print("audio url==>",recordingView.getFileURL().path)
         messageInputBar.inputTextView.placeholder = "Enter a message".localized
         //messageInputBar.isHidden = false
+        }
+        if sender.isVideo {
+            telegramVideoView?.stopRecording()
+        }
+
         recordingView.isHidden = true
+
+    }
+}
+
+extension ChatViewController: TelegramRecordViewDelegate {
+    func didFinishRecording(url: URL) {
+        DispatchQueue.main.async {
+            self.telegramVideoView?.removeFromSuperview()
+            self.telegramVideoView = nil
+            self.messageSend(text: nil, photo: nil, video: url, audio: nil)
+
+            for each in self.view.subviews {
+                if each.tag == 42 {
+                    each.removeFromSuperview()
+                }
+            }
+        }
     }
 }
