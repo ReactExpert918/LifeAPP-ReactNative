@@ -16,6 +16,7 @@ protocol SKRecordViewDelegate {
     func SKRecordViewDidSelectRecord(_ sender : SKRecordView, button: UIView)
     func SKRecordViewDidStopRecord(_ sender : SKRecordView, button: UIView)
     func SKRecordViewDidCancelRecord(_ sender : SKRecordView, button: UIView)
+    func userWantsToRecordVideo()
 }
 
 class SKRecordView: UIView, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
@@ -47,6 +48,8 @@ class SKRecordView: UIView, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
             }
         }
     }
+
+    var isVideo: Bool = false
     var viewcontroller: UIViewController!
     var recordButton : InputBarButtonItem = InputBarButtonItem()
     let slideToCancel : UILabel = UILabel(frame: CGRect.zero)
@@ -202,10 +205,11 @@ class SKRecordView: UIView, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
         delegate?.SKRecordViewDidCancelRecord(self, button: sender)
     }
     
-    func userDidStopRecording(_ sender: UIButton) {
+    func  userDidStopRecording(_ sender: UIButton) {
         self.ClearView()
+        if !isVideo {
         self.finishRecording()
-        
+        }
         delegate?.SKRecordViewDidStopRecord(self, button: sender)
     }
     
@@ -216,9 +220,12 @@ class SKRecordView: UIView, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
         countdown()
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(SKRecordView.countdown) , userInfo: nil, repeats: true)
         
-        
+        if !isVideo {
         self.recordAudio()
         delegate?.SKRecordViewDidSelectRecord(self, button: sender)
+        } else {
+            delegate?.userWantsToRecordVideo()
+        }
     }
     
     @objc func countdown() {
@@ -255,6 +262,9 @@ class SKRecordView: UIView, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
                 }
             }
         case .ended:
+            if isVideo {
+                self.userDidStopRecording(button)
+            }
             if state == .none { return }
 //            let translate = CGPoint(x: location.x - startLocation.x, y: location.y - startLocation.y)
 //            print("Tested:", translate, button.frame)
