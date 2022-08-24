@@ -435,7 +435,9 @@
 		05F2B11126CA5EE000620E87 /* RCAudioController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCAudioController.swift; sourceTree = "<group>"; };
 		1349E69B28B66D88002F1805 /* TelegramRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelegramRecordView.swift; sourceTree = "<group>"; };
 		1349E69D28B67339002F1805 /* TelegramRecordView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TelegramRecordView.xib; sourceTree = "<group>"; };
-		1349E69F28B6ADDC002F1805 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		135AC5C328B6DB5B0046B7D3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ZedPay.strings; sourceTree = "<group>"; };
+		135AC5C428B6DB670046B7D3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Setting.strings; sourceTree = "<group>"; };
+		135AC5C528B6DDB20046B7D3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		13961CA428B624A600021F80 /* WalkthroughViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughViewController.swift; sourceTree = "<group>"; };
 		13961CA628B6252900021F80 /* WalkthroughViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalkthroughViewController.xib; sourceTree = "<group>"; };
 		13961CA828B6271000021F80 /* WalkthroughViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughViewModel.swift; sourceTree = "<group>"; };
@@ -446,6 +448,10 @@
 		13B3D77E28AC96CB00602788 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		13D2F54E28A0C479002DD3FE /* AdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdView.swift; sourceTree = "<group>"; };
 		13D2F55028A0C4A1002DD3FE /* AdViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdViewModel.swift; sourceTree = "<group>"; };
+		13ECB37228B6DA4100AE5BDE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		13F07F7A28B6DACC00CC9FAC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Login.strings; sourceTree = "<group>"; };
+		13F07F7C28B6DAEF00CC9FAC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Group.strings; sourceTree = "<group>"; };
+		13F07F7E28B6DAF800CC9FAC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Friend.strings; sourceTree = "<group>"; };
 		13FCD29106C16A3D2D2FC3B7 /* Pods_LifeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LifeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F299E90E5B6BB50A7323655 /* Pods-Life-LifeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Life-LifeUITests.release.xcconfig"; path = "Target Support Files/Pods-Life-LifeUITests/Pods-Life-LifeUITests.release.xcconfig"; sourceTree = "<group>"; };
 		2DA0512779D2347E705F5CEF /* Pods-LifeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LifeTests.release.xcconfig"; path = "Target Support Files/Pods-LifeTests/Pods-LifeTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -816,6 +822,8 @@
 				1349E69D28B67339002F1805 /* TelegramRecordView.xib */,
 			);
 			path = TelegramRecordView;
+			sourceTree = "<group>";
+		};
 		13961CA328B6247400021F80 /* Walkthrough */ = {
 			isa = PBXGroup;
 			children = (
@@ -1668,7 +1676,7 @@
 				AB13A9D324A2EF610028731D /* Sources */,
 				AB13A9D424A2EF610028731D /* Frameworks */,
 				AB13A9D524A2EF610028731D /* Resources */,
-				DFF84A4F464B010F92740D83 /* [CP] Embed Pods Frameworks */,
+				DFF84A4F464B010F92740D83 /* Something */,
 				05BA7EE926B7A59B0049393B /* Embed Frameworks */,
 			);
 			buildRules = (
@@ -1707,7 +1715,7 @@
 				AB13A9F424A2EF670028731D /* Sources */,
 				AB13A9F524A2EF670028731D /* Frameworks */,
 				AB13A9F624A2EF670028731D /* Resources */,
-				C3585B4CE57585CED40D97DF /* [CP] Embed Pods Frameworks */,
+				C3585B4CE57585CED40D97DF /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1934,7 +1942,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C3585B4CE57585CED40D97DF /* [CP] Embed Pods Frameworks */ = {
+		C3585B4CE57585CED40D97DF /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1942,26 +1950,35 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Life-LifeUITests/Pods-Life-LifeUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Embed Pods Frameworks";
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Life-LifeUITests/Pods-Life-LifeUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-LifeTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Life-LifeUITests/Pods-Life-LifeUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		DFF84A4F464B010F92740D83 /* [CP] Embed Pods Frameworks */ = {
+		DFF84A4F464B010F92740D83 /* Something */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Life/Pods-Life-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
-			name = "[CP] Embed Pods Frameworks";
+			name = Something;
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Life/Pods-Life-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2258,6 +2275,7 @@
 			children = (
 				04F4E3E0267CC0BB00CD94FD /* Base */,
 				04F4E3E3267CC0D300CD94FD /* ja */,
+				135AC5C328B6DB5B0046B7D3 /* en */,
 			);
 			name = ZedPay.storyboard;
 			sourceTree = "<group>";
@@ -2267,6 +2285,7 @@
 			children = (
 				A60845B024A2FEC1005F23A9 /* Base */,
 				A67A49C424BA33B40016DD41 /* ja */,
+				13F07F7A28B6DACC00CC9FAC /* en */,
 			);
 			name = Login.storyboard;
 			sourceTree = "<group>";
@@ -2275,7 +2294,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				A663A6BE24BA474B0090A13D /* ja */,
-				1349E69F28B6ADDC002F1805 /* en */,
+				135AC5C528B6DDB20046B7D3 /* en */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -2285,6 +2304,7 @@
 			children = (
 				A67A49B224BA32DF0016DD41 /* Base */,
 				A67A49C724BA33B40016DD41 /* ja */,
+				13F07F7E28B6DAF800CC9FAC /* en */,
 			);
 			name = Friend.storyboard;
 			sourceTree = "<group>";
@@ -2294,6 +2314,7 @@
 			children = (
 				A67A49B824BA33080016DD41 /* Base */,
 				A67A49C924BA33B40016DD41 /* ja */,
+				135AC5C428B6DB670046B7D3 /* en */,
 			);
 			name = Setting.storyboard;
 			sourceTree = "<group>";
@@ -2303,6 +2324,7 @@
 			children = (
 				A67A49C124BA338F0016DD41 /* Base */,
 				A67A49C624BA33B40016DD41 /* ja */,
+				13F07F7C28B6DAEF00CC9FAC /* en */,
 			);
 			name = Group.storyboard;
 			sourceTree = "<group>";
@@ -2312,6 +2334,7 @@
 			children = (
 				AB13A9E124A2EF610028731D /* Base */,
 				A67A49C324BA33B40016DD41 /* ja */,
+				13ECB37228B6DA4100AE5BDE /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

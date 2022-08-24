@@ -51,7 +51,9 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     
     let hud = JGProgressHUD(style: .light)
-    var headerSections =  [HeaderSection(name: "My Status", collapsed: false), HeaderSection(name: "Groups".localized+" 0", collapsed: false), HeaderSection(name: "Friends".localized+" 0", collapsed: false)]
+    var headerSections =  [HeaderSection(name: "My Status".localized, collapsed: false),
+                           HeaderSection(name: "Groups".localized+" 0", collapsed: false),
+                           HeaderSection(name: "Friends".localized+" 0", collapsed: false)]
 
     private var tokenFriends: NotificationToken? = nil
     private var tokenPersons: NotificationToken? = nil

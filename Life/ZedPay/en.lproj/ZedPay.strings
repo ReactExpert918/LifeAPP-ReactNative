@@ -1,0 +1,192 @@
+
+/* Class = "UILabel"; text = "9876543210"; ObjectID = "1wb-X7-sZQ"; */
+"1wb-X7-sZQ.text" = "9876543210";
+
+/* Class = "UILabel"; text = "Accept Balance"; ObjectID = "29w-Yf-LDA"; */
+"29w-Yf-LDA.text" = "Accept Balance";
+
+/* Class = "UILabel"; text = "LATEST TRANSACTIONS"; ObjectID = "2gF-u7-JhT"; */
+"2gF-u7-JhT.text" = "LATEST TRANSACTIONS";
+
+/* Class = "UILabel"; text = "Share or show t his QR code to receive payment from your friends"; ObjectID = "3Dy-5c-g9V"; */
+"3Dy-5c-g9V.text" = "Share or show t his QR code to receive payment from your friends";
+
+/* Class = "UILabel"; text = "Scan QR code to quickly send to anyone"; ObjectID = "5VI-fu-vPV"; */
+"5VI-fu-vPV.text" = "Scan QR code to quickly send to anyone";
+
+/* Class = "UILabel"; text = "Are you sure you want to add this amount to your balance?"; ObjectID = "6uf-HO-Qu6"; */
+"6uf-HO-Qu6.text" = "Are you sure you want to add this amount to your balance?";
+
+/* Class = "UILabel"; text = "Accept Balance"; ObjectID = "6wJ-gj-N5x"; */
+"6wJ-gj-N5x.text" = "Accept Balance";
+
+/* Class = "UILabel"; text = "Transaction ID"; ObjectID = "7gC-uW-RvE"; */
+"7gC-uW-RvE.text" = "Transaction ID";
+
+/* Class = "UILabel"; text = "20"; ObjectID = "7l9-9P-oMB"; */
+"7l9-9P-oMB.text" = "20";
+
+/* Class = "UILabel"; text = "Amount"; ObjectID = "8Xs-AG-SzE"; */
+"8Xs-AG-SzE.text" = "Amount";
+
+/* Class = "UILabel"; text = "5000"; ObjectID = "8lq-aC-Xns"; */
+"8lq-aC-Xns.text" = "5000";
+
+/* Class = "UILabel"; text = "20"; ObjectID = "9Cj-gK-Yfd"; */
+"9Cj-gK-Yfd.text" = "20";
+
+/* Class = "UIButton"; normalTitle = "TRY AGAIN"; ObjectID = "ATC-10-CVg"; */
+"ATC-10-CVg.normalTitle" = "TRY AGAIN";
+
+/* Class = "UILabel"; text = "Mastercard Number"; ObjectID = "Asa-tS-lIg"; */
+"Asa-tS-lIg.text" = "Mastercard Number";
+
+/* Class = "UILabel"; text = "Transaction reference number"; ObjectID = "Ba6-JO-3gj"; */
+"Ba6-JO-3gj.text" = "Transaction reference number";
+
+/* Class = "UILabel"; text = "Change Card"; ObjectID = "Bhr-jb-q0d"; */
+"Bhr-jb-q0d.text" = "Change Card";
+
+/* Class = "UILabel"; text = "Fee"; ObjectID = "CsM-PA-mhw"; */
+"CsM-PA-mhw.text" = "Fee";
+
+/* Class = "UILabel"; text = "20"; ObjectID = "EwP-iX-kEb"; */
+"EwP-iX-kEb.text" = "20";
+
+/* Class = "UIButton"; normalTitle = "SEND/RECEIVE"; ObjectID = "Ey5-ok-rTe"; */
+"Ey5-ok-rTe.normalTitle" = "SEND/RECEIVE";
+
+/* Class = "UIButton"; normalTitle = "ADD BALANCE"; ObjectID = "FuL-Oy-9nH"; */
+"FuL-Oy-9nH.normalTitle" = "ADD BALANCE";
+
+/* Class = "UILabel"; text = "20"; ObjectID = "GT7-pI-cl6"; */
+"GT7-pI-cl6.text" = "20";
+
+/* Class = "UILabel"; text = "James ASdfasd"; ObjectID = "HBk-9H-Mhg"; */
+"HBk-9H-Mhg.text" = "James ASdfasd";
+
+/* Class = "UIButton"; normalTitle = "  Done  "; ObjectID = "KDP-01-xFd"; */
+"KDP-01-xFd.normalTitle" = "  Done  ";
+
+/* Class = "UIButton"; normalTitle = "Yes"; ObjectID = "KS4-gf-HWm"; */
+"KS4-gf-HWm.normalTitle" = "Yes";
+
+/* Class = "UILabel"; text = "Please enter the passcode to complete payment"; ObjectID = "LSS-99-NGu"; */
+"LSS-99-NGu.text" = "Please enter the passcode to complete payment";
+
+/* Class = "UILabel"; text = "Payment Successful"; ObjectID = "LVj-bg-Nod"; */
+"LVj-bg-Nod.text" = "Payment Successful";
+
+/* Class = "UILabel"; text = "Enter Amount"; ObjectID = "NP4-qZ-EjQ"; */
+"NP4-qZ-EjQ.text" = "Enter Amount";
+
+/* Class = "UILabel"; text = "Security Verification"; ObjectID = "NvQ-lV-pR3"; */
+"NvQ-lV-pR3.text" = "Security Verification";
+
+/* Class = "UILabel"; text = "Balance Send To"; ObjectID = "Ogv-5W-m5e"; */
+"Ogv-5W-m5e.text" = "Balance Send To";
+
+/* Class = "UIButton"; normalTitle = "No"; ObjectID = "QAq-O8-pdC"; */
+"QAq-O8-pdC.normalTitle" = "No";
+
+/* Class = "UIButton"; normalTitle = "SEND"; ObjectID = "S6M-Lu-cOs"; */
+"S6M-Lu-cOs.normalTitle" = "SEND";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "SGj-QT-u8V"; */
+"SGj-QT-u8V.text" = "Label";
+
+/* Class = "UILabel"; text = "Availabe Balance:"; ObjectID = "T8q-EJ-jYj"; */
+"T8q-EJ-jYj.text" = "Availabe Balance:";
+
+/* Class = "UILabel"; text = "Paid with ZED Pay"; ObjectID = "TYH-2N-QBc"; */
+"TYH-2N-QBc.text" = "Paid with ZED Pay";
+
+/* Class = "UILabel"; text = "You Paid a"; ObjectID = "VUh-An-xxz"; */
+"VUh-An-xxz.text" = "You Paid a";
+
+/* Class = "UILabel"; text = "Paid At 2334/23/34, 03:02 am"; ObjectID = "Vfg-2x-5UN"; */
+"Vfg-2x-5UN.text" = "Paid At 2334/23/34, 03:02 am";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "Wql-Vv-9Pz"; */
+"Wql-Vv-9Pz.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "James Watson"; ObjectID = "X7a-WC-6Lr"; */
+"X7a-WC-6Lr.text" = "James Watson";
+
+/* Class = "UILabel"; text = "James Watson"; ObjectID = "Ytt-h8-BCr"; */
+"Ytt-h8-BCr.text" = "James Watson";
+
+/* Class = "UILabel"; text = "+123123123123123"; ObjectID = "ZZi-kx-XSy"; */
+"ZZi-kx-XSy.text" = "+123123123123123";
+
+/* Class = "UILabel"; text = "1000"; ObjectID = "adT-aX-HNp"; */
+"adT-aX-HNp.text" = "1000";
+
+/* Class = "UILabel"; text = "Balance"; ObjectID = "ah5-3V-J9h"; */
+"ah5-3V-J9h.text" = "Balance";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "bm4-La-ilQ"; */
+"bm4-La-ilQ.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "1235"; ObjectID = "cZx-GX-dha"; */
+"cZx-GX-dha.text" = "1235";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "fWf-nD-LQn"; */
+"fWf-nD-LQn.text" = "-";
+
+/* Class = "UILabel"; text = "1230"; ObjectID = "gCj-3b-ot9"; */
+"gCj-3b-ot9.text" = "1230";
+
+/* Class = "UILabel"; text = "Total Amount"; ObjectID = "gE7-pG-7z8"; */
+"gE7-pG-7z8.text" = "Total Amount";
+
+/* Class = "UILabel"; text = "Add Balance"; ObjectID = "gzh-xZ-pDu"; */
+"gzh-xZ-pDu.text" = "Add Balance";
+
+/* Class = "UIButton"; normalTitle = "DONE"; ObjectID = "isW-OK-8BI"; */
+"isW-OK-8BI.normalTitle" = "DONE";
+
+/* Class = "UILabel"; text = "Transaction Amount"; ObjectID = "j9k-Tv-AeC"; */
+"j9k-Tv-AeC.text" = "Transaction Amount";
+
+/* Class = "UILabel"; text = "8597"; ObjectID = "jWM-BQ-wWM"; */
+"jWM-BQ-wWM.text" = "8597";
+
+/* Class = "UILabel"; text = "1000"; ObjectID = "kCU-WX-cmg"; */
+"kCU-WX-cmg.text" = "1000";
+
+/* Class = "UILabel"; text = "AAAAAAA"; ObjectID = "kUB-55-bKf"; */
+"kUB-55-bKf.text" = "AAAAAAA";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "lte-A2-x3M"; */
+"lte-A2-x3M.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "Add Balance"; ObjectID = "nPi-Fo-Mgg"; */
+"nPi-Fo-Mgg.normalTitle" = "Add Balance";
+
+/* Class = "UILabel"; text = "transaction fee"; ObjectID = "noH-D5-5LX"; */
+"noH-D5-5LX.text" = "transaction fee";
+
+/* Class = "UIButton"; normalTitle = "ADD BALANCE"; ObjectID = "ooz-y7-yQa"; */
+"ooz-y7-yQa.normalTitle" = "ADD BALANCE";
+
+/* Class = "UILabel"; text = "9876543210"; ObjectID = "rv8-Xx-wI5"; */
+"rv8-Xx-wI5.text" = "9876543210";
+
+/* Class = "UILabel"; text = "SEND MONEY"; ObjectID = "tO9-Ln-yA8"; */
+"tO9-Ln-yA8.text" = "SEND MONEY";
+
+/* Class = "UILabel"; text = "Add Balance"; ObjectID = "tvA-U3-k5k"; */
+"tvA-U3-k5k.text" = "Add Balance";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "vBL-KR-VSI"; */
+"vBL-KR-VSI.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "¥"; ObjectID = "xLR-Bz-byI"; */
+"xLR-Bz-byI.text" = "¥";
+
+/* Class = "UITextField"; text = "0"; ObjectID = "xNk-nc-ivM"; */
+"xNk-nc-ivM.text" = "0";
+
+/* Class = "UILabel"; text = "**** 1111"; ObjectID = "yeN-RK-24w"; */
+"yeN-RK-24w.text" = "**** 1111";
