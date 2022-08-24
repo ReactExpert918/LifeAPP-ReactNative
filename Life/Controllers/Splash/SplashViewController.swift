@@ -10,9 +10,35 @@ import UIKit
 
 class SplashViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillAppear(_ animated: Bool) {
+        checkWalkThrough()
+    }
 
+    private func checkWalkThrough() {
+        if PrefsManager.getIgnoreWalkthrough() {
+            checkLogin()
+        } else {
+            gotoWalkthrough()
+        }
+    }
+
+    private func gotoWalkthrough() {
+
+        let viewModel = WalkthroughViewModel(items: [
+            .init(image: .init(named: "walkthrough1"), description: "walkthrough1".localized),
+            .init(image: .init(named: "walkthrough2"), description: "walkthrough2".localized),
+            .init(image: .init(named: "walkthrough3"), description: "walkthrough3".localized),
+            .init(image: .init(named: "walkthrough4"), description: "walkthrough4".localized),
+            .init(image: .init(named: "walkthrough5"), description: "walkthrough5".localized),
+            .init(image: .init(named: "walkthrough6"), description: "walkthrough6".localized)
+        ])
+
+        let walkthroughViewController = WalkthroughViewController.instantiate()
+        walkthroughViewController.model = viewModel
+        UIApplication.shared.windows.first?.rootViewController = walkthroughViewController
+    }
+
+    private func checkLogin() {
         let email = PrefsManager.getEmail()
         if email != "" {
             let password = PrefsManager.getPassword()
