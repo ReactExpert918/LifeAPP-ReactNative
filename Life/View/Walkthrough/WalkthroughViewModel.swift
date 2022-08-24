@@ -9,5 +9,15 @@
 import JamitFoundation
 
 struct WalkthroughViewModel: ViewModelProtocol {
-    
+    let items: [WalkthroughItemViewModel]
+
+    init(
+        items: [WalkthroughItemViewModel] = Self.default.items
+    ) {
+        self.items = items
+    }
+}
+
+extension WalkthroughViewModel {
+    static var `default`: WalkthroughViewModel = .init(items: [])
 }

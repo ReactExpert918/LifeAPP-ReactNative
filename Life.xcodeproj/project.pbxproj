@@ -85,6 +85,7 @@
 		13961CAC28B6275400021F80 /* WalkthroughItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13961CAB28B6275400021F80 /* WalkthroughItemViewModel.swift */; };
 		13961CAE28B62E5B00021F80 /* WalkthroughItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13961CAD28B62E5B00021F80 /* WalkthroughItemView.xib */; };
 		13961CB028B62F8800021F80 /* WalkthroughItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13961CAF28B62F8800021F80 /* WalkthroughItemView.swift */; };
+		13961CB228B633AD00021F80 /* WalkthorughItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13961CB128B633AD00021F80 /* WalkthorughItemCell.swift */; };
 		13B3D77F28AC96CB00602788 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B3D77E28AC96CB00602788 /* UIViewController.swift */; };
 		13D2F54F28A0C479002DD3FE /* AdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D2F54E28A0C479002DD3FE /* AdView.swift */; };
 		13D2F55128A0C4A1002DD3FE /* AdViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13D2F55028A0C4A1002DD3FE /* AdViewModel.swift */; };
@@ -436,6 +437,7 @@
 		13961CAB28B6275400021F80 /* WalkthroughItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughItemViewModel.swift; sourceTree = "<group>"; };
 		13961CAD28B62E5B00021F80 /* WalkthroughItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalkthroughItemView.xib; sourceTree = "<group>"; };
 		13961CAF28B62F8800021F80 /* WalkthroughItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughItemView.swift; sourceTree = "<group>"; };
+		13961CB128B633AD00021F80 /* WalkthorughItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthorughItemCell.swift; sourceTree = "<group>"; };
 		13B3D77E28AC96CB00602788 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		13D2F54E28A0C479002DD3FE /* AdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdView.swift; sourceTree = "<group>"; };
 		13D2F55028A0C4A1002DD3FE /* AdViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdViewModel.swift; sourceTree = "<group>"; };
@@ -819,6 +821,7 @@
 				13961CAB28B6275400021F80 /* WalkthroughItemViewModel.swift */,
 				13961CAD28B62E5B00021F80 /* WalkthroughItemView.xib */,
 				13961CAF28B62F8800021F80 /* WalkthroughItemView.swift */,
+				13961CB128B633AD00021F80 /* WalkthorughItemCell.swift */,
 			);
 			path = WalkthroughItem;
 			sourceTree = "<group>";
@@ -2061,6 +2064,7 @@
 				A60845BB24A3033D005F23A9 /* SignInViewController.swift in Sources */,
 				A6BD967D24B4D76900E1B873 /* SelectUsersView.swift in Sources */,
 				04975C1326859AB300A10CC1 /* MoneyTableViewCell.swift in Sources */,
+				13961CB228B633AD00021F80 /* WalkthorughItemCell.swift in Sources */,
 				A6DEA87F24A84E9600868625 /* MediaUploader.swift in Sources */,
 				A6DEA82324A82A7100868625 /* MessagePhotoCell.swift in Sources */,
 				A6DEA87724A848DB00868625 /* Group.swift in Sources */,
