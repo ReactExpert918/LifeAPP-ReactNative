@@ -160,8 +160,6 @@ class ChatViewController: UIViewController {
         refreshControl.addTarget(self, action: #selector(actionLoadEarlier), for: UIControl.Event.valueChanged)
         tableView.addSubview(refreshControl)
         
-        
-        
         //tableView.keyboardDismissMode = .onDrag
         // Do any additional setup after loading the view.
         
@@ -569,6 +567,7 @@ class ChatViewController: UIViewController {
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func loadMessages() {
 
+        if chatId.isEmpty == false {
         let predicate = NSPredicate(format: "chatId == %@ AND isDeleted == NO", chatId)
         messages = realm.objects(Message.self).filter(predicate).sorted(byKeyPath: "createdAt")
         
@@ -594,6 +593,7 @@ class ChatViewController: UIViewController {
         }, completion: { token in
             self.tokenMessages = token
         })
+        }
     }
     // MARK: - Refresh methods
     //---------------------------------------------------------------------------------------------------------------------------------------------

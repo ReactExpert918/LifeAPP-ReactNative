@@ -112,7 +112,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-
     #if DEBUG
         Messaging.messaging().setAPNSToken(deviceToken, type: .sandbox)
     #else
