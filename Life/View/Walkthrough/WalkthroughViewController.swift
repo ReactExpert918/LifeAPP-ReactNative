@@ -20,13 +20,18 @@ class WalkthroughViewController: StatefulViewController<WalkthroughViewModel> {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        pageControl.backgroundColor = UIColor(named: "messageOutgoingColor")?.withAlphaComponent(0.5)
-        pageControl.layer.cornerRadius = 13
+//        pageControl.backgroundColor = UIColor(named: "messageOutgoingColor")?.withAlphaComponent(0.5)
+//        pageControl.layer.cornerRadius = 13
+        pageControl.isHidden = true
+        
+        nextButton.isHidden = true
 
-        collectionView.isPagingEnabled = true
+//        collectionView.isPagingEnabled = true
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(cellOfType: WalkthroughItemCell.self)
+        
+        
     }
 
     @IBAction func nextButtonDidTap(_ sender: Any) {
@@ -96,12 +101,13 @@ class WalkthroughViewController: StatefulViewController<WalkthroughViewModel> {
     }
 
     func scrollEnd() {
-        pageControl.currentPage = currentPage
-
+//        pageControl.currentPage = currentPage
         if model.items.count - 1 == currentPage {
+            nextButton.isHidden = false
             nextButton.setTitle("Finish", for: .normal)
         } else {
-            nextButton.setTitle("Next", for: .normal)
+//            nextButton.setTitle("Next", for: .normal)
+            nextButton.isHidden = true
         }
     }
 }
@@ -122,15 +128,16 @@ extension WalkthroughViewController: UICollectionViewDelegate {
 }
 
 extension WalkthroughViewController: UICollectionViewDelegateFlowLayout {
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
+//    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+//        currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
+//        scrollEnd()
+//    }
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        currentPage = indexPath.row
         scrollEnd()
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return collectionView.frame.size
-//        return CGSize(
-//            width: UIScreen.main.bounds.width,
-//            height: UIScreen.main.bounds.height)
     }
 
     func collectionView(
