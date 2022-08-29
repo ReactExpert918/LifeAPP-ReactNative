@@ -21,6 +21,7 @@ class WalkthroughItemView: StatefulView<WalkthroughItemViewModel> {
         super.didChangeModel()
 
         descriptionLabel.text = model.description
+        descriptionLabel.sizeToFit()
         imageView.image = model.image
     }
 
