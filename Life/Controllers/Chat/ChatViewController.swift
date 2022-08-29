@@ -889,7 +889,7 @@ class ChatViewController: UIViewController {
             playingIndex = nil
             let range = NSMakeRange(0, tableView.numberOfSections)
             let sections = NSIndexSet(indexesIn: range)
-            tableView.reloadSections(sections as IndexSet, with: .top)
+            tableView.reloadSections(sections as IndexSet, with: .bottom)
         }
     }
     func actionTapBubble(_ indexPath: IndexPath) {
