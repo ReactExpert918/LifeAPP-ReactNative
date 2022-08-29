@@ -17,6 +17,8 @@ class VideoView: UIViewController {
 	private var url: URL!
 	private var controller: AVPlayerViewController?
 
+    var customActionDone: (() -> ())? = nil
+    var showsPlaybackControls: Bool = true
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	init(url: URL) {
 
@@ -55,6 +57,7 @@ class VideoView: UIViewController {
 			addChild(controller!)
 			view.addSubview(controller!.view)
 			controller!.view.frame = view.frame
+            controller!.showsPlaybackControls = showsPlaybackControls
 		}
 	}
 
@@ -69,7 +72,10 @@ class VideoView: UIViewController {
 	// MARK: - User actions
 	//---------------------------------------------------------------------------------------------------------------------------------------------
 	@objc func actionDone() {
-
-		dismiss(animated: true)
+        if let customActionDone = customActionDone {
+            customActionDone()
+        } else {
+            dismiss(animated: true)
+        }
 	}
 }

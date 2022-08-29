@@ -102,6 +102,8 @@ class ChatViewController: UIViewController {
     private var members = realm.objects(Member.self).filter(falsepredicate)
     private var users:[User] = []
 
+    var playingIndex: IndexPath?
+
     let app = UIApplication.shared.delegate as? AppDelegate
 
     
@@ -882,6 +884,14 @@ class ChatViewController: UIViewController {
     }
     // MARK: - User actions (bubble tap)
     //---------------------------------------------------------------------------------------------------------------------------------------------
+    func pauseVideoOnTapBubble(_ indexPath: IndexPath) {
+        if playingIndex == indexPath {
+            playingIndex = nil
+            let range = NSMakeRange(0, tableView.numberOfSections)
+            let sections = NSIndexSet(indexesIn: range)
+            tableView.reloadSections(sections as IndexSet, with: .top)
+        }
+    }
     func actionTapBubble(_ indexPath: IndexPath) {
         let rcmessage = rcmessageAt(indexPath)
 
@@ -897,9 +907,10 @@ class ChatViewController: UIViewController {
                 present(pictureView, animated: true)
             }
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_VIDEO) {
-                let url = URL(fileURLWithPath: rcmessage.videoPath)
-                let videoView = VideoView(url: url)
-                present(videoView, animated: true)
+                playingIndex = indexPath
+                let range = NSMakeRange(0, tableView.numberOfSections)
+                let sections = NSIndexSet(indexesIn: range)
+                tableView.reloadSections(sections as IndexSet, with: .automatic)
             }
             
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_AUDIO) {
@@ -1295,15 +1306,19 @@ extension ChatViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.row == 0) {
             let rcmessage = rcmessageAt(indexPath)
-            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_TEXT)     { return cellForMessageText(tableView, at: indexPath)}
-            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_EMOJI)    { return cellForMessageEmoji(tableView, at: indexPath)}
-            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_PHOTO)    { return cellForMessagePhoto(tableView, at: indexPath)}
-            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_VIDEO)    { return cellForMessageVideo(tableView, at: indexPath)}
-            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_AUDIO)    { return cellForMessageAudio(tableView, at: indexPath)}
-            if (rcmessage.type == MESSAGE_TYPE.MISSED_CALL || rcmessage.type == MESSAGE_TYPE.CANCELLED_CALL || rcmessage.type == MESSAGE_TYPE.OUTGOING_CALL)    { return cellForMessageCall(tableView, at: indexPath)}
-            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_LOCATION) { return cellForMessageLocation(tableView, at: indexPath)}
-            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_MONEY)    { return cellForMessageMoney(tableView, at: indexPath)}
-            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_ISTYPING)    { return cellForTyping(tableView, at: indexPath)}
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_TEXT)     { return cellForMessageText(tableView, at: indexPath) }
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_EMOJI)    { return cellForMessageEmoji(tableView, at: indexPath) }
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_PHOTO)    { return cellForMessagePhoto(tableView, at: indexPath) }
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_VIDEO
+                && indexPath == playingIndex)                    { return cellForMessageVideo(tableView, at: indexPath, isPlaying: true) }
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_VIDEO)    { return cellForMessageVideo(tableView, at: indexPath) }
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_AUDIO)    { return cellForMessageAudio(tableView, at: indexPath) }
+            if (rcmessage.type == MESSAGE_TYPE.MISSED_CALL
+                || rcmessage.type == MESSAGE_TYPE.CANCELLED_CALL
+                || rcmessage.type == MESSAGE_TYPE.OUTGOING_CALL) { return cellForMessageCall(tableView, at: indexPath) }
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_LOCATION) { return cellForMessageLocation(tableView, at: indexPath) }
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_MONEY)    { return cellForMessageMoney(tableView, at: indexPath) }
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_ISTYPING) { return cellForTyping(tableView, at: indexPath) }
         }
         return UITableViewCell()
     }
@@ -1363,9 +1378,9 @@ extension ChatViewController: UITableViewDataSource {
         self.present(vc, animated: true, completion: nil)
     }
     //---------------------------------------------------------------------------------------------------------------------------------------------
-    func cellForMessageVideo(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
+    func cellForMessageVideo(_ tableView: UITableView, at indexPath: IndexPath, isPlaying: Bool = false) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MessageVideoCell", for: indexPath) as! MessageVideoCell
-        cell.bindData(self, at: indexPath)
+        cell.bindData(self, at: indexPath, isPlaying: isPlaying)
         return cell
     }
 
@@ -1429,14 +1444,18 @@ extension ChatViewController: UITableViewDelegate {
         if (indexPath.row == 0) {
             let rcmessage = rcmessageAt(indexPath)
             
-            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_TEXT)        { return UITableView.automaticDimension}
-            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_EMOJI)    { return RCMessageEmojiCell.height(self, at: indexPath)         }
-            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_PHOTO)    { return MessagePhotoCell.height(self, at: indexPath)     }
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_TEXT)     { return UITableView.automaticDimension }
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_EMOJI)    { return RCMessageEmojiCell.height(self, at: indexPath) }
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_PHOTO)    { return MessagePhotoCell.height(self, at: indexPath) }
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_VIDEO
+                && indexPath == playingIndex)                    { return tableView.frame.width }
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_VIDEO)    { return 160 }
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_AUDIO)    { return 54 }
-            if (rcmessage.type == MESSAGE_TYPE.MISSED_CALL || rcmessage.type == MESSAGE_TYPE.CANCELLED_CALL || rcmessage.type == MESSAGE_TYPE.OUTGOING_CALL)     { return 60 }
-            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_LOCATION)    { return RCMessageLocationCell.height(self, at: indexPath)   }
-            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_MONEY)    { return 143   }
+            if (rcmessage.type == MESSAGE_TYPE.MISSED_CALL
+                || rcmessage.type == MESSAGE_TYPE.CANCELLED_CALL
+                || rcmessage.type == MESSAGE_TYPE.OUTGOING_CALL) { return 60 }
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_LOCATION) { return RCMessageLocationCell.height(self, at: indexPath) }
+            if (rcmessage.type == MESSAGE_TYPE.MESSAGE_MONEY)    { return 143 }
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_ISTYPING) { return 46 }
         }
         return 0

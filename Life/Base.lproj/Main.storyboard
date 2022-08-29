@@ -1242,6 +1242,10 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="160"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yiZ-Ck-e11">
+                                                    <rect key="frame" x="15" y="15" width="384" height="130"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tw1-Jp-B8r" userLabel="you">
                                                     <rect key="frame" x="12" y="0.0" width="390" height="160"/>
                                                     <subviews>
@@ -1408,11 +1412,15 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
+                                                <constraint firstItem="yiZ-Ck-e11" firstAttribute="top" secondItem="0nR-I8-W0t" secondAttribute="top" constant="15" id="4U7-G3-dwD"/>
                                                 <constraint firstAttribute="bottom" secondItem="Tw1-Jp-B8r" secondAttribute="bottom" id="HVQ-f5-ZKt"/>
+                                                <constraint firstAttribute="trailing" secondItem="yiZ-Ck-e11" secondAttribute="trailing" constant="15" id="IUa-Dv-Q5W"/>
                                                 <constraint firstItem="s6R-hX-bzO" firstAttribute="centerX" secondItem="0nR-I8-W0t" secondAttribute="centerX" id="KOz-Af-MNt"/>
+                                                <constraint firstItem="yiZ-Ck-e11" firstAttribute="leading" secondItem="0nR-I8-W0t" secondAttribute="leading" constant="15" id="KZ3-nd-Q4t"/>
                                                 <constraint firstItem="Tw1-Jp-B8r" firstAttribute="centerX" secondItem="0nR-I8-W0t" secondAttribute="centerX" id="Lgb-Fc-bbc"/>
                                                 <constraint firstAttribute="bottom" secondItem="s6R-hX-bzO" secondAttribute="bottom" id="Qd7-fE-9An"/>
                                                 <constraint firstItem="Tw1-Jp-B8r" firstAttribute="leading" secondItem="0nR-I8-W0t" secondAttribute="leading" constant="12" id="b5Z-LM-K9Z"/>
+                                                <constraint firstAttribute="bottom" secondItem="yiZ-Ck-e11" secondAttribute="bottom" constant="15" id="fGY-z0-Cou"/>
                                                 <constraint firstItem="Tw1-Jp-B8r" firstAttribute="height" secondItem="0nR-I8-W0t" secondAttribute="height" id="fUv-yY-Tdg"/>
                                                 <constraint firstAttribute="trailing" secondItem="s6R-hX-bzO" secondAttribute="trailing" constant="12" id="hw2-Tq-oyE"/>
                                                 <constraint firstItem="s6R-hX-bzO" firstAttribute="height" secondItem="0nR-I8-W0t" secondAttribute="height" priority="250" id="mBb-3A-zQH"/>
@@ -1434,6 +1442,7 @@
                                             <outlet property="uivYou" destination="Tw1-Jp-B8r" id="RoY-qU-6pj"/>
                                             <outlet property="uivYouStatus" destination="Rhe-N1-b4b" id="1ri-x1-RCp"/>
                                             <outlet property="uivYouTxt" destination="7lz-GW-3QI" id="fXA-np-urR"/>
+                                            <outlet property="videoContainer" destination="yiZ-Ck-e11" id="j6f-kE-hvz"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -1975,6 +1984,20 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uz2-NU-jqy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2814" y="1404"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="xoU-di-N6K">
+            <objects>
+                <viewController id="fMX-bq-BAY" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="7ml-9N-00q">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="up8-Kc-zua" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2274" y="1115"/>
         </scene>
     </scenes>
     <resources>
