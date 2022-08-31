@@ -29,10 +29,10 @@ class MessageVideoCell: UITableViewCell {
     
     @IBOutlet weak var uivYouStatus: UIView!
     @IBOutlet weak var uivMeStatus: UIView!
-    
-    @IBOutlet weak var imageViewMeThumb: UIImageView!
-    @IBOutlet weak var imageViewYouThumb: UIImageView!
-    
+
+    @IBOutlet weak var videoViewMe: UIView!
+    @IBOutlet weak var videoViewYou: UIView!
+
     @IBOutlet weak var videoContainer: UIView!
     
     var indexPath: IndexPath!
@@ -50,96 +50,90 @@ class MessageVideoCell: UITableViewCell {
         let bubbleGesture = UITapGestureRecognizer(target: self, action: #selector(actionTapBubble))
         rcmessage.incoming ? uivYouTxt.addGestureRecognizer(bubbleGesture) : uivMeTxt.addGestureRecognizer(bubbleGesture)
         bubbleGesture.cancelsTouchesInView = false
+        
+        let url = URL(fileURLWithPath: rcmessage.videoPath)
 
         if isPlaying {
-            let url = URL(fileURLWithPath: rcmessage.videoPath)
-            setupPlaying(videoUrl: url)
-        } else {
-            closePlayer()
 
-            videoContainer.isHidden = true
-            uivMe.isHidden = rcmessage.incoming
-            uivYou.isHidden = !rcmessage.incoming
+            videoContainer.isHidden = false
+            uivYou.isHidden = true
+            uivMe.isHidden = true
             
+            videoContainer.layer.cornerRadius = videoContainer.frame.width / 2
+            videoContainer.layer.borderWidth = 1
+            videoContainer.layer.borderColor = COLORS.PRIMARY?.cgColor
+            videoContainer.clipsToBounds = true
+
+            setupPlaying(videoUrl: url, containerView: videoContainer, mute: false, customActionDone: playerDone)
+            
+        } else if rcmessage.incoming {
+            
+            videoContainer.isHidden = true
+            uivYou.isHidden = false
+            uivMe.isHidden = true
             
             uivYouStatus.layer.cornerRadius = 6
             uivYouStatus.layer.borderWidth = 2
             uivYouStatus.layer.borderColor = UIColor.white.cgColor
             
+            videoViewYou.layer.cornerRadius = 80
+            videoViewYou.layer.borderWidth = 1
+            videoViewYou.layer.borderColor = COLORS.PRIMARY?.cgColor
+            videoViewYou.clipsToBounds = true
+            
+            imvPartner.image = messagesView.avatarImage(indexPath)
+            
+            lblYouTime.textAlignment = .left
+            lblYouTime.text = messagesView.textHeaderLower(indexPath)
+            
+            setupPlaying(videoUrl: url, containerView: videoViewYou, mute: true, customActionDone: resetPlayer)
+            
+            addGestures(incoming: rcmessage.incoming)
+
+        } else {
+            
+            videoContainer.isHidden = true
+            uivYou.isHidden = true
+            uivMe.isHidden = false
+            
             uivMeStatus.layer.cornerRadius = 6
             uivMeStatus.layer.borderWidth = 2
             uivMeStatus.layer.borderColor = UIColor.white.cgColor
             
-            
-            imageViewMeThumb.layer.cornerRadius = 80
-            imageViewMeThumb.layer.borderWidth = 1
-            imageViewMeThumb.layer.borderColor = COLORS.PRIMARY?.cgColor
-            
-            imageViewYouThumb.layer.cornerRadius = 80
-            imageViewYouThumb.layer.borderWidth = 1
-            imageViewYouThumb.layer.borderColor = COLORS.PRIMARY?.cgColor
-            
-            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(actionContentView))
-            uivContent.addGestureRecognizer(tapGesture)
-            
-            
-            let longGesture = UILongPressGestureRecognizer(target: self, action: #selector(actionLongBubble(_:)))
-            rcmessage.incoming ? uivYouTxt.addGestureRecognizer(longGesture) : uivMeTxt.addGestureRecognizer(longGesture)
+            videoViewMe.layer.cornerRadius = 80
+            videoViewMe.layer.borderWidth = 1
+            videoViewMe.layer.borderColor = COLORS.PRIMARY?.cgColor
+            videoViewMe.clipsToBounds = true
             
             imvMe.image = messagesView.avatarImage(indexPath)
-            imvPartner.image = messagesView.avatarImage(indexPath)
+            
+            lblMeTime.textAlignment = .left
+            lblMeTime.text = messagesView.textHeaderLower(indexPath)
+            
+            setupPlaying(videoUrl: url, containerView: videoViewMe, mute: true, customActionDone: resetPlayer)
             
             if let image = messagesView.textFooterLower(indexPath){
                 imvMeTick.isHidden = false
                 imvMeTick.image = image
-            }else{
+            } else {
                 imvMeTick.isHidden = true
                 imvMeTick.image = nil
             }
             
-            
-            lblYouTime.textAlignment = rcmessage.incoming ? .left : .right
-            lblMeTime.textAlignment = rcmessage.incoming ? .right : .left
-            lblYouTime.text = messagesView.textHeaderLower(indexPath)
-            lblMeTime.text = messagesView.textHeaderLower(indexPath)
-            
-            if rcmessage.incoming{
-                if (rcmessage.mediaStatus == MediaStatus.MEDIASTATUS_UNKNOWN) {
-                    imageViewYouThumb.image = nil
-                }
-                
-                if (rcmessage.mediaStatus == MediaStatus.MEDIASTATUS_LOADING) {
-                    imageViewYouThumb.image = nil
-                }
-                
-                if (rcmessage.mediaStatus == MediaStatus.MEDIASTATUS_SUCCEED) {
-                    imageViewYouThumb.image = rcmessage.videoThumbnail
-                }
-                
-                if (rcmessage.mediaStatus == MediaStatus.MEDIASTATUS_MANUAL) {
-                    imageViewYouThumb.image = nil
-                }
-            }else{
-                if (rcmessage.mediaStatus == MediaStatus.MEDIASTATUS_UNKNOWN) {
-                    imageViewMeThumb.image = nil
-                }
-                
-                if (rcmessage.mediaStatus == MediaStatus.MEDIASTATUS_LOADING) {
-                    imageViewMeThumb.image = nil
-                }
-                
-                if (rcmessage.mediaStatus == MediaStatus.MEDIASTATUS_SUCCEED) {
-                    imageViewMeThumb.image = rcmessage.videoThumbnail
-                }
-                
-                if (rcmessage.mediaStatus == MediaStatus.MEDIASTATUS_MANUAL) {
-                    imageViewMeThumb.image = nil
-                }
-            }
-            
+            addGestures(incoming: rcmessage.incoming)
         }
+
     }
     
+    private func addGestures(incoming: Bool) {
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(actionContentView))
+        uivContent.addGestureRecognizer(tapGesture)
+        
+        
+        let longGesture = UILongPressGestureRecognizer(target: self, action: #selector(actionLongBubble(_:)))
+        incoming ? uivYouTxt.addGestureRecognizer(longGesture) : uivMeTxt.addGestureRecognizer(longGesture)
+    }
     // MARK: - User actions
     //---------------------------------------------------------------------------------------------------------------------------------------------
     @objc func actionTapBubble() {
@@ -190,52 +184,48 @@ class MessageVideoCell: UITableViewCell {
         }
     }
     
-    private func setupPlaying(videoUrl: URL) {
-        videoContainer.isHidden = false
-        uivYou.isHidden = true
-        uivMe.isHidden = true
-        
-        if videoView == nil { videoView = VideoView(url: videoUrl) }
+    private func setupPlaying(videoUrl: URL,
+                              containerView: UIView,
+                              mute: Bool,
+                              customActionDone: (() -> ())? = nil) {
+        closePlayer()
+        videoView = VideoView(url: videoUrl, showsPlaybackControls: false, mute: mute)
         guard let videoUIView = videoView.view else { return }
-
-        videoView.customActionDone = playerDone
-
-        videoContainer.layer.cornerRadius = videoContainer.frame.width / 2
-        videoContainer.clipsToBounds = true
-        videoView.showsPlaybackControls = false
-
+        
+        videoView.customActionDone = customActionDone
+        
         messagesView.addChild(videoView)
-        videoContainer.addSubview(videoUIView)
+        containerView.addSubview(videoUIView)
         
         videoView.view.translatesAutoresizingMaskIntoConstraints = false
-        videoContainer.addConstraint(NSLayoutConstraint(item: videoUIView,
-                                                     attribute: .leading,
-                                                     relatedBy: .equal,
-                                                     toItem: videoContainer,
-                                                     attribute: .leading,
-                                                     multiplier: 1.0,
-                                                     constant: 0.0))
-        videoContainer.addConstraint(NSLayoutConstraint(item: videoUIView,
-                                                     attribute: .trailing,
-                                                     relatedBy: .equal,
-                                                     toItem: videoContainer,
-                                                     attribute: .trailing,
-                                                     multiplier: 1.0,
-                                                     constant: 0.0))
-        videoContainer.addConstraint(NSLayoutConstraint(item: videoUIView,
-                                                     attribute: .top,
-                                                     relatedBy: .equal,
-                                                     toItem: videoContainer,
-                                                     attribute: .top,
-                                                     multiplier: 1.0,
-                                                     constant: 0.0))
-        videoContainer.addConstraint(NSLayoutConstraint(item: videoUIView,
-                                                     attribute: .bottom,
-                                                     relatedBy: .equal,
-                                                     toItem: videoContainer,
-                                                     attribute: .bottom,
-                                                     multiplier: 1.0,
-                                                     constant: 0.0))
+        containerView.addConstraint(NSLayoutConstraint(item: videoUIView,
+                                                       attribute: .leading,
+                                                       relatedBy: .equal,
+                                                       toItem: containerView,
+                                                       attribute: .leading,
+                                                       multiplier: 1.0,
+                                                       constant: 0.0))
+        containerView.addConstraint(NSLayoutConstraint(item: videoUIView,
+                                                       attribute: .trailing,
+                                                       relatedBy: .equal,
+                                                       toItem: containerView,
+                                                       attribute: .trailing,
+                                                       multiplier: 1.0,
+                                                       constant: 0.0))
+        containerView.addConstraint(NSLayoutConstraint(item: videoUIView,
+                                                       attribute: .top,
+                                                       relatedBy: .equal,
+                                                       toItem: containerView,
+                                                       attribute: .top,
+                                                       multiplier: 1.0,
+                                                       constant: 0.0))
+        containerView.addConstraint(NSLayoutConstraint(item: videoUIView,
+                                                       attribute: .bottom,
+                                                       relatedBy: .equal,
+                                                       toItem: containerView,
+                                                       attribute: .bottom,
+                                                       multiplier: 1.0,
+                                                       constant: 0.0))
         
         videoView.didMove(toParent: messagesView)
         videoView.view.layoutIfNeeded()
@@ -251,6 +241,9 @@ class MessageVideoCell: UITableViewCell {
     private func playerDone() {
         closePlayer()
         messagesView.pauseVideoOnTapBubble(indexPath)
+    }
+    private func resetPlayer() {
+        videoView.resetPlayer()
     }
 }
 

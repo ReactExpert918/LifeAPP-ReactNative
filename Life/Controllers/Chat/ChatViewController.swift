@@ -887,9 +887,7 @@ class ChatViewController: UIViewController {
     func pauseVideoOnTapBubble(_ indexPath: IndexPath) {
         if playingIndex == indexPath {
             playingIndex = nil
-            let range = NSMakeRange(0, tableView.numberOfSections)
-            let sections = NSIndexSet(indexesIn: range)
-            tableView.reloadSections(sections as IndexSet, with: .bottom)
+            tableView.reloadRows(at: [indexPath], with: .top)
         }
     }
     func actionTapBubble(_ indexPath: IndexPath) {
@@ -908,9 +906,7 @@ class ChatViewController: UIViewController {
             }
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_VIDEO) {
                 playingIndex = indexPath
-                let range = NSMakeRange(0, tableView.numberOfSections)
-                let sections = NSIndexSet(indexesIn: range)
-                tableView.reloadSections(sections as IndexSet, with: .automatic)
+                tableView.reloadRows(at: [indexPath], with: .bottom)
             }
             
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_AUDIO) {

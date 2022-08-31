@@ -1272,13 +1272,14 @@
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7lz-GW-3QI" userLabel="textview">
                                                             <rect key="frame" x="56" y="0.0" width="278" height="160"/>
                                                             <subviews>
-                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rcmessages_videoplay.png" translatesAutoresizingMaskIntoConstraints="NO" id="mp8-lH-ssD">
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gsu-FW-hKw">
                                                                     <rect key="frame" x="0.0" y="0.0" width="160" height="160"/>
+                                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="width" secondItem="mp8-lH-ssD" secondAttribute="height" id="Yxh-Vf-alq"/>
-                                                                        <constraint firstAttribute="width" constant="160" id="ub5-Gt-DVM"/>
+                                                                        <constraint firstAttribute="width" constant="160" id="bak-NY-l4y"/>
+                                                                        <constraint firstAttribute="height" constant="160" id="vEx-Pg-OgX"/>
                                                                     </constraints>
-                                                                </imageView>
+                                                                </view>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="18:45 PM" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="im6-lV-awJ">
                                                                     <rect key="frame" x="140" y="141" width="41.5" height="15"/>
                                                                     <constraints>
@@ -1291,10 +1292,10 @@
                                                             </subviews>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
-                                                                <constraint firstItem="mp8-lH-ssD" firstAttribute="top" secondItem="7lz-GW-3QI" secondAttribute="top" id="5BD-GM-XqK"/>
                                                                 <constraint firstAttribute="bottom" secondItem="im6-lV-awJ" secondAttribute="bottom" constant="4" id="JDV-Ip-8oU"/>
-                                                                <constraint firstItem="mp8-lH-ssD" firstAttribute="leading" secondItem="7lz-GW-3QI" secondAttribute="leading" id="Smp-da-zbH"/>
-                                                                <constraint firstItem="im6-lV-awJ" firstAttribute="leading" secondItem="mp8-lH-ssD" secondAttribute="trailing" constant="-20" id="Tsb-0k-t3Q"/>
+                                                                <constraint firstItem="im6-lV-awJ" firstAttribute="leading" secondItem="Gsu-FW-hKw" secondAttribute="trailing" constant="-20" id="gAK-zf-83e"/>
+                                                                <constraint firstItem="Gsu-FW-hKw" firstAttribute="top" secondItem="7lz-GW-3QI" secondAttribute="top" id="khW-x0-Y6O"/>
+                                                                <constraint firstItem="Gsu-FW-hKw" firstAttribute="leading" secondItem="7lz-GW-3QI" secondAttribute="leading" id="oMV-P6-AHg"/>
                                                             </constraints>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
@@ -1347,13 +1348,14 @@
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e09-5w-JSX" userLabel="textview">
                                                             <rect key="frame" x="56" y="0.0" width="278" height="160"/>
                                                             <subviews>
-                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="04T-PM-Oqq">
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="866-XG-5aQ">
                                                                     <rect key="frame" x="118" y="0.0" width="160" height="160"/>
+                                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="width" secondItem="04T-PM-Oqq" secondAttribute="height" id="EaZ-3s-wDE"/>
-                                                                        <constraint firstAttribute="width" constant="160" id="vvt-kl-dTk"/>
+                                                                        <constraint firstAttribute="width" constant="160" id="AmQ-sV-euw"/>
+                                                                        <constraint firstAttribute="height" constant="160" id="Zcn-Nn-ukK"/>
                                                                     </constraints>
-                                                                </imageView>
+                                                                </view>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="wL7-CO-UYf">
                                                                     <rect key="frame" x="77.5" y="141" width="60.5" height="15"/>
                                                                     <subviews>
@@ -1378,10 +1380,10 @@
                                                             </subviews>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
-                                                                <constraint firstItem="04T-PM-Oqq" firstAttribute="top" secondItem="e09-5w-JSX" secondAttribute="top" id="PpH-pn-e0T"/>
-                                                                <constraint firstAttribute="trailing" secondItem="04T-PM-Oqq" secondAttribute="trailing" id="RBP-sk-hJV"/>
+                                                                <constraint firstItem="866-XG-5aQ" firstAttribute="top" secondItem="e09-5w-JSX" secondAttribute="top" id="2ax-sd-ODE"/>
                                                                 <constraint firstAttribute="bottom" secondItem="wL7-CO-UYf" secondAttribute="bottom" constant="4" id="cKa-4q-XFJ"/>
-                                                                <constraint firstItem="04T-PM-Oqq" firstAttribute="leading" secondItem="wL7-CO-UYf" secondAttribute="trailing" constant="-20" id="ke4-hK-dme"/>
+                                                                <constraint firstItem="866-XG-5aQ" firstAttribute="leading" secondItem="wL7-CO-UYf" secondAttribute="trailing" constant="-20" id="iWo-aq-MOO"/>
+                                                                <constraint firstAttribute="trailing" secondItem="866-XG-5aQ" secondAttribute="trailing" id="wgN-gZ-ja3"/>
                                                             </constraints>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
@@ -1428,8 +1430,6 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
-                                            <outlet property="imageViewMeThumb" destination="04T-PM-Oqq" id="dXB-Kj-gvW"/>
-                                            <outlet property="imageViewYouThumb" destination="mp8-lH-ssD" id="McE-YY-QgI"/>
                                             <outlet property="imvMe" destination="Nyr-MW-lak" id="nEz-HX-hSB"/>
                                             <outlet property="imvMeTick" destination="Fbs-kv-yMw" id="yG3-FF-2ia"/>
                                             <outlet property="imvPartner" destination="z8o-cO-5Zr" id="FWU-8U-DqN"/>
@@ -1443,6 +1443,8 @@
                                             <outlet property="uivYouStatus" destination="Rhe-N1-b4b" id="1ri-x1-RCp"/>
                                             <outlet property="uivYouTxt" destination="7lz-GW-3QI" id="fXA-np-urR"/>
                                             <outlet property="videoContainer" destination="yiZ-Ck-e11" id="j6f-kE-hvz"/>
+                                            <outlet property="videoViewMe" destination="866-XG-5aQ" id="f2w-JM-bYp"/>
+                                            <outlet property="videoViewYou" destination="Gsu-FW-hKw" id="xNa-4b-7Vi"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -2029,7 +2031,6 @@
         <image name="message.fill" catalog="system" width="128" height="113"/>
         <image name="pause.fill" catalog="system" width="116" height="128"/>
         <image name="play.fill" catalog="system" width="116" height="128"/>
-        <image name="rcmessages_videoplay.png" width="51.200000762939453" height="51.200000762939453"/>
         <image name="setting" width="75" height="75"/>
         <namedColor name="messageIncomingColor">
             <color red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
