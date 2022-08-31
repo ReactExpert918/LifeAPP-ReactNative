@@ -14,23 +14,38 @@ class WalkthroughViewController: StatefulViewController<WalkthroughViewModel> {
     @IBOutlet private weak var collectionView: UICollectionView!
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var nextButton: UIButton!
-        
+    @IBOutlet weak var backView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         pageControl.isHidden = true
         
         nextButton.isHidden = true
-        
+        nextButton.setTitle("Finish", for: .normal)
+
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(cellOfType: WalkthroughItemCell.self)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        backView.isHidden = !model.fromSetting
+    }
+    
+    @IBAction func backDidTap(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
+    }
+
     @IBAction func nextButtonDidTap(_ sender: Any) {
-        view.isUserInteractionEnabled = false
-        checkLogin()
-        PrefsManager.setIgnoreWalkthrough(val: true)
+        if model.fromSetting {
+            navigationController?.popViewController(animated: true)
+        } else {
+            view.isUserInteractionEnabled = false
+            checkLogin()
+            PrefsManager.setIgnoreWalkthrough(val: true)
+        }
     }
     override func didChangeModel() {
         collectionView.reloadData()
@@ -89,7 +104,6 @@ class WalkthroughViewController: StatefulViewController<WalkthroughViewModel> {
     func scrollViewDidEndDecelerating(isLastVisible: Bool) {
         if isLastVisible {
             nextButton.isHidden = false
-            nextButton.setTitle("Finish", for: .normal)
         } else {
             nextButton.isHidden = true
         }

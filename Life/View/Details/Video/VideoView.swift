@@ -40,6 +40,19 @@ class VideoView: UIViewController {
 
 		let notification = NSNotification.Name.AVPlayerItemDidPlayToEndTime
         NotificationCenter.default.addObserver(self, selector: #selector(actionDone), name: NSNotification.Name(rawValue: notification.rawValue), object: nil)
+        
+        try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, policy: .default, options: .defaultToSpeaker)
+
+        controller = AVPlayerViewController()
+        controller?.player = AVPlayer(url: url)
+        controller?.player?.play()
+
+        if (controller != nil) {
+            addChild(controller!)
+            view.addSubview(controller!.view)
+            controller!.view.frame = view.frame
+            controller!.showsPlaybackControls = showsPlaybackControls
+        }
 	}
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------
@@ -47,18 +60,18 @@ class VideoView: UIViewController {
 
 		super.viewWillAppear(animated)
 
-		try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, policy: .default, options: .defaultToSpeaker)
-
-		controller = AVPlayerViewController()
-		controller?.player = AVPlayer(url: url)
-		controller?.player?.play()
-
-		if (controller != nil) {
-			addChild(controller!)
-			view.addSubview(controller!.view)
-			controller!.view.frame = view.frame
-            controller!.showsPlaybackControls = showsPlaybackControls
-		}
+//		try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, policy: .default, options: .defaultToSpeaker)
+//
+//		controller = AVPlayerViewController()
+//		controller?.player = AVPlayer(url: url)
+//		controller?.player?.play()
+//
+//		if (controller != nil) {
+//			addChild(controller!)
+//			view.addSubview(controller!.view)
+//			controller!.view.frame = view.frame
+//            controller!.showsPlaybackControls = showsPlaybackControls
+//		}
 	}
 
 	//---------------------------------------------------------------------------------------------------------------------------------------------

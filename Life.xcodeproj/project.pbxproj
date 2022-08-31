@@ -321,6 +321,7 @@
 		ABAF39D324BF04F600FB1078 /* AddFriendConfirmCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAF39D224BF04F600FB1078 /* AddFriendConfirmCell.swift */; };
 		ABDAC92C24A64AE800E73667 /* SearchFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDAC92B24A64AE800E73667 /* SearchFriendsViewController.swift */; };
 		ABDAC93024A67D8C00E73667 /* SearchFriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDAC92F24A67D8C00E73667 /* SearchFriendCell.swift */; };
+		B6AB8F6D28BFECB500DD6971 /* SettingViewController+Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6AB8F6C28BFECB500DD6971 /* SettingViewController+Table.swift */; };
 		E15A398D2515221700536871 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15A398C2515221700536871 /* ForgotPasswordViewController.swift */; };
 		E183B1AA2518EC2F00B6A0FC /* FetchedContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = E183B1A92518EC2F00B6A0FC /* FetchedContact.swift */; };
 		E87CD6D6D8F4EEBDA7AF3284 /* Pods_Life.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38331365FE453AF276FB4BD0 /* Pods_Life.framework */; };
@@ -701,6 +702,7 @@
 		ABAF39D224BF04F600FB1078 /* AddFriendConfirmCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendConfirmCell.swift; sourceTree = "<group>"; };
 		ABDAC92B24A64AE800E73667 /* SearchFriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFriendsViewController.swift; sourceTree = "<group>"; };
 		ABDAC92F24A67D8C00E73667 /* SearchFriendCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFriendCell.swift; sourceTree = "<group>"; };
+		B6AB8F6C28BFECB500DD6971 /* SettingViewController+Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingViewController+Table.swift"; sourceTree = "<group>"; };
 		C2CCA01F5382939D3C8C584B /* Pods-LifeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LifeTests.debug.xcconfig"; path = "Target Support Files/Pods-LifeTests/Pods-LifeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E15A398C2515221700536871 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		E183B1A92518EC2F00B6A0FC /* FetchedContact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchedContact.swift; sourceTree = "<group>"; };
@@ -1604,12 +1606,10 @@
 			isa = PBXGroup;
 			children = (
 				A67A49B924BA33080016DD41 /* Setting.storyboard */,
+				B6AB8F6928BFEC6500DD6971 /* Cell */,
+				B6AB8F6828BFEC5A00DD6971 /* Setting */,
 				A675884824B85E9700724B08 /* UpdateNameViewController.swift */,
 				A675884A24B8621400724B08 /* UpdatePasswordViewController.swift */,
-				AB82ACCB24A5452600D83E47 /* SettingCell.swift */,
-				A663A6C624BA4EAE0090A13D /* SettingCellHeader.xib */,
-				AB82ACCC24A5452600D83E47 /* SettingCellHeader.swift */,
-				AB82ACCE24A5452600D83E47 /* SettingViewController.swift */,
 				AB26B2B724AE7CED0045981F /* AccountSettingsViewController.swift */,
 				040FA1B8267954A400E60DDA /* UpdateOPTViewController.swift */,
 				04180C7326887E3D00BBF636 /* UpdateEmailViewController.swift */,
@@ -1619,7 +1619,6 @@
 				049F975126897D66008E4789 /* AddPaymentMethodViewController.swift */,
 				049F97532689A9FD008E4789 /* RemovePaymentViewController.swift */,
 				05E8DFBB26B92ED500F72128 /* PrivacyEulaVC.swift */,
-				57580AB5282AC1DC009146F4 /* PaymentMethodTableViewCell.swift */,
 				57580AB7282AE1D4009146F4 /* AddCardViewController.swift */,
 			);
 			path = Setting;
@@ -1645,6 +1644,26 @@
 				058A773E26BC9993006563B8 /* AcceptDeclineVC.swift */,
 			);
 			path = Friends;
+			sourceTree = "<group>";
+		};
+		B6AB8F6828BFEC5A00DD6971 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				AB82ACCE24A5452600D83E47 /* SettingViewController.swift */,
+				B6AB8F6C28BFECB500DD6971 /* SettingViewController+Table.swift */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		B6AB8F6928BFEC6500DD6971 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				57580AB5282AC1DC009146F4 /* PaymentMethodTableViewCell.swift */,
+				AB82ACCB24A5452600D83E47 /* SettingCell.swift */,
+				A663A6C624BA4EAE0090A13D /* SettingCellHeader.xib */,
+				AB82ACCC24A5452600D83E47 /* SettingCellHeader.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		E01C3F04B71ECC3608E50572 /* Frameworks */ = {
@@ -2115,6 +2134,7 @@
 				A6DEA82324A82A7100868625 /* MessagePhotoCell.swift in Sources */,
 				A6DEA87724A848DB00868625 /* Group.swift in Sources */,
 				05C2551526C5C8DB00D56684 /* CommonExtensions.swift in Sources */,
+				B6AB8F6D28BFECB500DD6971 /* SettingViewController+Table.swift in Sources */,
 				A6DEA8A624A8717800868625 /* RCPhotoLoader.swift in Sources */,
 				A6DEA87024A8405300868625 /* Friends.swift in Sources */,
 				57FF98E327C5E08A00BE8F14 /* RCMessageTypingCell.swift in Sources */,
