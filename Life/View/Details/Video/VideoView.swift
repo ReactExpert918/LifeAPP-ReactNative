@@ -14,7 +14,7 @@ import AVKit
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 class VideoView: UIViewController {
     
-    private var url: URL!
+    var url: URL!
     private var controller: AVPlayerViewController?
     
     var customActionDone: (() -> ())? = nil

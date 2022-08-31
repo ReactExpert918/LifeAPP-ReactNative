@@ -60,8 +60,6 @@ class MessageVideoCell: UITableViewCell {
             uivMe.isHidden = true
             
             videoContainer.layer.cornerRadius = videoContainer.frame.width / 2
-            videoContainer.layer.borderWidth = 1
-            videoContainer.layer.borderColor = COLORS.PRIMARY?.cgColor
             videoContainer.clipsToBounds = true
 
             setupPlaying(videoUrl: url, containerView: videoContainer, mute: false, customActionDone: playerDone)
@@ -233,7 +231,7 @@ class MessageVideoCell: UITableViewCell {
     
     private func closePlayer() {
         guard let videoView = videoView else { return }
-        videoView.willMove(toParent: nil)
+        videoView.didMove(toParent: nil)
         videoView.view.removeFromSuperview()
         videoView.removeFromParent()
         self.videoView = nil

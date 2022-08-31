@@ -905,8 +905,12 @@ class ChatViewController: UIViewController {
                 present(pictureView, animated: true)
             }
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_VIDEO) {
+                var reloadingIndices: [IndexPath] = [indexPath]
+                if let currentPlayingIndex = playingIndex {
+                    reloadingIndices.append(currentPlayingIndex)
+                }
                 playingIndex = indexPath
-                tableView.reloadRows(at: [indexPath], with: .bottom)
+                tableView.reloadRows(at: reloadingIndices, with: .top)
             }
             
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_AUDIO) {
