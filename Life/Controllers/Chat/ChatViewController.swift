@@ -888,6 +888,7 @@ class ChatViewController: UIViewController {
         if playingIndex == indexPath {
             playingIndex = nil
             tableView.reloadRows(at: [indexPath], with: .top)
+            tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
         }
     }
     func actionTapBubble(_ indexPath: IndexPath) {
@@ -911,6 +912,7 @@ class ChatViewController: UIViewController {
                 }
                 playingIndex = indexPath
                 tableView.reloadRows(at: reloadingIndices, with: .top)
+                tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
             }
             
             if (rcmessage.type == MESSAGE_TYPE.MESSAGE_AUDIO) {

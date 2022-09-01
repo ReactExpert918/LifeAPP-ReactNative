@@ -23,6 +23,7 @@ struct WalkthroughViewModel: ViewModelProtocol {
 
 extension WalkthroughViewModel {
     static var `default`: WalkthroughViewModel = .init(items: [
+        .init(image: .init(named: "walkthrough4"), fullImage: .init(named: "walkthrough4"), description: "walkthrough4".localized),
             .init(image: .init(named: "walkthrough1"), description: "walkthrough1".localized),
             .init(image: .init(named: "walkthrough2"), description: "walkthrough2".localized),
             .init(image: .init(named: "walkthrough3"), description: "walkthrough3".localized),

@@ -59,7 +59,7 @@ class MessageVideoCell: UITableViewCell {
             uivYou.isHidden = true
             uivMe.isHidden = true
             
-            videoContainer.layer.cornerRadius = videoContainer.frame.width / 2
+            videoContainer.layer.cornerRadius = videoContainer.bounds.width / 2
             videoContainer.clipsToBounds = true
 
             setupPlaying(videoUrl: url, containerView: videoContainer, mute: false, customActionDone: playerDone)

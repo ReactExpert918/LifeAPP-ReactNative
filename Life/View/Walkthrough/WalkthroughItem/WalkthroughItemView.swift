@@ -10,7 +10,8 @@ import UIKit
 import JamitFoundation
 
 class WalkthroughItemView: StatefulView<WalkthroughItemViewModel> {
-    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet private weak var fullImageView: UIImageView!
+    @IBOutlet private weak var descriptionLabel: UILabel!
     @IBOutlet private weak var imageView: UIImageView!
 
     override func viewDidLoad() {
@@ -23,6 +24,11 @@ class WalkthroughItemView: StatefulView<WalkthroughItemViewModel> {
         descriptionLabel.text = model.description
         descriptionLabel.sizeToFit()
         imageView.image = model.image
+        imageView.isHidden = !(model.fullImage == nil)
+        descriptionLabel.isHidden = !(model.fullImage == nil)
+        fullImageView.isHidden = model.fullImage == nil
+        fullImageView.image = model.fullImage
+
     }
 
 }

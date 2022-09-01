@@ -11,13 +11,16 @@ import UIKit
 
 struct WalkthroughItemViewModel: ViewModelProtocol {
     let image: UIImage?
+    let fullImage: UIImage?
     let description: String
 
     init(
         image: UIImage? = Self.default.image,
+        fullImage: UIImage? = Self.default.fullImage,
         description: String = Self.default.description
     ) {
         self.image = image
+        self.fullImage = fullImage
         self.description = description
     }
 }
@@ -25,6 +28,7 @@ struct WalkthroughItemViewModel: ViewModelProtocol {
 extension WalkthroughItemViewModel {
     static var `default`: WalkthroughItemViewModel = .init(
         image: nil,
+        fullImage: nil,
         description: ""
     )
 }
