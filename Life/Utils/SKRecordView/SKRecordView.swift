@@ -125,7 +125,7 @@ class SKRecordView: UIView, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
         slideUpToLock.contentMode = .scaleAspectFit
         slideUpToLock.image = UIImage(named: "swipeUpToLock")
         slideUpToLock.isHidden = true
-        slideUpToLock.backgroundColor = UIColor.white.withAlphaComponent(0.3)
+        slideUpToLock.backgroundColor = UIColor.white.withAlphaComponent(0.75)
         slideUpToLock.layer.cornerRadius = 15
         
         addSubview(slideUpToLock)
