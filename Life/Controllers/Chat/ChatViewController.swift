@@ -66,7 +66,7 @@ class ChatViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     
     @IBOutlet weak var tableView: UITableView!
-        
+
     var refreshControl = UIRefreshControl()
     
     private var isTyping = false
@@ -77,7 +77,7 @@ class ChatViewController: UIViewController {
     
     private var heightKeyboard: CGFloat = 0
     private var keyboardWillShow = false
-        
+
     private var rcmessages: [String: RCMessage] = [:]
     private var avatarImages: [String: UIImage] = [:]
     
@@ -105,7 +105,6 @@ class ChatViewController: UIViewController {
     var playingIndex: IndexPath?
 
     let app = UIApplication.shared.delegate as? AppDelegate
-
     
     @IBOutlet weak var zedPayButton: UIView!
     
@@ -132,8 +131,6 @@ class ChatViewController: UIViewController {
         
         self.popupView.isHidden = true
 
-
-
         searchBar.backgroundImage = UIImage()
         searchBar.barStyle = .default
         searchBar.barTintColor = UIColor(hexString: "#16406F")
@@ -155,7 +152,7 @@ class ChatViewController: UIViewController {
         tableView.register(MessagePhotoCell.self, forCellReuseIdentifier: "MessagePhotoCell")
         tableView.register(MessageCallCell.self, forCellReuseIdentifier: "MessageCallCell")
         tableView.register(RCMessageLocationCell.self, forCellReuseIdentifier: "RCMessageLocationCell")
-        
+
         tableView.register(RCFooterUpperCell.self, forCellReuseIdentifier: "RCFooterUpperCell")
         tableView.register(RCFooterLowerCell.self, forCellReuseIdentifier: "RCFooterLowerCell")
 
@@ -204,11 +201,8 @@ class ChatViewController: UIViewController {
     }
     
     func loadMembers() {
-
         let predicate = NSPredicate(format: "chatId == %@ AND isActive == YES", self.chatId)
         members = realm.objects(Member.self).filter(predicate)
-        
-        
         tokenMembers?.invalidate()
         members.safeObserve({ changes in
             self.loadPersons()
@@ -218,13 +212,8 @@ class ChatViewController: UIViewController {
     }
     
     func loadPersons() {
-
         let predicate1 = NSPredicate(format: "objectId IN %@ AND NOT objectId IN %@ AND isDeleted == NO", Members.userIds(chatId: self.chatId), Blockeds.blockerIds())
-        
-
         persons = realm.objects(Person.self).filter(predicate1)
-        
-        
         tokenPersons?.invalidate()
         persons.safeObserve({ changes in
             self.refreshUsers()
@@ -232,7 +221,6 @@ class ChatViewController: UIViewController {
             self.tokenPersons = token
         })
     }
-    
     
     func refreshUsers(){
         for person in persons {
@@ -266,7 +254,7 @@ class ChatViewController: UIViewController {
         if(recipientId == ""){
             loadMembers()
         }
-        //self.videoAudioCallStatusListner(self.chatId)
+//        self.videoAudioCallStatusListner(self.chatId)
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
@@ -290,11 +278,10 @@ class ChatViewController: UIViewController {
         
         NotificationCenter.default.removeObserver(self)
     }
+
     override func viewDidLayoutSubviews() {
-
         super.viewDidLayoutSubviews()
-        layoutTableView()
-
+        layoutTableView()   
     }
     
 //    func videoAudioCallStatusListner(_ roomId : String)  {
@@ -459,9 +446,9 @@ class ChatViewController: UIViewController {
             guard let self = self else { return }
             let handle = CXHandle(type: .generic, value: handle)
             let uuid = UUID()
-          let startCallAction = CXStartCallAction(call: uuid, handle: handle)
-          startCallAction.isVideo = videoEnabled
-          let transaction = CXTransaction(action: startCallAction)
+            let startCallAction = CXStartCallAction(call: uuid, handle: handle)
+            startCallAction.isVideo = videoEnabled
+            let transaction = CXTransaction(action: startCallAction)
             if let app = self.app {
                 app.callKitProvider?.outgoingUUID = uuid
                 let realm = try! Realm()
@@ -471,21 +458,21 @@ class ChatViewController: UIViewController {
             self.requestTransaction(transaction)
         }
 
-       }
+    }
 
     private func requestTransaction(_ transaction: CXTransaction) {
-      callController.request(transaction) { error in
-        if let error = error {
-          print("Error requesting transaction: \(error)")
-        } else {
-          print("Requested transaction successfully")
+        callController.request(transaction) { error in
+            if let error = error {
+                print("Error requesting transaction: \(error)")
+            } else {
+                print("Requested transaction successfully")
+            }
         }
-      }
     }
     
     @IBAction func actionVideoCall(_ sender: Any) {
         showCallToolbar(value: false)
-
+        
         if (recipientId != "") {
             let callVideoView = CallVideoView(userId: self.recipientId)
             callVideoView.roomID = self.chatId
@@ -496,13 +483,13 @@ class ChatViewController: UIViewController {
             let realm = try! Realm()
             
             let sender = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
-                        
+            
             PushNotification.sendCall(name: sender?.getFullName() ?? "", chatId: self.chatId, recipientId: self.recipientId, senderId: AuthUser.userId(), hasVideo: 1)
-
+            
             if let sender = sender {
                 startCall(handle: sender.fullname, videoEnabled: true)
             }
-              
+            
         } else {
             var personsId: [String] = []
             for person in persons {
@@ -524,17 +511,14 @@ class ChatViewController: UIViewController {
     // MARK: - Title details methods
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func updateTitleDetails() {
-
         if let person = realm.object(ofType: Person.self, forPrimaryKey: recipientId) {
             participantNameLabel.text = person.getFullName()
 //            labelTitle2.text = person.lastActiveText()
-        }else if let group=realm.object(ofType: Group.self, forPrimaryKey: chatId) {
+        } else if let group = realm.object(ofType: Group.self, forPrimaryKey: chatId) {
             participantNameLabel.text = group.name
-                
-            }else{
-                participantNameLabel.text = ""
-                
-            }
+        } else {
+            participantNameLabel.text = ""
+        }
     }
     // MARK: - Cleanup methods
     //---------------------------------------------------------------------------------------------------------------------------------------------
@@ -571,18 +555,18 @@ class ChatViewController: UIViewController {
             self.tokenDetails = token
         })
     }
-
+    
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func loadMessages() {
-
-        if chatId.isEmpty == false {
-        let predicate = NSPredicate(format: "chatId == %@ AND isDeleted == NO", chatId)
-        messages = realm.objects(Message.self).filter(predicate).sorted(byKeyPath: "createdAt")
         
-        print("Chats ids", chatId);
-
-        messages.safeObserve({ changes in
-            switch changes {
+        if chatId.isEmpty == false {
+            let predicate = NSPredicate(format: "chatId == %@ AND isDeleted == NO", chatId)
+            messages = realm.objects(Message.self).filter(predicate).sorted(byKeyPath: "createdAt")
+            
+            print("Chats ids", chatId);
+            
+            messages.safeObserve({ changes in
+                switch changes {
                 case .initial:
                     self.refreshLoadEarlier()
                     self.refreshTableView()
@@ -597,10 +581,10 @@ class ChatViewController: UIViewController {
                         self.playIncoming()
                     }
                 default: break
-            }
-        }, completion: { token in
-            self.tokenMessages = token
-        })
+                }
+            }, completion: { token in
+                self.tokenMessages = token
+            })
         }
     }
     // MARK: - Refresh methods
@@ -682,23 +666,21 @@ class ChatViewController: UIViewController {
     // MARK: - Message methods
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func messageTotalCount() -> Int {
-
         return messages.count
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func messageLoadedCount() -> Int {
-
         return min(messageToDisplay, messageTotalCount())
     }
+
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func messageAt(_ indexPath: IndexPath) -> Message {
-
         let offset = messageTotalCount() - messageLoadedCount()
         let index = indexPath.section + offset
-
         return messages[index]
     }
+
     // MARK: - Message methods
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func rcmessageAt(_ indexPath: IndexPath) -> RCMessage {
@@ -730,7 +712,6 @@ class ChatViewController: UIViewController {
     }
     
     func indexPathBy(_ rcmessage: RCMessage) -> IndexPath? {
-
         for (index, dbmessage) in rcmessages.enumerated() {
             if (dbmessage.value.messageId == rcmessage.messageId) {
                 let offset = messageTotalCount() - messageLoadedCount()
@@ -739,9 +720,9 @@ class ChatViewController: UIViewController {
         }
         return nil
     }
+
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func loadMedia(_ rcmessage: RCMessage) {
-
         if (rcmessage.mediaStatus != MediaStatus.MEDIASTATUS_UNKNOWN)     { return }
         if (rcmessage.incoming) && (rcmessage.isMediaQueued) { return }
         if (rcmessage.incoming) && (rcmessage.isMediaFailed) { return }
@@ -751,17 +732,16 @@ class ChatViewController: UIViewController {
         if (rcmessage.type == MESSAGE_TYPE.MESSAGE_AUDIO)    { RCAudioLoader.start(rcmessage, in: tableView)        }
         if (rcmessage.type == MESSAGE_TYPE.MESSAGE_LOCATION)    { RCLocationLoader.start(rcmessage, in: tableView)    }
     }
+
     // MARK: - Avatar methods
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func avatarInitials(_ indexPath: IndexPath) -> String {
-
         let rcmessage = rcmessageAt(indexPath)
         return rcmessage.userInitials
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func avatarImage(_ indexPath: IndexPath) -> UIImage? {
-
         let rcmessage = rcmessageAt(indexPath)
         var imageAvatar = avatarImages[rcmessage.userId]
         // print(rcmessage.userId)
@@ -788,14 +768,12 @@ class ChatViewController: UIViewController {
             }
             imageAvatar = UIImage(named: "ic_default_profile")
         }
-
         return imageAvatar
     }
 
     // MARK: - Header, Footer methods
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func textHeaderUpper(_ indexPath: IndexPath) -> String? {
-
         let rcmessage = rcmessageAt(indexPath)
         var previousDate = ""
         //// print("row: \(indexPath.row), section:\(indexPath.section)")
@@ -810,7 +788,6 @@ class ChatViewController: UIViewController {
         }
         return date
     }
-    
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func textHeaderLower(_ indexPath: IndexPath) -> String? {
@@ -820,13 +797,11 @@ class ChatViewController: UIViewController {
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func textFooterUpper(_ indexPath: IndexPath) -> String? {
-
         return nil
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func textFooterLower(_ indexPath: IndexPath) -> UIImage? {
-
         let rcmessage = rcmessageAt(indexPath)
         if (rcmessage.outgoing) {
             let message = messageAt(indexPath)
@@ -849,10 +824,9 @@ class ChatViewController: UIViewController {
         menuItemSave.indexPath = indexPath
         menuItemDelete.indexPath = indexPath
 //        menuItemMark.indexPath = indexPath
-        //menuItemForward.indexPath = indexPath
+//        menuItemForward.indexPath = indexPath
 
         let rcmessage = rcmessageAt(indexPath)
-
         var array: [RCMenuItem] = []
 
         if (rcmessage.type == MESSAGE_TYPE.MESSAGE_TEXT)     { array.append(menuItemCopy) }
@@ -864,10 +838,11 @@ class ChatViewController: UIViewController {
 
         array.append(menuItemDelete)
 //        array.append(menuItemMark)
-        //array.append(menuItemForward)
-
+//        array.append(menuItemForward)
+        
         return array
     }
+
     //---------------------------------------------------------------------------------------------------------------------------------------------
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         if (action == #selector(actionMenuCopy(_:)))    { return true }
@@ -879,7 +854,6 @@ class ChatViewController: UIViewController {
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
     override var canBecomeFirstResponder: Bool {
-
         return true
     }
     // MARK: - User actions (bubble tap)
@@ -959,14 +933,11 @@ class ChatViewController: UIViewController {
             }
         }
         self.popupUserAvatar.makeRounded()
-
-                    
         self.popupView.isHidden = false
     }
     // MARK: - User actions (menu)
     //---------------------------------------------------------------------------------------------------------------------------------------------
     @objc func actionMenuCopy(_ sender: Any?) {
-
         if let indexPath = RCMenuItem.indexPath(sender as! UIMenuController) {
             let rcmessage = rcmessageAt(indexPath)
             UIPasteboard.general.string = rcmessage.text
@@ -1041,9 +1012,7 @@ class ChatViewController: UIViewController {
     }
     // MARK: - User actions (input panel)
     //---------------------------------------------------------------------------------------------------------------------------------------------
-    func actionAttachMessage() {
-
-    }
+    func actionAttachMessage() { }
     
     func actionOpenCamera() {
         ImagePicker.cameraMulti(target: self, edit: false)
@@ -1076,7 +1045,6 @@ class ChatViewController: UIViewController {
     }
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func scrollToBottom(animated: Bool) {
-
         if (tableView.numberOfSections > 0) {
             let indexPath = IndexPath(row: 0, section: tableView.numberOfSections - 1)
             tableView.scrollToRow(at: indexPath, at: .top, animated: animated)
@@ -1092,7 +1060,7 @@ class ChatViewController: UIViewController {
         if (typing == false) && (isTyping == true) {
 //            typingLabel?.text = textTitle
         }
-        //isTyping = typing
+//        isTyping = typing
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
@@ -1142,7 +1110,7 @@ class ChatViewController: UIViewController {
         heightKeyboard = 0
         keyboardWillShow = false
         layoutTableView()
-        //self.ref.child("Typing").child(self.chatId).child(AuthUser.userId()).setValue(false)
+//        self.ref.child("Typing").child(self.chatId).child(AuthUser.userId()).setValue(false)
 //        if messageInputBar.inputTextView.text.isEmpty{
 //            self.hybridButton.isHidden = false
 //        }else{
@@ -1169,7 +1137,11 @@ class ChatViewController: UIViewController {
         hybridButton.setSize(CGSize(width: 30, height: 30), animated: false)
         hybridButton.contentMode = .scaleAspectFit
         hybridButton.onTouchUpInside { item in
-            self.changeButton()
+            if self.recordingView.state == .locked {
+                self.recordingView.checkForCancelingLocked()
+            } else {
+                self.changeButton()
+            }
         }
         let cameraButton = InputBarButtonItem()
         cameraButton.image = UIImage(named: "ic_camera")
@@ -1241,8 +1213,7 @@ class ChatViewController: UIViewController {
         recordingView.isHidden = true
         
         messageInputBar.setStackViewItems([recordingView.recordButton], forStack: .right, animated: false)
-        
-        //messageInputBar.inputTextView.addSubview(recordingView)
+//        messageInputBar.inputTextView.addSubview(recordingView)
         
 //        NSLayoutConstraint.activate([
 //            recordingView.centerYAnchor.constraint(equalTo:  messageInputBar.inputTextView.centerYAnchor, constant: 14),
@@ -1276,24 +1247,23 @@ class ChatViewController: UIViewController {
     }
 
     func changeButton() {
-             currentButton = currentButton == .audio ? .video : .audio
+        currentButton = currentButton == .audio ? .video : .audio
         recordingView.isVideo = currentButton == .audio ? false : true
-             UIView.transition(with: self.hybridButton, duration: 0.07, options: .transitionCrossDissolve, animations: {
-                 self.hybridButton.transform = CGAffineTransform(scaleX: 0.5, y: 0.5);
-                 self.hybridButton.image = UIImage(named: self.currentButton == .audio ? "ic_record" : "ic_video_clip")
-             }) { _ in
-                 UIView.animate(withDuration: 0.07, delay: 0, options: .transitionCrossDissolve) {
-                     self.hybridButton.transform = CGAffineTransform(scaleX: 1, y: 1)
-                 }
-               }
-         }
+        UIView.transition(with: self.hybridButton, duration: 0.07, options: .transitionCrossDissolve, animations: {
+            self.hybridButton.transform = CGAffineTransform(scaleX: 0.5, y: 0.5);
+            self.hybridButton.image = UIImage(named: self.currentButton == .audio ? "ic_record" : "ic_video_clip")
+        }) { _ in
+            UIView.animate(withDuration: 0.07, delay: 0, options: .transitionCrossDissolve) {
+                self.hybridButton.transform = CGAffineTransform(scaleX: 1, y: 1)
+            }
+        }
+    }
 }
 // MARK: - UITableViewDataSource
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 extension ChatViewController: UITableViewDataSource {
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
         return 1
     }
 
@@ -1351,7 +1321,6 @@ extension ChatViewController: UITableViewDataSource {
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func cellForMessageEmoji(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
-
         let cell = tableView.dequeueReusableCell(withIdentifier: "RCMessageEmojiCell", for: indexPath) as! RCMessageEmojiCell
         cell.bindData(self, at: indexPath)
         return cell
@@ -1392,7 +1361,6 @@ extension ChatViewController: UITableViewDataSource {
     }
     
     func cellForMessageCall(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
-
         let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCallCell", for: indexPath) as! MessageCallCell
         cell.bindData(self, at: indexPath)
         return cell
@@ -1439,8 +1407,6 @@ extension ChatViewController: UITableViewDelegate {
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-
-        
         if (indexPath.row == 0) {
             let rcmessage = rcmessageAt(indexPath)
             
@@ -1502,9 +1468,7 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
     }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
-    func inputBar(_ inputBar: InputBarAccessoryView, didChangeIntrinsicContentTo size: CGSize) {
-        
-    }
+    func inputBar(_ inputBar: InputBarAccessoryView, didChangeIntrinsicContentTo size: CGSize) { }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
@@ -1582,7 +1546,6 @@ extension ChatViewController: PhotoSelectionViewDelegate {
 // MARK: - AudioDelegate
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 extension ChatViewController: AudioDelegate {
-
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func didRecordAudio(path: String) {
         messageSend(text: nil, photo: nil, video: nil, audio: path)
@@ -1592,7 +1555,6 @@ extension ChatViewController: AudioDelegate {
 // MARK: - StickersDelegate
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 extension ChatViewController: StickersDelegate {
-
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func didSelectSticker(sticker: UIImage) {
         messageSend(text: nil, photo: sticker, video: nil, audio: nil)
@@ -1607,7 +1569,6 @@ extension ChatViewController: SelectUsersDelegate {
     func didSelectUsers(userIds: [String]) {
         if let indexPath = indexForward {
             let message = messageAt(indexPath)
-
             for userId in userIds {
                 let chatId = Singles.create(userId)
                 Messages.forward(chatId: chatId, message: message)
@@ -1622,9 +1583,7 @@ extension ChatViewController: SelectUsersDelegate {
 extension ChatViewController: UISearchBarDelegate {
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
-    }
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) { }
 
     //---------------------------------------------------------------------------------------------------------------------------------------------
     func searchBarTextDidBeginEditing(_ searchBar_: UISearchBar) {
@@ -1720,10 +1679,7 @@ class NavigationController: UINavigationController {
     }
 
     //-------------------------------------------------------------------------------------------------------------------------------------------
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-
-        return .lightContent
-    }
+    override var preferredStatusBarStyle: UIStatusBarStyle { .lightContent }
 }
 
 extension ChatViewController : SKRecordViewDelegate {
@@ -1744,9 +1700,8 @@ extension ChatViewController : SKRecordViewDelegate {
             make.centerX.centerY.equalToSuperview()
         }
 
-            self.telegramVideoView?.startRecording()
+        self.telegramVideoView?.startRecording()
     }
-
     
     func SKRecordViewDidCancelRecord(_ sender: SKRecordView, button: UIView) {
         sender.state = .none
@@ -1778,17 +1733,17 @@ extension ChatViewController : SKRecordViewDelegate {
         sender.state = .none
 
         if sender.isVideo == false {
-        messageSend(text: nil, photo: nil, video: nil, audio: recordingView.getFileURL().path)
-        print("audio url==>",recordingView.getFileURL().path)
-        messageInputBar.inputTextView.placeholder = "Enter a message".localized
-        //messageInputBar.isHidden = false
+            messageSend(text: nil, photo: nil, video: nil, audio: recordingView.getFileURL().path)
+            print("audio url==>",recordingView.getFileURL().path)
+            messageInputBar.inputTextView.placeholder = "Enter a message".localized
+            //messageInputBar.isHidden = false
         }
+
         if sender.isVideo {
             telegramVideoView?.stopRecording()
         }
 
         recordingView.isHidden = true
-
     }
 }
 
