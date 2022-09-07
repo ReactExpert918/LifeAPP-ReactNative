@@ -49,7 +49,6 @@ class SKRecordView: UIView, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
             case .locked:
                 break
             }
-            slideUpToLock.isHidden = true
         }
     }
     
@@ -58,6 +57,7 @@ class SKRecordView: UIView, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
     var recordButton : InputBarButtonItem = InputBarButtonItem()
     let slideToCancel : UILabel = UILabel(frame: CGRect.zero)
     let slideUpToLock : UIImageView = UIImageView(frame: .zero)
+    let slideUpToLockContainer : UIView = UIView(frame: .zero)
     let countDownLabel : UILabel = UILabel(frame: CGRect.zero)
     var timer:Timer!
     var recordSeconds = 0
@@ -86,8 +86,20 @@ class SKRecordView: UIView, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
         setupCountDownLabel()
         setupSlideUp()
     }
-    
-    func setupRecordButton(_ image:UIImage, recordBtn: InputBarButtonItem) {
+
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        for subview in subviews as [UIView] {
+            if !subview.isHidden
+                && subview.alpha > 0
+                && subview.isUserInteractionEnabled
+                && subview.point(inside:point, with: event) {
+                return true
+            }
+        }
+        return false
+    }
+
+    func setupRecordButton(_ image: UIImage, recordBtn: InputBarButtonItem) {
         recordButton = recordBtn
         recordButton.translatesAutoresizingMaskIntoConstraints = false
         
@@ -98,11 +110,11 @@ class SKRecordView: UIView, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
         longPress.allowableMovement = 10
         longPress.minimumPressDuration = 0.3
         recordButton.addGestureRecognizer(longPress)
-        
+
         recordButton.imageView?.animationImages = recordingImages
         recordButton.imageView?.animationDuration = recordingAnimationDuration
     }
-    
+
     func setupLabel() {
         slideToCancel.translatesAutoresizingMaskIntoConstraints = false
         slideToCancel.textAlignment = .center
@@ -121,29 +133,40 @@ class SKRecordView: UIView, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
     }
     
     func setupSlideUp() {
+        slideUpToLockContainer.translatesAutoresizingMaskIntoConstraints = false
+        slideUpToLockContainer.backgroundColor = UIColor.white.withAlphaComponent(0.75)
+        slideUpToLockContainer.layer.cornerRadius = 15
+        slideUpToLockContainer.isHidden = true
+        addSubview(slideUpToLockContainer)
+
+        NSLayoutConstraint.activate([
+            slideUpToLockContainer.bottomAnchor.constraint(equalTo: self.topAnchor, constant: -70),
+            slideUpToLockContainer.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
+            slideUpToLockContainer.widthAnchor.constraint(equalToConstant: 30),
+            slideUpToLockContainer.heightAnchor.constraint(equalToConstant: 60)
+        ])
+
         slideUpToLock.translatesAutoresizingMaskIntoConstraints = false
-        slideUpToLock.contentMode = .scaleAspectFit
-        slideUpToLock.image = UIImage(named: "swipeUpToLock")
-        slideUpToLock.isHidden = true
-        slideUpToLock.backgroundColor = UIColor.white.withAlphaComponent(0.75)
-        slideUpToLock.layer.cornerRadius = 15
-        
-        addSubview(slideUpToLock)
+        slideUpToLockContainer.addSubview(slideUpToLock)
         
         NSLayoutConstraint.activate([
-            slideUpToLock.bottomAnchor.constraint(equalTo: self.topAnchor, constant: -70),
-            slideUpToLock.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
-            slideUpToLock.widthAnchor.constraint(equalToConstant: 30),
-            slideUpToLock.heightAnchor.constraint(equalToConstant: 60)
+            slideUpToLock.bottomAnchor.constraint(equalTo: self.slideUpToLockContainer.bottomAnchor, constant: -5),
+            slideUpToLock.topAnchor.constraint(equalTo: self.slideUpToLockContainer.topAnchor, constant: 5),
+            slideUpToLock.trailingAnchor.constraint(equalTo: self.slideUpToLockContainer.trailingAnchor, constant: 5),
+            slideUpToLock.leadingAnchor.constraint(equalTo: self.slideUpToLockContainer.leadingAnchor, constant: -5)
         ])
+
+        slideUpToLock.contentMode = .scaleAspectFit
+        slideUpToLock.image = UIImage(named: "swipeUpToLock")?.withTintColor(COLORS.PRIMARY!)
     }
     
     func checkForCancelingLocked() {
         guard state == .locked else { return }
         state = .none
         userDidStopRecording(recordButton)
-        slideUpToLock.isHidden = true
+        slideUpToLockContainer.isHidden = true
     }
+
     func setupCountDownLabel() {
         countDownLabel.translatesAutoresizingMaskIntoConstraints = false
         countDownLabel.textAlignment = .center
@@ -193,12 +216,11 @@ class SKRecordView: UIView, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
     
     
     override var intrinsicContentSize : CGSize {
-        
         if state == .none {
             return recordButton.intrinsicContentSize
         } else {
-            
-            return CGSize(width: recordButton.intrinsicContentSize.width * 3, height: recordButton.intrinsicContentSize.height)
+            return CGSize(width: recordButton.intrinsicContentSize.width * 3,
+                          height: recordButton.intrinsicContentSize.height)
         }
     }
     
@@ -287,7 +309,8 @@ class SKRecordView: UIView, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
             startLocation = location
             userDidBeginRecord(button)
             if !isVideo {
-                slideUpToLock.isHidden = false
+                slideUpToLockContainer.isHidden = false
+                slideUpToLockContainer.backgroundColor = UIColor.white.withAlphaComponent(0.75)
             }
         case .changed:
             let x = location.x - startLocation.x
@@ -298,20 +321,17 @@ class SKRecordView: UIView, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
                 if state == .recording {
                     if y < button.bounds.minY && !isVideo {
                         state = .locked
-                        slideUpToLock.isHidden = true
+                        slideUpToLockContainer.backgroundColor = COLORS.MSG_OUTGOING
                     } else if x < button.bounds.minX {
                         userDidTapRecordThenSwipe(button)
                     }
                 }
             }
-            slideUpToLock.isHidden = true
         case .ended:
             if isVideo || state == .recording {
                 userDidStopRecording(button)
             }
-            slideUpToLock.isHidden = true
         case .failed, .possible ,.cancelled : if state == .recording { userDidStopRecording(button) } else { userDidTapRecordThenSwipe(button)}
-            slideUpToLock.isHidden = true
         @unknown default:
             if state == .recording { userDidStopRecording(button) } else { userDidTapRecordThenSwipe(button)}
         }

@@ -126,7 +126,7 @@ class ChatViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.navigationController?.interactivePopGestureRecognizer?.delegate = nil
         
         self.popupView.isHidden = true
@@ -1049,7 +1049,7 @@ class ChatViewController: UIViewController {
     func scrollToBottom(animated: Bool) {
         if (tableView.numberOfSections > 0) {
             let indexPath = IndexPath(row: 0, section: tableView.numberOfSections - 1)
-            tableView.scrollToRow(at: indexPath, at: .top, animated: animated)
+            tableView.scrollToRow(at: indexPath, at: .bottom, animated: animated)
         }
     }
     // MARK: - Typing indicator methods
@@ -1136,7 +1136,7 @@ class ChatViewController: UIViewController {
         hybridButton = InputBarButtonItem()
         hybridButton.image = UIImage(named: "ic_record")
         hybridButton.tintColor = UIColor(named: "PrimaryColor")
-        hybridButton.setSize(CGSize(width: 30, height: 30), animated: false)
+        hybridButton.setSize(CGSize(width: 50, height: 50), animated: false)
         hybridButton.contentMode = .scaleAspectFit
         hybridButton.onTouchUpInside { item in
             if self.recordingView.state == .locked {
@@ -1147,14 +1147,14 @@ class ChatViewController: UIViewController {
         }
         let cameraButton = InputBarButtonItem()
         cameraButton.image = UIImage(named: "ic_camera")
-        cameraButton.setSize(CGSize(width: 32, height: 40), animated: false)
+        cameraButton.setSize(CGSize(width: 30, height: 50), animated: false)
         cameraButton.contentMode = .scaleAspectFit
         cameraButton.onTouchUpInside { item in
             self.actionOpenCamera()
         }
         let galleryButton = InputBarButtonItem()
         galleryButton.image = UIImage(named: "ic_attach")
-        galleryButton.setSize(CGSize(width: 32, height: 40), animated: false)
+        galleryButton.setSize(CGSize(width: 50, height: 50), animated: false)
         galleryButton.contentMode = .scaleAspectFit
         galleryButton.onTouchUpInside { item in
             self.actionOpenGallery()
@@ -1198,7 +1198,12 @@ class ChatViewController: UIViewController {
         
         recordingView = SKRecordView(recordBtn: hybridButton, vc: self)
         recordingView.delegate = self
-        recordingView.recordingImages = [UIImage(named: "rec-1.png")!,UIImage(named: "rec-2.png")!,UIImage(named: "rec-3.png")!,UIImage(named: "rec-4.png")!,UIImage(named: "rec-5.png")!,UIImage(named: "rec-6.png")!]
+        recordingView.recordingImages = [UIImage(named: "rec-1.png")!,
+                                         UIImage(named: "rec-2.png")!,
+                                         UIImage(named: "rec-3.png")!,
+                                         UIImage(named: "rec-4.png")!,
+                                         UIImage(named: "rec-5.png")!,
+                                         UIImage(named: "rec-6.png")!]
         recordingView.normalImage = UIImage(named: "ic_record.png")!
         
         self.view.addSubview(recordingView)
@@ -1213,9 +1218,10 @@ class ChatViewController: UIViewController {
         ])
         
         recordingView.isHidden = true
-        
+
         messageInputBar.setStackViewItems([recordingView.recordButton], forStack: .right, animated: false)
-//        messageInputBar.inputTextView.addSubview(recordingView)
+
+        //messageInputBar.inputTextView.addSubview(recordingView)
         
 //        NSLayoutConstraint.activate([
 //            recordingView.centerYAnchor.constraint(equalTo:  messageInputBar.inputTextView.centerYAnchor, constant: 14),
@@ -1707,7 +1713,8 @@ extension ChatViewController : SKRecordViewDelegate {
     
     func SKRecordViewDidCancelRecord(_ sender: SKRecordView, button: UIView) {
         sender.state = .none
-        sender.setupRecordButton(UIImage(named: "ic_record.png")!, recordBtn: hybridButton)
+        let image = sender.isVideo ? UIImage(named: "ic_video_clip")! : UIImage(named: "ic_record.png")!
+        sender.setupRecordButton(image, recordBtn: hybridButton)
         //recordingView.audioRecorder?.stop()
         recordingView.recordButton.imageView?.stopAnimating()
         messageInputBar.inputTextView.placeholder = "Enter a message".localized
@@ -1730,7 +1737,8 @@ extension ChatViewController : SKRecordViewDelegate {
     
     func SKRecordViewDidStopRecord(_ sender : SKRecordView, button: UIView) {
         //recordingView.audioRecorder?.stop()
-        sender.setupRecordButton(UIImage(named: "ic_record.png")!, recordBtn: hybridButton)
+        let image = sender.isVideo ? UIImage(named: "ic_video_clip")! : UIImage(named: "ic_record.png")!
+        sender.setupRecordButton(image, recordBtn: hybridButton)
         recordingView.recordButton.imageView?.stopAnimating()
         sender.state = .none
 
@@ -1746,6 +1754,7 @@ extension ChatViewController : SKRecordViewDelegate {
         }
 
         recordingView.isHidden = true
+        tableView.setContentOffset(CGPoint(x: 0, y: CGFloat.greatestFiniteMagnitude), animated: true)
     }
 }
 
