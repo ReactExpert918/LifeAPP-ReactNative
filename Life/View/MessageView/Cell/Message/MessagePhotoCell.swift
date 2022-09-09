@@ -195,7 +195,6 @@ class MessagePhotoCell: UITableViewCell {
 	}
     
     // MARK: - Gesture recognizer methods
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func bubbleGestureRecognizer() {
 
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(actionTapBubble))
@@ -206,7 +205,6 @@ class MessagePhotoCell: UITableViewCell {
         viewBubble.addGestureRecognizer(longGesture)
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func avatarGestureRecognizer() {
 
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(actionTapAvatar))
@@ -215,7 +213,6 @@ class MessagePhotoCell: UITableViewCell {
     }
 
     // MARK: - User actions
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     @objc func actionTapBubble() {
 
         messagesView.dismissKeyboard()
@@ -228,14 +225,12 @@ class MessagePhotoCell: UITableViewCell {
         //messagesView.actionTapBubble(indexPath)
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     @objc func actionTapAvatar() {
 
         messagesView.dismissKeyboard()
         messagesView.actionTapAvatar(indexPath)
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     @objc func actionLongBubble(_ gestureRecognizer: UILongPressGestureRecognizer) {
 
         switch gestureRecognizer.state {
@@ -257,7 +252,6 @@ class MessagePhotoCell: UITableViewCell {
         }
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func actionMenu() {
 
         if (messagesView.messageInputBar.inputTextView.isFirstResponder == false) {

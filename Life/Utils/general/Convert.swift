@@ -39,7 +39,6 @@ class Convert: NSObject {
 		return formatter.string(from: date)
 	}
     
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     class func timestampToDayMonthTime(_ timestamp: Int64) -> String {
 
         let date = Date.date(timestamp: timestamp)
@@ -50,7 +49,6 @@ class Convert: NSObject {
 
         return formatter.string(from: date)
     }
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     class func timestampToDayTime(_ timestamp: Int64) -> String {
 
         let date = Date.date(timestamp: timestamp)

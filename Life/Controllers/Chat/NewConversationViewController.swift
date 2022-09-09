@@ -51,7 +51,6 @@ class NewConversationViewController: UIViewController, UITableViewDataSource, UI
         })
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func loadPersons(text: String = "") {
 
         let predicate1 = NSPredicate(format: "objectId IN %@ AND NOT objectId IN %@ AND isDeleted == NO", Friends.friendAcceptedIds(), Blockeds.blockerIds())

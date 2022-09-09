@@ -163,7 +163,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     // MARK: - Sinch user methods
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     @objc func sinchLogInUser() {
 
         let userId = AuthUser.userId()
@@ -182,7 +181,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func topMostViewController() -> UIViewController? {
         return UIApplication.shared.windows.filter{ $0.isKeyWindow }.first?.rootViewController
     }
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     @objc func sinchLogOutUser() {
 
         client?.terminateGracefully()
@@ -204,12 +202,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 extension AppDelegate: SINClientDelegate {
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func clientDidStart(_ client: SINClient!) {
         //print("Sinch client started successfully \(client.userId)")
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func clientDidFail(_ client: SINClient!, error: Error!) {
         //print("Sinch client error: \(error.localizedDescription)")
     }
@@ -219,11 +215,9 @@ extension AppDelegate: SINClientDelegate {
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 extension AppDelegate: SINCallClientDelegate {
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func client(_ client: SINCallClient!, willReceiveIncomingCall call: SINCall!) {
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func client(_ client: SINCallClient!, didReceiveIncomingCall call: SINCall!) {
     }
 }

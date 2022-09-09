@@ -126,7 +126,6 @@ class AddPictureViewController: UIViewController, UINavigationControllerDelegate
         let vc =  self.storyboard?.instantiateViewController(identifier: "successVC") as! SuccessViewController
         self.navigationController?.pushViewController(vc, animated: true)
     }
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func uploadPicture(image: UIImage) {
         let temp = image.square(to: 300)
         if let data = temp.jpegData(compressionQuality: 0.3) {

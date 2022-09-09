@@ -162,7 +162,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     
     // MARK: - Realm methods
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     @objc func loadFriends() {
 
         let predicate = NSPredicate(format: "userId == %@ AND isDeleted == NO  AND isAccepted == YES", AuthUser.userId())
@@ -180,7 +179,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             self.tokenFriends = token
         })
     }
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func loadPersons(text: String = "") {
 
         let predicate1 = NSPredicate(format: "objectId IN %@ AND NOT objectId IN %@ AND isDeleted == NO", Friends.friendAcceptedIds(), Blockeds.blockerIds())
@@ -280,7 +278,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
 
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func loadGroups(text: String = "") {
 
         let predicate1 = NSPredicate(format: "objectId IN %@ AND isDeleted == NO", Members.chatIds())
@@ -319,7 +316,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
 
     // MARK: - Refresh methods
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     @objc func refreshTableView() {
         print("refreshTableView")
         headerSections[1].name = "Groups".localized+" \(groups.count)"
@@ -556,25 +552,21 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 extension HomeViewController: UISearchBarDelegate {
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
 
         
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func searchBarTextDidBeginEditing(_ searchBar_: UISearchBar) {
 
         searchBar.setShowsCancelButton(true, animated: true)
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func searchBarTextDidEndEditing(_ searchBar_: UISearchBar) {
 
         searchBar.setShowsCancelButton(false, animated: true)
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func searchBarCancelButtonClicked(_ searchBar_: UISearchBar) {
 
         searchBar.text = ""
@@ -583,7 +575,6 @@ extension HomeViewController: UISearchBarDelegate {
         loadPersons()
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func searchBarSearchButtonClicked(_ searchBar_: UISearchBar) {
         searchBar.resignFirstResponder()
         let searchText = searchBar_.text

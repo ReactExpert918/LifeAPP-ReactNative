@@ -46,7 +46,6 @@ class Friends: NSObject {
 	}
     
     // MARK: -
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     class func update(_ userId: String, isAccepted: Bool) {
 
         let predicate = NSPredicate(format: "userId == %@ AND friendId == %@", userId, AuthUser.userId())

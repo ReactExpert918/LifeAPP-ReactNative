@@ -138,7 +138,6 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
         }
         popupProfileImageView.makeRounded()
     }
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func downloadImage(person: Person, completion: @escaping () -> Void) {
         MediaDownload.startUser(person.objectId, pictureAt: person.pictureAt) { image, error in
             if (error == nil) {
@@ -153,12 +152,10 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     // MARK: - Refresh methods
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func refreshTableView() {
         tableView.reloadData()
     }
     // MARK: - Backend methods
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func searchPersonsByUserName(text: String = "") {
         
         if text.count < 1 {
@@ -274,24 +271,20 @@ class SearchFriendsViewController: UIViewController, UITableViewDelegate, UITabl
         tableView.reloadData()
     }
     
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func searchBarTextDidBeginEditing(_ searchBar_: UISearchBar) {
         searchBar.setShowsCancelButton(true, animated: true)
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func searchBarTextDidEndEditing(_ searchBar_: UISearchBar) {
         searchBar.setShowsCancelButton(false, animated: true)
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func searchBarCancelButtonClicked(_ searchBar_: UISearchBar) {
         searchBar.text = ""
         searchBar.resignFirstResponder()
         //loadPersons()
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func searchBarSearchButtonClicked(_ searchBar_: UISearchBar) {
         searchBar.resignFirstResponder()
         let searchText = searchBar_.text

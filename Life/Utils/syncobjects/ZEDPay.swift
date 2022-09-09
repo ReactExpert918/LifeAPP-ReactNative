@@ -20,7 +20,6 @@ class ZEDPay: SyncObject {
     @objc dynamic var error = ""
     @objc dynamic var cardId = ""
     
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     class func lastUpdatedAt() -> Int64 {
 
         let realm = try! Realm()
@@ -30,7 +29,6 @@ class ZEDPay: SyncObject {
     }
 
     // MARK: -
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     
     func update(fromUserId value: String) {
 

@@ -96,7 +96,6 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     // MARK: - Realm methods
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     @objc func loadMembers() {
 
         let predicate = NSPredicate(format: "userId == %@ AND isActive == YES", AuthUser.userId())
@@ -110,7 +109,6 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
         })
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func loadChats(text: String = "") {
 
         let predicate1 = NSPredicate(format: "objectId IN %@ AND lastMessageAt != 0", Members.chatIds())
@@ -130,14 +128,12 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
         })
     }
     // MARK: - Refresh methods
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func refreshTableView() {
 
         chatsTableView.reloadData()
         self.refreshTabCounter()
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func refreshTabCounter() {
 
         var total: Int = 0
@@ -154,7 +150,6 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
     
     }
     // MARK: - Cleanup methods
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     @objc func actionCleanup() {
 
         tokenMembers?.invalidate()
@@ -165,7 +160,6 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
 
         refreshTableView()
     }
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func actionDelete(at indexPath: IndexPath) {
 
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
@@ -206,7 +200,6 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func numberOfSections(in tableView: UITableView) -> Int {
 
         return 1
@@ -227,7 +220,6 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
 
         let actionDelete = UIContextualAction(style: .destructive, title: "Delete".localized) {  action, sourceView, completionHandler in
@@ -260,25 +252,21 @@ class ChatListViewController: UIViewController, UITableViewDataSource, UITableVi
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 extension ChatListViewController: UISearchBarDelegate {
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
 
         
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func searchBarTextDidBeginEditing(_ searchBar_: UISearchBar) {
 
         searchBar.setShowsCancelButton(true, animated: true)
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func searchBarTextDidEndEditing(_ searchBar_: UISearchBar) {
 
         searchBar.setShowsCancelButton(false, animated: true)
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func searchBarCancelButtonClicked(_ searchBar_: UISearchBar) {
 
         searchBar.text = ""
@@ -286,7 +274,6 @@ extension ChatListViewController: UISearchBarDelegate {
         loadChats()
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func searchBarSearchButtonClicked(_ searchBar_: UISearchBar) {
         searchBar.resignFirstResponder()
         let searchText = searchBar_.text

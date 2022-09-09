@@ -21,7 +21,6 @@ class VideoView: UIViewController {
     var showsPlaybackControls: Bool = true
     var mute: Bool = false
     
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     init(url: URL, showsPlaybackControls: Bool = true, mute: Bool = true) {
         
         super.init(nibName: nil, bundle: nil)
@@ -31,13 +30,11 @@ class VideoView: UIViewController {
         self.mute = mute
     }
     
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     required init?(coder aDecoder: NSCoder) {
         
         super.init(coder: aDecoder)
     }
     
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -81,7 +78,6 @@ class VideoView: UIViewController {
         })
     }
     
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     override func viewWillDisappear(_ animated: Bool) {
         
         super.viewWillDisappear(animated)
@@ -96,7 +92,6 @@ class VideoView: UIViewController {
     }
     
     // MARK: - User actions
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func actionDone() {
         if let customActionDone = customActionDone {
             customActionDone()

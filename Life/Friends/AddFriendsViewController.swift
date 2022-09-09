@@ -197,7 +197,6 @@ class AddFriendsViewController: UIViewController, UITableViewDelegate, UITableVi
             self.tokenFriends = token
         })
     }
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func loadPersons(text: String = "") {
 
         let predicate1 = NSPredicate(format: "objectId IN %@ AND NOT objectId IN %@ AND isDeleted == NO", Friends.friendAcceptedIds(), Blockeds.blockerIds())

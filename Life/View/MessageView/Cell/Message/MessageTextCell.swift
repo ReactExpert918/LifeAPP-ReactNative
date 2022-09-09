@@ -144,7 +144,6 @@ class MessageTextCell: UITableViewCell {
     }
     
     // MARK: - User actions
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     @objc func actionTapBubble() {
         messagesView.dismissKeyboard()
         messagesView.actionTapBubble(indexPath)
@@ -154,13 +153,11 @@ class MessageTextCell: UITableViewCell {
         messagesView.dismissKeyboard()
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     @objc func actionTapAvatar() {
         messagesView.dismissKeyboard()
         messagesView.actionTapAvatar(indexPath)
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     @objc func actionLongBubble(_ gestureRecognizer: UILongPressGestureRecognizer) {
         switch gestureRecognizer.state {
             case .began:
@@ -181,7 +178,6 @@ class MessageTextCell: UITableViewCell {
         }
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func actionMenu() {
         if (messagesView.messageInputBar.inputTextView.isFirstResponder == false) {
             let menuController = UIMenuController.shared

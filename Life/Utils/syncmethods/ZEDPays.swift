@@ -8,7 +8,6 @@
 import RealmSwift
 class ZEDPays: NSObject {
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     class func create(fromUserId: String, toUserId: String, quantity: Float) -> String {
 
 
@@ -52,7 +51,6 @@ class ZEDPays: NSObject {
     }
 
     // MARK: -
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     class func update(_ transactionId: String, status: Int) {
 
         if let zedPay = realm.object(ofType: ZEDPay.self, forPrimaryKey: transactionId) {

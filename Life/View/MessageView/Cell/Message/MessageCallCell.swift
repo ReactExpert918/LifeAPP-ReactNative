@@ -22,7 +22,6 @@ class MessageCallCell: UITableViewCell {
     private var imageAvatar: UIImageView!
     private var labelTimeText: UILabel!
     private var viewStatus: UIView!
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func bindData(_ messagesView: ChatViewController, at indexPath: IndexPath) {
         
         self.indexPath = indexPath
@@ -124,7 +123,6 @@ class MessageCallCell: UITableViewCell {
         labelContent.textAlignment = rcmessage.incoming ? .left : .right
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     override func layoutSubviews() {
         super.layoutSubviews()
         
@@ -161,7 +159,6 @@ class MessageCallCell: UITableViewCell {
     }
     
     // MARK: - Gesture recognizer methods
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func bubbleGestureRecognizer() {
 
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(actionTapBubble))
@@ -172,7 +169,6 @@ class MessageCallCell: UITableViewCell {
         viewBubble.addGestureRecognizer(longGesture)
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func avatarGestureRecognizer() {
 
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(actionTapAvatar))
@@ -181,7 +177,6 @@ class MessageCallCell: UITableViewCell {
     }
 
     // MARK: - User actions
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     @objc func actionTapBubble() {
 
         messagesView.dismissKeyboard()
@@ -194,14 +189,12 @@ class MessageCallCell: UITableViewCell {
         //messagesView.actionTapBubble(indexPath)
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     @objc func actionTapAvatar() {
 
         messagesView.dismissKeyboard()
         messagesView.actionTapAvatar(indexPath)
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     @objc func actionLongBubble(_ gestureRecognizer: UILongPressGestureRecognizer) {
 
         switch gestureRecognizer.state {
@@ -223,7 +216,6 @@ class MessageCallCell: UITableViewCell {
         }
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func actionMenu() {
 
         if (messagesView.messageInputBar.inputTextView.isFirstResponder == false) {

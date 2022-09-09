@@ -37,7 +37,6 @@ class MainTabViewController: UITabBarController {
     }
     
     
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func loadChats(text: String = "") {
 
         let predicate1 = NSPredicate(format: "objectId IN %@ AND lastMessageAt != 0", Members.chatIds())
@@ -54,12 +53,10 @@ class MainTabViewController: UITabBarController {
             self.tokenChats = token
         })
     }
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func refreshTableView() {
         self.refreshTabCounter()
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func refreshTabCounter() {
 
         var total: Int = 0

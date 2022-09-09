@@ -10,7 +10,6 @@ import Foundation
 import RealmSwift
 class PaymentMethods: NSObject {
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     class func create(userId: String, customerId: String, cardNumber: String, expMonth: String, expYear: String, cvc: String, country: String) {
 
 

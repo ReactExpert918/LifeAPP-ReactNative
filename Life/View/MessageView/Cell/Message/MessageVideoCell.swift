@@ -133,7 +133,6 @@ class MessageVideoCell: UITableViewCell {
         incoming ? uivYouTxt.addGestureRecognizer(longGesture) : uivMeTxt.addGestureRecognizer(longGesture)
     }
     // MARK: - User actions
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     @objc func actionTapBubble() {
         messagesView.dismissKeyboard()
         messagesView.actionTapBubble(indexPath)
@@ -144,13 +143,11 @@ class MessageVideoCell: UITableViewCell {
         //messagesView.actionTapBubble(indexPath)
     }
     
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     @objc func actionTapAvatar() {
         messagesView.dismissKeyboard()
         messagesView.actionTapAvatar(indexPath)
     }
     
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     @objc func actionLongBubble(_ gestureRecognizer: UILongPressGestureRecognizer) {
         switch gestureRecognizer.state {
         case .began:
@@ -171,7 +168,6 @@ class MessageVideoCell: UITableViewCell {
         }
     }
     
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func actionMenu() {
         if (messagesView.messageInputBar.inputTextView.isFirstResponder == false) {
             let menuController = UIMenuController.shared

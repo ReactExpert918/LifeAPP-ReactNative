@@ -27,6 +27,7 @@ class SKRecordView: UIView, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
     }
     var state : SKRecordViewState = .none {
         didSet {
+            dismissLock()
             switch state {
             case .recording:
                 self.slideToCancel.alpha = 1.0
@@ -47,17 +48,18 @@ class SKRecordView: UIView, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
                     
                 })
             case .locked:
-                break
+                setupLock()
             }
         }
     }
     
     var isVideo: Bool = false
     var viewcontroller: UIViewController!
+    var chatViewController: ChatViewController? {
+        viewcontroller as? ChatViewController
+    }
     var recordButton : InputBarButtonItem = InputBarButtonItem()
     let slideToCancel : UILabel = UILabel(frame: CGRect.zero)
-    let slideUpToLock : UIImageView = UIImageView(frame: .zero)
-    let slideUpToLockContainer : UIView = UIView(frame: .zero)
     let countDownLabel : UILabel = UILabel(frame: CGRect.zero)
     var timer:Timer!
     var recordSeconds = 0
@@ -65,11 +67,6 @@ class SKRecordView: UIView, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
     var audioRecorder: AVAudioRecorder?
     
     var normalImage = UIImage(named: "ic_record.png")!
-    var recordingImages = [UIImage(named: "rec-1.png")!,
-                           UIImage(named: "rec-2.png")!,
-                           UIImage(named: "rec-3.png")!,
-                           UIImage(named: "rec-4.png")!,UIImage(named: "rec-5.png")!,UIImage(named: "rec-6.png")!]
-    var recordingAnimationDuration = 0.5
     var recordingLabelText = "<< Slide to cancel"
     
     var delegate : SKRecordViewDelegate?
@@ -84,7 +81,6 @@ class SKRecordView: UIView, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
         setupRecordButton(normalImage, recordBtn: recordBtn)
         setupLabel()
         setupCountDownLabel()
-        setupSlideUp()
     }
 
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
@@ -110,9 +106,6 @@ class SKRecordView: UIView, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
         longPress.allowableMovement = 10
         longPress.minimumPressDuration = 0.3
         recordButton.addGestureRecognizer(longPress)
-
-        recordButton.imageView?.animationImages = recordingImages
-        recordButton.imageView?.animationDuration = recordingAnimationDuration
     }
 
     func setupLabel() {
@@ -130,41 +123,6 @@ class SKRecordView: UIView, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
         slideToCancel.textAlignment = .center
         slideToCancel.textColor = UIColor.black
         slideToCancel.text = recordingLabelText
-    }
-    
-    func setupSlideUp() {
-        slideUpToLockContainer.translatesAutoresizingMaskIntoConstraints = false
-        slideUpToLockContainer.backgroundColor = UIColor.white.withAlphaComponent(0.75)
-        slideUpToLockContainer.layer.cornerRadius = 15
-        slideUpToLockContainer.isHidden = true
-        addSubview(slideUpToLockContainer)
-
-        NSLayoutConstraint.activate([
-            slideUpToLockContainer.bottomAnchor.constraint(equalTo: self.topAnchor, constant: -70),
-            slideUpToLockContainer.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
-            slideUpToLockContainer.widthAnchor.constraint(equalToConstant: 30),
-            slideUpToLockContainer.heightAnchor.constraint(equalToConstant: 60)
-        ])
-
-        slideUpToLock.translatesAutoresizingMaskIntoConstraints = false
-        slideUpToLockContainer.addSubview(slideUpToLock)
-        
-        NSLayoutConstraint.activate([
-            slideUpToLock.bottomAnchor.constraint(equalTo: self.slideUpToLockContainer.bottomAnchor, constant: -5),
-            slideUpToLock.topAnchor.constraint(equalTo: self.slideUpToLockContainer.topAnchor, constant: 5),
-            slideUpToLock.trailingAnchor.constraint(equalTo: self.slideUpToLockContainer.trailingAnchor, constant: 5),
-            slideUpToLock.leadingAnchor.constraint(equalTo: self.slideUpToLockContainer.leadingAnchor, constant: -5)
-        ])
-
-        slideUpToLock.contentMode = .scaleAspectFit
-        slideUpToLock.image = UIImage(named: "swipeUpToLock")?.withTintColor(COLORS.PRIMARY!)
-    }
-    
-    func checkForCancelingLocked() {
-        guard state == .locked else { return }
-        state = .none
-        userDidStopRecording(recordButton)
-        slideUpToLockContainer.isHidden = true
     }
 
     func setupCountDownLabel() {
@@ -309,8 +267,7 @@ class SKRecordView: UIView, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
             startLocation = location
             userDidBeginRecord(button)
             if !isVideo {
-                slideUpToLockContainer.isHidden = false
-                slideUpToLockContainer.backgroundColor = UIColor.white.withAlphaComponent(0.75)
+                chatViewController?.startVoiceRecord()
             }
         case .changed:
             let x = location.x - startLocation.x
@@ -321,7 +278,7 @@ class SKRecordView: UIView, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
                 if state == .recording {
                     if y < button.bounds.minY && !isVideo {
                         state = .locked
-                        slideUpToLockContainer.backgroundColor = COLORS.MSG_OUTGOING
+                        chatViewController?.lockVoiceRecord()
                     } else if x < button.bounds.minX {
                         userDidTapRecordThenSwipe(button)
                     }
@@ -339,6 +296,15 @@ class SKRecordView: UIView, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
     
     @objc func actionCancel() {
         
+    }
+
+    func setupLock() {
+        recordButton.backgroundColor = COLORS.PRIMARY
+        recordButton.layer.cornerRadius = min(recordButton.frame.height, recordButton.frame.width) / 2
+    }
+
+    func dismissLock() {
+        recordButton.backgroundColor = .clear
     }
     
     func audioRecorderEncodeErrorDidOccur(_ recorder: AVAudioRecorder, error: Error?) {

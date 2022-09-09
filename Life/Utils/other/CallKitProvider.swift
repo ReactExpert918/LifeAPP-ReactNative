@@ -31,7 +31,6 @@ class CallKitProvider: NSObject {
 
     private let app = UIApplication.shared.delegate as? AppDelegate
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     override init() {
 
         super.init()
@@ -75,7 +74,6 @@ class CallKitProvider: NSObject {
         }
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func didReceivePush(withPayload payload: [AnyHashable: Any]?) {
         guard let payload = payload else {
             return
@@ -154,7 +152,6 @@ class CallKitProvider: NSObject {
     
 
     // MARK: - Helper methods
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     private func topViewController() -> UIViewController? {
 
         let keyWindow = UIApplication.shared.windows.first { $0.isKeyWindow }
@@ -170,26 +167,22 @@ class CallKitProvider: NSObject {
 //-------------------------------------------------------------------------------------------------------------------------------------------------
 extension CallKitProvider: CXProviderDelegate {
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func providerDidBegin(_ provider: CXProvider) {
 
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func providerDidReset(_ provider: CXProvider) {
 
     }
 
 
     // MARK: -
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func provider(_ provider: CXProvider, perform action: CXStartCallAction) {
 
 
         
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func provider(_ provider: CXProvider, perform action: CXAnswerCallAction) {
 
         //provider.reportCall(with: action.callUUID, endedAt: Date(), reason: .answeredElsewhere)
@@ -305,7 +298,6 @@ extension CallKitProvider: CXProviderDelegate {
         }
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func provider(_ provider: CXProvider, perform action: CXEndCallAction) {
         action.fulfill()
         if let call = self.call {

@@ -19,6 +19,7 @@ class AppConstant {
 
 struct COLORS {
     static let PRIMARY = UIColor.init(named: "PrimaryColor")
+    static let BACKGROUND = UIColor.init(named: "background")
     static let MSG_OUTGOING = UIColor.init(named: "messageOutgoingColor")
     static let MSG_INCOMING = UIColor.init(named: "messageIncomingColor")
     static let MSG_INCOMING_BORDER = UIColor.init(named: "messageIncomingBorderColor")

@@ -48,7 +48,6 @@ class FriendCell: SwipeTableViewCell {
         self.removeFriend.isHidden = false
     }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func loadImage(person: Person, tableView: UITableView, indexPath: IndexPath) {
 /*
         if let path = MediaDownload.pathUser(person.objectId) {
@@ -76,7 +75,6 @@ class FriendCell: SwipeTableViewCell {
             downloadGroupImage(group: group, tableView: tableView, indexPath: indexPath)
         }
 
-    //---------------------------------------------------------------------------------------------------------------------------------------------
     func downloadImage(person: Person, tableView: UITableView, indexPath: IndexPath) {
 
         MediaDownload.startUser(person.objectId, pictureAt: person.pictureAt) { image, error in
