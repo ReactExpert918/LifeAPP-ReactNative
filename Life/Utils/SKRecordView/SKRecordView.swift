@@ -24,32 +24,12 @@ class SKRecordView: UIView, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
         case recording
         case none
         case locked
+        case swipe
     }
     var state : SKRecordViewState = .none {
         didSet {
             dismissLock()
-            switch state {
-            case .recording:
-                self.slideToCancel.alpha = 1.0
-                self.countDownLabel.alpha = 1.0
-                
-                self.invalidateIntrinsicContentSize()
-                self.setNeedsLayout()
-                self.layoutIfNeeded()
-            case .none:
-                UIView.animate(withDuration: 0.3, animations: { () -> Void in
-                    
-                    self.slideToCancel.alpha = 1.0
-                    self.countDownLabel.alpha = 1.0
-                    
-                    self.invalidateIntrinsicContentSize()
-                    self.setNeedsLayout()
-                    self.layoutIfNeeded()
-                    
-                })
-            case .locked:
-                setupLock()
-            }
+            if state == .locked { setupLock() }
         }
     }
     
@@ -58,20 +38,15 @@ class SKRecordView: UIView, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
     var chatViewController: ChatViewController? {
         viewcontroller as? ChatViewController
     }
+
     var recordButton : InputBarButtonItem = InputBarButtonItem()
-    let slideToCancel : UILabel = UILabel(frame: CGRect.zero)
-    let countDownLabel : UILabel = UILabel(frame: CGRect.zero)
-    var timer:Timer!
-    var recordSeconds = 0
-    var recordMinutes = 0
     var audioRecorder: AVAudioRecorder?
-    
     var normalImage = UIImage(named: "ic_record.png")!
-    var recordingLabelText = "<< Slide to cancel"
-    
     var delegate : SKRecordViewDelegate?
     var fileName = Date().timeIntervalSince1970
-    
+    var buttonOriginY: CGFloat = 0
+    var buttonOriginX: CGFloat = 0
+
     init(recordBtn: InputBarButtonItem, vc: UIViewController) {
         super.init(frame: CGRect.zero)
         self.backgroundColor = UIColor.clear
@@ -79,16 +54,15 @@ class SKRecordView: UIView, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
         
         self.viewcontroller = vc
         setupRecordButton(normalImage, recordBtn: recordBtn)
-        setupLabel()
-        setupCountDownLabel()
     }
 
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
-        for subview in subviews as [UIView] {
+        for subview in subviews {
+            print("\(subview.tag)")
             if !subview.isHidden
-                && subview.alpha > 0
                 && subview.isUserInteractionEnabled
-                && subview.point(inside:point, with: event) {
+                && subview.point(inside: convert(point, to: subview), with: event)
+                && subview.tag != VoiceRecord.Constant.trashTag {
                 return true
             }
         }
@@ -98,49 +72,18 @@ class SKRecordView: UIView, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
     func setupRecordButton(_ image: UIImage, recordBtn: InputBarButtonItem) {
         recordButton = recordBtn
         recordButton.translatesAutoresizingMaskIntoConstraints = false
-        
         recordButton.setImage(image, for: UIControl.State())
         
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(SKRecordView.actionLongPress(_:)))
         longPress.cancelsTouchesInView = true
         longPress.allowableMovement = 10
         longPress.minimumPressDuration = 0.3
+
         recordButton.addGestureRecognizer(longPress)
+        buttonOriginY = recordButton.frame.origin.y
+        buttonOriginX = recordButton.frame.origin.x
     }
 
-    func setupLabel() {
-        slideToCancel.translatesAutoresizingMaskIntoConstraints = false
-        slideToCancel.textAlignment = .center
-        slideToCancel.font = UIFont.init(name: "system", size: 9.0)
-        addSubview(slideToCancel)
-        
-        NSLayoutConstraint.activate([
-            slideToCancel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            slideToCancel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -70)
-        ])
-        
-        slideToCancel.font = UIFont.boldSystemFont(ofSize: 14)
-        slideToCancel.textAlignment = .center
-        slideToCancel.textColor = UIColor.black
-        slideToCancel.text = recordingLabelText
-    }
-
-    func setupCountDownLabel() {
-        countDownLabel.translatesAutoresizingMaskIntoConstraints = false
-        countDownLabel.textAlignment = .center
-        addSubview(countDownLabel)
-        
-        NSLayoutConstraint.activate([
-            countDownLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            countDownLabel.trailingAnchor.constraint(equalTo: self.slideToCancel.leadingAnchor, constant: -8)
-        ])
-        
-        countDownLabel.font = UIFont.systemFont(ofSize: 15)
-        countDownLabel.textAlignment = .center
-        countDownLabel.textColor = UIColor.red
-        countDownLabel.text = "0.00"
-    }
-    
     func setupRecorder(){
         let recordingSession = AVAudioSession.sharedInstance()
         
@@ -181,24 +124,21 @@ class SKRecordView: UIView, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
                           height: recordButton.intrinsicContentSize.height)
         }
     }
-    
-    func ClearView() {
-        slideToCancel.text = nil
-        countDownLabel.text = nil
-        timer.invalidate()
-    }
-    
+
     func recordAudio() {
         self.fileName = Date().timeIntervalSince1970
         self.setupRecorder()
         
-        let settings = [AVFormatIDKey: kAudioFormatMPEG4AAC, AVSampleRateKey: 12000, AVNumberOfChannelsKey: 1]
+        let settings = [
+            AVFormatIDKey: kAudioFormatMPEG4AAC,
+            AVSampleRateKey: 12000,
+            AVNumberOfChannelsKey: 1]
         
         do {
-            self.audioRecorder = try AVAudioRecorder(url: self.getFileURL(), settings: settings)
-            self.audioRecorder?.delegate = self
-            
+            audioRecorder = try AVAudioRecorder(url: self.getFileURL(), settings: settings)
+            audioRecorder?.delegate = self
             audioRecorder?.record()
+            audioRecorder?.isMeteringEnabled = true
         } catch (let error) {
             print("Audio Recorder", error)
             finishRecording()
@@ -211,14 +151,12 @@ class SKRecordView: UIView, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
     }
     
     func userDidTapRecordThenSwipe(_ sender: UIButton) {
-        self.ClearView()
         self.finishRecording()
         
         delegate?.SKRecordViewDidCancelRecord(self, button: sender)
     }
     
     func  userDidStopRecording(_ sender: UIButton) {
-        self.ClearView()
         if !isVideo {
             self.finishRecording()
         }
@@ -226,12 +164,6 @@ class SKRecordView: UIView, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
     }
     
     func userDidBeginRecord(_ sender : UIButton) {
-        slideToCancel.text = self.recordingLabelText
-        recordMinutes = 0
-        recordSeconds = 0
-        countdown()
-        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(SKRecordView.countdown) , userInfo: nil, repeats: true)
-        
         if !isVideo {
             self.recordAudio()
             delegate?.SKRecordViewDidSelectRecord(self, button: sender)
@@ -239,22 +171,21 @@ class SKRecordView: UIView, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
             delegate?.userWantsToRecordVideo()
         }
     }
-    
-    @objc func countdown() {
-        var seconds = "\(recordSeconds)"
-        if recordSeconds < 10 {
-            seconds = "0\(recordSeconds)"
+
+    func moveButtonIfLockRecordingAudio(distance: CGFloat) {
+        if state == .locked && !isVideo {
+            let zeroLimited = min(0, distance)
+            let move = recordButton.frame.origin.y + zeroLimited
+            let maxLimited = max(move, -200)
+            recordButton.frame.origin.y = maxLimited
         }
-        var minutes = "\(recordMinutes)"
-        if recordMinutes < 10 {
-            minutes = "0\(recordMinutes)"
-        }
-        
-        countDownLabel.text = "● \(minutes):\(seconds)"
-        recordSeconds += 1
-        if recordSeconds == 60 {
-            recordMinutes += 1
-            recordSeconds = 0
+    }
+    func moveButtonIfSwipeRecordingAudio(distance: CGFloat) {
+        if state == .swipe && !isVideo {
+            let zeroLimited = min(0, distance)
+            let move = recordButton.frame.origin.x + zeroLimited
+            let maxLimited = max(move, -150)
+            recordButton.frame.origin.x = maxLimited
         }
     }
     
@@ -273,14 +204,16 @@ class SKRecordView: UIView, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
             let x = location.x - startLocation.x
             let y = location.y - startLocation.y
             let translate = CGPoint(x: x, y: y)
-            
+
+            moveButtonIfLockRecordingAudio(distance: y)
+            moveButtonIfSwipeRecordingAudio(distance: x)
+
             if !button.bounds.contains(translate) {
                 if state == .recording {
                     if y < button.bounds.minY && !isVideo {
                         state = .locked
-                        chatViewController?.lockVoiceRecord()
                     } else if x < button.bounds.minX {
-                        userDidTapRecordThenSwipe(button)
+                        state = .swipe
                     }
                 }
             }
@@ -288,6 +221,20 @@ class SKRecordView: UIView, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
             if isVideo || state == .recording {
                 userDidStopRecording(button)
             }
+            if !isVideo {
+                if state == .locked {
+                    UIView.animate(withDuration: 0.7) {
+                        self.recordButton.frame.origin.y = self.buttonOriginY
+                    }
+                    chatViewController?.lockVoiceRecord()
+                } else if state == .swipe {
+                    UIView.animate(withDuration: 0.7) {
+                        self.recordButton.frame.origin.x = self.buttonOriginX
+                    }
+                    userDidTapRecordThenSwipe(button)
+                }
+            }
+
         case .failed, .possible ,.cancelled : if state == .recording { userDidStopRecording(button) } else { userDidTapRecordThenSwipe(button)}
         @unknown default:
             if state == .recording { userDidStopRecording(button) } else { userDidTapRecordThenSwipe(button)}
@@ -296,6 +243,17 @@ class SKRecordView: UIView, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
     
     @objc func actionCancel() {
         
+    }
+    func finishLockMode(){
+        guard state == .locked else { return }
+        state = .none
+        userDidStopRecording(recordButton)
+    }
+
+    func cancelLockMode(){
+        guard state == .locked else { return }
+        state = .none
+        userDidTapRecordThenSwipe(recordButton)
     }
 
     func setupLock() {
@@ -313,7 +271,6 @@ class SKRecordView: UIView, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
     
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
         print("Audio Recorder", flag)
-        self.ClearView()
         self.finishRecording()
     }
     
@@ -321,4 +278,3 @@ class SKRecordView: UIView, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
         fatalError("init(coder:) has not been implemented")
     }
 }
-

@@ -81,6 +81,7 @@
 		05F2B11226CA5EE000620E87 /* RCAudioController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F2B11126CA5EE000620E87 /* RCAudioController.swift */; };
 		1349E69C28B66D88002F1805 /* TelegramRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1349E69B28B66D88002F1805 /* TelegramRecordView.swift */; };
 		1349E69E28B67339002F1805 /* TelegramRecordView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1349E69D28B67339002F1805 /* TelegramRecordView.xib */; };
+		1355FA8228CB584E00545860 /* TouchPassingInputBarAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1355FA8128CB584E00545860 /* TouchPassingInputBarAccessoryView.swift */; };
 		1373ED4728CAA922009574A7 /* BucketImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1373ED4628CAA922009574A7 /* BucketImageView.swift */; };
 		1373ED4A28CAB14E009574A7 /* VoiceRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1373ED4928CAB14E009574A7 /* VoiceRecord.swift */; };
 		1373ED4C28CAB159009574A7 /* VoiceRecord.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1373ED4B28CAB159009574A7 /* VoiceRecord.xib */; };
@@ -99,6 +100,7 @@
 		1373ED6928CAC535009574A7 /* ChatViewController+Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1373ED6828CAC534009574A7 /* ChatViewController+Keyboard.swift */; };
 		1373ED6B28CAC6EB009574A7 /* ChatViewController+Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1373ED6A28CAC6EB009574A7 /* ChatViewController+Menu.swift */; };
 		1373ED6D28CAC90B009574A7 /* ChatViewController+RealmLoad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1373ED6C28CAC90B009574A7 /* ChatViewController+RealmLoad.swift */; };
+		1373ED6F28CB1592009574A7 /* ChatViewController+VoiceRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1373ED6E28CB1592009574A7 /* ChatViewController+VoiceRecord.swift */; };
 		13961CA528B624A600021F80 /* WalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13961CA428B624A600021F80 /* WalkthroughViewController.swift */; };
 		13961CA728B6252900021F80 /* WalkthroughViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13961CA628B6252900021F80 /* WalkthroughViewController.xib */; };
 		13961CA928B6271000021F80 /* WalkthroughViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13961CA828B6271000021F80 /* WalkthroughViewModel.swift */; };
@@ -454,6 +456,7 @@
 		05F2B11126CA5EE000620E87 /* RCAudioController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCAudioController.swift; sourceTree = "<group>"; };
 		1349E69B28B66D88002F1805 /* TelegramRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelegramRecordView.swift; sourceTree = "<group>"; };
 		1349E69D28B67339002F1805 /* TelegramRecordView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TelegramRecordView.xib; sourceTree = "<group>"; };
+		1355FA8128CB584E00545860 /* TouchPassingInputBarAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchPassingInputBarAccessoryView.swift; sourceTree = "<group>"; };
 		135AC5C328B6DB5B0046B7D3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ZedPay.strings; sourceTree = "<group>"; };
 		135AC5C428B6DB670046B7D3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Setting.strings; sourceTree = "<group>"; };
 		135AC5C528B6DDB20046B7D3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -475,6 +478,7 @@
 		1373ED6828CAC534009574A7 /* ChatViewController+Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatViewController+Keyboard.swift"; sourceTree = "<group>"; };
 		1373ED6A28CAC6EB009574A7 /* ChatViewController+Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatViewController+Menu.swift"; sourceTree = "<group>"; };
 		1373ED6C28CAC90B009574A7 /* ChatViewController+RealmLoad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatViewController+RealmLoad.swift"; sourceTree = "<group>"; };
+		1373ED6E28CB1592009574A7 /* ChatViewController+VoiceRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatViewController+VoiceRecord.swift"; sourceTree = "<group>"; };
 		13961CA428B624A600021F80 /* WalkthroughViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughViewController.swift; sourceTree = "<group>"; };
 		13961CA628B6252900021F80 /* WalkthroughViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalkthroughViewController.xib; sourceTree = "<group>"; };
 		13961CA828B6271000021F80 /* WalkthroughViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughViewModel.swift; sourceTree = "<group>"; };
@@ -897,6 +901,7 @@
 				1373ED6828CAC534009574A7 /* ChatViewController+Keyboard.swift */,
 				1373ED6A28CAC6EB009574A7 /* ChatViewController+Menu.swift */,
 				1373ED6C28CAC90B009574A7 /* ChatViewController+RealmLoad.swift */,
+				1373ED6E28CB1592009574A7 /* ChatViewController+VoiceRecord.swift */,
 			);
 			path = ChatViewController;
 			sourceTree = "<group>";
@@ -1605,8 +1610,9 @@
 			isa = PBXGroup;
 			children = (
 				1373ED5828CABB6B009574A7 /* NavigationController.swift */,
-				1373ED4F28CABA3A009574A7 /* ChatViewController */,
 				A6302BB324B9A34B00345FC9 /* NewConversationViewController.swift */,
+				1355FA8128CB584E00545860 /* TouchPassingInputBarAccessoryView.swift */,
+				1373ED4F28CABA3A009574A7 /* ChatViewController */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -2246,6 +2252,7 @@
 				05F2B11226CA5EE000620E87 /* RCAudioController.swift in Sources */,
 				A6E73B4324A4F3140008CBFE /* RoundButton.swift in Sources */,
 				AB277A7F24ACFC6000D6C783 /* CornerView.swift in Sources */,
+				1373ED6F28CB1592009574A7 /* ChatViewController+VoiceRecord.swift in Sources */,
 				A6DEA88224A84E9600868625 /* MediaManager.swift in Sources */,
 				04F4E3CE267C524D00CD94FD /* ZEDPay.swift in Sources */,
 				05BA7ED326B7A3E00049393B /* CallAudioView.swift in Sources */,
@@ -2308,6 +2315,7 @@
 				13961CAC28B6275400021F80 /* WalkthroughItemViewModel.swift in Sources */,
 				AB5457A724B5C4F2008C7FB8 /* AddMemberCell.swift in Sources */,
 				A6DEA83524A8303A00868625 /* Message.swift in Sources */,
+				1355FA8228CB584E00545860 /* TouchPassingInputBarAccessoryView.swift in Sources */,
 				AB82ACD124A5452700D83E47 /* SettingCellHeader.swift in Sources */,
 				A6F564D124A9B53C0061007E /* RCFooterLowerCell.swift in Sources */,
 				A6DEA87924A848E000868625 /* Detail.swift in Sources */,

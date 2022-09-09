@@ -8,9 +8,15 @@
 
 import UIKit
 import JamitFoundation
+import SoundWave
+
 
 class VoiceRecord: StatefulView<VoiceRecordModel>{
-    
+
+    enum Constant {
+        static let trashTag = 1000
+    }
+
     @IBOutlet var lockTrackView: UIView!
     @IBOutlet var lockControlView: UIStackView!
     @IBOutlet weak var lockDurationLabel: UILabel!
@@ -18,30 +24,27 @@ class VoiceRecord: StatefulView<VoiceRecordModel>{
     @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet weak var micImageView: UIImageView!
     @IBOutlet weak var slideLabel: UILabel!
-    @IBOutlet weak var lockContainerView: UIView!
-    @IBOutlet weak var lockView: UIView!
     @IBOutlet weak var mainContainerView: UIView!
-    @IBOutlet weak var backgroundView: UIView!
-    @IBOutlet weak var audioGraph: UIView!
-    
-    var timer: Timer? = nil
-    var time = 0
+    @IBOutlet weak var audioView: AudioVisualizationView!
+    @IBOutlet weak var trashButton: UIButton!
 
-    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        let hitView = super.hitTest(point, with: event)
-        if hitView == self {
-            return nil
-        }
-        return hitView
+    var delegate: VoiceRecordProtocol? = nil
+    private var timer: Timer? = nil
+    var time: Double = 0
+
+    override func viewDidLoad() {
+        hideForDefaultConfiguration()
+        configureAudioView()
+        trashButton.tag = Constant.trashTag
     }
 
     @IBAction func lockTrashDidTap(_ sender: Any) {
-        
+        delegate?.stop()
+        hideForDefaultConfiguration()
     }
 
-    @objc
     func fireTimer() {
-        time += 1
+        time += 0.5
 
         let hours = Int(self.time) / 3600
         let minutes = Int(self.time) / 60 % 60
@@ -50,45 +53,84 @@ class VoiceRecord: StatefulView<VoiceRecordModel>{
 
         lockDurationLabel.text = duration
         durationLabel.text = duration
-    }
 
+        guard let level = delegate?.getAudioLevel() else { return }
+        audioView.add(meteringLevel: level)
+    }
     private func deinitTimer() {
-        guard timer == nil else { return }
+        guard timer != nil else { return }
         timer?.invalidate()
         timer = nil
+        time = 0
+    }
+
+    func configureAudioView() {
+        audioView.meteringLevelBarWidth = 1.0
+        audioView.meteringLevelBarInterItem = 1.0
+        audioView.meteringLevelBarCornerRadius = 0.5
+        audioView.gradientStartColor = .red
+        audioView.gradientEndColor = .red
+        audioView.backgroundColor = .clear
+        audioView.audioVisualizationMode = .write
     }
 
     func defaultConfiguration() {
-        lockTrackView.isHidden = true
-        lockControlView.isHidden = true
-
-        lockContainerView.isHidden = true
-
-        defaultControlView.isHidden = true
-
-        mainContainerView.isHidden = true
-        backgroundView.isHidden = true
+        UIView.animate(
+            withDuration: 0.7,
+            delay: 0,
+            options: [.transitionCurlDown],
+            animations: {
+                self.disappearForDefaultConfiguration()
+            }, completion: { _ in
+                self.hideForDefaultConfiguration()
+            })
 
         deinitTimer()
+        audioView.reset()
+    }
+
+    func hideForDefaultConfiguration() {
+        lockTrackView.isHidden = true
+        lockControlView.isHidden = true
+        defaultControlView.isHidden = true
+        mainContainerView.isHidden = true
+    }
+    func disappearForDefaultConfiguration() {
+        lockTrackView.alpha = 0
+        lockControlView.alpha = 0
+        defaultControlView.alpha = 0
+        mainContainerView.alpha = 0
     }
 
     func recordConfiguration() {
-        lockTrackView.isHidden = true
-        lockControlView.isHidden = true
+        showForRecordConfiguration()
 
-        lockContainerView.isHidden = false
+        UIView.animate(
+            withDuration: 0.7,
+            delay: 0,
+            options: [.transitionCurlUp],
+            animations: {
+                self.appearForRecordConfiguration()
+            })
 
-        defaultControlView.isHidden = false
+        UIView.animate(
+            withDuration: 0.7,
+            delay: 0,
+            options: [.transitionCurlDown],
+            animations: {
+                self.disappearForRecordConfiguration()
+            }, completion: { _ in
+                self.hideForRecordConfiguration()
+            })
 
-        mainContainerView.isHidden = false
-        backgroundView.isHidden = true
-
-        time = 0
-        timer = Timer.scheduledTimer(timeInterval: 1.0,
-                                                 target: self,
-                                                 selector: #selector(fireTimer),
-                                                 userInfo: nil,
-                                                 repeats: true)
+        deinitTimer()
+        if timer == nil {
+            timer = Timer.scheduledTimer(withTimeInterval: 0.5,
+                                         repeats: true,
+                                         block: { [weak self] _ in
+                self?.fireTimer()
+            })
+        }
 
         UIView.animate(
             withDuration: 0.7,
@@ -100,16 +142,65 @@ class VoiceRecord: StatefulView<VoiceRecordModel>{
             })
     }
 
+    func hideForRecordConfiguration() {
+        lockTrackView.isHidden = true
+        lockControlView.isHidden = true
+    }
+
+    func showForRecordConfiguration() {
+        defaultControlView.isHidden = false
+        mainContainerView.isHidden = false
+    }
+
+    func disappearForRecordConfiguration() {
+        lockTrackView.alpha = 0
+        lockControlView.alpha = 0
+    }
+
+    func appearForRecordConfiguration() {
+        defaultControlView.alpha = 1
+        mainContainerView.alpha = 1
+    }
+
     func lockConfiguration() {
+        showForLockConfiguration()
+
+        UIView.animate(
+            withDuration: 0.7,
+            delay: 0,
+            options: [.transitionCurlUp],
+            animations: {
+                self.appearForLockConfiguration()
+            })
+
+        UIView.animate(
+            withDuration: 0.7,
+            delay: 0,
+            options: [.transitionCurlDown],
+            animations: {
+                self.disappearForLockConfiguration()
+            }, completion: { _ in
+                self.hideForLockConfiguration()
+            })
+    }
+
+    func hideForLockConfiguration() {
+        defaultControlView.isHidden = true
+    }
+
+    func showForLockConfiguration() {
         lockTrackView.isHidden = false
         lockControlView.isHidden = false
-
-        lockContainerView.isHidden = true
-
-        defaultControlView.isHidden = true
-
         mainContainerView.isHidden = false
+    }
 
-        backgroundView.isHidden = false
+    func disappearForLockConfiguration() {
+        defaultControlView.alpha = 0
+    }
+
+    func appearForLockConfiguration() {
+        lockTrackView.alpha = 1
+        lockControlView.alpha = 1
+        mainContainerView.alpha = 1
     }
 }

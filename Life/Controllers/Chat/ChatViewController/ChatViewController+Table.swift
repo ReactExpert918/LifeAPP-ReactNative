@@ -88,7 +88,6 @@ extension ChatViewController {
     }
 
     func layoutTableView() {
-        print("SnapShot", heightKeyboard)
         let heightInput = messageInputBar.bounds.height - self.view.safeAreaInsets.bottom
 
         let edgeInset = UIEdgeInsets(top: 10, left: 0, bottom: heightInput + heightKeyboard + 10, right: 0)
@@ -248,18 +247,6 @@ extension ChatViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        let offset = messageTotalCount() - messageLoadedCount()
-//        let message = messages[section + offset]
-//        var prevUserId = ""
-//        if(section > 0){
-//            prevUserId = messages[section + offset - 1].userId
-//        }
-//        var offsetHeight = CGFloat(3)
-//        if (prevUserId != message.userId){
-//            offsetHeight = RCDefaults.sectionHeaderMargin
-//            prevUserId = message.userId
-//        }
-//        return offsetHeight
         return RCDefaults.sectionFooterMargin
     }
 

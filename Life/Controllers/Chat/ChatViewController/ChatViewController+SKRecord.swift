@@ -50,10 +50,7 @@ extension ChatViewController : SKRecordViewDelegate {
     func SKRecordViewDidSelectRecord(_ sender: SKRecordView, button: UIView) {
 
         sender.state = .recording
-        sender.setupRecordButton(UIImage(named: "rec-1.png")!, recordBtn: hybridButton)
-        //sender.audioRecorder?.record()
         recordingView.recordButton.imageView?.startAnimating()
-        //messageInputBar.isHidden = true
         recordingView.isHidden = false
         messageInputBar.inputTextView.placeholder = nil
         messageInputBar.inputTextView.isHidden = true

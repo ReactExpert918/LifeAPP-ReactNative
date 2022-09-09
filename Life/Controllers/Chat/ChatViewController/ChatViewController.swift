@@ -43,7 +43,7 @@ class ChatViewController: UIViewController {
     var recordingView: SKRecordView!
     var refreshControl = UIRefreshControl()
     var isTyping = false
-    var messageInputBar = InputBarAccessoryView()
+    var messageInputBar = TouchPassingInputBarAccessoryView()
     var heightKeyboard: CGFloat = 0
     var keyboardWillShow = false
     var rcmessages: [String: RCMessage] = [:]
@@ -84,7 +84,7 @@ class ChatViewController: UIViewController {
     @IBOutlet weak var zedPayButton: UIView!
 
     private var audioController: RCAudioController?
-    lazy var voiceRecord: VoiceRecord = .instantiate()
+    var voiceRecord: VoiceRecord? = nil
     lazy var autocompleteManager: AutocompleteManager = { [unowned self] in
         let manager = AutocompleteManager(for: self.messageInputBar.inputTextView)
         manager.delegate = self
@@ -573,20 +573,26 @@ class ChatViewController: UIViewController {
     }
     
     func configureMessageInputBar() {
+
+        messageInputBar.backgroundColor = .clear
+        messageInputBar.backgroundView.backgroundColor = .clear
+
         view.addSubview(messageInputBar)
         callToolbarView.layer.zPosition = 1
         keyboardManager.bind(inputAccessoryView: messageInputBar)
         messageInputBar.delegate = self
 
         hybridButton = InputBarButtonItem()
-        hybridButton.image = UIImage(named: "ic_record")
+        hybridButton.setImage(UIImage(named: "ic_record")?.resize(width: 20, height: 20), for: .normal)
+        hybridButton.imageEdgeInsets = .init(top: 5, left: 5, bottom: 5, right: 5)
         hybridButton.tintColor = UIColor(named: "PrimaryColor")
         hybridButton.setSize(CGSize(width: 50, height: 50), animated: false)
-        hybridButton.contentMode = .scaleAspectFit
+        hybridButton.layer.cornerRadius = 25
+        hybridButton.contentMode = .center
         hybridButton.onTouchUpInside { item in
-            
             if self.recordingView.state == .locked {
                 self.stopVoiceRecord()
+                self.recordingView.finishLockMode()
             } else {
                 self.changeButton()
             }
@@ -647,33 +653,33 @@ class ChatViewController: UIViewController {
 
         messageInputBar.setStackViewItems([recordingView.recordButton], forStack: .right, animated: false)
         recordingView.setupRecorder()
-        if(recipientId == ""){
+        if(recipientId == "") {
             autocompleteManager.register(prefix: "@", with: [.font: UIFont.preferredFont(forTextStyle: .body),
                                                              .foregroundColor: UIColor.systemBlue,
                                                              .backgroundColor: UIColor.systemBlue.withAlphaComponent(0.1)])
         }
 
-
-
-
         addVoiceRecord()
-
-
-        messageInputBar.bringSubviewToFront(voiceRecord)
-        messageInputBar.bringSubviewToFront(hybridButton)
+        view.bringSubviewToFront(messageInputBar)
     }
 
     func addVoiceRecord() {
+
+        if voiceRecord == nil {
+            voiceRecord = .instantiate()
+            voiceRecord?.model = .init()
+            voiceRecord?.delegate = self
+        }
         stopVoiceRecord()
-        voiceRecord.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(voiceRecord)
+        voiceRecord?.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(voiceRecord!)
         NSLayoutConstraint.activate([
-            voiceRecord.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            voiceRecord.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            voiceRecord.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            voiceRecord!.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            voiceRecord!.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            voiceRecord!.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-        voiceRecord.layoutIfNeeded()
-        
+        voiceRecord?.layoutIfNeeded()
+        view.bringSubviewToFront(voiceRecord!)
     }
 
     func changeButton() {
@@ -690,14 +696,20 @@ class ChatViewController: UIViewController {
     }
 
     func startVoiceRecord() {
-        voiceRecord.recordConfiguration()
+        voiceRecord?.recordConfiguration()
+        messageInputBar.separatorLine.height = 0
+        hybridButton.backgroundColor = .clear
     }
 
     func stopVoiceRecord() {
-        voiceRecord.defaultConfiguration()
+        voiceRecord?.defaultConfiguration()
+        messageInputBar.separatorLine.height = 1
+        hybridButton.backgroundColor = .clear
     }
 
     func lockVoiceRecord() {
-        voiceRecord.lockConfiguration()
+        voiceRecord?.lockConfiguration()
+        messageInputBar.separatorLine.height = 0
+        hybridButton.backgroundColor = COLORS.MSG_OUTGOING
     }
 }

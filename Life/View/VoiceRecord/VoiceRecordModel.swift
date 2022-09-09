@@ -7,9 +7,14 @@
 //
 
 import JamitFoundation
+import Combine
 
-struct VoiceRecordModel: ViewModelProtocol {
+protocol VoiceRecordProtocol {
+    func stop()
+    func getAudioLevel() -> Float
 }
+
+struct VoiceRecordModel: ViewModelProtocol { }
 
 extension VoiceRecordModel {
     static var `default`: VoiceRecordModel = .init()
