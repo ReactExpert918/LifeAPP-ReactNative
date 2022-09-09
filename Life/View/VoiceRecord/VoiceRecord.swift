@@ -38,7 +38,7 @@ class VoiceRecord: StatefulView<VoiceRecordModel>{
         trashButton.tag = Constant.trashTag
     }
 
-    @IBAction func lockTrashDidTap(_ sender: Any) {
+    func lockTrashDidTap() {
         delegate?.stop()
         hideForDefaultConfiguration()
     }

@@ -65,6 +65,7 @@ class ChatViewController: UIViewController {
     private var currentButton: ButtonType = .audio
     private var lastRead: Int64 = 0
     private var isShowingToolbar = false
+    lazy var trashButton: UIButton = .init(frame: .zero)
 
     @IBOutlet weak var videoCallView: UIView!
     @IBOutlet weak var voiceCallView: UIView!
@@ -661,6 +662,22 @@ class ChatViewController: UIViewController {
 
         addVoiceRecord()
         view.bringSubviewToFront(messageInputBar)
+
+        trashButton.setTitle("", for: .normal)
+        trashButton.translatesAutoresizingMaskIntoConstraints = false
+        trashButton.addTarget(self, action: #selector(trashDidTap), for: .touchUpInside)
+        view.addSubview(trashButton)
+        NSLayoutConstraint.activate([
+            trashButton.trailingAnchor.constraint(equalTo: voiceRecord!.trashButton.trailingAnchor),
+            trashButton.topAnchor.constraint(equalTo: voiceRecord!.trashButton.topAnchor),
+            trashButton.leadingAnchor.constraint(equalTo: voiceRecord!.trashButton.leadingAnchor),
+            trashButton.bottomAnchor.constraint(equalTo: voiceRecord!.trashButton.bottomAnchor)
+        ])
+    }
+
+    @objc
+    func trashDidTap() {
+        voiceRecord?.lockTrashDidTap()
     }
 
     func addVoiceRecord() {
@@ -699,17 +716,23 @@ class ChatViewController: UIViewController {
         voiceRecord?.recordConfiguration()
         messageInputBar.separatorLine.height = 0
         hybridButton.backgroundColor = .clear
+        trashButton.isEnabled = false
+        trashButton.isHidden = true
     }
 
     func stopVoiceRecord() {
         voiceRecord?.defaultConfiguration()
         messageInputBar.separatorLine.height = 1
         hybridButton.backgroundColor = .clear
+        trashButton.isEnabled = false
+        trashButton.isHidden = true
     }
 
     func lockVoiceRecord() {
         voiceRecord?.lockConfiguration()
         messageInputBar.separatorLine.height = 0
         hybridButton.backgroundColor = COLORS.MSG_OUTGOING
+        trashButton.isEnabled = true
+        trashButton.isHidden = false
     }
 }
