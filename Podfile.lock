@@ -619,6 +619,7 @@ PODS:
   - SinchRTC (4.2.11)
   - SkyFloatingLabelTextField (3.8.0)
   - SnapKit (5.6.0)
+  - Spring (1.0.6)
   - SwiftyAvatar (1.1.3)
   - SwipeCellKit (2.7.1)
 
@@ -656,6 +657,7 @@ DEPENDENCIES:
   - SinchRTC (~> 4.0)
   - SkyFloatingLabelTextField (~> 3.0)
   - SnapKit (~> 5.6.0)
+  - Spring (from `https://github.com/MengTo/Spring.git`)
   - SwiftyAvatar (~> 1.1)
   - SwipeCellKit
 
@@ -721,11 +723,16 @@ EXTERNAL SOURCES:
   JamitFoundation:
     :git: https://github.com/JamitLabs/JamitFoundation.git
     :tag: 1.5.2
+  Spring:
+    :git: https://github.com/MengTo/Spring.git
 
 CHECKOUT OPTIONS:
   JamitFoundation:
     :git: https://github.com/JamitLabs/JamitFoundation.git
     :tag: 1.5.2
+  Spring:
+    :commit: 50d92a5b9e08848387ae95bf44c6ad20834f7083
+    :git: https://github.com/MengTo/Spring.git
 
 SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
@@ -782,9 +789,10 @@ SPEC CHECKSUMS:
   SinchRTC: 4cd96455e0cc148614fd6a59a32878aff1830683
   SkyFloatingLabelTextField: 5a338412114808e961fe2d14ea2c5452c8b6e4aa
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
+  Spring: 3d113f14575ef79aec9c5f906dfa4f5001c03254
   SwiftyAvatar: 33aecda825c91851cac2aabd06b33f3698b2414c
   SwipeCellKit: 3972254a826da74609926daf59b08d6c72e619ea
 
-PODFILE CHECKSUM: 1f0e6dd1207eaa118be46250afc2bee143d478db
+PODFILE CHECKSUM: 475485a4d3766ec815c22016efb66ce8a37d292f
 
 COCOAPODS: 1.11.3

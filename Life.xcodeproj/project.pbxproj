@@ -81,6 +81,24 @@
 		05F2B11226CA5EE000620E87 /* RCAudioController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F2B11126CA5EE000620E87 /* RCAudioController.swift */; };
 		1349E69C28B66D88002F1805 /* TelegramRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1349E69B28B66D88002F1805 /* TelegramRecordView.swift */; };
 		1349E69E28B67339002F1805 /* TelegramRecordView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1349E69D28B67339002F1805 /* TelegramRecordView.xib */; };
+		1373ED4728CAA922009574A7 /* BucketImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1373ED4628CAA922009574A7 /* BucketImageView.swift */; };
+		1373ED4A28CAB14E009574A7 /* VoiceRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1373ED4928CAB14E009574A7 /* VoiceRecord.swift */; };
+		1373ED4C28CAB159009574A7 /* VoiceRecord.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1373ED4B28CAB159009574A7 /* VoiceRecord.xib */; };
+		1373ED4E28CAB695009574A7 /* VoiceRecordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1373ED4D28CAB695009574A7 /* VoiceRecordModel.swift */; };
+		1373ED5128CABA52009574A7 /* ChatViewController+Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1373ED5028CABA52009574A7 /* ChatViewController+Table.swift */; };
+		1373ED5328CABACC009574A7 /* ChatViewController+InputBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1373ED5228CABACC009574A7 /* ChatViewController+InputBar.swift */; };
+		1373ED5528CABB11009574A7 /* ChatViewController+TelegramRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1373ED5428CABB11009574A7 /* ChatViewController+TelegramRecord.swift */; };
+		1373ED5728CABB2C009574A7 /* ChatViewController+SKRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1373ED5628CABB2C009574A7 /* ChatViewController+SKRecord.swift */; };
+		1373ED5928CABB6B009574A7 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1373ED5828CABB6B009574A7 /* NavigationController.swift */; };
+		1373ED5D28CABBB8009574A7 /* ChatViewController+SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1373ED5C28CABBB8009574A7 /* ChatViewController+SearchBar.swift */; };
+		1373ED5F28CABBDC009574A7 /* ChatViewController+SelectUsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1373ED5E28CABBDC009574A7 /* ChatViewController+SelectUsers.swift */; };
+		1373ED6128CABBF4009574A7 /* ChatViewController+Stickers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1373ED6028CABBF4009574A7 /* ChatViewController+Stickers.swift */; };
+		1373ED6328CABC2A009574A7 /* ChatViewController+Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1373ED6228CABC2A009574A7 /* ChatViewController+Audio.swift */; };
+		1373ED6528CABC36009574A7 /* ChatViewController+PhotoSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1373ED6428CABC36009574A7 /* ChatViewController+PhotoSelection.swift */; };
+		1373ED6728CABC44009574A7 /* ChatViewController+ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1373ED6628CABC44009574A7 /* ChatViewController+ImagePicker.swift */; };
+		1373ED6928CAC535009574A7 /* ChatViewController+Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1373ED6828CAC534009574A7 /* ChatViewController+Keyboard.swift */; };
+		1373ED6B28CAC6EB009574A7 /* ChatViewController+Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1373ED6A28CAC6EB009574A7 /* ChatViewController+Menu.swift */; };
+		1373ED6D28CAC90B009574A7 /* ChatViewController+RealmLoad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1373ED6C28CAC90B009574A7 /* ChatViewController+RealmLoad.swift */; };
 		13961CA528B624A600021F80 /* WalkthroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13961CA428B624A600021F80 /* WalkthroughViewController.swift */; };
 		13961CA728B6252900021F80 /* WalkthroughViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13961CA628B6252900021F80 /* WalkthroughViewController.xib */; };
 		13961CA928B6271000021F80 /* WalkthroughViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13961CA828B6271000021F80 /* WalkthroughViewModel.swift */; };
@@ -439,6 +457,24 @@
 		135AC5C328B6DB5B0046B7D3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/ZedPay.strings; sourceTree = "<group>"; };
 		135AC5C428B6DB670046B7D3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Setting.strings; sourceTree = "<group>"; };
 		135AC5C528B6DDB20046B7D3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		1373ED4628CAA922009574A7 /* BucketImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketImageView.swift; sourceTree = "<group>"; };
+		1373ED4928CAB14E009574A7 /* VoiceRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceRecord.swift; sourceTree = "<group>"; };
+		1373ED4B28CAB159009574A7 /* VoiceRecord.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VoiceRecord.xib; sourceTree = "<group>"; };
+		1373ED4D28CAB695009574A7 /* VoiceRecordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceRecordModel.swift; sourceTree = "<group>"; };
+		1373ED5028CABA52009574A7 /* ChatViewController+Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatViewController+Table.swift"; sourceTree = "<group>"; };
+		1373ED5228CABACC009574A7 /* ChatViewController+InputBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatViewController+InputBar.swift"; sourceTree = "<group>"; };
+		1373ED5428CABB11009574A7 /* ChatViewController+TelegramRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatViewController+TelegramRecord.swift"; sourceTree = "<group>"; };
+		1373ED5628CABB2C009574A7 /* ChatViewController+SKRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatViewController+SKRecord.swift"; sourceTree = "<group>"; };
+		1373ED5828CABB6B009574A7 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
+		1373ED5C28CABBB8009574A7 /* ChatViewController+SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatViewController+SearchBar.swift"; sourceTree = "<group>"; };
+		1373ED5E28CABBDC009574A7 /* ChatViewController+SelectUsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatViewController+SelectUsers.swift"; sourceTree = "<group>"; };
+		1373ED6028CABBF4009574A7 /* ChatViewController+Stickers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatViewController+Stickers.swift"; sourceTree = "<group>"; };
+		1373ED6228CABC2A009574A7 /* ChatViewController+Audio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatViewController+Audio.swift"; sourceTree = "<group>"; };
+		1373ED6428CABC36009574A7 /* ChatViewController+PhotoSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatViewController+PhotoSelection.swift"; sourceTree = "<group>"; };
+		1373ED6628CABC44009574A7 /* ChatViewController+ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatViewController+ImagePicker.swift"; sourceTree = "<group>"; };
+		1373ED6828CAC534009574A7 /* ChatViewController+Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatViewController+Keyboard.swift"; sourceTree = "<group>"; };
+		1373ED6A28CAC6EB009574A7 /* ChatViewController+Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatViewController+Menu.swift"; sourceTree = "<group>"; };
+		1373ED6C28CAC90B009574A7 /* ChatViewController+RealmLoad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatViewController+RealmLoad.swift"; sourceTree = "<group>"; };
 		13961CA428B624A600021F80 /* WalkthroughViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughViewController.swift; sourceTree = "<group>"; };
 		13961CA628B6252900021F80 /* WalkthroughViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalkthroughViewController.xib; sourceTree = "<group>"; };
 		13961CA828B6271000021F80 /* WalkthroughViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughViewModel.swift; sourceTree = "<group>"; };
@@ -826,6 +862,45 @@
 			path = TelegramRecordView;
 			sourceTree = "<group>";
 		};
+		1373ED4528CAA915009574A7 /* Bucket */ = {
+			isa = PBXGroup;
+			children = (
+				1373ED4628CAA922009574A7 /* BucketImageView.swift */,
+			);
+			path = Bucket;
+			sourceTree = "<group>";
+		};
+		1373ED4828CAB128009574A7 /* VoiceRecord */ = {
+			isa = PBXGroup;
+			children = (
+				1373ED4928CAB14E009574A7 /* VoiceRecord.swift */,
+				1373ED4B28CAB159009574A7 /* VoiceRecord.xib */,
+				1373ED4D28CAB695009574A7 /* VoiceRecordModel.swift */,
+			);
+			path = VoiceRecord;
+			sourceTree = "<group>";
+		};
+		1373ED4F28CABA3A009574A7 /* ChatViewController */ = {
+			isa = PBXGroup;
+			children = (
+				A6F7883324A6ED400019B35D /* ChatViewController.swift */,
+				1373ED5028CABA52009574A7 /* ChatViewController+Table.swift */,
+				1373ED5228CABACC009574A7 /* ChatViewController+InputBar.swift */,
+				1373ED5428CABB11009574A7 /* ChatViewController+TelegramRecord.swift */,
+				1373ED5628CABB2C009574A7 /* ChatViewController+SKRecord.swift */,
+				1373ED5C28CABBB8009574A7 /* ChatViewController+SearchBar.swift */,
+				1373ED5E28CABBDC009574A7 /* ChatViewController+SelectUsers.swift */,
+				1373ED6028CABBF4009574A7 /* ChatViewController+Stickers.swift */,
+				1373ED6228CABC2A009574A7 /* ChatViewController+Audio.swift */,
+				1373ED6428CABC36009574A7 /* ChatViewController+PhotoSelection.swift */,
+				1373ED6628CABC44009574A7 /* ChatViewController+ImagePicker.swift */,
+				1373ED6828CAC534009574A7 /* ChatViewController+Keyboard.swift */,
+				1373ED6A28CAC6EB009574A7 /* ChatViewController+Menu.swift */,
+				1373ED6C28CAC90B009574A7 /* ChatViewController+RealmLoad.swift */,
+			);
+			path = ChatViewController;
+			sourceTree = "<group>";
+		};
 		13961CA328B6247400021F80 /* Walkthrough */ = {
 			isa = PBXGroup;
 			children = (
@@ -1199,6 +1274,8 @@
 		A6DEA81724A825A700868625 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				1373ED4828CAB128009574A7 /* VoiceRecord */,
+				1373ED4528CAA915009574A7 /* Bucket */,
 				1349E69A28B66D77002F1805 /* TelegramRecordView */,
 				13961CA328B6247400021F80 /* Walkthrough */,
 				13D2F54D28A0C46F002DD3FE /* AdViews */,
@@ -1527,7 +1604,8 @@
 		A6F7883224A6ED1D0019B35D /* Chat */ = {
 			isa = PBXGroup;
 			children = (
-				A6F7883324A6ED400019B35D /* ChatViewController.swift */,
+				1373ED5828CABB6B009574A7 /* NavigationController.swift */,
+				1373ED4F28CABA3A009574A7 /* ChatViewController */,
 				A6302BB324B9A34B00345FC9 /* NewConversationViewController.swift */,
 			);
 			path = Chat;
@@ -1870,6 +1948,7 @@
 				A675884524B810A900724B08 /* callaudio_video1.png in Resources */,
 				A67587F824B7B1BF00724B08 /* delivered@3x.png in Resources */,
 				A663A6C924BA4EF90090A13D /* ExpandableHeaderCell.xib in Resources */,
+				1373ED4C28CAB159009574A7 /* VoiceRecord.xib in Resources */,
 				A663A6C524BA4E870090A13D /* AddFriendSection.xib in Resources */,
 				AB13A9E424A2EF670028731D /* Assets.xcassets in Resources */,
 				AB13A9E224A2EF610028731D /* Main.storyboard in Resources */,
@@ -2055,6 +2134,7 @@
 				ABAF39D324BF04F600FB1078 /* AddFriendConfirmCell.swift in Sources */,
 				04F4E3D9267CBFAB00CD94FD /* ZedHistoryViewController.swift in Sources */,
 				A6DEA89F24A86A0C00868625 /* RCMenuItem.swift in Sources */,
+				1373ED5D28CABBB8009574A7 /* ChatViewController+SearchBar.swift in Sources */,
 				A6DEA83924A8351100868625 /* SyncEngine.swift in Sources */,
 				AB13A9DF24A2EF610028731D /* ViewController.swift in Sources */,
 				A6C36B5724B5761F00583CAA /* NYTPhotoSource.swift in Sources */,
@@ -2068,6 +2148,7 @@
 				04F4E3D4267CBCF800CD94FD /* Float+Extension.swift in Sources */,
 				051FC1EA26CBAC0800F89FF1 /* MessageCallCell.swift in Sources */,
 				05C2547526C5C5DE00D56684 /* AGEVideoLayout.swift in Sources */,
+				1373ED6928CAC535009574A7 /* ChatViewController+Keyboard.swift in Sources */,
 				A6E73B4F24A598CD0008CBFE /* HomeViewController.swift in Sources */,
 				05C2547426C5C5DE00D56684 /* AGEVideoContainer.swift in Sources */,
 				57A116D827DBA3B70071FBDF /* PhotoSelectionView.swift in Sources */,
@@ -2086,19 +2167,24 @@
 				05BA7EDD26B7A3FF0049393B /* CallVideoView.swift in Sources */,
 				A6E73B5324A5AAFF0008CBFE /* SearchbarExtension.swift in Sources */,
 				A6302BB224B99C0B00345FC9 /* MainTabViewController.swift in Sources */,
+				1373ED6B28CAC6EB009574A7 /* ChatViewController+Menu.swift in Sources */,
 				A60845BE24A30390005F23A9 /* SignupViewController.swift in Sources */,
 				A6DEA84F24A8365900868625 /* AuthUser.swift in Sources */,
 				AB82ACDE24A546D600D83E47 /* SplashViewController.swift in Sources */,
 				A6DEA82424A82A7100868625 /* RCMessageTextCell.swift in Sources */,
 				A6DEA86D24A8405300868625 /* Members.swift in Sources */,
+				1373ED5128CABA52009574A7 /* ChatViewController+Table.swift in Sources */,
 				A6DEA83A24A8351100868625 /* SyncObject.swift in Sources */,
 				AB5457A524B5C3C1008C7FB8 /* CreateGroupViewController.swift in Sources */,
 				A6DEA87524A8483600868625 /* NSError+Extension.swift in Sources */,
 				04180C7426887E3D00BBF636 /* UpdateEmailViewController.swift in Sources */,
+				1373ED6528CABC36009574A7 /* ChatViewController+PhotoSelection.swift in Sources */,
 				AB5457A924B5D9FC008C7FB8 /* AddedMemberCell.swift in Sources */,
 				05E8DFBC26B92ED500F72128 /* PrivacyEulaVC.swift in Sources */,
 				0485B9E2266DCD510014A0A4 /* AddFriendPendingCell.swift in Sources */,
+				1373ED4A28CAB14E009574A7 /* VoiceRecord.swift in Sources */,
 				05E8E0A426BA3AC500F72128 /* IAPHelper.swift in Sources */,
+				1373ED6128CABBF4009574A7 /* ChatViewController+Stickers.swift in Sources */,
 				A682AA2124BC51F600003BD7 /* DottedProgressBar.swift in Sources */,
 				A6DEA85C24A83FDA00868625 /* Friend.swift in Sources */,
 				A6DEA84924A8365900868625 /* FireFetcher.swift in Sources */,
@@ -2110,6 +2196,7 @@
 				A6DEA86224A83FF700868625 /* Member.swift in Sources */,
 				04180C782688A6E800BBF636 /* StripeCustomers.swift in Sources */,
 				05C2547626C5C5DE00D56684 /* AGEView.swift in Sources */,
+				1373ED4728CAA922009574A7 /* BucketImageView.swift in Sources */,
 				A6DEA82624A82A7100868625 /* RCMessageAudioCell.swift in Sources */,
 				A6DEA82524A82A7100868625 /* RCMessageEmojiCell.swift in Sources */,
 				13D2F54F28A0C479002DD3FE /* AdView.swift in Sources */,
@@ -2118,9 +2205,13 @@
 				A60845C124A3059B005F23A9 /* OTPVerificationViewController.swift in Sources */,
 				A6DEA82824A82A7100868625 /* RCMessageCell.swift in Sources */,
 				A675884B24B8621400724B08 /* UpdatePasswordViewController.swift in Sources */,
+				1373ED5928CABB6B009574A7 /* NavigationController.swift in Sources */,
+				1373ED5F28CABBDC009574A7 /* ChatViewController+SelectUsers.swift in Sources */,
 				AB82ACD324A5452700D83E47 /* SettingViewController.swift in Sources */,
 				A6DEA8A724A8717800868625 /* RCAudioLoader.swift in Sources */,
+				1373ED5328CABACC009574A7 /* ChatViewController+InputBar.swift in Sources */,
 				A6BD966324B4D54800E1B873 /* AudioView.swift in Sources */,
+				1373ED5528CABB11009574A7 /* ChatViewController+TelegramRecord.swift in Sources */,
 				A6DEA87324A8405300868625 /* Persons.swift in Sources */,
 				A6C9824824AE6B8C002280B6 /* Chat.swift in Sources */,
 				A6F564CD24A9B5310061007E /* RCHeaderUpperCell.swift in Sources */,
@@ -2184,11 +2275,13 @@
 				A675884924B85E9700724B08 /* UpdateNameViewController.swift in Sources */,
 				AB13A9DD24A2EF610028731D /* SceneDelegate.swift in Sources */,
 				A6DEA82224A82A7100868625 /* RCMessageVideoCell.swift in Sources */,
+				1373ED6728CABC44009574A7 /* ChatViewController+ImagePicker.swift in Sources */,
 				05C2551E26C5C8DB00D56684 /* CollectionIndexModel.swift in Sources */,
 				A6DEA82D24A82AB000868625 /* RCDefaults.swift in Sources */,
 				05C2556C26C5CB7400D56684 /* AgoraVideoView.swift in Sources */,
 				A6DEA88024A84E9600868625 /* MediaDownload.swift in Sources */,
 				AB26B2B824AE7CED0045981F /* AccountSettingsViewController.swift in Sources */,
+				1373ED4E28CAB695009574A7 /* VoiceRecordModel.swift in Sources */,
 				057A49D126DCDD4C008ECBDA /* MessageVideoCell.swift in Sources */,
 				A6DEA85324A839D400868625 /* Dir.swift in Sources */,
 				058EDC0226DC1C8400BFA26A /* SKRecordView.swift in Sources */,
@@ -2203,12 +2296,14 @@
 				A6DEA83224A82F7100868625 /* AppConstant.swift in Sources */,
 				E15A398D2515221700536871 /* ForgotPasswordViewController.swift in Sources */,
 				058A773F26BC9993006563B8 /* AcceptDeclineVC.swift in Sources */,
+				1373ED5728CABB2C009574A7 /* ChatViewController+SKRecord.swift in Sources */,
 				04180C7A2688AA5F00BBF636 /* ZEDPaySettingsViewController.swift in Sources */,
 				05C2546926C5C58A00D56684 /* GroupVideoCallViewController.swift in Sources */,
 				04F4E3E6267CCE6F00CD94FD /* TransactionCell.swift in Sources */,
 				A6DEA86E24A8405300868625 /* Singles.swift in Sources */,
 				043B8AF826834E5A004BF845 /* FireZEDPayUpdaters.swift in Sources */,
 				A6DEA88624A8521700868625 /* Password.swift in Sources */,
+				1373ED6328CABC2A009574A7 /* ChatViewController+Audio.swift in Sources */,
 				04F4E3D2267CBC7A00CD94FD /* String+Extension.swift in Sources */,
 				13961CAC28B6275400021F80 /* WalkthroughItemViewModel.swift in Sources */,
 				AB5457A724B5C4F2008C7FB8 /* AddMemberCell.swift in Sources */,
@@ -2238,6 +2333,7 @@
 				1349E69C28B66D88002F1805 /* TelegramRecordView.swift in Sources */,
 				05C2547226C5C5DE00D56684 /* AGEEventsObserver.swift in Sources */,
 				AB277A8924AD266D00D6C783 /* MyQrGenerateViewController.swift in Sources */,
+				1373ED6D28CAC90B009574A7 /* ChatViewController+RealmLoad.swift in Sources */,
 				A6DEA83F24A835F100868625 /* Realm+Extension.swift in Sources */,
 				04F4E3D0267C550100CD94FD /* ZEDPays.swift in Sources */,
 				A6DEA84E24A8365900868625 /* FireStorage.swift in Sources */,
