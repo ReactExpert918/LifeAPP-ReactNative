@@ -197,6 +197,7 @@ extension CallKitProvider: CXProviderDelegate {
                 if let call = call {
                     var status = [String: Any]()
                     status["receiver"]   = call.recipientId
+                    status ["sender"] = call.senderId
                     status["status"]   = Status.accept.rawValue
                     agoraKit.joinChannel(byToken: "", channelId: call.chatId , info: nil, uid:0) {(sid, uid, elapsed) -> Void in
                         // Joined channel "demoChannel"
@@ -262,6 +263,7 @@ extension CallKitProvider: CXProviderDelegate {
             topController.present(callVideoView, animated: true)
             var status = [String: Any]()
             status["receiver"]   = call.recipientId
+            status ["sender"] = call.senderId
             status["status"]   = Status.accept.rawValue
             if !comingFromForeground {
                 let realm = try! Realm()
@@ -284,6 +286,7 @@ extension CallKitProvider: CXProviderDelegate {
             
             var status = [String: Any]()
             status["receiver"]   = call.recipientId
+            status["sender"] = call.senderId
             status["status"]   = Status.accept.rawValue
 
             if !comingFromForeground {

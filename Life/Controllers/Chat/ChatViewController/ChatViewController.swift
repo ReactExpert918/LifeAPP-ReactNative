@@ -134,6 +134,7 @@ class ChatViewController: UIViewController {
             let callAdudioView = CallAudioView(userId: self.recipientId)
             callAdudioView.roomID = self.chatId
             callAdudioView.receiver = recipientId
+            callAdudioView.sender = AuthUser.userId()
             callAdudioView.outgoing = true
             callAdudioView.incoming = false
 

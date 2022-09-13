@@ -67,7 +67,7 @@ class PushNotification: NSObject {
                 "senderId": senderId,
                 "hasVideo": hasVideo
             ],
-            "priority": 5,
+            "priority": 10,
             "ttl": 30 ,
             "include_external_user_ids": [
                 recipientId

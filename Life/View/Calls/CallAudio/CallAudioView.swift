@@ -273,7 +273,9 @@ class CallAudioView: UIViewController {
             loadGroup(self.group!)
         }
 
-        if  let recipentUser = realm.object(ofType: Person.self, forPrimaryKey: sender) {
+        let primaryKey = outgoing ? receiver : sender
+
+        if  let recipentUser = realm.object(ofType: Person.self, forPrimaryKey: primaryKey) {
         callString = recipentUser.getFullName()
         }
         labelName.text = callString
@@ -424,6 +426,7 @@ class CallAudioView: UIViewController {
       callController.request(transaction) { error in
         if let error = error {
           print("Error requesting transaction: \(error)")
+
         } else {
           print("Requested transaction successfully")
         }
@@ -457,7 +460,10 @@ class CallAudioView: UIViewController {
             guard let self = self else { return }
             if let callKit = self.app?.callKitProvider {
                 callKit.removeStateListner()
-                callKit.removeCall()
+                if let call = callKit.call {
+                    self.end(uuid: call.uuID)
+                    self.app?.callKitProvider?.endReport()
+                }
             }
             if let voiceStatusHandle = self.voiceStatusHandle{
                 FirebaseAPI.removeVoiceCallListnerObserver(self.roomID, voiceStatusHandle)
@@ -466,7 +472,6 @@ class CallAudioView: UIViewController {
                 FirebaseAPI.removeVoiceCallRemoveListnerObserver(self.roomID, voiceStatusRemoveHandle)
             }
             NotificationCenter.default.removeObserver(self)
-            self.app?.callKitProvider?.endReport()
         }
     }
     
@@ -498,7 +503,8 @@ class CallAudioView: UIViewController {
     @IBAction func actionAnswer(_ sender: Any) {
         self.joinAction()
         var status = [String: Any]()
-        status["receiver"]   = self.receiver
+        status["receiver"] = self.receiver
+        status["sender"] = self.sender
         status["status"]   = Status.accept.rawValue
         FirebaseAPI.sendVoiceCallStatus(status, self.roomID) { (isSuccess, data) in
         }
@@ -518,6 +524,7 @@ class CallAudioView: UIViewController {
         uiv_requst.isHidden = false
         var status = [String: Any]()
         status["receiver"]   = self.receiver
+        status["sender"] = self.sender
         status["status"]   = Status.outgoing.rawValue
         FirebaseAPI.sendVoiceCallStatus(status, self.roomID) { (isSuccess, data) in
         }
@@ -542,6 +549,7 @@ class CallAudioView: UIViewController {
         self.joinAction()
         var status = [String: Any]()
         status["receiver"]   = self.receiver
+        status["sender"] = self.sender
         status["status"]   = Status.accept.rawValue
         FirebaseAPI.sendVoiceCallStatus(status, self.roomID) { (isSuccess, data) in
         }
@@ -587,6 +595,13 @@ extension CallAudioView: AgoraRtcEngineDelegate{
     func rtcEngine(_ engine: AgoraRtcEngineKit, didOfflineOfUid uid: UInt, reason: AgoraUserOfflineReason) {
         self.leaveChannel()
         setEndUI()
+        if let callKit = self.app?.callKitProvider {
+            callKit.removeStateListner()
+            if let call = callKit.call {
+                self.end(uuid: call.uuID)
+                self.app?.callKitProvider?.endReport()
+            }
+        }
     }
 }
 

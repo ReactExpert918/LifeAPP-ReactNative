@@ -511,7 +511,6 @@ class CallVideoView: UIViewController {
         }
 	}
 
-	
 	func setIncomingUI() {
 		viewDetails.isHidden = false
 		labelStatus.text = "Incomming..."
