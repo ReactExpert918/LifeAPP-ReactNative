@@ -374,19 +374,30 @@ class CallAudioView: UIViewController {
             UIApplication.shared.isIdleTimerDisabled = false
             UIDevice.current.isProximityMonitoringEnabled = false
         }
+
+        var status = [String: Any]()
+        if let app = app {
+            if let callProvideer = app.callKitProvider {
+                if let call = callProvideer.call {
+                    status["receiver"]   = call.recipientId
+                    status["sender"] = call.senderId
+                    status["status"]   = Status.end.rawValue
+
+                    FirebaseAPI.sendVideoCallStatus(status, self.roomID) { status, message in
+                        if status {
+                            self.end(uuid: call.uuID)
+                            callProvideer.endReport()
+                        }
+                    }
+                }
+            }
+        }
+
     }
     
     
     @IBAction func actionHangup(_ sender: Any) {
         self.leaveChannel()
-
-        if let app = self.app {
-            if let callKitProvider = app.callKitProvider {
-                    if let call = callKitProvider.call {
-                        self.end(uuid: call.uuID)
-                    }
-                }
-        }
 
         ref.child("voice_call").child(self.roomID).removeValue()
         self.dismiss(animated: true) { [weak self] in
@@ -395,6 +406,7 @@ class CallAudioView: UIViewController {
                 callKit.removeStateListner()
                 callKit.removeCall()
             }
+
             if let voiceStatusHandle = self.voiceStatusHandle {
                 FirebaseAPI.removeVoiceCallListnerObserver(self.roomID, voiceStatusHandle)
             }
@@ -402,7 +414,6 @@ class CallAudioView: UIViewController {
                 FirebaseAPI.removeVoiceCallRemoveListnerObserver(self.roomID, voiceStatusRemoveHandle)
             }
 
-            self.app?.callKitProvider?.endReport()
             NotificationCenter.default.removeObserver(self)
 
     }
@@ -433,27 +444,13 @@ class CallAudioView: UIViewController {
         }
         self.stopSelf = true
 
-        if let app = self.app {
-            if let callKitProvider = app.callKitProvider {
-                    if let call = callKitProvider.call {
-                        self.end(uuid: call.uuID)
-                    }
-                }
-        }
-
         DispatchQueue.main.async {
             self.audioController?.stopPlayingSoundFile()
         }
         ref.child("voice_call").child(self.roomID).removeValue()
         self.dismiss(animated: true) { [weak self] in
             guard let self = self else { return }
-            if let callKit = self.app?.callKitProvider {
-                callKit.removeStateListner()
-                if let call = callKit.call {
-                    self.end(uuid: call.uuID)
-                    self.app?.callKitProvider?.endReport()
-                }
-            }
+            self.leaveChannel()
             if let voiceStatusHandle = self.voiceStatusHandle{
                 FirebaseAPI.removeVoiceCallListnerObserver(self.roomID, voiceStatusHandle)
             }
