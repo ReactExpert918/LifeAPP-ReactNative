@@ -92,23 +92,23 @@ class CallKitProvider: NSObject {
             let senderId = values["senderId"] as? String
             let pictureAt = values["pictureAt"] as? Int64
             let hasVideo = values["hasVideo"] as? Int
-            let uuid = UUID()
+            let uuid = values["uuid"] as? String
             
             if (self.call != nil) {
                 Database.database().reference().child(hasVideo == 1 ? "video_call" : "voice_call").child(chatId).removeValue()
                 return
             }
             
-            
-            self.call = Call(name: name ?? "Life App", chatId: chatId, recipientId: recipientId ?? "", isVideo: hasVideo == 1, uuID: uuid, senderId: senderId ?? "", pictureAt: pictureAt ?? 0)
+
+            self.call = Call(name: name ?? "Life App", chatId: chatId, recipientId: recipientId ?? "", isVideo: hasVideo == 1, uuID: UUID(uuidString: uuid ?? "") ?? UUID() , senderId: senderId ?? "", pictureAt: pictureAt ?? 0)
             
             let update = CXCallUpdate()
             update.remoteHandle = CXHandle(type: .generic, value: name ?? "Life App")
             update.hasVideo = hasVideo == 1
-            self.cxprovider.reportNewIncomingCall(with: uuid, update: update, completion: {[weak self] error in
+            self.cxprovider.reportNewIncomingCall(with: UUID(uuidString: uuid ?? "") ?? UUID() , update: update, completion: {[weak self] error in
                 guard let self = self else { return }
                 if error != nil {
-                    self.cxprovider.reportCall(with: uuid, endedAt: nil, reason: .failed)
+                    self.cxprovider.reportCall(with: UUID(uuidString: uuid ?? "") ?? UUID() , endedAt: nil, reason: .failed)
                 }
             })
             

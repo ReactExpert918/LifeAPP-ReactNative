@@ -148,10 +148,10 @@ class ChatViewController: UIViewController {
             }
             present(callAdudioView, animated: true)
 
-
-            PushNotification.sendCall(name: recipient?.getFullName() ?? "", chatId: self.chatId, recipientId: self.recipientId, pictureAt: recipient?.pictureAt ?? 0, senderId: AuthUser.userId(), hasVideo: 0)
+            let uuid = UUID().uuidString
+            PushNotification.sendCall(name: recipient?.getFullName() ?? "", chatId: self.chatId, recipientId: self.recipientId, pictureAt: recipient?.pictureAt ?? 0, senderId: AuthUser.userId(), hasVideo: 0, uuid: uuid)
             if let recipient = recipient {
-                startCall(handle: recipient.getFullName(), videoEnabled: false)
+                startCall(handle: recipient.getFullName(), videoEnabled: false, uuid: uuid)
             }
         } else {
             var personsId: [String] = []
@@ -163,7 +163,7 @@ class ChatViewController: UIViewController {
                 callAudioView.roomID = self.chatId
                 present(callAudioView, animated: true)
 
-                startCall(handle: "Unknown", videoEnabled: false)
+                startCall(handle: "Unknown", videoEnabled: false, uuid: UUID().uuidString)
             }
         }
     }
@@ -182,10 +182,12 @@ class ChatViewController: UIViewController {
 
             let sender = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
 
-            PushNotification.sendCall(name: sender?.getFullName() ?? "", chatId: self.chatId, recipientId: self.recipientId, pictureAt: sender?.pictureAt ?? 0, senderId: AuthUser.userId(), hasVideo: 1)
+            let uuid = UUID()
+
+            PushNotification.sendCall(name: sender?.getFullName() ?? "", chatId: self.chatId, recipientId: self.recipientId, pictureAt: sender?.pictureAt ?? 0, senderId: AuthUser.userId(), hasVideo: 1, uuid: uuid.uuidString)
 
             if let sender = sender {
-                startCall(handle: sender.fullname, videoEnabled: true)
+                startCall(handle: sender.fullname, videoEnabled: true, uuid: uuid.uuidString)
             }
 
         } else {
@@ -198,7 +200,7 @@ class ChatViewController: UIViewController {
                 let callVideoView = self.storyboard?.instantiateViewController(withIdentifier: "GroupVideoCallViewController") as! GroupVideoCallViewController
                 callVideoView.modalPresentationStyle = .fullScreen
                 callVideoView.roomName = self.chatId
-                startCall(handle: "Unknown", videoEnabled: true)
+                startCall(handle: "Unknown", videoEnabled: true, uuid: UUID().uuidString)
                 present(callVideoView, animated: true)
             }
         }
@@ -317,19 +319,19 @@ class ChatViewController: UIViewController {
     }
     
     // MARK: - Audio and video call
-    private func startCall(handle: String, videoEnabled: Bool) {
+    private func startCall(handle: String, videoEnabled: Bool, uuid: String) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
             guard let self = self else { return }
             let handle = CXHandle(type: .generic, value: handle)
-            let uuid = UUID()
-            let startCallAction = CXStartCallAction(call: uuid, handle: handle)
+            let uuid = UUID(uuidString: uuid)
+            let startCallAction = CXStartCallAction(call: uuid ?? UUID(), handle: handle)
             startCallAction.isVideo = videoEnabled
             let transaction = CXTransaction(action: startCallAction)
             if let app = self.app {
                 app.callKitProvider?.outgoingUUID = uuid
                 let realm = try! Realm()
                 let sender = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
-                app.callKitProvider?.call = Call(name: sender?.getFullName() ?? "", chatId: self.chatId, recipientId: self.recipientId, isVideo: false, uuID: uuid, senderId: AuthUser.userId(), pictureAt: sender?.pictureAt ?? 0)
+                app.callKitProvider?.call = Call(name: sender?.getFullName() ?? "", chatId: self.chatId, recipientId: self.recipientId, isVideo: false, uuID: uuid ?? UUID(), senderId: AuthUser.userId(), pictureAt: sender?.pictureAt ?? 0)
             }
             self.requestTransaction(transaction)
         }
