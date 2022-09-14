@@ -82,14 +82,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneWillEnterForeground(_ scene: UIScene) {
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
-        if let app = app {
-            if let callKitProvider = app.callKitProvider {
-                if callKitProvider.call != nil || callKitProvider.outgoingUUID != nil {
-                    app.callKitProvider?.presentView()
+        guard let topViewController = topViewController() else { return }
+        if topViewController.isKind(of: CallAudioView.self) || topViewController.isKind(of: CallVideoView.self) {
+            if let app = app {
+                if let callKitProvider = app.callKitProvider {
+                    if callKitProvider.call != nil {
+                        app.callKitProvider?.presentView()
+                    }
                 }
             }
         }
     }
+
 
     private func topViewController() -> UIViewController? {
 
