@@ -382,14 +382,10 @@ class CallAudioView: UIViewController {
 
         if let app = self.app {
             if let callKitProvider = app.callKitProvider {
-                if let outgoingUUID = callKitProvider.outgoingUUID {
-                    self.end(uuid: outgoingUUID)
-                } else {
                     if let call = callKitProvider.call {
                         self.end(uuid: call.uuID)
                     }
                 }
-            }
         }
 
         ref.child("voice_call").child(self.roomID).removeValue()
@@ -439,14 +435,10 @@ class CallAudioView: UIViewController {
 
         if let app = self.app {
             if let callKitProvider = app.callKitProvider {
-                if let outgoingUUID = callKitProvider.outgoingUUID {
-                    self.end(uuid: outgoingUUID)
-                } else {
                     if let call = callKitProvider.call {
                         self.end(uuid: call.uuID)
                     }
                 }
-            }
         }
 
         DispatchQueue.main.async {

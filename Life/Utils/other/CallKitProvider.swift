@@ -211,17 +211,21 @@ extension CallKitProvider: CXProviderDelegate {
                         agoraKit.setEnableSpeakerphone(false)
                         UIApplication.shared.isIdleTimerDisabled = true
                         if call.isVideo {
-                            FirebaseAPI.sendVideoCallStatus(status, call.chatId) { (isSuccess, data) in
+                            FirebaseAPI.sendVideoCallStatus(status, call.chatId) {[weak self] (isSuccess, data) in
+                                guard let self = self else { return }
                                 if isSuccess {
                                     action.fulfill()
+                                    self.openCallView(topController: self.topViewController() ?? UIViewController())
                                 } else {
                                     action.fail()
                                 }
                             }
                         } else {
-                            FirebaseAPI.sendVoiceCallStatus(status, call.chatId) { (isSuccess, data) in
+                            FirebaseAPI.sendVoiceCallStatus(status, call.chatId) {[weak self] (isSuccess, data) in
+                                guard let self = self else { return }
                                 if isSuccess {
                                     action.fulfill()
+                                    self.openCallView(topController: self.topViewController() ?? UIViewController())
                                 } else {
                                     action.fail()
                                 }
