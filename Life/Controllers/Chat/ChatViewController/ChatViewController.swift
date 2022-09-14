@@ -138,14 +138,20 @@ class ChatViewController: UIViewController {
             callAdudioView.outgoing = true
             callAdudioView.incoming = false
 
-            present(callAdudioView, animated: true)
             let realm = try! Realm()
 
+            let recipient = realm.object(ofType: Person.self, forPrimaryKey: recipientId)
             let sender = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
+            callAdudioView.name = recipient?.getFullName() ?? ""
+            if let pictureAt = sender?.pictureAt {
+                callAdudioView.pictureAt = pictureAt
+            }
+            present(callAdudioView, animated: true)
 
-            PushNotification.sendCall(name: sender?.getFullName() ?? "", chatId: self.chatId, recipientId: self.recipientId, senderId: AuthUser.userId(), hasVideo: 0)
-            if let sender = sender {
-                startCall(handle: sender.fullname, videoEnabled: false)
+
+            PushNotification.sendCall(name: recipient?.getFullName() ?? "", chatId: self.chatId, recipientId: self.recipientId, pictureAt: recipient?.pictureAt ?? 0, senderId: AuthUser.userId(), hasVideo: 0)
+            if let recipient = recipient {
+                startCall(handle: recipient.getFullName(), videoEnabled: false)
             }
         } else {
             var personsId: [String] = []
@@ -176,7 +182,7 @@ class ChatViewController: UIViewController {
 
             let sender = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
 
-            PushNotification.sendCall(name: sender?.getFullName() ?? "", chatId: self.chatId, recipientId: self.recipientId, senderId: AuthUser.userId(), hasVideo: 1)
+            PushNotification.sendCall(name: sender?.getFullName() ?? "", chatId: self.chatId, recipientId: self.recipientId, pictureAt: sender?.pictureAt ?? 0, senderId: AuthUser.userId(), hasVideo: 1)
 
             if let sender = sender {
                 startCall(handle: sender.fullname, videoEnabled: true)
@@ -323,7 +329,7 @@ class ChatViewController: UIViewController {
                 app.callKitProvider?.outgoingUUID = uuid
                 let realm = try! Realm()
                 let sender = realm.object(ofType: Person.self, forPrimaryKey: AuthUser.userId())
-                app.callKitProvider?.call = Call(name: sender?.getFullName() ?? "", chatId: self.chatId, recipientId: self.recipientId, isVideo: false, uuID: uuid, senderId: AuthUser.userId())
+                app.callKitProvider?.call = Call(name: sender?.getFullName() ?? "", chatId: self.chatId, recipientId: self.recipientId, isVideo: false, uuID: uuid, senderId: AuthUser.userId(), pictureAt: sender?.pictureAt ?? 0)
             }
             self.requestTransaction(transaction)
         }

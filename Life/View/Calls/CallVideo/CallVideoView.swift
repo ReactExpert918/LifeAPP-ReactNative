@@ -37,6 +37,7 @@ class CallVideoView: UIViewController {
 
     private lazy var adView: AdView = .instantiate()
 
+    var isSetup: Bool = false
 	 var incoming = false
 	 var outgoing = false
 	private var muted = false
@@ -116,6 +117,7 @@ class CallVideoView: UIViewController {
 		self.modalPresentationStyle = .fullScreen
         
         outgoing = true
+        isSetup = true
 	}
     
     init(group: Group, persons: [String]) {
@@ -151,6 +153,8 @@ class CallVideoView: UIViewController {
         if (outgoing && !comingFromForeground) { setOutGoingUI() }
         
         labelName.text = name
+
+        isSetup = true 
 	}
     
     override func viewWillAppear(_ animated: Bool) {

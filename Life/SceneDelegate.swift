@@ -40,35 +40,35 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             Persons.update(lastActive: Date().timestamp())
             Persons.update(oneSignalId: PrefsManager.getFCMToken())
         }
-//        
-//        let osNotificationOpenedBlock: OSNotificationOpenedBlock = { result in
-//            if let additionalData = result.notification.additionalData {
-//                print("additionalData: ", additionalData)
-//                //print(additionalData["postId"] as! String)
-//                guard let chatId = additionalData["chatId"] as? String else{
-//                    return
-//                }
-//                guard let recipientId = additionalData["recipientId"] as? String else{
-//                    return
-//                }
-//                
-//                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//                
-//                let vc =  storyboard.instantiateViewController(identifier: "chatViewController") as! ChatViewController
-//                vc.setParticipant(chatId: chatId, recipientId: recipientId)
-//                vc.modalPresentationStyle = .fullScreen
-//                vc.hidesBottomBarWhenPushed = true
-//                guard let tabBarController = self.window?.rootViewController as? UITabBarController else{
-//                    return
-//                }
-//                guard let navController = tabBarController.selectedViewController as? UINavigationController else {
-//                    return
-//                    
-//                }
-//                navController.pushViewController(vc, animated: true)
-//                
-//            }
-//        }
+        //
+        //        let osNotificationOpenedBlock: OSNotificationOpenedBlock = { result in
+        //            if let additionalData = result.notification.additionalData {
+        //                print("additionalData: ", additionalData)
+        //                //print(additionalData["postId"] as! String)
+        //                guard let chatId = additionalData["chatId"] as? String else{
+        //                    return
+        //                }
+        //                guard let recipientId = additionalData["recipientId"] as? String else{
+        //                    return
+        //                }
+        //
+        //                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        //
+        //                let vc =  storyboard.instantiateViewController(identifier: "chatViewController") as! ChatViewController
+        //                vc.setParticipant(chatId: chatId, recipientId: recipientId)
+        //                vc.modalPresentationStyle = .fullScreen
+        //                vc.hidesBottomBarWhenPushed = true
+        //                guard let tabBarController = self.window?.rootViewController as? UITabBarController else{
+        //                    return
+        //                }
+        //                guard let navController = tabBarController.selectedViewController as? UINavigationController else {
+        //                    return
+        //
+        //                }
+        //                navController.pushViewController(vc, animated: true)
+        //
+        //            }
+        //        }
         //OneSignal.setNotificationOpenedHandler(osNotificationOpenedBlock)
 
         
@@ -83,10 +83,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
         if let app = app {
-            if app.callKitProvider?.call != nil || app.callKitProvider?.outgoingUUID != nil {
-                guard let topVC = topViewController() else { return }
-                app.callKitProvider?.openCallView(topController: topVC, outgoing: true, comingFromForeground: true)
-        }
+            if let callKitProvider = app.callKitProvider {
+                if callKitProvider.call != nil || callKitProvider.outgoingUUID != nil {
+                    app.callKitProvider?.presentView()
+                }
+            }
         }
     }
 
@@ -102,18 +103,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
 
+}
+
+func sceneDidEnterBackground(_ scene: UIScene) {
+    // Called as the scene transitions from the foreground to the background.
+    // Use this method to save data, release shared resources, and store enough scene-specific state information
+    // to restore the scene back to its current state.
+    LocationManager.stop()
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        Persons.update(lastTerminate: Date().timestamp())
     }
 
-    func sceneDidEnterBackground(_ scene: UIScene) {
-        // Called as the scene transitions from the foreground to the background.
-        // Use this method to save data, release shared resources, and store enough scene-specific state information
-        // to restore the scene back to its current state.
-        LocationManager.stop()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            Persons.update(lastTerminate: Date().timestamp())
-        }
-        
-    }
+}
 
 
 

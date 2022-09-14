@@ -34,6 +34,8 @@ final class AdView: StatefulView<AdViewModel> {
             make.width.equalTo(model.adSize.width)
             make.centerX.equalToSuperview()
         }
+
+        bringSubviewToFront(bannerView)
     }
 
     private func setupBannerView() {

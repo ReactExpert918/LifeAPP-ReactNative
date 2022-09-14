@@ -31,6 +31,10 @@ class CallKitProvider: NSObject {
 
     private let app = UIApplication.shared.delegate as? AppDelegate
 
+    private var callAudioView: CallAudioView? = nil
+
+    private var callVideoView: CallVideoView? = nil
+
     override init() {
 
         super.init()
@@ -57,7 +61,7 @@ class CallKitProvider: NSObject {
             if let app = self.app {
                 let realm = try! Realm()
                 let sender = realm.object(ofType: Person.self, forPrimaryKey: call.recipientId)
-                app.callKitProvider?.call = Call(name: sender?.getFullName() ?? "", chatId: call.chatId, recipientId: call.recipientId, isVideo: false, uuID: uuid, senderId: AuthUser.userId())
+                app.callKitProvider?.call = Call(name: sender?.getFullName() ?? "", chatId: call.chatId, recipientId: call.recipientId, isVideo: false, uuID: uuid, senderId: AuthUser.userId(), pictureAt: sender?.pictureAt ?? 0)
             }
             self.requestTransaction(transaction)
         }
@@ -82,11 +86,11 @@ class CallKitProvider: NSObject {
             guard let chatId = values["chatId"] as? String else {
                 return
             }
-
             
             let name = values["name"] as? String
             let recipientId = values["recipientId"] as? String
             let senderId = values["senderId"] as? String
+            let pictureAt = values["pictureAt"] as? Int64
             let hasVideo = values["hasVideo"] as? Int
             let uuid = UUID()
             
@@ -96,7 +100,7 @@ class CallKitProvider: NSObject {
             }
             
             
-            self.call = Call(name: name ?? "Life App", chatId: chatId, recipientId: recipientId ?? "", isVideo: hasVideo == 1, uuID: uuid, senderId: senderId ?? "")
+            self.call = Call(name: name ?? "Life App", chatId: chatId, recipientId: recipientId ?? "", isVideo: hasVideo == 1, uuID: uuid, senderId: senderId ?? "", pictureAt: pictureAt ?? 0)
             
             let update = CXCallUpdate()
             update.remoteHandle = CXHandle(type: .generic, value: name ?? "Life App")
@@ -125,6 +129,9 @@ class CallKitProvider: NSObject {
     
     func removeCall() {
         self.call = nil
+        self.outgoingUUID = nil
+        self.callAudioView = nil
+        self.callVideoView = nil
     }
     
     func removeReport() {
@@ -205,14 +212,23 @@ extension CallKitProvider: CXProviderDelegate {
                         UIApplication.shared.isIdleTimerDisabled = true
                         if call.isVideo {
                             FirebaseAPI.sendVideoCallStatus(status, call.chatId) { (isSuccess, data) in
-
+                                if isSuccess {
+                                    action.fulfill()
+                                } else {
+                                    action.fail()
+                                }
+                            }
+                        } else {
+                            FirebaseAPI.sendVoiceCallStatus(status, call.chatId) { (isSuccess, data) in
+                                if isSuccess {
+                                    action.fulfill()
+                                } else {
+                                    action.fail()
+                                }
                             }
                         }
-                        FirebaseAPI.sendVoiceCallStatus(status, call.chatId) { (isSuccess, data) in
 
-                        }
                     }
-                    action.fulfill()
                 }else{
                     action.fail()
                 }
@@ -242,6 +258,17 @@ extension CallKitProvider: CXProviderDelegate {
 
         outgoingUUID = nil 
     }
+
+    func presentView() {
+        guard let call =  call else { return }
+        if call.isVideo {
+            guard let callVideoView = callVideoView else { return }
+            topViewController()?.present(callVideoView, animated: true)
+        } else {
+            guard let callAudioView = callAudioView else { return }
+            topViewController()?.present(callAudioView, animated: true)
+        }
+    }
     
     func openCallView(topController: UIViewController, outgoing: Bool = false, comingFromForeground: Bool = false) {
         guard let call = self.call else { return }
@@ -252,51 +279,63 @@ extension CallKitProvider: CXProviderDelegate {
             return
         }
 
+
         if (call.isVideo) {
-            let callVideoView = CallVideoView(userId: call.recipientId)
-            callVideoView.comingFromForeground = comingFromForeground
-            callVideoView.roomID = call.chatId
-            callVideoView.receiver = call.recipientId
-            callVideoView.name = topController.description
-            callVideoView.outgoing = outgoing
-            callVideoView.incoming = !outgoing
-            topController.present(callVideoView, animated: true)
-            var status = [String: Any]()
-            status["receiver"]   = call.recipientId
-            status ["sender"] = call.senderId
-            status["status"]   = Status.accept.rawValue
-            if !comingFromForeground {
-                let realm = try! Realm()
-                let primaryKey = outgoing ? call.recipientId : call.senderId
-                let sender = realm.object(ofType: Person.self, forPrimaryKey: primaryKey)
-                startCall(handle: sender?.getFullName() ?? "", videoEnabled: false)
-            }
-            FirebaseAPI.sendVideoCallStatus(status, call.chatId) { (isSuccess, data) in
-                
+            if callVideoView == nil {
+                callVideoView = CallVideoView(userId: call.recipientId)
+                callVideoView?.comingFromForeground = comingFromForeground
+                callVideoView?.roomID = call.chatId
+                callVideoView?.receiver = call.recipientId
+                callVideoView?.name = call.name
+                callVideoView?.outgoing = outgoing
+                callVideoView?.incoming = !outgoing
+                if let callVideoView = callVideoView {
+                    topController.present(callVideoView, animated: true)
+                }
+                var status = [String: Any]()
+                status["receiver"]   = call.recipientId
+                status ["sender"] = call.senderId
+                status["status"]   = Status.accept.rawValue
+                if !comingFromForeground {
+                    let realm = try! Realm()
+                    let primaryKey = outgoing ? call.recipientId : call.senderId
+                    let sender = realm.object(ofType: Person.self, forPrimaryKey: primaryKey)
+                }
+                FirebaseAPI.sendVideoCallStatus(status, call.chatId) { (isSuccess, data) in
+
+                }
             }
         } else {
-            let callAudioView = CallAudioView(userId: call.recipientId)
-            callAudioView.comingFromForeground = comingFromForeground
-            callAudioView.roomID = call.chatId
-            callAudioView.receiver = call.recipientId
-            callAudioView.sender = call.senderId
-            callAudioView.outgoing = outgoing
-            callAudioView.incoming = !outgoing
-            topController.present(callAudioView, animated: false)
-            
-            var status = [String: Any]()
-            status["receiver"]   = call.recipientId
-            status["sender"] = call.senderId
-            status["status"]   = Status.accept.rawValue
+            if callAudioView == nil {
+                callAudioView = CallAudioView(userId: call.recipientId)
+                callAudioView?.comingFromForeground = comingFromForeground
+                callAudioView?.roomID = call.chatId
+                callAudioView?.receiver = call.recipientId
+                callAudioView?.sender = call.senderId
+                callAudioView?.outgoing = outgoing
+                callAudioView?.incoming = !outgoing
+                callAudioView?.pictureAt = call.pictureAt
 
-            if !comingFromForeground {
-                let realm = try! Realm()
-                let primaryKey = outgoing ? call.recipientId : call.senderId
-                let sender = realm.object(ofType: Person.self, forPrimaryKey: primaryKey)
-                startCall(handle: sender?.getFullName() ?? "", videoEnabled: false)
-            }
-            FirebaseAPI.sendVoiceCallStatus(status, call.chatId) { (isSuccess, data) in
+                var status = [String: Any]()
+                status["receiver"]   = call.recipientId
+                status["sender"] = call.senderId
+                status["status"]   = Status.accept.rawValue
 
+                if !comingFromForeground {
+                    let realm = try! Realm()
+                    let primaryKey = outgoing ? call.recipientId : call.senderId
+                    let sender = realm.object(ofType: Person.self, forPrimaryKey: primaryKey)
+                    callAudioView?.pictureAt = sender?.pictureAt ?? 0
+                    callAudioView?.name = sender?.getFullName() ?? ""
+                    if let app = app {
+                        if let callKitProvider = app.callKitProvider {
+
+                        }
+                    }
+                } else {
+                    guard let callAudioView = callAudioView else { return }
+                    topController.present(callAudioView, animated: false)
+                }
             }
         }
     }
@@ -316,6 +355,7 @@ struct Call {
     let isVideo: Bool
     let uuID: UUID
     let senderId: String
+    let pictureAt: Int64
 }
 
 

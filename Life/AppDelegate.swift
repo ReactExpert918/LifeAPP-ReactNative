@@ -189,13 +189,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func applicationWillEnterForeground(_ application: UIApplication) {
-        if callKitProvider?.call != nil || callKitProvider?.outgoingUUID != nil {
-            print("i detect a call")
+        if let callKitProvider = callKitProvider {
+            if callKitProvider.call != nil || callKitProvider.outgoingUUID != nil {
+                callKitProvider.openCallView(topController: topViewController() ?? UIViewController())
+            }
         }
     }
-
-    
-
 }
 
 // MARK: - SINClientDelegate
@@ -226,7 +225,8 @@ extension AppDelegate: SINCallClientDelegate {
 
 extension AppDelegate: PKPushRegistryDelegate {
     func initPushKit() {
-        let registry = PKPushRegistry(queue: nil)
+        let mainQueue = DispatchQueue.main
+        let registry = PKPushRegistry(queue: mainQueue)
         registry.delegate = self
         registry.desiredPushTypes = [PKPushType.voIP]
     }
@@ -241,6 +241,7 @@ extension AppDelegate: PKPushRegistryDelegate {
         if let provider = self.callKitProvider {
             provider.didReceivePush(withPayload: payload.dictionaryPayload)
         }
+        completion()
     }
 }
 

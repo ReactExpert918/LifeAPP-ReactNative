@@ -69,9 +69,12 @@ class CallAudioView: UIViewController {
 
     var comingFromForeground: Bool = false
 
+    var name = ""
     var roomID = ""
     var receiver: String = ""
     var sender: String = ""
+    var pictureAt: Int64 = 0
+
     var agoraKit: AgoraRtcEngineKit?
     
     var voiceStatusHandle: UInt?
@@ -188,8 +191,8 @@ class CallAudioView: UIViewController {
             self.joinAction()
         }
 
-        if comingFromForeground {
-            setConnectedUI()
+        if comingFromForeground && outgoing {
+            setOutgoingUI()
         }
     }
     
@@ -261,24 +264,19 @@ class CallAudioView: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
 
         super.viewWillAppear(animated)
-        if !comingFromForeground {
         if let callKit = app?.callKitProvider {
             callKit.removeStateListner()
             callKit.removeReport()
         }
-        }
+        
         if(type==0){
             loadPerson()
         }else{
             loadGroup(self.group!)
         }
 
-        let primaryKey = outgoing ? receiver : sender
 
-        if  let recipentUser = realm.object(ofType: Person.self, forPrimaryKey: primaryKey) {
-        callString = recipentUser.getFullName()
-        }
-        labelName.text = callString
+        labelName.text = name
 
         if !comingFromForeground {
         self.voiceCallStatusListner(self.roomID)
@@ -314,9 +312,8 @@ class CallAudioView: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
             guard let self = self else { return }
             let primaryKey = self.outgoing ? self.receiver : self.sender
-            self.person = realm.object(ofType: Person.self, forPrimaryKey: primaryKey)
             self.labelInitials.text = nil
-            MediaDownload.startUser(self.person.objectId, pictureAt: self.person.pictureAt) { image, error in
+            MediaDownload.startUser(primaryKey, pictureAt: self.pictureAt) { image, error in
                 if (error == nil) {
                     self.imageUser.image = image
                 }
@@ -545,8 +542,6 @@ class CallAudioView: UIViewController {
 //            self.audioController?.enableSpeaker()
 //            self.audioController?.startPlayingSoundFile(Dir.application("call_ringback.wav"), loop: true)
 //        }
-        joinAction()
-        self.joinAction()
         var status = [String: Any]()
         status["receiver"]   = self.receiver
         status["sender"] = self.sender
