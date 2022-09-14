@@ -18,9 +18,11 @@ class MainTabViewController: UITabBarController {
         super.viewDidLoad()
 
         loadChats()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(receiveCalls), name: NSNotification.Name(rawValue: NotificationStatus.NOTIFICATION_RECEIVE_CALL), object: nil)
         // Do any additional setup after loading the view.
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveCalls), name: NSNotification.Name(rawValue: NotificationStatus.NOTIFICATION_RECEIVE_CALL), object: nil)
     }
 
     override func viewDidDisappear(_ animated: Bool) {

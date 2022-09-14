@@ -93,7 +93,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         updateFcmToken()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(receiveCalls), name: NSNotification.Name(rawValue: NotificationStatus.NOTIFICATION_RECEIVE_CALL), object: nil)
+
 
         adView.model = AdViewModel(
             unitId: Constants.adUnitId,
@@ -113,9 +113,11 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         NotificationCenter.default.removeObserver(self)
     }
 
-    override func viewWillAppear(_ animated: Bool) { // As soon as vc appears
+    override func viewDidAppear(_ animated: Bool) { // As soon as vc appears
         super.viewWillAppear(animated)
-        
+
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveCalls), name: NSNotification.Name(rawValue: NotificationStatus.NOTIFICATION_RECEIVE_CALL), object: nil)
+
         if(Friends.friendPendingIds().count > 0){
             redCircle.isHidden = false
         }else{
