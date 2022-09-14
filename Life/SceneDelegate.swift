@@ -83,7 +83,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
         guard let topViewController = topViewController() else { return }
-        if topViewController.isKind(of: CallAudioView.self) || topViewController.isKind(of: CallVideoView.self) {
+        if !(topViewController.isKind(of: CallAudioView.self)) || !(topViewController.isKind(of: CallVideoView.self)) {
             if let app = app {
                 if let callKitProvider = app.callKitProvider {
                     if callKitProvider.call != nil {
