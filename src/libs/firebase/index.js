@@ -1,0 +1,77 @@
+import {
+  checkAuthedUser,
+  signInEmailPassword,
+  signOut,
+  signInWithPhoneNumber,
+  getCredential,
+  linkCredential,
+  updateEmail,
+  updatePassword,
+  updateDisplayName,
+  authorizedUser,
+  deleteAuthedUser,
+} from "./auth";
+
+import { uploadMedia, uploadAvata, getDownloadURL } from "./storage";
+import {
+  getUser,
+  deleteUser,
+  updateToken,
+  setUser,
+  getUsers,
+  getUserWithName,
+  getUserWithPhonenumber,
+  getMembers,
+  getGroups,
+  getGroup,
+  getFriends,
+  checkFriend,
+  creatFriend,
+  deleteFriend,
+  getSingles,
+  getPerson,
+  getLastMessasge,
+  getSingle,
+  getZedPay,
+} from "./firestore";
+
+import { setFcmToken } from "./message";
+
+export const firebaseSDK = {
+  checkAuthedUser,
+  signInEmailPassword,
+  signOut,
+  signInWithPhoneNumber,
+  getCredential,
+  linkCredential,
+  updateEmail,
+  updatePassword,
+  updateDisplayName,
+  authorizedUser,
+  deleteAuthedUser,
+
+  uploadMedia,
+  uploadAvata,
+  getDownloadURL,
+
+  getUser,
+  getUsers,
+  getUserWithName,
+  getUserWithPhonenumber,
+  deleteUser,
+  setUser,
+  getMembers,
+  getGroups,
+  getGroup,
+  getFriends,
+  checkFriend,
+  creatFriend,
+  deleteFriend,
+  getLastMessasge,
+  getSingles,
+  getPerson,
+  getSingle,
+  getZedPay,
+
+  setFcmToken,
+};
