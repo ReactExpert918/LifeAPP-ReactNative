@@ -1,16 +1,11 @@
+# OSX
+#
+.DS_Store
+
 # Xcode
 #
-# gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
-
-## Build generated
 build/
-DerivedData/
-Pods/
-Life/Libs/
-.DS_Store
-## Various settings
 *.pbxuser
-#*.pbxproj
 !default.pbxuser
 *.mode1v3
 !default.mode1v3
@@ -18,325 +13,48 @@ Life/Libs/
 !default.mode2v3
 *.perspectivev3
 !default.perspectivev3
-xcuserdata/
-.DS_Store
-
-## Other
+xcuserdata
+*.xccheckout
 *.moved-aside
-*.xcuserstate
-
-## Obj-C/Swift specific
+DerivedData
 *.hmap
 *.ipa
-*.dSYM.zip
-*.dSYM
+*.xcuserstate
 
-## Playgrounds
-timeline.xctimeline
-playground.xcworkspace
+# Android/IntelliJ
+#
+build/
+.idea
+.gradle
+local.properties
+*.iml
+*.hprof
 
-# Swift Package Manager
+# node.js
 #
-# Add this line if you want to avoid checking in source code from Swift Package Manager dependencies.
-# Packages/
-.build/
-# CocoaPods
-#
-# We recommend against adding the Pods directory to your .gitignore. However
-# you should judge for yourself, the pros and cons are mentioned at:
-# https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control
-#
-# Pods/
+node_modules/
+npm-debug.log
+yarn-error.log
 
-# Carthage
-#
-# Add this line if you want to avoid checking in source code from Carthage dependencies.
-# Carthage/Checkouts
-
-Carthage/Build
+# BUCK
+buck-out/
+\.buckd/
+*.keystore
+!debug.keystore
 
 # fastlane
 #
 # It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the
 # screenshots whenever they are needed.
 # For more information about the recommended setup visit:
-# https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Gitignore.md
+# https://docs.fastlane.tools/best-practices/source-control/
 
-fastlane/report.xml
-fastlane/Preview.html
-fastlane/screenshots
-fastlane/test_output
+*/fastlane/report.xml
+*/fastlane/Preview.html
+*/fastlane/screenshots
 
-Life/Libs/AgoraRtcKit.framework/Modules/module.modulemap
-Life/Libs/AgoraRtcKit.framework/Info.plist
-Life/Libs/AgoraRtcKit.framework/Headers/IAgoraService.h
-Life/Libs/AgoraRtcKit.framework/Headers/IAgoraRtcEngine.h
-Life/Libs/AgoraRtcKit.framework/Headers/IAgoraRtcChannel.h
-Life/Libs/AgoraRtcKit.framework/Headers/IAgoraMediaEngine.h
-Life/Libs/AgoraRtcKit.framework/Headers/AgoraRtcEngineKit.h
-Life/Libs/AgoraRtcKit.framework/Headers/AgoraRtcChannel.h
-Life/Libs/AgoraRtcKit.framework/Headers/AgoraObjects.h
-Life/Libs/AgoraRtcKit.framework/Headers/AgoraMediaMetadata.h
-Life/Libs/AgoraRtcKit.framework/Headers/AgoraMediaIO.h
-Life/Libs/AgoraRtcKit.framework/Headers/AgoraEnumerates.h
-Life/Libs/AgoraRtcKit.framework/Headers/AgoraConstants.h
-Life/Libs/AgoraRtcKit.framework/Headers/AgoraBase.h
-Life/Libs/AgoraRtcKit.framework/AgoraRtcKit
-Life/Libs/AgoraRtcKit.framework/AgoraResources/srmetal.metallib
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_640x480.mlmodelc/neural_network_optionals/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_640x480.mlmodelc/model/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_640x480.mlmodelc/model.espresso.weights
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_640x480.mlmodelc/model.espresso.shape
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_640x480.mlmodelc/model.espresso.net
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_640x480.mlmodelc/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_640x368.mlmodelc/neural_network_optionals/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_640x368.mlmodelc/model/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_640x368.mlmodelc/model.espresso.weights
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_640x368.mlmodelc/model.espresso.shape
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_640x368.mlmodelc/model.espresso.net
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_640x368.mlmodelc/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_640x360.mlmodelc/neural_network_optionals/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_640x360.mlmodelc/model/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_640x360.mlmodelc/model.espresso.weights
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_640x360.mlmodelc/model.espresso.shape
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_640x360.mlmodelc/model.espresso.net
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_640x360.mlmodelc/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_600x400.mlmodelc/neural_network_optionals/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_600x400.mlmodelc/model/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_600x400.mlmodelc/model.espresso.weights
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_600x400.mlmodelc/model.espresso.shape
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_600x400.mlmodelc/model.espresso.net
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_600x400.mlmodelc/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_512x512.mlmodelc/neural_network_optionals/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_512x512.mlmodelc/model/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_512x512.mlmodelc/model.espresso.weights
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_512x512.mlmodelc/model.espresso.shape
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_512x512.mlmodelc/model.espresso.net
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_512x512.mlmodelc/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_480x640.mlmodelc/neural_network_optionals/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_480x640.mlmodelc/model/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_480x640.mlmodelc/model.espresso.weights
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_480x640.mlmodelc/model.espresso.shape
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_480x640.mlmodelc/model.espresso.net
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_480x640.mlmodelc/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_480x480.mlmodelc/neural_network_optionals/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_480x480.mlmodelc/model/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_480x480.mlmodelc/model.espresso.weights
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_480x480.mlmodelc/model.espresso.shape
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_480x480.mlmodelc/model.espresso.net
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_480x480.mlmodelc/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_480x368.mlmodelc/neural_network_optionals/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_480x368.mlmodelc/model/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_480x368.mlmodelc/model.espresso.weights
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_480x368.mlmodelc/model.espresso.shape
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_480x368.mlmodelc/model.espresso.net
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_480x368.mlmodelc/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_480x360.mlmodelc/neural_network_optionals/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_480x360.mlmodelc/model/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_480x360.mlmodelc/model.espresso.weights
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_480x360.mlmodelc/model.espresso.shape
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_480x360.mlmodelc/model.espresso.net
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_480x360.mlmodelc/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_424x240.mlmodelc/neural_network_optionals/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_424x240.mlmodelc/model/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_424x240.mlmodelc/model.espresso.weights
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_424x240.mlmodelc/model.espresso.shape
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_424x240.mlmodelc/model.espresso.net
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_424x240.mlmodelc/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_400x600.mlmodelc/neural_network_optionals/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_400x600.mlmodelc/model/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_400x600.mlmodelc/model.espresso.weights
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_400x600.mlmodelc/model.espresso.shape
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_400x600.mlmodelc/model.espresso.net
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_400x600.mlmodelc/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_368x640.mlmodelc/neural_network_optionals/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_368x640.mlmodelc/model/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_368x640.mlmodelc/model.espresso.weights
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_368x640.mlmodelc/model.espresso.shape
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_368x640.mlmodelc/model.espresso.net
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_368x640.mlmodelc/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_368x480.mlmodelc/neural_network_optionals/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_368x480.mlmodelc/model/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_368x480.mlmodelc/model.espresso.weights
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_368x480.mlmodelc/model.espresso.shape
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_368x480.mlmodelc/model.espresso.net
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_368x480.mlmodelc/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_368x368.mlmodelc/neural_network_optionals/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_368x368.mlmodelc/model/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_368x368.mlmodelc/model.espresso.weights
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_368x368.mlmodelc/model.espresso.shape
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_368x368.mlmodelc/model.espresso.net
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_368x368.mlmodelc/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_368x240.mlmodelc/neural_network_optionals/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_368x240.mlmodelc/model/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_368x240.mlmodelc/model.espresso.weights
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_368x240.mlmodelc/model.espresso.shape
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_368x240.mlmodelc/model.espresso.net
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_368x240.mlmodelc/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_360x640.mlmodelc/neural_network_optionals/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_360x640.mlmodelc/model/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_360x640.mlmodelc/model.espresso.weights
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_360x640.mlmodelc/model.espresso.shape
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_360x640.mlmodelc/model.espresso.net
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_360x640.mlmodelc/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_360x480.mlmodelc/neural_network_optionals/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_360x480.mlmodelc/model/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_360x480.mlmodelc/model.espresso.weights
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_360x480.mlmodelc/model.espresso.shape
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_360x480.mlmodelc/model.espresso.net
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_360x480.mlmodelc/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_360x360.mlmodelc/neural_network_optionals/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_360x360.mlmodelc/model/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_360x360.mlmodelc/model.espresso.weights
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_360x360.mlmodelc/model.espresso.shape
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_360x360.mlmodelc/model.espresso.net
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_360x360.mlmodelc/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_360x240.mlmodelc/neural_network_optionals/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_360x240.mlmodelc/model/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_360x240.mlmodelc/model.espresso.weights
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_360x240.mlmodelc/model.espresso.shape
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_360x240.mlmodelc/model.espresso.net
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_360x240.mlmodelc/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_352x288.mlmodelc/neural_network_optionals/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_352x288.mlmodelc/model/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_352x288.mlmodelc/model.espresso.weights
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_352x288.mlmodelc/model.espresso.shape
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_352x288.mlmodelc/model.espresso.net
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_352x288.mlmodelc/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_320x320.mlmodelc/neural_network_optionals/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_320x320.mlmodelc/model/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_320x320.mlmodelc/model.espresso.weights
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_320x320.mlmodelc/model.espresso.shape
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_320x320.mlmodelc/model.espresso.net
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_320x320.mlmodelc/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_320x240.mlmodelc/neural_network_optionals/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_320x240.mlmodelc/model/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_320x240.mlmodelc/model.espresso.weights
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_320x240.mlmodelc/model.espresso.shape
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_320x240.mlmodelc/model.espresso.net
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_320x240.mlmodelc/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_320x180.mlmodelc/neural_network_optionals/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_320x180.mlmodelc/model/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_320x180.mlmodelc/model.espresso.weights
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_320x180.mlmodelc/model.espresso.shape
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_320x180.mlmodelc/model.espresso.net
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_320x180.mlmodelc/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_288x352.mlmodelc/neural_network_optionals/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_288x352.mlmodelc/model/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_288x352.mlmodelc/model.espresso.weights
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_288x352.mlmodelc/model.espresso.shape
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_288x352.mlmodelc/model.espresso.net
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_288x352.mlmodelc/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_288x176.mlmodelc/neural_network_optionals/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_288x176.mlmodelc/model/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_288x176.mlmodelc/model.espresso.weights
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_288x176.mlmodelc/model.espresso.shape
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_288x176.mlmodelc/model.espresso.net
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_288x176.mlmodelc/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_240x424.mlmodelc/neural_network_optionals/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_240x424.mlmodelc/model/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_240x424.mlmodelc/model.espresso.weights
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_240x424.mlmodelc/model.espresso.shape
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_240x424.mlmodelc/model.espresso.net
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_240x424.mlmodelc/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_240x368.mlmodelc/neural_network_optionals/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_240x368.mlmodelc/model/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_240x368.mlmodelc/model.espresso.weights
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_240x368.mlmodelc/model.espresso.shape
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_240x368.mlmodelc/model.espresso.net
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_240x368.mlmodelc/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_240x360.mlmodelc/neural_network_optionals/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_240x360.mlmodelc/model/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_240x360.mlmodelc/model.espresso.weights
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_240x360.mlmodelc/model.espresso.shape
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_240x360.mlmodelc/model.espresso.net
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_240x360.mlmodelc/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_240x320.mlmodelc/neural_network_optionals/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_240x320.mlmodelc/model/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_240x320.mlmodelc/model.espresso.weights
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_240x320.mlmodelc/model.espresso.shape
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_240x320.mlmodelc/model.espresso.net
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_240x320.mlmodelc/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_240x240.mlmodelc/neural_network_optionals/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_240x240.mlmodelc/model/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_240x240.mlmodelc/model.espresso.weights
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_240x240.mlmodelc/model.espresso.shape
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_240x240.mlmodelc/model.espresso.net
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_240x240.mlmodelc/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_240x180.mlmodelc/neural_network_optionals/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_240x180.mlmodelc/model/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_240x180.mlmodelc/model.espresso.weights
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_240x180.mlmodelc/model.espresso.shape
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_240x180.mlmodelc/model.espresso.net
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_240x180.mlmodelc/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_224x224.mlmodelc/neural_network_optionals/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_224x224.mlmodelc/model/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_224x224.mlmodelc/model.espresso.weights
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_224x224.mlmodelc/model.espresso.shape
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_224x224.mlmodelc/model.espresso.net
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_224x224.mlmodelc/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_192x192.mlmodelc/neural_network_optionals/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_192x192.mlmodelc/model/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_192x192.mlmodelc/model.espresso.weights
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_192x192.mlmodelc/model.espresso.shape
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_192x192.mlmodelc/model.espresso.net
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_192x192.mlmodelc/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_180x320.mlmodelc/neural_network_optionals/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_180x320.mlmodelc/model/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_180x320.mlmodelc/model.espresso.weights
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_180x320.mlmodelc/model.espresso.shape
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_180x320.mlmodelc/model.espresso.net
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_180x320.mlmodelc/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_180x240.mlmodelc/neural_network_optionals/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_180x240.mlmodelc/model/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_180x240.mlmodelc/model.espresso.weights
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_180x240.mlmodelc/model.espresso.shape
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_180x240.mlmodelc/model.espresso.net
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_180x240.mlmodelc/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_180x180.mlmodelc/neural_network_optionals/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_180x180.mlmodelc/model/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_180x180.mlmodelc/model.espresso.weights
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_180x180.mlmodelc/model.espresso.shape
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_180x180.mlmodelc/model.espresso.net
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_180x180.mlmodelc/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_176x288.mlmodelc/neural_network_optionals/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_176x288.mlmodelc/model/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_176x288.mlmodelc/model.espresso.weights
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_176x288.mlmodelc/model.espresso.shape
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_176x288.mlmodelc/model.espresso.net
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_176x288.mlmodelc/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_176x144.mlmodelc/neural_network_optionals/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_176x144.mlmodelc/model/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_176x144.mlmodelc/model.espresso.weights
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_176x144.mlmodelc/model.espresso.shape
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_176x144.mlmodelc/model.espresso.net
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_176x144.mlmodelc/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_160x120.mlmodelc/neural_network_optionals/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_160x120.mlmodelc/model/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_160x120.mlmodelc/model.espresso.weights
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_160x120.mlmodelc/model.espresso.shape
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_160x120.mlmodelc/model.espresso.net
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_160x120.mlmodelc/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_144x176.mlmodelc/neural_network_optionals/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_144x176.mlmodelc/model/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_144x176.mlmodelc/model.espresso.weights
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_144x176.mlmodelc/model.espresso.shape
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_144x176.mlmodelc/model.espresso.net
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_144x176.mlmodelc/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_120x160.mlmodelc/neural_network_optionals/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_120x160.mlmodelc/model/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_120x160.mlmodelc/model.espresso.weights
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_120x160.mlmodelc/model.espresso.shape
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_120x160.mlmodelc/model.espresso.net
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_120x160.mlmodelc/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_120x120.mlmodelc/neural_network_optionals/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_120x120.mlmodelc/model/coremldata.bin
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_120x120.mlmodelc/model.espresso.weights
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_120x120.mlmodelc/model.espresso.shape
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_120x120.mlmodelc/model.espresso.net
-Life/Libs/AgoraRtcKit.framework/AgoraResources/model.bundle/tinyCNN9_Yuv_norm_120x120.mlmodelc/coremldata.bin
-Life/Libs/AgoraRtcCryptoLoader.framework/Modules/module.modulemap
-Life/Libs/AgoraRtcCryptoLoader.framework/Info.plist
-Life/Libs/AgoraRtcCryptoLoader.framework/Headers/AgoraRtcCryptoLoader.h
-Life/Libs/AgoraRtcCryptoLoader.framework/Headers/AgoraRtcCryptoCppLoader.h
-Life/Libs/AgoraRtcCryptoLoader.framework/AgoraRtcCryptoLoader
+# Bundle artifact
+*.jsbundle
+
+# CocoaPods
+/ios/Pods/
