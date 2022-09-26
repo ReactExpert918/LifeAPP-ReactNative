@@ -11,6 +11,9 @@ import { AuthLoading, AuthLoadingContainer } from "../styles";
 import { KeyboardView } from "../../../components/utils/keyboardview.component";
 import { useDispatch } from "react-redux";
 import ImageResizer from "react-native-image-resizer";
+import { APP_STATE_ACTION } from "../../../constants/redux";
+import { getUserFromDatabase, saveUserToDatabase } from "../../../libs/database/user";
+import AsyncStorage from "@react-native-community/async-storage";
 
 export const SignUpScreen = ({ navigation }) => {
   const [pageIndex, setPageIndex] = useState(0);
@@ -57,8 +60,17 @@ export const SignUpScreen = ({ navigation }) => {
           .updatePassword(password)
           .then(() => {
             console.log(password);
-            setIsLoading(false);
-            setPageIndex(3);
+            const userInfo = {
+              username: username,
+              email: email,
+              password: password,
+              objectId: "uvvpJk1SIxa77JVwuiTQAOjjB1F2"
+            }
+            firebaseSDK.setUser(userInfo)
+            .then(() => {
+              setIsLoading(false);
+              setPageIndex(3);
+            })
           })
           .catch((error) => {
             setIsLoading(false);
@@ -73,6 +85,7 @@ export const SignUpScreen = ({ navigation }) => {
 
   const onSubmit = (image_path, publicName) => {
     setIsLoading(true);
+    console.log("beforeresizedImage");
 
     ImageResizer.createResizedImage(
       image_path,
@@ -86,15 +99,30 @@ export const SignUpScreen = ({ navigation }) => {
       { mode: "contain", onlyscaleDown: false }
     )
       .then(async (resizedImage) => {
+        console.log("resizedImage");
         console.log(resizedImage);
         const user = await firebaseSDK.authorizedUser();
+        console.log("userOnSUbmit", user);
 
         const avatar_url = await firebaseSDK.uploadAvata(
           `${user.uid}.jpg`,
           resizedImage.path
         );
 
-        console.log(avatar_url);
+        const temp = {
+          username: publicName,
+          email: user.email,
+          phone: user.phoneNumber,
+          objectId: user.uid
+        }
+
+        // const userInfo = temp;
+        // console.log("userinfo", userInfo);
+        saveUserToDatabase(user);
+        // await firebaseSDK.createUser(userInfo)
+        await dispatch({ type: APP_STATE_ACTION.FOREGROUND });
+        // setIsLoading(false);
+        // console.log(avatar_url);
       })
       .catch((error) => {
         console.log(error);

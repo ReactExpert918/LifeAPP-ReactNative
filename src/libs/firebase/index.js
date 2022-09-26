@@ -17,6 +17,7 @@ import {
   getUser,
   deleteUser,
   updateToken,
+  createUser,
   setUser,
   getUsers,
   getUserWithName,
@@ -53,7 +54,8 @@ export const firebaseSDK = {
   uploadMedia,
   uploadAvata,
   getDownloadURL,
-
+  
+  createUser,
   getUser,
   getUsers,
   getUserWithName,

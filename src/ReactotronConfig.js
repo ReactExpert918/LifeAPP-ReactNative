@@ -15,6 +15,6 @@ if (__DEV__) {
   // $ adb reverse tcp:9090 tcp:9090
   Reactotron.clear();
   console.warn = Reactotron.log;
-  console.log = Reactotron.log;
-  LogBox.ignoreAllLogs(true);
+  // console.log = Reactotron.log;
+  // LogBox.ignoreAllLogs(true);
 }

@@ -8,6 +8,8 @@ import { colors } from "../../infrastructures/theme/colors";
 import { Text } from "../../components/typography/text.component";
 import { useDispatch } from "react-redux";
 import { DB_INTERNAL } from "../../libs/database";
+import { firebaseSDK } from "../../libs/firebase";
+import AsyncStorage from "@react-native-community/async-storage";
 
 const StatusBar = styled.View`
   background-color: ${(props) => props.theme.colors.ui.primary};
@@ -74,7 +76,9 @@ export const SettingsScreen = ({ navigation }) => {
   };
 
   const onSignOut = async () => {
-    //dispatch({ type: LOGIN_ACTION.LOGOUT });
+    AsyncStorage.removeItem("User")
+    await firebaseSDK.signOut();
+    dispatch({ type: LOGIN_ACTION.LOGOUT });
 
     const friends = DB_INTERNAL.getSingle();
   };
