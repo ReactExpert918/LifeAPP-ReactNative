@@ -19,6 +19,7 @@ export const SignUpScreen = ({ navigation }) => {
   const [pageIndex, setPageIndex] = useState(0);
   const [confirm, setConfirm] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [username, setUsername] = useState('');
   const dispatch = useDispatch();
 
   const onBack = () => {
@@ -55,22 +56,12 @@ export const SignUpScreen = ({ navigation }) => {
     firebaseSDK
       .updateEmail(email)
       .then(() => {
-        console.log(email);
         firebaseSDK
           .updatePassword(password)
           .then(() => {
-            console.log(password);
-            const userInfo = {
-              username: username,
-              email: email,
-              password: password,
-              objectId: "uvvpJk1SIxa77JVwuiTQAOjjB1F2"
-            }
-            firebaseSDK.setUser(userInfo)
-            .then(() => {
-              setIsLoading(false);
-              setPageIndex(3);
-            })
+            setUsername(username);
+            setIsLoading(false);
+            setPageIndex(3);
           })
           .catch((error) => {
             setIsLoading(false);
@@ -99,30 +90,26 @@ export const SignUpScreen = ({ navigation }) => {
       { mode: "contain", onlyscaleDown: false }
     )
       .then(async (resizedImage) => {
-        console.log("resizedImage");
-        console.log(resizedImage);
         const user = await firebaseSDK.authorizedUser();
-        console.log("userOnSUbmit", user);
 
         const avatar_url = await firebaseSDK.uploadAvata(
           `${user.uid}.jpg`,
           resizedImage.path
         );
 
-        const temp = {
-          username: publicName,
+        const userInfo = {
+          username,
+          fullName: publicName,
           email: user.email,
           phone: user.phoneNumber,
-          objectId: user.uid
-        }
+          objectId: user.uid,
+          pictureAt: avatar_url,
+          createdAt: new Date().getTime(),
+        };
 
-        // const userInfo = temp;
-        // console.log("userinfo", userInfo);
-        saveUserToDatabase(user);
-        // await firebaseSDK.createUser(userInfo)
+        await firebaseSDK.setUser(userInfo)
         await dispatch({ type: APP_STATE_ACTION.FOREGROUND });
-        // setIsLoading(false);
-        // console.log(avatar_url);
+        setIsLoading(false);
       })
       .catch((error) => {
         console.log(error);

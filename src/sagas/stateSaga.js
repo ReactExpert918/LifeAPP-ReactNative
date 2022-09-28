@@ -4,26 +4,21 @@ import { firebaseSDK } from "../libs/firebase";
 import { setAuthState } from "../stores/appSlice";
 import { setUser } from "../stores/loginSlice";
 import { getUserFromDatabase, saveUserToDatabase } from "../libs/database/user";
-import { yellow100 } from "react-native-paper/lib/typescript/styles/colors";
 
 const appStateBecomeForground = function* appStateBecomeForground() {
-  // AsyncStorage.removeItem("User")
   const auth_state = yield select((state) => state.auth_state);
   if (auth_state == AUTH_STATE.AUTHED) {
   } else {
     const user = yield firebaseSDK.authorizedUser();
     const user_inside = yield getUserFromDatabase();
-    console.log("Current User", user_inside);
 
     if (user && user_inside) {
-      console.log(user);
-      
-      try {
-        console.log("try", user);
 
+      try {
         const userInfo = yield firebaseSDK.getUser(user.uid);
 
         console.log(userInfo);
+        yield saveUserToDatabase(userInfo);
         yield put(setUser(userInfo));
         yield put(setAuthState(AUTH_STATE.AUTHED));
       } catch (error) {
