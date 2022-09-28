@@ -140,7 +140,7 @@ export const getUserWithName = (userId, username) => {
         snapshot.forEach((data) => {
           result = data.data();
         });
-
+        console.log("getuserwithname", result);
         await DB_INTERNAL.addPerson(result);
 
         resolve(result);

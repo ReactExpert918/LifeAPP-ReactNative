@@ -91,6 +91,7 @@ export const FriendSearchScreen = ({ navigation }) => {
   const searchKeyword = async (keyword) => {
     if (searchOption == SearchOptions.username) {
       const friend = await firebaseSDK.getUserWithName(user.id, keyword);
+      console.log("Search by user name", friend);
       if (friend) {
         setFriends([friend]);
       }
@@ -103,6 +104,7 @@ export const FriendSearchScreen = ({ navigation }) => {
   };
 
   const addFriend = async (friend_id) => {
+    console.log(friend_id);
     const doc_id = getmd5(`${user.id}-${friend_id}`);
     const result = await firebaseSDK.creatFriend(user.id, friend_id, doc_id);
     console.log(result);

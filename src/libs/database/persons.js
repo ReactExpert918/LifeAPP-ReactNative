@@ -24,8 +24,10 @@ export const getPerson = async (person_id) => {
 export const addPerson = async (person) => {
   const persons = await AsyncStorage.getItem(KEY_APP_DATA.PERSON);
 
-  const personArray = JSON.parse(persons);
-
+  let personArray = JSON.parse(persons);
+  if(!personArray) {
+    personArray = [];
+  }
   personArray.push(person);
 
   await AsyncStorage.setItem(KEY_APP_DATA.PERSON, JSON.stringify(personArray));

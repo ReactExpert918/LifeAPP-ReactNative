@@ -5,6 +5,7 @@ import { setAuthState } from "../stores/appSlice";
 import { setUser } from "../stores/loginSlice";
 import { getUserFromDatabase, saveUserToDatabase } from "../libs/database/user";
 import { yellow100 } from "react-native-paper/lib/typescript/styles/colors";
+import AsyncStorage from "@react-native-community/async-storage";
 
 const appStateBecomeForground = function* appStateBecomeForground() {
   // AsyncStorage.removeItem("User")

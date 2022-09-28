@@ -64,7 +64,7 @@ export const SignUpScreen = ({ navigation }) => {
               username: username,
               email: email,
               password: password,
-              objectId: "uvvpJk1SIxa77JVwuiTQAOjjB1F2"
+              objectId: "W5K5kp2TZVYT9UNZwADkNj6Smoz2"
             }
             firebaseSDK.setUser(userInfo)
             .then(() => {

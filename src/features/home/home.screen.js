@@ -29,6 +29,7 @@ const ScrollContainer = styled.ScrollView`
 
 export const HomeScreen = ({ navigation }) => {
   const { userInfo, groups, friends } = useContext(HomeContext);
+  console.log(userInfo, friends);
 
   const onClickSettings = () => {
     navigation.navigate(APP_NAVIGATION.setting);

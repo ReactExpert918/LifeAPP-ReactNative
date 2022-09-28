@@ -75,7 +75,7 @@ export const PersonComponent = ({ CELLInfo, onNavigate }) => {
           CELLInfo.username ??
           CELLInfo.email ??
           CELLInfo.phone;
-
+        console.log(nameNew);
         setName(nameNew);
         setImage(`${CELLInfo.objectId}.jpg`);
       } else if (cell_type == PERSONCELLTYPE.chats) {
@@ -150,7 +150,7 @@ export const PersonComponent = ({ CELLInfo, onNavigate }) => {
       onNavigate(CELLInfo.chatId, "");
     } else if (cell_type == PERSONCELLTYPE.friend) {
       const singleData = await DB_INTERNAL.getSingle(CELLInfo.objectId);
-
+      console.log("singleData", singleData);
       if (singleData) {
         onNavigate(singleData.chatId, CELLInfo.objectId);
       } else {

@@ -3,7 +3,7 @@ import { SafeArea } from "../../components/utils/safe-area.component";
 import styled from "styled-components/native";
 import { GroupHeaderComponent } from "./components/header.component";
 import { images } from "../../images";
-import { TouchableOpacity } from "react-native";
+import { Alert, TouchableOpacity } from "react-native";
 import { Text } from "../../components/typography/text.component";
 import { colors } from "../../infrastructures/theme/colors";
 import { TextInput } from "react-native-paper";
@@ -14,6 +14,12 @@ import {
   GroupCellComponent,
   GROUP_CELL_TYPE,
 } from "./components/group-cell.component";
+import ImagePicker from "react-native-image-crop-picker";
+import {
+  checkCameraPermission,
+  checkPhotosPermission,
+  imagePickerConfig,
+} from "../../utils/permissions";
 import { KeyboardAwareFlatList } from "react-native-keyboard-aware-scroll-view";
 
 const StatusBar = styled.View`
@@ -116,6 +122,45 @@ export const GroupScreen = ({ navigation }) => {
     sheetRef.current.collapse();
   };
 
+  const takePhoto = async () => {
+    if (await checkCameraPermission()) {
+      ImagePicker.openCamera(imagePickerConfig).then((image) => {
+        setImage_path(image.path);
+      });
+    }
+  };
+
+  const chooseFromLibrary = async () => {
+    if (await checkPhotosPermission()) {
+    ImagePicker.openPicker(imagePickerConfig).then((image) => {
+      console.log
+        setImage_path(image.path);
+      });
+    }
+  };
+
+  const onPhotoSelect = () => {
+    Alert.alert("Upload Group Profile Photo", "", [
+      {
+        text: "Take_a_photo",
+        onPress: () => {
+          takePhoto();
+        },
+      },
+      {
+        text: "Choose_a_photo",
+        onPress: () => {
+          chooseFromLibrary();
+        },
+      },
+      {
+        text: "Cancel",
+        onPress: () => {},
+        style: "destructive",
+      },
+    ]);
+  };
+
   return (
     <>
       <StatusBar />
@@ -126,7 +171,7 @@ export const GroupScreen = ({ navigation }) => {
         />
         <MainContainer>
           <TopContainer>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={onPhotoSelect}>
               <AvataContainer>
                 {image_path && <AvataImage source={{ uri: image_path }} />}
                 <IconImage
