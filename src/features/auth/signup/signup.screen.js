@@ -12,8 +12,6 @@ import { KeyboardView } from "../../../components/utils/keyboardview.component";
 import { useDispatch } from "react-redux";
 import ImageResizer from "react-native-image-resizer";
 import { APP_STATE_ACTION } from "../../../constants/redux";
-import { getUserFromDatabase, saveUserToDatabase } from "../../../libs/database/user";
-import AsyncStorage from "@react-native-community/async-storage";
 
 export const SignUpScreen = ({ navigation }) => {
   const [pageIndex, setPageIndex] = useState(0);

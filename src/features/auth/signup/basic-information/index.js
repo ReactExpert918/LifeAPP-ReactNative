@@ -59,7 +59,7 @@ export const BasicInformationScreen = ({ setUser }) => {
     }
 
     if (password.length < 6) {
-      Alert.alert("Attention", "Please enter correct Password!", [
+      Alert.alert("Attention", "Password length should be greater than 6!", [
         {
           text: "OK",
           onPress: () => null,

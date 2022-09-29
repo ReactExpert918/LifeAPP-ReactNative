@@ -3,7 +3,6 @@ import { AUTH_STATE, LOGIN_STATE, LOGIN_ACTION } from "../constants/redux";
 import { firebaseSDK } from "../libs/firebase";
 import { setAuthState } from "../stores/appSlice";
 import { setLoginState } from "../stores/loginSlice";
-import { saveUserToDatabase } from "../libs/database/user";
 
 const login = function* login(action) {
   const { email, password } = action;
@@ -21,7 +20,6 @@ const login = function* login(action) {
 
     console.log(userInfo);
 
-    yield saveUserToDatabase(userInfo);
     yield put(setLoginState(LOGIN_STATE.SUCCESS));
     yield put(setAuthState(AUTH_STATE.AUTHED));
   } else {

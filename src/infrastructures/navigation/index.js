@@ -32,10 +32,6 @@ export const Navigator = () => {
 
   const { auth_state } = useSelector((state) => state.auth_state);
 
-  const onSignOut = () => {
-    firebaseSDK.signOut();
-  };
-
   return (
     <SafeAreaProvider>
       <NavigationContainer>

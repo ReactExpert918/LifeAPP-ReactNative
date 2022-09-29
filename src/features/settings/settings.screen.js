@@ -76,8 +76,6 @@ export const SettingsScreen = ({ navigation }) => {
   };
 
   const onSignOut = async () => {
-    AsyncStorage.removeItem("User")
-    await firebaseSDK.signOut();
     dispatch({ type: LOGIN_ACTION.LOGOUT });
 
     const friends = DB_INTERNAL.getSingle();
