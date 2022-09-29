@@ -8,8 +8,7 @@ import { colors } from "../../infrastructures/theme/colors";
 import { Text } from "../../components/typography/text.component";
 import { useDispatch } from "react-redux";
 import { DB_INTERNAL } from "../../libs/database";
-import { firebaseSDK } from "../../libs/firebase";
-import AsyncStorage from "@react-native-community/async-storage";
+import { LOGIN_ACTION } from "../../constants/redux";
 
 const StatusBar = styled.View`
   background-color: ${(props) => props.theme.colors.ui.primary};

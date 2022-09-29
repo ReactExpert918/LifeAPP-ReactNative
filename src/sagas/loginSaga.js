@@ -46,6 +46,7 @@ const signUp = function* signUp() {
 };
 
 const logout = function* logout() {
+  console.log('=====signout')
   yield firebaseSDK.signOut();
   yield put(setAuthState(AUTH_STATE.NOAUTH));
 };
