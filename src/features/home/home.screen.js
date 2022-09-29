@@ -7,14 +7,10 @@ import { PersonComponent } from "./components/person.component";
 import { HomeContext } from "../../services/app/app.context";
 import { HomeSectionScreen } from "./home-section.screen";
 import { APP_NAVIGATION } from "../../constants/app";
+import { SafeAreaView } from "react-native";
 
-const StatusBar = styled.View`
-  background-color: ${(props) => props.theme.colors.ui.primary};
-  position: absolute;
-  left: 0px;
-  top: 0px;
-  width: 100%;
-  height: 100%;
+const Container = styled.SafeAreaView`
+  flex: 1;
 `;
 
 const MainContainer = styled.View`
@@ -29,7 +25,6 @@ const ScrollContainer = styled.ScrollView`
 
 export const HomeScreen = ({ navigation }) => {
   const { userInfo, groups, friends } = useContext(HomeContext);
-  console.log(userInfo, friends);
 
   const onClickSettings = () => {
     navigation.navigate(APP_NAVIGATION.setting);
@@ -51,34 +46,31 @@ export const HomeScreen = ({ navigation }) => {
   };
 
   return (
-    <>
-      <StatusBar />
-      <SafeArea>
-        <HomeHeaderComponent
-          onClickSettings={onClickSettings}
-          onClickFriends={onClickFriends}
-        />
-        <SearchbarComponent />
-        <MainContainer>
-          <ScrollContainer>
-            {userInfo && <PersonComponent CELLInfo={userInfo} />}
-            {groups.length > 0 && (
-              <HomeSectionScreen
-                title="Groups"
-                items={groups}
-                onNavigate={onNavigate}
-              />
-            )}
-            {friends.length > 0 && (
-              <HomeSectionScreen
-                title="Friends"
-                items={friends}
-                onNavigate={onNavigate}
-              />
-            )}
-          </ScrollContainer>
-        </MainContainer>
-      </SafeArea>
-    </>
+    <Container>
+      <HomeHeaderComponent
+        onClickSettings={onClickSettings}
+        onClickFriends={onClickFriends}
+      />
+      <SearchbarComponent />
+      <MainContainer>
+        <ScrollContainer>
+          {userInfo && <PersonComponent CELLInfo={userInfo} />}
+          {groups.length > 0 && (
+            <HomeSectionScreen
+              title="Groups"
+              items={groups}
+              onNavigate={onNavigate}
+            />
+          )}
+          {friends.length > 0 && (
+            <HomeSectionScreen
+              title="Friends"
+              items={friends}
+              onNavigate={onNavigate}
+            />
+          )}
+        </ScrollContainer>
+      </MainContainer>
+    </Container>
   );
 };
