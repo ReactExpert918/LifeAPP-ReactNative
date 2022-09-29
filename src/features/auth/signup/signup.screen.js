@@ -97,7 +97,7 @@ export const SignUpScreen = ({ navigation }) => {
 
         const userInfo = {
           username,
-          fullName: publicName,
+          fullname: publicName,
           email: user.email,
           phone: user.phoneNumber,
           objectId: user.uid,

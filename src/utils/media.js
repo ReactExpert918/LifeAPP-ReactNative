@@ -1,3 +1,4 @@
+import { Platform } from "react-native";
 import RNFS from "react-native-fs";
 import { firebaseSDK } from "../libs/firebase";
 
@@ -7,7 +8,8 @@ export const getImagePath = (fileName, media_dir) => {
     const exists = await RNFS.exists(filePath);
 
     if (exists) {
-      resolve(filePath);
+      const realPath = Platform.OS === 'android' ? `file://${filePath}` : filePath;
+      resolve(realPath);
       return;
     } else {
       const url = await firebaseSDK.getDownloadURL(`${media_dir}/${fileName}`);

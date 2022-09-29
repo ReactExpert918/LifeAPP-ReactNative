@@ -13,7 +13,6 @@ const SearchBar = styled(SearchBarMain).attrs({
   color: colors.text.lightgray,
   iconColor: colors.text.lightgray,
 })`
-  height: 36px;
   border-radius: 8px;
   background-color: ${(props) => props.theme.colors.ui.secondary};
   color: ${(props) => props.theme.colors.text.white};
