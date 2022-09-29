@@ -6,24 +6,21 @@ import { setUser } from "../stores/loginSlice";
 import { getUserFromDatabase, saveUserToDatabase } from "../libs/database/user";
 
 const appStateBecomeForground = function* appStateBecomeForground() {
-  const auth_state = yield select((state) => state.auth_state);
-  if (auth_state == AUTH_STATE.AUTHED) {
-  } else {
-    const user = yield firebaseSDK.authorizedUser();
+  const user = yield firebaseSDK.authorizedUser();
 
-    if (user) {
-      try {
-        const userInfo = yield firebaseSDK.getUser(user.uid);
+  if (user) {
+    try {
+      const userInfo = yield firebaseSDK.getUser(user.uid);
 
-        yield saveUserToDatabase(userInfo);
-        yield put(setUser(userInfo));
-        yield put(setAuthState(AUTH_STATE.AUTHED));
-      } catch (error) {
-        yield put(setAuthState(AUTH_STATE.NOAUTH));
-      }
-    } else {
+      yield saveUserToDatabase(userInfo);
+      yield put(setUser(userInfo));
+      yield put(setAuthState(AUTH_STATE.AUTHED));
+    } catch (error) {
       yield put(setAuthState(AUTH_STATE.NOAUTH));
     }
+  } else {
+    yield firebaseSDK.signOut();
+    yield put(setAuthState(AUTH_STATE.NOAUTH));
   }
 };
 
