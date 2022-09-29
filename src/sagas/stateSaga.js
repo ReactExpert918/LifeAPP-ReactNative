@@ -10,19 +10,15 @@ const appStateBecomeForground = function* appStateBecomeForground() {
   if (auth_state == AUTH_STATE.AUTHED) {
   } else {
     const user = yield firebaseSDK.authorizedUser();
-    const user_inside = yield getUserFromDatabase();
 
-    if (user && user_inside) {
-
+    if (user) {
       try {
         const userInfo = yield firebaseSDK.getUser(user.uid);
 
-        console.log(userInfo);
         yield saveUserToDatabase(userInfo);
         yield put(setUser(userInfo));
         yield put(setAuthState(AUTH_STATE.AUTHED));
       } catch (error) {
-        yield firebaseSDK.signOut();
         yield put(setAuthState(AUTH_STATE.NOAUTH));
       }
     } else {
