@@ -1,16 +1,15 @@
-import React from "react";
-import { Provider } from "react-redux";
-import { store } from "./stores";
-import { Navigator } from "./infrastructures/navigation";
-import { ThemeProvider } from "styled-components/native";
-import { theme } from "./infrastructures/theme";
+import React from 'react';
+import { Provider } from 'react-redux';
+import { store } from './redux';
+import Navigator from './navigation';
+import { store, persistor } from './redux';
 
 const App = () => {
   return (
     <Provider store={store}>
-      <ThemeProvider theme={theme}>
+      <PersistGate loading={null} persistor={persistor}>
         <Navigator />
-      </ThemeProvider>
+      </PersistGate>
     </Provider>
   );
 };
