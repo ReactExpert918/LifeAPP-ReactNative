@@ -8,7 +8,7 @@ import { Splash } from '../screens/splash';
 export const RootNavigation = () => {
   return (
     <NavigationContainer>
-      <Splash />
+      {/* <Splash /> */}
       <AuthNavigator />
       <AppNavigator />
     </NavigationContainer>

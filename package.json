@@ -25,7 +25,6 @@
     "react": "18.1.0",
     "react-native": "0.70.1",
     "react-native-agora": "^3.6.2",
-    "react-native-camera": "^4.2.1",
     "react-native-fs": "^2.19.0",
     "react-redux": "^8.0.4",
     "redux": "^4.2.0",
