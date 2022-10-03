@@ -1,9 +1,9 @@
-import { Action } from "../../constants";
-import { AUTH_ACTION, AUTH_STATE } from "../../constants/redux";
+import { AUTH_ACTION } from "../../constants/redux";
  
 const initialState = {
   user: {},
-  isLogined: false,
+  isLogin: false,
+  isSplash: true,
 };
 
 const Reducer = (state = initialState, action) => {
@@ -11,9 +11,11 @@ const Reducer = (state = initialState, action) => {
     case AUTH_ACTION.USER_LOGIN:
       return { ...state, ...action.payload };
     case AUTH_ACTION.USER_LOGOUT:
-      return { ...state, isLogined: false }
+      return { ...state, isLogin: false };
+    case AUTH_ACTION.UPDATE_SPLASH:
+      return { ...state, isSplash: false};
     default: {
-      return null;
+      return state;
     }
   }
 }

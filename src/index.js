@@ -5,7 +5,6 @@ import { Navigator } from './navigation';
 import { store, persistor } from './redux';
 
 const App = () => {
-  console.log(persistor);
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
