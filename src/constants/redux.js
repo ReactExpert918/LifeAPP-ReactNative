@@ -1,6 +1,6 @@
 export const AUTH_ACTION = {
   USER_LOGIN: 'USER_LOGIN',
-  // USER_LOGOUT: 'USER_LOGOUT',
+  USER_LOGOUT: 'USER_LOGOUT',
 };
 
 export const AUTH_STATE = {

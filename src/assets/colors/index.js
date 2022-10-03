@@ -1,12 +1,12 @@
 export const colors = {
   ui: {
-    primary: "#2B5174",
+    primary: "#00406f",
     secondary: "#165C90",
     error: "#BC3434",
     gray: "gray",
     white: "white",
     green: "#3AAB73",
-    divider: "#00355C",
+    divider: "#00355c",
     border: "#00406E",
     callmissed: "#ff3939",
     callnormal: "#14c52f",
@@ -20,7 +20,7 @@ export const colors = {
     black: "black",
   },
   text: {
-    primary: "#2B5174",
+    primary: "#00406f",
     gray: "#333",
     black: "#000",
     white: "white",
