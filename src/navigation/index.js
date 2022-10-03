@@ -7,7 +7,7 @@ import { AuthNavigator } from './auth';
 import { AppNavigator } from './app';
 
 export const Navigator = () => {
-  const { isSplash, isLogin } = useSelector((state) => state.Auth);
+  const { isSplash, isLogin } = useSelector((state) => state.Splash);
 
   return (
     <NavigationContainer>

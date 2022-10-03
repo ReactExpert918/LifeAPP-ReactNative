@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux';
 
-import Home from './home';
+import Splash from './splash';
 import Auth from './auth';
+import Home from './home';
 import { AUTH_ACTION } from '../../constants/redux';
 
 export const CombinedReducer = combineReducers({
+  Splash,
   Auth,
   Home,
 });

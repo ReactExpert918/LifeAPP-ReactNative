@@ -1,5 +1,4 @@
 import firestore from "@react-native-firebase/firestore";
-import { DB_INTERNAL } from "../database";
 import { deleteAuthedUser } from "./auth";
 
 export const FIRESTORE_ACTION = {
@@ -97,8 +96,6 @@ export const getPerson = (user_id) => {
         if (snapshot.exists) {
           const user = snapshot.data();
 
-          await DB_INTERNAL.addPerson(user);
-
           resolve(user);
         }
         reject("No exists");
@@ -119,8 +116,6 @@ export const getUsers = (userIds) => {
           results.push(data.data());
         });
 
-        await DB_INTERNAL.savePersons(results);
-
         resolve(results);
       })
       .catch((error) => reject(error));
@@ -140,8 +135,6 @@ export const getUserWithName = (userId, username) => {
         snapshot.forEach((data) => {
           result = data.data();
         });
-        console.log("getuserwithname", result);
-        await DB_INTERNAL.addPerson(result);
 
         resolve(result);
       })
@@ -162,8 +155,6 @@ export const getUserWithPhonenumber = (userId, phone) => {
         snapshot.forEach((data) => {
           result = data.data();
         });
-
-        await DB_INTERNAL.addPerson(result);
 
         resolve(result);
       })
@@ -198,7 +189,6 @@ export const getMembers = (user_id) => {
           result.push(documentSnapshot.data());
         });
 
-        await DB_INTERNAL.saveMembers(result);
         resolve(result);
       })
       .catch((error) => {
@@ -230,8 +220,6 @@ export const getFriends = async (user_id) => {
   query2.forEach((docSnap) => {
     results.push(docSnap.data());
   });
-
-  await DB_INTERNAL.saveFriends(results);
 
   return results;
 };
@@ -327,14 +315,10 @@ export const getSingles = async (user_id) => {
     results.push(docSnap.data());
   });
 
-  await DB_INTERNAL.saveSingles(results);
-
   return results;
 };
 
 export const getSingle = async (single_id) => {
-  const user = await DB_INTERNAL.getUserFromDatabase();
-
   if (!user) {
     return null;
   }
@@ -353,7 +337,6 @@ export const getSingle = async (single_id) => {
     });
 
     if (result) {
-      await DB_INTERNAL.addSingle(result);
 
       return result;
     }
@@ -376,7 +359,6 @@ export const getSingle = async (single_id) => {
   }
 
   if (result) {
-    await DB_INTERNAL.addSingle(result);
   }
 
   return result;
@@ -393,8 +375,6 @@ export const getGroups = (chatIDs) => {
         querySnapshot.forEach((documentSnapshot) => {
           result.push(documentSnapshot.data());
         });
-
-        await DB_INTERNAL.saveGroups(result);
 
         resolve(result);
       })
