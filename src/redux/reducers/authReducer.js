@@ -1,5 +1,6 @@
 import { Action } from "../../constants";
-
+import { AUTH_ACTION, AUTH_STATE } from "../../constants/redux";
+ 
 const initialState = {
   user: {},
   isLogined: false,
@@ -7,10 +8,13 @@ const initialState = {
 
 const Reducer = (state = initialState, action) => {
   switch (action.type) {
-    case Action.USER_LOGIN:
+    case AUTH_ACTION.USER_LOGIN:
       return { ...state, ...action.payload };
-    case Action.USER_LOGOUT:
+    case AUTH_ACTION.USER_LOGOUT:
       return { ...state, isLogined: false }
+    default: {
+      return null;
+    }
   }
 }
 

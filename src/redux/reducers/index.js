@@ -2,29 +2,29 @@ import { combineReducers } from 'redux';
 import AsyncStorage from '@react-native-community/async-storage';
 import persistReducer from 'redux-persist/es/persistReducer';
 
-import { Action } from '../../constants';
+// import { AUTH_ACTION, AUTH_STATE } from "../../constants/redux";
 import Home from './homeReducer';
 import Auth from './authReducer';
 
-const homePersistConfig = {
-  key: 'Home',
+const persistConfig = {
+  key: 'root',
   storage: AsyncStorage,
-  whitelist: ['myFilter'],
-  blacklist: [],
+  version: 1,
+  whitelist: ['Login'],
 };
 
-const CombinedReducer = combineReducers({
-  Home: persistReducer(homePersistConfig, Home),
-  Auth,
+export const CombinedReducer = combineReducers({
+  Auth: persistReducer(persistConfig, Auth),
+  Home,
 });
 
 const rootReducer = (state, action) => {
   // when a logout action is dispatched it will reset redux state
-  if (action.type === Action.USER_LOGOUT) {
-    const {Home} = state;
+  // if (action.type === AUTH_ACTION.USER_LOGOUT) {
+  //   const {Home} = state;
 
-    state = {Home};
-  }
+  //   state = {Home};
+  // }
 
   return CombinedReducer(state, action);
 };
