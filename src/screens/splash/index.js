@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { View, Image } from 'react-native';
 import { useDispatch } from 'react-redux';
 
-import { Images } from '../../assets/images';
+import { images } from '../../assets/pngs';
 import { AUTH_ACTION } from '../../constants/redux';
 import { firebaseSDK } from '../../services/firebase';
 import { styles } from './styled';
@@ -23,7 +23,7 @@ const SplashScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Image source={Images.logo} style={styles.logo} />
+      <Image source={images.logo} style={styles.logo} />
     </View>
   );
 };

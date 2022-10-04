@@ -1,6 +1,7 @@
-import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
-import { AuthScreen } from '../screens/auth';
+import React from "react";
+import { createStackNavigator } from "@react-navigation/stack";
+import { AuthScreen } from "../screens/auth";
+import { FriendScreen } from "../screens/friend";
 
 const Stack = createStackNavigator();
 
