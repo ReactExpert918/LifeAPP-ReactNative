@@ -5,7 +5,9 @@ import { AuthScreen } from '../screens/auth';
 const Stack = createStackNavigator();
 
 export const AuthNavigator = () => (
-  <Stack.Navigator screenOptions={{headerShown: false, gestureEnabled: false}}>
-    <Stack.Screen name='Login' component={AuthScreen} />
+  <Stack.Navigator
+    screenOptions={{ headerShown: false, gestureEnabled: false }}
+  >
+    <Stack.Screen name="Login" component={AuthScreen} />
   </Stack.Navigator>
 );

@@ -1,15 +1,15 @@
-import storage from "@react-native-firebase/storage";
+import storage from '@react-native-firebase/storage';
 
 export const MEDIA_TYPE = {
-  AVATAR: "user",
-  PHOTO: "photo",
-  VIDEO: "video",
+  AVATAR: 'user',
+  PHOTO: 'photo',
+  VIDEO: 'video',
 };
 
 export const MEDIA_FOLDER = {
-  USER: "user",
-  MEDIA: "media",
-  GROUP: "group",
+  USER: 'user',
+  MEDIA: 'media',
+  GROUP: 'group',
 };
 
 export const uploadMedia = (type, path) => {

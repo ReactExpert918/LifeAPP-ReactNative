@@ -5,7 +5,7 @@ export const AUTH_ACTION = {
 };
 
 export const AUTH_STATE = {
-  UNCHECK: "app_splash",
-  AUTHED: "app_auth",
-  NOAUTH: "app_noauth",
+  UNCHECK: 'app_splash',
+  AUTHED: 'app_auth',
+  NOAUTH: 'app_noauth',
 };

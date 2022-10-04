@@ -11,7 +11,13 @@ export const Navigator = () => {
 
   return (
     <NavigationContainer>
-      {isSplash ? <SplashScreen /> : isLogin ? <AuthNavigator /> : <AppNavigator />}
+      {isSplash ? (
+        <SplashScreen />
+      ) : isLogin ? (
+        <AuthNavigator />
+      ) : (
+        <AppNavigator />
+      )}
     </NavigationContainer>
   );
 };

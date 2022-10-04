@@ -10,9 +10,9 @@ import {
   updateDisplayName,
   authorizedUser,
   deleteAuthedUser,
-} from "./auth";
+} from './auth';
 
-import { uploadMedia, uploadAvata, getDownloadURL } from "./storage";
+import { uploadMedia, uploadAvata, getDownloadURL } from './storage';
 import {
   getUser,
   deleteUser,
@@ -34,9 +34,9 @@ import {
   getLastMessasge,
   getSingle,
   getZedPay,
-} from "./firestore";
+} from './firestore';
 
-import { setFcmToken } from "./message";
+import { setFcmToken } from './message';
 
 export const firebaseSDK = {
   checkAuthedUser,
@@ -54,7 +54,7 @@ export const firebaseSDK = {
   uploadMedia,
   uploadAvata,
   getDownloadURL,
-  
+
   createUser,
   getUser,
   getUsers,

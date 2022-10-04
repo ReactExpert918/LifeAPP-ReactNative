@@ -1,23 +1,23 @@
-import firestore from "@react-native-firebase/firestore";
-import { deleteAuthedUser } from "./auth";
+import firestore from '@react-native-firebase/firestore';
+import { deleteAuthedUser } from './auth';
 
 export const FIRESTORE_ACTION = {
-  ADD: "Add",
-  DEL: "Del",
-  UDT: "Udt",
+  ADD: 'Add',
+  DEL: 'Del',
+  UDT: 'Udt',
 };
 
 export const FIRESTORE_TABLES = {
-  USER: "Person",
-  Friend: "Friend",
-  Group: "Group",
-  Member: "Member",
-  Message: "Message",
-  Detail: "Detail",
-  Payment_Method: "PaymentMethod",
-  Single: "Single",
-  Stripe_Customer: "StripeCustomer",
-  ZEDPay: "ZEDPay",
+  USER: 'Person',
+  Friend: 'Friend',
+  Group: 'Group',
+  Member: 'Member',
+  Message: 'Message',
+  Detail: 'Detail',
+  Payment_Method: 'PaymentMethod',
+  Single: 'Single',
+  Stripe_Customer: 'StripeCustomer',
+  ZEDPay: 'ZEDPay',
 };
 
 export const createUser = (user) => {
@@ -36,7 +36,7 @@ export const deleteUser = (user_id) => {
       .collection(FIRESTORE_TABLES.USER)
       .doc(user_id)
       .then(() => {
-        console.log("User Deleted");
+        console.log('User Deleted');
       })
       .catch((error) => {
         console.log(error);
@@ -65,7 +65,7 @@ export const getUser = (user_id) => {
           };
           resolve(user);
         }
-        reject("No exists");
+        reject('No exists');
       })
       .catch((error) => reject(error));
   });
@@ -98,7 +98,7 @@ export const getPerson = (user_id) => {
 
           resolve(user);
         }
-        reject("No exists");
+        reject('No exists');
       })
       .catch((error) => reject(error));
   });
@@ -108,7 +108,7 @@ export const getUsers = (userIds) => {
   return new Promise((resolve, reject) => {
     firestore()
       .collection(FIRESTORE_TABLES.USER)
-      .where("objectId", "in", userIds)
+      .where('objectId', 'in', userIds)
       .get()
       .then(async (snapshot) => {
         let results = [];
@@ -126,8 +126,8 @@ export const getUserWithName = (userId, username) => {
   return new Promise((resolve, reject) => {
     firestore()
       .collection(FIRESTORE_TABLES.USER)
-      .where("objectId", "!=", userId)
-      .where("username", "==", username)
+      .where('objectId', '!=', userId)
+      .where('username', '==', username)
       .limit(1)
       .get()
       .then(async (snapshot) => {
@@ -146,8 +146,8 @@ export const getUserWithPhonenumber = (userId, phone) => {
   return new Promise((resolve, reject) => {
     firestore()
       .collection(FIRESTORE_TABLES.USER)
-      .where("objectId", "!=", userId)
-      .where("phone", "==", phone)
+      .where('objectId', '!=', userId)
+      .where('phone', '==', phone)
       .limit(1)
       .get()
       .then(async (snapshot) => {
@@ -181,7 +181,7 @@ export const getMembers = (user_id) => {
   return new Promise((resolve, reject) => {
     firestore()
       .collection(FIRESTORE_TABLES.Member)
-      .where("userId", "==", user_id)
+      .where('userId', '==', user_id)
       .get()
       .then(async (querySnapshot) => {
         let result = [];
@@ -203,8 +203,8 @@ export const getFriends = async (user_id) => {
 
   const query1 = await firestore()
     .collection(FIRESTORE_TABLES.Friend)
-    .where("userId", "==", user_id)
-    .where("isAccepted", "==", true)
+    .where('userId', '==', user_id)
+    .where('isAccepted', '==', true)
     .get();
 
   query1.forEach((docSnap) => {
@@ -213,8 +213,8 @@ export const getFriends = async (user_id) => {
 
   const query2 = await firestore()
     .collection(FIRESTORE_TABLES.Friend)
-    .where("friendId", "==", user_id)
-    .where("isAccepted", "==", true)
+    .where('friendId', '==', user_id)
+    .where('isAccepted', '==', true)
     .get();
 
   query2.forEach((docSnap) => {
@@ -229,8 +229,8 @@ export const checkFriend = async (user_id, friend_id) => {
 
   const query1 = await firestore()
     .collection(FIRESTORE_TABLES.Friend)
-    .where("userId", "==", user_id)
-    .where("friendId", "==", friend_id)
+    .where('userId', '==', user_id)
+    .where('friendId', '==', friend_id)
     .get();
 
   console.log(query1);
@@ -243,8 +243,8 @@ export const checkFriend = async (user_id, friend_id) => {
 
   const query2 = await firestore()
     .collection(FIRESTORE_TABLES.Friend)
-    .where("userId", "==", friend_id)
-    .where("friendId", "==", user_id)
+    .where('userId', '==', friend_id)
+    .where('friendId', '==', user_id)
     .get();
   console.log(query2);
 
@@ -299,7 +299,7 @@ export const getSingles = async (user_id) => {
 
   const query1 = await firestore()
     .collection(FIRESTORE_TABLES.Single)
-    .where("userId1", "==", user_id)
+    .where('userId1', '==', user_id)
     .get();
 
   query1.forEach((docSnap) => {
@@ -308,7 +308,7 @@ export const getSingles = async (user_id) => {
 
   const query2 = await firestore()
     .collection(FIRESTORE_TABLES.Single)
-    .where("userId2", "==", user_id)
+    .where('userId2', '==', user_id)
     .get();
 
   query2.forEach(async (docSnap) => {
@@ -328,8 +328,8 @@ export const getSingle = async (single_id) => {
   try {
     const query1 = await firestore()
       .collection(FIRESTORE_TABLES.Single)
-      .where("userId1", "==", user.id)
-      .where("userId2", "==", single_id)
+      .where('userId1', '==', user.id)
+      .where('userId2', '==', single_id)
       .get();
 
     query1.forEach((docSnap) => {
@@ -337,7 +337,6 @@ export const getSingle = async (single_id) => {
     });
 
     if (result) {
-
       return result;
     }
   } catch (error) {
@@ -347,8 +346,8 @@ export const getSingle = async (single_id) => {
   try {
     const query2 = await firestore()
       .collection(FIRESTORE_TABLES.Single)
-      .where("userId1", "==", single_id)
-      .where("userId2", "==", user.id)
+      .where('userId1', '==', single_id)
+      .where('userId2', '==', user.id)
       .get();
 
     query2.forEach(async (docSnap) => {
@@ -368,7 +367,7 @@ export const getGroups = (chatIDs) => {
   return new Promise((resolve, reject) => {
     firestore()
       .collection(FIRESTORE_TABLES.Group)
-      .where("chatId", "in", chatIDs)
+      .where('chatId', 'in', chatIDs)
       .get()
       .then(async (querySnapshot) => {
         let result = [];
@@ -400,7 +399,7 @@ export const getGroup = (group_id) => {
           };
           resolve(group);
         }
-        reject("No exists");
+        reject('No exists');
       })
       .catch((error) => reject(error));
   });
@@ -410,8 +409,8 @@ export const getLastMessasge = (chatId) => {
   return new Promise((resolve, reject) => {
     firestore()
       .collection(FIRESTORE_TABLES.Message)
-      .where("chatId", "==", chatId)
-      .orderBy("updatedAt", "desc")
+      .where('chatId', '==', chatId)
+      .orderBy('updatedAt', 'desc')
       .limit(1)
       .get()
       .then((querySnapshot) => {
@@ -422,7 +421,7 @@ export const getLastMessasge = (chatId) => {
         if (result) {
           resolve(result);
         } else {
-          reject("No message");
+          reject('No message');
         }
       })
       .catch((error) => {
@@ -436,7 +435,7 @@ export const getZedPay = (payId) => {
   return new Promise((resolve, reject) => {
     firestore()
       .collection(FIRESTORE_TABLES.ZEDPay)
-      .where("transId", "==", payId)
+      .where('transId', '==', payId)
       .limit(1)
       .get()
       .then((querySnapshot) => {
@@ -447,7 +446,7 @@ export const getZedPay = (payId) => {
         if (result) {
           resolve(result);
         } else {
-          reject("No message");
+          reject('No message');
         }
       })
       .catch((error) => {

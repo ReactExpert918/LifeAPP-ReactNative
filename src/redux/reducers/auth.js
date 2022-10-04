@@ -1,5 +1,5 @@
-import { AUTH_ACTION } from "../../constants/redux";
- 
+import { AUTH_ACTION } from '../../constants/redux';
+
 const initialState = {
   user: {},
   isLogin: false,
@@ -15,6 +15,6 @@ const Reducer = (state = initialState, action) => {
       return state;
     }
   }
-}
+};
 
 export default Reducer;
