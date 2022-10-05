@@ -24,7 +24,7 @@ export const personComponentStyle = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'flex-start',
         flexDirection: 'row',
-        padding: 10
+        padding: 20
     },
     headerImage: {
         width: 48,

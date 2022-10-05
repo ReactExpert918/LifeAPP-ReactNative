@@ -5,11 +5,11 @@ import { HeaderComponent } from "../../../components/header.component"
 import { colors } from "../../../assets/colors";
 
 const FriendHeaderStyle = StyleSheet.create({
-    iconSetting: {
-        size: 24,
-        color: colors.ui.white,
+    editText: {
         position: "absolute",
         left: 20,
+        fontSize: 18,
+        color: colors.text.white
     },
     iconClose: {
         size: 24,
@@ -24,22 +24,22 @@ const FriendHeaderStyle = StyleSheet.create({
     }
 })
 
-export const FriendHeader = () => {
+export const ChatHeaderComponent = () => {
 
     return(
         <HeaderComponent>
-            <Ionicons 
-                name="md-settings-outline" 
-                size={25} 
-                style={FriendHeaderStyle.iconSetting}
-            />
+            <Text
+                style={FriendHeaderStyle.editText}
+            >
+                Edit
+            </Text>
             <Text 
                 style={FriendHeaderStyle.text}
             >
-                Add Friends
+                Chats
             </Text>
             <Ionicons 
-                name="md-close" 
+                name="md-create-outline" 
                 size={25} 
                 style={FriendHeaderStyle.iconClose}
             />
