@@ -24,25 +24,37 @@ const FriendHeaderStyle = StyleSheet.create({
     }
 })
 
-export const FriendHeader = () => {
+export const FriendHeader = ({ back, title}) => {
 
     return(
         <HeaderComponent>
-            <Ionicons 
-                name="md-settings-outline" 
-                size={25} 
-                style={FriendHeaderStyle.iconSetting}
-            />
+            {title == "Add Friends" && (
+                <Ionicons 
+                    name="md-settings-outline" 
+                    size={25} 
+                    style={FriendHeaderStyle.iconSetting}
+                />  
+            )}
+            {title == "Search Friends" && (
+                <Ionicons 
+                    name="md-chevron-back-sharp" 
+                    size={25} 
+                    style={FriendHeaderStyle.iconSetting}
+                    onPress={back}
+                />
+            )}
             <Text 
                 style={FriendHeaderStyle.text}
             >
-                Add Friends
+                {title}
             </Text>
-            <Ionicons 
-                name="md-close" 
-                size={25} 
-                style={FriendHeaderStyle.iconClose}
-            />
+            {title == "Add Friends" && (
+                <Ionicons 
+                    name="md-close" 
+                    size={25} 
+                    style={FriendHeaderStyle.iconClose}
+                />
+            )}
         </HeaderComponent>
     )
 }

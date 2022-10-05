@@ -2,11 +2,10 @@ import { React, useState } from "react"
 import { SectionComponent } from "./component/sectionComponent"
 import { PersonComponent } from "./component/personComponent"
 
-export const FriendSection = ({title, items, onNavigate}) => {
+export const FriendSection = ({title, items, onNavigate, visible}) => {
     const [showContent, setShowContent] = useState(true);
 
     const onClick = () => {
-        console.log("213", showContent);
         const show = !showContent;
         setShowContent(show);
     };
@@ -27,6 +26,7 @@ export const FriendSection = ({title, items, onNavigate}) => {
                         CELLInfo={data}
                         key={`data-${index}`}
                         onNavigate={onNavigate}
+                        click={visible}
                     />
                 );
                 })}
