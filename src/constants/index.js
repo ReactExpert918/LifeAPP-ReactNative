@@ -1,5 +1,3 @@
 import Action from './redux';
 
-export {
-  Action,
-};
+export { Action };

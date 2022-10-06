@@ -5,12 +5,12 @@ export const AUTH_ACTION = {
 };
 
 export const AUTH_STATE = {
-  UNCHECK: "app_splash",
-  AUTHED: "app_auth",
-  NOAUTH: "app_noauth",
+  UNCHECK: 'app_splash',
+  AUTHED: 'app_auth',
+  NOAUTH: 'app_noauth',
 };
 
 export const FRIEND_STATE = {
-  REQUEST: "show_request",
-  REQUEST_OFF: "hide_request",
-}
+  REQUEST: 'show_request',
+  REQUEST_OFF: 'hide_request',
+};

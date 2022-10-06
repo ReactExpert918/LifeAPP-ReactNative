@@ -1,4 +1,4 @@
-import auth from "@react-native-firebase/auth";
+import auth from '@react-native-firebase/auth';
 
 export const checkAuthedUser = (callBack) => {
   auth().onAuthStateChanged(callBack);
