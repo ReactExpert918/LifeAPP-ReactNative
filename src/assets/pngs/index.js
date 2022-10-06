@@ -35,4 +35,5 @@ export const images = {
   ic_add_group: require('./ic_add_group.png'),
 
   img_search_bg: require('./img_search_bg.png'),
+  img_search_no: require('./img_search_no.png'),
 };

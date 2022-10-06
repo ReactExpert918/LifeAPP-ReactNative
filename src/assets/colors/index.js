@@ -3,6 +3,7 @@ export const colors = {
     primary: '#00406f',
     secondary: '#165C90',
     error: '#BC3434',
+    search: '6d6d6d',
     gray: 'gray',
     white: 'white',
     green: '#3AAB73',

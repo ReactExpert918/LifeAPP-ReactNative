@@ -13,19 +13,13 @@ const style = StyleSheet.create({
   },
 });
 
-export const Button = ({ image, text, color }) => {
+export const Buttons = ({ image, text, color, onPress = null }) => {
   return (
-    <TouchableOpacity style={style.button}>
+    <TouchableOpacity style={style.button} onPress={onPress}>
       <Image source={image} style={style.image} />
       <Text varient="label" style={{ color: `${color}` }}>
         {text}
       </Text>
     </TouchableOpacity>
   );
-};
-
-Button.propTypes = {
-  image: PropTypes.string,
-  text: PropTypes.string,
-  color: PropTypes.string,
 };
