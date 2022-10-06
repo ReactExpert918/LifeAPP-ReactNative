@@ -1,13 +1,10 @@
-import React, { useState, useEffect } from 'react';
+/* eslint-disable react/prop-types */
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { ContainerComponent } from '../../components/container.component';
 import {
   View,
-  Text,
-  Image,
   ScrollView,
-  TouchableOpacity,
-  Button,
 } from 'react-native';
 import { colors } from '../../assets/colors';
 import { FriendHeader } from './component/friendHeader';
@@ -22,17 +19,17 @@ import { ChatExpand } from './component/chatExpand';
 import { APP_NAVIGATION } from '../../constants/app';
 
 export const FriendScreen = ({ navigation }) => {
-  const [recommandFriend, setRecommandFriend] = useState([
+  const recommandFriend = [
     { username: 'Andrea', type: 'recommand' },
     { username: 'Andrea2', type: 'recommand' },
     { username: 'Andrea3', type: 'recommand' },
     { username: 'Andrea4', type: 'recommand' },
     { username: 'Andrea5', type: 'recommand' },
-  ]);
-  const [requestFriend, setrequestFriend] = useState([
+  ];
+  const requestFriend = [
     { username: 'Boris', type: 'request' },
     { username: 'Boris2', type: 'request' },
-  ]);
+  ];
   const isModalVisible = useSelector((state) => state.Friend.show);
   const [isExpandVisible, isSetExpandVisibily] = useState(false);
 

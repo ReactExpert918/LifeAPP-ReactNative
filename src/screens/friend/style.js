@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
+/* eslint-disable no-dupe-keys */
+import { StyleSheet } from 'react-native';
 import { colors } from '../../assets/colors';
 
 export const friendStyle = StyleSheet.create({

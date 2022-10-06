@@ -1,4 +1,4 @@
-import styled from "styled-components/native";
+import styled from 'styled-components/native';
 
 const defaultTextStyles = (theme) => `
     font-weight: ${theme.fontWeights.regular};
@@ -12,7 +12,7 @@ const title = (color, theme, center) => `
     font-size: ${theme.fontSizes.title};
     font-weight: ${theme.fontWeights.bold};
     ${color && `color: ${color};`}
-    ${center && `text-align: center;`}
+    ${center && 'text-align: center;'}
 `;
 
 const hint = (color, theme) => `

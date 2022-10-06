@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { StyleSheet, View } from "react-native"
-import { Searchbar } from "react-native-paper";
-import { chatSearchComponentStyle } from "./chatComponentStyled";
+import React, { useState } from 'react';
+import { View } from 'react-native';
+import { Searchbar } from 'react-native-paper';
+import { chatSearchComponentStyle } from './chatComponentStyled';
 
 export const SearchbarComponent = () => {
-  const [searchKeyword, setSearchKeyword] = useState("");
+  const [searchKeyword, setSearchKeyword] = useState('');
 
   return (
     <View style={chatSearchComponentStyle.container}>
@@ -14,7 +14,7 @@ export const SearchbarComponent = () => {
         placeholder="Search"
         value={searchKeyword}
         onChangeText={(text) => setSearchKeyword(text)}
-        onSubmitEditing={() => console.log("Search")}
+        onSubmitEditing={() => console.log('Search')}
       />
     </View>
   );

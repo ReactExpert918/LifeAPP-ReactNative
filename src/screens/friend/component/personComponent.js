@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { React } from 'react';
 import { useDispatch } from 'react-redux';
 import { colors } from '../../../assets/colors';
@@ -50,7 +51,7 @@ export const PersonComponent = ({ CELLInfo, onNavigate, click }) => {
             <Image
               style={personComponentStyle.addImage}
               source={images.ic_add_friend}
-              onPress={() => onClick(true)}
+              onPress={() => click(true)}
             />
           )}
           {CELLInfo.type == 'search' && (

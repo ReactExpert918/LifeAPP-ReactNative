@@ -1,4 +1,4 @@
-import { StyleSheet, View, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import { colors } from '../../../assets/colors';
 
 export const sectionComponentStyle = StyleSheet.create({
@@ -93,7 +93,6 @@ export const expandStyle = StyleSheet.create({
     borderRadius: 40,
     marginTop: 20,
     borderColor: colors.ui.primary,
-    borderRadius: 40,
     border: 2,
   },
   modalText: {

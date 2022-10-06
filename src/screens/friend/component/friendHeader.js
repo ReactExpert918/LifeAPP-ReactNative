@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { React } from 'react';
 import { StyleSheet, Text } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
