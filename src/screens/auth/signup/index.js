@@ -16,6 +16,7 @@ import { PincodeVerify } from './pin_verify';
 import { BasicInformation } from './basic_information';
 import { AddAvatar } from './add_avatar';
 import { commonStyles } from '../../../common/common.styles';
+import { AUTH_ACTION } from '../../../constants/redux';
 
 export const Circle = ({ selected }) => {
   return (
@@ -35,9 +36,10 @@ Circle.propTypes = {
 export const SignUpScreen = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const [pageIndex, setPageIndex] = useState(3);
+  const [pageIndex, setPageIndex] = useState(0);
   const [confirm, setConfirm] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [username, setUsername] = useState('');
 
   const onBack = () => {
     if (pageIndex > 0) {
@@ -76,6 +78,7 @@ export const SignUpScreen = () => {
         firebaseSDK
           .updatePassword(password)
           .then(() => {
+            setUsername(username);
             setIsLoading(false);
             setPageIndex(3);
           })
@@ -90,8 +93,9 @@ export const SignUpScreen = () => {
       });
   };
 
-  const onSubmit = (image_path) => {
+  const onSubmit = (image_path, publicName) => {
     setIsLoading(true);
+    console.log('beforeresizedImage');
 
     ImageResizer.createResizedImage(
       image_path,
@@ -105,7 +109,6 @@ export const SignUpScreen = () => {
       { mode: 'contain', onlyscaleDown: false }
     )
       .then(async (resizedImage) => {
-        console.log(resizedImage);
         const user = await firebaseSDK.authorizedUser();
 
         const avatar_url = await firebaseSDK.uploadAvata(
@@ -113,7 +116,22 @@ export const SignUpScreen = () => {
           resizedImage.path
         );
 
-        console.log(avatar_url);
+        const userInfo = {
+          username,
+          fullname: publicName,
+          email: user.email,
+          phone: user.phoneNumber,
+          objectId: user.uid,
+          pictureAt: avatar_url,
+          createdAt: new Date().getTime(),
+        };
+
+        await firebaseSDK.setUser(userInfo);
+        dispatch({
+          type: AUTH_ACTION.USER_UPDATE,
+          payload: userInfo,
+        });
+        setIsLoading(false);
       })
       .catch((error) => {
         console.log(error);
