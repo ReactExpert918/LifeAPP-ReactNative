@@ -4,10 +4,9 @@ import { APP_NAVIGATION } from '../constants/app';
 import { FriendScreen } from '../screens/friend';
 import { FriendSearchScreen } from '../screens/friend/search';
 import { FriendQRcodeScreen } from '../screens/friend/qrcode';
-import { HomeNavigator } from './home.navigator';
+import { HomeNavigator } from './home';
 import { ChatScreen } from '../screens/chat';
 import { ChatDetailsScreen } from '../screens/chat/chatDetails';
-import { HomeScreen } from '../screens/home';
 
 const Stack = createStackNavigator();
 
@@ -19,7 +18,7 @@ export const AppNavigator = () => {
       >
         {/* <Stack.Screen name={APP_NAVIGATION.home} component={HomeNavigator} /> */}
         {/* <Stack.Screen name={APP_NAVIGATION.chat} component={ChatScreen} /> */}
-        <Stack.Screen name="main" component={HomeScreen} />
+        <Stack.Screen name="main" component={HomeNavigator} />
         {/* <Stack.Screen name="main" component={FriendScreen} /> */}
         <Stack.Screen
           name={APP_NAVIGATION.friend_search}

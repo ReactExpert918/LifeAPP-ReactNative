@@ -9,7 +9,7 @@ const FriendHeaderStyle = StyleSheet.create({
     position: 'absolute',
     left: 20,
     fontSize: 18,
-    color: colors.text.white
+    color: colors.text.white,
   },
   iconClose: {
     size: 24,
@@ -20,27 +20,18 @@ const FriendHeaderStyle = StyleSheet.create({
   text: {
     fontSize: 20,
     color: colors.text.white,
-    fontWeight: 'bold'
-  }
+    fontWeight: 'bold',
+  },
 });
 
 export const ChatHeaderComponent = () => {
-
-  return(
+  return (
     <HeaderComponent>
-      <Text
-        style={FriendHeaderStyle.editText}
-      >
-                Edit
-      </Text>
-      <Text 
-        style={FriendHeaderStyle.text}
-      >
-                Chats
-      </Text>
-      <Ionicons 
-        name="md-create-outline" 
-        size={25} 
+      <Text style={FriendHeaderStyle.editText}>Edit</Text>
+      <Text style={FriendHeaderStyle.text}>Chats</Text>
+      <Ionicons
+        name="md-create-outline"
+        size={25}
         style={FriendHeaderStyle.iconClose}
       />
     </HeaderComponent>

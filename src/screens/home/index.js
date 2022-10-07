@@ -3,7 +3,8 @@ import { View, Text } from 'react-native';
 import { useSelector } from 'react-redux';
 import { textStyles } from '../../common/text.styles';
 import { Avatar, Spacer } from '../../components';
-import { Header, SearchBar } from './components';
+import { SearchbarComponent } from '../chat/component/chatSearchComponent';
+import { Header } from './components';
 import { styles } from './styles';
 
 export const HomeScreen = () => {
@@ -11,7 +12,9 @@ export const HomeScreen = () => {
   return (
     <View style={styles.container}>
       <Header title={'Home'} />
-      <SearchBar />
+      <View style={styles.topContainer}>
+        <SearchbarComponent />
+      </View>
       <View style={styles.profileContainer}>
         <Avatar size={50} url={user.pictureAt} />
         <Spacer right={16} />
