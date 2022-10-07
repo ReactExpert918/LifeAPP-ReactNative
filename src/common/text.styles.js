@@ -22,6 +22,11 @@ export const textStyles = StyleSheet.create({
     fontWeight: '300',
     color: colors.text.gray,
   },
+  grayMediumThin: {
+    fontSize: 14,
+    fontWeight: '300',
+    color: colors.text.gray,
+  },
   graySmall: {
     fontSize: 10,
     fontWeight: '300',
