@@ -12,7 +12,7 @@ export const SplashScreen = () => {
   useEffect(() => {
     firebaseSDK.checkAuthedUser(async (user) => {
       if (user) {
-        const userProfile = await firebaseSDK.getUser(user.id);
+        const userProfile = await firebaseSDK.getUser(user.uid);
         if (userProfile) {
           dispatch({
             type: AUTH_ACTION.USER_LOGIN,
@@ -20,8 +20,8 @@ export const SplashScreen = () => {
           });
         }
       }
+      dispatch({ type: AUTH_ACTION.UPDATE_SPLASH });
     });
-    dispatch({ type: AUTH_ACTION.UPDATE_SPLASH });
   }, []);
 
   return (
