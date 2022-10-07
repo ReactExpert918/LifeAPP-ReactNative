@@ -27,6 +27,7 @@ export const LoginScreen = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const onLogin = async () => {
     if (!email) {
@@ -72,13 +73,19 @@ export const LoginScreen = () => {
       ]);
       return;
     }
+
     setIsLoading(true);
-    const userData = await firebaseSDK.signInEmailPassword(email, password);
-    if (userData) {
-      dispatch({
-        type: AUTH_ACTION.USER_LOGIN,
-        payload: { user: userData.user },
-      });
+    try {
+      const userData = await firebaseSDK.signInEmailPassword(email, password);
+      if (userData) {
+        dispatch({
+          type: AUTH_ACTION.USER_LOGIN,
+          payload: { user: userData.user },
+        });
+      }
+    } catch (e) {
+      console.log(e);
+      setError('Incorrect email or password.\nPlease try again!');
     }
     setIsLoading(false);
   };
@@ -89,7 +96,13 @@ export const LoginScreen = () => {
         <View style={styles.topContainer}>
           <Image source={images.logo} style={styles.logo} />
           <Spacer top={2} />
-          <Text style={textStyles.blackBold}>Login to your account</Text>
+          {error ? (
+            <Text style={[textStyles.redMediumThin, { textAlign: 'center' }]}>
+              {error}
+            </Text>
+          ) : (
+            <Text style={textStyles.blackBold}>Login to your account</Text>
+          )}
           <View style={styles.loginContainer}>
             <Text style={textStyles.grayThin}>Email</Text>
             <Spacer top={2} />
