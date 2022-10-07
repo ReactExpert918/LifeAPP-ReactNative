@@ -10,12 +10,18 @@ import { styles } from './styles';
 export const SplashScreen = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    firebaseSDK.checkAuthedUser((user) => {
+    firebaseSDK.checkAuthedUser(async (user) => {
       if (user) {
-        dispatch({ type: AUTH_ACTION.USER_LOGIN, payload: { user } });
+        const userProfile = await firebaseSDK.getUser(user.id);
+        if (userProfile) {
+          dispatch({
+            type: AUTH_ACTION.USER_LOGIN,
+            payload: { user: userProfile },
+          });
+        }
       }
-      dispatch({ type: AUTH_ACTION.UPDATE_SPLASH });
     });
+    dispatch({ type: AUTH_ACTION.UPDATE_SPLASH });
   }, []);
 
   return (

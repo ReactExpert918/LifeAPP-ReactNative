@@ -128,8 +128,8 @@ export const SignUpScreen = () => {
 
         await firebaseSDK.setUser(userInfo);
         dispatch({
-          type: AUTH_ACTION.USER_UPDATE,
-          payload: userInfo,
+          type: AUTH_ACTION.USER_LOGIN,
+          payload: { user: userInfo },
         });
         setIsLoading(false);
       })

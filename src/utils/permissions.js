@@ -1,10 +1,10 @@
-import { Alert, Platform } from "react-native";
+import { Alert, Platform } from 'react-native';
 import {
   request,
   openSettings,
   PERMISSIONS,
   RESULTS,
-} from "react-native-permissions";
+} from 'react-native-permissions';
 
 export const imagePickerConfig = {
   cropping: true,
@@ -13,9 +13,9 @@ export const imagePickerConfig = {
   height: 1500,
   enableRotationGesture: true,
   avoidEmptySpaceAroundImage: false,
-  cropperChooseText: "Choose",
-  cropperCancelText: "Cancel",
-  mediaType: "photo",
+  cropperChooseText: 'Choose',
+  cropperCancelText: 'Cancel',
+  mediaType: 'photo',
 };
 
 export const backImagePickerConfig = {
@@ -25,26 +25,26 @@ export const backImagePickerConfig = {
   height: 1000,
   enableRotationGesture: true,
   avoidEmptySpaceAroundImage: false,
-  cropperChooseText: "Choose",
-  cropperCancelText: "Cancel",
-  mediaType: "photo",
+  cropperChooseText: 'Choose',
+  cropperCancelText: 'Cancel',
+  mediaType: 'photo',
 };
 
 export const videoPickerConfig = {
-  mediaType: "video",
+  mediaType: 'video',
   compressVideo: true,
-  compressVideoPreset: "MediumQuality",
+  compressVideoPreset: 'MediumQuality',
 };
 
 export const libraryImagePickerConfig = {
-  mediaType: "photo",
+  mediaType: 'photo',
 };
 
 export const libraryVideoPickerConfig = {
-  mediaType: "video",
+  mediaType: 'video',
   multiple: false,
   compressVideo: true,
-  compressVideoPreset: "MediumQuality",
+  compressVideoPreset: 'MediumQuality',
 };
 
 const fetchCameraPermission = () => {
@@ -56,7 +56,7 @@ const fetchCameraPermission = () => {
       })
     )
       .then((result) => {
-        console.log("permission", result);
+        console.log('permission', result);
         if (result === RESULTS.GRANTED || result === RESULTS.LIMITED)
           resolve(true);
         else resolve(false);
@@ -76,7 +76,7 @@ const fetchMicPermission = () => {
       })
     )
       .then((result) => {
-        console.log("permission", result);
+        console.log('permission', result);
         if (result === RESULTS.GRANTED || result === RESULTS.LIMITED)
           resolve(true);
         else resolve(false);
@@ -96,7 +96,7 @@ const fetchPhotosPermission = () => {
       })
     )
       .then((result) => {
-        console.log("permission", result);
+        console.log('permission', result);
         if (result === RESULTS.GRANTED || result === RESULTS.LIMITED)
           resolve(true);
         else resolve(false);
@@ -109,15 +109,15 @@ const fetchPhotosPermission = () => {
 
 export const checkCameraPermission = async () => {
   if (!(await fetchCameraPermission())) {
-    Alert.alert("Visit settings and allow camera permission", "", [
+    Alert.alert('Visit settings and allow camera permission', '', [
       {
-        text: "OK",
+        text: 'OK',
         onPress: () => {
           openSettings();
         },
       },
       {
-        text: "CANCEL",
+        text: 'CANCEL',
         onPress: () => {},
       },
     ]);
@@ -128,15 +128,15 @@ export const checkCameraPermission = async () => {
 
 export const checkPhotosPermission = async () => {
   if (!(await fetchPhotosPermission())) {
-    Alert.alert("Visit settings and allow photos permission", "", [
+    Alert.alert('Visit settings and allow photos permission', '', [
       {
-        text: "OK",
+        text: 'OK',
         onPress: () => {
           openSettings();
         },
       },
       {
-        text: "CANCEL",
+        text: 'CANCEL',
         onPress: () => {},
       },
     ]);
@@ -147,15 +147,15 @@ export const checkPhotosPermission = async () => {
 
 export const checkMicPermission = async () => {
   if (!(await fetchMicPermission())) {
-    Alert.alert("Visit settings and allow Mic permission", "", [
+    Alert.alert('Visit settings and allow Mic permission', '', [
       {
-        text: "OK",
+        text: 'OK',
         onPress: () => {
           openSettings();
         },
       },
       {
-        text: "CANCEL",
+        text: 'CANCEL',
         onPress: () => {},
       },
     ]);

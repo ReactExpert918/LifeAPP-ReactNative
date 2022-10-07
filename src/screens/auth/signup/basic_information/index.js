@@ -123,7 +123,6 @@ export const BasicInformation = ({ setUser }) => {
         <Spacer top={2} />
         <TextInput
           mode="outlined"
-          label="Username"
           placeholder="Username"
           autoCapitalize="none"
           value={username}
