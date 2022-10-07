@@ -23,10 +23,10 @@ export const AppNavigator = () => {
           name={APP_NAVIGATION.friend_search}
           component={FriendSearchScreen}
         />
-        <Stack.Screen
+        {/* <Stack.Screen
           name={APP_NAVIGATION.friend_qrcode}
           component={FriendQRcodeScreen}
-        />
+        /> */}
       </Stack.Navigator>
     </>
   );

@@ -1,91 +1,90 @@
-import React, { useMemo, useRef, useState, useEffect } from "react";
-import { Text, View, Dimensions, StyleSheet } from "react-native"
-import styled from "styled-components/native";
-import { colors } from "../../assets/colors";
-import { images } from "../../assets/pngs";
+import React, { useMemo, useRef, useState, useEffect } from 'react';
+import { Text, View, Dimensions, StyleSheet } from 'react-native';
+import styled from 'styled-components/native';
+import { colors } from '../../assets/colors';
+import { images } from '../../assets/pngs';
 // import QRCodeScanner from "react-native-qrcode-scanner";
-import Ionicons from "react-native-vector-icons/Ionicons";
-import { RNCamera } from "react-native-camera";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
-import QRCode from "react-native-qrcode-svg";
-
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { RNCamera } from 'react-native-camera';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
+import QRCode from 'react-native-qrcode-svg';
 
 const IconBack = styled(Ionicons).attrs({
-    color: colors.ui.white,
-    size: 32,
-    name: "chevron-back-sharp",
-  })`
-    position: absolute;
-    top: ${(props) => props.top}px;
-    left: 10px;
-  `;
-  
-  const BackgrounButton = styled.TouchableOpacity`
-    width: 100%;
-    height: 100%;
-    background-color: ${colors.bg.clear};
-  `;
-  
-  const QRCodeButton = styled.TouchableOpacity`
-    height: 50px;
-    width: 140px;
-    border-radius: 25px;
-    border-width: 1px;
-    border-color: ${colors.ui.white};
-    position: absolute;
-    bottom: 30%;
-    left: ${(props) => props.offset}px;
-    align-items: center;
-    justify-content: center;
-    flex-direction: row;
-  `;
-  
-  const QRImage = styled.Image`
-    width: 24px;
-    height: 24px;
-    margin-right: 10px;
-  `;
-  
-  const Image = styled.Image`
-    width: 20px;
-    height: 20px;
-  `;
-  
-  const Button = styled.TouchableOpacity`
-    width: 40px;
-    height: 40px;
-    align-items: center;
-    justify-content: center;
-    border-radius: 20px;
-    border-width: 1px;
-    border-color: ${colors.ui.border};
-  `;
-  
-  const BottomContainer = styled.View`
-    width: 100%;
-    flex-direction: row;
-  `;
-  
-  const ButtonContainer = styled.View`
-    flex: 1;
-    align-items: center;
-    justify-content: center;
-  `;
+  color: colors.ui.white,
+  size: 32,
+  name: 'chevron-back-sharp',
+})`
+  position: absolute;
+  top: ${(props) => props.top}px;
+  left: 10px;
+`;
+
+const BackgrounButton = styled.TouchableOpacity`
+  width: 100%;
+  height: 100%;
+  background-color: ${colors.bg.clear};
+`;
+
+const QRCodeButton = styled.TouchableOpacity`
+  height: 50px;
+  width: 140px;
+  border-radius: 25px;
+  border-width: 1px;
+  border-color: ${colors.ui.white};
+  position: absolute;
+  bottom: 30%;
+  left: ${(props) => props.offset}px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+`;
+
+const QRImage = styled.Image`
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+`;
+
+const Image = styled.Image`
+  width: 20px;
+  height: 20px;
+`;
+
+const Button = styled.TouchableOpacity`
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  border-width: 1px;
+  border-color: ${colors.ui.border};
+`;
+
+const BottomContainer = styled.View`
+  width: 100%;
+  flex-direction: row;
+`;
+
+const ButtonContainer = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+`;
 
 export const FriendQRcodeScreen = () => {
-    const sheetRef = useRef(null);
+  const sheetRef = useRef(null);
   const [expanded, setExpanded] = useState(false);
 
   const [myQRCode, setMyQRCode] = useState(null);
 
-  const maxValue = parseInt(40000 / Dimensions.get("window").height);
+  const maxValue = parseInt(40000 / Dimensions.get('window').height);
 
-  const snapPoints = useMemo(() => ["25%", `${maxValue}%`], []);
+  const snapPoints = useMemo(() => ['25%', `${maxValue}%`], []);
 
-//   const onRead = (e) => {
-//     console.log(e);
-//   };
+  //   const onRead = (e) => {
+  //     console.log(e);
+  //   };
 
   const onBack = () => {
     navigation.goBack();
@@ -109,7 +108,7 @@ export const FriendQRcodeScreen = () => {
   };
 
   return (
-    <>
+    <View>
       {/* <QRCodeScanner
         onRead={this.onSuccess}
         flashMode={RNCamera.Constants.FlashMode.torch}
@@ -164,7 +163,7 @@ export const FriendQRcodeScreen = () => {
           )}
         </BottomSheetView>
       </BottomSheet> */}
-    </>
+    </View>
   );
 };
 
@@ -175,51 +174,51 @@ const styles = StyleSheet.create({
   },
 
   cameraContainer: {
-    height: (Dimensions.get("window").height * 4) / 5,
+    height: (Dimensions.get('window').height * 4) / 5,
   },
 
   sheetsContainer: {
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
   textCenterSheetStyle: {
-    textAlign: "center",
+    textAlign: 'center',
     color: colors.text.black,
     fontSize: 16,
-    marginTop: Dimensions.get("window").height / 15,
+    marginTop: Dimensions.get('window').height / 15,
   },
 
   textNormalSheetStyle: {
-    textAlign: "center",
+    textAlign: 'center',
     color: colors.text.black,
     fontSize: 16,
     marginTop: 8,
   },
 
   textButtonStyle: {
-    textAlign: "center",
+    textAlign: 'center',
     color: colors.text.white,
     fontSize: 14,
   },
 
   textNameStyle: {
-    textAlign: "center",
+    textAlign: 'center',
     color: colors.text.black,
     fontSize: 16,
-    fontWeight: "600",
+    fontWeight: '600',
   },
 
   textPhoneStyle: {
-    textAlign: "center",
+    textAlign: 'center',
     color: colors.text.gray,
     fontSize: 14,
   },
 
   textIndicatorStyle: {
-    textAlign: "center",
+    textAlign: 'center',
     color: colors.text.black,
     fontSize: 14,
-    fontWeight: "600",
+    fontWeight: '600',
   },
 });
