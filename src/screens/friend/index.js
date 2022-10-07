@@ -2,12 +2,12 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { ContainerComponent } from '../../components/container.component';
+import { HeaderComponent } from '../../components/header.component';
 import {
   View,
   ScrollView,
 } from 'react-native';
 import { colors } from '../../assets/colors';
-import { FriendHeader } from './component/friendHeader';
 import { Buttons } from '../../components/Button/Button';
 import { ButtonContainer } from '../../components/Button/ButtonContainer';
 import { CreateGroup } from './createGroup';
@@ -38,12 +38,16 @@ export const FriendScreen = ({ navigation }) => {
   };
 
   const onClickQR = () => {
-    navigation.navigate(APP_NAVIGATION.friend_qrcode);
+    // navigation.navigate(APP_NAVIGATION.friend_qrcode);
+  };
+
+  const onClickSetting = () => {
+    navigation.navigate(APP_NAVIGATION.setting);
   };
 
   return (
     <ContainerComponent>
-      <FriendHeader title="Add Friends" />
+      <HeaderComponent title="Add Friends" firstClick={onClickSetting} />
       <View style={friendStyle.divider}></View>
       <View style={friendStyle.mainContainer}>
         <View style={friendStyle.topContainer}>

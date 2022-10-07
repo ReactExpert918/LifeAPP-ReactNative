@@ -15,4 +15,5 @@ export const APP_NAVIGATION = {
   friend_search: 'FriendSearch',
   group: 'Group',
   group_member: 'GroupMember',
+  account_setting: 'AccountSetting',
 };

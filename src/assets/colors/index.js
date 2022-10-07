@@ -11,6 +11,7 @@ export const colors = {
     border: '#00406E',
     callmissed: '#ff3939',
     callnormal: '#14c52f',
+    bottom: '#e5e5e5'
   },
   bg: {
     primary: '#fff',
@@ -27,5 +28,6 @@ export const colors = {
     white: 'white',
     lightgray: '#999',
     lightblue: '#96B4D2',
+    red: '#eb4851'
   },
 };

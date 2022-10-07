@@ -36,4 +36,11 @@ export const images = {
 
   img_search_bg: require('./img_search_bg.png'),
   img_search_no: require('./img_search_no.png'),
+  face: require('./face.png'),
+  zed: require('./zed.png'),
+  privacy: require('./privacy.png'),
+  setting: require('./setting.png'),
+  help: require('./help.png'),
+  signout: require('./signout.png'),
+  camera: require('./camera.png'),
 };

@@ -3,7 +3,7 @@ import React, {  useState } from 'react';
 import { Text, View, Dimensions } from 'react-native';
 import styled from 'styled-components/native';
 import { ContainerComponent } from '../../components/container.component';
-import { FriendHeader } from './component/friendHeader';
+import { HeaderComponent } from '../../components/header.component';
 import { FriendSection } from './friendSection';
 import { searchStyle } from './style';
 import { colors } from '../../assets/colors';
@@ -60,7 +60,7 @@ export const FriendSearchScreen = ({ navigation }) => {
   };
   return(
     <ContainerComponent>
-      <FriendHeader title="Search Friends" back={onBack}/>
+      <HeaderComponent title="Search Friends" firstClick={onBack}/>
       <View style={searchStyle.divider}></View>
       <View style={searchStyle.mainContainer}>
         <View style={searchStyle.topContainer}>

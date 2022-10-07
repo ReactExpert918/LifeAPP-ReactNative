@@ -4,6 +4,8 @@ import { APP_NAVIGATION } from '../constants/app';
 import { FriendScreen } from '../screens/friend';
 import { FriendSearchScreen } from '../screens/friend/search';
 import { FriendQRcodeScreen } from '../screens/friend/qrcode';
+import { SettingScreen } from '../screens/setting/index';
+import { AccountSetting } from '../screens/setting/accountSetting';
 import { HomeNavigator } from './home.navigator';
 import { ChatScreen } from '../screens/chat';
 import { ChatDetailsScreen } from '../screens/chat/chatDetails';
@@ -25,7 +27,15 @@ export const AppNavigator = () => {
         />
         <Stack.Screen
           name={APP_NAVIGATION.friend_qrcode}
-          component={FriendQRcodeScreen}
+          component={FriendSearchScreen}
+        />
+        <Stack.Screen
+          name={APP_NAVIGATION.setting}
+          component={SettingScreen}
+        />
+        <Stack.Screen
+          name={APP_NAVIGATION.account_setting}
+          component={AccountSetting}
         />
       </Stack.Navigator>
     </>
