@@ -5,18 +5,21 @@ import { useDispatch } from 'react-redux';
 import { images } from '../../assets/pngs';
 import { AUTH_ACTION } from '../../constants/redux';
 import { firebaseSDK } from '../../services/firebase';
-import { styles } from './styled';
+import { styles } from './styles';
 
-const SplashScreen = () => {
+export const SplashScreen = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    firebaseSDK.checkAuthedUser(user => {
+    firebaseSDK.checkAuthedUser(async (user) => {
       if (user) {
-
-      } else {
-        
+        const userProfile = await firebaseSDK.getUser(user.uid);
+        if (userProfile) {
+          dispatch({
+            type: AUTH_ACTION.USER_LOGIN,
+            payload: { user: userProfile },
+          });
+        }
       }
-      console.log('======', user)
       dispatch({ type: AUTH_ACTION.UPDATE_SPLASH });
     });
   }, []);
@@ -27,5 +30,3 @@ const SplashScreen = () => {
     </View>
   );
 };
-
-export default SplashScreen;

@@ -20,9 +20,8 @@ export const SettingScreen = ({ navigation }) => {
           <Text style={SettingStyle.title}>General Settings</Text>
         </View>
         <View style={SettingStyle.mainContainer}>
-          <SettingListComponent title='Mirai Al' icon={images.face}/>
-          <SettingListComponent title='Zed Pay' icon={images.zed}/>
           <SettingListComponent title='Account Setting' click={goAccountSetting} icon={images.setting}/>
+          <SettingListComponent title='Zed Pay' icon={images.zed}/>
           <SettingListComponent title='Privacy Police' icon={images.privacy}/>
           <SettingListComponent title='About Us' icon={images.help}/>
         </View>

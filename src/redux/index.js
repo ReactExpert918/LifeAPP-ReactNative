@@ -7,7 +7,7 @@ import CombinedReducer from './reducers';
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  whitelist: ['Auth'],
+  whitelist: [],
   blacklist: [],
 };
 

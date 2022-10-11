@@ -21,7 +21,7 @@ export const settingListStyle = StyleSheet.create({
   },
   text: {
     paddingHorizontal: 20,
-    color: colors.text.lightgray,
+    color: colors.text.black,
     fontSize: 18,
   },
   delAccount: {
@@ -32,6 +32,45 @@ export const settingListStyle = StyleSheet.create({
   right: {
 
   },
+
+});
+
+export const accountSettingListStyle = StyleSheet.create({
+  container: {
+    // paddingHorizontal: 10,
+    paddingVertical: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    borderBottomWidth: 1,
+    borderBottomColor: colors.ui.bottom
+  },
+  left: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  image: {
+    width: 36,
+    height: 36,
+  },
+  textTitle: {
+    paddingHorizontal: 10,
+    color: colors.text.gray,
+    fontSize: 15,
+    paddingRight: 10
+  },
+  text: {
+    paddingHorizontal: 10,
+    color: colors.text.lightgray,
+    fontSize: 15,
+    paddingRight: 10
+  },
+  delAccount: {
+    paddingHorizontal: 10,
+    color: colors.text.red,
+    fontSize: 15
+  },
+
 
 });
 

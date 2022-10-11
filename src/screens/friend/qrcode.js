@@ -3,168 +3,130 @@ import { Text, View, Dimensions, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 import { colors } from '../../assets/colors';
 import { images } from '../../assets/pngs';
-// import QRCodeScanner from "react-native-qrcode-scanner";
+// import QRCodeScanner from 'react-native-qrcode-scanner';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { RNCamera } from 'react-native-camera';
+// import { RNCamera } from 'react-native-camera';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
-import QRCode from 'react-native-qrcode-svg';
-
+// import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
+// import QRCode from 'react-native-qrcode-svg';
 
 const IconBack = styled(Ionicons).attrs({
   color: colors.ui.white,
   size: 32,
   name: 'chevron-back-sharp',
 })`
-    position: absolute;
-    top: ${(props) => props.top}px;
-    left: 10px;
-  `;
-  
+  position: absolute;
+  top: ${(props) => props.top}px;
+  left: 10px;
+`;
+
 const BackgrounButton = styled.TouchableOpacity`
-    width: 100%;
-    height: 100%;
-    background-color: ${colors.bg.clear};
-  `;
-  
+  width: 100%;
+  height: 100%;
+  background-color: ${colors.bg.clear};
+`;
+
 const QRCodeButton = styled.TouchableOpacity`
-    height: 50px;
-    width: 140px;
-    border-radius: 25px;
-    border-width: 1px;
-    border-color: ${colors.ui.white};
-    position: absolute;
-    bottom: 30%;
-    left: ${(props) => props.offset}px;
-    align-items: center;
-    justify-content: center;
-    flex-direction: row;
-  `;
-  
+  height: 50px;
+  width: 140px;
+  border-radius: 25px;
+  border-width: 1px;
+  border-color: ${colors.ui.white};
+  position: absolute;
+  bottom: 30%;
+  left: ${(props) => props.offset}px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+`;
+
 const QRImage = styled.Image`
-    width: 24px;
-    height: 24px;
-    margin-right: 10px;
-  `;
-  
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+`;
+
 const Image = styled.Image`
-    width: 20px;
-    height: 20px;
-  `;
-  
+  width: 20px;
+  height: 20px;
+`;
+
 const Button = styled.TouchableOpacity`
-    width: 40px;
-    height: 40px;
-    align-items: center;
-    justify-content: center;
-    border-radius: 20px;
-    border-width: 1px;
-    border-color: ${colors.ui.border};
-  `;
-  
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  border-width: 1px;
+  border-color: ${colors.ui.border};
+`;
+
 const BottomContainer = styled.View`
-    width: 100%;
-    flex-direction: row;
-  `;
-  
+  width: 100%;
+  flex-direction: row;
+`;
+
 const ButtonContainer = styled.View`
-    flex: 1;
-    align-items: center;
-    justify-content: center;
-  `;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+`;
 
 export const FriendQRcodeScreen = () => {
-  // const sheetRef = useRef(null);
-  // const [expanded, setExpanded] = useState(false);
+  const sheetRef = useRef(null);
+  const [expanded, setExpanded] = useState(false);
 
-  // const [myQRCode, setMyQRCode] = useState(null);
+  const [myQRCode, setMyQRCode] = useState(null);
 
-  // const maxValue = parseInt(40000 / Dimensions.get('window').height);
+  const maxValue = parseInt(40000 / Dimensions.get('window').height);
 
-  // const snapPoints = useMemo(() => ['25%', `${maxValue}%`], []);
+  const snapPoints = useMemo(() => ['25%', `${maxValue}%`], []);
 
-  // //   const onRead = (e) => {
-  // //     console.log(e);
-  // //   };
+  const onRead = (e) => {
+    console.log(e);
+  };
 
   // const onBack = () => {
   //   navigation.goBack();
   // };
 
-  // const insets = useSafeAreaInsets();
+  const insets = useSafeAreaInsets();
 
-  // const onClickBackground = () => {
-  //   sheetRef.current.collapse();
-  //   setExpanded(false);
-  // };
+  const onClickBackground = () => {
+    sheetRef.current.collapse();
+    setExpanded(false);
+  };
 
-  // const onClickExpand = () => {
-  //   sheetRef.current.expand();
-  //   setExpanded(true);
-  // };
+  const onClickExpand = () => {
+    sheetRef.current.expand();
+    setExpanded(true);
+  };
 
-  // const onRefresh = () => {
-  //   // const value = `${user.id}timestamp${new Date().getTime()}`;
-  //   // setMyQRCode(value);
-  // };
+  const onRefresh = () => {
+    // const value = `${user.id}timestamp${new Date().getTime()}`;
+    // setMyQRCode(value);
+  };
 
   return (
     <>
-      <Text>123</Text>
       {/* <QRCodeScanner
-        onRead={this.onSuccess}
+        onRead={onRead}
         flashMode={RNCamera.Constants.FlashMode.torch}
         topViewStyle={styles.zeroContainer}
         bottomViewStyle={styles.zeroContainer}
         cameraStyle={styles.cameraContainer}
         showMarker={true}
       /> */}
-      {/* <BackgrounButton onPress={onClickBackground}></BackgrounButton>
-      <IconBack onPress={onBack} top={8 + insets.top} />
+      <BackgrounButton onPress={onClickBackground}></BackgrounButton>
+      <IconBack  top={8 + insets.top} />
       <QRCodeButton
-        offset={Dimensions.get("window").width / 2 - 70}
+        offset={Dimensions.get('window').width / 2 - 70}
         onPress={onClickExpand}
       >
         <QRImage source={images.ic_qrcode} />
         <Text style={styles.textButtonStyle}>My QR Code</Text>
-      </QRCodeButton> */}
-      {/* <BottomSheet ref={sheetRef} snapPoints={snapPoints}>
-        <BottomSheetView style={styles.sheetsContainer}>
-          {expanded ? (
-            <>
-              <Text style={styles.textNormalSheetStyle}>My QR code</Text>
-              <Spacer size="large" />
-              {myQRCode && <QRCode value={myQRCode} />}
-              <Spacer size="large" />
-              <Text style={styles.textNameStyle}>213</Text>
-              <Spacer size="medium" />
-              <Text style={styles.textPhoneStyle}>1231</Text>
-              <Spacer size="large" />
-              <Text style={styles.textIndicatorStyle}>
-                You will be added as a friend when your{"\n"}frined scan your QR
-                code
-              </Text>
-              <Spacer size="large" />
-              <BottomContainer>
-                <ButtonContainer>
-                  <Button onPress={onRefresh}>
-                    <Image source={images.ic_qr_reload} />
-                  </Button>
-                </ButtonContainer>
-                <ButtonContainer>
-                  <Button>
-                    <Image source={images.ic_qr_download} />
-                  </Button>
-                </ButtonContainer>
-              </BottomContainer>
-            </>
-          ) : (
-            <Text style={styles.textCenterSheetStyle}>
-              Scan QR code to quickly add persons{"\n"}to your friend list
-            </Text>
-          )}
-        </BottomSheetView>
-      </BottomSheet> */}
+      </QRCodeButton>
+     
     </>
   );
 };

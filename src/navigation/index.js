@@ -1,19 +1,20 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
-import SplashScreen from '../screens/splash';
+import { SplashScreen } from '../screens/splash';
 import { AuthNavigator } from './auth';
 import { AppNavigator } from './app';
 
 export const Navigator = () => {
-  const { isSplash, isLogin } = useSelector((state) => state.Splash);
-  console.log(isSplash, isLogin);
+  const { isSplash } = useSelector((state) => state.Splash);
+  const { isLogin, user } = useSelector((state) => state.Auth);
+  console.log(isLogin, user);
 
   return (
     <NavigationContainer>
       {isSplash ? (
         <SplashScreen />
-      ) : isLogin ? (
+      ) : !isLogin ? (
         <AuthNavigator />
       ) : (
         <AppNavigator />

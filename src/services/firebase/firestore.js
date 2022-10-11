@@ -63,6 +63,7 @@ export const getUser = (user_id) => {
             id: user_id,
             ...snapshot.data(),
           };
+          console.log(user);
           resolve(user);
         }
         reject('No exists');
@@ -123,6 +124,7 @@ export const getUsers = (userIds) => {
 };
 
 export const getUserWithName = (userId, username) => {
+  console.log(userId, username, '--------------');
   return new Promise((resolve, reject) => {
     firestore()
       .collection(FIRESTORE_TABLES.USER)
@@ -135,7 +137,7 @@ export const getUserWithName = (userId, username) => {
         snapshot.forEach((data) => {
           result = data.data();
         });
-
+        result = Object.assign(result, {type: 'search'});
         resolve(result);
       })
       .catch((error) => reject(error));
@@ -155,6 +157,7 @@ export const getUserWithPhonenumber = (userId, phone) => {
         snapshot.forEach((data) => {
           result = data.data();
         });
+        result = Object.assign(result, {type: 'search'});
 
         resolve(result);
       })
@@ -224,6 +227,73 @@ export const getFriends = async (user_id) => {
   return results;
 };
 
+
+export const getNewFriends = (friend_id) => {
+  let result = [];
+  return new Promise((resolve, reject) => {
+    firestore()
+      .collection(FIRESTORE_TABLES.Friend)
+      .where('friendId', '==', friend_id)
+      .where('isAccepted', '==', false)
+      .get()
+      .then((querySnapshot) =>{
+        querySnapshot.forEach((documentSnapshot) => {
+          let data = getIsFriend(documentSnapshot.data());
+          result.push(data);
+        });
+        resolve(result);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+  
+};
+
+const getIsFriend = (friend_data) => {
+  let result = [];
+  return new Promise((resolve, reject) => {
+    firestore()
+      .collection(FIRESTORE_TABLES.USER)
+      .where('objectId', '==', friend_data.userId)
+      .get()
+      .then((data) => {
+        data.forEach((snapshot) => {
+          let dataResult = Object.assign(snapshot.data(), {type: 'request'});
+          result.push(dataResult);
+        });
+        resolve(result);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+export const acceptFriend = (user_id, friend_id) => {
+  return new Promise((resolve, reject) => {
+    console.log(user_id, friend_id);
+    firestore()
+      .collection(FIRESTORE_TABLES.Friend)
+      .where('friendId', '==', friend_id)
+      .where('userId', '==', user_id)
+      .get()      
+      .then((snapshot) =>{
+        snapshot.forEach((documentSnapshot) => {
+          console.log(documentSnapshot.data());
+          firestore()
+            .collection(FIRESTORE_TABLES.Friend)
+            .doc(documentSnapshot.data().objectId)
+            .update({isAccepted : true})
+            .then(resolve(true));   
+        });
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
 export const checkFriend = async (user_id, friend_id) => {
   let results = false;
 
@@ -233,7 +303,6 @@ export const checkFriend = async (user_id, friend_id) => {
     .where('friendId', '==', friend_id)
     .get();
 
-  console.log(query1);
 
   results = query1.docs.length > 0;
 
@@ -246,7 +315,6 @@ export const checkFriend = async (user_id, friend_id) => {
     .where('userId', '==', friend_id)
     .where('friendId', '==', user_id)
     .get();
-  console.log(query2);
 
   results = query2.docs.length > 0;
 

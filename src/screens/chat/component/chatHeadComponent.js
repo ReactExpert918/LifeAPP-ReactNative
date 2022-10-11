@@ -31,12 +31,12 @@ export const ChatHeaderComponent = () => {
       <Text
         style={FriendHeaderStyle.editText}
       >
-                Edit
+        Edit
       </Text>
       <Text 
         style={FriendHeaderStyle.text}
       >
-                Chats
+        Chats
       </Text>
       <Ionicons 
         name="md-create-outline" 

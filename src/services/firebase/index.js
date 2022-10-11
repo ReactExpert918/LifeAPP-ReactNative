@@ -25,6 +25,8 @@ import {
   getMembers,
   getGroups,
   getGroup,
+  getNewFriends,
+  acceptFriend,
   getFriends,
   checkFriend,
   creatFriend,
@@ -65,6 +67,7 @@ export const firebaseSDK = {
   getMembers,
   getGroups,
   getGroup,
+  getNewFriends,
   getFriends,
   checkFriend,
   creatFriend,
@@ -74,6 +77,6 @@ export const firebaseSDK = {
   getPerson,
   getSingle,
   getZedPay,
-
+  acceptFriend,
   setFcmToken,
 };

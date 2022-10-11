@@ -4,7 +4,7 @@ import { View, Text, Image,  TouchableOpacity  } from 'react-native';
 import { images } from '../../../assets/pngs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { expandStyle } from './friendComponentStyle';
-export const ChatExpand = ({ visible }) => {
+export const ChatExpand = ({ visible, data }) => {
   return(
     <>
       <View style={expandStyle.container}></View>
@@ -21,13 +21,13 @@ export const ChatExpand = ({ visible }) => {
         />
         <Ionicons style={expandStyle.checkIcon} name="checkmark-circle-sharp" size={25} />
         <Text style={expandStyle.modalText}>
-                    Andrea Johns
+          {data[0].username}
         </Text>
         <Text style={expandStyle.modalText1}>
-                    18673920211
+          {data[0].phone}
         </Text>
         <Text style={expandStyle.textContent}>
-                   Successfully added to your friend list
+          Successfully added to your friend list
         </Text>
         <TouchableOpacity 
           style={expandStyle.button}

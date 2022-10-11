@@ -13,7 +13,7 @@ export const SettingStyle = StyleSheet.create({
     paddingVertical: 20,
   },
   title: {
-    fontSize: 16,
+    fontSize: 20,
     color: colors.text.black
   },
   mainContainer: {

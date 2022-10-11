@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, {  useState } from 'react';
+import {  useSelector } from 'react-redux';
 import { Text, View, Dimensions } from 'react-native';
 import styled from 'styled-components/native';
 import { ContainerComponent } from '../../components/container.component';
@@ -11,6 +12,8 @@ import { images } from '../../assets/pngs';
 import { Searchbar } from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { ChatExpand } from './component/chatExpand';
+import { firebaseSDK } from '../../services/firebase';
+import { getmd5 } from '../../utils/cryptor';
 
 const Button = styled.TouchableOpacity`
   align-items: center;
@@ -52,11 +55,43 @@ const EmptyText = styled.Text`
 
 export const FriendSearchScreen = ({ navigation }) => {
   const [searchOption, setSearchOption] = useState(SearchOptions.username);
-  const [searchKeyword, setSearchKeyword] = useState('');
-  let friends = [{username: 'James', type: 'search'}];
   const [isExpandVisible, isSetExpandVisibily] = useState(false); 
+  const [keyword, setKeyword] = useState(null);
+  const [friends, setFriends] = useState([]);
+  const [is_friend, setIsFriend] = useState(true);
+  const { user } = useSelector((state) => state.Auth);
+  
   const onBack = () => {
     navigation.goBack();
+  };
+
+  const addFriend = async () => {
+    let friend_id = friends[0].objectId;
+    const doc_id = getmd5(`${user.id}-${friend_id}`);
+    await firebaseSDK.creatFriend(user.uid, friend_id, doc_id);
+    isSetExpandVisibily(true);
+  };
+
+  const searchKeyword = async () => {
+    if (searchOption == SearchOptions.username) {
+      const friend = await firebaseSDK.getUserWithName(user.uid, keyword);
+      if (friend) {
+        setFriends([friend]);
+        setIsFriend(true);
+      }
+      else {
+        setIsFriend(false);
+      }
+    } else {
+      const friend = await firebaseSDK.getUserWithPhonenumber(user.id, keyword);
+      if (friend) {
+        setFriends([friend]);
+        setIsFriend(true);
+      }
+      else{
+        setIsFriend(false);
+      }
+    }
   };
   return(
     <ContainerComponent>
@@ -89,19 +124,20 @@ export const FriendSearchScreen = ({ navigation }) => {
             style={searchStyle.searchStyle}
             clearAccessibilityLabel="Cancel"
             placeholder="Search"
-            value={searchKeyword}
-            onChangeText={(text) => setSearchKeyword(text)}
-            onSubmitEditing={() => console.log('Search')}
+            value={keyword}
+            onChangeText={(text) => setKeyword(text)}
+            onSubmitEditing = {searchKeyword}
           />
         </View>
         {
-          searchKeyword == 'james' ? 
+          friends.length > 0 ? 
             (<View>
               <FriendSection 
                 title="Showing Results"
                 items={friends}
                 onNavigate={null}
-                visible = {isSetExpandVisibily}
+                onAdd={addFriend}
+                state={isExpandVisible}
               />
             </View>) :
             (<View
@@ -115,13 +151,13 @@ export const FriendSearchScreen = ({ navigation }) => {
             >
               <EmptyText>
                 {
-                  searchKeyword !== 'Richard' ? (`Search friends using their username ${'\n'}  or phone number`) : 
+                  is_friend  ? (`Search friends using their username ${'\n'}  or phone number`) : 
                     ('No user is available by that username')
                 }
               </EmptyText>
                            
               {
-                searchKeyword == 'Richard' ? 
+                !is_friend ? 
                   <EmptyImage
                     source={images.img_search_no}
                     resizeMode="contain"
@@ -136,7 +172,7 @@ export const FriendSearchScreen = ({ navigation }) => {
         }
       </View>
       {
-        isExpandVisible == false ? (<ChatExpand visible={isSetExpandVisibily} />) : null
+        isExpandVisible == true ? (<ChatExpand data={friends} visible={isSetExpandVisibily} />) : null
       }
     </ContainerComponent>
   );
