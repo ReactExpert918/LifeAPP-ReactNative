@@ -27,5 +27,6 @@ export const colors = {
     white: 'white',
     lightgray: '#999',
     lightblue: '#96B4D2',
+    red: '#aa1100',
   },
 };

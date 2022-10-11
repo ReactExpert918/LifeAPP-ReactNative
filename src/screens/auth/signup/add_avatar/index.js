@@ -101,7 +101,6 @@ export const AddAvatar = ({ onSubmit }) => {
         <Spacer top={2} />
         <TextInput
           mode="outlined"
-          label="Public Name"
           placeholder="Public Name"
           autoCapitalize="none"
           value={publicName}

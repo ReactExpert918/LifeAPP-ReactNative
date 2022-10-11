@@ -12,4 +12,11 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  topContainer: {
+    backgroundColor: colors.ui.primary,
+    width: '100%',
+    height: 60,
+    flexDirection: 'row',
+    padding: 10,
+  },
 });
