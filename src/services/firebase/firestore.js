@@ -51,6 +51,76 @@ export const deleteUser = (user_id) => {
   });
 };
 
+export const updateFullName = (user_id, name) => {
+  return new Promise((resolve, reject) => {
+    firestore()
+      .collection(FIRESTORE_TABLES.USER)
+      .doc(user_id)
+      .update({
+        fullname: name
+      })
+      .then(() => {
+        resolve(true);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+export const updateUserName = (user_id, name) => {
+  return new Promise((resolve, reject) => {
+    firestore()
+      .collection(FIRESTORE_TABLES.USER)
+      .doc(user_id)
+      .update({
+        username: name
+      })
+      .then(() => {
+        resolve(true);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+export const updateEmailAddress = (user_id, mail) => {
+  return new Promise((resolve, reject) => {
+    firestore()
+      .collection(FIRESTORE_TABLES.USER)
+      .doc(user_id)
+      .update({
+        email: mail
+      })
+      .then(() => {
+        resolve(true);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+export const checkUserName = (user_id, name) => {
+  return new Promise((resolve, reject) => {
+    firestore()
+      .collection(FIRESTORE_TABLES.USER)
+      .where('username', '==', name)
+      .get()
+      .then((snapshot) => {
+        let result;
+        snapshot.forEach((data) => {
+          result = data.data();
+        });
+        resolve(result);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
 export const getUser = (user_id) => {
   return new Promise((resolve, reject) => {
     firestore()

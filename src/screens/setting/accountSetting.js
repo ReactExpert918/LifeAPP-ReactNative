@@ -7,18 +7,21 @@ import { HeaderComponent } from '../../components/header.component';
 import { SettingStyle } from './style';
 import { AccountSettingListComponent } from './component/accountSettingListComponent';
 import { images } from '../../assets/pngs';
-import { UpdateAccount } from './component/updateAccountComponent';
+import { UpdateName } from './component/updateNameComponent';
 import { firebaseSDK } from '../../services/firebase';
 import { MEDIA_FOLDER } from '../../services/firebase/storage';
 import { getImagePath } from '../../utils/media';
+import { UpdatePassword } from './component/updatePasswordComponent';
 
-export const AccountSetting = () => {
+export const AccountSetting = ({ navigation }) => {
   const [isVisible, isSetVisible] = useState(false);
+  const [isPass, isSetPass] = useState(false);
   const { user } = useSelector((state) => state.Auth);
   const [title, setTitle] = useState('');
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
   const [image_uri, setImage_url] = useState(null);
 
   const setImage = async (fileName) => {
@@ -30,24 +33,34 @@ export const AccountSetting = () => {
 
   useEffect(() => {
     getUserInfo(user.uid);
-  }, []);
+  });
 
   useEffect(() => {
-    if(title != '') {
+    if(title != '' && title !== 'Password') {
       isSetVisible(true);
     }
+    if(title != '' && title == 'Password') {
+      isSetPass(true);
+    }
   }, [title]);
-  const  getUserInfo = async (user_id) => {
+
+  const getUserInfo = async (user_id) => {
     let result = await firebaseSDK.getUser(user_id);
     setName(result.fullname);
     setUsername(result.username);
     setPhone(result.phone);
+    setEmail(result.email);
     setImage(`${result.objectId}.jpg`);
-
+    
   };
+
+  const onBack = () => {
+    navigation.goBack();
+  };
+
   return(
     <ContainerComponent>
-      <HeaderComponent title='Account Settings' firstClick={null} />
+      <HeaderComponent title='Account Settings' firstClick={onBack} secondClick={onBack} />
       <View style={SettingStyle.container}>
         <View style={SettingStyle.topContainer}>
           <Text style={SettingStyle.title}>Account Settings</Text>
@@ -63,10 +76,24 @@ export const AccountSetting = () => {
           <AccountSettingListComponent title='Username' value={username} click={setTitle}/>
           <AccountSettingListComponent title='Password' value={username} type='pass' click={setTitle}/>
           <AccountSettingListComponent title='Phone Number' value={phone} click={setTitle}/>
-          <AccountSettingListComponent title='Email Address' value={user.email} click={setTitle}/>
+          <AccountSettingListComponent title='Email Address' value={email} click={setTitle}/>
           <AccountSettingListComponent title='Delete Account' type='button' click={setTitle}/>
         </View>
-        {isVisible && <UpdateAccount title={title} click={isSetVisible}  />}
+        {isVisible && 
+        <UpdateName 
+          title={title} 
+          name={name} 
+          username={username} 
+          email={email} 
+          click={isSetVisible}  
+        />}
+        {
+          isPass && 
+          <UpdatePassword 
+            title={title}
+            click={isSetPass}
+          />
+        }
       </View>
     </ContainerComponent>
   );

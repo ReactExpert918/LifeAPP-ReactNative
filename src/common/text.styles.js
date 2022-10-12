@@ -47,4 +47,9 @@ export const textStyles = StyleSheet.create({
     fontWeight: '700',
     color: colors.text.black,
   },
+  redMediumThin: {
+    fontSize: 14,
+    fontWeight: '300',
+    color: colors.text.red,
+  },
 });

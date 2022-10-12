@@ -51,10 +51,15 @@ export const SignUpScreen = () => {
 
   const sendCode = async (phoneNumber) => {
     setIsLoading(true);
-    const confirmation = await firebaseSDK.signInWithPhoneNumber(phoneNumber);
-    setConfirm(confirmation);
+    try {
+      const confirmation = await firebaseSDK.signInWithPhoneNumber(phoneNumber);
+      setConfirm(confirmation);
+      setPageIndex(1);
+    } catch (e) {
+      console.log(e);
+      Alert.alert('Invalid Number!');
+    }
     setIsLoading(false);
-    setPageIndex(1);
   };
 
   const verifyCode = async (code) => {

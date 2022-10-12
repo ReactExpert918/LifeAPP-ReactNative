@@ -14,6 +14,10 @@ import {
 
 import { uploadMedia, uploadAvata, getDownloadURL } from './storage';
 import {
+  updateEmailAddress,
+  updateFullName,
+  checkUserName,
+  updateUserName,
   getUser,
   deleteUser,
   updateToken,
@@ -57,6 +61,10 @@ export const firebaseSDK = {
   uploadAvata,
   getDownloadURL,
 
+  updateFullName,
+  updateEmailAddress,
+  updateUserName,
+  checkUserName,
   createUser,
   getUser,
   getUsers,

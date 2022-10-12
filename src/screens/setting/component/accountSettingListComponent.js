@@ -6,7 +6,9 @@ import { accountSettingListStyle } from './settingComponentStyle';
 
 
 export const AccountSettingListComponent = ({ title, value, type, click }) => {
-  
+  const onClick = () => {
+    click(title);
+  };
   return(
     <View style={accountSettingListStyle.container}>
       <View style={accountSettingListStyle.left}>
@@ -24,7 +26,7 @@ export const AccountSettingListComponent = ({ title, value, type, click }) => {
           style={accountSettingListStyle.icon}
           name="md-chevron-forward-sharp"
           size={25}
-          onPress={() => click(title)}
+          onPress={onClick}
         />
       </View>
     </View>

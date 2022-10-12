@@ -2,9 +2,10 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { colors } from '../assets/colors';
+import { images } from '../assets/pngs';
 
 const header = StyleSheet.create({
   container: {
@@ -22,7 +23,8 @@ const header = StyleSheet.create({
     left: 20,
   },
   iconClose: {
-    size: 24,
+    width: 24,
+    height: 24,
     color: colors.ui.white,
     position: 'absolute',
     right: 20,
@@ -32,12 +34,17 @@ const header = StyleSheet.create({
     color: colors.text.white,
     fontWeight: 'bold',
   },
+  right: {
+    position: 'absolute',
+    right: 0,
+    top: 20
+  }
 });
 
-export const HeaderComponent = ({ title, firstClick }) => {
+export const HeaderComponent = ({ title, firstClick, secondClick }) => {
   return (
     <View style={header.container}>
-      {title == 'Add Friends' && (
+      {title == 'Add Friends' || title == 'Home' && (
         <Ionicons
           name="md-settings-outline"
           size={25}
@@ -59,8 +66,19 @@ export const HeaderComponent = ({ title, firstClick }) => {
           name="md-close"
           size={25}
           style={header.iconClose}
+          onPress={secondClick}
         />
       )}
+      {
+        title == 'Home' && (
+          <TouchableOpacity style={header.right} onPress={secondClick}>
+            <Image
+              source={images.ic_add_friend}
+              style={header.iconClose}
+            />
+          </TouchableOpacity>
+        )
+      }
     </View>
   );
 };

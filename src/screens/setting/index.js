@@ -12,9 +12,12 @@ export const SettingScreen = ({ navigation }) => {
   const goAccountSetting = () => {
     navigation.navigate(APP_NAVIGATION.account_setting);
   };
+  const onClickClose = () => {
+    navigation.goBack();
+  };
   return(
     <ContainerComponent>
-      <HeaderComponent title='Settings' firstClick={null} />
+      <HeaderComponent title='Settings' secondClick={onClickClose} />
       <View style={SettingStyle.container}>
         <View style={SettingStyle.topContainer}>
           <Text style={SettingStyle.title}>General Settings</Text>

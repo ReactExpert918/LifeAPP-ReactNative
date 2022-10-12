@@ -1,12 +1,10 @@
 /* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { View, Text, Image,  TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, Image,  TouchableOpacity,  } from 'react-native';
 import Modal from 'react-native-modal';
 import { colors } from '../../../assets/colors';
 import { images } from '../../../assets/pngs';
-
-const modalStyle =  
 
 export const ModalComponent = (props) => {
   
@@ -24,11 +22,11 @@ export const ModalComponent = (props) => {
           source={images.ic_default_profile}
         />
         <Text style={style.modalText}>
-                    Do you want to add &nbsp;
+            Do you want to add &nbsp;
           <Text style={{fontWeight: 'bold', color: colors.text.primary}}>
-                        Andrea
+            Andrea
           </Text>
-                    &nbsp; your friend list ?
+          &nbsp; your friend list ?
         </Text>
         <View style={style.buttonContainer}>
           <TouchableOpacity 

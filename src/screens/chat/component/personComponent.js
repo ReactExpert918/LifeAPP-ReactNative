@@ -22,7 +22,7 @@ export const PersonComponent = ({CELLInfo, onNavigate}) => {
               {CELLInfo.username}
             </Text>
             <Text variant="hint" style={{color: colors.text.lightgray}}>
-              {CELLInfo.message.length < 50 ? CELLInfo.message : `${CELLInfo.message.slice(0, 50)} ...`}
+              {CELLInfo.message.length < 35 ? CELLInfo.message : `${CELLInfo.message.slice(0, 35)} ...`}
             </Text>
           </View>
         )}

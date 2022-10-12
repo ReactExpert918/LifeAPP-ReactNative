@@ -1,4 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native';
+import { color } from 'react-native-reanimated';
 import { colors } from '../../../assets/colors';
 
 export const settingListStyle = StyleSheet.create({
@@ -77,7 +78,7 @@ export const accountSettingListStyle = StyleSheet.create({
 export const updateExpand = StyleSheet.create({
   container: {
     position: 'absolute',
-    height: Dimensions.get('window').height - 350,
+    height: Dimensions.get('window').height - 300,
     width: '100%',
     backgroundColor: 'black',
     top: 0,
@@ -85,19 +86,41 @@ export const updateExpand = StyleSheet.create({
   },
   close: {
     position: 'absolute',
-    bottom: 270,
+    bottom: 230,
     right: 30,
     color: colors.ui.primary,
   },
-  expand: {
+  passclose: {
     position: 'absolute',
-    height: 350,
+    bottom: 260,
+    right: 30,
+    color: colors.ui.primary,
+  },
+  passexpand: {
+    position: 'absolute',
+    height: 330,
     backgroundColor: colors.ui.white,
     flex: 1,
     bottom: 0,
     width: '100%',
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
+    borderTopLeftRadius: 40,
+    borderTopRightRadius: 40,
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    paddingVertical: 20,
+    paddingHorizontal: 20,
+    paddingBottom: 10
+  },
+  expand: {
+    position: 'absolute',
+    height: 300,
+    backgroundColor: colors.ui.white,
+    flex: 1,
+    bottom: 0,
+    width: '100%',
+    borderTopLeftRadius: 40,
+    borderTopRightRadius: 40,
     flexDirection: 'column',
     justifyContent: 'space-around',
     alignItems: 'center',
@@ -111,31 +134,40 @@ export const updateExpand = StyleSheet.create({
     paddingHorizontal: 10,
     fontWeight: 'bold',
     fontSize: 18,
+    paddingTop: 20
   },
   input: {
     flexDirection: 'column',
-    justifyContent: 'flex-start',
-    position: 'relative'
+    justifyContent: 'center',
+    position: 'relative',
+    flex: 1,
+    width: '100%'
   },
   text: {
-    position: 'absolute',
-    left: -200,
-    top: -40
+    paddingVertical: 10,
+    fontSize: 16,
+    color: colors.text.lightgray
   },
   inputText: {
     backgroundColor: '#f2f2f2',
-    position: 'absolute',
     paddingHorizontal: 10, 
-    width: Dimensions.get('window').width - 100,
-    left: -190,
-    top: 0
+    width: Dimensions.get('window').width - 50,
+    fontSize: 16,
+    color: colors.text.black
+  },
+  warnText: {
+    backgroundColor: '#FADCE6',
+    paddingHorizontal: 10, 
+    width: Dimensions.get('window').width - 50,
+    fontSize: 16,
+    color: colors.text.black
   },
   button: {
     backgroundColor: colors.ui.primary,
-    paddingHorizontal: (Dimensions.get('window').width - 200) / 2,
-    borderRadius: 10,
+    paddingHorizontal: (Dimensions.get('window').width - 120) / 2,
+    borderRadius: 5,
     paddingVertical: 15,
-    marginBottom: 30,
+    marginBottom: 10,
   },
   buttonText: {
     fontWeight: 'bold',
