@@ -12,10 +12,14 @@ import { firebaseSDK } from '../../services/firebase';
 import { MEDIA_FOLDER } from '../../services/firebase/storage';
 import { getImagePath } from '../../utils/media';
 import { UpdatePassword } from './component/updatePasswordComponent';
+import { UpdatePhoneComponent } from './component/updatePhoneComponent';
 
 export const AccountSetting = ({ navigation }) => {
+
   const [isVisible, isSetVisible] = useState(false);
   const [isPass, isSetPass] = useState(false);
+  const [isPhone, isSetPhone] = useState(false);
+
   const { user } = useSelector((state) => state.Auth);
   const [title, setTitle] = useState('');
   const [name, setName] = useState('');
@@ -41,6 +45,9 @@ export const AccountSetting = ({ navigation }) => {
     }
     if(title != '' && title == 'Password') {
       isSetPass(true);
+    }
+    if(title != '' && title == 'Phone Number') {
+      isSetPhone(true);
     }
   }, [title]);
 
@@ -94,6 +101,10 @@ export const AccountSetting = ({ navigation }) => {
             click={isSetPass}
           />
         }
+        {/* {
+          isPhone && 
+          <UpdatePhoneComponent />
+        } */}
       </View>
     </ContainerComponent>
   );

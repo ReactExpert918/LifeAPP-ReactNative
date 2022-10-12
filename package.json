@@ -45,6 +45,7 @@
     "react-native-screens": "^3.17.0",
     "react-native-smooth-pincode-input": "https://github.com/Amazing1974/react-native-smooth-pincode-input.git",
     "react-native-svg": "^13.3.0",
+    "react-native-ui-lib": "^6.21.2",
     "react-native-vector-icons": "^9.2.0",
     "react-redux": "^8.0.4",
     "redux": "^4.2.0",
