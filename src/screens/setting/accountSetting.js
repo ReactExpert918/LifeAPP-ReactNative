@@ -40,14 +40,20 @@ export const AccountSetting = ({ navigation }) => {
   });
 
   useEffect(() => {
-    if(title != '' && title !== 'Password') {
+    if(title != '' && title !== 'Password' && title != 'Phone Number') {
       isSetVisible(true);
+      isSetPass(false);
+      isSetPhone(false);
     }
     if(title != '' && title == 'Password') {
       isSetPass(true);
+      isSetVisible(false);
+      isSetPhone(false);
     }
     if(title != '' && title == 'Phone Number') {
       isSetPhone(true);
+      isSetPass(false);
+      isSetVisible(false);
     }
   }, [title]);
 
@@ -101,10 +107,13 @@ export const AccountSetting = ({ navigation }) => {
             click={isSetPass}
           />
         }
-        {/* {
+        {
           isPhone && 
-          <UpdatePhoneComponent />
-        } */}
+          <UpdatePhoneComponent
+            title={title}
+            click={isSetPhone}
+          />
+        }
       </View>
     </ContainerComponent>
   );

@@ -9,9 +9,9 @@ export const dateStringFromNow = (timeStamp) => {
     return WEEKS[date.getDay()];
   }
 
-  const options = { year: "2-digit", month: "2-digit", day: "2-digit" };
+  const options = { year: '2-digit', month: '2-digit', day: '2-digit' };
 
-  return date.toLocaleDateString("en-US", options);
+  return date.toLocaleDateString('en-US', options);
 };
 
 export const timeForChat = (timeStamp) => {
@@ -21,7 +21,7 @@ export const timeForChat = (timeStamp) => {
 
   const minutes = date.getMinutes();
 
-  return `${hours}:${minutes} ${hours >= 12 ? "PM" : "AM"}`;
+  return `${hours}:${minutes} ${hours >= 12 ? 'PM' : 'AM'}`;
 };
 
 const isToday = (someDate) => {
@@ -42,11 +42,11 @@ const isThisWeek = (someDate) => {
 };
 
 const WEEKS = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
+  'Sunday',
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday',
 ];

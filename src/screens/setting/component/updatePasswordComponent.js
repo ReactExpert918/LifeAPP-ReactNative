@@ -54,7 +54,9 @@ export const UpdatePassword = ({ title, click}) => {
       ]);
       return;
     }
+
     await firebaseSDK.updatePassword(pass);
+    console.log('-------------------');
     click(title);
   };
 

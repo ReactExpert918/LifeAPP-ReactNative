@@ -8,7 +8,7 @@ import { SettingScreen } from '../screens/setting/index';
 import { AccountSetting } from '../screens/setting/accountSetting';
 import { HomeNavigator } from './home';
 import { ChatScreen } from '../screens/chat';
-// import { ChatDetailsScreen } from '../screens/chat/chatDetails';
+import { ChatDetailsScreen } from '../screens/chat/chatDetails';
 
 const Stack = createStackNavigator();
 
@@ -29,6 +29,10 @@ export const AppNavigator = () => {
         <Stack.Screen 
           name={APP_NAVIGATION.chat} 
           component={ChatScreen} 
+        />
+        <Stack.Screen 
+          name={APP_NAVIGATION.chat_detail} 
+          component={ChatDetailsScreen} 
         />
         <Stack.Screen
           name={APP_NAVIGATION.friend_search}

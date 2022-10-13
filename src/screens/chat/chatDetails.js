@@ -1,16 +1,47 @@
-import React from 'react';
+import React, {useState, useRef} from 'react';
 import { ContainerComponent } from '../../components/container.component';
-import { View, ScrollView } from 'react-native';
+import { View, ScrollView, Text, Dimensions } from 'react-native';
+import styled from 'styled-components/native';
 import { ChatHeaderComponent } from './component/chatHeadComponent';
 import { SearchbarComponent } from './component/chatSearchComponent';
 import { chatStyle } from './styled';
-import { ChatSection } from './chatSection';
+import { colors } from '../../assets/colors';
+import { TextMessage } from './component/message/textMessage';
+import { AvatarComponent } from './component/message/avatarComponent';
+import { ChatInputComponent } from './component/message/chatInput';
 
-export const ChatDetailsScreen = () => {
-  const recommandFriend =             
-              [{username: 'Andrea', message: 'Hello World. Please Reply', new: 3}, {username: 'Andrea2', message: 'Have much experience in version controller, ticket, Api testing tools, Design tools, etc.', new: 2}, 
-                {username: 'Andrea3', message: 'Hello World. Please Reply', new: 1}, {username: 'Andrea4', message: 'Hello World. Please Reply', new: 0},
-                {username: 'Andrea5', message: 'Hello World. Please Reply', new: 0}];
+const MainContainer = styled.ScrollView`
+  flex: 1;
+  background-color: ${colors.bg.primary};
+  padding: 10px; 
+`;
+
+const Container = styled.View`
+  align-items: center;
+  justify-content: ${(props) => (props.data.username !== 'Andrea' ? 'flex-start' : 'flex-end')};
+  flex-direction: row;
+  border-radius: 12px;
+  width: ${(props) => props.maxWidth}
+  margin-bottom: 10px;
+`;
+
+export const ChatDetailsScreen = ({ route }) => {
+  // const { name } = route.params; 
+
+  const messages = [
+    { username: 'Andrea', message: 'Hello World. Please Reply', createdAt: 1651303751619 },
+    {
+      username: 'Andrea2',
+      message:
+        'Have much experience in version controller, ticket, Api testing tools, Design tools, etc.',
+      createdAt: 1651303751622
+    },
+    { username: 'Andrea', message: 'Hello World.', createdAt: 1651303851635 },
+    { username: 'Andrea', message: 'Hello World. Please ', createdAt: 1651303951655 },
+    { username: 'Andrea2', message: 'Hello World. Please Reply', createdAt: 1651310751679 },
+  ];
+  const maxWidth = Dimensions.get('window').width - 175;
+  const width = Dimensions.get('window').width - 20;
   return (
     <ContainerComponent>
       <ChatHeaderComponent />
@@ -19,17 +50,48 @@ export const ChatDetailsScreen = () => {
         <View style={chatStyle.topContainer}>
           <SearchbarComponent />
         </View>
-        <View style={chatStyle.container}>
-          <View style={chatStyle.divider}></View>
-          <ScrollView style={{marginTop: 20}}>
-            {recommandFriend.length > 0 &&(
-              <ChatSection 
-                items={recommandFriend}
-                onNavigate={null}
-              />
-            )}
-          </ScrollView>
-        </View>
+        <MainContainer>
+          {
+            messages && (
+              messages.map((item, index) => 
+              
+                <Container  key={`data-${index}`} data={item} maxWidth={width}>
+                  {
+                    item.username !== 'Andrea' ? (
+                      <>
+                        <AvatarComponent 
+                          datas={item} 
+                          maxWidth={maxWidth}
+                          key={`data-${index}`}
+                        />
+                        <TextMessage 
+                          data={item}
+                          key={`data-${index}`}
+                          maxWidth={maxWidth}
+                        />
+                      </>                       
+                    ) : (
+                      <>
+                        <TextMessage 
+                          data={item}
+                          key={`data-${index}`}
+                          maxWidth={maxWidth}
+                        />
+                        <AvatarComponent 
+                          datas={item} 
+                          maxWidth={maxWidth}
+                          key={`data-${index}`}
+                        />
+                      </>
+                    )
+                  }
+                </Container>
+              
+              )
+            )
+          }
+        </MainContainer>
+        <ChatInputComponent />
       </View>
     </ContainerComponent>
   );

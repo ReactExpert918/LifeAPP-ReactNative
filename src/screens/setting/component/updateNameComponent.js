@@ -29,7 +29,7 @@ export const UpdateName = ({ title, click, name, username, email }) => {
         return;
       }
       else {
-        let result = await firebaseSDK.updateFullName(user.uid, isName);
+        await firebaseSDK.updateFullName(user.uid, isName);
         click(false);
       }
     }
@@ -52,6 +52,7 @@ export const UpdateName = ({ title, click, name, username, email }) => {
         else {
           setAvailable(true);
           let result = await firebaseSDK.updateUserName(user.uid, isUserName);
+          firebaseSDK.updateDisplayName(isUserName);
           firebaseSDK.updateDisplayName(isUserName);
           click(false);
         }
@@ -79,7 +80,7 @@ export const UpdateName = ({ title, click, name, username, email }) => {
         return;
       }
       else {
-        await firebaseSDK.updateEmailAddress(user.uid, isEmail);
+        let result = await firebaseSDK.updateEmailAddress(user.uid, isEmail);
         firebaseSDK.updateEmail(isEmail);
         click(false);
       }

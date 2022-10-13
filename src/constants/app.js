@@ -8,6 +8,7 @@ export const APP_NAVIGATION = {
   home: 'Home',
   setting: 'Settings',
   chat: 'ChatDetail',
+  chat_detail: 'ChatDetails',
   video: 'VideoCall',
   audio: 'VoiceCall',
   friend_add: 'FriendAdd',

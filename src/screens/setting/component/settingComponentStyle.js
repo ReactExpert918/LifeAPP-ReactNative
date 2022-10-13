@@ -84,6 +84,37 @@ export const updateExpand = StyleSheet.create({
     top: 0,
     opacity: 0.5,
   },
+  phoneContainer: {
+    position: 'absolute',
+    height: Dimensions.get('window').height - 330,
+    width: '100%',
+    backgroundColor: 'black',
+    top: 0,
+    opacity: 0.5,
+  },
+  phone: {
+    position: 'absolute',
+    height: 330,
+    backgroundColor: colors.ui.white,
+    flex: 1,
+    bottom: 0,
+    width: '100%',
+    borderTopLeftRadius: 40,
+    borderTopRightRadius: 40,
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    paddingVertical: 20,
+    paddingHorizontal: 20,
+    paddingBottom: 10
+  },
+  phoneText: {
+    color: colors.text.black,
+    fontSize: 24,
+    paddingBottom: 20,
+    textAlign: 'center',
+    fontWeight: 'bold'
+  },
   close: {
     position: 'absolute',
     bottom: 230,

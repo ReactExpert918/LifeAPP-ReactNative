@@ -4,9 +4,10 @@ import { View, ScrollView } from 'react-native';
 import { ChatHeaderComponent } from './component/chatHeadComponent';
 import { SearchbarComponent } from './component/chatSearchComponent';
 import { chatStyle } from './styled';
-import { ChatSection } from './chatSection';
+import { APP_NAVIGATION } from '../../constants/app';
+import { PersonComponent } from './component/personComponent';
 
-export const ChatScreen = () => {
+export const ChatScreen = ({ navigation }) => {
   const recommandFriend = [
     { username: 'Andrea', message: 'Hello World. Please Reply', new: 3 },
     {
@@ -19,6 +20,10 @@ export const ChatScreen = () => {
     { username: 'Andrea4', message: 'Hello World. Please Reply', new: 0 },
     { username: 'Andrea5', message: 'Hello World. Please Reply', new: 0 },
   ];
+  const onNavigate = (name) => {
+    console.log(name);
+    navigation.navigate(APP_NAVIGATION.chat_detail, {name});
+  };
   return (
     <ContainerComponent>
       <ChatHeaderComponent />
@@ -30,9 +35,17 @@ export const ChatScreen = () => {
         <View style={chatStyle.container}>
           <View style={chatStyle.divider}></View>
           <ScrollView style={{ marginTop: 20 }}>
-            {recommandFriend.length > 0 && (
-              <ChatSection items={recommandFriend} onNavigate={null} />
-            )}
+            {
+              recommandFriend.length > 0 && (
+                recommandFriend.map((data, index) => 
+                  <PersonComponent
+                    CELLInfo={data}
+                    key={`data-${index}`}
+                    onNavigate={onNavigate}
+                    name={data.username}
+                  />
+                )
+              )}
           </ScrollView>
         </View>
       </View>
