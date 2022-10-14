@@ -15,6 +15,7 @@ export const SearchbarComponent = () => {
         value={searchKeyword}
         onChangeText={(text) => setSearchKeyword(text)}
         onSubmitEditing={() => console.log('Search')}
+        inputStyle={{ padding: 0 }}
       />
     </View>
   );

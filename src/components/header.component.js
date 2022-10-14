@@ -1,4 +1,3 @@
-
 /* eslint-disable react/prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -26,6 +25,7 @@ const header = StyleSheet.create({
     width: 24,
     height: 24,
     color: colors.ui.white,
+    tintColor: colors.ui.white,
     position: 'absolute',
     right: 20,
   },
@@ -37,21 +37,22 @@ const header = StyleSheet.create({
   right: {
     position: 'absolute',
     right: 0,
-    top: 20
-  }
+    top: 20,
+  },
 });
 
 export const HeaderComponent = ({ title, firstClick, secondClick }) => {
   return (
     <View style={header.container}>
-      {title == 'Add Friends' || title == 'Home' && (
-        <Ionicons
-          name="md-settings-outline"
-          size={25}
-          style={header.iconSetting}
-          onPress={firstClick}
-        />
-      )}
+      {title == 'Add Friends' ||
+        (title == 'Home' && (
+          <Ionicons
+            name="md-settings-outline"
+            size={25}
+            style={header.iconSetting}
+            onPress={firstClick}
+          />
+        ))}
       {(title == 'Search Friends' || title == 'Account Settings') && (
         <Ionicons
           name="md-chevron-back-sharp"
@@ -61,7 +62,9 @@ export const HeaderComponent = ({ title, firstClick, secondClick }) => {
         />
       )}
       <Text style={header.text}>{title}</Text>
-      {(title == 'Add Friends' || title == 'Settings' || title == 'Account Settings') && (
+      {(title == 'Add Friends' ||
+        title == 'Settings' ||
+        title == 'Account Settings') && (
         <Ionicons
           name="md-close"
           size={25}
@@ -69,16 +72,11 @@ export const HeaderComponent = ({ title, firstClick, secondClick }) => {
           onPress={secondClick}
         />
       )}
-      {
-        title == 'Home' && (
-          <TouchableOpacity style={header.right} onPress={secondClick}>
-            <Image
-              source={images.ic_add_friend}
-              style={header.iconClose}
-            />
-          </TouchableOpacity>
-        )
-      }
+      {title == 'Home' && (
+        <TouchableOpacity style={header.right} onPress={secondClick}>
+          <Image source={images.ic_add_friend} style={header.iconClose} />
+        </TouchableOpacity>
+      )}
     </View>
   );
 };

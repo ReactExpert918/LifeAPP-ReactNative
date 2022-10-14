@@ -11,7 +11,7 @@ const Reducer = (state = initialState, action) => {
     case AUTH_ACTION.USER_LOGIN:
       return { ...state, ...action.payload, isLogin: true };
     case AUTH_ACTION.USER_LOGOUT:
-      return { ...state, isLogin: false };
+      return { ...state, isLogin: false, user: {} };
     case AUTH_ACTION.USER_UPDATE:
       return { ...state, user: action.payload };
     default: {

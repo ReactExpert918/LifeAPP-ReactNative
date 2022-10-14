@@ -5,14 +5,14 @@ export const chatSearchComponentStyle = StyleSheet.create({
   container: {
     paddingHorizontal: 10,
     backgroundColor: colors.ui.primary,
-    flex: 1
+    flex: 1,
   },
   searchStyle: {
     color: colors.text.white,
     height: 40,
     borderRadius: 8,
     backgroundColor: colors.ui.secondary,
-  }
+  },
 });
 
 export const personComponentStyle = StyleSheet.create({
@@ -22,7 +22,7 @@ export const personComponentStyle = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start',
     flexDirection: 'row',
-    padding: 20
+    padding: 20,
   },
   headerImage: {
     width: 48,
@@ -37,6 +37,6 @@ export const personComponentStyle = StyleSheet.create({
     borderRadius: 12,
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center'
-  }
+    alignItems: 'center',
+  },
 });

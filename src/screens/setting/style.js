@@ -14,7 +14,7 @@ export const SettingStyle = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    color: colors.text.black
+    color: colors.text.black,
   },
   mainContainer: {
     paddingHorizontal: 10,
@@ -26,10 +26,10 @@ export const SettingStyle = StyleSheet.create({
   },
   signout: {
     position: 'absolute',
-    bottom: 40,
+    bottom: 10,
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 20
+    padding: 20,
   },
   image: {
     width: 36,
@@ -38,7 +38,7 @@ export const SettingStyle = StyleSheet.create({
   text: {
     paddingHorizontal: 20,
     fontSize: 18,
-    color: 'red'
+    color: 'red',
   },
   avatarContanier: {
     width: '100%',
@@ -50,7 +50,7 @@ export const SettingStyle = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 50,
-    margin: 'auto'
+    margin: 'auto',
   },
   iconImage: {
     width: 30,
@@ -61,6 +61,6 @@ export const SettingStyle = StyleSheet.create({
     overflow: 'hidden',
     borderRadius: 15,
     borderColor: 'white',
-    borderWidth: 2
-  }
+    borderWidth: 2,
+  },
 });
