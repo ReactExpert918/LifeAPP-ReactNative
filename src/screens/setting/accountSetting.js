@@ -1,21 +1,21 @@
-/* eslint-disable react/prop-types */
-import React , {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Text, View, Image, TouchableOpacity } from 'react-native';
-import { ContainerComponent } from '../../components/container.component';
-import { HeaderComponent } from '../../components/header.component';
-import { SettingStyle } from './style';
-import { AccountSettingListComponent } from './component/accountSettingListComponent';
+import { useNavigation } from '@react-navigation/native';
+
+import { Container, Header } from '../../components';
 import { images } from '../../assets/pngs';
+import { AccountSettingListComponent } from './component/accountSettingListComponent';
 import { UpdateName } from './component/updateNameComponent';
 import { firebaseSDK } from '../../services/firebase';
 import { MEDIA_FOLDER } from '../../services/firebase/storage';
 import { getImagePath } from '../../utils/media';
 import { UpdatePassword } from './component/updatePasswordComponent';
 import { UpdatePhoneComponent } from './component/updatePhoneComponent';
+import { styles } from './styles';
 
-export const AccountSetting = ({ navigation }) => {
-
+export const AccountSetting = () => {
+  const navigation = useNavigation();
   const [isVisible, isSetVisible] = useState(false);
   const [isPass, isSetPass] = useState(false);
   const [isPhone, isSetPhone] = useState(false);
@@ -37,20 +37,20 @@ export const AccountSetting = ({ navigation }) => {
 
   useEffect(() => {
     getUserInfo(user.uid);
-  });
+  }, []);
 
   useEffect(() => {
-    if(title != '' && title !== 'Password' && title != 'Phone Number') {
+    if (title != '' && title !== 'Password' && title != 'Phone Number') {
       isSetVisible(true);
       isSetPass(false);
       isSetPhone(false);
     }
-    if(title != '' && title == 'Password') {
+    if (title != '' && title == 'Password') {
       isSetPass(true);
       isSetVisible(false);
       isSetPhone(false);
     }
-    if(title != '' && title == 'Phone Number') {
+    if (title != '' && title == 'Phone Number') {
       isSetPhone(true);
       isSetPass(false);
       isSetVisible(false);
@@ -64,57 +64,74 @@ export const AccountSetting = ({ navigation }) => {
     setPhone(result.phone);
     setEmail(result.email);
     setImage(`${result.objectId}.jpg`);
-    
   };
 
   const onBack = () => {
     navigation.goBack();
   };
 
-  return(
-    <ContainerComponent>
-      <HeaderComponent title='Account Settings' firstClick={onBack} secondClick={onBack} />
-      <View style={SettingStyle.container}>
-        <View style={SettingStyle.topContainer}>
-          <Text style={SettingStyle.title}>Account Settings</Text>
+  return (
+    <Container>
+      <Header
+        title="Account Settings"
+        firstClick={onBack}
+        secondClick={onBack}
+      />
+      <View style={styles.container}>
+        <View style={styles.topContainer}>
+          <Text style={styles.title}>Account Settings</Text>
         </View>
-        <View style={SettingStyle.mainContainer}>
-          <View style={SettingStyle.avatarContanier}>
+        <View style={styles.mainContainer}>
+          <View style={styles.avatarContanier}>
             <TouchableOpacity>
-              <Image style={SettingStyle.avatarImage} source={{uri: image_uri}} />
-              <Image style={SettingStyle.iconImage} source={images.camera} />
+              <Image style={styles.avatarImage} source={{ uri: image_uri }} />
+              <Image style={styles.iconImage} source={images.camera} />
             </TouchableOpacity>
           </View>
-          <AccountSettingListComponent title='Name' value={name} click={setTitle} />
-          <AccountSettingListComponent title='Username' value={username} click={setTitle}/>
-          <AccountSettingListComponent title='Password' value={username} type='pass' click={setTitle}/>
-          <AccountSettingListComponent title='Phone Number' value={phone} click={setTitle}/>
-          <AccountSettingListComponent title='Email Address' value={email} click={setTitle}/>
-          <AccountSettingListComponent title='Delete Account' type='button' click={setTitle}/>
+          <AccountSettingListComponent
+            title="Name"
+            value={name}
+            click={setTitle}
+          />
+          <AccountSettingListComponent
+            title="Username"
+            value={username}
+            click={setTitle}
+          />
+          <AccountSettingListComponent
+            title="Password"
+            value={username}
+            type="pass"
+            click={setTitle}
+          />
+          <AccountSettingListComponent
+            title="Phone Number"
+            value={phone}
+            click={setTitle}
+          />
+          <AccountSettingListComponent
+            title="Email Address"
+            value={email}
+            click={setTitle}
+          />
+          <AccountSettingListComponent
+            title="Delete Account"
+            type="button"
+            click={setTitle}
+          />
         </View>
-        {isVisible && 
-        <UpdateName 
-          title={title} 
-          name={name} 
-          username={username} 
-          email={email} 
-          click={isSetVisible}  
-        />}
-        {
-          isPass && 
-          <UpdatePassword 
+        {isVisible && (
+          <UpdateName
             title={title}
-            click={isSetPass}
+            name={name}
+            username={username}
+            email={email}
+            click={isSetVisible}
           />
-        }
-        {
-          isPhone && 
-          <UpdatePhoneComponent
-            title={title}
-            click={isSetPhone}
-          />
-        }
+        )}
+        {isPass && <UpdatePassword title={title} click={isSetPass} />}
+        {isPhone && <UpdatePhoneComponent title={title} click={isSetPhone} />}
       </View>
-    </ContainerComponent>
+    </Container>
   );
 };

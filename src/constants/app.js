@@ -1,3 +1,5 @@
+import { Dimensions } from 'react-native';
+
 export const SHEETS = {
   imagePicker: 'ImagePicker',
 };
@@ -18,3 +20,6 @@ export const APP_NAVIGATION = {
   group_member: 'GroupMember',
   account_setting: 'AccountSetting',
 };
+
+export const SCREEN_WIDTH = Dimensions.get('window').width;
+export const SCREEN_HEIGHT = Dimensions.get('window').height;

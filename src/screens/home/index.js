@@ -4,12 +4,10 @@ import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
 import { textStyles } from '../../common/text.styles';
-import { Avatar, Spacer } from '../../components';
-import { SearchbarComponent } from '../chat/component/chatSearchComponent';
+import { Avatar, SearchBar, Spacer, Header, Container } from '../../components';
 import { APP_NAVIGATION } from '../../constants/app';
-import { HeaderComponent } from '../../components/header.component';
-import { styles } from './styles';
 import { Friends, Groups } from './components';
+import { styles } from './styles';
 
 export const HomeScreen = () => {
   const { user } = useSelector((state) => state.Auth);
@@ -24,15 +22,13 @@ export const HomeScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <HeaderComponent
+    <Container>
+      <Header
         title="Home"
         firstClick={onClickSetting}
         secondClick={onClickFriend}
       />
-      <View style={styles.topContainer}>
-        <SearchbarComponent />
-      </View>
+      <SearchBar />
       <View style={styles.profileContainer}>
         <Avatar size={50} url={user.pictureAt} />
         <Spacer right={16} />
@@ -45,6 +41,6 @@ export const HomeScreen = () => {
       </View>
       <Friends />
       <Groups />
-    </View>
+    </Container>
   );
 };

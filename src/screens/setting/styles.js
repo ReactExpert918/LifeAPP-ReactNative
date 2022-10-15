@@ -1,9 +1,8 @@
 import { StyleSheet } from 'react-native';
 import { colors } from '../../assets/colors';
 
-export const SettingStyle = StyleSheet.create({
+export const styles = StyleSheet.create({
   container: {
-    // padding: 10,
     flex: 1,
   },
   topContainer: {

@@ -31,7 +31,7 @@ const Input = styled.TextInput`
   margin-top: 6px;
   margin-bottom: 6px;
   margin-right: 4px;
-  font-size: 16px
+  font-size: 16px;
 `;
 
 const IconAttach = styled(Ionicons).attrs({
@@ -48,7 +48,7 @@ const AttachContainer = styled.View`
 `;
 
 const AttachContainerCam = styled.View`
-  paddingRight: 8px;
+  paddingright: 8px;
   margin-right: 4px;
   border-radius: 18px;
 `;
@@ -110,13 +110,12 @@ export const ChatInputComponent = () => {
           // onSubmitEditing={onSubmitChat}
           // value={message}
         />
-        
+
         <TouchableOpacity>
           <MicContainer>
             <IconMic />
           </MicContainer>
         </TouchableOpacity>
-   
       </InputAreaContainer>
     </SafeAreaView>
   );

@@ -1,19 +1,20 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import { Text, View, Image, TouchableOpacity, Alert } from 'react-native';
 import { useDispatch } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 
-import { ContainerComponent } from '../../components/container.component';
-import { HeaderComponent } from '../../components/header.component';
-import { SettingStyle } from './style';
+import { Container, Header } from '../../components';
 import { SettingListComponent } from './component/settingListComponent';
 import { images } from '../../assets/pngs';
 import { APP_NAVIGATION } from '../../constants/app';
 import { firebaseSDK } from '../../services/firebase';
 import { logOut } from '../../redux/actions';
+import { styles } from './styles';
 
-export const SettingScreen = ({ navigation }) => {
+export const SettingScreen = () => {
   const dispatch = useDispatch();
+  const navigation = useNavigation();
+
   const goAccountSetting = () => {
     navigation.navigate(APP_NAVIGATION.account_setting);
   };
@@ -38,27 +39,27 @@ export const SettingScreen = ({ navigation }) => {
   };
 
   return (
-    <ContainerComponent>
-      <HeaderComponent title="Settings" secondClick={onClickClose} />
-      <View style={SettingStyle.container}>
-        <View style={SettingStyle.topContainer}>
-          <Text style={SettingStyle.title}>General Settings</Text>
+    <Container>
+      <Header title="Settings" secondClick={onClickClose} />
+      <View style={styles.container}>
+        <View style={styles.topContainer}>
+          <Text style={styles.title}>General Settings</Text>
         </View>
-        <View style={SettingStyle.mainContainer}>
+        <View style={styles.mainContainer}>
           <SettingListComponent
             title="Account Setting"
-            click={goAccountSetting}
+            onClick={goAccountSetting}
             icon={images.setting}
           />
           <SettingListComponent title="Zed Pay" icon={images.zed} />
           <SettingListComponent title="Privacy Police" icon={images.privacy} />
           <SettingListComponent title="About Us" icon={images.help} />
         </View>
-        <TouchableOpacity onPress={onSignOut} style={SettingStyle.signout}>
-          <Image source={images.signout} style={SettingStyle.image} />
-          <Text style={SettingStyle.text}>Sign Out</Text>
+        <TouchableOpacity onPress={onSignOut} style={styles.signout}>
+          <Image source={images.signout} style={styles.image} />
+          <Text style={styles.text}>Sign Out</Text>
         </TouchableOpacity>
       </View>
-    </ContainerComponent>
+    </Container>
   );
 };
