@@ -5,12 +5,12 @@ import { images } from '../../../assets/pngs';
 import { TouchableOpacity, View, Text, Image } from 'react-native';
 import { personComponentStyle } from './chatComponentStyled';
 
-export const PersonComponent = ({CELLInfo, onNavigate, name}) => {
-  
+export const PersonComponent = ({CELLInfo, onNavigate }) => {
+  console.log(CELLInfo);
   return(
     <TouchableOpacity 
       style={personComponentStyle.container} 
-      onPress={onNavigate(name)}
+      onPress={onNavigate}
     >
       <Image 
         style={personComponentStyle.headerImage} 

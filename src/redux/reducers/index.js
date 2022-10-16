@@ -4,6 +4,8 @@ import Splash from './splash';
 import Auth from './auth';
 import Home from './home';
 import Friend from './friend';
+import Chat from './chat';
+import Setting from './setting';
 import { AUTH_ACTION } from '../../constants/redux';
 
 export const CombinedReducer = combineReducers({
@@ -11,6 +13,8 @@ export const CombinedReducer = combineReducers({
   Auth,
   Home,
   Friend,
+  Chat,
+  Setting,
 });
 
 const rootReducer = (state, action) => {

@@ -32,7 +32,6 @@ export const uploadMedia = (type, path) => {
 export const uploadAvata = (fileName, path) => {
   return new Promise((resolve, reject) => {
     let ref = storage().ref(`${MEDIA_FOLDER.USER}/${fileName}`);
-
     ref
       .putFile(path)
       .then(async (res) => {

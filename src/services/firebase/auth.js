@@ -33,7 +33,13 @@ export const linkCredential = async (credential) => {
 };
 
 export const updateEmail = (email) => {
-  return auth().currentUser.updateEmail(email);
+  return new Promise((resolve, reject) => {
+    auth()
+      .currentUser
+      .updateEmail(email)
+      .then((res) => resolve(res))
+      .catch((err) => reject(err));
+  });
 };
 
 export const updatePassword = (password) => {

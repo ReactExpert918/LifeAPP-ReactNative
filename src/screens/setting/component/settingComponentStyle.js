@@ -1,4 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native';
+import { white } from 'react-native-paper/lib/typescript/styles/colors';
 import { color } from 'react-native-reanimated';
 import { colors } from '../../../assets/colors';
 
@@ -11,6 +12,11 @@ export const settingListStyle = StyleSheet.create({
     alignItems: 'center',
     borderBottomWidth: 1,
     borderBottomColor: colors.ui.bottom
+  },
+  touch: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   left: {
     flexDirection: 'row',
@@ -209,4 +215,52 @@ export const updateExpand = StyleSheet.create({
     color: colors.text.black,
     padding: 30,
   },
+});
+
+export const updateSuccess = StyleSheet.create({
+  container: {
+    position: 'absolute',
+    flex: 1,
+    top: -60,
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: Dimensions.get('window').height,
+    width: '100%',
+  },
+  background: {
+    position: 'absolute',
+    flex: 1,
+    top: 0,
+    opacity: 0.5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 1000,
+    height: Dimensions.get('window').height,
+    width: '100%',
+    backgroundColor: 'black',
+  },
+  main: {
+    width: Dimensions.get('window').width-60,
+    backgroundColor: 'white',
+    zIndex: 10000,
+    height: 250,
+    borderRadius: 30,
+    padding: 30,
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  icon: {
+    color: '#19a52e',
+  },
+  text: {
+    fontSize: 20,
+    color: colors.text.black,
+    textAlign: 'center',
+    fontWeight: '600'
+  },
+  button: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: colors.text.primary,
+  }
 });

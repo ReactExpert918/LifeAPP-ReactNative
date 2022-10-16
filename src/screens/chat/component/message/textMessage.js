@@ -40,7 +40,7 @@ export const TextMessage = ({ data, maxWidth }) => {
         variant="label"
         datas={data}
       >
-        {data.message}
+        {data.text}
       </Texts>
 
       <DateTimeComponent

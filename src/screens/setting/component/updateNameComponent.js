@@ -1,13 +1,14 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Text, View, Alert, TouchableOpacity, TextInput } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { images } from '../../../assets/pngs';
 import { updateExpand } from './settingComponentStyle'; 
 import { firebaseSDK } from '../../../services/firebase';
 import { isValidEmail } from '../../../utils/validators';
+import { SETTING_STATE } from '../../../constants/redux';
 
 export const UpdateName = ({ title, click, name, username, email }) => {
   const { user } = useSelector((state) => state.Auth);
@@ -15,6 +16,8 @@ export const UpdateName = ({ title, click, name, username, email }) => {
   const [isUserName, isSetUserName] = useState(username);
   const [isEmail, isSetEmail] = useState(email);
   const [available, setAvailable] = useState(true);
+
+  const dispatch = useDispatch();
 
   const onSubmit = async() => {
     if(title == 'Name') {
@@ -51,9 +54,7 @@ export const UpdateName = ({ title, click, name, username, email }) => {
         }
         else {
           setAvailable(true);
-          let result = await firebaseSDK.updateUserName(user.uid, isUserName);
-          firebaseSDK.updateDisplayName(isUserName);
-          firebaseSDK.updateDisplayName(isUserName);
+          await firebaseSDK.updateUserName(user.uid, isUserName);
           click(false);
         }
       }
@@ -80,11 +81,20 @@ export const UpdateName = ({ title, click, name, username, email }) => {
         return;
       }
       else {
-        let result = await firebaseSDK.updateEmailAddress(user.uid, isEmail);
-        firebaseSDK.updateEmail(isEmail);
-        click(false);
+        try {
+          await firebaseSDK.updateEmail(isEmail);
+          await firebaseSDK.updateEmailAddress(user.uid, isEmail);
+          click(false);
+        }
+        catch (e) {
+          console.log(e);
+        }
       }
     }
+    dispatch({
+      type: SETTING_STATE.SETTING_UPDATE,
+      payload: { show: true, data: title},
+    });
   };
 
   return(

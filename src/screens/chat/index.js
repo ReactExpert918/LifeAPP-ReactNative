@@ -1,4 +1,5 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { ContainerComponent } from '../../components/container.component';
 import { View, ScrollView } from 'react-native';
 import { ChatHeaderComponent } from './component/chatHeadComponent';
@@ -6,8 +7,10 @@ import { SearchbarComponent } from './component/chatSearchComponent';
 import { chatStyle } from './styled';
 import { APP_NAVIGATION } from '../../constants/app';
 import { PersonComponent } from './component/personComponent';
+import { CHAT_STATE } from '../../constants/redux';
 
 export const ChatScreen = ({ navigation }) => {
+  const dispatch = useDispatch();
   const recommandFriend = [
     { username: 'Andrea', message: 'Hello World. Please Reply', new: 3 },
     {
@@ -20,9 +23,12 @@ export const ChatScreen = ({ navigation }) => {
     { username: 'Andrea4', message: 'Hello World. Please Reply', new: 0 },
     { username: 'Andrea5', message: 'Hello World. Please Reply', new: 0 },
   ];
-  const onNavigate = (name) => {
-    console.log(name);
-    navigation.navigate(APP_NAVIGATION.chat_detail, {name});
+  const onNavigate = async () => {
+    // dispatch({
+    //   type: CHAT_STATE.FRIEND_CHAT,
+    //   payload: { user: userData.user },
+    // });
+    navigation.navigate(APP_NAVIGATION.chat_detail);
   };
   return (
     <ContainerComponent>
@@ -42,7 +48,6 @@ export const ChatScreen = ({ navigation }) => {
                     CELLInfo={data}
                     key={`data-${index}`}
                     onNavigate={onNavigate}
-                    name={data.username}
                   />
                 )
               )}

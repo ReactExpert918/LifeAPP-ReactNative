@@ -13,7 +13,6 @@ import { firebaseSDK } from '../../../services/firebase';
 
 export const ChatModal = ({ data, show }) => {
   const { user } = useSelector((state) => state.Auth);
-  console.log(user);
   const dispatch = useDispatch();
   const handleModal = () => {
     dispatch({
@@ -28,8 +27,9 @@ export const ChatModal = ({ data, show }) => {
     handleModal();
   };
 
-  const declineFriend = () => {
-    
+  const declineFriend = async() => {
+    await firebaseSDK.declineFriend(data.objectId, user.uid);
+    handleModal();
   };
 
   const [image_uri, setImage_url] = useState(null);
@@ -50,10 +50,6 @@ export const ChatModal = ({ data, show }) => {
     <Modal 
       isVisible={show} 
       style={friendStyle.modal}
-      animationInTiming={1000}
-      animationOutTiming={1000}
-      backdropTransitionInTiming={800}
-      backdropTransitionOutTiming={800}
     >
       <View style={friendStyle.modalContainer}>
         {

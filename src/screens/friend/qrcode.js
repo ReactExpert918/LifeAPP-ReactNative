@@ -1,14 +1,16 @@
 import React, { useMemo, useRef, useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { Text, View, Dimensions, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 import { colors } from '../../assets/colors';
 import { images } from '../../assets/pngs';
-// import QRCodeScanner from 'react-native-qrcode-scanner';
+import QRCodeScanner from 'react-native-qrcode-scanner';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-// import { RNCamera } from 'react-native-camera';
+import { RNCamera } from 'react-native-camera';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-// import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
-// import QRCode from 'react-native-qrcode-svg';
+import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
+import QRCode from 'react-native-qrcode-svg';
+import { Spacer } from '../../components/spacer';
 
 const IconBack = styled(Ionicons).attrs({
   color: colors.ui.white,
@@ -72,9 +74,10 @@ const ButtonContainer = styled.View`
   justify-content: center;
 `;
 
-export const FriendQRcodeScreen = () => {
+export const FriendQRcodeScreen = ({navigation}) => {
   const sheetRef = useRef(null);
   const [expanded, setExpanded] = useState(false);
+  const { user } = useSelector((state) => state.Auth);
 
   const [myQRCode, setMyQRCode] = useState(null);
 
@@ -83,12 +86,21 @@ export const FriendQRcodeScreen = () => {
   const snapPoints = useMemo(() => ['25%', `${maxValue}%`], []);
 
   const onRead = (e) => {
-    console.log(e);
+    console.log(e.data);
+    if(e.data) {
+      let result = e.data.split('timestamp');
+      console.log(result);
+    }
   };
 
-  // const onBack = () => {
-  //   navigation.goBack();
-  // };
+  const onBack = () => {
+    navigation.goBack();
+  };
+
+  useEffect(() => {
+    const value = `${user.uid}timestamp${new Date().getTime()}`;
+    setMyQRCode(value);
+  }, []);
 
   const insets = useSafeAreaInsets();
 
@@ -103,22 +115,22 @@ export const FriendQRcodeScreen = () => {
   };
 
   const onRefresh = () => {
-    // const value = `${user.id}timestamp${new Date().getTime()}`;
-    // setMyQRCode(value);
+    const value = `${user.uid}timestamp${new Date().getTime()}`;
+    setMyQRCode(value);
   };
 
   return (
     <>
-      {/* <QRCodeScanner
+      <QRCodeScanner
         onRead={onRead}
         flashMode={RNCamera.Constants.FlashMode.torch}
         topViewStyle={styles.zeroContainer}
         bottomViewStyle={styles.zeroContainer}
         cameraStyle={styles.cameraContainer}
         showMarker={true}
-      /> */}
+      />
       <BackgrounButton onPress={onClickBackground}></BackgrounButton>
-      <IconBack  top={8 + insets.top} />
+      <IconBack  top={8 + insets.top} onPress={onBack} />
       <QRCodeButton
         offset={Dimensions.get('window').width / 2 - 70}
         onPress={onClickExpand}
@@ -126,7 +138,41 @@ export const FriendQRcodeScreen = () => {
         <QRImage source={images.ic_qrcode} />
         <Text style={styles.textButtonStyle}>My QR Code</Text>
       </QRCodeButton>
-     
+      <BottomSheet ref={sheetRef} snapPoints={snapPoints}>
+        <BottomSheetView style={styles.sheetsContainer}>
+          {expanded ? (
+            <>
+              <Text style={styles.textNormalSheetStyle}>My QR code</Text>
+              <Spacer top={16} />
+              {myQRCode && <QRCode value={myQRCode} />}
+              {/* <Text style={styles.textNameStyle}>{user.username}</Text> */}
+              <Spacer top={16} />
+              {/* <Text style={styles.textPhoneStyle}>{user.phone}</Text> */}
+              <Spacer top={16} />
+              <Text style={styles.textIndicatorStyle}>
+                You will be added as a friend when your{'\n'}frined scan your QR
+                code
+              </Text>
+              <BottomContainer>
+                <ButtonContainer>
+                  <Button onPress={onRefresh}>
+                    <Image source={images.ic_qr_reload} />
+                  </Button>
+                </ButtonContainer>
+                <ButtonContainer>
+                  <Button>
+                    <Image source={images.ic_qr_download} />
+                  </Button>
+                </ButtonContainer>
+              </BottomContainer>
+            </>
+          ) : (
+            <Text style={styles.textCenterSheetStyle}>
+              Scan QR code to quickly add persons{'\n'}to your friend list
+            </Text>
+          )}
+        </BottomSheetView>
+      </BottomSheet>
     </>
   );
 };
@@ -143,7 +189,7 @@ const styles = StyleSheet.create({
 
   sheetsContainer: {
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
   },
 
   textCenterSheetStyle: {

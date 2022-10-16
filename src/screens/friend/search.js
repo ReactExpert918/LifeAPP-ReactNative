@@ -14,6 +14,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { ChatExpand } from './component/chatExpand';
 import { firebaseSDK } from '../../services/firebase';
 import { getmd5 } from '../../utils/cryptor';
+import { APP_NAVIGATION } from '../../constants/app';
 
 const Button = styled.TouchableOpacity`
   align-items: center;
@@ -65,10 +66,18 @@ export const FriendSearchScreen = ({ navigation }) => {
     navigation.goBack();
   };
 
+  const onClick = (param) => {
+    isSetExpandVisibily(false);
+    if(param == true) {
+      navigation.navigate(APP_NAVIGATION.chat_detail);
+    }
+  };
+
   const addFriend = async () => {
     let friend_id = friends[0].objectId;
-    const doc_id = getmd5(`${user.id}-${friend_id}`);
+    const doc_id = getmd5(`${user.uid}-${friend_id}`);
     await firebaseSDK.creatFriend(user.uid, friend_id, doc_id);
+    await firebaseSDK.createSingle(user.uid, friend_id);
     isSetExpandVisibily(true);
   };
 
@@ -83,7 +92,7 @@ export const FriendSearchScreen = ({ navigation }) => {
         setIsFriend(false);
       }
     } else {
-      const friend = await firebaseSDK.getUserWithPhonenumber(user.id, keyword);
+      const friend = await firebaseSDK.getUserWithPhonenumber(user.uid, keyword);
       if (friend) {
         setFriends([friend]);
         setIsFriend(true);
@@ -172,7 +181,7 @@ export const FriendSearchScreen = ({ navigation }) => {
         }
       </View>
       {
-        isExpandVisible == true ? (<ChatExpand data={friends} visible={isSetExpandVisibily} />) : null
+        isExpandVisible == true ? (<ChatExpand data={friends} visible={onClick} />) : null
       }
     </ContainerComponent>
   );

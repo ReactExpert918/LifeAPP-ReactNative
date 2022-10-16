@@ -133,7 +133,6 @@ export const GroupScreen = ({ navigation }) => {
   const chooseFromLibrary = async () => {
     if (await checkPhotosPermission()) {
       ImagePicker.openPicker(imagePickerConfig).then((image) => {
-        console.log;
         setImage_path(image.path);
       });
     }

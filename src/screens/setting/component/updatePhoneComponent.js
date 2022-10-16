@@ -1,25 +1,43 @@
 import React, { useRef, useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
+import auth from '@react-native-firebase/auth';
+import { firebaseSDK } from '../../../services/firebase';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
 import { updateExpand } from './settingComponentStyle';
-import PropTypes from 'prop-types';
 import PhoneInput from 'react-native-phone-number-input';
+import { SETTING_STATE } from '../../../constants/redux';
 
-export const UpdatePhoneComponent = ({ title, click }) => {
+export const UpdatePhoneComponent = ({ title, click, phone }) => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const phoneInput = useRef(null);
   const [visible, setVisible] = useState(true);
   const [code, setCode] = useState('');
   const pinInput = useRef(null);
+  const [confirm, setConfirm] = useState('');
+  const { user } = useSelector((state) => state.Auth);
 
-  const onSubmit = () => {
+  const dispatch = useDispatch();
+
+  const onSubmit = async() => {
+    console.log(phone, phoneNumber);
     if(visible) {
-      // console.log('123132');
-      setVisible(false);
+      if(phone != phoneNumber) {
+        let result = await firebaseSDK.signInWithPhoneNumber(phoneNumber);
+        setConfirm(result.verificationId);
+        setVisible(false);
+      }
     }
     else {
-      setVisible(true);
+      let cred = await firebaseSDK.getCredential(confirm, code);
+      await auth().currentUser.updatePhoneNumber(cred);
+      await firebaseSDK.updatePhoneNumber(user.uid, phoneNumber);
+      click(false);
+      dispatch({
+        type: SETTING_STATE.SETTING_UPDATE,
+        payload: { show: true, data: title},
+      });
     }
   };
   return(

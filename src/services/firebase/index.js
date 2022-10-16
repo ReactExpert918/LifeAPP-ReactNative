@@ -16,6 +16,7 @@ import { uploadMedia, uploadAvata, getDownloadURL } from './storage';
 import {
   updateEmailAddress,
   updateFullName,
+  updatePhoneNumber,
   checkUserName,
   updateUserName,
   getUser,
@@ -31,6 +32,9 @@ import {
   getGroup,
   getNewFriends,
   acceptFriend,
+  getRecommandFriends,
+  createSingle,
+  declineFriend,
   getFriends,
   checkFriend,
   creatFriend,
@@ -40,6 +44,7 @@ import {
   getLastMessasge,
   getSingle,
   getZedPay,
+  getSingleChats,
 } from './firestore';
 
 import { setFcmToken } from './message';
@@ -63,12 +68,14 @@ export const firebaseSDK = {
 
   updateFullName,
   updateEmailAddress,
+  updatePhoneNumber,
   updateUserName,
   checkUserName,
   createUser,
   getUser,
   getUsers,
   getUserWithName,
+  createSingle,
   getUserWithPhonenumber,
   deleteUser,
   setUser,
@@ -84,7 +91,10 @@ export const firebaseSDK = {
   getSingles,
   getPerson,
   getSingle,
+  getRecommandFriends,
   getZedPay,
   acceptFriend,
+  declineFriend,
   setFcmToken,
+  getSingleChats,
 };

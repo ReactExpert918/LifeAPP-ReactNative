@@ -58,7 +58,6 @@ export const MemberCellComponent = ({ friend, onSelect, selected }) => {
 
   useEffect(() => {
     if (friend && friend != {}) {
-      console.log(friend);
       setName('Test');
       setPhone('Test');
       //setImage(`${friend.objectId}.jpg`);

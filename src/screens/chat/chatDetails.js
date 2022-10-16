@@ -1,4 +1,5 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useEffect} from 'react';
+import { useSelector } from 'react-redux';
 import { ContainerComponent } from '../../components/container.component';
 import { View, ScrollView, Text, Dimensions } from 'react-native';
 import styled from 'styled-components/native';
@@ -9,6 +10,7 @@ import { colors } from '../../assets/colors';
 import { TextMessage } from './component/message/textMessage';
 import { AvatarComponent } from './component/message/avatarComponent';
 import { ChatInputComponent } from './component/message/chatInput';
+import { firebaseSDK } from '../../services/firebase';
 
 const MainContainer = styled.ScrollView`
   flex: 1;
@@ -27,24 +29,41 @@ const Container = styled.View`
 
 export const ChatDetailsScreen = ({ route }) => {
   // const { name } = route.params; 
+  const acceptInfo = useSelector((state) => state.Chat.payload);
+  const {user} = useSelector((state) => state.Auth);
+  const [messages, setMessages] = useState([]);
 
-  const messages = [
-    { username: 'Andrea', message: 'Hello World. Please Reply', createdAt: 1651303751619 },
-    {
-      username: 'Andrea2',
-      message:
-        'Have much experience in version controller, ticket, Api testing tools, Design tools, etc.',
-      createdAt: 1651303751622
-    },
-    { username: 'Andrea', message: 'Hello World.', createdAt: 1651303851635 },
-    { username: 'Andrea', message: 'Hello World. Please ', createdAt: 1651303951655 },
-    { username: 'Andrea2', message: 'Hello World. Please Reply', createdAt: 1651310751679 },
-  ];
+  useEffect(async() => {
+    let result = await firebaseSDK.getSingle(user.uid, acceptInfo.object.objectId);
+    let message = await firebaseSDK.getSingleChats(result.chatId);
+    console.log(message);
+    if(message) {
+      setMessages(message);
+    }
+  }, []);
+
+  console.log(acceptInfo.object, user);
+
+  const submit = (text) => {
+    console.log(text);
+  };
+  // const messages = [
+  //   { username: 'Andrea', message: 'Hello World. Please Reply', createdAt: 1651303751619 },
+  //   {
+  //     username: 'Andrea2',
+  //     message:
+  //       'Have much experience in version controller, ticket, Api testing tools, Design tools, etc.',
+  //     createdAt: 1651303751622
+  //   },
+  //   { username: 'Andrea', message: 'Hello World.', createdAt: 1651303851635 },
+  //   { username: 'Andrea', message: 'Hello World. Please ', createdAt: 1651303951655 },
+  //   { username: 'Andrea2', message: 'Hello World. Please Reply', createdAt: 1651310751679 },
+  // ];
   const maxWidth = Dimensions.get('window').width - 175;
   const width = Dimensions.get('window').width - 20;
   return (
     <ContainerComponent>
-      <ChatHeaderComponent />
+      <ChatHeaderComponent title={acceptInfo.object.fullname}/>
       <View style={chatStyle.divider}></View>
       <View style={chatStyle.mainContainer}>
         <View style={chatStyle.topContainer}>
@@ -55,18 +74,18 @@ export const ChatDetailsScreen = ({ route }) => {
             messages && (
               messages.map((item, index) => 
               
-                <Container  key={`data-${index}`} data={item} maxWidth={width}>
+                <Container  key={`data0-${index}`} data={item} maxWidth={width}>
                   {
                     item.username !== 'Andrea' ? (
                       <>
                         <AvatarComponent 
                           datas={item} 
                           maxWidth={maxWidth}
-                          key={`data-${index}`}
+                          key={`data1-${index}`}
                         />
                         <TextMessage 
                           data={item}
-                          key={`data-${index}`}
+                          key={`data2-${index}`}
                           maxWidth={maxWidth}
                         />
                       </>                       
@@ -74,13 +93,13 @@ export const ChatDetailsScreen = ({ route }) => {
                       <>
                         <TextMessage 
                           data={item}
-                          key={`data-${index}`}
+                          key={`data2-${index}`}
                           maxWidth={maxWidth}
                         />
                         <AvatarComponent 
                           datas={item} 
                           maxWidth={maxWidth}
-                          key={`data-${index}`}
+                          key={`data1-${index}`}
                         />
                       </>
                     )
@@ -91,7 +110,7 @@ export const ChatDetailsScreen = ({ route }) => {
             )
           }
         </MainContainer>
-        <ChatInputComponent />
+        <ChatInputComponent onSubmit={submit} />
       </View>
     </ContainerComponent>
   );

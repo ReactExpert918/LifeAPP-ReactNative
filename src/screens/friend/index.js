@@ -20,13 +20,6 @@ import { APP_NAVIGATION } from '../../constants/app';
 import { firebaseSDK } from '../../services/firebase';
 
 export const FriendScreen = ({ navigation }) => {
-  const recommandFriend = [
-    { username: 'Andrea', type: 'recommand' },
-    { username: 'Andrea2', type: 'recommand' },
-    { username: 'Andrea3', type: 'recommand' },
-    { username: 'Andrea4', type: 'recommand' },
-    { username: 'Andrea5', type: 'recommand' },
-  ];
   const [requestFriend, setRequestFriend] = useState([]);
   const isModalVisible = useSelector((state) => state.Friend.show);
   const showModalData = useSelector((state) => state.Friend.data);
@@ -35,7 +28,8 @@ export const FriendScreen = ({ navigation }) => {
 
   useEffect(() => {
     getNewFriends(user.uid);
-  }, []);
+    // getRecommandFriends();
+  });
 
   const getNewFriends = async(friend_id) => {
     let result = [];
@@ -49,12 +43,23 @@ export const FriendScreen = ({ navigation }) => {
       });
   };
 
+  // const getRecommandFriends = async() => {
+  //   let result = [];
+  //   let friends = await firebaseSDK.getRecommandFriends();
+  //   Promise.all(friends)
+  //     .then((res) =>{ 
+  //       res.map((friend) => {
+  //         result.push(friend[0]);
+  //       });
+  //       setRequestFriend(result);
+  //     });
+  // };
+
   const onClickSearch = () => {
     navigation.navigate(APP_NAVIGATION.friend_search);
   };
 
   const onClickQR = () => {
-    console.log('123123');
     navigation.navigate(APP_NAVIGATION.friend_qrcode);
   };
 
@@ -95,13 +100,6 @@ export const FriendScreen = ({ navigation }) => {
               <FriendSection
                 title='New Friend Requests'
                 items={requestFriend}
-                onNavigate={null}
-              />
-            )}
-            {recommandFriend.length > 0 && (
-              <FriendSection
-                title='Recommandation Friends'
-                items={recommandFriend}
                 onNavigate={null}
               />
             )}

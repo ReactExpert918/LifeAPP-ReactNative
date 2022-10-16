@@ -32,7 +32,7 @@ const FriendHeaderStyle = StyleSheet.create({
   },
 });
 
-export const ChatHeaderComponent = () => {
+export const ChatHeaderComponent = ({title}) => {
   return (
     <View style={FriendHeaderStyle.container}>
       <Ionicons
@@ -40,7 +40,7 @@ export const ChatHeaderComponent = () => {
         size={25}
         style={FriendHeaderStyle.editText}
       />
-      <Text style={FriendHeaderStyle.text}>Chats</Text>
+      <Text style={FriendHeaderStyle.text}>{title}</Text>
       <Ionicons
         name="md-create-outline"
         size={25}

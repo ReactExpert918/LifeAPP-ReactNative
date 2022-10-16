@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, TouchableOpacity } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { accountSettingListStyle } from './settingComponentStyle';
 
@@ -10,7 +10,7 @@ export const AccountSettingListComponent = ({ title, value, type, click }) => {
     click(title);
   };
   return(
-    <View style={accountSettingListStyle.container}>
+    <TouchableOpacity style={accountSettingListStyle.container}  onPress={onClick}>
       <View style={accountSettingListStyle.left}>
         <Text 
           style={(type=='button') ? accountSettingListStyle.delAccount :accountSettingListStyle.textTitle}
@@ -26,10 +26,9 @@ export const AccountSettingListComponent = ({ title, value, type, click }) => {
           style={accountSettingListStyle.icon}
           name="md-chevron-forward-sharp"
           size={25}
-          onPress={onClick}
         />
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

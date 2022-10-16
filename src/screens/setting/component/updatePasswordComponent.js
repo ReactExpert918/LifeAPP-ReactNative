@@ -1,14 +1,17 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Text, View, Alert, TouchableOpacity, TextInput } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { updateExpand } from './settingComponentStyle'; 
 import { colors } from '../../../assets/colors';
 import { firebaseSDK } from '../../../services/firebase';
+import { SETTING_STATE } from '../../../constants/redux';
 
 export const UpdatePassword = ({ title, click}) => {
   const [pass, setPass] = useState('');
   const [confirm, setConfirm] = useState('');
+  const dispatch = useDispatch();
 
   const onSubmit = async () => {
     if (!pass) {
@@ -54,10 +57,12 @@ export const UpdatePassword = ({ title, click}) => {
       ]);
       return;
     }
-
     await firebaseSDK.updatePassword(pass);
-    console.log('-------------------');
-    click(title);
+    click(false);
+    dispatch({
+      type: SETTING_STATE.SETTING_UPDATE,
+      payload: { show: true, data: title},
+    });
   };
 
   return(

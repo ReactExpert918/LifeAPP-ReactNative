@@ -13,5 +13,12 @@ export const AUTH_STATE = {
 
 export const FRIEND_STATE = {
   REQUEST: 'show_request',
-  REQUEST_OFF: 'hide_request',
+};
+
+export const CHAT_STATE = {
+  FRIEND_CHAT: 'friend_chat',
+};
+
+export const SETTING_STATE = {
+  SETTING_UPDATE: 'setting_update',
 };
