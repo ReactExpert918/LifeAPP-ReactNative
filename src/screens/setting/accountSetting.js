@@ -29,7 +29,6 @@ export const AccountSetting = () => {
   const [image_uri, setImage_url] = useState(null);
 
   const setImage = async (fileName) => {
-    console.log('====setting', fileName);
     const path = await getImagePath(fileName, MEDIA_FOLDER.USER);
     if (path) {
       setImage_url(path);

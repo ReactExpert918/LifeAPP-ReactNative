@@ -21,5 +21,13 @@ export const APP_NAVIGATION = {
   account_setting: 'AccountSetting',
 };
 
+export const PERSONCELLTYPE = {
+  group: 'group',
+  friend: 'friend',
+  chats: 'chats',
+  group_header: 'header',
+  user: 'user',
+};
+
 export const SCREEN_WIDTH = Dimensions.get('window').width;
 export const SCREEN_HEIGHT = Dimensions.get('window').height;

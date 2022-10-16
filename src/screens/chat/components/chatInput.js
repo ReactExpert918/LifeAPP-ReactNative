@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 
 import { SafeAreaView } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { colors } from '../../../../assets/colors';
+import { colors } from '../../../assets/colors';
 import { TouchableOpacity } from 'react-native';
 
 const InputAreaContainer = styled.View`
@@ -14,7 +14,6 @@ const InputAreaContainer = styled.View`
   max-height: 100px;
   border-top-color: ${colors.text.lightgray};
   border-top-width: 1px;
-  margin-top: 20px;
 `;
 
 const Input = styled.TextInput`
@@ -86,7 +85,7 @@ const SendContainer = styled.View`
   border-radius: 18px;
 `;
 
-export const ChatInputComponent = () => {
+export const ChatInput = () => {
   return (
     <SafeAreaView style={{ backgroundColor: colors.bg.primary }}>
       <InputAreaContainer>

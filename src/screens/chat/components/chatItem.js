@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import { colors } from '../../../assets/colors';
 import { images } from '../../../assets/pngs';
 import { APP_NAVIGATION } from '../../../constants/app';
+import { textStyles } from '../../../common/text.styles';
 
 const styles = StyleSheet.create({
   container: {
@@ -41,7 +42,10 @@ const styles = StyleSheet.create({
 export const ChatItem = ({ data }) => {
   const navigation = useNavigation();
   const onNavigate = () => {
-    navigation.navigate(APP_NAVIGATION.chat_detail, { name: data.name });
+    navigation.navigate(APP_NAVIGATION.chat_detail, {
+      chatId: data.chatId,
+      accepterId: data.accepterId,
+    });
   };
 
   return (
@@ -50,21 +54,22 @@ export const ChatItem = ({ data }) => {
       <View style={styles.content}>
         {data && (
           <View>
-            <Text variant="label" style={{ color: colors.text.black }}>
-              {data.username}
-            </Text>
-            <Text variant="hint" style={{ color: colors.text.lightgray }}>
-              {data.message.length < 35
-                ? data.message
-                : `${data.message.slice(0, 35)} ...`}
+            <Text style={textStyles.blackBold}>{data.userFullname}</Text>
+            <Text
+              style={[
+                textStyles.grayMediumThin,
+                { color: colors.text.lightgray },
+              ]}
+            >
+              {data.text}
             </Text>
           </View>
         )}
-        {data.new != 0 && (
+        {/* {data.new != 0 && (
           <View style={styles.newMessage}>
             <Text style={{ color: colors.text.white }}>{data.new}</Text>
           </View>
-        )}
+        )} */}
       </View>
     </TouchableOpacity>
   );

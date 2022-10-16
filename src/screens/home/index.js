@@ -17,8 +17,9 @@ export const HomeScreen = () => {
   const [avatar, setAvatar] = useState(null);
 
   useEffect(() => {
+    if (!user.objectId) return;
     setImage(`${user.objectId}.jpg`);
-  }, []);
+  }, [user]);
 
   const setImage = async (fileName) => {
     const path = await getImagePath(fileName, MEDIA_FOLDER.USER);

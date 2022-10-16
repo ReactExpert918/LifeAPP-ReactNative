@@ -66,6 +66,14 @@ const Header = ({ title, firstClick, secondClick }) => {
           onPress={firstClick}
         />
       )}
+      {!title && (
+        <Ionicons
+          name="md-chevron-back-sharp"
+          size={25}
+          style={styles.iconSetting}
+          onPress={firstClick}
+        />
+      )}
       <Text style={styles.text}>{title}</Text>
       {(title == 'Add Friends' ||
         title == 'Settings' ||
