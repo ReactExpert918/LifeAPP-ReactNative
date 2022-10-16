@@ -23,8 +23,8 @@ export const MessageVideo = ({ message, isOwner, maxWidth }) => {
   const [videoUrl, setVideoUrl] = useState(null);
 
   useEffect(() => {
-    if (!message.objectId) return;
-    setImage(`${message.objectId}.mp4`);
+    if (!message.chatId) return;
+    setImage(`${message.chatId}.mp4`);
   }, [message]);
 
   const setImage = async (fileName) => {

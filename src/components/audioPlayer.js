@@ -249,13 +249,11 @@ export default class AudioPlayer extends Component {
   }
 
   onLoad(event) {
-    console.log('=====load');
     if (this.props.onLoad) {
       this.props.onLoad(event);
     }
 
     const { duration } = event;
-    console.log('======duration', duration);
     this.props.setDuration(duration);
     this.setState({ duration });
   }

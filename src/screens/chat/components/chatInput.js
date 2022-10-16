@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components/native';
 
 import { SafeAreaView } from 'react-native';
@@ -85,7 +85,7 @@ const SendContainer = styled.View`
   border-radius: 18px;
 `;
 
-export const ChatInput = () => {
+export const ChatInput = ({ onSubmitChat, text, setText }) => {
   return (
     <SafeAreaView style={{ backgroundColor: colors.bg.primary }}>
       <InputAreaContainer>
@@ -100,14 +100,12 @@ export const ChatInput = () => {
           </AttachContainerCam>
         </TouchableOpacity>
         <Input
-          // ref={(r) => (input = r)}
           returnKeyType={'default'}
           keyboardType="default"
-          multiline
           placeholder="Enter a Message"
-          // onChangeText={(text) => onChangeChat(text)}
-          // onSubmitEditing={onSubmitChat}
-          // value={message}
+          onChangeText={(text) => setText(text)}
+          onSubmitEditing={() => onSubmitChat(text)}
+          value={text}
         />
 
         <TouchableOpacity>
