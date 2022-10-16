@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import uuid from 'react-native-uuid';
+import { useSelector } from 'react-redux';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { KeyboardAwareFlatList } from 'react-native-keyboard-aware-scroll-view';
 
 import { Container, Header, SearchBar } from '../../components';
 import { styles } from './styles';
-import { KeyboardAwareFlatList } from 'react-native-keyboard-aware-scroll-view';
 import { Message } from './components/message';
 import { ChatInput } from './components/chatInput';
-import { useNavigation, useRoute } from '@react-navigation/native';
 import { firebaseSDK } from '../../services/firebase';
 
 const initMessage = {
@@ -36,11 +37,13 @@ const initMessage = {
   isDeleted: false,
   isObjectionable: false,
   createdAt: new Date().getTime(),
+  updatedAt: new Date().getTime(),
 };
 
 export const ChatDetailsScreen = () => {
   const navigation = useNavigation();
   const route = useRoute();
+  const { user } = useSelector((state) => state.Auth);
   const { chatId } = route.params;
   const [messages, setMessages] = useState([]);
   const [text, setText] = useState('');
@@ -69,9 +72,12 @@ export const ChatDetailsScreen = () => {
   const onSendTextMessage = (text) => {
     initMessage.objectId = uuid.v4().toUpperCase();
     initMessage.text = text;
-    firebaseSDK.createMessage(initMessage).then(() => {
-      setText('');
-    });
+    initMessage.chatId = chatId;
+    initMessage.type = 'text';
+    initMessage.userFullname = user.fullname;
+    initMessage.userId = user.objectId;
+    firebaseSDK.createMessage(initMessage);
+    setText('');
   };
 
   return (
