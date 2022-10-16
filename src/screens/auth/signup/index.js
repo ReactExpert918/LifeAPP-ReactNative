@@ -116,10 +116,7 @@ export const SignUpScreen = () => {
       .then(async (resizedImage) => {
         const user = await firebaseSDK.authorizedUser();
 
-        const avatar_url = await firebaseSDK.uploadAvata(
-          `${user.uid}.jpg`,
-          resizedImage.path
-        );
+        await firebaseSDK.uploadAvata(`${user.uid}.jpg`, resizedImage.path);
 
         const userInfo = {
           username,
@@ -127,7 +124,7 @@ export const SignUpScreen = () => {
           email: user.email,
           phone: user.phoneNumber,
           objectId: user.uid,
-          pictureAt: avatar_url,
+          pictureAt: new Date().getTime(),
           createdAt: new Date().getTime(),
         };
 

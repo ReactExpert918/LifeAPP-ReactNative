@@ -5,17 +5,12 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.ui.white,
+    paddingTop: 10,
   },
-  profileContainer: {
-    padding: 16,
-    flexDirection: 'row',
+  content: {
     alignItems: 'center',
-  },
-  topContainer: {
-    backgroundColor: colors.ui.primary,
-    width: '100%',
-    height: 60,
+    justifyContent: 'flex-end',
     flexDirection: 'row',
-    padding: 10,
+    borderRadius: 12,
   },
 });

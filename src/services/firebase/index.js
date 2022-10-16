@@ -38,6 +38,7 @@ import {
   getSingles,
   getPerson,
   getLastMessasge,
+  createMessage,
   getSingle,
   getZedPay,
 } from './firestore';
@@ -81,10 +82,12 @@ export const firebaseSDK = {
   creatFriend,
   deleteFriend,
   getLastMessasge,
+  createMessage,
   getSingles,
   getPerson,
   getSingle,
   getZedPay,
   acceptFriend,
+
   setFcmToken,
 };

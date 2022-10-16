@@ -9,12 +9,7 @@ export const signInEmailPassword = (email, password) => {
 };
 
 export const signOut = () => {
-  new Promise((resolve, reject) => {
-    auth()
-      .signOut()
-      .then((res) => resolve(res))
-      .catch((err) => reject(err));
-  });
+  return auth().signOut();
 };
 
 export const signInWithPhoneNumber = async (phoneNumber) => {

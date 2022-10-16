@@ -23,7 +23,7 @@ const IconCheck = styled(Ionicons).attrs({
 
 export const GroupHeaderComponent = ({ onClickClose, onClickDone }) => {
   return (
-    <HeaderComponent color={colors.ui.primary}>
+    <Header color={colors.ui.primary}>
       <IconClose onPress={onClickClose} color={colors.ui.white} />
       <Text variant="title" color={colors.text.white}>
         Create Group Profile
@@ -35,7 +35,7 @@ export const GroupHeaderComponent = ({ onClickClose, onClickDone }) => {
 
 export const GroupMemberHeaderComponent = ({ onClickClose, onClickDone }) => {
   return (
-    <HeaderComponent color={colors.bg.primary}>
+    <Header color={colors.bg.primary}>
       <IconClose onPress={onClickClose} color={colors.ui.primary} />
       <Text variant="title" color={colors.text.primary}>
         Add Participants

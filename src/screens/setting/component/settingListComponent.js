@@ -1,28 +1,21 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { Text, View, Image } from 'react-native';
+import { Text, View, Image, TouchableOpacity } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { settingListStyle } from './settingComponentStyle';
+import { styles } from './settingComponentStyle';
 
-export const SettingListComponent = ({ icon, title, click }) => {
-  return(
-    <View style={settingListStyle.container}>
-      <View style={settingListStyle.left}>
-        <Image 
-          source={icon}
-          style={settingListStyle.image} 
-        />
-        <Text style={settingListStyle.text}>
-          {title}
-        </Text>
+export const SettingListComponent = ({ icon, title, onClick }) => {
+  return (
+    <TouchableOpacity onPress={onClick} style={styles.container}>
+      <View style={styles.left}>
+        <Image source={icon} style={styles.image} />
+        <Text style={styles.text}>{title}</Text>
       </View>
-      <Ionicons 
-        style={settingListStyle.right}
+      <Ionicons
+        style={styles.right}
         name="md-chevron-forward-sharp"
         size={25}
-        onPress={click}
       />
-    </View>
+    </TouchableOpacity>
   );
 };
-

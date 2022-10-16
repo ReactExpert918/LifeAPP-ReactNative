@@ -1,1 +1,2 @@
-export { default as Header } from './header';
+export { default as Friends } from './friends';
+export { default as Groups } from './groups';
