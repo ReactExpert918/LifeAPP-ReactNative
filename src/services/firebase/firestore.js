@@ -211,8 +211,26 @@ export const getUsers = (userIds) => {
   });
 };
 
+export const getUserWithQR = (userId) => {
+  return new Promise((resolve, reject) => {
+    firestore()
+      .collection(FIRESTORE_TABLES.USER)
+      .where('objectId', '==', userId)
+      .limit(1)
+      .get()
+      .then(async (snapshot) => {
+        let result;
+        snapshot.forEach((data) => {
+          result = data.data();
+        });
+        result = Object.assign(result, { type: 'search' });
+        resolve(result);
+      })
+      .catch((error) => reject(error));
+  });
+};
+
 export const getUserWithName = (userId, username) => {
-  console.log(userId, username, '--------------');
   return new Promise((resolve, reject) => {
     firestore()
       .collection(FIRESTORE_TABLES.USER)

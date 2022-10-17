@@ -10,7 +10,10 @@ import { RNCamera } from 'react-native-camera';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
 import QRCode from 'react-native-qrcode-svg';
-import { Spacer } from '../../components/spacer';
+import Spacer from '../../components/spacer';
+import { firebaseSDK } from '../../services/firebase';
+import { QRcodeExpand } from './component/QRcodeExpand';
+import { APP_NAVIGATION } from '../../constants/app';
 
 const IconBack = styled(Ionicons).attrs({
   color: colors.ui.white,
@@ -77,19 +80,36 @@ const ButtonContainer = styled.View`
 export const FriendQRcodeScreen = ({navigation}) => {
   const sheetRef = useRef(null);
   const [expanded, setExpanded] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const [Friend, setFriend] = useState([]);
   const { user } = useSelector((state) => state.Auth);
-
   const [myQRCode, setMyQRCode] = useState(null);
 
   const maxValue = parseInt(40000 / Dimensions.get('window').height);
 
   const snapPoints = useMemo(() => ['25%', `${maxValue}%`], []);
 
-  const onRead = (e) => {
-    console.log(e.data);
+  const onClick = async(param, data) => {
+    setVisible(false);
+    if(param == true) {
+      let result = await firebaseSDK.getSingle(user.id, data.objectId);
+      navigation.navigate(APP_NAVIGATION.chat_detail, {
+        chatId: result.chatId,
+        accepterId: result.userId2,
+      });
+    }
+  };
+
+  const onRead = async(e) => {
     if(e.data) {
       let result = e.data.split('timestamp');
       console.log(result);
+      let data = await firebaseSDK.getUserWithQR(result[0]);
+      if(data) {
+        await setFriend(data);
+        setVisible(true);
+ 
+      }
     }
   };
 
@@ -145,9 +165,9 @@ export const FriendQRcodeScreen = ({navigation}) => {
               <Text style={styles.textNormalSheetStyle}>My QR code</Text>
               <Spacer top={16} />
               {myQRCode && <QRCode value={myQRCode} />}
-              {/* <Text style={styles.textNameStyle}>{user.username}</Text> */}
+              <Text style={styles.textNameStyle}>{user.username}</Text>
               <Spacer top={16} />
-              {/* <Text style={styles.textPhoneStyle}>{user.phone}</Text> */}
+              <Text style={styles.textPhoneStyle}>{user.phone}</Text>
               <Spacer top={16} />
               <Text style={styles.textIndicatorStyle}>
                 You will be added as a friend when your{'\n'}frined scan your QR
@@ -173,6 +193,9 @@ export const FriendQRcodeScreen = ({navigation}) => {
           )}
         </BottomSheetView>
       </BottomSheet>
+      {
+        visible && <QRcodeExpand visible={onClick} data={Friend} />
+      }
     </>
   );
 };
