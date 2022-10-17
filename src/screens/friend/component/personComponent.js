@@ -30,7 +30,7 @@ export const PersonComponent = ({ CELLInfo, onNavigate, visible, state }) => {
     if (CELLInfo && CELLInfo != {}) {
       setName(CELLInfo.username);
       setImage(`${CELLInfo.objectId}.jpg`);
-      checkFriend(user.uid, CELLInfo.objectId);
+      checkFriend(user.id, CELLInfo.objectId);
     }
   }, [CELLInfo, state]);
 

@@ -32,7 +32,7 @@ export const UpdatePhoneComponent = ({ title, click, phone }) => {
     else {
       let cred = await firebaseSDK.getCredential(confirm, code);
       await auth().currentUser.updatePhoneNumber(cred);
-      await firebaseSDK.updatePhoneNumber(user.uid, phoneNumber);
+      await firebaseSDK.updatePhoneNumber(user.id, phoneNumber);
       click(false);
       dispatch({
         type: SETTING_STATE.SETTING_UPDATE,

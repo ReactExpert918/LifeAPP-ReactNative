@@ -3,7 +3,7 @@ import { white } from 'react-native-paper/lib/typescript/styles/colors';
 import { color } from 'react-native-reanimated';
 import { colors } from '../../../assets/colors';
 
-export const settingListStyle = StyleSheet.create({
+export const styles = StyleSheet.create({
   container: {
     // paddingHorizontal: 10,
     paddingVertical: 10,
@@ -11,7 +11,7 @@ export const settingListStyle = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     borderBottomWidth: 1,
-    borderBottomColor: colors.ui.bottom
+    borderBottomColor: colors.ui.bottom,
   },
   touch: {
     flexDirection: 'row',
@@ -34,12 +34,9 @@ export const settingListStyle = StyleSheet.create({
   delAccount: {
     paddingHorizontal: 20,
     color: colors.text.red,
-    fontSize: 18
+    fontSize: 18,
   },
-  right: {
-
-  },
-
+  right: {},
 });
 
 export const accountSettingListStyle = StyleSheet.create({
@@ -50,7 +47,7 @@ export const accountSettingListStyle = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     borderBottomWidth: 1,
-    borderBottomColor: colors.ui.bottom
+    borderBottomColor: colors.ui.bottom,
   },
   left: {
     flexDirection: 'row',
@@ -64,21 +61,19 @@ export const accountSettingListStyle = StyleSheet.create({
     paddingHorizontal: 10,
     color: colors.text.gray,
     fontSize: 15,
-    paddingRight: 10
+    paddingRight: 10,
   },
   text: {
     paddingHorizontal: 10,
     color: colors.text.lightgray,
     fontSize: 15,
-    paddingRight: 10
+    paddingRight: 10,
   },
   delAccount: {
     paddingHorizontal: 10,
     color: colors.text.red,
-    fontSize: 15
+    fontSize: 15,
   },
-
-
 });
 
 export const updateExpand = StyleSheet.create({
@@ -112,14 +107,14 @@ export const updateExpand = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 20,
     paddingHorizontal: 20,
-    paddingBottom: 10
+    paddingBottom: 10,
   },
   phoneText: {
     color: colors.text.black,
     fontSize: 24,
     paddingBottom: 20,
     textAlign: 'center',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   close: {
     position: 'absolute',
@@ -147,7 +142,7 @@ export const updateExpand = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 20,
     paddingHorizontal: 20,
-    paddingBottom: 10
+    paddingBottom: 10,
   },
   expand: {
     position: 'absolute',
@@ -163,7 +158,7 @@ export const updateExpand = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 20,
     paddingHorizontal: 20,
-    paddingBottom: 10
+    paddingBottom: 10,
   },
   title: {
     color: colors.text.primary,
@@ -171,33 +166,33 @@ export const updateExpand = StyleSheet.create({
     paddingHorizontal: 10,
     fontWeight: 'bold',
     fontSize: 18,
-    paddingTop: 20
+    paddingTop: 20,
   },
   input: {
     flexDirection: 'column',
     justifyContent: 'center',
     position: 'relative',
     flex: 1,
-    width: '100%'
+    width: '100%',
   },
   text: {
     paddingVertical: 10,
     fontSize: 16,
-    color: colors.text.lightgray
+    color: colors.text.lightgray,
   },
   inputText: {
     backgroundColor: '#f2f2f2',
-    paddingHorizontal: 10, 
+    paddingHorizontal: 10,
     width: Dimensions.get('window').width - 50,
     fontSize: 16,
-    color: colors.text.black
+    color: colors.text.black,
   },
   warnText: {
     backgroundColor: '#FADCE6',
-    paddingHorizontal: 10, 
+    paddingHorizontal: 10,
     width: Dimensions.get('window').width - 50,
     fontSize: 16,
-    color: colors.text.black
+    color: colors.text.black,
   },
   button: {
     backgroundColor: colors.ui.primary,

@@ -23,12 +23,12 @@ export const ChatModal = ({ data, show }) => {
   };
 
   const acceptFriend = async () => {
-    await firebaseSDK.acceptFriend(data.objectId, user.uid);
+    await firebaseSDK.acceptFriend(data.objectId, user.id);
     handleModal();
   };
 
   const declineFriend = async() => {
-    await firebaseSDK.declineFriend(data.objectId, user.uid);
+    await firebaseSDK.declineFriend(data.objectId, user.id);
     handleModal();
   };
 

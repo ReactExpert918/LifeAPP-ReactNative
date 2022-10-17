@@ -18,7 +18,7 @@ export const ChatExpand = ({ visible, data }) => {
       type: CHAT_STATE.FRIEND_CHAT,
       payload: { object: data[0] },
     });
-    visible(true);
+    visible(true, data[0]);
   };
   useEffect(() => {
     setImage(`${data[0].objectId}.jpg`);
@@ -39,7 +39,7 @@ export const ChatExpand = ({ visible, data }) => {
           style={expandStyle.close} 
           name="md-close-sharp" 
           size={25}
-          onPress={() => visible(false)}
+          onPress={() => visible(false, '')}
         />
         {
           image_uri ?

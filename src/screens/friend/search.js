@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
-import React, {  useState } from 'react';
-import {  useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Text, View, Dimensions } from 'react-native';
 import styled from 'styled-components/native';
-import { ContainerComponent } from '../../components/container.component';
-import { HeaderComponent } from '../../components/header.component';
+import { Container } from '../../components';
+import { Header } from '../../components';
 import { FriendSection } from './friendSection';
 import { searchStyle } from './style';
 import { colors } from '../../assets/colors';
@@ -25,9 +25,7 @@ const Button = styled.TouchableOpacity`
   border-width: ${(props) => (!props.isSelected ? '1px;' : '0px;')};
   border-radius: 12px;
   background-color: ${(props) =>
-    props.isSelected
-      ? colors.ui.primary
-      : colors.bg.primary};
+    props.isSelected ? colors.ui.primary : colors.bg.primary};
 `;
 
 const IconCheck = styled(Ionicons).attrs({
@@ -42,8 +40,8 @@ const SearchOptions = {
 };
 
 const EmptyImage = styled.Image`
-  width: ${Dimensions.get('window').height/5*2};
-  height: ${Dimensions.get('window').height/5*1.5};
+  width: ${(Dimensions.get('window').height / 5) * 2};
+  height: ${(Dimensions.get('window').height / 5) * 1.5};
 `;
 
 const EmptyText = styled.Text`
@@ -56,55 +54,57 @@ const EmptyText = styled.Text`
 
 export const FriendSearchScreen = ({ navigation }) => {
   const [searchOption, setSearchOption] = useState(SearchOptions.username);
-  const [isExpandVisible, isSetExpandVisibily] = useState(false); 
+  const [isExpandVisible, isSetExpandVisibily] = useState(false);
   const [keyword, setKeyword] = useState(null);
   const [friends, setFriends] = useState([]);
   const [is_friend, setIsFriend] = useState(true);
   const { user } = useSelector((state) => state.Auth);
-  
+
   const onBack = () => {
     navigation.goBack();
   };
 
-  const onClick = (param) => {
+  const onClick = async(param, data) => {
     isSetExpandVisibily(false);
     if(param == true) {
-      navigation.navigate(APP_NAVIGATION.chat_detail);
+      let result = await firebaseSDK.getSingle(user.id, data.objectId);
+      navigation.navigate(APP_NAVIGATION.chat_detail, {
+        chatId: result.chatId,
+        accepterId: result.userId2,
+      });
     }
   };
 
   const addFriend = async () => {
     let friend_id = friends[0].objectId;
-    const doc_id = getmd5(`${user.uid}-${friend_id}`);
-    await firebaseSDK.creatFriend(user.uid, friend_id, doc_id);
-    await firebaseSDK.createSingle(user.uid, friend_id);
+    const doc_id = getmd5(`${user.id}-${friend_id}`);
+    await firebaseSDK.creatFriend(user.id, friend_id, doc_id);
+    await firebaseSDK.createSingle(user.id, friend_id);
     isSetExpandVisibily(true);
   };
 
   const searchKeyword = async () => {
     if (searchOption == SearchOptions.username) {
-      const friend = await firebaseSDK.getUserWithName(user.uid, keyword);
+      const friend = await firebaseSDK.getUserWithName(user.id, keyword);
       if (friend) {
         setFriends([friend]);
         setIsFriend(true);
-      }
-      else {
+      } else {
         setIsFriend(false);
       }
     } else {
-      const friend = await firebaseSDK.getUserWithPhonenumber(user.uid, keyword);
+      const friend = await firebaseSDK.getUserWithPhonenumber(user.id, keyword);
       if (friend) {
         setFriends([friend]);
         setIsFriend(true);
-      }
-      else{
+      } else {
         setIsFriend(false);
       }
     }
   };
-  return(
-    <ContainerComponent>
-      <HeaderComponent title="Search Friends" firstClick={onBack}/>
+  return (
+    <Container>
+      <Header title="Search Friends" firstClick={onBack} />
       <View style={searchStyle.divider}></View>
       <View style={searchStyle.mainContainer}>
         <View style={searchStyle.topContainer}>
@@ -114,9 +114,7 @@ export const FriendSearchScreen = ({ navigation }) => {
           >
             {searchOption == SearchOptions.username && <IconCheck />}
           </Button>
-          <Text style={searchStyle.text} >
-            {SearchOptions.username}
-          </Text>
+          <Text style={searchStyle.text}>{SearchOptions.username}</Text>
           <View style={searchStyle.space}></View>
           <Button
             isSelected={searchOption == SearchOptions.phone}
@@ -124,9 +122,7 @@ export const FriendSearchScreen = ({ navigation }) => {
           >
             {searchOption == SearchOptions.phone && <IconCheck />}
           </Button>
-          <Text style={searchStyle.text} >
-            {SearchOptions.phone}
-          </Text>
+          <Text style={searchStyle.text}>{SearchOptions.phone}</Text>
         </View>
         <View style={searchStyle.container}>
           <Searchbar
@@ -135,54 +131,46 @@ export const FriendSearchScreen = ({ navigation }) => {
             placeholder="Search"
             value={keyword}
             onChangeText={(text) => setKeyword(text)}
-            onSubmitEditing = {searchKeyword}
+            onSubmitEditing={searchKeyword}
           />
         </View>
-        {
-          friends.length > 0 ? 
-            (<View>
-              <FriendSection 
-                title="Showing Results"
-                items={friends}
-                onNavigate={null}
-                onAdd={addFriend}
-                state={isExpandVisible}
-              />
-            </View>) :
-            (<View
-              style={{
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
-                backgroundColor: colors.bg.primary,
-                width: '100%',
-              }}
-            >
-              <EmptyText>
-                {
-                  is_friend  ? (`Search friends using their username ${'\n'}  or phone number`) : 
-                    ('No user is available by that username')
-                }
-              </EmptyText>
-                           
-              {
-                !is_friend ? 
-                  <EmptyImage
-                    source={images.img_search_no}
-                    resizeMode="contain"
-                  />  : 
-                  <EmptyImage
-                    source={images.img_search_bg}
-                    resizeMode="contain"
-                  />
-              }
-                            
-            </View>)
-        }
+        {friends.length > 0 ? (
+          <View>
+            <FriendSection
+              title="Showing Results"
+              items={friends}
+              onNavigate={null}
+              onAdd={addFriend}
+              state={isExpandVisible}
+            />
+          </View>
+        ) : (
+          <View
+            style={{
+              flex: 1,
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: colors.bg.primary,
+              width: '100%',
+            }}
+          >
+            <EmptyText>
+              {is_friend
+                ? `Search friends using their username ${'\n'}  or phone number`
+                : 'No user is available by that username'}
+            </EmptyText>
+
+            {!is_friend ? (
+              <EmptyImage source={images.img_search_no} resizeMode="contain" />
+            ) : (
+              <EmptyImage source={images.img_search_bg} resizeMode="contain" />
+            )}
+          </View>
+        )}
       </View>
       {
         isExpandVisible == true ? (<ChatExpand data={friends} visible={onClick} />) : null
       }
-    </ContainerComponent>
+    </Container>
   );
 };

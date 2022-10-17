@@ -1,18 +1,17 @@
-/* eslint-disable react/prop-types */
-import React , {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Text, View, Image, TouchableOpacity, Alert } from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
-
+import { useNavigation } from '@react-navigation/native';
 import {
   checkCameraPermission,
   checkPhotosPermission,
   imagePickerConfig,
 } from '../../utils/permissions';
 import ImageResizer from 'react-native-image-resizer';
-import { ContainerComponent } from '../../components/container.component';
-import { HeaderComponent } from '../../components/header.component';
-import { SettingStyle } from './style';
+import ContainerComponent  from '../../components/container';
+import HeaderComponent from '../../components/header';
+import { styles } from './styles';
 import { AccountSettingListComponent } from './component/accountSettingListComponent';
 import { images } from '../../assets/pngs';
 import { UpdateName } from './component/updateNameComponent';
@@ -23,14 +22,15 @@ import { UpdatePassword } from './component/updatePasswordComponent';
 import { UpdatePhoneComponent } from './component/updatePhoneComponent';
 import { SccessUpdate } from './component/successUpdateComponent';
 
-export const AccountSetting = ({ navigation }) => {
-
+export const AccountSetting = () => {
+  const navigation = useNavigation();
   const [isVisible, isSetVisible] = useState(false);
   const [isPass, isSetPass] = useState(false);
   const [isPhone, isSetPhone] = useState(false);
 
   const { user } = useSelector((state) => state.Auth);
   const setting = useSelector((state) => state.Setting);
+  
   const [title, setTitle] = useState('');
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
@@ -46,21 +46,21 @@ export const AccountSetting = ({ navigation }) => {
   };
 
   useEffect(() => {
-    getUserInfo(user.uid);
+    getUserInfo(user.id);
   }, []);
 
   useEffect(() => {
-    if(title != '' && title !== 'Password' && title != 'Phone Number') {
+    if (title != '' && title !== 'Password' && title != 'Phone Number') {
       isSetVisible(true);
       isSetPass(false);
       isSetPhone(false);
     }
-    if(title != '' && title == 'Password') {
+    if (title != '' && title == 'Password') {
       isSetPass(true);
       isSetVisible(false);
       isSetPhone(false);
     }
-    if(title != '' && title == 'Phone Number') {
+    if (title != '' && title == 'Phone Number') {
       isSetPhone(true);
       isSetPass(false);
       isSetVisible(false);
@@ -68,7 +68,7 @@ export const AccountSetting = ({ navigation }) => {
   }, [title]);
 
   useEffect(() => {
-    getUserInfo(user.uid);
+    getUserInfo(user.id);
   }, [isVisible, isPass, isPhone]);
 
   const getUserInfo = async (user_id) => {
@@ -78,7 +78,6 @@ export const AccountSetting = ({ navigation }) => {
     setPhone(result.phone);
     setEmail(result.email);
     setImage(`${result.objectId}.jpg`);
-    
   };
 
   const onBack = () => {
@@ -116,7 +115,7 @@ export const AccountSetting = ({ navigation }) => {
       .then(async (resizedImage) => {
         const user = await firebaseSDK.authorizedUser();
         await firebaseSDK.uploadAvata(
-          `${user.uid}.jpg`,
+          `${user.id}.jpg`,
           resizedImage.path
         );
       });
@@ -147,50 +146,78 @@ export const AccountSetting = ({ navigation }) => {
   return(
     <ContainerComponent>
       <HeaderComponent title='Account Settings' firstClick={onBack} secondClick={onBack} />
-      <View style={SettingStyle.container}>
-        <View style={SettingStyle.topContainer}>
-          <Text style={SettingStyle.title}>Account Settings</Text>
+      <View style={styles.container}>
+        <View style={styles.topContainer}>
+          <Text style={styles.title}>Account Settings</Text>
         </View>
-        <View style={SettingStyle.mainContainer}>
-          <View style={SettingStyle.avatarContanier}>
+        <View style={styles.mainContainer}>
+          <View style={styles.avatarContanier}>
             <TouchableOpacity onPress={onPhotoSelect}>
               {
                 image_uri ? (
-                  <Image style={SettingStyle.avatarImage} source={{uri: image_uri}} />
+                  <Image style={styles.avatarImage} source={{uri: image_uri}} />
                 ) : (
-                  <Image style={SettingStyle.avatarImage} source={images.ic_default_profile} />
+                  <Image style={styles.avatarImage} source={images.ic_default_profile} />
                 )
               }
-              <Image style={SettingStyle.iconImage} source={images.camera} />
+              <Image style={styles.iconImage} source={images.camera} />
             </TouchableOpacity>
           </View>
-          <AccountSettingListComponent title='Name' value={name} click={setTitle} />
-          <AccountSettingListComponent title='Username' value={username} click={setTitle}/>
-          <AccountSettingListComponent title='Password' value={username} type='pass' click={setTitle}/>
-          <AccountSettingListComponent title='Phone Number' value={phone} click={setTitle}/>
-          <AccountSettingListComponent title='Email Address' value={email} click={setTitle}/>
-          <AccountSettingListComponent title='Delete Account' type='button' click={setTitle}/>
-        </View>
-        {isVisible && 
-        <UpdateName 
-          title={title} 
-          name={name} 
-          username={username} 
-          email={email} 
-          click={isSetVisible}  
-        />}
-        {
-          isPass && 
-          <UpdatePassword 
-            title={title}
-            click={isSetPass}
+          <AccountSettingListComponent
+            title="Name"
+            value={name}
+            click={setTitle}
           />
+          <AccountSettingListComponent
+            title="Username"
+            value={username}
+            click={setTitle}
+          />
+          <AccountSettingListComponent
+            title="Password"
+            value={username}
+            type="pass"
+            click={setTitle}
+          />
+          <AccountSettingListComponent
+            title="Phone Number"
+            value={phone}
+            click={setTitle}
+          />
+          <AccountSettingListComponent
+            title="Email Address"
+            value={email}
+            click={setTitle}
+          />
+          <AccountSettingListComponent
+            title="Delete Account"
+            type="button"
+            click={setTitle}
+          />
+        </View>
+        {isVisible && (
+          <UpdateName
+            title={title}
+            name={name}
+            username={username}
+            email={email}
+            click={isSetVisible}
+          />
+        )
         }
         {
           isPhone && 
           <UpdatePhoneComponent
             title={title}
             click={isSetPhone}
+            phone={phone}
+          />
+        }
+        {
+          isPass && 
+          <UpdatePassword
+            title={title}
+            click={isSetPass}
             phone={phone}
           />
         }

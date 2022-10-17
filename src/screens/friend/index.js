@@ -1,12 +1,9 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
+import { View, ScrollView } from 'react-native';
 import { useSelector } from 'react-redux';
-import { ContainerComponent } from '../../components/container.component';
-import { HeaderComponent } from '../../components/header.component';
-import {
-  View,
-  ScrollView,
-} from 'react-native';
+
+import { Container, Header } from '../../components';
 import { colors } from '../../assets/colors';
 import { Buttons } from '../../components/Button/Button';
 import { ButtonContainer } from '../../components/Button/ButtonContainer';
@@ -27,20 +24,19 @@ export const FriendScreen = ({ navigation }) => {
   const [isExpandVisible, isSetExpandVisibily] = useState(false);
 
   useEffect(() => {
-    getNewFriends(user.uid);
+    getNewFriends(user.id);
     // getRecommandFriends();
   });
 
-  const getNewFriends = async(friend_id) => {
+  const getNewFriends = async (friend_id) => {
     let result = [];
     let friends = await firebaseSDK.getNewFriends(friend_id);
-    Promise.all(friends)
-      .then((res) =>{ 
-        res.map((friend) => {
-          result.push(friend[0]);
-        });
-        setRequestFriend(result);
+    Promise.all(friends).then((res) => {
+      res.map((friend) => {
+        result.push(friend[0]);
       });
+      setRequestFriend(result);
+    });
   };
 
   // const getRecommandFriends = async() => {
@@ -68,14 +64,14 @@ export const FriendScreen = ({ navigation }) => {
   };
 
   return (
-    <ContainerComponent>
-      <HeaderComponent title='Add Friends' firstClick={onClickSetting} />
+    <Container>
+      <Header title="Add Friends" firstClick={onClickSetting} />
       <View style={friendStyle.divider}></View>
       <View style={friendStyle.mainContainer}>
         <View style={friendStyle.topContainer}>
           <ButtonContainer>
             <Buttons
-              text='QR code'
+              text="QR code"
               image={images.ic_qrcode}
               color={colors.ui.white}
               onPress={onClickQR}
@@ -83,7 +79,7 @@ export const FriendScreen = ({ navigation }) => {
           </ButtonContainer>
           <ButtonContainer>
             <Buttons
-              text='Search'
+              text="Search"
               image={images.ic_search}
               color={colors.ui.white}
               onPress={onClickSearch}
@@ -98,7 +94,7 @@ export const FriendScreen = ({ navigation }) => {
           <ScrollView>
             {requestFriend.length > 0 && (
               <FriendSection
-                title='New Friend Requests'
+                title="New Friend Requests"
                 items={requestFriend}
                 onNavigate={null}
               />
@@ -108,6 +104,6 @@ export const FriendScreen = ({ navigation }) => {
       </View>
       <ChatModal data={showModalData} show={isModalVisible} />
       {isExpandVisible && <ChatExpand />}
-    </ContainerComponent>
+    </Container>
   );
 };

@@ -42,6 +42,7 @@ import {
   getSingles,
   getPerson,
   getLastMessasge,
+  createMessage,
   getSingle,
   getZedPay,
   getSingleChats,
@@ -88,6 +89,7 @@ export const firebaseSDK = {
   creatFriend,
   deleteFriend,
   getLastMessasge,
+  createMessage,
   getSingles,
   getPerson,
   getSingle,
@@ -95,6 +97,7 @@ export const firebaseSDK = {
   getZedPay,
   acceptFriend,
   declineFriend,
+
   setFcmToken,
   getSingleChats,
 };

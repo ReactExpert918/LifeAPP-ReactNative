@@ -58,7 +58,7 @@ export const updateFullName = (user_id, name) => {
       .collection(FIRESTORE_TABLES.USER)
       .doc(user_id)
       .update({
-        fullname: name
+        fullname: name,
       })
       .then(() => {
         resolve(true);
@@ -75,7 +75,7 @@ export const updateUserName = (user_id, name) => {
       .collection(FIRESTORE_TABLES.USER)
       .doc(user_id)
       .update({
-        username: name
+        username: name,
       })
       .then(() => {
         resolve(true);
@@ -92,7 +92,7 @@ export const updateEmailAddress = (user_id, mail) => {
       .collection(FIRESTORE_TABLES.USER)
       .doc(user_id)
       .update({
-        email: mail
+        email: mail,
       })
       .then(() => {
         resolve(true);
@@ -225,7 +225,7 @@ export const getUserWithName = (userId, username) => {
         snapshot.forEach((data) => {
           result = data.data();
         });
-        result = Object.assign(result, {type: 'search'});
+        result = Object.assign(result, { type: 'search' });
         resolve(result);
       })
       .catch((error) => reject(error));
@@ -245,7 +245,7 @@ export const getUserWithPhonenumber = (userId, phone) => {
         snapshot.forEach((data) => {
           result = data.data();
         });
-        result = Object.assign(result, {type: 'search'});
+        result = Object.assign(result, { type: 'search' });
 
         resolve(result);
       })
@@ -315,7 +315,6 @@ export const getFriends = async (user_id) => {
   return results;
 };
 
-
 export const getNewFriends = (friend_id) => {
   let result = [];
   return new Promise((resolve, reject) => {
@@ -324,7 +323,7 @@ export const getNewFriends = (friend_id) => {
       .where('friendId', '==', friend_id)
       .where('isAccepted', '==', false)
       .get()
-      .then((querySnapshot) =>{
+      .then((querySnapshot) => {
         querySnapshot.forEach((documentSnapshot) => {
           let data = getIsFriend(documentSnapshot.data());
           result.push(data);
@@ -335,7 +334,6 @@ export const getNewFriends = (friend_id) => {
         reject(error);
       });
   });
-  
 };
 
 export const getRecommandFriends = () => {
@@ -369,7 +367,7 @@ const getIsFriend = (friend_data) => {
       .get()
       .then((data) => {
         data.forEach((snapshot) => {
-          let dataResult = Object.assign(snapshot.data(), {type: 'request'});
+          let dataResult = Object.assign(snapshot.data(), { type: 'request' });
           result.push(dataResult);
         });
         resolve(result);
@@ -387,14 +385,14 @@ export const acceptFriend = (user_id, friend_id) => {
       .collection(FIRESTORE_TABLES.Friend)
       .where('friendId', '==', friend_id)
       .where('userId', '==', user_id)
-      .get()      
-      .then((snapshot) =>{
+      .get()
+      .then((snapshot) => {
         snapshot.forEach((documentSnapshot) => {
           firestore()
             .collection(FIRESTORE_TABLES.Friend)
             .doc(documentSnapshot.data().objectId)
-            .update({isAccepted : true})
-            .then(resolve(true));   
+            .update({ isAccepted: true })
+            .then(resolve(true));
         });
       })
       .catch((error) => {
@@ -435,10 +433,10 @@ export const checkFriend = async (user_id, friend_id) => {
     .where('friendId', '==', friend_id)
     .get();
 
-
   results = query1.docs.length > 0;
-
+  console.log(results);
   if (results) {
+    console.log(results);
     return results;
   }
 
@@ -647,6 +645,21 @@ export const getLastMessasge = (chatId) => {
       })
       .catch((error) => {
         console.log(error);
+        reject(error);
+      });
+  });
+};
+
+export const createMessage = (message) => {
+  return new Promise((resolve, reject) => {
+    firestore()
+      .collection(FIRESTORE_TABLES.Message)
+      .doc(message.objectId)
+      .set(message)
+      .then(() => {
+        resolve(true);
+      })
+      .catch((error) => {
         reject(error);
       });
   });

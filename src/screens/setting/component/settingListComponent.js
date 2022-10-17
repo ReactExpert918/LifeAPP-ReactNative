@@ -2,23 +2,23 @@
 import React from 'react';
 import { Text, View, Image, TouchableOpacity } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { settingListStyle } from './settingComponentStyle';
+import { styles } from './settingComponentStyle';
 
-export const SettingListComponent = ({ icon, title, click }) => {
+export const SettingListComponent = ({ icon, title, onClick }) => {
   return(
-    <TouchableOpacity onPress={click}>
-      <View style={settingListStyle.container}>
-        <View style={settingListStyle.left}>
+    <TouchableOpacity onPress={onClick}>
+      <View style={styles.container}>
+        <View style={styles.left}>
           <Image 
             source={icon}
-            style={settingListStyle.image} 
+            style={styles.image} 
           />
-          <Text style={settingListStyle.text}>
+          <Text style={styles.text}>
             {title}
           </Text>
         </View>
         <Ionicons 
-          style={settingListStyle.right}
+          style={styles.right}
           name="md-chevron-forward-sharp"
           size={25}
         />
@@ -27,4 +27,3 @@ export const SettingListComponent = ({ icon, title, click }) => {
 
   );
 };
-

@@ -7,6 +7,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { colors } from '../assets/colors';
 import { HomeScreen } from '../screens/home';
 import { ChatScreen } from '../screens/chat';
+import { HomeContextProvider } from '../context/home';
 
 const Tab = createBottomTabNavigator();
 
@@ -33,9 +34,11 @@ const screenOptions = ({ route }) => {
 
 export const HomeNavigator = () => {
   return (
-    <Tab.Navigator screenOptions={screenOptions}>
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Chats" component={ChatScreen} />
-    </Tab.Navigator>
+    <HomeContextProvider>
+      <Tab.Navigator screenOptions={screenOptions}>
+        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="Chats" component={ChatScreen} />
+      </Tab.Navigator>
+    </HomeContextProvider>
   );
 };

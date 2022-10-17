@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 
 import { SafeAreaView } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { colors } from '../../../../assets/colors';
+import { colors } from '../../../assets/colors';
 import { TouchableOpacity } from 'react-native';
 
 const InputAreaContainer = styled.View`
@@ -14,7 +14,6 @@ const InputAreaContainer = styled.View`
   max-height: 100px;
   border-top-color: ${colors.text.lightgray};
   border-top-width: 1px;
-  margin-top: 20px;
 `;
 
 const Input = styled.TextInput`
@@ -31,7 +30,7 @@ const Input = styled.TextInput`
   margin-top: 6px;
   margin-bottom: 6px;
   margin-right: 4px;
-  font-size: 16px
+  font-size: 16px;
 `;
 
 const IconAttach = styled(Ionicons).attrs({
@@ -48,7 +47,7 @@ const AttachContainer = styled.View`
 `;
 
 const AttachContainerCam = styled.View`
-  paddingRight: 8px;
+  paddingright: 8px;
   margin-right: 4px;
   border-radius: 18px;
 `;
@@ -86,13 +85,7 @@ const SendContainer = styled.View`
   border-radius: 18px;
 `;
 
-export const ChatInputComponent = ({onSubmit}) => {
-  const [message, onSetMessage] = useState('');
-  const onSubmitChat = () => {
-    onSubmit(message);
-    onSetMessage('');
-    this.textInput.clear();
-  };
+export const ChatInput = ({ onSubmitChat, text, setText }) => {
   return (
     <SafeAreaView style={{ backgroundColor: colors.bg.primary }}>
       <InputAreaContainer>
@@ -107,22 +100,19 @@ export const ChatInputComponent = ({onSubmit}) => {
           </AttachContainerCam>
         </TouchableOpacity>
         <Input
-          ref={input => { this.textInput = input; }}
           returnKeyType={'default'}
           keyboardType="default"
-          multiline
           placeholder="Enter a Message"
-          onChangeText={(text) => onSetMessage(text)}
-          onSubmitEditing={onSubmitChat}
-          value={message}
+          onChangeText={(text) => setText(text)}
+          onSubmitEditing={() => onSubmitChat(text)}
+          value={text}
         />
-        
+
         <TouchableOpacity>
           <MicContainer>
             <IconMic />
           </MicContainer>
         </TouchableOpacity>
-   
       </InputAreaContainer>
     </SafeAreaView>
   );

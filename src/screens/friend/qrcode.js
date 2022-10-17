@@ -98,7 +98,7 @@ export const FriendQRcodeScreen = ({navigation}) => {
   };
 
   useEffect(() => {
-    const value = `${user.uid}timestamp${new Date().getTime()}`;
+    const value = `${user.id}timestamp${new Date().getTime()}`;
     setMyQRCode(value);
   }, []);
 
@@ -115,7 +115,7 @@ export const FriendQRcodeScreen = ({navigation}) => {
   };
 
   const onRefresh = () => {
-    const value = `${user.uid}timestamp${new Date().getTime()}`;
+    const value = `${user.id}timestamp${new Date().getTime()}`;
     setMyQRCode(value);
   };
 
